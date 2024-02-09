@@ -12,9 +12,9 @@ import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { Bot } from '@app/model/convs-mgr/bots';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Classroom, defaultClassroom } from '@app/model/convs-mgr/classroom';
-import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
+import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 
-import { periodicals } from '../../models/periodicals.interface';
+
 import { 
   formatDate, 
   getColor, 
@@ -39,7 +39,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
 
   activeCourse: Bot;
   activeClassroom: Classroom;
-  selectedPeriodical: periodicals;
+  selectedPeriodical: Periodicals;
 
   showData = false;
 
@@ -48,7 +48,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   monthlyProgress: GroupProgressModel[];
 
   @Input()
-  set setPeriodical(value: periodicals) {
+  set setPeriodical(value: Periodicals) {
     this.selectedPeriodical = value;
     this.selectProgressTracking(value);
   }
@@ -114,8 +114,8 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     classroom ?? this.classrooms.push(defaultClassroom);
   }
 
-  /** select progress tracking periodicals */
-  selectProgressTracking(periodical: periodicals) {
+  /** select progress tracking Periodicals */
+  selectProgressTracking(periodical: Periodicals) {
     if (!this.dailyProgress) return //return if there's no progress to visualise (avoid chart js errors)
 
 

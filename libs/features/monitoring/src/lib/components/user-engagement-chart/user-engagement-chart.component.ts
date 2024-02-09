@@ -3,11 +3,10 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
 
-import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
+import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 import { Bot } from '@app/model/convs-mgr/bots';
 
-import { periodicals } from '../../models/periodicals.interface';
 import { formatDate, getDailyProgress, getMonthlyProgress, getWeeklyProgress } from '../../providers/helper-fns.util';
 
 @Component({
@@ -23,7 +22,7 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
   chart: Chart;
 
   activeClassroom: string;
-  selectedPeriodical: periodicals;
+  selectedPeriodical: Periodicals;
 
   showData = false;
 
@@ -33,7 +32,7 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
   monthlyProgress: GroupProgressModel[];
 
   @Input()
-  set setPeriodical(value: periodicals) {
+  set setPeriodical(value: Periodicals) {
     this.selectedPeriodical = value;
     this.selectProgressTracking(value);
   }
@@ -59,7 +58,7 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectProgressTracking(periodical: periodicals) {
+  selectProgressTracking(periodical: Periodicals) {
     if (!this.dailyProgress) return
 
     if (periodical === 'Daily') {

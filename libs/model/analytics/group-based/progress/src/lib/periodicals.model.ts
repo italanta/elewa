@@ -1,1 +1,1 @@
-export type Periodicals = 'Daily' | 'Weekly' | 'Monthly';
+export type Periodicals = 'Daily' | 'Weekly' | 'Monthly' | 'Custom';
