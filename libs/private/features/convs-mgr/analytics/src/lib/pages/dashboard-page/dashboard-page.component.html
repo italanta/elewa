@@ -41,10 +41,10 @@
 
         <div class="period-filters">
           <ul>
-            <li><a>Daily</a></li>
-            <li><a>Weekly</a></li>
-            <li><a class="active">Monthly</a></li>
-            <li><a>Custom</a></li>
+            <li><a  [ngClass]="{'active': periodical === 'Daily'}" (click)=" selectProgressTracking('Daily')">{{'ANALYTICS.CHART.PERIODICALS.DAY' | transloco }}</a></li>
+            <li><a [ngClass]="{'active': periodical === 'Weekly'}" (click)=" selectProgressTracking('Weekly')">{{'ANALYTICS.CHART.PERIODICALS.WEEK' | transloco }}</a></li>
+            <li><a [ngClass]="{'active': periodical === 'Monthly'}" class="active" (click)=" selectProgressTracking('Monthly')">{{'ANALYTICS.CHART.PERIODICALS.MONTH' | transloco }}</a></li>
+            <li><a [ngClass]="{'active': periodical === 'Custom'}">{{'ANALYTICS.CHART.PERIODICALS.CUSTOM' | transloco }}</a></li>
           </ul>
       </div>
       </div>
