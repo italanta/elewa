@@ -72,6 +72,18 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
   }
 
   private _loadChart(models: GroupProgressModel[]) {
+    let activeUsers: number[];
+    let inActiveUsers: number[];
+
+    if(this.activeCourse) {
+      const courseId = this.activeCourse.id as string;
+      activeUsers = this.getUserEngagement(models, 'activeUsers', courseId);
+      inActiveUsers = this.getUserEngagement(models, 'inactiveUsers', courseId);
+    } else {
+      activeUsers = this.getUserEngagement(models, 'activeUsers', 'all');
+      inActiveUsers = this.getUserEngagement(models, 'inactiveUsers', 'all');
+    }
+
     if (this.chart) {
       this.chart.destroy();
     }
@@ -84,7 +96,7 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
           {
             /** Line styling */
             label: `Active users`,
-            data: this.getActiveUsers(models),
+            data: activeUsers,
             tension: 0.6,
             borderWidth: 2,
             borderColor: '#00D0D6',
@@ -97,8 +109,8 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
 
           {
             /** Line styling */
-            label: `Active users`,
-            data: this.getInactiveUsers(models),
+            label: `Inactive users`,
+            data: inActiveUsers,
             tension: 0.6,
             borderWidth: 2,
             borderColor: '#F1CC00',
@@ -152,41 +164,22 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getActiveUsers(models: GroupProgressModel[]): number[] {
+  private getUserEngagement(models: GroupProgressModel[], usersType: string, courseId: string): number[] {
+
     const userCountArray = [];
 
     for (const mod of models) {
-      if(!mod.todaysEngagedUsersCount) {
+      if(!mod.courseProgress) {
         userCountArray.push(0);
         continue;
       }
 
       if (this.selectedPeriodical === 'Daily') {
-        userCountArray.push(mod.todaysEngagedUsersCount.active.dailyCount);
+        userCountArray.push(mod[courseId][usersType].dailyCount);
       } else if (this.selectedPeriodical === 'Weekly') {
-        userCountArray.push(mod.todaysEngagedUsersCount.active.pastWeekCount);
+        userCountArray.push(mod[courseId][usersType].pastWeekCount);
       } else {
-        userCountArray.push(mod.todaysEngagedUsersCount.active.pastMonthCount);
-      }
-    }
-    return userCountArray;
-  }
-
-  private getInactiveUsers(models: GroupProgressModel[]): number[] {
-    const userCountArray = [];
-
-    for (const mod of models) {
-      if(!mod.todaysEngagedUsersCount) {
-        userCountArray.push(0);
-        continue;
-      }
-
-      if (this.selectedPeriodical === 'Daily') {
-        userCountArray.push(mod.todaysEngagedUsersCount.inactive.dailyCount);
-      } else if (this.selectedPeriodical === 'Weekly') {
-        userCountArray.push(mod.todaysEngagedUsersCount.inactive.pastWeekCount);
-      } else {
-        userCountArray.push(mod.todaysEngagedUsersCount.inactive.pastMonthCount);
+        userCountArray.push(mod[courseId][usersType].pastMonthCount);
       }
     }
     return userCountArray;
