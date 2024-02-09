@@ -475,9 +475,10 @@
     "ALL-OPTION": "All",
     "CHART": {
       "PERIODICALS": {
-        "MONTH": "Month",
-        "WEEK": "Week",
-        "DAY": "Day"
+        "MONTH": "Monthly",
+        "WEEK": "Weekly",
+        "DAY": "Daily",
+        "CUSTOM": "Custom"
       },
       "ASSESSMENTS": {
         "TITLE": "Assessment Scores",
