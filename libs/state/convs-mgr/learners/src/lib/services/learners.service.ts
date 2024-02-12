@@ -30,6 +30,10 @@ export class EnrolledLearnersService {
             map((endUser) => {
               if (endUser) {
                 user.currentCourse = endUser.currentStory as string || "";
+
+                if(endUser.variables) {
+                  user.name = endUser.variables['name'];
+                }
               }
               return user;
             })
