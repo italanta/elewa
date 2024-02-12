@@ -90,7 +90,7 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
     return new Chart('user-engagement-chart', {
       type: 'line',
       data: {
-        labels: models.map((day) => formatDate(day.time)),
+        labels: models.map((day) => formatDate(day.time, this.selectedPeriodical)),
         datasets: [
           {
             /** Line styling */

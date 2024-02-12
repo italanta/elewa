@@ -137,7 +137,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     return new Chart('chart-ctx', {
       type: 'bar',
       data: {
-        labels: model.map((day) => formatDate(day.time)),
+        labels: model.map((day) => formatDate(day.time, this.selectedPeriodical)),
         datasets: this.getDatasets(model),
       },
       options: {

@@ -82,7 +82,7 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
     return new Chart('user-chart', {
       type: 'bar',
       data: {
-        labels: models.map((day) => formatDate(day.time)),
+        labels: models.map((day) => formatDate(day.time, this.selectedPeriodical)),
         datasets: [
           {
             label: `Enrolled User's`,

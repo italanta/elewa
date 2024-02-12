@@ -2,7 +2,7 @@ import * as moment from 'moment';
 
 import { __DateFromStorage } from '@iote/time';
 
-import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
+import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 
 const chartColors = [
   "#008080", // Teal
@@ -28,9 +28,22 @@ const chartColors = [
 ];
 
 /** formart Date and then pass to chart */
-export function formatDate(time: number): string {
-  const date = new Date(time);
-  return date.getDate() + '/' + (date.getMonth() + 1);
+export function formatDate(time: number, period: Periodicals): string {
+  const momentDate = moment.unix(time/1000);
+
+  switch (period) {
+    case "Daily":
+      return momentDate.format('dddd');
+    case "Weekly":
+      return momentDate.format("[Week] w");
+    case "Monthly":
+      return momentDate.format("MMMM [']YY");
+    default:
+      return momentDate.format('DD/MM YY');
+  }
+
+  // const date = new Date(time);
+  // return date.getDate() + '/' + (date.getMonth() + 1);
 }
 
 /** getRandomColor */
