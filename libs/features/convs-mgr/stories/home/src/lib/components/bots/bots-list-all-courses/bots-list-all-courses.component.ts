@@ -1,3 +1,5 @@
+import { orderBy as __orderBy } from 'lodash';
+
 import { Component, Input, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -7,12 +9,10 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 import { BehaviorSubject, Observable, combineLatest, map, tap } from 'rxjs';
-import { orderBy as __orderBy } from 'lodash';
 
 import { __DateFromStorage } from '@iote/time';
 
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
-
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 
 import { 
