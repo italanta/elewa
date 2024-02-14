@@ -68,7 +68,7 @@ export class ProgressMonitoringService {
       return of(data);
     }
 
-    const usersInCourse = latestProgress.courseProgress[courseId].enrolledUsers;
+    const usersInCourse = latestProgress.courseProgress[courseId].enrolledUsers as string[];
     
     const engagedUsers = usersInCourse.length;
     
