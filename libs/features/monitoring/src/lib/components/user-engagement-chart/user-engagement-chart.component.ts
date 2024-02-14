@@ -148,7 +148,8 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
             stacked: true, 
             grid: {display: false} ,
             ticks: { 
-              maxTicksLimit: 12
+              maxTicksLimit: 12,
+              autoSkip: false
             },
           },
           y: { 
