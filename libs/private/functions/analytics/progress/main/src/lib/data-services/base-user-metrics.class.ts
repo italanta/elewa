@@ -1,7 +1,9 @@
-import { EnrolledEndUser } from "@app/model/convs-mgr/learners";
+import * as moment from "moment";
 
 import { Query } from "@ngfi/firestore-qbuilder";
 import { HandlerTools, Repository } from "@iote/cqrs";
+
+import { EnrolledEndUser } from "@app/model/convs-mgr/learners";
 
 export class BaseUserMetrics
 {
@@ -31,9 +33,11 @@ export class BaseUserMetrics
 
     /** get the past week created user count */
     async getUsersWeeklyRange(orgId: string, timeInUnix:number, field: string) {
-      const timeInDate = new Date(timeInUnix);
-      const startAt = new Date(timeInDate.getTime() - 7 * 24 * 60 * 60 * 1000); // Calculate the start date (seven days ago) to millisecond equivalent
-      const endAt = timeInDate;
+      const momentTime = moment(timeInUnix);
+      
+      // Use isoWeek for consistency
+      const startAt = new Date(momentTime.clone().startOf('isoWeek').toDate());
+      const endAt = new Date(momentTime.clone().endOf('isoWeek').toDate());
   
       const enrolledUsers = this.getEnrolledUserRepo(orgId).getDocuments(
         new Query().where(field, '>=', startAt).where(field, '<=', endAt)
