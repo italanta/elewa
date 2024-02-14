@@ -35,7 +35,7 @@ export function formatDate(time: number, period: Periodicals): string {
     case "Daily":
       return momentDate.format('dddd');
     case "Weekly":
-      return momentDate.format("[Week] w");
+      return momentDate.format("[Week] W");
     case "Monthly":
       return momentDate.format("MMMM [']YY");
     default:
