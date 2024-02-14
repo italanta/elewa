@@ -11,8 +11,6 @@
         <button class="published" *ngIf="bot.isPublished" [ngClass]="{'hidden': isPublishing}">{{ 'BOTS.CREATE-MODAL.PUBLISHED' | transloco }}</button> 
         <button class="published" *ngIf="!bot.isPublished" [ngClass]="{'hidden': isPublishing}">{{ 'BOTS.CREATE-MODAL.DRAFT' | transloco }}</button>
       
-      
-
       <button mat-button [matMenuTriggerFor]="menu">
         <i class="fa-solid fa-ellipsis-vertical menu-tooltip"></i>
       </button>
@@ -20,9 +18,6 @@
     </span>
 
     <p class="botName">{{ bot.name }}</p>
-
-    
-    
 
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="connectToChannel(bot.id!)"> {{ 'BOTS.CONNECT-BOT-TO-CHANNEL' | transloco }}</button>
