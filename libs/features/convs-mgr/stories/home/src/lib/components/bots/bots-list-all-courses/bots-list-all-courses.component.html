@@ -60,15 +60,24 @@
     <!-- Actions Column -->
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>  {{ "BOTS.BOTS-PAGE.ACTIONS" | transloco }} </th>
-      <td mat-cell *matCellDef="let element">
+      <td mat-cell *matCellDef="let bot">
         <button mat-flat-button [matMenuTriggerFor]="menu">
           <i class="fa-solid fa-ellipsis"></i>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="editBot(element)">
+          <button mat-menu-item (click)="connectToChannel(bot.id!)">
+            <span> {{ 'BOTS.CONNECT-BOT-TO-CHANNEL' | transloco }} </span>
+          </button>
+          <button mat-menu-item (click)="publishBot(bot)" [disabled]="bot.isPublished">
+            <span> {{ 'BOTS.PUBLISH-BOT' | transloco }} </span>
+          </button>
+          <button mat-menu-item (click)="archiveBot(bot)" [disabled]="bot.isArchived">
+            <span> {{ 'BOTS.ARCHIVE-BOT' | transloco }} </span>
+          </button>
+          <button mat-menu-item (click)="editBot(bot)">
             <span> {{ "BOTS.BOTS-PAGE.EDIT" | transloco }} </span>
           </button>
-          <button mat-menu-item (click)="deleteBot(element)">
+          <button mat-menu-item (click)="deleteBot(bot)">
             <span> {{ "BOTS.BOTS-PAGE.DELETE" | transloco }} </span>
           </button>
         </mat-menu>

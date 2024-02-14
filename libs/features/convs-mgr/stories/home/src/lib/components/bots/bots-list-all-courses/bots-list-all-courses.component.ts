@@ -21,6 +21,8 @@ import {
   DeleteElementsEnum,
   ActionSortingOptions
 } from '@app/elements/layout/convs-mgr/story-elements';
+import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
 
 @Component({
   selector: 'italanta-apps-bots-list-all-courses',
@@ -47,7 +49,8 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
   sortCoursesBy = 'newest';
 
   constructor(private _dialog: MatDialog,
-              private _router$$: Router) { }
+              private _router$$: Router,
+              private _botsService: BotsStateService) { }
 
   ngOnInit(): void {
     this._sbS.sink = combineLatest(([this.bots$, this.sorting$$.asObservable()]))
@@ -125,6 +128,30 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
 
   openViewAllPage() {
     this._router$$.navigateByUrl('/bots/view-all')
+  }
+
+  connectToChannel(botId: string)
+  {
+    this._dialog.open(MainChannelModalComponent, {
+      width: '30rem',
+      height: '27rem',
+      data: { botId: botId }
+    });
+  }
+
+  publishBot(bot: Bot)
+  {
+    bot.isPublishing = true;
+    this._sbS.sink = this._botsService.publishBot(bot)
+      .subscribe(() =>
+      {
+        bot.isPublishing = false;
+      });
+  }
+
+  archiveBot(bot: Bot) 
+  {
+    this._sbS.sink = this._botsService.archiveBot(bot).subscribe();
   }
 
   ngOnDestroy() {
