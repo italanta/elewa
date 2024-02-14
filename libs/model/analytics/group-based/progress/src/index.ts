@@ -7,3 +7,4 @@ export * from './lib/measure-progress.command';
 export * from './lib/measure-group-progress.command';
 export * from './lib/periodicals.model';
 export * from './lib/course-progress.interface';
+export * from './lib/user-count.interface';
