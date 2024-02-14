@@ -1,7 +1,21 @@
 <section class="courses-wrapper" *ngIf="courses$ | filterCourse:filterString$ as filteredCourses$">
   <div *ngFor="let course of (filteredCourses$ | async)">
     <div class="course">
-      <span class="bot-name">{{ course.bot.name }}</span>
+      <div class="course-header">
+        <span class="bot-name">{{ course.bot.name }}</span>
+        <div class="actions">
+          <button class="tooltip-menu" mat-flat-button [matMenuTriggerFor]="menu">
+            <i class="fa-solid fa-ellipsis-vertical tooltip"></i>
+          </button>
+      
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item  (click)="connectToChannel(course.bot!.id ?? '')"> {{ 'BOTS.CONNECT-BOT-TO-CHANNEL' | transloco }}</button>
+            <button mat-menu-item (click)="publishBot(course.bot!)" [disabled]="course.bot.isPublished"> {{ 'BOTS.PUBLISH-BOT' | transloco }}</button>
+            <button mat-menu-item (click)="archiveBot(course.bot!)" [disabled]="course.bot.isArchived"> {{ 'BOTS.ARCHIVE-BOT' | transloco }}</button>
+            <button mat-menu-item (click)="deleteBot(course.bot!)" [disabled]="course.bot.isPublished"> {{ 'BOTS.DELETE-BOT' | transloco }}</button>
+          </mat-menu>
+        </div>
+      </div>
 
       <div class="stories-wrapper" *ngFor="let module of (course.modules$ | async); index as moduleIndex">
         <ng-container *ngFor="let story of (module.stories$ | async); index as storyIndex">
