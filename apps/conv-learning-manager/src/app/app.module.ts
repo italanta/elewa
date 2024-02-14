@@ -27,7 +27,6 @@ import { FirebaseConfigurationModule } from '@app/elements/base/firebase';
 
 
 import { UserStateModule } from '@app/state/user';
-import { OrgStateModule } from '@app/state/organisation';
 import { StoriesStateModule } from '@app/state/convs-mgr/stories';
 import { LearnersStateModule } from '@app/state/convs-mgr/learners';
 import { EndUsersStateModule } from '@app/state/convs-mgr/end-users';
@@ -84,7 +83,6 @@ import { environment } from '../environments/environment';
     // AppConfigModule.forRoot(),
 
     // DataModule.forRoot(),
-    OrgStateModule.forRoot(),
     StoriesStateModule.forRoot(),
     ClassroomStateModule.forRoot(),
     StoryBlocksStateModule.forRoot(),

@@ -110,6 +110,7 @@ export class EngineBotManager
       //         We do this here because we have successfully received the message
       this.endUser = await this._endUserService$.setConversationComplete(END_USER_ID, -1, lastActiveTime);
 
+
       // STEP 3: Process the message
       //         Because the status of the chat can change anytime, we use the current status
       //          to determine how we are going to process the message and reply to the end user

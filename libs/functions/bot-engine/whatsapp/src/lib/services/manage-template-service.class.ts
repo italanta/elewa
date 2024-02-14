@@ -11,7 +11,7 @@ export class ManageTemplateService
 {
   private _orgId: string;
   private _communicationChannel: CommunicationChannel;
-  private baseURL: string = `https://graph.facebook.com/v18.0/`;
+  private baseURL = `https://graph.facebook.com/v18.0/`;
   private httpService = new HttpService();
 
   constructor(communicationChannel: CommunicationChannel, private _tools: HandlerTools)
@@ -114,7 +114,7 @@ export class ManageTemplateService
 
   private buildQuery(fields?: string[], limit?: number)
   {
-    let query: string = '';
+    let query = '';
 
     if ((typeof fields) == "object" && !limit) {
       query = '?fields=' + fields.join(',');
@@ -127,11 +127,6 @@ export class ManageTemplateService
     }
 
     return query;
-  }
-
-  public async getOne() 
-  {
-
   }
 
   private _createTemplatePayload(messageTemplate: MessageTemplate) 

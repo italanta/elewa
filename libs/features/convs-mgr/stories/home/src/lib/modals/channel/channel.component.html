@@ -1,0 +1,22 @@
+<div class="container">
+ 
+    <div class="platform" >
+
+        <p class="info-text">{{ "BOTS.CHANNEL.INFO-TEXT1" | transloco }}</p>
+        <p class="info-text">{{ "BOTS.CHANNEL.INFO-TEXT2" | transloco }}</p>
+        
+        <div class="select-wrapper">
+            <div class="select" *ngFor="let channel of channels">
+            <input type="radio" id="html" name="fav_language" value="{{ channel.id }}" (change)="onChannelChange(channel.id)" [disabled]="channel.linkedBot ">
+            <label for="html">{{ channel.name }}</label><br>
+               </div>                        
+           </div>
+           
+        <div class="buttons">
+            <button class="cancel" type="button" (click)="returnToPlatform()">{{ "BOTS.CREATE-MODAL.CANCEL" | transloco }}</button>
+            <button class="submit" type="submit" (click)="addBotToChannel()">{{ "BOTS.CREATE-MODAL.CONNECT" | transloco }}</button>
+        </div>
+    </div>
+        
+    
+</div>

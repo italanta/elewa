@@ -17,7 +17,7 @@ export enum PlatformType
   /** Telegram API */
   Telegram  =  'telegram',
   /** Messenger API */
-  Messenger =  'messenger'
+  Messenger =  'messenger',
 }
 
 /**

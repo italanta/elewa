@@ -26,6 +26,9 @@ export interface Bot extends IObject {
   type: 'Bot';
 
   isPublished?: boolean;
+
+  /* bot archive status*/
+  isArchived?: boolean;
 }
 
 /** botmutation enum - has the different bot mutations you can perfom on a bot */

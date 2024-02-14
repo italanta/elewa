@@ -6,6 +6,21 @@
     color: white;
     border-radius: 10px;
 
+      .published{
+        height: 2rem;
+        width: 40%;
+        border-radius: 25px;
+        background: transparent;
+        color: white;
+        border: 1px solid white;
+        margin-left: 1rem;
+      }
+   
+    
+    .botName{
+      padding: 0 0 0 1rem;
+    }    
+    
     .card-badge {
       width: fit-content;
       display: inline-block;
@@ -28,7 +43,12 @@
       max-width: 90%;
       line-height: normal;
       word-wrap: break-word;
-      padding: 20px;
+      padding-top: 20px;
+      display: flex;
+      justify-content:space-between;
+    }
+    .svg-inline--fa{
+      color: white;
     }
 
     .open-bot {
@@ -60,6 +80,9 @@
         }
       }
     }
+    .hidden {
+      display: none;
+     }
   }
 
   .card:nth-of-type(2) {

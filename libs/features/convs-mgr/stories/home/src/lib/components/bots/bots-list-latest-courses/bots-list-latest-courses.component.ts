@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 import { Observable, map, tap } from 'rxjs';
 
@@ -8,6 +9,11 @@ import { orderBy as __orderBy } from 'lodash';
 import { __DateFromStorage } from '@iote/time';
 
 import { Bot } from '@app/model/convs-mgr/bots';
+
+import { BotsStateService } from '@app/state/convs-mgr/bots';
+
+
+import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
 
 @Component({
   selector: 'italanta-apps-bots-list-latest-courses',
@@ -24,7 +30,9 @@ export class BotsListLatestCoursesComponent implements OnInit {
 
   screenWidth: number;
 
-  constructor(private _router$$: Router) {}
+  isPublishing :boolean;
+
+  constructor(private _router$$: Router, private _dialog: MatDialog, private _botsService : BotsStateService ) {}
 
   ngOnInit(): void {
 
@@ -36,6 +44,32 @@ export class BotsListLatestCoursesComponent implements OnInit {
         tap((s) => this.bots = s)).subscribe();
     }
   }
+
+  connectToChannel(botId: string) {
+    this._dialog.open( MainChannelModalComponent,{
+      width: '30rem',
+      height:'27rem',
+      data:{botId:botId}
+    })
+   }
+  deleteBot(botId:Bot){
+    this._botsService.deleteBot(botId)
+  } 
+
+  archiveBot(bot:Bot){
+    bot.isArchived = true;
+    this._botsService.updateBot(bot)
+  }
+  publishBot(bot:Bot){
+    bot.isPublishing = true;
+    bot.isPublished = true;
+    this._botsService.updateBot(bot)
+      .subscribe(() => {
+        bot.isPublishing = false;
+      });
+   }
+   
+   
 
   openBot(id: string) {
     this._router$$.navigate(['bots', id]);
