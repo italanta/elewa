@@ -9,15 +9,15 @@ export interface CourseProgress {
   inactiveUsers: UserCount;
 
   /** All the users enrolled in this course */
-  totalUsers: UserCount;
+  totalUsers?: UserCount;
 
   /** Number of learners who have completed the course */
-  completedLearnerCount: number;
+  completedLearnerCount?: number;
 
   /** Total time in seconds all learners have taken to complete the course  */
-  totalCompletionDuration: number;
+  totalCompletionDuration?: number;
 
   /** Id's of the users enrolled in this course */
-  enrolledUsers: string[];
+  enrolledUsers?: string[];
 }
 
