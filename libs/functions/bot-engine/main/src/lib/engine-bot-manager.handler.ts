@@ -72,6 +72,8 @@ export class EngineBotManager
       this.orgId = this._activeChannel.channel.orgId;
       const platform = this._activeChannel.channel.type;
 
+      const lastActiveTime = new Date();
+
       // STEP 1: Initialize the services which are necessary for execution of the bot engine
       // TODO: use a DI container to manage instances and dynamically inject appropriate dependencies
 
@@ -106,7 +108,7 @@ export class EngineBotManager
       // STEP 2: Update the isComplete flag
       //         We need to update the isComplete flag to -1 so that the user can continue the conversation
       //         We do this here because we have successfully received the message
-      await this._endUserService$.setConversationComplete(END_USER_ID, -1);
+      await this._endUserService$.setConversationComplete(END_USER_ID, -1, lastActiveTime);
 
       // STEP 3: Process the message
       //         Because the status of the chat can change anytime, we use the current status

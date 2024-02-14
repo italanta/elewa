@@ -4,7 +4,7 @@
 
   <button class="btn btn-module" (click)="openModule(botModule.id!)">{{ botModule.name }}</button>
   <button class="btn btn-story" (click)="openLesson(story.id!)">View Story</button>
-  <div class="status">status</div>
+  <div class="status">{{ specificBot?.isPublished ? ('BOTS.CREATE-MODAL.PUBLISHED' | transloco) : ('BOTS.CREATE-MODAL.DRAFT' | transloco) }}</div>
 
   <div class="actions">
     <button mat-flat-button [matMenuTriggerFor]="menu">
@@ -12,12 +12,18 @@
     </button>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="editLesson(story)">
+      <!-- leaving this here incase it is needed later -->
+      
+      <!-- <button mat-menu-item (click)="editLesson(story)">
         <span> {{ "BOTS.BOTS-PAGE.EDIT" | transloco }} </span>
       </button>
       <button mat-menu-item (click)="deleteLesson(story)">
         <span> {{ "BOTS.BOTS-PAGE.DELETE" | transloco }} </span>
-      </button>
+      </button> -->
+      <button mat-menu-item  (click)="connectToChannel(specificBot!.id ?? '')"> {{ 'BOTS.CONNECT-BOT-TO-CHANNEL' | transloco }}</button>
+      <button mat-menu-item (click)="publishBot(specificBot!)" [disabled]="specificBot?.isPublished"> {{ 'BOTS.PUBLISH-BOT' | transloco }}</button>
+      <button mat-menu-item (click)="archiveBot(specificBot!)" [disabled]="specificBot?.isArchived"> {{ 'BOTS.ARCHIVE-BOT' | transloco }}</button>
+      <button mat-menu-item (click)="deleteBot(specificBot!)" [disabled]="specificBot?.isPublished"> {{ 'BOTS.DELETE-BOT' | transloco }}</button>
     </mat-menu>
   </div>
 

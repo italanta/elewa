@@ -1,0 +1,57 @@
+.container{
+  background-color: white;
+  .header{
+    text-align: center;
+    font-size: large;
+    color: var(--connector-color-teal-blue);
+  }
+  .platform{
+    .select-channel{
+      display: flex;
+      justify-content: space-around;     
+    }
+    .select{
+      .whatsApp{
+          padding-left: 1rem;
+      }
+      .messenger{
+        padding-top: 1rem;
+        padding-left: 1rem;
+      }
+    }
+    .buttons{
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      
+      .cancel{
+        margin-left: 1rem;
+        padding: 0.5rem 2rem;
+        color: var(--connector-color-teal-blue);
+        background-color: transparent;
+        font-size: 14px;
+        font-family: Roboto;
+        font-weight: 400;
+        word-wrap: break-word;
+        border-radius: 30px;
+        border: 1px var(--convs-mgr-color-3E788A)solid;
+    }
+      
+    .submit{
+        padding: 0.5rem 2rem;
+        color: white;
+        background: var(--convs-mgr-color-3E788A); 
+        border-radius: 30px;
+        border: none;
+    }
+    }
+  }
+}
+img{
+  padding-right: 0.4rem;
+  padding-top: 0.3rem;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 1.6rem!important;
+  }

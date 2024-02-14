@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
@@ -37,4 +37,10 @@ export class CommunicationChannelService {
       map(channels => channels.filter(channel => channel.n === n))
     );
   }
+
+  getChannelsByType(platformType: string): Observable<CommunicationChannel[]> {
+    return this._channels$$.get().pipe(
+      map((channels) => channels.filter((channel) => channel.type === platformType))
+    );
+  } 
 }

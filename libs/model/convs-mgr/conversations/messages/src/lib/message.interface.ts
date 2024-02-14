@@ -30,7 +30,7 @@ export interface Message extends IObject
   /** Unprocessed part of the message sent through a channel by a platform which contains 
    *    the actual message payload  
    */
-  payload?            : IncomingMessagePayload;
+  payload?            : any;
 
   /** The phone number used by the end user to send a message to  our chatbot */
   endUserPhoneNumber? : string;

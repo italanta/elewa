@@ -193,7 +193,12 @@
         "DELETE": "Effacer"
       },
       "CANCEL": "Annuler",
+      "CONNECT":"Connecter",
+      "CONTINUE":"Continuer",
       "SUBMIT": "Créer un robot",
+      "CONNECTING":"De liaison",
+      "PUBLISHED":"PUBLIÉ",
+      "DRAFT":"BROUILLON",
       "ACTIONS": {
         "OPEN-BOT": "Ouvert un robot",
         "LBL-NEW-BOT": "Créer un nouveau robot",
@@ -212,7 +217,17 @@
         "SUBMIT": "Supprimer le robot",
         "MESSAGE": "Êtes-vous sûr de vouloir supprimer ce bot?"
       }
-    }
+    },
+    "CHANNEL":{
+      "HEADER":"Connecter le bot au canal",
+      "INFO-TEXT1":"Pour créer une nouvelle chaîne, accédez aux paramètres d'administration, puis continuez",
+      "INFO-TEXT2":"aux informations sur l'entreprise, puis sélectionnez l'option Ajouter une chaîne"
+    },
+    "CONNECT-BOT-TO-CHANNEL":"Connecter le bot au canal",
+    "PUBLISH-BOT":"Publier le robot",
+    "ARCHIVE-BOT":"Bot d’archives",
+    "DELETE-BOT":"Supprimer le robot"
+
   },
   "CLASSESS": {
     "MODALS": {
@@ -713,7 +728,8 @@
               "BODY-DESCRIPTION": "Ajoutez le contenu du message à envoyer",
               "SAMPLES": {
                 "SAMPLES": "Exemples de contenu du corps",
-                "NOTICE": "Pour aider META à examiner votre modèle de message, veuillez ajouter un exemple pour chaque variable dans le texte du corps. Ne pas utiliser de vraies informations client"
+                "NOTICE": "Pour aider META à examiner votre modèle de message, veuillez ajouter un exemple pour chaque variable dans le texte du corps. Ne pas utiliser de vraies informations client",
+                "PLACEHOLDER":"Saisir un espace réservé au corps"
               },
               "FOOTER": {
                 "FOOTER": "Pied de page",
@@ -723,7 +739,8 @@
               "HEADER":"Entête",
               "HEADER-SAMPLES":{
                 "SAMPLES": "Exemples de contenu d'en-tête",
-                "NOTICE": "Pour aider META à réviser votre modèle de message, veuillez ajouter un exemple pour chaque variable dans votre texte d'en-tête. N'utilisez pas d'informations client réelles"
+                "NOTICE": "Pour aider META à réviser votre modèle de message, veuillez ajouter un exemple pour chaque variable dans votre texte d'en-tête. N'utilisez pas d'informations client réelles",
+                "PLACEHOLDER":"Saisissez un espace réservé pour l'en-tête"
               }
             }
           },
@@ -851,6 +868,7 @@
         },
         "ADD-CHANNEL":"Ajouter une chaîne",
         "SELECT-PLATFORM":"Sélectionnez la plateforme",
+        "SELECT-CHANNEL":"sélectionner une chaîne",
         "ADD-DETAILS":"Ajouter des détails",
         "WHATSAPP":"WhatsApp",
         "Messenger":"Messenger",

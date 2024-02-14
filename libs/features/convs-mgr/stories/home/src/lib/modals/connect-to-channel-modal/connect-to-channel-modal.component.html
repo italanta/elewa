@@ -1,0 +1,25 @@
+<div class="container">
+
+
+    <div class="platform">
+       
+        
+        <div class="select" >
+            <div class="whatsApp">
+                <input type="radio" id="css" name="fav_language" [(ngModel)]="selectedPlatform" [value]="whatsappValue">
+                <label for="css"><img src="assets/icons/whatsapp-icon.svg" alt=""> {{ "COMPANY-INFORMATION.CHANNEL-MODAL.WHATSAPP" | transloco }}</label><br>
+            </div>
+            <div class="messenger">
+                <input type="radio" id="javascript" name="fav_language" [(ngModel)]="selectedPlatform" [value]="messengerValue">
+                <label for="javascript"><img src="assets/icons/facebook-messenger.png" alt="">{{ "COMPANY-INFORMATION.CHANNEL-MODAL.Messenger" | transloco }}</label>
+            </div>    
+                
+        </div>
+
+        <div class="buttons">
+            <button class="cancel" type="button" (click)="closeDialog()" >{{ "BOTS.CREATE-MODAL.CANCEL" | transloco }}</button>
+            <button class="submit" type="submit" (click)="onPlatformSelected()">{{ "BOTS.CREATE-MODAL.CONTINUE" | transloco }}</button>
+        </div>
+    </div> 
+    
+</div>

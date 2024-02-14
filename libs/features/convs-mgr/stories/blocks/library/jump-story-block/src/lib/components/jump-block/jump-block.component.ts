@@ -57,7 +57,6 @@ export class JumpBlockComponent implements OnInit, OnDestroy
     this.setJumpBlockOptions();
 
     this.getStories();
-    this.getBlocks();
   }
 
   get options(): FormArray
@@ -99,17 +98,6 @@ export class JumpBlockComponent implements OnInit, OnDestroy
       .subscribe((stories: Story[]) =>
       {
         this.stories = stories;
-      });
-  }
-
-  getBlocks()
-  {
-    const storyId = this.jumpBlockForm.value.targetStoryId;
-
-    this._sBS.sink = this._storyBlockStore$$.getBlocksByStory(storyId)
-      .subscribe((blocks: StoryBlock[]) =>
-      {
-        this.blocks = blocks;
       });
   }
 

@@ -8,7 +8,5 @@
  */
 export interface IncomingMessagePayload
 {
-  fileSrc ?: string;
 
-  fileSize ?: string;
 }

@@ -1,0 +1,21 @@
+
+.header{
+    text-align: center;
+}
+.bots-modal-create{
+    padding: 2.19rem 3rem;
+    background-color:white;
+}
+:host ::ng-deep .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab .mdc-tab__text-label,
+.mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab__text-label {
+	font-family: Roboto;
+    font-size: 1rem!important;
+    font-weight: 300;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+:host ::ng-deep .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label,
+.mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {
+    font-weight: 400!important;
+}

@@ -22,9 +22,10 @@
           <app-assessment-question-forms [previewMode]="false" [questions]="questions" [assessmentFormGroup]="assessmentFormModel.assessmentsFormGroup">
           </app-assessment-question-forms>
         </mat-tab>
-        <mat-tab label="Settings">
+        <!-- Temporarily removed the settings button since there is no feedback option as of now -->
+        <!-- <mat-tab label="Settings">
           <app-assessment-config [previewMode]="false" [assessmentFormGroup]="assessmentFormModel.assessmentsFormGroup"></app-assessment-config>
-        </mat-tab>
+        </mat-tab> -->
         <mat-tab label="Preview">
           <!-- use the view component to create the form preview -->
           <app-assessment-view [assessmentForm]="assessmentFormModel.assessmentsFormGroup"></app-assessment-view>

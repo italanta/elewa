@@ -339,7 +339,12 @@
       "CREATE": "Create Bot",
       "UPDATE": "Update Bot",
       "CANCEL": "Cancel",
-      "SUBMIT": "Create bot"
+      "CONNECT": "Connect",
+      "CONTINUE":"Continue",
+      "SUBMIT": "Create bot",
+      "CONNECTING":"Connecting",
+      "PUBLISHED":"PUBLISHED",
+      "DRAFT":"DRAFT"
     },
     "EDIT-MODAL": {
       "TITLE": "Edit Bot"
@@ -367,7 +372,16 @@
       "DELETE" : "Delete",
       "OPEN-BOT" : "Open Bot",
       "VIEW-ALL" : "View All"
-    }
+    },
+    "CHANNEL":{
+      "HEADER":"Connect Bot to Channel",
+      "INFO-TEXT1":"To create a new channel, go to Admin Settings, then proceed",
+      "INFO-TEXT2":"to Company information, and select the option to Add Channel"
+    },
+    "CONNECT-BOT-TO-CHANNEL":"Connect bot to channel",
+    "PUBLISH-BOT":"Publish Bot",
+    "ARCHIVE-BOT":"Archive Bot",
+    "DELETE-BOT":"Delete Bot"
   },
   "MODULES": {
     "FIELDS": {
@@ -1055,7 +1069,8 @@
               "BODY-DESCRIPTION": "Add content of the message to be sent",
               "SAMPLES": {
                 "SAMPLES": "Samples for body content",
-                "NOTICE": "To help META review your message template, please add an example for each variable in your body text. Do not use real customer information"
+                "NOTICE": "To help META review your message template, please add an example for each variable in your body text. Do not use real customer information",
+                "PLACEHOLDER":"Enter body placeholder"
               },
               "FOOTER": {
                 "FOOTER": "Footer",
@@ -1064,7 +1079,8 @@
               "HEADER":"Header",
               "HEADER-SAMPLES":{
                 "SAMPLES": "Samples for header content",
-                "NOTICE": "To help META review your message template, please add an example for each variable in your header text. Do not use real customer information"
+                "NOTICE": "To help META review your message template, please add an example for each variable in your header text. Do not use real customer information",
+                "PLACEHOLDER":"Enter header placeholder"
               }
             },
             "ADD-VARIABLE":"Add Variable"
@@ -1190,6 +1206,7 @@
       },
       "ADD-CHANNEL":"Add Channel",
       "SELECT-PLATFORM":"Select Platform",
+      "SELECT-CHANNEL":"Select Channel",
       "ADD-DETAILS":"Add Details",
       "WHATSAPP":"WhatsApp",
       "Messenger":"Messenger",
