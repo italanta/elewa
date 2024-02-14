@@ -19,13 +19,9 @@ export async function getEnrolledUserCreationCount(userMetricsService: UserMetri
   let pastWeekCount = 0;
   let pastMonthCount = 0;
 
-  if (dayOfWeek === 5) { // Friday (0-based index, where 5 represents Friday)
-    pastWeekCount = (await userMetricsService.getPastWeekUserCount(orgId, timeInUnix)).length;
-  }
+  pastWeekCount = (await userMetricsService.getPastWeekUserCount(orgId, timeInUnix)).length;
 
-  if (isLastDayOfMonth) {
-    pastMonthCount = (await userMetricsService.getPastMonthUserCount(orgId, timeInUnix)).length;
-  }
+  pastMonthCount = (await userMetricsService.getPastMonthUserCount(orgId, timeInUnix)).length;
 
   tools.Logger.log(() => `[measureGroupProgressHandler].execute - Enrolled user creation count completed`);
 
