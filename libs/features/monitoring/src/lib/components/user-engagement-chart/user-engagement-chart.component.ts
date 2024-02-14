@@ -174,11 +174,11 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
       }
 
       if (this.selectedPeriodical === 'Daily') {
-        userCountArray.push(mod[courseId][usersType].dailyCount);
+        userCountArray.push(mod.courseProgress[courseId][usersType].dailyCount);
       } else if (this.selectedPeriodical === 'Weekly') {
-        userCountArray.push(mod[courseId][usersType].pastWeekCount);
+        userCountArray.push(mod.courseProgress[courseId][usersType].pastWeekCount);
       } else {
-        userCountArray.push(mod[courseId][usersType].pastMonthCount);
+        userCountArray.push(mod.courseProgress[courseId][usersType].pastMonthCount);
       }
     }
     return userCountArray;
