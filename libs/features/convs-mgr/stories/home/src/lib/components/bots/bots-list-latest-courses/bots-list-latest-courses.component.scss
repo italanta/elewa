@@ -6,9 +6,9 @@
     color: white;
     border-radius: 10px;
 
-      .published{
-        height: 2rem;
-        width: 40%;
+      .published, .draft {
+        height: 1.75rem;
+        width: 30%;
         border-radius: 25px;
         background: transparent;
         color: white;
@@ -40,15 +40,12 @@
     .card-title {
       font-size: 1.3rem;
       font-weight: 300;
-      max-width: 90%;
+      max-width: 100%;
       line-height: normal;
       word-wrap: break-word;
       padding-top: 20px;
       display: flex;
       justify-content:space-between;
-    }
-    .svg-inline--fa{
-      color: white;
     }
 
     .open-bot {
@@ -106,4 +103,8 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
   border-radius: 10px;
+}
+
+.menu-tooltip {
+  color: white;
 }
