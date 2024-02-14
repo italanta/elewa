@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SubSink } from 'subsink';
 import { switchMap } from 'rxjs';
 
-import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
+import { GroupProgressModel, Periodicals, UserCount } from '@app/model/analytics/group-based/progress';
 import { Bot } from '@app/model/convs-mgr/bots';
 import { Classroom } from '@app/model/convs-mgr/classroom';
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
@@ -50,8 +50,9 @@ export class SingleCoursePageComponent implements OnInit
     if(!progress.courseProgress) {
       return 0;
     }
-    this.learnersCompletedCourse = progress.courseProgress[courseId].completedLearnerCount;
-    this.totalLearnersInCourse = progress.courseProgress[courseId].totalUsers.dailyCount;
+
+    this.learnersCompletedCourse = progress.courseProgress[courseId].completedLearnerCount as number;
+    this.totalLearnersInCourse = (progress.courseProgress[courseId].totalUsers as UserCount).dailyCount;
 
     return (this.learnersCompletedCourse / this.totalLearnersInCourse) * 100;
   }
@@ -61,8 +62,8 @@ export class SingleCoursePageComponent implements OnInit
     if(!progress.courseProgress) {
       return "";
     }
-    const totalCompletionDuration = progress.courseProgress[courseId].totalCompletionDuration;
-    const usersCompletedCourse = progress.courseProgress[courseId].completedLearnerCount;
+    const totalCompletionDuration = progress.courseProgress[courseId].totalCompletionDuration as number;
+    const usersCompletedCourse = progress.courseProgress[courseId].completedLearnerCount as number;
 
     // Calculate average in seconds
     const averageTime = totalCompletionDuration / usersCompletedCourse;
