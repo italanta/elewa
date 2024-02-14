@@ -30,4 +30,17 @@ export class BotsStateService {
   deleteBot(bot: Bot): Observable<Bot> {
     return this._botsStore$$.remove(bot);
   }
+
+  archiveBot(bot: Bot)
+  {
+    bot.isArchived = true;
+    return this.updateBot(bot);
+  }
+
+  publishBot(bot: Bot)
+  {
+    bot.isPublished = true;
+    return this.updateBot(bot);
+  }
+
 }
