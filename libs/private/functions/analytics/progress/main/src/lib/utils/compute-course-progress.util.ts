@@ -6,68 +6,59 @@ import { __DateFromStorage } from "@iote/time";
 import { EnrolledEndUser } from "@app/model/convs-mgr/learners";
 import { CourseProgress } from '@app/model/analytics/group-based/progress';
 
-export function computeCourseProgress(enrolledUsers: EnrolledEndUser[])
-{
-  let courseProgress: { [key: string]: CourseProgress; };
-
+export function computeCourseProgress(enrolledUsers: EnrolledEndUser[]) {
   const now = moment();
 
-  // TODO: Avoid repetion of this loop
-  for (const user of enrolledUsers) {
+  const courseProgress: { [key: string]: CourseProgress } = {};
 
+  enrolledUsers.forEach((user) => {
     if (user.courses) {
-      for (const course of user.courses) {
+      user.courses.forEach((course) => {
+        const lastEngagementTime = __DateFromStorage(course.lastEngagementTime || user.updatedOn);
+        const activeDurationHours = now.diff(lastEngagementTime, 'hours');
+        const courseId = course.courseId;
 
-        let dailyActiveCount = 0;
-        let pastWeekActiveCount = 0;
-        let pastMonthActiveCount = 0;
-
-        let dailyInactiveActiveCount = 0;
-        let pastWeekInactiveActiveCount = 0;
-        let pastMonthInactiveActiveCount = 0;
-        let completedLearnerCount = 0;
-        let totalCompletionDuration = 0;
-
-        const lastEngagementTime = __DateFromStorage(course.lastEngagementTime);
-
-        const activedInDays = now.diff(lastEngagementTime, 'hours');
-
-        if (activedInDays <= 24) {
-          dailyActiveCount++;
-        } else {
-          dailyInactiveActiveCount++;
+        if (!courseProgress[courseId]) {
+          courseProgress[courseId] = {
+            activeUsers: { dailyCount: 0, pastWeekCount: 0, pastMonthCount: 0 },
+            inactiveUsers: { dailyCount: 0, pastWeekCount: 0, pastMonthCount: 0 },
+            completedLearnerCount: 0,
+            totalCompletionDuration: 0,
+            totalUsers: { dailyCount: 0, pastWeekCount: 0, pastMonthCount: 0 },
+            enrolledUsers: []
+          };
         }
 
-        if (activedInDays <= 168) {
-          pastWeekActiveCount++;
+        const progress = courseProgress[courseId];
+
+        if (activeDurationHours <= 24) {
+          progress.activeUsers.dailyCount++;
         } else {
-          pastWeekInactiveActiveCount++;
-        }
-        if (now.isSame(lastEngagementTime, 'month')) {
-          pastMonthActiveCount++;
-        } else {
-          pastMonthInactiveActiveCount++;
+          progress.inactiveUsers.dailyCount++;
         }
 
-        completedLearnerCount = checkCourseCompleted(user, course.courseId);
-        totalCompletionDuration = getCompletionDuration(user, course.courseId);
+        if (activeDurationHours <= 168) {
+          progress.activeUsers.pastWeekCount++;
+        } else {
+          progress.inactiveUsers.pastWeekCount++;
+        }
 
-        courseProgress[course.courseId].activeUsers.dailyCount += dailyActiveCount;
-        courseProgress[course.courseId].activeUsers.pastWeekCount += pastWeekActiveCount;
-        courseProgress[course.courseId].activeUsers.pastMonthCount += pastMonthActiveCount;
+        if (moment().isSame(lastEngagementTime, 'month')) {
+          progress.activeUsers.pastMonthCount++;
+        } else {
+          progress.inactiveUsers.pastMonthCount++;
+        }
 
-        courseProgress[course.courseId].inactiveUsers.dailyCount += dailyInactiveActiveCount;
-        courseProgress[course.courseId].inactiveUsers.pastWeekCount += pastWeekInactiveActiveCount;
-        courseProgress[course.courseId].inactiveUsers.pastMonthCount += pastMonthInactiveActiveCount;
-        courseProgress[course.courseId].completedLearnerCount += completedLearnerCount;
-        courseProgress[course.courseId].totalCompletionDuration += totalCompletionDuration;
-      }
+        const completedCount = checkCourseCompleted(user, courseId);
+        const completionDuration = getCompletionDuration(user, courseId);
+
+        progress.completedLearnerCount += completedCount;
+        progress.totalCompletionDuration += completionDuration;
+      });
     }
-  }
+  });
 
-  courseProgress = getAllCoursesTotals(courseProgress, enrolledUsers);
-  
-  return courseProgress;
+  return getAllCoursesTotals(courseProgress, enrolledUsers);
 }
 
 export function checkCourseCompleted(enrolledUser: EnrolledEndUser, courseId: string): number 
@@ -80,12 +71,13 @@ export function checkCourseCompleted(enrolledUser: EnrolledEndUser, courseId: st
 
 export function getCompletionDuration(enrolledUser: EnrolledEndUser, courseId: string) 
 {
+  if (!enrolledUser.completedCourses) return 0;
   const completedCourseInfo = _.find(enrolledUser.completedCourses, { id: courseId });
   if (!completedCourseInfo) return 0;
 
   const courseInfo = _.find(enrolledUser.courses, { courseId: completedCourseInfo.id });
 
-  const startedOn = __DateFromStorage(courseInfo.enrollmentDate);
+  const startedOn = __DateFromStorage(courseInfo.enrollmentDate || enrolledUser.createdOn);
   const completedOn = __DateFromStorage(completedCourseInfo.completionDate);
 
   return startedOn.diff(completedOn, 'seconds');
@@ -93,53 +85,37 @@ export function getCompletionDuration(enrolledUser: EnrolledEndUser, courseId: s
 
 export function enrolledUsersInCourse(enrolledEndUsers: EnrolledEndUser[], courseId: string)
 {
-  return enrolledEndUsers.filter((user) => user.courses.find((course) => course.courseId == courseId))
-    .map((user) => user.id);
+  return enrolledEndUsers.filter((user) => {
+    if(!user.courses) return undefined;
+    return user.courses.find((course) => course.courseId == courseId)
+  }).map((user) => user.id);
 }
 
-export function getAllCoursesTotals(courseProgress: { [key: string]: CourseProgress; }, enrolledUsers: EnrolledEndUser[])
-{
+export function getAllCoursesTotals(courseProgress: { [key: string]: CourseProgress }, enrolledUsers: EnrolledEndUser[]) {
+  const totalActiveUsers = { dailyCount: 0, pastWeekCount: 0, pastMonthCount: 0 };
+  const totalInactiveUsers = { dailyCount: 0, pastWeekCount: 0, pastMonthCount: 0 };
 
-  const totalActiveUsers = {
-    dailyCount: 0,
-    pastWeekCount: 0,
-    pastMonthCount: 0
-  };
+  Object.keys(courseProgress).forEach((courseId) => {
+    const enrolledUsersInThisCourse = enrolledUsersInCourse(enrolledUsers, courseId);
 
-  const totalInactiveUsers = {
-    dailyCount: 0,
-    pastWeekCount: 0,
-    pastMonthCount: 0
-  };
+    ['dailyCount', 'pastWeekCount', 'pastMonthCount'].forEach((period) => {
+      totalActiveUsers[period] += courseProgress[courseId].activeUsers[period];
+      totalInactiveUsers[period] += courseProgress[courseId].inactiveUsers[period];
 
-  
-  // Iterate through each course progress object and get the total users
-  Object.keys(courseProgress).forEach((courseId) =>
-  {
-    // Get all the users enrolled in course
-    courseProgress[courseId].enrolledUsers = enrolledUsersInCourse(enrolledUsers, courseId);
-    
-    // Calculate total users for each period
-    ['dailyCount', 'pastWeekCount', 'pastMonthCount'].forEach((period) =>
-    {
-          // Update total active users
-    totalActiveUsers[period] += courseProgress[courseId].activeUsers[period];
-
-    // Update total inactive users
-    totalInactiveUsers[period] += courseProgress[courseId].inactiveUsers[period];
-
-      // Sum activeUsers and inactiveUsers
       const totalUsers =
-      courseProgress[courseId].activeUsers[period] +
-      courseProgress[courseId].inactiveUsers[period];
-      
-      // Update totalUsers in the 'total' property
+        courseProgress[courseId].activeUsers[period] +
+        courseProgress[courseId].inactiveUsers[period];
+
       courseProgress[courseId].totalUsers[period] = totalUsers;
     });
+
+    courseProgress[courseId].enrolledUsers = enrolledUsersInThisCourse;
   });
-  
-  courseProgress['all'].activeUsers = totalActiveUsers;
-  courseProgress['all'].inactiveUsers = totalInactiveUsers;
+
+  courseProgress['all'] = {
+    activeUsers: totalActiveUsers,
+    inactiveUsers: totalInactiveUsers,
+  };
 
   return courseProgress;
 }
