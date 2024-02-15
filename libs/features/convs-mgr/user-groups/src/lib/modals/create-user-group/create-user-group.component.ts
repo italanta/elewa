@@ -1,7 +1,8 @@
-import { MatDialog } from '@angular/material/dialog';
-import { Component, Input } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Component, Inject, Input } from '@angular/core';
 
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
+import { Classroom } from '@app/model/convs-mgr/classroom';
 
 import { modalState } from '../../models/modal-state';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -15,13 +16,21 @@ export class CreateUserGroupComponent  {
 [x: string]: any;
   @Input() modalType: modalState;
 
+  edit: boolean;
+
   createUserGroupForm: FormGroup;
   isLoading: boolean;
 
-  constructor(private _fb: FormBuilder, private _dialog: MatDialog,private _classroomService:ClassroomService) {
+  constructor(private _fb: FormBuilder, 
+              private _dialog: MatDialog,
+              private _classroomService:ClassroomService,
+              @Inject(MAT_DIALOG_DATA) public data: { group: Classroom, edit: boolean; }) 
+  {
+    if(this.data)  this.edit = this.data.edit;
+
     this.createUserGroupForm = this._fb.group({
-      className:[''],
-      description:['']
+      className:[this.data ? this.data.group.className : ''],
+      description:[this.data ?this.data.group.description :'']
     })
   }
   
@@ -29,11 +38,23 @@ export class CreateUserGroupComponent  {
     return this._fb.group({});
   }
 
-  submitedUserForm(){
-   
-    console.log(this.createUserGroupForm.value)
+  onSubmit(){
+    if(this.edit) {
+      this.updateClassroom();
+    } else {
+      this.createClassroom();
+    }
+
+    this._dialog.closeAll();
+  }
+  
+  createClassroom() {
     this._classroomService.addClassroom(this.createUserGroupForm.value)
-    
+  }
+
+  updateClassroom(){
+    const updatedClass = {...this.data.group, ...this.createUserGroupForm.value};
+    this._classroomService.updateClassroom(updatedClass)
   }
 
   closeModal() {

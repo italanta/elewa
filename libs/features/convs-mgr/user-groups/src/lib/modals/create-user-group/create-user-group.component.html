@@ -11,7 +11,7 @@
           </div>
     </ng-container>
   
-    <form class="form" [formGroup]="createUserGroupForm" (submit)="submitedUserForm()">
+    <form class="form" [formGroup]="createUserGroupForm">
       <div class="form-item">
         <label for="className">{{'CLASSESS.MODALS.CLASSNAME' | transloco }}</label>
         <input class="input" id="className" type="text"   id="" formControlName ="className">
@@ -19,12 +19,12 @@
   
       <div class="form-item">
         <label for="description">{{'CLASSESS.MODALS.DESCRIPTION' | transloco }}</label>
-        <input class="input" id="description" type="text"  id="" formControlName ="descriptionName">
+        <input class="input" id="description" type="text"  id="" formControlName ="description">
       </div>
   
       <div class="action-btns">
         <button class="btn" (click)="closeModal()">{{'CLASSESS.MODALS.ACTION-BUTTONS.CANCEL' | transloco }}</button>
-          <button type="submit">{{'CLASSESS.MODALS.ACTION-BUTTONS.SAVE' | transloco }}</button>
+          <button type="button" (click)="onSubmit()">{{'CLASSESS.MODALS.ACTION-BUTTONS.SAVE' | transloco }}</button>
       </div>
     </form>
   </div>

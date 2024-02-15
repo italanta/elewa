@@ -45,9 +45,10 @@ export class UserGroupsListComponent implements OnInit {
     );
    }
 
-  openEditModal() {
+  openEditModal(group: Classroom) {
     const dialogRef = this._dialog.open(CreateUserGroupComponent, {
       width: '610px',
+      data: {group, edit: true}
     });
     const dialogInstance = dialogRef.componentInstance;
     dialogInstance.modalType = modalState.Edit;
