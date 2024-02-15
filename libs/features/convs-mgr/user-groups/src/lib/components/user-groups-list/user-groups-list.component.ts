@@ -8,7 +8,6 @@ import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { Classroom } from '@app/model/convs-mgr/classroom';
 
 import { CreateUserGroupComponent } from '../../modals/create-user-group/create-user-group.component';
-import { modalState } from '../../models/modal-state';
 import { DeleteUserGroupModalComponent } from '../../modals/delete-user-group-modal/delete-user-group-modal.component';
 
 @Component({
@@ -50,8 +49,6 @@ export class UserGroupsListComponent implements OnInit {
       width: '610px',
       data: {group, edit: true}
     });
-    const dialogInstance = dialogRef.componentInstance;
-    dialogInstance.modalType = modalState.Edit;
   }
 
   openDeleteModal(id:string) {

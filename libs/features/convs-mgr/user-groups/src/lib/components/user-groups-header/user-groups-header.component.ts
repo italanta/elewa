@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { CreateUserGroupComponent } from '../../modals/create-user-group/create-user-group.component';
-import { modalState } from '../../models/modal-state';
 
 @Component({
   selector: 'app-user-groups-header',
@@ -16,8 +15,6 @@ export class UserGroupsHeaderComponent {
     const dialogRef = this._dialog.open(CreateUserGroupComponent, {
       width: '610px',
     });
-    const dialogInstance = dialogRef.componentInstance;
-    dialogInstance.modalType = modalState.Create;
   }
 
 }

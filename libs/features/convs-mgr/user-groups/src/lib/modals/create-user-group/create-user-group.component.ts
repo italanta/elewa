@@ -4,7 +4,6 @@ import { Component, Inject, Input } from '@angular/core';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { Classroom } from '@app/model/convs-mgr/classroom';
 
-import { modalState } from '../../models/modal-state';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -14,7 +13,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class CreateUserGroupComponent  {
 [x: string]: any;
-  @Input() modalType: modalState;
 
   edit: boolean;
 

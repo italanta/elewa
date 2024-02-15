@@ -8,16 +8,12 @@ import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
 import { Classroom } from '@app/model/convs-mgr/classroom';
 
-import { modalState } from '../../models/modal-state';
-
 @Component({
   selector: 'app-add-user-to-group-modal',
   templateUrl: './add-user-to-group-modal.component.html',
   styleUrls: ['./add-user-to-group-modal.component.scss'],
 })
 export class AddUserToGroupModalComponent implements OnInit {
-
-  @Input() modalType:modalState;
 
   private _sBs = new SubSink();
   addUserToGroupForm:FormGroup;
