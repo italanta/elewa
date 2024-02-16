@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,7 +8,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { SubSink } from 'subsink';
-import { combineLatest } from 'rxjs';
+import { combineLatest, take } from 'rxjs';
 
 
 import { Timestamp } from '@firebase/firestore-types';
@@ -20,6 +20,7 @@ import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/lea
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 
 import { AddUserToGroupModalComponent } from '../../modals/add-user-to-group-modal/add-user-to-group-modal.component';
+import { MoveUsersToGroupModalComponent } from '../../modals/move-users-to-group-modal/create-bot-modal/move-users-to-group-modal.component';
 @Component({
   selector: 'app-single-group-user-list',
   templateUrl: './single-group-user-list.component.html',
@@ -30,9 +31,12 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  @Input() classroom: Classroom;
+
   _sbs = new SubSink();
 
   displayedColumns = [
+    'select',
     'name',
     'phonenumber',
     'date-enrolled',
@@ -41,21 +45,16 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
   ];
 
   dataSource = new MatTableDataSource<EnrolledEndUser>();
-  classRoom: Classroom;
   selection = new SelectionModel<EnrolledEndUser>(true, []);
 
-  classRoomId = '';
+  destinationClass: Classroom;
 
   constructor(
     private _dialog: MatDialog,
     private classroomService: ClassroomService,
     private _learnerService: EnrolledLearnersService,
     private _liveAnnouncer: LiveAnnouncer,
-    private router$$: Router
-  )
-  {
-    this.classRoomId = this.router$$.url.split('/')[2].toString();
-  }
+  ) { }
 
   ngOnInit()
   {
@@ -64,14 +63,10 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
 
   loadClassroomLearners()
   {
-    this._sbs.sink = this._learnerService.getLearnersFromClass(this.classRoomId)
-      .subscribe((learners) => this.dataSource.data = learners);
+    const classId = this.classroom.id as string;
 
-    this.classroomService.getSpecificClassroom(this.classRoomId)
-      .subscribe((classroom) =>
-      {
-        if (classroom) this.classRoom = classroom;
-      });
+    this._sbs.sink = this._learnerService.getLearnersFromClass(classId)
+      .subscribe((learners) => this.dataSource.data = learners);
   }
 
   sortData(sortState: Sort)
@@ -86,17 +81,17 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
   openAddModal()
   {
     this._dialog.open(AddUserToGroupModalComponent, {
-      data: this.classRoom
+      data: this.classroom
     });
   }
 
-  deleteUserFromGroup(learnerId: string)
+  deleteUserFromGroup(learner: EnrolledEndUser)
   {
-    const learnerUpdate$ = this._learnerService.deleteLearnerFromGroup(learnerId);
+    const learnerUpdate$ = this._learnerService.deleteLearnerFromGroup(learner);
 
-    this.classRoom.users = this.classRoom.users?.filter((id) => id !== learnerId);
+    this.classroom.users = this.classroom.users?.filter((id) => id !== learner.id);
 
-    const classroomUpdate$ = this.classroomService.updateClassroom(this.classRoom);
+    const classroomUpdate$ = this.classroomService.updateClassroom(this.classroom);
 
     combineLatest([learnerUpdate$, classroomUpdate$]).subscribe();
   }
@@ -142,6 +137,29 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
       EnrolledEndUserStatus[status].charAt(0).toUpperCase() +
       EnrolledEndUserStatus[status].slice(1)
     );
+  }
+
+  deleteSelectedUsers() {
+    this.selection.selected.forEach((user)=> 
+          this.deleteUserFromGroup(user));
+  }
+
+  deleteUsersModal() {
+    this._dialog.open(MoveUsersToGroupModalComponent, {
+      data: {
+        currentClass: this.classroom,
+        users: this.selection.selected
+      }
+    });
+  }
+
+  moveUsersModal() {
+    this._dialog.open(MoveUsersToGroupModalComponent, {
+      data: {
+        currentClass: this.classroom,
+        users: this.selection.selected
+      }
+    });
   }
 
   ngOnDestroy(): void

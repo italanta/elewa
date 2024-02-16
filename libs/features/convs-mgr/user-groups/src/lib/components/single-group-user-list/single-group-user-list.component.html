@@ -1,6 +1,8 @@
 <div class="container">
     <div class="buttons">
-      <button class="btn" (click)="openAddModal()" transloco="LEARNERS.USER-GROUPS.BUTTONS.ADD-USER-TO-GROUP"></button>
+      <button class="btn add-user" *ngIf="selection.selected.length < 1" (click)="openAddModal()" transloco="LEARNERS.USER-GROUPS.BUTTONS.ADD-USER-TO-GROUP"></button>
+      <button class="btn delete-users" *ngIf="selection.selected.length > 0" (click)="deleteSelectedUsers()" transloco="LEARNERS.USER-GROUPS.BUTTONS.DELETE-USERS"></button>
+      <button class="btn move-users" *ngIf="selection.selected.length > 0" (click)="moveUsersModal()" transloco="LEARNERS.USER-GROUPS.BUTTONS.MOVE-USERS"></button>
       <!-- <button class="btn" >Add User to Group</button> -->
     </div>
     <div class="table-filters">
@@ -32,9 +34,9 @@
       <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="assessments-table">
         <ng-container matColumnDef="select">
           <th class="table-header" mat-header-cell *matHeaderCellDef>
-            <mat-checkbox (change)="$event ? masterToggle() : null" color="white" [checked]="selection.hasValue()"
+            <!-- <mat-checkbox (change)="$event ? masterToggle() : null" color="white" [checked]="selection.hasValue()"
               [indeterminate]="selection.hasValue() && !isAllSelected()">
-            </mat-checkbox>
+            </mat-checkbox> -->
           </th>
 
           <td mat-cell *matCellDef="let row">
@@ -84,7 +86,7 @@
             <span><mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon></span>
 
             <mat-menu #menu="matMenu">
-              <button class="mat-menu-item" mat-menu-item (click)="deleteUserFromGroup(enrolledUsr.id)">
+              <button class="mat-menu-item" mat-menu-item (click)="deleteUserFromGroup(enrolledUsr)">
                 {{'LEARNERS.TABLE-CONTENT.ACTIONS.DELETE'| transloco }}
               </button>
             </mat-menu>

@@ -105,15 +105,17 @@
     cursor: pointer;
 
 }
-.btn:nth-child(2){
+.delete-users {
     border: 1px #1F7A8C solid;
     color: #1F7A8C;
 }
-.btn:nth-child(1){
+
+.move-users, .add-user {
     border: none;
     background-color: #1F7A8C;
     color: white;
 }
+
 .buttons{
     padding-left: auto;
 }
