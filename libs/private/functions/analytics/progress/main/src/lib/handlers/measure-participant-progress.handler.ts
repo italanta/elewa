@@ -8,13 +8,11 @@ import {
   BotModuleDataService,
   StoriesDataService,
 } from '@app/functions/bot-engine';
-
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
-import { defaultClassroom } from '@app/model/convs-mgr/classroom';
 import { EnrolledEndUser, EnrolledUserBotModule } from '@app/model/convs-mgr/learners';
-
 import { MeasureProgressCommand, ParticipantProgressMilestone } from '@app/model/analytics/group-based/progress';
+
 /**
  * Function which calculates progress of a given participant based on the stories they have completed.
  */
@@ -70,7 +68,7 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
         dateCreated: participant.enrolledUser.createdOn,
         progress,
       },
-      classroom: participant.classroom ?? defaultClassroom,
+      classroom: participant.classroom ?? {} as any,
       milestoneId: story.parentModule,
       courseId: parentModule.parentBot,
       storyId: story.id,

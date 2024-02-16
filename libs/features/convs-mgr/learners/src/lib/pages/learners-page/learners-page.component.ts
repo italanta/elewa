@@ -12,7 +12,7 @@ import { SubSink } from 'subsink';
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
 
 import { SurveyService } from '@app/state/convs-mgr/conversations/surveys';
-import { Classroom, ClassroomUpdateEnum, defaultClassroom } from '@app/model/convs-mgr/classroom';
+import { Classroom, ClassroomUpdateEnum } from '@app/model/convs-mgr/classroom';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
@@ -108,13 +108,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   getAllClasses() {
     this._sBs.sink = this._classroomServ$.getAllClassrooms().subscribe((allClasses) => {
       this.allClasses = allClasses
-      this.addDefaultClass();
     });
-  }
-
-  addDefaultClass() {
-    const classroom = this.allClasses.find(cls => cls.className === defaultClassroom.className)
-    classroom ?? this.allClasses.push(defaultClassroom);
   }
 
   getAllCourses() {
