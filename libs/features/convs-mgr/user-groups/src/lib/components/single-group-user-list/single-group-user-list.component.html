@@ -86,7 +86,7 @@
             <span><mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon></span>
 
             <mat-menu #menu="matMenu">
-              <button class="mat-menu-item" mat-menu-item (click)="deleteUserFromGroup(enrolledUsr)">
+              <button class="mat-menu-item" mat-menu-item (click)="deleteUserFromGroupModal(enrolledUsr)">
                 {{'LEARNERS.TABLE-CONTENT.ACTIONS.DELETE'| transloco }}
               </button>
             </mat-menu>

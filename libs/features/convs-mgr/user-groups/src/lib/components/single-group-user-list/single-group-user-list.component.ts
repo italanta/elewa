@@ -21,6 +21,7 @@ import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 
 import { AddUserToGroupModalComponent } from '../../modals/add-user-to-group-modal/add-user-to-group-modal.component';
 import { MoveUsersToGroupModalComponent } from '../../modals/move-users-to-group-modal/create-bot-modal/move-users-to-group-modal.component';
+import { DeleteUserFromGroupModalComponent } from '../../modals/delete-user-from-group-modal/delete-user-from-group-modal.component';
 @Component({
   selector: 'app-single-group-user-list',
   templateUrl: './single-group-user-list.component.html',
@@ -85,16 +86,16 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
     });
   }
 
-  deleteUserFromGroup(learner: EnrolledEndUser)
+  deleteUserFromGroupModal(learner: EnrolledEndUser)
   {
-    const learnerUpdate$ = this._learnerService.deleteLearnerFromGroup(learner);
-
-    this.classroom.users = this.classroom.users?.filter((id) => id !== learner.id);
-
-    const classroomUpdate$ = this.classroomService.updateClassroom(this.classroom);
-
-    combineLatest([learnerUpdate$, classroomUpdate$]).subscribe();
+    this._dialog.open(DeleteUserFromGroupModalComponent, {
+      data: {
+        classroom: this.classroom,
+        learner 
+      }
+    });
   }
+
 
   masterToggle()
   {
@@ -141,7 +142,7 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
 
   deleteSelectedUsers() {
     this.selection.selected.forEach((user)=> 
-          this.deleteUserFromGroup(user));
+          this.deleteUserFromGroupModal(user));
   }
 
   deleteUsersModal() {

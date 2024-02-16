@@ -1,16 +1,18 @@
-<div class="delete-bot__wrapper">
-    <h2 class="delete-bot__header">
-      {{ 'BOTS.DELETE-MODAL.TITLE' | transloco }}
-    </h2>
-    <p class="delete-bot__message">
-      {{ 'BOTS.DELETE-MODAL.MESSAGE' | transloco }}
-    </p>
-    <div class="delete-bot__btns">
-      <button mat-button mat-dialog-close class="delete-bot__btn--cancel">
-        {{ 'BOTS.DELETE-MODAL.CANCEL' | transloco }}
-      </button>
-      <button mat-raised-button class="delete-bot__btn--delete">
-        {{ 'BOTS.DELETE-MODAL.SUBMIT' | transloco }}
-      </button>
-    </div>
+<div class="delete-user-wrapper">
+  <span class="delete-user-header">
+    {{ 'CLASSESS.MODALS.USER-FROM-GROUP.DELETE-TITLE' | transloco }}
+  </span>
+
+  <mat-divider></mat-divider>
+  <p class="delete-user-message">
+    {{ 'CLASSESS.MODALS.USER-FROM-GROUP.DELETE-MESSAGE' | transloco }}
+  </p>
+  <div class="delete-user-btns">
+    <button mat-stroked-button mat-dialog-close class="delete-user-cancel">
+      {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CANCEL' | transloco }}
+    </button>
+    <button mat-raised-button class="add-btn" color="primary" class="delete-user-confirm" (click)="deleteUserFromGroup()">
+      {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CONFIRM' | transloco }}
+    </button>
   </div>
+</div>
