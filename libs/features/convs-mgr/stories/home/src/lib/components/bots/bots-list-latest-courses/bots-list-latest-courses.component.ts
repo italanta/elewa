@@ -61,11 +61,11 @@ export class BotsListLatestCoursesComponent implements OnInit {
     this._botsService.updateBot(bot)
   }
   publishBot(bot:Bot){
-    bot.isPublishing = true;
+    this.isPublishing = true;
     bot.isPublished = true;
     this._botsService.updateBot(bot)
       .subscribe(() => {
-        bot.isPublishing = false;
+        this.isPublishing = false;
       });
    }
    
