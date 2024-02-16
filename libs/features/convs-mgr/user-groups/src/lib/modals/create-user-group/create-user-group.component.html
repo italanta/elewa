@@ -1,25 +1,41 @@
-<div class="modal-wrapper">
+<div class="create-modal-wrapper">
+  <span class="create-modal-header">
+    <span *ngIf="!edit; else showEditTitle">
+      Create User Group
+    </span>
+    <ng-template #showEditTitle>
+      Edit User Group
+    </ng-template>
+  </span>
 
-    <ng-container>
-        <div class="title-section">
-            <p class="title">Create User Group</p>
-          </div>
-    </ng-container>
-  
-    <form class="form" [formGroup]="createUserGroupForm">
-      <div class="form-item">
-        <label for="className">{{'CLASSESS.MODALS.CLASSNAME' | transloco }}</label>
-        <input class="input" id="className" type="text"   id="" formControlName ="className">
-      </div>
-  
-      <div class="form-item">
-        <label for="description">{{'CLASSESS.MODALS.DESCRIPTION' | transloco }}</label>
-        <input class="input" id="description" type="text"  id="" formControlName ="description">
-      </div>
-  
-      <div class="action-btns">
-        <button class="btn" (click)="closeModal()">{{'CLASSESS.MODALS.ACTION-BUTTONS.CANCEL' | transloco }}</button>
-          <button type="button" (click)="onSubmit()">{{'CLASSESS.MODALS.ACTION-BUTTONS.SAVE' | transloco }}</button>
-      </div>
-    </form>
-  </div>
+  <form [formGroup]="createUserGroupForm">
+
+    <div fxLayout="column" class="form-inputs" fxLayoutAlign="start">
+      <h4 class="label">
+        Group name
+      </h4>
+      <mat-form-field appearance="outline">
+        <input type="text" matInput formControlName="className"/>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" class="form-inputs" fxLayoutAlign="start">
+      <h4 class="label">Description</h4>
+
+      <mat-form-field appearance="outline">
+        <textarea matInput formControlName="description">
+        </textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="create-modal-btns">
+      <button mat-stroked-button mat-dialog-close class="create-modal-cancel">
+        {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CANCEL' | transloco }}
+      </button>
+      <button mat-raised-button class="add-btn" color="primary" class="create-modal-confirm" (click)="onSubmit()">
+        {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CONFIRM' | transloco }}
+      </button>
+    </div>
+  </form>
+</div>
+
