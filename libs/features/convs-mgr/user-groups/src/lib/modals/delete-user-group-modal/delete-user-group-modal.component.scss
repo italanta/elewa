@@ -29,3 +29,7 @@
   font-weight: 400;
   padding-bottom: 0.5rem;
 }
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 1rem!important;
+}
