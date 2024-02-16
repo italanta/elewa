@@ -475,6 +475,12 @@
   },
   "CLASSESS": {
     "MODALS": {
+      "CLASS": {
+        "DELETE-TITLE": "Delete User Group",
+        "DELETE-MESSAGE": "Are you sure you want to delete this user group?\n This action cannot be undone.",
+        "CANCEL": "Cancel",
+        "CONFIRM": "Confirm"
+      },
       "CREATE-CLASS": "Create Class",
       "CLASSNAME": "ClassName",
       "GROUPNAME": "GroupName",
