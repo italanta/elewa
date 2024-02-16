@@ -22,6 +22,7 @@ import { UserGroupsHeaderComponent } from './components/user-groups-header/user-
 import { UserGroupsListComponent } from './components/user-groups-list/user-groups-list.component';
 import { CreateUserGroupComponent } from './modals/create-user-group/create-user-group.component';
 import { UserGroupsRouterModule } from './user-groups.router.module';
+import { MoveUsersToGroupModalComponent } from './modals/move-users-to-group-modal/create-bot-modal/move-users-to-group-modal.component';
 // import { UserGroupsStore } from 'libs/state/convs-mgr/user-groups/src/lib/store/user-groups.store';
 // import { UserGroupsService } from 'libs/state/convs-mgr/user-groups/src/lib/service/user-groups.service';
 
@@ -49,6 +50,7 @@ import { UserGroupsRouterModule } from './user-groups.router.module';
     SingleGroupUserListComponent,
     AddUserToGroupModalComponent,
     DeleteUserFromGroupModalComponent,
+    MoveUsersToGroupModalComponent
   ],
   providers:[]
 })

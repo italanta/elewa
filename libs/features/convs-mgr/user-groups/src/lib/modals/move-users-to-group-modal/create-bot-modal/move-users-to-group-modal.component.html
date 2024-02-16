@@ -1,0 +1,35 @@
+<div class="move-users-modal">
+  <h2 class="dialog-header">
+    <span>
+      Move users to another group
+    </span>
+  </h2>
+  <form class="moveUsersForm" [formGroup]="moveUsersForm">
+
+    <label class="label"> Select user group to move these users to</label>
+    <select id="class-select" name="class" formControlName="destClass">
+      <option *ngFor="let class of classrooms" [value]='class.id'>{{class.className}}</option>
+      <!-- <option [value]="null" [selected]="true">{{"PAGE-CONTENT.BLOCK.PLACEHOLDER.JUMP.SELECT-STORY" | transloco}}</option> -->
+    </select>
+
+    <div class="modal-buttons">
+      <div>
+        <button mat-stroked-button mat-dialog-close class="cancel-btn">
+          Cancel
+        </button>
+      </div>
+
+      <div>
+        <button [disabled]="isMovingUsers" mat-raised-button class="add-btn" color="primary" (click)="submitForm()">
+          <span *ngIf="isMovingUsers">
+            <mat-spinner diameter="25" strokeWidth="3" color="primary"></mat-spinner>
+          </span>
+
+          <span *ngIf="!isMovingUsers">
+            Save
+          </span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

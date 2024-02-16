@@ -1,0 +1,79 @@
+.move-users-modal {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+}
+
+.moveUsersForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#class-select {
+  width: 90%;
+  align-self: center;
+}
+
+.add-btn {
+  color: white;
+}
+
+.cancel-btn {
+  margin-right: 8px;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+}
+
+.dialog-header {
+  margin-top: 0px;
+  font-weight: 400;
+}
+
+
+.image-hint {
+  font-size: .9rem;
+  font-weight: 300;
+  color: #707070;
+}
+
+button {
+  border-radius: 10px;
+}
+
+#fas {
+  color: var(--convs-mgr-color-primary-shade);
+  margin-top: 40px;
+
+}
+
+#fas2 {
+  color: var(--convs-mgr-color-primary-red);
+  margin-top: 40px;
+
+}
+
+.label {
+  font-weight: 300;
+  padding: 0.8rem;
+}
+
+::ng-deep #mat-dialog-0 {
+  height: 560px;
+  width: 470px;
+}
+
+::ng-deep .mat-dialog-container {
+  overflow: hidden;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 25px!important;
+}
