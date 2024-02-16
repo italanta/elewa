@@ -24,10 +24,9 @@
         <ng-container matColumnDef="actions">
             <th class="table-header" mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let group"   >
-                <span mat-button [matMenuTriggerFor]="menu">
+                <button mat-button [matMenuTriggerFor]="menu">
                     <i class="fas fa-ellipsis-v"></i>
-
-            </span>
+                </button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)="openEditModal(group)">Edit</button>
                     <button mat-menu-item (click)="openDeleteModal(group.id)">Delete</button>
