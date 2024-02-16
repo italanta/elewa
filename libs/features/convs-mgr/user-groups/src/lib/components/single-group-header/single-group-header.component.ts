@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
+
 import { Classroom } from '@app/model/convs-mgr/classroom';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-single-group-header',
@@ -8,4 +10,11 @@ import { Classroom } from '@app/model/convs-mgr/classroom';
 })
 export class SingleGroupHeaderComponent {  
   @Input() classroom: Classroom;
+
+  constructor(private _router: Router) { }
+
+  goBack() 
+  {
+    this._router.navigate(['/user-groups'])
+  }
 }
