@@ -100,7 +100,7 @@
         <ng-container matColumnDef="class">
           <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="class">
             {{'LEARNERS.TABLE-HEADER.CLASS'| transloco }}</th>
-          <td mat-cell *matCellDef="let enrolledUsr">{{ getClassName(enrolledUsr.classId) || 'Default' | titlecase }}</td>
+          <td mat-cell *matCellDef="let enrolledUsr">{{ getClassName(enrolledUsr.classId) || 'Unassigned' | titlecase }}</td>
         </ng-container>
 
         <ng-container matColumnDef="status">
