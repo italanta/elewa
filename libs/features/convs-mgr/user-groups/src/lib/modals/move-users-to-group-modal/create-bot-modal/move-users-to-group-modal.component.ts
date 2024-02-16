@@ -1,3 +1,5 @@
+import * as _ from "lodash";
+
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
@@ -65,7 +67,10 @@ export class MoveUsersToGroupModalComponent implements OnInit, OnDestroy {
     this.data.users.forEach((user)=> 
         this.moveUserToGroup(user, destClass[0]));
 
-    this._classroomService.moveUsersToClass(this.data.users, this.currentClass, destClass[0])
+    const newDest = _.cloneDeep(destClass[0]);
+    const newCurrent = _.cloneDeep(this.currentClass);
+
+    this._classroomService.moveUsersToClass(this.data.users, newCurrent, newDest)
             .subscribe(() => this.isMovingUsers = false);
   }
   
