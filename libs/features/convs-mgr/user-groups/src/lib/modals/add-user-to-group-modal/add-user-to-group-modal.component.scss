@@ -1,48 +1,76 @@
-.modal-wrapper {
-  width: 25rem;
+.create-modal-wrapper {
+  display: flex;
+  padding: 1.8rem;
+  flex-direction: column;
+  min-width: 25rem;
+  max-width: max-content;
+  gap: 0.4rem;
+}
+
+.create-modal-btns {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+}
+
+.create-modal-cancel {
+  color: var(--convs-mgr-color-bright-teal);
 }
 
 
-.modal-wrapper {
+.create-modal-btns > button {
+  width: 7rem;
+  border-radius: 1.25rem;;
+}
+
+.create-modal-header {
+  font-size: x-large;
+  font-weight: 400;
+}
+
+.modal {
+  padding: 20px
+}
+
+.add-btn {
+  color: white;
+}
+
+.cancel-btn {
+  margin-right: 8px;
+}
+
+.bot-buttons {
+  margin-top: 30px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.label {
+  font-size: medium;
+  font-weight: 300;
+}
+
+.form-inputs {
   display: flex;
   flex-direction: column;
-  padding: 2rem;
-  gap: 1rem;
+  margin: 1rem 0;
+  padding-bottom: 0.5rem;
+  gap: 0.5rem;
+}
 
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  
-    .form-item {
-      display: flex;
-      flex-direction: column;
-  
-      .input {
-        height: 2rem;
-      }
-    }
-  }
+input {
+  height: 4rem;
+}
 
-  .title-section {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+::ng-deep .mat-mdc-form-field {
+  width: 100%;
+}
 
-    .title {
-      font-size: 1.5rem;
-      border-bottom: 1px solid gray;
-    }
-  }
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  height: 0;
+}
 
-  .action-btns {
-    display: flex;
-    justify-content: space-between;
-    justify-self: flex-end;
-
-    .btn {
-      outline: none;
-      padding: 0.5rem 0.9rem;
-    }
-  }
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 1rem!important;
 }
