@@ -83,7 +83,7 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
           <td mat-cell *matCellDef="let enrolledUsr">
-            <span><mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon></span>
+            <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
 
             <mat-menu #menu="matMenu">
               <button class="mat-menu-item" mat-menu-item (click)="deleteUserFromGroupModal(enrolledUsr)">
