@@ -795,7 +795,7 @@
     },
 
     "USER-GROUPS":{
-      "TITLE":"userGroups",
+      "TITLE":"User Groups",
       "USER-GROUPS-HEADER":{
         "GROUP-NAME":"GroupName",
         "USERS":"Users",
