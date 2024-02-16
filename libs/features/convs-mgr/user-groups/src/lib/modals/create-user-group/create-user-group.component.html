@@ -33,7 +33,10 @@
         {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CANCEL' | transloco }}
       </button>
       <button mat-raised-button class="add-btn" color="primary" class="create-modal-confirm" (click)="onSubmit()">
-        {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CONFIRM' | transloco }}
+        <span *ngIf="!edit; else showUpdate">{{ 'CLASSESS.MODALS.USER-FROM-GROUP.CONFIRM' | transloco }}</span>
+          <ng-template #showUpdate>
+            Update
+          </ng-template>
       </button>
     </div>
   </form>
