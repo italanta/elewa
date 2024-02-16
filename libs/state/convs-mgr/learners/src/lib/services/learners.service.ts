@@ -37,7 +37,7 @@ export class EnrolledLearnersService {
                 user.currentCourse = endUser.currentStory as string || "";
 
                 if(endUser.variables) {
-                  user.name = endUser.variables['name'];
+                  user.name = endUser.variables['name'] || "";
                 }
               }
               return user;
@@ -52,6 +52,10 @@ export class EnrolledLearnersService {
 
   getLearnersFromClass(classId: string) {
     return this.getAllLearners$().pipe(map((learners)=> {
+      learners = learners.map((learner)=> {
+        learner.name = !learner.name ? "" : learner.name;
+        return learner;
+      } )
       return _.filter(learners, {classId: classId});
     }))
   }
@@ -60,7 +64,7 @@ export class EnrolledLearnersService {
     return this._enrolledLearners$$.getOne(id);
   }
 
-  deleteLearnerFromGroup(learnerId: string) {
+  deleteLearnerFromGroupById(learnerId: string) {
     return this.getSpecificLearner$(learnerId)
     .pipe(
       take(1),
@@ -74,6 +78,18 @@ export class EnrolledLearnersService {
           return of({});
         }
       }));
+  }
+
+  deleteLearnerFromGroup(learner: EnrolledEndUser) {
+    learner.classId = "";
+    return this.updateLearner$(learner);
+  }
+
+  moveUserToGroup(user: EnrolledEndUser, destClass: Classroom) {
+    user.classId = destClass.id as string;
+    const updateLearner$ = this.updateLearner$(user);
+
+    return updateLearner$;
   }
 
   addLearnerWithClassroom$(learner: EnrolledEndUser, classroom: Classroom) {
