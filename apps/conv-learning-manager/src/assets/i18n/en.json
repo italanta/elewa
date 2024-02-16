@@ -481,6 +481,13 @@
         "CANCEL": "Cancel",
         "CONFIRM": "Confirm"
       },
+
+      "USER-FROM-GROUP": {
+        "DELETE-TITLE": "Delete User from Group",
+        "DELETE-MESSAGE": "Are you sure you want to delete user from group?",
+        "CANCEL": "Cancel",
+        "CONFIRM": "Confirm"
+      },
       "CREATE-CLASS": "Create Class",
       "CLASSNAME": "ClassName",
       "GROUPNAME": "GroupName",
