@@ -12,9 +12,7 @@ export class UserGroupsHeaderComponent {
   constructor(private _dialog: MatDialog) {}
   
   openCreateModal() {
-    const dialogRef = this._dialog.open(CreateUserGroupComponent, {
-      width: '610px',
-    });
+    const dialogRef = this._dialog.open(CreateUserGroupComponent);
   }
 
 }
