@@ -156,6 +156,10 @@ a:hover {
   border-bottom: 1px solid rgba($color: #707070, $alpha: 0.25) !important;
 }
 
+.unassigned-class {
+  color: #7c7c7c;
+}
+
 .mat-mdc-row:hover .mat-mdc-cell {
   cursor: pointer;
 }
