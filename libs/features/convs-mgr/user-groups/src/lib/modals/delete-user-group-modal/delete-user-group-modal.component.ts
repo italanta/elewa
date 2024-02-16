@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SubSink } from 'subsink';
 
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
+import { Classroom } from '@app/model/convs-mgr/classroom';
 
 @Component({
   selector: 'app-delete-user-group-modal',
@@ -14,7 +15,7 @@ export class DeleteUserGroupModalComponent implements OnInit, OnDestroy
 {
   private _sBs = new SubSink();
 
-  classRoom: any;
+  classRoom: Classroom;
   classRoomId = '';
 
   constructor(
@@ -25,7 +26,7 @@ export class DeleteUserGroupModalComponent implements OnInit, OnDestroy
   {
     this.classRoomId = this.data.id;
   }
-  
+
   ngOnInit(): void
   {
     this.getUserGroup();
@@ -36,7 +37,7 @@ export class DeleteUserGroupModalComponent implements OnInit, OnDestroy
     this.classroomService.getSpecificClassroom(this.classRoomId).subscribe(
       (classRoom) =>
       {
-        this.classRoom = classRoom;
+        if(classRoom) this.classRoom = classRoom;
       }
     );
   }
