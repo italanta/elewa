@@ -54,7 +54,6 @@ export class UserGroupsListComponent implements OnInit {
   openDeleteModal(id:string) {
     this._dialog.open(DeleteUserGroupModalComponent,
       {
-        width: '610px',
         data: {id}
       });
       
