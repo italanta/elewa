@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="45" viewBox="0 0 50 45">
+  <g id="MDI_account-multiple" data-name="MDI / account-multiple" opacity="0.53">
+    <g id="Boundary" fill="#fff" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
+      <rect width="50" height="45" stroke="none"/>
+      <rect x="0.5" y="0.5" width="49" height="44" fill="none"/>
+    </g>
+    <path id="Path_account-multiple" data-name="Path / account-multiple" d="M33.856,35.2V40H2V35.2s0-9.6,15.928-9.6,15.928,9.6,15.928,9.6M25.892,12.4A8.191,8.191,0,0,0,17.928,4a8.191,8.191,0,0,0-7.964,8.4,8.191,8.191,0,0,0,7.964,8.4,8.191,8.191,0,0,0,7.964-8.4M33.72,25.6a13,13,0,0,1,4.687,9.6V40h9.1V35.2s0-8.712-13.789-9.6M31.581,4a7.434,7.434,0,0,0-4.392,1.416,12.537,12.537,0,0,1,0,13.968A7.435,7.435,0,0,0,31.581,20.8a8.191,8.191,0,0,0,7.964-8.4A8.191,8.191,0,0,0,31.581,4Z" transform="translate(0 0)" fill="#fff"/>
+  </g>
+</svg>

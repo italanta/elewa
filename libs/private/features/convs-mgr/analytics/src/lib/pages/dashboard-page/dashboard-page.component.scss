@@ -5,6 +5,7 @@
   flex-direction: column;
   gap: 0.5rem;
   padding: 1.4rem;
+  overflow-x: hidden;
 
   .title {
     font-size: 2rem;
@@ -20,24 +21,26 @@
     gap: 10px;
     width: 100%;
 
-    .items {
+  }
+  .items {
+    display: flex;
+    gap: 0.5rem;
+    
+    .item_btn {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.2rem;
+      background-color: #FFFFFF;
+      color: #101010;
+      width: 13.75rem;
+      border-radius: 1.875rem;
+      padding: 0.75rem 1.563rem;
+      .btn {
+        background-color: #f0f0f0;
+      }
 
-      .item_btn {
-        display: flex;
-        gap: 0.2rem;
+      .active {
+        text-align: center;
         background-color: teal;
-        color: white;
-
-        .btn {
-          background-color: #f0f0f0;
-        }
-
-        .active {
-          text-align: center;
-          background-color: teal;
-        }
       }
     }
   }
@@ -51,14 +54,66 @@
   }
 }
 
-// buttons
-button {
-  border: none;
-  padding: 0.5rem;
-  border-radius: 5px;
-  cursor: pointer;
+.main-section {
+  width: 100%;
+}
 
-  &:active {
-    transform: scale(0.95);
+::ng-deep .courses > .mdc-button  > .mdc-button__label  {
+  width: 100% !important;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.top-filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1.5rem 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #FFFFFF;
+
+  &:first-child {
+    border-top-left-radius: 0.625rem;
+    border-bottom-left-radius: 0.625rem;
   }
+
+  &:last-child {
+    border-top-right-radius: 0.625rem;
+    border-bottom-right-radius: 0.625rem;
+  }
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  text-align: center;
+  padding: 0.688rem 1.5rem;
+  text-decoration: none;
+  color: #101010;
+  cursor: pointer;
+}
+
+li a:hover:not(.active) {
+  background-color: teal;
+  color: #FFFFFF;
+}
+
+.active {
+  background-color: #101010;
+  color: #FFFFFF !important;
 }

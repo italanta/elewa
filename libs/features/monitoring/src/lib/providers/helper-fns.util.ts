@@ -1,29 +1,66 @@
-import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
+import * as moment from 'moment';
+
+import { __DateFromStorage } from '@iote/time';
+
+import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
+
+const chartColors = [
+  "#008080", // Teal
+  "#000080", // Navy
+  "#800080", // Purple
+  "#EC652A", // Orange
+  "#800000", // Maroon
+  "#008000", // Green
+  "#0000FF", // Blue
+  "#00FFFF", // Aqua
+  "#FF00FF", // Fuchsia
+  "#FFFF00", // Yellow
+  "#C0C0C0", // Silver
+  "#808080", // Gray
+  "#99CCFF", // Sky Blue
+  "#4E4187", //
+  "#FF99CC", // Pink
+  "#CC99FF", // Lavender
+  "#FFCC99", // Peach
+  "#99CCCC", // Pale Cyan
+  "#CC9999", // Rose
+  "#FFFF99"  // Light Yellow
+];
 
 /** formart Date and then pass to chart */
-export function formatDate(time: number): string {
-  const date = new Date(time);
-  return date.getDate() + '/' + (date.getMonth() + 1);
+export function formatDate(time: number, period: Periodicals): string {
+  const momentDate = moment.unix(time/1000);
+
+  switch (period) {
+    case "Daily":
+      return momentDate.format('dddd');
+    case "Weekly":
+      return momentDate.format("[Week] W");
+    case "Monthly":
+      return momentDate.format("MMMM [']YY");
+    default:
+      return momentDate.format('DD/MM YY');
+  }
+
+  // const date = new Date(time);
+  // return date.getDate() + '/' + (date.getMonth() + 1);
 }
 
 /** getRandomColor */
 export function getColor(idx: number) {
-  return [
-    '#e3342f',
-    '#f6993f',
-    '#f66d9b',
-    '#ffed4a',
-    '#4dc0b5',
-    '#3490dc',
-    '#6574cd',
-    '#9561e2',
-    '#38c172',
-  ][idx];
+  return chartColors[idx];
 }
 
 /** Retrieves daily milestones of all users */
 export function getDailyProgress(allProgress: GroupProgressModel[]) {
-  return allProgress;
+  const now = moment();
+
+  // Show only data for the last 9 days
+  return allProgress.filter((progress)=> {
+    const date = __DateFromStorage(progress.createdOn as Date);
+
+    return now.diff(date, 'days') < 10;
+  })
 }
 
 /** Retrieves weekly milestones of all users */

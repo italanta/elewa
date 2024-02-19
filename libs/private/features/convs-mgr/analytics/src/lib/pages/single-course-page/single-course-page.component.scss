@@ -1,0 +1,64 @@
+.single-course-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-evenly;
+  gap: 1rem;
+}
+
+.top-section {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.bottom-section {
+  width: 100%;
+}
+
+.stat-section {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #FFFF;
+  border-radius: 1.25rem;
+  color: #101010;
+  text-align: center;
+  height: 11rem;
+  padding: 1.25rem;
+  width: 92%;
+}
+
+.stat-card-info {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.card-title {
+  font-weight: 400;
+}
+
+.stat {
+  font-size: x-large;
+  font-weight: 500;
+  color: var(--convs-mgr-color-bright-teal);
+}
+
+.card-text {
+  font-weight: lighter;
+}
+.card-title, .stat, .card-text {
+  padding: 0.4rem;
+}
+
+.top-stats {
+  width: 100%;
+}

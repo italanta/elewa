@@ -15,6 +15,10 @@ import { ReportsPageComponent } from './pages/reports-page/reports-page.componen
 
 import { AnalyticsRouterModule } from './analytics.router.module';
 
+import { DashboardTopStatsComponent } from './components/dashboard-top-stats/dashboard-top-stats.component';
+import { AllCoursesPageComponent } from './pages/all-courses-page/all-courses-page.component';
+import { SingleCoursePageComponent } from './pages/single-course-page/single-course-page.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -25,6 +29,6 @@ import { AnalyticsRouterModule } from './analytics.router.module';
     MultiLangModule,
     MaterialDesignModule
   ],
-  declarations: [DashboardPageComponent, ReportsPageComponent],
+  declarations: [DashboardPageComponent, ReportsPageComponent, DashboardTopStatsComponent, AllCoursesPageComponent, SingleCoursePageComponent],
 })
 export class AnalyticsModule {}

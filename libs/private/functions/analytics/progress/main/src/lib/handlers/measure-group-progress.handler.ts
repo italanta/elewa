@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionHandler, HttpsContext, RestResult } from '@ngfi/functions';
 
@@ -16,11 +17,15 @@ import {
   GroupedProgressMilestone,
   AnalyticsConfig,
 } from '@app/model/analytics/group-based/progress';
+import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 
 import { MonitoringAndEvaluationService } from '../data-services/monitoring.service';
 import { MeasureParticipantProgressHandler } from './measure-participant-progress.handler';
 
+import { getEnrolledUserCreationCount } from '../utils/get-user-count.util';
 import { _getProgressCompletionRateData } from '../utils/get-completion- rate.util';
+import { UserMetricsService } from '../data-services/user-metrics.service';
+import { computeCourseProgress } from '../utils/compute-course-progress.util';
 
 /**
  * Function which calculates progress of a given participant based on the stories they have completed.
@@ -79,24 +84,23 @@ async function _computeAnalyticsForOrg(tools: HandlerTools, orgId: string, conte
     );
   
     tools.Logger.log(() => `[measureGroupProgressHandler].execute - EndUsers successfully fetched and grouped with classroom`);
-  
+    
     const engine = new MeasureParticipantProgressHandler();
-  
+    
     //4. get all users progress
-    const allUsersProgress = await Promise.all(
-      endUsersWithClassroom?.map((user) => {
-          if (user.endUser) {
-            return engine.execute({ orgId, participant: user, interval }, context, tools)
-          }
-        }
-      )
-    );
-  
+    const allUsersProgress: ParticipantProgressMilestone[] = [];
+    for (const user of endUsersWithClassroom || []) {
+      if (user.endUser) {
+        const progress = await engine.execute({ orgId, participant: user, interval }, context, tools);
+        allUsersProgress.push(progress);
+      }
+    }
+
     // get the time/date for the measurement calculated in unix
     const timeInUnix = interval ? interval : _getCurrentDateInUnix();
   
     // 4. Combine the progress of each user into a group progress model
-    return _groupProgress(allUsersProgress, timeInUnix, tools, orgId);
+    return _groupProgress(allUsersProgress, enrolledUsers, timeInUnix, tools, orgId);
   } catch (error) {
     tools.Logger.error(() => `[measureGroupProgressHandler].execute - Encountered an error ${error}`);
     return { error: error.message, status: 500 } as RestResult;
@@ -107,12 +111,14 @@ async function _computeAnalyticsForOrg(tools: HandlerTools, orgId: string, conte
  * Groups participant progress by milestone and group.
  * @param {Array} allUsersProgress - An array of participant progress milestone objects.
  */
-async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], timeInUnix:number, tools: HandlerTools, orgId: string) {
+async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], allUsers: EnrolledEndUser[], timeInUnix:number, tools: HandlerTools, orgId: string) {
   tools.Logger.log(() => `[measureGroupProgressHandler].execute - Start grouping allusersProgress`);
 
   const monitoringDataServ = new MonitoringAndEvaluationService(tools, orgId);
 
-  const enrolledUserDataServ = new EnrolledUserDataService(tools, orgId);
+  const userMetricsService = new UserMetricsService(tools);
+
+  userMetricsService.setEnrolledUsers(allUsers);
 
   //1. group users by milestones
   const measurements = _parseAllUserProgressData(allUsersProgress);
@@ -128,51 +134,29 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
   const date = new Date(timeInUnix);
 
   //3. get newly Enrolled User Count
-  const enrolledUserCount = await getEnrolledUserCreationCount(enrolledUserDataServ, orgId, tools, timeInUnix);
+  const todaysEnrolledUsersCount = await getEnrolledUserCreationCount(userMetricsService, orgId, tools, timeInUnix);
+
+  const courseProgress =  computeCourseProgress(allUsers);
+
+  const {coursesCompleted, coursesStarted} = getCourseStats(allUsers);
 
   //4. Add To Database
-  const savedMilestone = await monitoringDataServ.createNewMilestone(
-    timeInUnix,
+  const milestoneId = `m_${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+
+  const milestone: GroupProgressModel = {
+    time: timeInUnix,
     measurements,
     groupedMeasurements,
-    enrolledUserCount,
+    todaysEnrolledUsersCount,
     progressCompletion,
-   `m_${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
-  );
+    coursesCompleted,
+    coursesStarted,
+    courseProgress
+  }
+
+  const savedMilestone = await monitoringDataServ.createNewMilestone(milestone, milestoneId);
 
   return savedMilestone;
-}
-
-/**
- * Gets the number of enrolled users created today, in the past week (if it's friday), and in the past month (if end of month).
- * @param {enrolledUserDataServ} enrolledUserDataServ - The enrolled user data service.
- * @param {string} orgId - The organization ID.
- */
-async function getEnrolledUserCreationCount(enrolledUserDataServ: EnrolledUserDataService, orgId: string, tools:HandlerTools, timeInUnix:number) {
-  const timeToCollect = new Date(timeInUnix);
-  const dayOfWeek = timeToCollect.getDay(); // 0 = Sunday, 1 = Monday, ...
-  const isLastDayOfMonth = new Date(timeToCollect.getFullYear(), timeToCollect.getMonth() + 1, 0).getDate() === timeToCollect.getDate();
-
-  const dailyCount = (await enrolledUserDataServ.getSpecificDayUserCount(orgId, timeInUnix)).length;
-
-  let pastWeekCount = 0;
-  let pastMonthCount = 0;
-
-  if (dayOfWeek === 5) { // Friday (0-based index, where 5 represents Friday)
-    pastWeekCount = (await enrolledUserDataServ.getPastWeekUserCount(orgId, timeInUnix)).length;
-  }
-
-  if (isLastDayOfMonth) {
-    pastMonthCount = (await enrolledUserDataServ.getPastMonthUserCount(orgId, timeInUnix)).length;
-  }
-
-  tools.Logger.log(() => `[measureGroupProgressHandler].execute - Enrolled user creation count completed`);
-
-  return {
-    dailyCount,
-    pastWeekCount,
-    pastMonthCount
-  }
 }
 
 /**
@@ -245,6 +229,32 @@ function _parseGroupedProgressData(allUsersProgress: ParticipantProgressMileston
   });
 
   return groupedByGroupAndMilestone;
+}
+
+function getCourseStats(enrolledUsers: EnrolledEndUser[]) {
+  const coursesCompleted = []
+  const coursesStarted = [];
+  let userCompletedCourses = [];
+
+  // TODO: Avoid repetion of this loop
+  for (const user of enrolledUsers) {
+    let courses = [];
+    if(user.courses) {
+      courses = user.courses;
+    }
+    if(user.completedCourses) {
+      userCompletedCourses = user.completedCourses;
+    }
+    coursesCompleted.push(...userCompletedCourses);
+
+    const coursesStartedIds = courses.map((course)=> course.courseId);
+    coursesStarted.push(...coursesStartedIds);
+  }
+
+  return {
+    coursesCompleted: _.uniqBy(coursesCompleted, 'id'),
+    coursesStarted: _.uniqBy(coursesStarted, 'id')
+  }
 }
 
 /**

@@ -25,6 +25,7 @@ export class CourseModuleItemComponent {
   @Input() story: Story;
 
   _sBs = new SubSink();
+  isPublishing :boolean;
 
   constructor(private _dialog: MatDialog, 
               private _router$: Router) {}
@@ -60,4 +61,27 @@ export class CourseModuleItemComponent {
     }).afterClosed();
   }
 
+  connectToChannel(botId: string) {
+    this._dialog.open(ConnectToChannelModalComponent,{
+      width: '30rem',
+       height: '20rem',
+       data: { botId: botId }
+    });
+   }
+  deleteBot(botId:Bot){
+    this._botsService$.deleteBot(botId)
+  } 
+
+  archiveBot(bot:Bot){
+    bot.isArchived = true;
+    this._botsService$.updateBot(bot)
+  }
+  publishBot(bot:Bot){
+    this.isPublishing = true;
+    bot.isPublished = true;
+    this._botsService$.updateBot(bot)
+      .subscribe(() => {
+        this.isPublishing = false;
+      });
+   }
 }

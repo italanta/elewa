@@ -3,10 +3,9 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
 
-import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
+import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 
-import { periodicals } from '../../models/periodicals.interface';
 import {
   formatDate,
   getColor,
@@ -27,7 +26,7 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
 
   activeCourse: string;
   activeClassroom: string;
-  selectedPeriodical: periodicals;
+  selectedPeriodical: Periodicals;
 
   showData = false;
 
@@ -37,7 +36,7 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
   monthlyProgress: GroupProgressModel[];
 
   @Input()
-  set setPeriodical(value: periodicals) {
+  set setPeriodical(value: Periodicals) {
     this.selectedPeriodical = value;
     this.selectProgressTracking(value);
   }
@@ -63,7 +62,7 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectProgressTracking(periodical: periodicals) {
+  selectProgressTracking(periodical: Periodicals) {
     if (!this.dailyProgress) return
 
     if (periodical === 'Daily') {
@@ -83,13 +82,12 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
     return new Chart('user-chart', {
       type: 'bar',
       data: {
-        labels: models.map((day) => formatDate(day.time)),
+        labels: models.map((day) => formatDate(day.time, this.selectedPeriodical)),
         datasets: [
           {
             label: `Enrolled User's`,
             data: this.getData(models),
-            backgroundColor: getColor(1),
-            borderRadius: 10,
+            backgroundColor: '#517B15',
           },
         ],
       },
@@ -100,12 +98,37 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
         plugins: {
           title: {
             display: true,
-            text: 'Course enrollment',
+            text: 'Users enrollment',
+            font: {size: 14, weight: 'normal'}
           },
+          legend: {
+            display: true,
+            position: "bottom",
+            labels: {
+              boxWidth: 12,
+              useBorderRadius: true,
+              borderRadius: 6
+            },
+          
+          },
+
         },
         scales: {
-          x: { stacked: true },
-          y: { stacked: true },
+          x: { 
+            stacked: true, 
+            grid: {display: false} ,
+            ticks: { 
+              maxTicksLimit: 12,
+              autoSkip: false
+            },
+          },
+          y: { 
+            stacked: true, 
+            grid: {color: '#F0F0F0'},  
+            ticks: { 
+              maxTicksLimit: 6, 
+              autoSkip: true 
+            }},
         },
       },
     });
