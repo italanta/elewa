@@ -44,17 +44,28 @@ export class ProgressMonitoringService {
   }
 
   allCoursesTopStats(bots: Bot[], latestProgress: GroupProgressModel) {
+    const data = [{count: 0, text: "Courses Published", color: "#05668D", icon: "check-all.svg"},
+    {count: 0, text: "Courses Unpublished", color: "#392F5A", icon: "camera-timer.svg"},
+    {count: 0, text: "Courses Started", color: "#404E4D", icon: "book-multiple-outline.svg"},
+    {count: 0, text: "Courses Completed", color: "#69306D", icon: "book-check-outline.svg"}];
+
+    if(!latestProgress.courseProgress) {
+      return data;
+    }
+
     const publishedBots = bots.filter(course => course.isPublished).length;
     const unPublishedBots = bots.length - publishedBots;
 
     const coursesStarted = latestProgress.coursesStarted.length;
     const coursesCompleted = latestProgress.coursesCompleted.length;
 
+    data[0].count = publishedBots;
+    data[1].count = unPublishedBots;
+    data[2].count = coursesStarted;
+    data[3].count = coursesCompleted;
+
     // TODO: Move this to component level
-    return [{count: publishedBots, text: "Courses Published", color: "#05668D", icon: "check-all.svg"},
-    {count: unPublishedBots, text: "Courses Unpublished", color: "#392F5A", icon: "camera-timer.svg"},
-    {count: coursesStarted, text: "Courses Started", color: "#404E4D", icon: "book-multiple-outline.svg"},
-    {count: coursesCompleted, text: "Courses Completed", color: "#69306D", icon: "book-check-outline.svg"}]
+    return data;
   }
   
   singleCourseTopStats(courseId: string, latestProgress: GroupProgressModel) {
