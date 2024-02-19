@@ -147,18 +147,8 @@
                           
                         <br>
 
-                        <div class="variables" *ngIf="showVariablesSection">
-                            <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.SAMPLES'| transloco }}</p>
-                            <p class="np">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.NOTICE'| transloco }}</p>
-                            <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}</p>
-                            
-                            <h1 class="vars" style="margin-left: 0.5rem;" *ngFor="let variable of newVariables$ | async">{{variable.placeholder}}: <span>{{variable.variable}}</span></h1>
-                              <div [formGroup] = "newVariableForm">
-                                <input type="text" formControlName="newPlaceholder"  class="eveinput" style="margin-left: 0.5rem;">
-                                <input type="text" formControlName="newVariable" placeholder="{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.PLACEHOLDER'| transloco }}"  class="eveinputs" [attr.disabled]="newVariableForm.get('newVariable')?.disabled ? true : null">
-                                </div>
-                        </div>
-                        </div>
+                        <app-template-variables-sample-section></app-template-variables-sample-section>
+                    </div>
                     <div class="form-group">
                         <p> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.FOOTER.FOOTER'| transloco }}</p>
                         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.FOOTER.FOOTER-DESCRIPTION'| transloco }}</p>
