@@ -15,6 +15,8 @@ import {
   CreateLessonModalComponent
 } from '@app/elements/layout/convs-mgr/story-elements';
 
+import { ConnectToChannelModalComponent } from '../../../modals/connect-to-channel-modal/connect-to-channel-modal.component';
+
 @Component({
   selector: 'italanta-apps-course-module-item',
   templateUrl: './course-module-item.component.html',
@@ -27,7 +29,8 @@ export class CourseModuleItemComponent {
   _sBs = new SubSink();
   isPublishing :boolean;
 
-  constructor(private _dialog: MatDialog, 
+  constructor(private _dialog: MatDialog,
+              private _botsService$: BotsStateService, 
               private _router$: Router) {}
 
   specificBot: Bot | undefined; /**adding undefined here since it is described that way in the store service, removing might break something, check on this */

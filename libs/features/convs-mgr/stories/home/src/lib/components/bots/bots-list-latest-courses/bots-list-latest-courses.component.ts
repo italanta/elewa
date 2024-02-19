@@ -75,6 +75,10 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
     this._router$$.navigate(['bots', id]);
   }
 
+  deleteBot(botId:Bot){
+    this._botsService.deleteBot(botId)
+  } 
+
   ngOnDestroy(): void
   {
     this._sBs.unsubscribe();

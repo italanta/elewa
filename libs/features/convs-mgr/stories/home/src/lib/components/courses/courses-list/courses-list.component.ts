@@ -25,6 +25,8 @@ export class CoursesListComponent implements OnDestroy {
 
   _sBs = new SubSink();
 
+  isPublishing: boolean;
+
   filterString$: Observable<string>;
 
   constructor(private _dialog: MatDialog, private _botsService$: BotsStateService) {}
@@ -51,10 +53,10 @@ export class CoursesListComponent implements OnDestroy {
   }
 
   publishBot(bot:Bot){
-    bot.isPublishing = true;
+    this.isPublishing = true;
     this._sBs.sink = this._botsService$.publishBot(bot)
       .subscribe(() => {
-        bot.isPublishing = false;
+        this.isPublishing = false;
       });
   }
 
