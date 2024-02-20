@@ -27,6 +27,8 @@ export interface Bot extends IObject {
 
   isPublished?: boolean;
 
+  publishedOn?: Date;
+
   /* bot archive status*/
   isArchived?: boolean;
 }
