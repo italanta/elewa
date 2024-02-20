@@ -71,7 +71,7 @@ export interface TemplateButton {
 
 export interface TemplateBody {
   text: string;
-  examples?: string[];
+  examples?: {name: string, value: string}[];
 }
 
 /**
@@ -135,7 +135,7 @@ export interface TemplateHeader {
   /** If using variables in the header text or media, you have to provide an example of the variables value or
    * an asset(media) that might be used.
    */
-  examples?: string[];
+  examples?: {name: string, value: string}[];
 }
 
 export interface TextHeader extends TemplateHeader {
@@ -183,9 +183,7 @@ export const isMediaHeader = (templateHeaderTypes: TemplateHeaderTypes) => {
   switch (templateHeaderTypes) {
     case TemplateHeaderTypes.IMAGE:
       return true;
-    case TemplateHeaderTypes.IMAGE:
-      return true;
-    case TemplateHeaderTypes.IMAGE:
+    case TemplateHeaderTypes.VIDEO:
       return true;
     default:
       return false;
