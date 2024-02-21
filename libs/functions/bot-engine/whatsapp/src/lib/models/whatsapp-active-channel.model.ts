@@ -206,10 +206,10 @@ export class WhatsappActiveChannel implements ActiveChannel
           
           const data = axiosError.response.data as any;
           
-          // If we have hit the rate limit, wait 100ms then resend the message
+          // If we have hit the rate limit, wait 300ms second then resend the message
           if(data.error.code == 131056) {
             this._tools.Logger.debug(() => `[SendWhatsAppMessageModel]. PAIR RATE LIMIT HIT! Attempting to resend message`);
-            await new Promise(resolve => setTimeout(resolve, 100));
+            await new Promise(resolve => setTimeout(resolve, 300));
             return this.send(whatsappMessage, standardMessage);
           } else {
             return {success: false, data: axiosError.response.data};
