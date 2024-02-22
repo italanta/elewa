@@ -24,6 +24,7 @@ import { AfterInactivityModalComponent } from './modals/after-inactivity-modal/a
 import { MilestoneReachedModalComponent } from './modals/milestone-reached-modal/milestone-reached-modal.component';
 import { MessageTemplateRouterModule } from './message-template.router';
 import { TemplateVariablesSampleSectionComponent } from './components/template-variables-sample-section/template-variables-sample-section.component';
+import { FilterExamplesPipe } from './pipes/filter-examples.pipe';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { TemplateVariablesSampleSectionComponent } from './components/template-v
     MilestoneReachedModalComponent,
     MessageTemplatesHistoryComponent,
     TemplateVariablesSampleSectionComponent,
+    FilterExamplesPipe
   ],
 })
 export class ConvsMgrMessageTemplatesModule {}
