@@ -11,7 +11,8 @@ export function createTemplateForm(fb: FormBuilder, template?: MessageTemplate):
     language: [template?.language ?? '', Validators.required],
     id: [template?.id ?? ''],
     templateId: [template?.templateId ?? ''],
-    examples: fb.array([]),
+    headerExamples: fb.array([]),
+    bodyExamples: fb.array([]),
     content: fb.group({
       header: fb.group({
         type: "TEXT",

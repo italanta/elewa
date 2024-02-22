@@ -19,17 +19,21 @@ import { Bot } from '@app/model/convs-mgr/bots';
 import { createTemplateForm } from '../../providers/create-empty-message-template-form.provider';
 import { SnackbarService } from '../../services/snackbar.service';
 import { categoryOptions, languageOptions } from '../../utils/constants';
-import { TemplateVariablesSampleSectionComponent } from '../template-variables-sample-section/template-variables-sample-section.component';
-
+import { HeaderVariablesSampleSectionComponent } from '../header-variables-sample-section/header-variables-sample-section.component';
+import { BodyVariablesSampleSectionComponent } from '../body-variables-sample-section copy/body-variables-sample-section.component';
 @Component({
   selector: 'app-message-template-form',
   templateUrl: './message-template-form.component.html',
   styleUrls: ['./message-template-form.component.scss'],
 })
-export class MessageTemplateFormComponent implements OnInit, OnDestroy {
+export class MessageTemplateFormComponent implements OnInit, OnDestroy
+{
   @ViewChild('textAreaElement') textAreaElement: ElementRef;
-  @ViewChild('exampleSection') 
-      exampleSection: TemplateVariablesSampleSectionComponent;
+  @ViewChild('headerSection')
+  headerSection: HeaderVariablesSampleSectionComponent;
+
+  @ViewChild('bodySection')
+  bodySection: BodyVariablesSampleSectionComponent;
 
   template$: Observable<MessageTemplate | undefined>;
   template: MessageTemplate;
@@ -39,26 +43,26 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   templateForm: FormGroup;
   content: FormGroup;
 
-  orgId:string;
+  orgId: string;
   selectedVariable: string;
   showCard: boolean;
   selectedClass: string;
-  botName:string;
+  botName: string;
 
   templateId: string;
   panelOpenState: boolean;
   isSaving: boolean;
-  showVariablesSection :boolean;
-  showHeaderExampleSection :boolean;
-  showBodyExampleSection :boolean;
+  showVariablesSection: boolean;
+  showHeaderExampleSection: boolean;
+  showBodyExampleSection: boolean;
   showSelectedVariableSection: boolean;
 
-  categories: { display: string; value: string }[] = categoryOptions;
-  languages: { display: string; value: string }[] = languageOptions;
+  categories: { display: string; value: string; }[] = categoryOptions;
+  languages: { display: string; value: string; }[] = languageOptions;
 
 
   fetchedVariables: any = [];
-  currentVariables:any =[];
+  currentVariables: any = [];
   bots: Bot[] = [];
   selectedBot: Bot;
 
@@ -71,12 +75,13 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     private _route$$: Router,
     private _snackbar: SnackbarService,
     private _botStateServ$: BotsStateService,
-    private _channelService: CommunicationChannelService, 
-    private _variableService$ : VariablesService,
+    private _channelService: CommunicationChannelService,
+    private _variableService$: VariablesService,
     private _activeOrgStore$$: ActiveOrgStore,
-  ) {}
+  ) { }
 
-  ngOnInit() {
+  ngOnInit()
+  {
     this.templateForm = createTemplateForm(this.fb);
     this.initPage();
     this.showCard = true;
@@ -84,14 +89,17 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     this.getActiveOrg();
   }
 
-  initPage() {
+  initPage()
+  {
     this._sbS.sink = this._route.params
       .pipe(map((params) => params['id'] as string))
-      .subscribe((templateId) => {
+      .subscribe((templateId) =>
+      {
         if (templateId) {
           this.template$ = this._messageTemplatesService.getTemplateById(templateId);
 
-          this._sbS.sink = this.template$.subscribe((template) => {
+          this._sbS.sink = this.template$.subscribe((template) =>
+          {
             if (template) {
               this.template = template;
               this.templateForm = createTemplateForm(this.fb, template);
@@ -108,106 +116,159 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  onBodyChange() {
-    this._sbS.sink = this.templateForm.get('content.body.text')?.valueChanges.subscribe(changes=> {
+  onBodyChange()
+  {
+    this._sbS.sink = this.templateForm.get('content.body.text')?.valueChanges.subscribe(changes =>
+    {
       this.removeOnChange(changes, 'body');
       this.restoreOnChange(changes, 'body');
-    })
-  }
-  
-  onHeaderChange () {
-    this._sbS.sink = this.templateForm.get('content.header.text')?.valueChanges.subscribe(changes=> {
-      this.removeOnChange(changes, 'header');
-      this.restoreOnChange(changes, 'header');
-  })
-  }
-
-  onExamplesChange () {
-    this._sbS.sink = this.templateForm.get('examples')?.valueChanges.subscribe((changes: any[]) => {
-
-      const bodyExm = changes.filter((exmp)=> exmp.section === 'body');
-      const headerExm = changes.filter((exmp)=> exmp.section === 'header');
-
-      this.showHeaderExampleSection = headerExm.length > 0;
-      this.showBodyExampleSection = bodyExm.length > 0;
-  })}
-
-  removeOnChange(change: string, section: 'body' | 'header') {
-    const examplesArray = this.templateForm.get('examples')?.value as  VariableExample[];
-
-    examplesArray.forEach((exmp)=> {
-      const variable = `{{${exmp.name}}}`
-
-      if(exmp.section === section && !change.includes(variable)) {
-        this.removeExample(exmp.name as string, section);
-        this.deletedExamples.push(exmp);
-      }
     });
   }
 
-  restoreOnChange(change: string, section: 'body' | 'header') {
-    if(this.deletedExamples.length > 0) {
+  onHeaderChange()
+  {
+    this._sbS.sink = this.templateForm.get('content.header.text')?.valueChanges.subscribe(changes =>
+    {
+      this.removeOnChange(changes, 'header');
+      this.restoreOnChange(changes, 'header');
+    });
+  }
 
-      this.deletedExamples.forEach((exmp)=> {
-        const variable = `{{${exmp.name}}}`
+  onExamplesChange()
+  {
+    this._sbS.sink = this.templateForm.get('headerExamples')?.valueChanges.subscribe((changes: any[]) =>
+    {
+      this.showHeaderExampleSection = changes.length > 0;
+    });
 
-        if(exmp.section === section && change.includes(variable)) {
+    this._sbS.sink = this.templateForm.get('bodyExamples')?.valueChanges.subscribe((changes: any[]) =>
+    {
+
+      this.showBodyExampleSection = changes.length > 0;
+    });
+
+  }
+
+  removeOnChange(change: string, section: 'body' | 'header')
+  {
+
+    if(section == 'body') {
+
+      const examplesArray = this.templateForm.get('bodyExamples')?.value as VariableExample[];
+  
+      examplesArray.forEach((exmp) =>
+      {
+        const variable = `{{${exmp.name}}}`;
+  
+        if (!change.includes(variable)) {
+          exmp.section = section;
+          this.removeExample(exmp.name as string, section);
+          this.deletedExamples.push(exmp);
+        }
+      });
+    } else {
+      const examplesArray = this.templateForm.get('headerExamples')?.value as VariableExample[];
+      
+      examplesArray.forEach((exmp) =>
+      {
+        const variable = `{{${exmp.name}}}`;
+        
+        if (!change.includes(variable)) {
+          exmp.section = section;
+          this.removeExample(exmp.name as string, section);
+          this.deletedExamples.push(exmp);
+        }
+      });
+
+    }
+
+  }
+
+  restoreOnChange(change: string, section: 'body' | 'header')
+  {
+    if (this.deletedExamples.length > 0) {
+
+      this.deletedExamples.forEach((exmp) =>
+      {
+        const variable = `{{${exmp.name}}}`;
+
+        if (exmp.section === section && change.includes(variable)) {
           this.addExample(exmp.name as string, section, true);
 
-          this.deletedExamples = this.deletedExamples.filter((dExmp)=> dExmp.name !== exmp.name);
+          this.deletedExamples = this.deletedExamples.filter((dExmp) => dExmp.name !== exmp.name);
         }
       });
     }
   }
 
-  addExample(name: string, section: 'body'| 'header', existsInForm?: boolean) {
-    if(!existsInForm) {
+  addExample(name: string, section: 'body' | 'header', existsInForm?: boolean)
+  {
+    if (!existsInForm) {
       const newValue = `${this.templateForm.value.content[section].text} {{${name}}}`;
 
-      this.templateForm.patchValue({content: {[section]: {text: newValue}}});
+      this.templateForm.patchValue({ content: { [section]: { text: newValue } } });
     }
-    this.exampleSection.addExample(name, section);
-   }
 
-   removeExample(name: string, section: 'body'| 'header') {
-    this.exampleSection.removeExample(name, section);
-   }
-   
-   
-  getActiveOrg() {
-    this._sbS.sink = this._activeOrgStore$$.get().subscribe((org) => {
+    if (section === 'body') {
+      this.bodySection.addExample(name);
+    } else {
+      this.headerSection.addExample(name);
+    }
+  }
+
+  removeExample(name: string, section: 'body' | 'header')
+  {
+    if (section === 'body') {
+      this.bodySection.removeExample(name);
+    } else {
+      this.headerSection.removeExample(name);
+    }
+  }
+
+
+  getActiveOrg()
+  {
+    this._sbS.sink = this._activeOrgStore$$.get().subscribe((org) =>
+    {
       this.orgId = org.id ?? '';
     });
   }
 
-  fetchBots(){
-    this._sbS.sink = this._botStateServ$.getBots().subscribe(data =>{
-     this.bots = data
-   })
- }
+  fetchBots()
+  {
+    this._sbS.sink = this._botStateServ$.getBots().subscribe(data =>
+    {
+      this.bots = data;
+    });
+  }
 
- onBotSelected(botId:any, botName:string , selectedClass: string) {
-  this.showCard = true;
-  this.selectedClass = selectedClass;
-    this.botName = botName
+  onBotSelected(botId: any, botName: string, selectedClass: string)
+  {
+    this.showCard = true;
+    this.selectedClass = selectedClass;
+    this.botName = botName;
 
-   this._sbS.sink = this._variableService$.getVariablesByBot(botId, this.orgId).subscribe(
-    (data: StoryBlockVariable[]) => {
-      this.fetchedVariables = data;
-    }
-  );
-}
+    this._sbS.sink = this._variableService$.getVariablesByBot(botId, this.orgId).subscribe(
+      (data: StoryBlockVariable[]) =>
+      {
+        this.fetchedVariables = data;
+      }
+    );
+  }
 
 
-  cancel() {
+  cancel()
+  {
     this._route$$.navigate(['/messaging']);
   }
 
-  openTemplate() {
+  openTemplate()
+  {
     this._route$$.navigate(['/messaging']);
   }
 
-  save() {
+  save()
+  {
     if (this.templateForm.value.id) {
       this.updateTemplate();
     } else {
@@ -215,38 +276,43 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateTemplate() {
+  updateTemplate()
+  {
     this.isSaving = true;
 
+    // this._sbS.sink = this._messageTemplatesService
+    //   .updateTemplateMeta(this.templateForm.value)
+    //   .subscribe((response) => {
+    //     if (response.success) {
+    //     }
+    //   });
     this._sbS.sink = this._messageTemplatesService
-      .updateTemplateMeta(this.templateForm.value)
-      .subscribe((response) => {
-        if (response.success) {
-          this._sbS.sink = this._messageTemplatesService
-            .updateTemplate(this.templateForm.value)
-            .subscribe(() => {
-              this._snackbar.showSuccess('Template updated successfully');
-              this.isSaving = false;
-            });
-        }
+      .updateTemplate(this.templateForm.value)
+      .subscribe(() =>
+      {
+        this._snackbar.showSuccess('Template updated successfully');
+        this.isSaving = false;
       });
   }
-  
-  hideCard() {
+
+  hideCard()
+  {
     this.showCard = false;
   }
-  
 
-  saveTemplate() {
+
+  saveTemplate()
+  {
     if (!this.templateForm.valid) {
       this._snackbar.showError('Please fill out all fields');
       return;
     }
-    
+
     this.isSaving = true;
     this._sbS.sink = this._messageTemplatesService
       .createTemplateMeta(this.templateForm.value)
-      .subscribe((response) => {
+      .subscribe((response) =>
+      {
         if (!response.success) {
           this.isSaving = false;
           this._snackbar.showError(response);
@@ -258,7 +324,8 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
 
         this._sbS.sink = this._messageTemplatesService
           .addMessageTemplate(this.templateForm.value, templateId)
-          .subscribe(() => {
+          .subscribe(() =>
+          {
             this.isSaving = false;
             this._snackbar.showSuccess('Template created successfully');
             this.openTemplate();
@@ -266,7 +333,8 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy()
+  {
     this._sbS.unsubscribe();
   }
 }

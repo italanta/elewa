@@ -23,8 +23,8 @@ import { SpecificTimeModalComponent } from './modals/specific-time-modal/specifi
 import { AfterInactivityModalComponent } from './modals/after-inactivity-modal/after-inactivity-modal.component';
 import { MilestoneReachedModalComponent } from './modals/milestone-reached-modal/milestone-reached-modal.component';
 import { MessageTemplateRouterModule } from './message-template.router';
-import { TemplateVariablesSampleSectionComponent } from './components/template-variables-sample-section/template-variables-sample-section.component';
-import { FilterExamplesPipe } from './pipes/filter-examples.pipe';
+import { BodyVariablesSampleSectionComponent } from './components/body-variables-sample-section copy/body-variables-sample-section.component';
+import { HeaderVariablesSampleSectionComponent } from './components/header-variables-sample-section/header-variables-sample-section.component';
 
 @NgModule({
   imports: [
@@ -50,8 +50,8 @@ import { FilterExamplesPipe } from './pipes/filter-examples.pipe';
     AfterInactivityModalComponent,
     MilestoneReachedModalComponent,
     MessageTemplatesHistoryComponent,
-    TemplateVariablesSampleSectionComponent,
-    FilterExamplesPipe
+    BodyVariablesSampleSectionComponent,
+    HeaderVariablesSampleSectionComponent
   ],
 })
 export class ConvsMgrMessageTemplatesModule {}

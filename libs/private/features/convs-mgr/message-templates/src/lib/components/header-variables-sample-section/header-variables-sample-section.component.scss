@@ -1,0 +1,54 @@
+.samples-wrapper {
+  background-color: var(--convs-mgr-color-secondary-teal);
+  border-radius: 0.5rem;
+  color: #ffff;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 96.5%; 
+  font-size: medium;
+  margin: 1rem 0;
+}
+
+.content-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.sample {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.sample-input {
+  width: 82%;
+  color: #ffff;
+  background-color: var(--convs-mgr-color-secondary-teal);
+  border: 1px solid rgba(255,255,255, 0.7);
+  border-radius: 1rem;
+  padding: 0.2rem 1rem;
+  height: 2rem;
+}
+
+.variable-name, .info {
+  font-weight: 300;
+}
+
+.samples-title, .content-header {
+  font-weight: 400;
+}
+
+::placeholder {
+  color: #ffff;
+  opacity: 0.7;
+  font-weight: 300;
+}
+
+::-ms-input-placeholder { /* Edge 12 -18 */
+  color: #ffff;
+  opacity: 0.7;
+  font-weight: 300;
+}

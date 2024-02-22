@@ -26,7 +26,8 @@ export interface MessageTemplate extends IObject {
   /** Number of messages sent using this template */
   sent?         : number;
 
-  examples?     : VariableExample[]
+  headerExamples?     : VariableExample[];
+  bodyExamples?     : VariableExample[];
 } 
 
 /**
