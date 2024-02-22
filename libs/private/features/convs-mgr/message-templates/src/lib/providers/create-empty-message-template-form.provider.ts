@@ -11,15 +11,14 @@ export function createTemplateForm(fb: FormBuilder, template?: MessageTemplate):
     language: [template?.language ?? '', Validators.required],
     id: [template?.id ?? ''],
     templateId: [template?.templateId ?? ''],
+    examples: fb.array([]),
     content: fb.group({
       header: fb.group({
         type: "TEXT",
         text: [(template?.content?.header as TextHeader)?.text ?? '',  Validators.required],
-        examples: fb.array([]),
       }),
       body: fb.group({
         text: [template?.content?.body?.text ?? '', Validators.required],
-        examples: fb.array([]),
       }),
       footer: [template?.content?.footer ?? ''],
     }),
