@@ -20,18 +20,9 @@ export class TemplateVariablesSampleSectionComponent implements OnInit {
   ngOnInit(): void {
     if(this.template) {
       this.template.examples?.forEach((example: VariableExample) => {
-        if(example.section == this.section) {
           this.examples.push(this.createExampleFB(example));
-        }
       })
-
-      // TEMP: Remove after implementation is complete
-      this.templateForm.get('examples')?.valueChanges.subscribe(changes=> {
-        console.log(changes)
-    })
-
     }
-
   }
 
   get examples(): FormArray
@@ -44,13 +35,13 @@ export class TemplateVariablesSampleSectionComponent implements OnInit {
     return this._fb.group({
       name: [example?.name ?? ''],
       value: [example?.value ?? ''],
-      section: [this.section]
+      section: [example?.section ?? '']
     });
   }
 
-  addExample(name: string)
+  addExample(name: string, section: 'body' | 'header')
   {
-    this.examples.push(this.createExampleFB({name}));
+    this.examples.push(this.createExampleFB({name, section}));
   }
 
   removeExample(name: string, section: 'body' | 'header')

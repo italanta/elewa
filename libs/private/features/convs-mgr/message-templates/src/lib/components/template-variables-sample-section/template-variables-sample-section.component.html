@@ -7,7 +7,7 @@
     
     <div class="samples-list">
 
-      <div formArrayName="examples" *ngFor="let example of examples.controls; let i = index">
+      <div formArrayName="examples" *ngFor="let example of examples.controls | filterExamples:section; let i = index">
 
         <div class="sample" [formGroupName]="i">
           <input class="variable-name" type="text" class="sample-input" formControlName="name" readonly hidden/>
