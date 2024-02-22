@@ -1,4 +1,5 @@
 import { IObject } from "@iote/bricks";
+import { VariableExample } from "./template-example.interface";
 
 /**
  * This interface defines the structure of the template payload passed so that
@@ -24,6 +25,8 @@ export interface MessageTemplate extends IObject {
 
   /** Number of messages sent using this template */
   sent?         : number;
+
+  examples?     : VariableExample[]
 } 
 
 /**
