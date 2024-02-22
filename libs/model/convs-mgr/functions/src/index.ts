@@ -12,6 +12,7 @@ export * from './lib/whatsapp/whatsapp-message-types.interface';
 export * from './lib/whatsapp/whatsapp-text-message.interface';
 export * from './lib/whatsapp/whatsapp-template-message.interface';
 export * from './lib/base/message-types.enum';
+export * from './lib/base/template-example.interface';
 export * from './lib/messenger/messenger-attachment-types.enum';
 export * from './lib/messenger/incoming-messenger-message.interface';
 export * from './lib/messenger/messenger-sanitized-message.interface';
