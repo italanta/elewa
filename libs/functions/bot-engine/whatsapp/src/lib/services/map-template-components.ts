@@ -24,7 +24,12 @@ export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTo
     switch (comp) {
       case "body": {
         const rawBody = messageTemplate.content[comp] as TemplateBody;
-        const bodyExamples = rawBody.examples.map((exmp)=> exmp.value);
+        const bodyExamples = messageTemplate.examples.map((exmp)=> {
+          if(exmp.section == 'body') {
+            return exmp.value;
+          }
+        });
+
         const parsedText = parseVariables(rawBody.text);
 
         const bodyComponent: WhatsappBodyTemplateComponent = {
@@ -56,7 +61,11 @@ export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTo
 
       case "header": {
         const rawHeader = messageTemplate.content[comp] as TemplateHeader;
-        const headerExample = rawHeader.examples.map((exmp)=> exmp.value);
+        const headerExample = messageTemplate.examples.map((exmp)=> {
+          if(exmp.section == 'header') {
+            return exmp.value;
+          }
+        });
 
         let headerComponent: WhatsappHeaderTemplateComponent = {
           format: rawHeader.type,
