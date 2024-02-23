@@ -6,9 +6,8 @@
       }
     .platform{
       .select-wrapper {
-        height: 3rem; 
+        height: 4.5rem; 
         overflow-y: auto;
-        margin-left: 2rem;
        }
        
       .buttons{
@@ -36,13 +35,27 @@
         }
       }
       .info-text{
-        color: var(--convs-mgr-color-tertiary-tint) !important;
-        margin-left: 2rem;
+        color: grey;
+        font-weight: 300;
+        line-height: 0.3;
       }
       
     }
   }
+
+.cancel, .submit {
+  cursor: pointer;
+}
   
+.select {
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.4rem 0;
+}
+.info-text-section {
+  padding-bottom: 0.5rem;
+}
+
 ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
     border-radius: 1.6rem!important;
 }
