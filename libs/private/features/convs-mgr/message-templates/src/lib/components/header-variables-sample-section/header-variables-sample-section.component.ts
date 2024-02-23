@@ -8,7 +8,7 @@ import { MessageTemplate, VariableExample } from '@app/model/convs-mgr/functions
   templateUrl: './header-variables-sample-section.component.html',
   styleUrls: ['./header-variables-sample-section.component.scss'],
 })
-export class HeaderVariablesSampleSectionComponent implements OnInit {
+export class HeaderVariablesSampleSectionComponent {
   @Input() templateForm: FormGroup;
   @Input() template: MessageTemplate;
   section = 'header';
@@ -17,13 +17,6 @@ export class HeaderVariablesSampleSectionComponent implements OnInit {
 
   constructor(private _fb: FormBuilder) {}
 
-  ngOnInit(): void {
-    if(this.template) {
-      this.template.headerExamples?.forEach((example: VariableExample) => {
-          this.headerExamples.push(this.createExampleFB(example));
-      })
-    }
-  }
 
   get headerExamples(): FormArray
   {

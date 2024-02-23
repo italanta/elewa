@@ -8,7 +8,7 @@ import { MessageTemplate, VariableExample } from '@app/model/convs-mgr/functions
   templateUrl: './body-variables-sample-section.component.html',
   styleUrls: ['./body-variables-sample-section.component.scss'],
 })
-export class BodyVariablesSampleSectionComponent implements OnInit {
+export class BodyVariablesSampleSectionComponent {
   @Input() templateForm: FormGroup;
   @Input() template: MessageTemplate;
   section = 'body';
@@ -16,14 +16,6 @@ export class BodyVariablesSampleSectionComponent implements OnInit {
   samplesArray: VariableExample[] = [];
 
   constructor(private _fb: FormBuilder) {}
-
-  ngOnInit(): void {
-    if(this.template) {
-      this.template.bodyExamples?.forEach((example: VariableExample) => {
-          this.bodyExamples.push(this.createExampleFB(example));
-      })
-    }
-  }
 
   get bodyExamples(): FormArray
   {

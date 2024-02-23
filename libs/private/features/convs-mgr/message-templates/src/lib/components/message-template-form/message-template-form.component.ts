@@ -104,6 +104,9 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
               this.template = template;
               this.templateForm = createTemplateForm(this.fb, template);
 
+              this.showHeaderExampleSection = this.templateForm.controls['headerExamples'].value.length > 0;
+              this.showBodyExampleSection = this.templateForm.controls['bodyExamples'].value.length > 0;
+
               // Set listeners for value changes on body and header
               //  We use this to detect and update the variables added
               this.onBodyChange();
