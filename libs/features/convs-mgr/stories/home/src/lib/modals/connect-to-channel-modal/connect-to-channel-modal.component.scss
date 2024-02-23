@@ -6,6 +6,9 @@
     color: var(--connector-color-teal-blue);
   }
   .platform{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .select-channel{
       display: flex;
       justify-content: space-around;     
@@ -20,7 +23,7 @@
       }
     }
     .buttons{
-      padding-top: 2rem;
+      padding-top: 3rem;
       display: flex;
       justify-content: space-between;
       
@@ -47,6 +50,11 @@
     }
   }
 }
+
+.cancel, .submit {
+  cursor: pointer;
+}
+
 img{
   padding-right: 0.4rem;
   padding-top: 0.3rem;
