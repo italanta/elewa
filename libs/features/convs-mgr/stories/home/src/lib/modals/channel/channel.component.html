@@ -2,8 +2,10 @@
  
     <div class="platform" >
 
-        <p class="info-text">{{ "BOTS.CHANNEL.INFO-TEXT1" | transloco }}</p>
-        <p class="info-text">{{ "BOTS.CHANNEL.INFO-TEXT2" | transloco }}</p>
+        <div class="info-text-section">
+            <p class="info-text">{{ "BOTS.CHANNEL.INFO-TEXT1" | transloco }}</p>
+            <p class="info-text">{{ "BOTS.CHANNEL.INFO-TEXT2" | transloco }}</p>
+        </div>
         
         <div class="select-wrapper">
             <div class="select" *ngFor="let channel of channels">
