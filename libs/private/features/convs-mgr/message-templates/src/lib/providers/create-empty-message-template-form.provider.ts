@@ -30,9 +30,9 @@ export function createTemplateForm(fb: FormBuilder, template?: MessageTemplate):
 }
 
 function loadExamples(fb: FormBuilder, section: string, template?: MessageTemplate) {
-  if(!template) return fb.array([]);
-
   const examples = fb.array([]) as FormArray;
+
+  if(!template) return examples;
 
   template[section]?.forEach((example: VariableExample) => {
     examples.push(createExampleFB(example, fb));
