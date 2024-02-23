@@ -51,11 +51,10 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
   connectToChannel(botId: string)
   {
     this._dialog.open(MainChannelModalComponent, {
-      width: '30rem',
-      height: '27rem',
       data: { botId: botId }
     });
   }
+  
   publishBot(bot:Bot){
     this.isPublishing = true;
     bot.isPublished = true;
