@@ -10,7 +10,6 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { SubSink } from 'subsink';
 import { combineLatest, take } from 'rxjs';
 
-
 import { Timestamp } from '@firebase/firestore-types';
 import { __DateFromStorage } from '@iote/time';
 
@@ -36,7 +35,8 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
 
   _sbs = new SubSink();
 
-  allPlatforms: string[] = [];
+  allPlatforms: string[] = ['whatsapp', 'messenger'];
+  allStatus = [{name: 'Active', value: 1}, {name: 'Inactive', value: 2}];
 
   allLearners: EnrolledEndUser[] = [];
 
@@ -64,7 +64,6 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
   ngOnInit()
   {
     this.loadClassroomLearners();
-    this.getAllPlatforms();
   }
 
   loadClassroomLearners()
@@ -83,6 +82,9 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
     switch (mode) {
       case 'platform':
         this.filterLearnersByPlatform(selectedValue);
+        break;
+      case 'status':
+        this.filterLearnersByStatus(selectedValue);
         break
     }
   }
@@ -100,6 +102,16 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
     this.dataSource.data = filteredLearners;
   }
 
+  filterLearnersByStatus(selectedStatus: string): void {
+    if (selectedStatus === 'allStatus') {
+      this.dataSource.data = this.allLearners;
+      return;
+    }
+
+    const filteredLearners = this.allLearners.filter((learner) => learner.status === parseInt(selectedStatus));
+    this.dataSource.data = filteredLearners;
+  }
+
   sortData(sortState: Sort)
   {
     if (sortState.direction) {
@@ -107,10 +119,6 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
-  }
-
-  getAllPlatforms() {
-    this.allPlatforms = ['whatsapp', 'messenger'];
   }
 
   searchTable(event: Event){
