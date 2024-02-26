@@ -79,6 +79,11 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
     }
   }
 
+  searchTable(event: Event){
+    const searchValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = searchValue.trim();
+  }
+
   openAddModal()
   {
     this._dialog.open(AddUserToGroupModalComponent, {

@@ -9,7 +9,7 @@
 
         <div class="search"> 
             <i class="fas fa-search search_tooltip"></i>
-            <input class="search_input" type="text" name="search table"
+            <input class="search_input" type="text" name="search table" (keyup)="searchTable($event)"
               placeholder="{{'LEARNERS.PLACEHOLDERS.SEARCH-PLACEHOLDER'| transloco }}" id=""> 
         </div>
   
