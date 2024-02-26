@@ -36,6 +36,10 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
 
   _sbs = new SubSink();
 
+  allPlatforms: string[] = [];
+
+  allLearners: EnrolledEndUser[] = [];
+
   displayedColumns = [
     'select',
     'name',
@@ -60,6 +64,7 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
   ngOnInit()
   {
     this.loadClassroomLearners();
+    this.getAllPlatforms();
   }
 
   loadClassroomLearners()
@@ -67,7 +72,32 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
     const classId = this.classroom.id as string;
 
     this._sbs.sink = this._learnerService.getLearnersFromClass(classId)
-      .subscribe((learners) => this.dataSource.data = learners);
+      .subscribe((learners) => {
+        this.dataSource.data = learners;
+        this.allLearners = learners;
+      });
+  }
+
+  filterTable(event: Event, mode:string) {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    switch (mode) {
+      case 'platform':
+        this.filterLearnersByPlatform(selectedValue);
+        break
+    }
+  }
+
+  filterLearnersByPlatform(selectedPlatform: string): void {
+    if (selectedPlatform === 'allPlatforms') {
+      this.dataSource.data = this.allLearners;
+      return;
+    }
+
+    const filteredLearners = this.allLearners.filter((learner) => {
+      if(!learner.platformDetails) return undefined;
+      return learner.platformDetails[selectedPlatform]
+    });
+    this.dataSource.data = filteredLearners;
   }
 
   sortData(sortState: Sort)
@@ -77,6 +107,10 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  getAllPlatforms() {
+    this.allPlatforms = ['whatsapp', 'messenger'];
   }
 
   searchTable(event: Event){

@@ -16,15 +16,15 @@
           <div class="dropdown">
             <div class="select">
               <select >
-                <option value="allClasses" selected>{{ 'All Classes' | titlecase  }}</option>
+                <option value="allClasses" selected>{{ 'All Status' | titlecase  }}</option>
                 <option >class name</option>
               </select>
             </div>
   
             <div class="select">
-              <select>
-                <option [value]="null" selected>All Courses</option>
-                <option >course name</option>
+              <select (change)="filterTable($event,'platform')">
+                <option  value="allPlatforms" selected>All Platforms</option>
+                <option *ngFor="let platform of allPlatforms" [value]="platform">{{ platform | titlecase }}</option>
               </select>
             </div>
             </div>
