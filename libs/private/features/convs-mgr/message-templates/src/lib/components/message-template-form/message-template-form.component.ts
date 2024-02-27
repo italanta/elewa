@@ -283,18 +283,18 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
   {
     this.isSaving = true;
 
-    // this._sbS.sink = this._messageTemplatesService
-    //   .updateTemplateMeta(this.templateForm.value)
-    //   .subscribe((response) => {
-    //     if (response.success) {
-    //     }
-    //   });
     this._sbS.sink = this._messageTemplatesService
-      .updateTemplate(this.templateForm.value)
-      .subscribe(() =>
-      {
-        this._snackbar.showSuccess('Template updated successfully');
-        this.isSaving = false;
+      .updateTemplateMeta(this.templateForm.value)
+      .subscribe((response) => {
+        if (response.success) {
+          this._sbS.sink = this._messageTemplatesService
+            .updateTemplate(this.templateForm.value)
+            .subscribe(() =>
+            {
+              this._snackbar.showSuccess('Template updated successfully');
+              this.isSaving = false;
+            });
+        }
       });
   }
 
