@@ -227,6 +227,7 @@
   }
   .head{
     position: relative;
+    margin-bottom: 1.8rem;
       ::ng-deep .mat-mdc-text-field-wrapper {
       height: 5.0625rem!important; 
   }
@@ -323,6 +324,7 @@
     right: 2rem;
     position: absolute;
     cursor: pointer;
+    margin-right: -2.8rem;
   }
   .add-variable-header{
     top:7.0rem;
@@ -346,6 +348,11 @@
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
   }
+
+  .header-card {
+    top: 7rem;
+  }
+
   .conte{
     position: relative;
   }
