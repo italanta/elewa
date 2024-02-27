@@ -125,7 +125,7 @@
                                 </div>  
                             </mat-menu>  
 
-                         <div class="var-card" *ngIf="showCard">
+                         <div class="var-card" *ngIf="showCard" (clickOutside)="showCard = false">
                             <mat-card  *ngFor="let variable of fetchedVariables" class="body-card">
                                 <div *ngIf="selectedClass === 'body'" class="var-wrapper">
                                     <span class="bot-name">{{ botName }}</span>

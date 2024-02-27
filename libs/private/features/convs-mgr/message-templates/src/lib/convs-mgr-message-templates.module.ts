@@ -26,6 +26,8 @@ import { MessageTemplateRouterModule } from './message-template.router';
 import { BodyVariablesSampleSectionComponent } from './components/body-variables-sample-section copy/body-variables-sample-section.component';
 import { HeaderVariablesSampleSectionComponent } from './components/header-variables-sample-section/header-variables-sample-section.component';
 
+import { ClickOutsideDirective } from './directives/click-outside.directive';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -51,7 +53,10 @@ import { HeaderVariablesSampleSectionComponent } from './components/header-varia
     MilestoneReachedModalComponent,
     MessageTemplatesHistoryComponent,
     BodyVariablesSampleSectionComponent,
-    HeaderVariablesSampleSectionComponent
+    HeaderVariablesSampleSectionComponent,
+
+    // Directives
+    ClickOutsideDirective
   ],
 })
 export class ConvsMgrMessageTemplatesModule {}
