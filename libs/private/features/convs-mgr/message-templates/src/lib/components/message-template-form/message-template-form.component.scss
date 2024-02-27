@@ -338,10 +338,13 @@
   }
   .body-card, .header-card{
     position: absolute;
-    right: 4rem;
-    width: 20%;
-    text-align: center;
+    right: 1rem;
+    width: 10rem;
+    margin-top: 2rem;
+    margin-right: -1.6rem;
     border-radius: 1rem;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
   }
   .conte{
     position: relative;
@@ -371,10 +374,43 @@
 
  }
 ::ng-deep .mat-mdc-menu-panel.mat-mdc-menu-panel{
-  border-radius: 1rem;
+
+  border-radius: 0 0 1rem 1rem;
 } 
 :host ::ng-deep .mat-menu-panel .mat-radio-button {
   display: block;
  }
- 
+
+ ::ng-deep .mdc-form-field>label {
+  padding-right: 0.5rem !important;
+  width: 9rem !important;
+  word-break: break-all !important;
+ }
+
+ .bot-name {
+  font-size: large;
+ }
+
+ .var-wrapper {
+    padding: 1rem;
+    padding-right: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    box-shadow: 0 0 2px 1px rgba(0,0,0,0.2);
+    border-radius: 1rem;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+.variables-list {
+  font-weight: 300;
+  /* padding-bottom: 0.4rem; */
+}
+
+.single-variable {
+  cursor: pointer;
+  padding-bottom: 0.4rem;
+}
 

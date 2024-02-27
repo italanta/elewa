@@ -123,15 +123,15 @@
                                 <div class="div" *ngFor="let bot of bots">
                                     <mat-radio-button [value]="{ id: bot.id, name: bot.name }" (change)="onBotSelected(bot.id, bot.name, 'body')">{{ bot.name }}</mat-radio-button>
                                 </div>  
-                            </mat-menu>                            
+                            </mat-menu>  
 
                          <div class="var-card" *ngIf="showCard">
                             <mat-card  *ngFor="let variable of fetchedVariables" class="body-card">
-                                <div *ngIf="selectedClass === 'body'">
-                                    <h4>{{ botName }}</h4>
-                                    <ul  class="body">
-                                        <li (click)="addExample(variable.name, 'body'); hideCard()">{{ '{{' + variable.name + '}}' }}</li>
-                                    </ul>
+                                <div *ngIf="selectedClass === 'body'" class="var-wrapper">
+                                    <span class="bot-name">{{ botName }}</span>
+                                    <div class="variables-list">
+                                        <span class="single-variable" (click)="addExample(variable.name, 'body'); hideCard()">{{ '{{' + variable.name + '}}' }}</span>
+                                    </div>
                                 </div>
                               </mat-card>
                          </div>   
