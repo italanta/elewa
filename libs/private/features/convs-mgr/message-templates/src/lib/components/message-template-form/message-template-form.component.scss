@@ -395,11 +395,12 @@
  }
 
  .bot-name {
-  font-size: large;
+  font-size: medium;
  }
 
  .var-wrapper {
     padding: 1rem;
+    padding-top: 0.5rem;
     padding-right: 2rem;
     display: flex;
     flex-direction: column;
