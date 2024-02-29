@@ -3,14 +3,17 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
 
+import { __DateFromStorage } from '@iote/time';
+
 import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 
 import {
-  formatDate,
-  getColor,
   getDailyProgress,
+  getLabels,
   getMonthlyProgress,
+  getUsersCurrentMonth,
+  getUsersCurrentWeek,
   getWeeklyProgress,
 } from '../../providers/helper-fns.util';
 
@@ -35,6 +38,9 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
   weeklyProgress: GroupProgressModel[];
   monthlyProgress: GroupProgressModel[];
 
+  currentWeekCount = 0;
+  currentMonthCount = 0;
+
   @Input()
   set setPeriodical(value: Periodicals) {
     this.selectedPeriodical = value;
@@ -56,6 +62,16 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
         this.dailyProgress = getDailyProgress(model);
         this.weeklyProgress = getWeeklyProgress(model);
         this.monthlyProgress = getMonthlyProgress(model);
+
+        const allDaysCount = model.map((mod) => {
+          return {
+            count: mod.todaysEnrolledUsersCount.dailyCount,
+            date: __DateFromStorage(mod.createdOn as Date)
+          }
+        });
+
+        this.currentWeekCount = getUsersCurrentWeek(allDaysCount);
+        this.currentMonthCount = getUsersCurrentMonth(allDaysCount);
 
         this.chart = this._loadChart(this.weeklyProgress);
       }
@@ -82,7 +98,7 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
     return new Chart('user-chart', {
       type: 'bar',
       data: {
-        labels: models.map((day) => formatDate(day.time, this.selectedPeriodical)),
+        labels: getLabels(models, this.selectedPeriodical),
         datasets: [
           {
             label: `Enrolled User's`,
@@ -138,9 +154,13 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
     if (this.selectedPeriodical === 'Daily') {
       return models.map((mod) => mod.todaysEnrolledUsersCount.dailyCount);
     } else if (this.selectedPeriodical === 'Weekly') {
-      return models.map((mod) => mod.todaysEnrolledUsersCount.pastWeekCount);
+      const weeklyData = models.map((mod) => mod.todaysEnrolledUsersCount.pastWeekCount);
+      weeklyData.push(this.currentWeekCount);
+      return weeklyData;
     } else {
-      return models.map((mod) => mod.todaysEnrolledUsersCount.pastMonthCount);
+      const monthlyData = models.map((mod) => mod.todaysEnrolledUsersCount.pastMonthCount);
+      monthlyData.push(this.currentMonthCount);
+      return monthlyData;
     }
   }
 
