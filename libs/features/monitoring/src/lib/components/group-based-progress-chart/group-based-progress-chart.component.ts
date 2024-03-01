@@ -20,7 +20,8 @@ import {
   getColor, 
   getDailyProgress, 
   getWeeklyProgress,
-  getMonthlyProgress 
+  getMonthlyProgress, 
+  getLabels
 } from '../../providers/helper-fns.util';
 
 @Component({
@@ -46,6 +47,13 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   dailyProgress: GroupProgressModel[]; 
   weeklyProgress: GroupProgressModel[];
   monthlyProgress: GroupProgressModel[];
+
+  currentProgress: {
+    label: string;
+    data: number[];
+    backgroundColor: string;
+    borderRadius: number;
+  }[];
 
   @Input()
   set setPeriodical(value: Periodicals) {
@@ -87,6 +95,9 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
           this.dailyProgress = getDailyProgress(models);
           this.weeklyProgress = getWeeklyProgress(models);
           this.monthlyProgress = getMonthlyProgress(models);
+
+          this.currentProgress = this.getDatasets(this.dailyProgress);
+
           this.chart = this._loadChart(this.weeklyProgress);
         }
       });
@@ -137,7 +148,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     return new Chart('chart-ctx', {
       type: 'bar',
       data: {
-        labels: model.map((day) => formatDate(day.time, this.selectedPeriodical)),
+        labels: getLabels(model, this.selectedPeriodical),
         datasets: this.getDatasets(model),
       },
       options: {
@@ -236,7 +247,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   /** get data while unpacking at the module level */
   private getData(moduleMilestone: BotModule, model: GroupProgressModel[]): number[] {
     // return moduleMilestone data from users of the active course and class === selected tab
-    return model.map(
+    const data = model.map(
       (item) => {
         if (this.activeClassroom.className === 'All') {
           const courseGroup = item.groupedMeasurements.find((course) => course?.id === this.activeCourse.id);
@@ -253,6 +264,17 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
         }
       }
     );
+
+    // Get current daily progress for monthly and weekly
+    if (this.selectedPeriodical !== 'Daily') {
+      const md = this.currentProgress?.find(((modProgress)=> modProgress.label === moduleMilestone.name))
+
+      if (md) {
+        data.push(md.data[md.data.length -1])
+      }
+    }
+    
+    return data
   }
 
   ngOnDestroy() {
