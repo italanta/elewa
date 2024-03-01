@@ -3,11 +3,13 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
 
+import { __DateFromStorage } from '@iote/time';
+
 import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 import { Bot } from '@app/model/convs-mgr/bots';
 
-import { formatDate, getDailyProgress, getMonthlyProgress, getWeeklyProgress } from '../../providers/helper-fns.util';
+import { getAllDaysCountCourse, getDailyProgress, getLabels, getMonthlyProgress, getUsersCurrentMonth, getUsersCurrentWeek, getWeeklyProgress } from '../../providers/helper-fns.util';
 
 @Component({
   selector: 'app-user-engagement-chart',
@@ -31,6 +33,12 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
   weeklyProgress: GroupProgressModel[];
   monthlyProgress: GroupProgressModel[];
 
+  allDaysCount: { activeUsers: any, inactiveUsers: any };
+
+  currentWeekCount = { activeUsers: 0, inactiveUsers: 0 };
+
+  currentMonthCount = { activeUsers: 0, inactiveUsers: 0 };
+
   @Input()
   set setPeriodical(value: Periodicals) {
     this.selectedPeriodical = value;
@@ -52,6 +60,23 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
         this.dailyProgress = getDailyProgress(model);
         this.weeklyProgress = getWeeklyProgress(model);
         this.monthlyProgress = getMonthlyProgress(model);
+
+        const courseId = this.activeCourse ? this.activeCourse.id as string : 'all';
+
+        this.allDaysCount = {
+          activeUsers: getAllDaysCountCourse(this.dailyProgress, 'activeUsers', courseId),
+          inactiveUsers: getAllDaysCountCourse(this.dailyProgress, 'inactiveUsers', courseId)
+        }
+  
+        this.currentWeekCount = {
+          activeUsers: getUsersCurrentWeek(this.allDaysCount.activeUsers),
+          inactiveUsers: getUsersCurrentWeek(this.allDaysCount.inactiveUsers)
+        }
+
+        this.currentMonthCount = {
+          activeUsers: getUsersCurrentMonth(this.allDaysCount.activeUsers),
+          inactiveUsers: getUsersCurrentMonth(this.allDaysCount.inactiveUsers)
+        }
 
         this.chart = this._loadChart(this.weeklyProgress);
       }
@@ -90,7 +115,7 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
     return new Chart('user-engagement-chart', {
       type: 'line',
       data: {
-        labels: models.map((day) => formatDate(day.time, this.selectedPeriodical)),
+        labels: getLabels(models, this.selectedPeriodical),
         datasets: [
           {
             /** Line styling */
@@ -166,7 +191,7 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
 
   private getUserEngagement(models: GroupProgressModel[], usersType: string, courseId: string): number[] {
 
-    const userCountArray = [];
+    const userCountArray = [] as number[];
 
     for (const mod of models) {
       if(!mod.courseProgress) {
@@ -178,8 +203,10 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
         userCountArray.push(mod.courseProgress[courseId][usersType].dailyCount);
       } else if (this.selectedPeriodical === 'Weekly') {
         userCountArray.push(mod.courseProgress[courseId][usersType].pastWeekCount);
+        userCountArray.push(this.currentWeekCount[usersType]);
       } else {
         userCountArray.push(mod.courseProgress[courseId][usersType].pastMonthCount);
+        userCountArray.push(this.currentMonthCount[usersType]);
       }
     }
     return userCountArray;
