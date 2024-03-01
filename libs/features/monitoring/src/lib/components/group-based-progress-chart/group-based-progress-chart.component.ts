@@ -270,6 +270,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
       const md = this.currentProgress?.find(((modProgress)=> modProgress.label === moduleMilestone.name))
 
       if (md) {
+        // Push only the current day's progress 
         data.push(md.data[md.data.length -1])
       }
     }
