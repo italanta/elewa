@@ -102,6 +102,15 @@ export function getWeeklyProgress(allProgress: GroupProgressModel[]) {
   });
 }
 
+export function getAllDaysCountCourse(dailyProgress: GroupProgressModel[], usersType: string, courseId: string) {
+  return dailyProgress.map((mod) => {
+    return {
+      count: mod.courseProgress[courseId][usersType].dailyCount,
+      date: __DateFromStorage(mod.createdOn as Date)
+    }
+  });
+}
+
 export function getUsersCurrentWeek(daily: {count: number, date: moment.Moment}[]): number {
   const currentDate = moment();
   const startOfWeek = currentDate.clone().startOf('isoWeek');
