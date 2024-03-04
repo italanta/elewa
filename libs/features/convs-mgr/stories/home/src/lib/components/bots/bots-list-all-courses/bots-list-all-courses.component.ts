@@ -14,6 +14,7 @@ import { __DateFromStorage } from '@iote/time';
 
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
+import { FileStorageService } from '@app/state/file';
 
 import { 
   CreateBotModalComponent,
@@ -37,6 +38,8 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
 
   isPublishing: boolean;
 
+  uploadMedia: boolean;
+
   sorting$$ = new BehaviorSubject<ActionSortingOptions>(
     ActionSortingOptions.Newest
   );
@@ -52,7 +55,8 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
 
   constructor(private _dialog: MatDialog,
               private _router$$: Router,
-              private _botsService: BotsStateService) { }
+              private _botsService: BotsStateService,
+              private _fileStorageService: FileStorageService) { }
 
   ngOnInit(): void {
     this._sbS.sink = combineLatest(([this.bots$, this.sorting$$.asObservable()]))
@@ -149,6 +153,12 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
       {
         this.isPublishing = false;
       });
+
+    // Upload Media to platform server e.g. whatsapp server
+    //  Solves delays in sending images vs text  
+    if(this.uploadMedia && bot.linkedChannel) {
+      this._fileStorageService.uploadMediaToPlatform(bot.linkedChannel).subscribe()
+    }
   }
 
   archiveBot(bot: Bot) 

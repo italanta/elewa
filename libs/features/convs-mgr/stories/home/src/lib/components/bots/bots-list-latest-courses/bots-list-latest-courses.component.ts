@@ -11,6 +11,7 @@ import { __DateFromStorage } from '@iote/time';
 
 import { Bot } from '@app/model/convs-mgr/bots';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { FileStorageService } from '@app/state/file';
 
 import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
 import { ConfirmPublishModalComponent } from '../../../modals/confirm-publish-modal/confirm-publish-modal.component';
@@ -33,11 +34,18 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
 
   bots: Bot[];
 
+  uploadMedia: boolean;
+
   screenWidth: number;
 
   isPublishing: boolean;
 
-  constructor(private _router$$: Router, private _dialog: MatDialog, private _botsService: BotsStateService) { }
+  constructor(
+    private _router$$: Router, 
+    private _dialog: MatDialog, 
+    private _botsService: BotsStateService,
+    private _fileStorageService: FileStorageService
+    ) { }
 
   ngOnInit(): void
   {

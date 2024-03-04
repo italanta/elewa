@@ -7,6 +7,7 @@ import { Observable, of } from 'rxjs';
 import { CreateLessonModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { FileStorageService } from '@app/state/file';
 
 import { Course } from '../../../model/courses.interface';
 import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
@@ -27,9 +28,11 @@ export class CoursesListComponent implements OnDestroy {
 
   isPublishing: boolean;
 
+  uploadMedia: boolean;
+
   filterString$: Observable<string>;
 
-  constructor(private _dialog: MatDialog, private _botsService$: BotsStateService) {}
+  constructor(private _dialog: MatDialog, private _botsService$: BotsStateService, private _fileStorageService: FileStorageService) {}
 
   createLesson(moduleId: string) {
     const dialogData = {
@@ -58,6 +61,10 @@ export class CoursesListComponent implements OnDestroy {
       .subscribe(() => {
         this.isPublishing = false;
       });
+
+    if(this.uploadMedia && bot.linkedChannel) {
+      this._fileStorageService.uploadMediaToPlatform(bot.linkedChannel).subscribe()
+    }
   }
 
   archiveBot(bot:Bot){

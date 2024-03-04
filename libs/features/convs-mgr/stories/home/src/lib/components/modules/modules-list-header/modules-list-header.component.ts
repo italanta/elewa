@@ -19,6 +19,7 @@ import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 import { ActionSortingOptions, CreateModuleModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
 import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { FileStorageService } from '@app/state/file';
 
 import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
 
@@ -40,6 +41,8 @@ export class BotModulesListHeaderComponent implements OnInit, OnDestroy {
 
   isPublishing: boolean;
 
+  uploadMedia: boolean;
+
   dataSource = new MatTableDataSource<BotModule>();
   filteredBotModules: BotModule[];
 
@@ -59,6 +62,7 @@ export class BotModulesListHeaderComponent implements OnInit, OnDestroy {
     private _route: ActivatedRoute,
     private _breadCrumbServ: BreadcrumbService,
     private _botsService$: BotsStateService,
+    private _fileStorageService: FileStorageService
   ) {
     this.activeBotId = this._route.snapshot.paramMap.get('id') as string;
     this.breadcrumbs$ = this._breadCrumbServ.breadcrumbs$;
@@ -124,6 +128,10 @@ export class BotModulesListHeaderComponent implements OnInit, OnDestroy {
 
     this._sBs.sink = this._botsService$.publishBot(bot)
                             .subscribe(() => this.isPublishing = false);
+
+    if(this.uploadMedia && bot.linkedChannel) {
+      this._fileStorageService.uploadMediaToPlatform(bot.linkedChannel).subscribe()
+    }
   }
 
   configureFilter() {
