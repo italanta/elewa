@@ -31,6 +31,9 @@ export interface Bot extends IObject {
 
   /* bot archive status*/
   isArchived?: boolean;
+
+  /** The id channel this bot is connected to */
+  linkedChannel?: string;
 }
 
 /** botmutation enum - has the different bot mutations you can perfom on a bot */
