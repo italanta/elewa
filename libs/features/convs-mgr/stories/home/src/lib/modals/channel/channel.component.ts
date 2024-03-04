@@ -1,10 +1,13 @@
 import { Component, Inject, Input, OnChanges,  SimpleChanges } from '@angular/core';
 
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Bot } from '@app/model/convs-mgr/bots';
 
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
+import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
+import { Observable, switchMap } from 'rxjs';
 
 @Component({
   selector: 'italanta-apps-channel',
@@ -21,8 +24,6 @@ export class ChannelComponent implements OnChanges{
     }
   }
 
-   
-   
   // selectedPlatform:PlatformType;
   channels:CommunicationChannel[];
   selectedChannelId:string;
@@ -31,6 +32,7 @@ export class ChannelComponent implements OnChanges{
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { selectedPlatform: PlatformType , botId:string },
     private channelService :CommunicationChannelService,
+    private _botsService: BotsStateService,
     private dialogRef: MatDialogRef<ChannelComponent>,
     private _dialog: MatDialog
     ){}
@@ -42,19 +44,15 @@ export class ChannelComponent implements OnChanges{
       }
     }
      
-     
-  
-  
-     fetchChannels() {
-      // Check if selectedPlatformAndBot and selectedPlatform are defined
-      if (this._selectedPlatformAndBot && this._selectedPlatformAndBot.selectedPlatform) {
-        this.channelService.getChannelsByType(this._selectedPlatformAndBot.selectedPlatform).subscribe((channels) => {
-          this.channels = channels;
-        });
-      }
-    }  
+    fetchChannels() {
+    // Check if selectedPlatformAndBot and selectedPlatform are defined
+    if (this._selectedPlatformAndBot && this._selectedPlatformAndBot.selectedPlatform) {
+      this.channelService.getChannelsByType(this._selectedPlatformAndBot.selectedPlatform).subscribe((channels) => {
+        this.channels = channels;
+      });
+    }
+  }  
 
-   
    onChannelChange(channelId: any){
     this.selectedChannelId = channelId;
    }
@@ -80,6 +78,14 @@ export class ChannelComponent implements OnChanges{
     this.channelService.updateChannel(selectedChannel).subscribe(() => {
       this._dialog.closeAll(); // Close the dialog after updating the channel
     });
+
+    // Update the bot
+    (this._botsService.getBotById(botId) as Observable<Bot>).pipe(switchMap((bot)=> {
+      bot.linkedChannel = selectedChannel.id;
+
+      return this._botsService.updateBot(bot);
+    })).subscribe();
+
   }
    
 
