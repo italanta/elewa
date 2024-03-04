@@ -33,6 +33,8 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
 
   uploadMedia: boolean;
 
+  isUploading: boolean;
+
   screenWidth: number;
 
   isPublishing: boolean;
@@ -74,7 +76,15 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
     // Upload Media to platform server e.g. whatsapp server
     //  Solves delays in sending images vs text  
     if(this.uploadMedia && bot.linkedChannel) {
-      this._fileStorageService.uploadMediaToPlatform(bot.linkedChannel).subscribe()
+      this.isUploading = true;
+      this._fileStorageService.uploadMediaToPlatform(bot.linkedChannel).subscribe((result)=> {
+        this.isUploading = false;
+        if(result) {
+          // Show success
+        } else {
+          // Show failure due to linked channel
+        }
+      })
     }
   }
 
