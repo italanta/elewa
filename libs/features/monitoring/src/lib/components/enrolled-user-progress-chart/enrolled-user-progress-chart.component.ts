@@ -6,7 +6,7 @@ import { SubSink } from 'subsink';
 import { __DateFromStorage } from '@iote/time';
 
 import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
-import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
+import { ProgressMonitoringService, ProgressMonitoringState } from '@app/state/convs-mgr/monitoring';
 
 import {
   getDailyProgress,
@@ -16,6 +16,7 @@ import {
   getUsersCurrentWeek,
   getWeeklyProgress,
 } from '../../providers/helper-fns.util';
+import { combineLatest, map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-enrolled-user-progress-chart',
@@ -30,6 +31,8 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
   activeCourse: string;
   activeClassroom: string;
   selectedPeriodical: Periodicals;
+
+  private _state$$: ProgressMonitoringState;
 
   showData = false;
 
@@ -47,33 +50,36 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
     this.selectProgressTracking(value);
   }
 
-  constructor(private _progressService: ProgressMonitoringService) {}
+  constructor(private _progressService: ProgressMonitoringService) {
+    this._state$$ = _progressService.getProgressState();
+  }
 
   ngOnInit(): void {
     this.getProgressData();
   }
 
   getProgressData() {
-    this._sBs.sink = this._progressService.getMilestones().subscribe((model) => {
+
+    this._sBs.sink = this._state$$.getProgress().subscribe((model) => {
       if (model.length) {
         this.showData = true;
 
         this.chart = this._loadChart(model);
-        this.dailyProgress = getDailyProgress(model);
-        this.weeklyProgress = getWeeklyProgress(model);
-        this.monthlyProgress = getMonthlyProgress(model);
+        // this.dailyProgress = getDailyProgress(model);
+        // this.weeklyProgress = getWeeklyProgress(model);
+        // this.monthlyProgress = getMonthlyProgress(model);
 
-        const allDaysCount = model.map((mod) => {
-          return {
-            count: mod.todaysEnrolledUsersCount.dailyCount,
-            date: __DateFromStorage(mod.createdOn as Date)
-          }
-        });
+        // const allDaysCount = model.map((mod) => {
+        //   return {
+        //     count: mod.todaysEnrolledUsersCount.dailyCount,
+        //     date: __DateFromStorage(mod.createdOn as Date)
+        //   }
+        // });
 
-        this.currentWeekCount = getUsersCurrentWeek(allDaysCount);
-        this.currentMonthCount = getUsersCurrentMonth(allDaysCount);
+        // this.currentWeekCount = getUsersCurrentWeek(allDaysCount);
+        // this.currentMonthCount = getUsersCurrentMonth(allDaysCount);
 
-        this.chart = this._loadChart(this.weeklyProgress);
+        // this.chart = this._loadChart(this.weeklyProgress);
       }
     });
   }
