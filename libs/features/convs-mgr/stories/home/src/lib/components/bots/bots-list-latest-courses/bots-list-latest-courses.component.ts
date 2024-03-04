@@ -11,6 +11,7 @@ import { __DateFromStorage } from '@iote/time';
 
 import { Bot } from '@app/model/convs-mgr/bots';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { FileStorageService } from '@app/state/file';
 
 import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
 
@@ -30,11 +31,18 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
 
   bots: Bot[];
 
+  uploadMedia: boolean;
+
   screenWidth: number;
 
   isPublishing: boolean;
 
-  constructor(private _router$$: Router, private _dialog: MatDialog, private _botsService: BotsStateService) { }
+  constructor(
+    private _router$$: Router, 
+    private _dialog: MatDialog, 
+    private _botsService: BotsStateService,
+    private _fileStorageService: FileStorageService
+    ) { }
 
   ngOnInit(): void
   {
@@ -58,10 +66,16 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
   publishBot(bot:Bot){
     this.isPublishing = true;
     bot.isPublished = true;
-    this._botsService.updateBot(bot)
+    this._sBs.sink = this._botsService.updateBot(bot)
       .subscribe(() => {
         this.isPublishing = false;
       });
+
+    // Upload Media to platform server e.g. whatsapp server
+    //  Solves delays in sending images vs text  
+    if(this.uploadMedia && bot.linkedChannel) {
+      this._fileStorageService.uploadMediaToPlatform(bot.linkedChannel).subscribe()
+    }
   }
 
   archiveBot(bot: Bot) 
