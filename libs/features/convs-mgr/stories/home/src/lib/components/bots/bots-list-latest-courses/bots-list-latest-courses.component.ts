@@ -36,6 +36,8 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
 
   uploadMedia: boolean;
 
+  isUploading: boolean;
+
   screenWidth: number;
 
   isPublishing: boolean;
