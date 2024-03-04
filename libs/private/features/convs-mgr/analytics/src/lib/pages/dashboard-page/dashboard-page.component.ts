@@ -11,6 +11,7 @@ import { Bot } from '@app/model/convs-mgr/bots';
 import { Classroom } from '@app/model/convs-mgr/classroom';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
+import { ProgressMonitoringService, ProgressMonitoringState } from '@app/state/convs-mgr/monitoring';
 
 import { AllClassroom, AllCourse } from '../../utils/mock.data';
 
@@ -37,11 +38,17 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   loading = true;
   latestProgressData: GroupProgressModel;
 
+  private _state$$: ProgressMonitoringState;
+
   constructor(
     private _clasroomServ$: ClassroomService,
     private _botModServ$: BotModulesStateService,
     private _botServ$: BotsStateService,
-  ) { }
+    private _progressService: ProgressMonitoringService
+  ) { 
+    this._state$$ = _progressService.getProgressState();
+  }
+
 
   ngOnInit() {
     this.initStateDataLayer();
@@ -62,6 +69,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   selectProgressTracking(trackBy: Periodicals) {
+    this._state$$.setPeriod(trackBy);
     this.periodical = trackBy;
   }
 
