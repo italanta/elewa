@@ -3,5 +3,5 @@
     <app-dashboard-top-stats [topStats]="topStatsAllCourses"></app-dashboard-top-stats>
   </div>
   <app-enrolled-user-progress-chart [progress$]="progress$" [period$]="period$"></app-enrolled-user-progress-chart>
-  <app-user-engagement-chart [setPeriodical]="periodical"></app-user-engagement-chart>
+  <app-user-engagement-chart [progress$]="progress$" [period$]="period$"></app-user-engagement-chart>
 </div>

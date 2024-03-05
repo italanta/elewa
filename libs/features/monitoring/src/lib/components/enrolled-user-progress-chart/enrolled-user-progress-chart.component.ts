@@ -10,7 +10,7 @@ import { __DateFromStorage } from '@iote/time';
 import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 import { ProgressMonitoringService, ProgressMonitoringState } from '@app/state/convs-mgr/monitoring';
 
-import { getLabels, getUsersCurrentMonth, getUsersCurrentWeek } from '../../providers/helper-fns.util';
+import { getEnrolledUsersCurrentMonth, getEnrolledUsersCurrentWeek, getLabels } from '../../providers/helper-fns.util';
 
 @Component({
   selector: 'app-enrolled-user-progress-chart',
@@ -54,8 +54,8 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
       this.selectedPeriodical = period;
       this.showData = true;
 
-      this.currentWeekCount = getUsersCurrentWeek(progress.allProgress, 'todaysEnrolledUsersCount');
-      this.currentMonthCount = getUsersCurrentMonth(progress.allProgress, 'todaysEnrolledUsersCount');
+      this.currentWeekCount = getEnrolledUsersCurrentWeek(progress.allProgress);
+      this.currentMonthCount = getEnrolledUsersCurrentMonth(progress.allProgress);
 
       this.chart = this._loadChart(progress.scopedProgress);
 

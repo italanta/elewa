@@ -111,24 +111,46 @@ export function getAllDaysCountCourse(dailyProgress: GroupProgressModel[], users
   });
 }
 
-export function getUsersCurrentWeek(dailyProgress: GroupProgressModel[], chart: string): number {
+export function getEngagedUsersCurrentWeek(dailyProgress: GroupProgressModel[], usersType: string, courseId: string): number {
   const currentDate = moment();
   const startOfWeek = currentDate.clone().startOf('isoWeek');
 
   const usersEnrolledInCurrentWeek = dailyProgress
     .filter(data => __DateFromStorage(data.createdOn as Date).isSameOrAfter(startOfWeek))
-    .reduce((total, data) => total + data[chart].dailyCount, 0);
+    .reduce((total, data) => total + data.courseProgress[courseId][usersType].dailyCount, 0);
 
   return usersEnrolledInCurrentWeek;
 }
 
-export function getUsersCurrentMonth(dailyProgress: GroupProgressModel[], chart: string): number {
+export function getEngagedUsersCurrentMonth(dailyProgress: GroupProgressModel[], usersType: string, courseId: string): number {
+  const currentDate = moment();
+  const startOfMonth = currentDate.clone().startOf('month');
+
+  const usersEnrolledInCurrentWeek = dailyProgress
+  .filter(data => __DateFromStorage(data.createdOn as Date).clone().isSameOrAfter(startOfMonth))
+    .reduce((total, data) => total + data.courseProgress[courseId][usersType].dailyCount, 0);
+
+  return usersEnrolledInCurrentWeek;
+}
+
+export function getEnrolledUsersCurrentWeek(dailyProgress: GroupProgressModel[]): number {
+  const currentDate = moment();
+  const startOfWeek = currentDate.clone().startOf('isoWeek');
+
+  const usersEnrolledInCurrentWeek = dailyProgress
+    .filter(data => __DateFromStorage(data.createdOn as Date).isSameOrAfter(startOfWeek))
+    .reduce((total, data) => total + data.todaysEnrolledUsersCount.dailyCount, 0);
+
+  return usersEnrolledInCurrentWeek;
+}
+
+export function getEnrolledUsersCurrentMonth(dailyProgress: GroupProgressModel[]): number {
   const currentDate = moment();
   const startOfMonth = currentDate.clone().startOf('month');
 
   const usersEnrolledInCurrentMonth = dailyProgress
     .filter(data => __DateFromStorage(data.createdOn as Date).clone().isSameOrAfter(startOfMonth))
-    .reduce((total, data) => total + data[chart].dailyCoun, 0);
+    .reduce((total, data) => total + data.todaysEnrolledUsersCount.dailyCount, 0);
 
   return usersEnrolledInCurrentMonth;
 }
