@@ -72,6 +72,11 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.activeCourse = course;
   }
 
+  move(direction: 'past' | 'future') 
+  {
+    this._state$$.nextPage(direction);
+  }
+
   selectActiveClassroom(classroom: Classroom) {
     this.activeClassroom = classroom;
   }
@@ -82,7 +87,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   getDateRange(period: Periodicals | null) {
-    return getDateRange(period);
+      return getDateRange(period);
   }
 
   ngOnDestroy() {

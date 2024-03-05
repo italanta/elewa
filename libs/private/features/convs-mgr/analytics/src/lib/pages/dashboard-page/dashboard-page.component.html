@@ -52,11 +52,11 @@
 
     <div class="period-paginator">
       <div class="prev">
-        <span> <span class="move-icon"><&nbsp;</span> {{getDateRange(period$ | async).start}}</span>
+        <a (click)="move('past')"> <span class="move-icon"><&nbsp;</span> {{getDateRange(period$ | async).start}}</a>
       </div>
       <span class="paginator-dash">-</span>
       <div class="next">
-        <span> {{getDateRange(period$ | async).end}} <span class="move-icon">&nbsp;></span></span>
+        <a (click)="move('future')"> {{getDateRange(period$ | async).end}} <span class="move-icon">&nbsp;></span></a>
       </div>
     </div>
 

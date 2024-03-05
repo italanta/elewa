@@ -140,3 +140,8 @@ li a:hover:not(.active) {
   align-self: center;
   font-size: larger;
 }
+
+.inactive {
+  color: gray;
+  cursor: default !important;
+}
