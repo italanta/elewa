@@ -1,6 +1,6 @@
 import { flatten as ___flatten, clone as ___clone } from 'lodash';
 
-import { BehaviorSubject, combineLatest, map, tap, Observable } from "rxjs";
+import { BehaviorSubject, combineLatest, map, Observable } from "rxjs";
 
 import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 
@@ -43,7 +43,7 @@ export class ProgressMonitoringState
   }
 
   /** Returns chats scoped to the current page the user is viewing. */
-  public getProgress(): Observable<GroupProgressModel[]>
+  public getProgress(): Observable<{scopedProgress: GroupProgressModel[], allProgress: GroupProgressModel[]}>
   {
     const progressAfterInit$ = this._progressStore$$.get();
 
@@ -51,7 +51,10 @@ export class ProgressMonitoringState
       map(([progress, page, period]) =>
       {
         const filteredProgress = this._applyFilter(progress, period);
-        return this._scopeProgress(filteredProgress, page, period);
+        return {
+          scopedProgress: this._scopeProgress(filteredProgress, page, period),
+          allProgress: progress
+        }
       })
     );
   }
