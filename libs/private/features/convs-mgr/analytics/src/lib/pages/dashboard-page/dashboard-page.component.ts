@@ -27,7 +27,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   classrooms$: Observable<Classroom[]>;
   botModules$: Observable<BotModule[]>;
 
-  progress$: Observable<GroupProgressModel[]>;
+  progress$: Observable<{scopedProgress: GroupProgressModel[], allProgress: GroupProgressModel[]}>;
   period$: Observable<Periodicals>;
 
   periodical: Periodicals = 'Weekly';

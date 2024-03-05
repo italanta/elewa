@@ -10,7 +10,7 @@ import { __DateFromStorage } from '@iote/time';
 import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 import { ProgressMonitoringService, ProgressMonitoringState } from '@app/state/convs-mgr/monitoring';
 
-import { getLabels } from '../../providers/helper-fns.util';
+import { getLabels, getUsersCurrentMonth, getUsersCurrentWeek } from '../../providers/helper-fns.util';
 
 @Component({
   selector: 'app-enrolled-user-progress-chart',
@@ -20,7 +20,7 @@ import { getLabels } from '../../providers/helper-fns.util';
 export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
   private _sBs = new SubSink();
 
-  @Input() progress$: Observable<GroupProgressModel[]>;
+  @Input() progress$: Observable<{scopedProgress: GroupProgressModel[], allProgress: GroupProgressModel[]}>;
   @Input() period$: Observable<Periodicals>;
   
   chart: Chart;
@@ -53,8 +53,14 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
     this._sBs.sink = combineLatest([this.period$, this.progress$]).subscribe(([period, progress])=> {
       this.selectedPeriodical = period;
       this.showData = true;
-      this.chart = this._loadChart(progress);
+
+      this.currentWeekCount = getUsersCurrentWeek(progress.allProgress, 'todaysEnrolledUsersCount');
+      this.currentMonthCount = getUsersCurrentMonth(progress.allProgress, 'todaysEnrolledUsersCount');
+
+      this.chart = this._loadChart(progress.scopedProgress);
+
     })
+
   }
 
   selectProgressTracking(periodical: Periodicals) {

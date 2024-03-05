@@ -15,7 +15,7 @@ import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 export class AllCoursesPageComponent implements OnInit {
   @Input() periodical: Periodicals;
 
-  @Input() progress$: Observable<GroupProgressModel[]>;
+  @Input() progress$: Observable<{scopedProgress: GroupProgressModel[], allProgress: GroupProgressModel[]}>;
   @Input() period$: Observable<Periodicals>;
 
   _sBs = new SubSink();
