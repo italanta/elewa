@@ -6,7 +6,8 @@
     <app-group-based-progress-chart 
     [setActiveCourse]="activeCourse" 
     [setActiveClassroom]="activeClassroom" 
-    [setPeriodical]="periodical">
+    [progress$]="progress$" 
+    [period$]="period$">
     </app-group-based-progress-chart>
     <div class="stat-section">
       <div class="stat-card">
@@ -27,6 +28,6 @@
 
   </div>
   <div class="bottom-section">
-    <app-user-engagement-chart [setPeriodical]="periodical" [activeCourse]="activeCourse"></app-user-engagement-chart>
+    <app-user-engagement-chart [progress$]="progress$" [period$]="period$" [activeCourse]="activeCourse"></app-user-engagement-chart>
   </div>
 </div>

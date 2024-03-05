@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
-import { switchMap } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 import { GroupProgressModel, Periodicals, UserCount } from '@app/model/analytics/group-based/progress';
 import { Bot } from '@app/model/convs-mgr/bots';
@@ -17,7 +17,9 @@ import { formatDuration } from '../../utils/format-duration.util';
 })
 export class SingleCoursePageComponent implements OnInit
 {
-  @Input() periodical: Periodicals;
+  @Input() progress$: Observable<{scopedProgress: GroupProgressModel[], allProgress: GroupProgressModel[]}>;
+  @Input() period$: Observable<Periodicals>;
+  
   @Input() activeCourse: Bot;
   @Input() activeClassroom: Classroom;
 

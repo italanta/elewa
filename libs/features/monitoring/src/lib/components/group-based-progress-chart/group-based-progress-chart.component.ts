@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
-import { combineLatest, switchMap } from 'rxjs';
+import { Observable, combineLatest, switchMap } from 'rxjs';
 
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules'
@@ -32,6 +32,9 @@ import {
 export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   @Input() chart: Chart;
 
+  @Input() progress$: Observable<{scopedProgress: GroupProgressModel[], allProgress: GroupProgressModel[]}>;
+  @Input() period$: Observable<Periodicals>;
+
   private _sBs = new SubSink();
 
   courses: Bot[];
@@ -56,12 +59,6 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   }[];
 
   @Input()
-  set setPeriodical(value: Periodicals) {
-    this.selectedPeriodical = value;
-    this.selectProgressTracking(value);
-  }
-
-  @Input()
   set setActiveCourse(value: Bot) {
     this.activeCourse = value
     this.selectProgressTracking(this.selectedPeriodical);
@@ -82,23 +79,18 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const dataLayer$ = this.initDataLayer();
-    
-    const milestones$ = this._progressService.getMilestones();
 
-    this._sBs.sink = combineLatest([dataLayer$, milestones$])
-      .subscribe(([botModules, models]) => {
+    this._sBs.sink = combineLatest([dataLayer$, this.period$, this.progress$])
+      .subscribe(([botModules, period, progress]) => {
         this.botModules = botModules;
-        if (models.length) {
+        if (progress.scopedProgress.length) {
+          this.selectedPeriodical = period;
+
           this.showData = true;
 
-          // 1. save all progress
-          this.dailyProgress = getDailyProgress(models);
-          this.weeklyProgress = getWeeklyProgress(models);
-          this.monthlyProgress = getMonthlyProgress(models);
+          this.currentProgress = this.getDatasets(progress.allProgress);
 
-          this.currentProgress = this.getDatasets(this.dailyProgress);
-
-          this.chart = this._loadChart(this.weeklyProgress);
+          this.chart = this._loadChart(progress.scopedProgress);
         }
       });
   }
