@@ -27,6 +27,9 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   classrooms$: Observable<Classroom[]>;
   botModules$: Observable<BotModule[]>;
 
+  progress$: Observable<GroupProgressModel[]>;
+  period$: Observable<Periodicals>;
+
   periodical: Periodicals = 'Weekly';
 
   allCourse = AllCourse; // so i can access this in the template
@@ -48,16 +51,21 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   ) { 
     this._state$$ = _progressService.getProgressState();
   }
-
-
+  
+  
   ngOnInit() {
+    this.progress$ = this._state$$.getProgress();
+    
+    this.period$ = this._state$$.getPeriod();
+
     this.initStateDataLayer();
   }
   
   initStateDataLayer() {
     this.courses$ = this._botServ$.getBots();
     this.classrooms$ = this._clasroomServ$.getAllClassrooms();
-    this.botModules$ = this._botModServ$.getBotModules();  
+    this.botModules$ = this._botModServ$.getBotModules(); 
+
   }
 
   selectActiveCourse(course: Bot) {

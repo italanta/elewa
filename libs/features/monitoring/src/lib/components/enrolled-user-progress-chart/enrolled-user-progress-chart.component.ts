@@ -3,20 +3,14 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
 
+import { Observable, combineLatest } from 'rxjs';
+
 import { __DateFromStorage } from '@iote/time';
 
 import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 import { ProgressMonitoringService, ProgressMonitoringState } from '@app/state/convs-mgr/monitoring';
 
-import {
-  getDailyProgress,
-  getLabels,
-  getMonthlyProgress,
-  getUsersCurrentMonth,
-  getUsersCurrentWeek,
-  getWeeklyProgress,
-} from '../../providers/helper-fns.util';
-import { combineLatest, map, switchMap } from 'rxjs';
+import { getLabels } from '../../providers/helper-fns.util';
 
 @Component({
   selector: 'app-enrolled-user-progress-chart',
@@ -25,6 +19,9 @@ import { combineLatest, map, switchMap } from 'rxjs';
 })
 export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
   private _sBs = new SubSink();
+
+  @Input() progress$: Observable<GroupProgressModel[]>;
+  @Input() period$: Observable<Periodicals>;
   
   chart: Chart;
 
@@ -44,12 +41,6 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
   currentWeekCount = 0;
   currentMonthCount = 0;
 
-  @Input()
-  set setPeriodical(value: Periodicals) {
-    this.selectedPeriodical = value;
-    this.selectProgressTracking(value);
-  }
-
   constructor(private _progressService: ProgressMonitoringService) {
     this._state$$ = _progressService.getProgressState();
   }
@@ -59,29 +50,11 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
   }
 
   getProgressData() {
-
-    this._sBs.sink = this._state$$.getProgress().subscribe((model) => {
-      if (model.length) {
-        this.showData = true;
-
-        this.chart = this._loadChart(model);
-        // this.dailyProgress = getDailyProgress(model);
-        // this.weeklyProgress = getWeeklyProgress(model);
-        // this.monthlyProgress = getMonthlyProgress(model);
-
-        // const allDaysCount = model.map((mod) => {
-        //   return {
-        //     count: mod.todaysEnrolledUsersCount.dailyCount,
-        //     date: __DateFromStorage(mod.createdOn as Date)
-        //   }
-        // });
-
-        // this.currentWeekCount = getUsersCurrentWeek(allDaysCount);
-        // this.currentMonthCount = getUsersCurrentMonth(allDaysCount);
-
-        // this.chart = this._loadChart(this.weeklyProgress);
-      }
-    });
+    this._sBs.sink = combineLatest([this.period$, this.progress$]).subscribe(([period, progress])=> {
+      this.selectedPeriodical = period;
+      this.showData = true;
+      this.chart = this._loadChart(progress);
+    })
   }
 
   selectProgressTracking(periodical: Periodicals) {
