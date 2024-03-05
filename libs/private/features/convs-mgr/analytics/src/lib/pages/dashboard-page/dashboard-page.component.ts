@@ -14,6 +14,7 @@ import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-base
 import { ProgressMonitoringService, ProgressMonitoringState } from '@app/state/convs-mgr/monitoring';
 
 import { AllClassroom, AllCourse } from '../../utils/mock.data';
+import { getDateRange } from '../../utils/analytics.utils';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -65,7 +66,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.courses$ = this._botServ$.getBots();
     this.classrooms$ = this._clasroomServ$.getAllClassrooms();
     this.botModules$ = this._botModServ$.getBotModules(); 
-
   }
 
   selectActiveCourse(course: Bot) {
@@ -79,6 +79,10 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   selectProgressTracking(trackBy: Periodicals) {
     this._state$$.setPeriod(trackBy);
     this.periodical = trackBy;
+  }
+
+  getDateRange(period: Periodicals | null) {
+    return getDateRange(period);
   }
 
   ngOnDestroy() {
