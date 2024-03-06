@@ -35,3 +35,16 @@ export function getDateRange(period: Periodicals | null, dateRange: {start: Date
       return range;
   }
 }
+
+export function getPeriodFromRange(dateRange: {start: moment.Moment, end: moment.Moment}): Periodicals {
+  const durationInDays = dateRange.end.diff(dateRange.start, 'days');
+  const durationInMonths = dateRange.end.diff(dateRange.start, 'months', true);
+
+  if (durationInMonths > 2) {
+    return 'Monthly' as Periodicals;
+  } else if (durationInDays > 7) {
+    return 'Weekly' as Periodicals;
+  } else {
+    return 'Daily' as Periodicals;
+  }
+}

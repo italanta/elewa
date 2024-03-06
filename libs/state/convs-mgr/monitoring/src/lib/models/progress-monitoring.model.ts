@@ -1,6 +1,9 @@
+import * as moment from 'moment';
 import { flatten as ___flatten, clone as ___clone } from 'lodash';
 
 import { BehaviorSubject, combineLatest, map, Observable, of, tap } from "rxjs";
+
+import { __DateFromStorage } from '@iote/time';
 
 import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 
@@ -28,6 +31,9 @@ export class ProgressMonitoringState
   private isLast$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   dateRange: {start: Date, end: Date};
+
+  customSelectedDate: {start: moment.Moment, end: moment.Moment};
+  isCustom = false;
 
   private _daysToLoad = 7;
 
@@ -103,6 +109,10 @@ export class ProgressMonitoringState
     } else {
       this.isLast$.next(false);
     }
+
+    if(this.isCustom) {
+      this.isLast$.next(false);
+    }
   }
 
   private _calculatePageCount(progress: number, period: Periodicals): number
@@ -134,6 +144,9 @@ export class ProgressMonitoringState
   /** Returns filtered chats */
   private _applyFilter(progress: GroupProgressModel[], period: Periodicals)
   {
+    if(this.isCustom) {
+      progress = this._filterByDateRange(progress);
+    }
     if (period == "Weekly") {
       return this.getWeeklyProgress(progress);
     } else if(period == "Monthly") {
@@ -222,15 +235,24 @@ export class ProgressMonitoringState
 
     let scopedProgress = ___clone(progress);
 
-    const sliceTo = Math.min(totalItems, page * loadsPerPage)
+    const sliceTo = Math.min(totalItems, page * loadsPerPage);
     scopedProgress = scopedProgress.slice((sliceTo - loadsPerPage), sliceTo);
 
     this.dateRange = {
       start: scopedProgress[0].createdOn as Date,
       end: scopedProgress[scopedProgress.length -1].createdOn as Date
-    } 
+    }
 
     return scopedProgress;
+  }
+
+  private _filterByDateRange(progress: GroupProgressModel[]): GroupProgressModel[] {
+    return progress.filter((item) =>{
+      const momentDate = __DateFromStorage(item.createdOn as Date);
+      const endDate = this.customSelectedDate.end.clone().add(1, 'days');
+
+      return momentDate.isBetween(this.customSelectedDate.start, endDate, undefined, '[]')
+    })
   }
 
   /**

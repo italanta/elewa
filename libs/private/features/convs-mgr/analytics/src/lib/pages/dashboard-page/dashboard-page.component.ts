@@ -15,7 +15,7 @@ import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-base
 import { ProgressMonitoringService, ProgressMonitoringState } from '@app/state/convs-mgr/monitoring';
 
 import { AllClassroom, AllCourse } from '../../utils/mock.data';
-import { getDateRange } from '../../utils/analytics.utils';
+import { getDateRange, getPeriodFromRange } from '../../utils/analytics.utils';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -33,6 +33,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   period$: Observable<Periodicals>;
   isLast$: Observable<boolean>;
   isFirst$: Observable<boolean>;
+
+  todaysDate = new Date();
 
   customPeriodForm: FormGroup;
 
@@ -70,6 +72,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.initStateDataLayer();
 
     this.initCustomPeriodForm();
+
+    this.handleCustomRange();
   }
 
   initCustomPeriodForm() {
@@ -83,6 +87,27 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.courses$ = this._botServ$.getBots();
     this.classrooms$ = this._clasroomServ$.getAllClassrooms();
     this.botModules$ = this._botModServ$.getBotModules(); 
+  }
+
+  handleCustomRange() {
+    this.customPeriodForm.get('end')?.valueChanges.subscribe((end)=> {
+      if(end) {
+        const dateRange = {
+          start: this.customPeriodForm.value.start,
+          end: end
+        }
+
+        this._state$$.customSelectedDate = dateRange;
+
+        this._state$$.isCustom = true;
+
+        const period = getPeriodFromRange(dateRange);
+
+        this._state$$.setPeriod(period);
+        this.periodical = 'Custom';
+      }
+    })
+
   }
 
   selectActiveCourse(course: Bot) {
@@ -99,7 +124,9 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   selectProgressTracking(trackBy: Periodicals) {
+    this._state$$.isCustom = false;
 
+    this.customPeriodForm.reset();
     // Resets the page number
     //  Each period has different page numbers, so we reset the page
     //    number so that the user can start from the current date data
@@ -113,7 +140,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     if(this._state$$.dateRange) {
       return getDateRange(period, this._state$$.dateRange);
     };
-    return null
+    return null;
   }
 
   ngOnDestroy() {
