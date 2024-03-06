@@ -92,13 +92,16 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     //  Each period has different page numbers, so we reset the page
     //    number so that the user can start from the current date data
     this._state$$.resetPage();
-    
+
     this._state$$.setPeriod(trackBy);
     this.periodical = trackBy;
   }
 
   getDateRange(period: Periodicals | null) {
-      return getDateRange(period);
+    if(this._state$$.dateRange) {
+      return getDateRange(period, this._state$$.dateRange);
+    };
+    return null
   }
 
   ngOnDestroy() {

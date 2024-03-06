@@ -1,6 +1,6 @@
 import { flatten as ___flatten, clone as ___clone } from 'lodash';
 
-import { BehaviorSubject, combineLatest, map, Observable, tap } from "rxjs";
+import { BehaviorSubject, combineLatest, map, Observable, of, tap } from "rxjs";
 
 import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 
@@ -26,6 +26,8 @@ export class ProgressMonitoringState
   private allPages$: BehaviorSubject<number> = new BehaviorSubject(0);
   private isFirst$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private isLast$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  dateRange: {start: Date, end: Date};
 
   private _daysToLoad = 7;
 
@@ -222,6 +224,11 @@ export class ProgressMonitoringState
 
     const sliceTo = Math.min(totalItems, page * loadsPerPage)
     scopedProgress = scopedProgress.slice((sliceTo - loadsPerPage), sliceTo);
+
+    this.dateRange = {
+      start: scopedProgress[0].createdOn as Date,
+      end: scopedProgress[scopedProgress.length -1].createdOn as Date
+    } 
 
     return scopedProgress;
   }

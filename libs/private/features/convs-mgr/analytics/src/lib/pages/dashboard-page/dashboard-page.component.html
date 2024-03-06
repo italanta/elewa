@@ -50,13 +50,13 @@
       </div>
     </div>
 
-    <div class="period-paginator no-select">
+    <div class="period-paginator no-select" *ngIf="getDateRange(period$ | async)">
       <div class="prev">
-        <a (click)="move('past')" [class.inactive]="isFirst$ | async"> <span class="move-icon"><&nbsp;</span> {{getDateRange(period$ | async).start}}</a>
+        <a (click)="move('past')" [class.inactive]="isFirst$ | async"> <span class="move-icon"><&nbsp;</span> {{getDateRange(period$ | async)?.start}}</a>
       </div>
       <span class="paginator-dash">-</span>
       <div class="next">
-        <a (click)="move('future')" [class.inactive]="isLast$ | async"> {{getDateRange(period$ | async).end}} <span class="move-icon">&nbsp;></span></a>
+        <a (click)="move('future')" [class.inactive]="isLast$ | async"> {{getDateRange(period$ | async)?.end}} <span class="move-icon">&nbsp;></span></a>
       </div>
     </div>
     
