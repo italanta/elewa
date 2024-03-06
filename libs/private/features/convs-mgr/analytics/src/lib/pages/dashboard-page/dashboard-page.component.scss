@@ -144,7 +144,6 @@ li a:hover:not(.active) {
 .inactive {
   pointer-events: none;
   color: gray;
-  cursor: default !important;
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
