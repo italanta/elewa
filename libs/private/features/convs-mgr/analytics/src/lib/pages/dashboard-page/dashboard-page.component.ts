@@ -30,6 +30,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   progress$: Observable<{scopedProgress: GroupProgressModel[], allProgress: GroupProgressModel[]}>;
   period$: Observable<Periodicals>;
+  isLast$: Observable<boolean>;
+  isFirst$: Observable<boolean>;
 
   periodical: Periodicals = 'Weekly';
 
@@ -58,6 +60,9 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.progress$ = this._state$$.getProgress();
     
     this.period$ = this._state$$.getPeriod();
+
+    this.isLast$ = this._state$$.isLast();
+    this.isFirst$ = this._state$$.isFirst();
 
     this.initStateDataLayer();
   }
@@ -88,14 +93,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   getDateRange(period: Periodicals | null) {
       return getDateRange(period);
-  }
-
-  getIsFirst() {
-    return this._state$$.isFirst();
-  }
-  
-  getIsLast() {
-    return this._state$$.isLast();
   }
 
   ngOnDestroy() {
