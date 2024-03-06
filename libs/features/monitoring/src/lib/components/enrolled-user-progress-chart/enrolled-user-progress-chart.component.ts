@@ -63,18 +63,6 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
         })
   }
 
-  // selectProgressTracking(periodical: Periodicals) {
-  //   if (!this.dailyProgress) return
-
-  //   if (periodical === 'Daily') {
-  //     this.chart = this._loadChart(this.dailyProgress);
-  //   } else if (periodical === 'Weekly') {
-  //     this.chart = this._loadChart(this.weeklyProgress);
-  //   } else {
-  //     this.chart = this._loadChart(this.monthlyProgress);
-  //   }
-  // }
-
   private _loadChart(models: GroupProgressModel[], isLast: boolean) {
     if (this.chart) {
       this.chart.destroy();

@@ -62,13 +62,11 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   @Input()
   set setActiveCourse(value: Bot) {
     this.activeCourse = value
-    // this.selectProgressTracking(this.selectedPeriodical);
   }
 
   @Input()
   set setActiveClassroom(value: Classroom) {
     this.activeClassroom = value
-    // this.selectProgressTracking(this.selectedPeriodical);
   }
 
   constructor (

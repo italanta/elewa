@@ -72,32 +72,7 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
       this.chart = this._loadChart(progress.scopedProgress, isLast);
 
     })
-    // this._sBs.sink = this._progressService.getMilestones().subscribe((model) => {
-    //   if (model.length) {
-    //     this.showData = true;
-
-    //     this.chart = this._loadChart(model);
-    //     this.dailyProgress = getDailyProgress(model);
-    //     this.weeklyProgress = getWeeklyProgress(model);
-    //     this.monthlyProgress = getMonthlyProgress(model);
-
-
-    //     this.chart = this._loadChart(this.weeklyProgress);
-    //   }
-    // });
   }
-
-  // selectProgressTracking(periodical: Periodicals) {
-  //   if (!this.dailyProgress) return
-
-  //   if (periodical === 'Daily') {
-  //     this.chart = this._loadChart(this.dailyProgress);
-  //   } else if (periodical === 'Weekly') {
-  //     this.chart = this._loadChart(this.weeklyProgress);
-  //   } else {
-  //     this.chart = this._loadChart(this.monthlyProgress);
-  //   }
-  // }
 
   private _loadChart(models: GroupProgressModel[], isLast: boolean) {
     let activeUsers: number[];
