@@ -59,7 +59,10 @@ export class ProgressMonitoringState
         const pageCount = this._calculatePageCount(filteredProgress.length, period);
 
         if(page === -1) {
+          // Start with the last page
           page = pageCount;
+
+          // Update the page cursor to the last page
           this._pageCursor = pageCount;
         }
 
@@ -232,6 +235,16 @@ export class ProgressMonitoringState
   {
     this._pageCursor = page;
     this._page$$.next(this._pageCursor);
+  }
+
+  /** 
+   * Resets the page number
+   * 
+   * Each period has different page numbers, so we reset the page
+   *  number so that the user can start from the current date data
+   */
+  resetPage() {
+    this._page$$.next(-1);
   }
 
   /** Returns the current page */

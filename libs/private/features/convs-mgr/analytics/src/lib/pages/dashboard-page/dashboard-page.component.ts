@@ -87,6 +87,12 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   selectProgressTracking(trackBy: Periodicals) {
+
+    // Resets the page number
+    //  Each period has different page numbers, so we reset the page
+    //    number so that the user can start from the current date data
+    this._state$$.resetPage();
+    
     this._state$$.setPeriod(trackBy);
     this.periodical = trackBy;
   }
