@@ -73,11 +73,12 @@
     </div> -->
     
     <div class="main-section">
-      <app-all-courses-page *ngIf="!activeCourse.id" [periodical]="periodical" [progress$]="progress$" [period$]="period$"></app-all-courses-page>
+      <app-all-courses-page *ngIf="!activeCourse.id" [periodical]="periodical" [progress$]="progress$" [period$]="period$" [isLast$]="isLast$"></app-all-courses-page>
       <app-single-course-page 
         *ngIf="activeCourse.id"
         [progress$]="progress$" 
         [period$]="period$"
+        [isLast$]="isLast$"
         [activeCourse]="activeCourse" 
         [activeClassroom]="activeClassroom" 
         ></app-single-course-page>

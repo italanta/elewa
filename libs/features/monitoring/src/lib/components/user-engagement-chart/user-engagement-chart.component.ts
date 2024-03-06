@@ -22,6 +22,7 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
   
   @Input() progress$: Observable<{scopedProgress: GroupProgressModel[], allProgress: GroupProgressModel[]}>;
   @Input() period$: Observable<Periodicals>;
+  @Input() isLast$: Observable<boolean>;
 
   private _sBs = new SubSink();
   
@@ -52,7 +53,7 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
 
   getProgressData() {
 
-    this._sBs.sink = combineLatest([this.period$, this.progress$]).subscribe(([period, progress])=> {
+    this._sBs.sink = combineLatest([this.period$, this.progress$, this.isLast$]).subscribe(([period, progress, isLast])=> {
       this.selectedPeriodical = period;
       this.showData = true;
 
@@ -68,37 +69,37 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
         inactiveUsers: getEngagedUsersCurrentMonth(progress.allProgress, 'inactiveUsers', courseId),
       }
 
-      this.chart = this._loadChart(progress.scopedProgress);
+      this.chart = this._loadChart(progress.scopedProgress, isLast);
 
     })
-    this._sBs.sink = this._progressService.getMilestones().subscribe((model) => {
-      if (model.length) {
-        this.showData = true;
+    // this._sBs.sink = this._progressService.getMilestones().subscribe((model) => {
+    //   if (model.length) {
+    //     this.showData = true;
 
-        this.chart = this._loadChart(model);
-        this.dailyProgress = getDailyProgress(model);
-        this.weeklyProgress = getWeeklyProgress(model);
-        this.monthlyProgress = getMonthlyProgress(model);
+    //     this.chart = this._loadChart(model);
+    //     this.dailyProgress = getDailyProgress(model);
+    //     this.weeklyProgress = getWeeklyProgress(model);
+    //     this.monthlyProgress = getMonthlyProgress(model);
 
 
-        this.chart = this._loadChart(this.weeklyProgress);
-      }
-    });
+    //     this.chart = this._loadChart(this.weeklyProgress);
+    //   }
+    // });
   }
 
-  selectProgressTracking(periodical: Periodicals) {
-    if (!this.dailyProgress) return
+  // selectProgressTracking(periodical: Periodicals) {
+  //   if (!this.dailyProgress) return
 
-    if (periodical === 'Daily') {
-      this.chart = this._loadChart(this.dailyProgress);
-    } else if (periodical === 'Weekly') {
-      this.chart = this._loadChart(this.weeklyProgress);
-    } else {
-      this.chart = this._loadChart(this.monthlyProgress);
-    }
-  }
+  //   if (periodical === 'Daily') {
+  //     this.chart = this._loadChart(this.dailyProgress);
+  //   } else if (periodical === 'Weekly') {
+  //     this.chart = this._loadChart(this.weeklyProgress);
+  //   } else {
+  //     this.chart = this._loadChart(this.monthlyProgress);
+  //   }
+  // }
 
-  private _loadChart(models: GroupProgressModel[]) {
+  private _loadChart(models: GroupProgressModel[], isLast: boolean) {
     let activeUsers: number[];
     let inActiveUsers: number[];
 
@@ -118,7 +119,7 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
     return new Chart('user-engagement-chart', {
       type: 'line',
       data: {
-        labels: getLabels(models, this.selectedPeriodical),
+        labels: getLabels(models, this.selectedPeriodical, isLast),
         datasets: [
           {
             /** Line styling */

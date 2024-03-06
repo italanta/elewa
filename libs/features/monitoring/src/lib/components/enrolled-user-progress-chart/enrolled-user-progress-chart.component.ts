@@ -22,6 +22,7 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
 
   @Input() progress$: Observable<{scopedProgress: GroupProgressModel[], allProgress: GroupProgressModel[]}>;
   @Input() period$: Observable<Periodicals>;
+  @Input() isLast$: Observable<boolean>;
   
   chart: Chart;
 
@@ -50,32 +51,31 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
   }
 
   getProgressData() {
-    this._sBs.sink = combineLatest([this.period$, this.progress$]).subscribe(([period, progress])=> {
-      this.selectedPeriodical = period;
-      this.showData = true;
+    this._sBs.sink = combineLatest([this.period$, this.progress$, this.isLast$])
+        .subscribe(([period, progress, isLast])=> {
+          this.selectedPeriodical = period;
+          this.showData = true;
 
-      this.currentWeekCount = getEnrolledUsersCurrentWeek(progress.allProgress);
-      this.currentMonthCount = getEnrolledUsersCurrentMonth(progress.allProgress);
+          this.currentWeekCount = getEnrolledUsersCurrentWeek(progress.allProgress);
+          this.currentMonthCount = getEnrolledUsersCurrentMonth(progress.allProgress);
 
-      this.chart = this._loadChart(progress.scopedProgress);
-
-    })
-
+          this.chart = this._loadChart(progress.scopedProgress, isLast);
+        })
   }
 
-  selectProgressTracking(periodical: Periodicals) {
-    if (!this.dailyProgress) return
+  // selectProgressTracking(periodical: Periodicals) {
+  //   if (!this.dailyProgress) return
 
-    if (periodical === 'Daily') {
-      this.chart = this._loadChart(this.dailyProgress);
-    } else if (periodical === 'Weekly') {
-      this.chart = this._loadChart(this.weeklyProgress);
-    } else {
-      this.chart = this._loadChart(this.monthlyProgress);
-    }
-  }
+  //   if (periodical === 'Daily') {
+  //     this.chart = this._loadChart(this.dailyProgress);
+  //   } else if (periodical === 'Weekly') {
+  //     this.chart = this._loadChart(this.weeklyProgress);
+  //   } else {
+  //     this.chart = this._loadChart(this.monthlyProgress);
+  //   }
+  // }
 
-  private _loadChart(models: GroupProgressModel[]) {
+  private _loadChart(models: GroupProgressModel[], isLast: boolean) {
     if (this.chart) {
       this.chart.destroy();
     }
@@ -83,7 +83,7 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
     return new Chart('user-chart', {
       type: 'bar',
       data: {
-        labels: getLabels(models, this.selectedPeriodical),
+        labels: getLabels(models, this.selectedPeriodical, isLast),
         datasets: [
           {
             label: `Enrolled User's`,

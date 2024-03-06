@@ -46,12 +46,12 @@ export function formatDate(time: number, period: Periodicals): string {
   // return date.getDate() + '/' + (date.getMonth() + 1);
 }
 
-export function getLabels(models: GroupProgressModel[], period: Periodicals) {
+export function getLabels(models: GroupProgressModel[], period: Periodicals, isLast: boolean) {
   const currentDate = moment();
 
   const labels = models.map((day) => formatDate(day.time, period));
 
-  if (period !== 'Daily') {
+  if (period !== 'Daily' && isLast) {
 
     // Push only if not end of period
     if (!isEndOfWeek(currentDate) || !isEndOfMonth(currentDate)) {

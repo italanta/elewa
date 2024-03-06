@@ -17,6 +17,8 @@ export class AllCoursesPageComponent implements OnInit {
 
   @Input() progress$: Observable<{scopedProgress: GroupProgressModel[], allProgress: GroupProgressModel[]}>;
   @Input() period$: Observable<Periodicals>;
+  @Input() isLast$: Observable<boolean>;
+
 
   _sBs = new SubSink();
 

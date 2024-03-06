@@ -2,6 +2,6 @@
   <div class="top-stats">
     <app-dashboard-top-stats [topStats]="topStatsAllCourses"></app-dashboard-top-stats>
   </div>
-  <app-enrolled-user-progress-chart [progress$]="progress$" [period$]="period$"></app-enrolled-user-progress-chart>
-  <app-user-engagement-chart [progress$]="progress$" [period$]="period$"></app-user-engagement-chart>
+  <app-enrolled-user-progress-chart [progress$]="progress$" [period$]="period$" [isLast$]="isLast$"></app-enrolled-user-progress-chart>
+  <app-user-engagement-chart [progress$]="progress$" [period$]="period$" [isLast$]="isLast$"></app-user-engagement-chart>
 </div>

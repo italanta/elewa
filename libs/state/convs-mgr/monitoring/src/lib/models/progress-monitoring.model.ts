@@ -77,7 +77,7 @@ export class ProgressMonitoringState
   }
 
   private _setIsFirst(page: number) {
-    if(page == 0) {
+    if(page == 1) {
       this.isFirst$.next(true);          
     } else {
       this.isFirst$.next(false);
