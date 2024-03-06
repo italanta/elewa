@@ -1,6 +1,6 @@
 import { flatten as ___flatten, clone as ___clone } from 'lodash';
 
-import { BehaviorSubject, combineLatest, map, Observable } from "rxjs";
+import { BehaviorSubject, combineLatest, map, Observable, tap } from "rxjs";
 
 import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 
@@ -17,11 +17,15 @@ const PAGES_TO_LOAD_PER_CALL = 2;
 export class ProgressMonitoringState 
 {
   /** State of the current page we're navigating. */
-  private _page$$: BehaviorSubject<number> = new BehaviorSubject(0);
+  private _page$$: BehaviorSubject<number> = new BehaviorSubject(-1);
 
   private _period$$: BehaviorSubject<Periodicals> = new BehaviorSubject("Weekly" as Periodicals);
 
   private _filter$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
+  private allPages$: BehaviorSubject<number> = new BehaviorSubject(0);
+  private isFirst$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private isLast$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   private _daysToLoad = 7;
 
@@ -51,12 +55,67 @@ export class ProgressMonitoringState
       map(([progress, page, period]) =>
       {
         const filteredProgress = this._applyFilter(progress, period);
+
+        const pageCount = this._calculatePageCount(filteredProgress.length, period);
+
+        if(page === -1) {
+          page = pageCount;
+          this._pageCursor = pageCount;
+        }
+
+        this._setIsFirst(page);
+
+        this._setIsLast(page, pageCount);
+
+        this.allPages$.next(pageCount);
         return {
           scopedProgress: this._scopeProgress(filteredProgress, page, period),
           allProgress: progress
         }
       })
     );
+  }
+
+  private _setIsFirst(page: number) {
+    if(page == 0) {
+      this.isFirst$.next(true);          
+    } else {
+      this.isFirst$.next(false);
+    }
+  }
+
+  private _setIsLast(page: number, allPages: number) {
+    if(page == allPages) {
+      this.isLast$.next(true);          
+    } else {
+      this.isLast$.next(false);
+    }
+  }
+
+  private _calculatePageCount(progress: number, period: Periodicals): number
+  {
+    const itemsPerPage = this._getItemsPerPage(period);
+
+    let pagesCount = progress / itemsPerPage;
+
+    if (progress % itemsPerPage !== 0) {
+      pagesCount = Math.floor(pagesCount) + 1;
+    }
+
+    return pagesCount;
+  }
+
+  private _getItemsPerPage(period: Periodicals) {
+    switch (period) {
+      case "Daily":
+        return this._daysToLoad;
+      case "Weekly":
+        return this._weeksToLoad;
+      case "Monthly":
+        return this._monthsToLoad;
+      default:
+        return this._weeksToLoad;
+    }
   }
 
   /** Returns filtered chats */
@@ -139,7 +198,6 @@ export class ProgressMonitoringState
   private _scopeProgress(progress: GroupProgressModel[], page: number, period: Periodicals)
   {
     let loadsPerPage = this._daysToLoad;
-    // const period = this._period$$.getValue();
 
     const totalItems = progress.length;
 
@@ -151,11 +209,8 @@ export class ProgressMonitoringState
 
     let scopedProgress = ___clone(progress);
 
-    // const sliceFrom = page * loadsPerPage;
-
-    const sliceFrom = Math.max(0, totalItems - (page + 1) * loadsPerPage);
-
-    scopedProgress = scopedProgress.slice(sliceFrom, sliceFrom + loadsPerPage);
+    const sliceTo = Math.min(totalItems, page * loadsPerPage)
+    scopedProgress = scopedProgress.slice((sliceTo - loadsPerPage), sliceTo);
 
     return scopedProgress;
   }
