@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 import { Observable } from 'rxjs';
@@ -33,6 +34,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   isLast$: Observable<boolean>;
   isFirst$: Observable<boolean>;
 
+  customPeriodForm: FormGroup;
+
   periodical: Periodicals = 'Weekly';
 
   allCourse = AllCourse; // so i can access this in the template
@@ -65,6 +68,15 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.isFirst$ = this._state$$.isFirst();
 
     this.initStateDataLayer();
+
+    this.initCustomPeriodForm();
+  }
+
+  initCustomPeriodForm() {
+    this.customPeriodForm = new FormGroup({
+      start: new FormControl<Date | null>(null),
+      end: new FormControl<Date | null>(null),
+    });
   }
   
   initStateDataLayer() {

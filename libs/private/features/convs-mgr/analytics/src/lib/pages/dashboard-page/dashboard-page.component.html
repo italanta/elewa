@@ -44,7 +44,14 @@
             <li><a  [ngClass]="{'active': periodical === 'Daily'}" (click)=" selectProgressTracking('Daily')">{{'ANALYTICS.CHART.PERIODICALS.DAY' | transloco }}</a></li>
             <li><a [ngClass]="{'active': periodical === 'Weekly'}" (click)=" selectProgressTracking('Weekly')">{{'ANALYTICS.CHART.PERIODICALS.WEEK' | transloco }}</a></li>
             <li><a [ngClass]="{'active': periodical === 'Monthly'}" class="active" (click)=" selectProgressTracking('Monthly')">{{'ANALYTICS.CHART.PERIODICALS.MONTH' | transloco }}</a></li>
-            <li><a [ngClass]="{'active': periodical === 'Custom'}">{{'ANALYTICS.CHART.PERIODICALS.CUSTOM' | transloco }}</a></li>
+            <li><a (click)="picker.opened ? picker.close() : picker.open()" [ngClass]="{'active': periodical === 'Custom'}">{{'ANALYTICS.CHART.PERIODICALS.CUSTOM' | transloco }}</a>
+            </li>
+            
+            <mat-date-range-input [formGroup]="customPeriodForm" [rangePicker]="picker">
+              <input matStartDate formControlName="start" placeholder="Start date">
+              <input matEndDate formControlName="end" placeholder="End date">
+            </mat-date-range-input>
+            <mat-date-range-picker xPosition="end" yPosition="below" #picker></mat-date-range-picker>
           </ul>
       </div>
       </div>

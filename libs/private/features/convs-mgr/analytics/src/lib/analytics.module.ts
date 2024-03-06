@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { GroupBasedProgressModule } from '@app/features/monitoring';
@@ -27,7 +29,10 @@ import { SingleCoursePageComponent } from './pages/single-course-page/single-cou
     GroupBasedProgressModule,
     MaterialBricksModule,
     MultiLangModule,
-    MaterialDesignModule
+    MaterialDesignModule,
+    MatDatepickerModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [DashboardPageComponent, ReportsPageComponent, DashboardTopStatsComponent, AllCoursesPageComponent, SingleCoursePageComponent],
 })
