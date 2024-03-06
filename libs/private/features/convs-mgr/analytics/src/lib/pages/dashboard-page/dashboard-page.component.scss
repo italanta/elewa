@@ -142,6 +142,7 @@ li a:hover:not(.active) {
 }
 
 .inactive {
+  pointer-events: none;
   color: gray;
   cursor: default !important;
 }

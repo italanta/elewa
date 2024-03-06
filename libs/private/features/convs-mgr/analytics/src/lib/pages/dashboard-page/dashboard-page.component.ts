@@ -90,6 +90,14 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
       return getDateRange(period);
   }
 
+  getIsFirst() {
+    return this._state$$.isFirst();
+  }
+  
+  getIsLast() {
+    return this._state$$.isLast();
+  }
+
   ngOnDestroy() {
     this._sBs.unsubscribe();
   }

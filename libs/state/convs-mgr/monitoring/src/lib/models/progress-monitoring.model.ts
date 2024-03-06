@@ -84,6 +84,14 @@ export class ProgressMonitoringState
     }
   }
 
+  isFirst() {
+    return this.isFirst$.asObservable();
+  }
+
+  isLast() {
+    return this.isLast$.asObservable();
+  }
+
   private _setIsLast(page: number, allPages: number) {
     if(page == allPages) {
       this.isLast$.next(true);          
