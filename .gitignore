@@ -56,3 +56,10 @@ package-lock.json
 package.json
 
 /emulator-data
+
+/all_namespaces/
+/all_namespaces/all_kinds
+
+firestore_export.overall_export_metadata
+
+/.nx

@@ -119,9 +119,9 @@ Open the project with your prefered IDE (VS Code, Sublime, e.t.c)
 You need to add the environment config to your app to connect to firebase, follow the steps below:
 
 ```
-1. Create a folder called environments inside -> apps/conv-learning-manager/src
-2. Create a file called environment.ts inside this folder
-3. Create a file called environment.prod.ts inside this folder
+1. Create a folder called environments inside -> apps/conv-learning-manager/src && -> apps/conv-lm-backend/src
+2. Create a file called environment.ts inside these folders
+3. Create a file called environment.prod.ts inside these folders
 ```
 
 Once you've created the files above copy the firebase config and paste inside each file.
