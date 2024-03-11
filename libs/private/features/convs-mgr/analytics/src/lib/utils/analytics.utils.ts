@@ -42,7 +42,7 @@ export function getPeriodFromRange(dateRange: {start: moment.Moment, end: moment
 
   if (durationInMonths > 2) {
     return 'Monthly' as Periodicals;
-  } else if (durationInDays > 7) {
+  } else if (durationInDays > 14) {
     return 'Weekly' as Periodicals;
   } else {
     return 'Daily' as Periodicals;
