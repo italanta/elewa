@@ -71,7 +71,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.isLast$ = this._state$$.isLast();
     this.isFirst$ = this._state$$.isFirst();
 
-    this._state$$.getAnalyticsStartDate()
+    this._progressService.getAnalyticsStartDate()
       .pipe(take(1))
         .subscribe((startDate)=> {
           this.analyticsStartDate = startDate.toDate();
