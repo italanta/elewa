@@ -107,11 +107,10 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
         this._state$$.customSelectedDate = dateRange;
 
-        this._state$$.isCustom = true;
+        // Set the period to use based on the user range selection
+        this._state$$.customPeriod = getPeriodFromRange(dateRange);
 
-        const period = getPeriodFromRange(dateRange);
-
-        this._state$$.setPeriod(period);
+        this._state$$.setPeriod('Custom');
         this.periodical = 'Custom';
       }
     })
@@ -132,7 +131,6 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   }
 
   selectProgressTracking(trackBy: Periodicals) {
-    this._state$$.isCustom = false;
 
     this.customPeriodForm.reset();
     // Resets the page number
