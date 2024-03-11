@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
@@ -33,6 +33,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   period$: Observable<Periodicals>;
   isLast$: Observable<boolean>;
   isFirst$: Observable<boolean>;
+
+  analyticsStartDate: Date;
 
   todaysDate = new Date();
 
@@ -68,6 +70,11 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
     this.isLast$ = this._state$$.isLast();
     this.isFirst$ = this._state$$.isFirst();
+
+    this._state$$.getAnalyticsStartDate().pipe(take(1))
+        .subscribe((startDate)=> {
+          this.analyticsStartDate = startDate.toDate();
+        }); 
 
     this.initStateDataLayer();
 

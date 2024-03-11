@@ -307,6 +307,17 @@ export class ProgressMonitoringState
     });
   }
 
+  getAnalyticsStartDate() {
+    return this._progressStore$$.get().pipe(map((progress: GroupProgressModel[])=> {
+
+      const date = (progress.reduce((prev, current) => {
+        return ((prev.createdOn as Date) < (current.createdOn as Date)) ? prev : current
+      })).createdOn as Date;
+
+      return __DateFromStorage(date);
+    }))
+  }
+
   /** Retrieves monthly milestones of all users */
   getMonthlyProgress(allProgress: GroupProgressModel[]) {
   return allProgress.filter((model) => {

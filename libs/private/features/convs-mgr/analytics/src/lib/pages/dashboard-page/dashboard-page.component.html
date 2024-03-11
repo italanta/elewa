@@ -47,7 +47,7 @@
             <li><a (click)="picker.opened ? picker.close() : picker.open()" [ngClass]="{'active': periodical === 'Custom'}">{{'ANALYTICS.CHART.PERIODICALS.CUSTOM' | transloco }}</a>
             </li>
             
-            <mat-date-range-input [max]="todaysDate" [formGroup]="customPeriodForm" [rangePicker]="picker">
+            <mat-date-range-input [max]="todaysDate" [min]="analyticsStartDate" [formGroup]="customPeriodForm" [rangePicker]="picker">
               <input matStartDate formControlName="start" placeholder="Start date">
               <input matEndDate formControlName="end" placeholder="End date">
             </mat-date-range-input>
