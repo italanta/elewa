@@ -236,8 +236,12 @@ export class ProgressMonitoringState
     let scopedProgress = ___clone(progress);
 
     const sliceTo = Math.min(totalItems, page * loadsPerPage);
-    scopedProgress = scopedProgress.slice((sliceTo - loadsPerPage), sliceTo);
+    const sliceFrom = loadsPerPage > sliceTo ? 0 : (sliceTo - loadsPerPage);
 
+    scopedProgress = scopedProgress.slice(sliceFrom, sliceTo);
+
+    if(scopedProgress.length < 1) return [];
+    
     this.dateRange = {
       start: scopedProgress[0].createdOn as Date,
       end: scopedProgress[scopedProgress.length -1].createdOn as Date
