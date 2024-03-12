@@ -3,19 +3,14 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
 
+import { Observable, combineLatest } from 'rxjs';
+
 import { __DateFromStorage } from '@iote/time';
 
 import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
-import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
+import { ProgressMonitoringService, ProgressMonitoringState } from '@app/state/convs-mgr/monitoring';
 
-import {
-  getDailyProgress,
-  getLabels,
-  getMonthlyProgress,
-  getUsersCurrentMonth,
-  getUsersCurrentWeek,
-  getWeeklyProgress,
-} from '../../providers/helper-fns.util';
+import { getEnrolledUsersCurrentMonth, getEnrolledUsersCurrentWeek, getLabels } from '../../providers/helper-fns.util';
 
 @Component({
   selector: 'app-enrolled-user-progress-chart',
@@ -24,12 +19,18 @@ import {
 })
 export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
   private _sBs = new SubSink();
+
+  @Input() progress$: Observable<{scopedProgress: GroupProgressModel[], allProgress: GroupProgressModel[]}>;
+  @Input() period$: Observable<Periodicals>;
+  @Input() isLast$: Observable<boolean>;
   
   chart: Chart;
 
   activeCourse: string;
   activeClassroom: string;
   selectedPeriodical: Periodicals;
+
+  private _state$$: ProgressMonitoringState;
 
   showData = false;
 
@@ -41,56 +42,28 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
   currentWeekCount = 0;
   currentMonthCount = 0;
 
-  @Input()
-  set setPeriodical(value: Periodicals) {
-    this.selectedPeriodical = value;
-    this.selectProgressTracking(value);
+  constructor(private _progressService: ProgressMonitoringService) {
+    this._state$$ = _progressService.getProgressState();
   }
-
-  constructor(private _progressService: ProgressMonitoringService) {}
 
   ngOnInit(): void {
     this.getProgressData();
   }
 
   getProgressData() {
-    this._sBs.sink = this._progressService.getMilestones().subscribe((model) => {
-      if (model.length) {
-        this.showData = true;
+    this._sBs.sink = combineLatest([this.period$, this.progress$, this.isLast$])
+        .subscribe(([period, progress, isLast])=> {
+          this.selectedPeriodical = period;
+          this.showData = true;
 
-        this.chart = this._loadChart(model);
-        this.dailyProgress = getDailyProgress(model);
-        this.weeklyProgress = getWeeklyProgress(model);
-        this.monthlyProgress = getMonthlyProgress(model);
+          this.currentWeekCount = getEnrolledUsersCurrentWeek(progress.allProgress);
+          this.currentMonthCount = getEnrolledUsersCurrentMonth(progress.allProgress);
 
-        const allDaysCount = model.map((mod) => {
-          return {
-            count: mod.todaysEnrolledUsersCount.dailyCount,
-            date: __DateFromStorage(mod.createdOn as Date)
-          }
-        });
-
-        this.currentWeekCount = getUsersCurrentWeek(allDaysCount);
-        this.currentMonthCount = getUsersCurrentMonth(allDaysCount);
-
-        this.chart = this._loadChart(this.weeklyProgress);
-      }
-    });
+          this.chart = this._loadChart(progress.scopedProgress, isLast);
+        })
   }
 
-  selectProgressTracking(periodical: Periodicals) {
-    if (!this.dailyProgress) return
-
-    if (periodical === 'Daily') {
-      this.chart = this._loadChart(this.dailyProgress);
-    } else if (periodical === 'Weekly') {
-      this.chart = this._loadChart(this.weeklyProgress);
-    } else {
-      this.chart = this._loadChart(this.monthlyProgress);
-    }
-  }
-
-  private _loadChart(models: GroupProgressModel[]) {
+  private _loadChart(models: GroupProgressModel[], isLast: boolean) {
     if (this.chart) {
       this.chart.destroy();
     }
@@ -98,7 +71,7 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
     return new Chart('user-chart', {
       type: 'bar',
       data: {
-        labels: getLabels(models, this.selectedPeriodical),
+        labels: getLabels(models, this.selectedPeriodical, isLast),
         datasets: [
           {
             label: `Enrolled User's`,

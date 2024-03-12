@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
-import { combineLatest, switchMap } from 'rxjs';
+import { Observable, combineLatest, switchMap } from 'rxjs';
 
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules'
@@ -32,6 +32,10 @@ import {
 export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   @Input() chart: Chart;
 
+  @Input() progress$: Observable<{scopedProgress: GroupProgressModel[], allProgress: GroupProgressModel[]}>;
+  @Input() period$: Observable<Periodicals>;
+  @Input() isLast$: Observable<boolean>;
+
   private _sBs = new SubSink();
 
   courses: Bot[];
@@ -56,21 +60,13 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   }[];
 
   @Input()
-  set setPeriodical(value: Periodicals) {
-    this.selectedPeriodical = value;
-    this.selectProgressTracking(value);
-  }
-
-  @Input()
   set setActiveCourse(value: Bot) {
     this.activeCourse = value
-    this.selectProgressTracking(this.selectedPeriodical);
   }
 
   @Input()
   set setActiveClassroom(value: Classroom) {
     this.activeClassroom = value
-    this.selectProgressTracking(this.selectedPeriodical);
   }
 
   constructor (
@@ -82,23 +78,18 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const dataLayer$ = this.initDataLayer();
-    
-    const milestones$ = this._progressService.getMilestones();
 
-    this._sBs.sink = combineLatest([dataLayer$, milestones$])
-      .subscribe(([botModules, models]) => {
+    this._sBs.sink = combineLatest([dataLayer$, this.period$, this.progress$, this.isLast$])
+      .subscribe(([botModules, period, progress, isLast]) => {
         this.botModules = botModules;
-        if (models.length) {
+        if (progress.scopedProgress.length) {
+          this.selectedPeriodical = period;
+
           this.showData = true;
 
-          // 1. save all progress
-          this.dailyProgress = getDailyProgress(models);
-          this.weeklyProgress = getWeeklyProgress(models);
-          this.monthlyProgress = getMonthlyProgress(models);
+          this.currentProgress = this.getDatasets(progress.allProgress);
 
-          this.currentProgress = this.getDatasets(this.dailyProgress);
-
-          this.chart = this._loadChart(this.weeklyProgress);
+          this.chart = this._loadChart(progress.scopedProgress, isLast);
         }
       });
   }
@@ -119,22 +110,22 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   }
 
 
-  /** select progress tracking Periodicals */
-  selectProgressTracking(periodical: Periodicals) {
-    if (!this.dailyProgress) return //return if there's no progress to visualise (avoid chart js errors)
+  // /** select progress tracking Periodicals */
+  // selectProgressTracking(periodical: Periodicals) {
+  //   if (!this.dailyProgress) return //return if there's no progress to visualise (avoid chart js errors)
 
 
-    if (periodical === 'Daily') {
-      this.chart = this._loadChart(this.dailyProgress);
-    } else if (periodical === 'Weekly') {
-      this.chart = this._loadChart(this.weeklyProgress);
-    } else {
-      this.chart = this._loadChart(this.monthlyProgress);
-    }
-  }
+  //   if (periodical === 'Daily') {
+  //     this.chart = this._loadChart(this.dailyProgress);
+  //   } else if (periodical === 'Weekly') {
+  //     this.chart = this._loadChart(this.weeklyProgress);
+  //   } else {
+  //     this.chart = this._loadChart(this.monthlyProgress);
+  //   }
+  // }
 
   /** draw chart. */
-  private _loadChart(model: GroupProgressModel[]): Chart {
+  private _loadChart(model: GroupProgressModel[], isLast: boolean): Chart {
     if (this.chart) {
       this.chart.destroy();
     }
@@ -142,7 +133,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     return new Chart('chart-ctx', {
       type: 'bar',
       data: {
-        labels: getLabels(model, this.selectedPeriodical),
+        labels: getLabels(model, this.selectedPeriodical, isLast),
         datasets: this.getDatasets(model),
       },
       options: {

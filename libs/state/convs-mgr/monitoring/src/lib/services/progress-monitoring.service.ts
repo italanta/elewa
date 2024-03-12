@@ -10,11 +10,14 @@ import { Bot } from '@app/model/convs-mgr/bots';
 import { EndUserService } from '@app/state/convs-mgr/end-users';
 
 import { ProgressMonitoringStore } from '../stores/progress-monitoring.store';
+import { ProgressMonitoringState } from '../models/progress-monitoring.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProgressMonitoringService {
+
+
   constructor(private _progressStore$$: ProgressMonitoringStore, private _endUserService: EndUserService) {}
 
   /**
@@ -22,6 +25,10 @@ export class ProgressMonitoringService {
    */
   getMilestones(): Observable<GroupProgressModel[]> {
     return this._progressStore$$.get();
+  }
+
+  getProgressState() {
+    return new ProgressMonitoringState(this._progressStore$$);
   }
 
   getLatestProgress(): Observable<GroupProgressModel> {
