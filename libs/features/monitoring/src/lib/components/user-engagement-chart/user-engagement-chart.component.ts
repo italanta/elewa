@@ -55,7 +55,12 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
 
     this._sBs.sink = combineLatest([this.period$, this.progress$, this.isLast$]).subscribe(([period, progress, isLast])=> {
       this.selectedPeriodical = period;
-      this.showData = true;
+      
+      if(progress.scopedProgress.length > 0) {
+        this.showData = true;
+      } else {
+        this.showData = false;
+      }
 
       const courseId = this.activeCourse ? this.activeCourse.id as string : 'all';
 

@@ -85,7 +85,11 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
         if (progress.scopedProgress.length) {
           this.selectedPeriodical = period;
 
-          this.showData = true;
+          if(progress.scopedProgress.length > 0) {
+            this.showData = true;
+          } else {
+            this.showData = false;
+          }
 
           this.currentProgress = this.getDatasets(progress.allProgress);
 

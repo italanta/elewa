@@ -1,6 +1,9 @@
+import * as moment from 'moment';
 import { flatten as ___flatten, clone as ___clone } from 'lodash';
 
 import { BehaviorSubject, combineLatest, map, Observable, of, tap } from "rxjs";
+
+import { __DateFromStorage } from '@iote/time';
 
 import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 
@@ -29,6 +32,18 @@ export class ProgressMonitoringState
 
   dateRange: {start: Date, end: Date};
 
+  customSelectedDate: {start: moment.Moment, end: moment.Moment};
+  isCustom = false;
+
+  /**
+   * Override the custom period selection and return an actual period.
+   * 
+   *   This is because once a user has selected the custom period 
+   *     we will still need to render the chart in a period 
+   *        e.g. daily, weekly, monthly etc depending on the length of the range
+   */
+  customPeriod: Periodicals;
+
   private _daysToLoad = 7;
 
   private _weeksToLoad = 8;
@@ -56,6 +71,15 @@ export class ProgressMonitoringState
     return combineLatest([progressAfterInit$, this._page$$, this._period$$]).pipe(
       map(([progress, page, period]) =>
       {
+        if(period === 'Custom') {
+          // If period is custom we filter the data first within
+          //   the user selected date range
+          progress = this._filterByDateRange(progress);
+
+          // Use a normal period e.g. Daily, Weekly or Monthly, to show the data
+          period = this.customPeriod;
+        }
+
         const filteredProgress = this._applyFilter(progress, period);
 
         const pageCount = this._calculatePageCount(filteredProgress.length, period);
@@ -101,6 +125,10 @@ export class ProgressMonitoringState
     if(page == allPages) {
       this.isLast$.next(true);          
     } else {
+      this.isLast$.next(false);
+    }
+
+    if(this.isCustom) {
       this.isLast$.next(false);
     }
   }
@@ -222,15 +250,28 @@ export class ProgressMonitoringState
 
     let scopedProgress = ___clone(progress);
 
-    const sliceTo = Math.min(totalItems, page * loadsPerPage)
-    scopedProgress = scopedProgress.slice((sliceTo - loadsPerPage), sliceTo);
+    const sliceTo = Math.min(totalItems, page * loadsPerPage);
+    const sliceFrom = loadsPerPage > sliceTo ? 0 : (sliceTo - loadsPerPage);
 
+    scopedProgress = scopedProgress.slice(sliceFrom, sliceTo);
+
+    if(scopedProgress.length < 1) return [];
+    
     this.dateRange = {
       start: scopedProgress[0].createdOn as Date,
       end: scopedProgress[scopedProgress.length -1].createdOn as Date
-    } 
+    }
 
     return scopedProgress;
+  }
+
+  private _filterByDateRange(progress: GroupProgressModel[]): GroupProgressModel[] {
+    return progress.filter((item) =>{
+      const momentDate = __DateFromStorage(item.createdOn as Date);
+      const endDate = this.customSelectedDate.end.clone().add(1, 'days');
+
+      return momentDate.isBetween(this.customSelectedDate.start, endDate, undefined, '[]')
+    })
   }
 
   /**
@@ -265,7 +306,17 @@ export class ProgressMonitoringState
   }
 
   getPeriod() {
-    return this._period$$.asObservable();
+    return this._period$$.asObservable().pipe(map((period: Periodicals)=> {
+      if(period === 'Custom') {
+        // Override the custom period selection and return an actual period
+        //  This is because once a user has selected the custom period 
+        //   we will still need to render the range selected in a period 
+        //      e.g. daily, weekly, monthly etc depending on the length of the range
+        return this.customPeriod;
+      } else {
+        return period;
+      }
+    }))
   }
 
   /** Retrieves weekly milestones of all users */

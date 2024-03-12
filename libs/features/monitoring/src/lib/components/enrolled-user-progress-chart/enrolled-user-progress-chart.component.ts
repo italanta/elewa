@@ -54,7 +54,11 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
     this._sBs.sink = combineLatest([this.period$, this.progress$, this.isLast$])
         .subscribe(([period, progress, isLast])=> {
           this.selectedPeriodical = period;
-          this.showData = true;
+          if(progress.scopedProgress.length > 0) {
+            this.showData = true;
+          } else {
+            this.showData = false;
+          }
 
           this.currentWeekCount = getEnrolledUsersCurrentWeek(progress.allProgress);
           this.currentMonthCount = getEnrolledUsersCurrentMonth(progress.allProgress);

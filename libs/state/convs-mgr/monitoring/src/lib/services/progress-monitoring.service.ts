@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { Observable, map, of } from 'rxjs';
 
+import { __DateFromStorage } from '@iote/time';
+
 import {
   CompletionRateProgress,
   GroupProgressModel,
@@ -102,5 +104,16 @@ export class ProgressMonitoringService {
       
      return data;
     }));
+  }
+
+  getAnalyticsStartDate() {
+    return this._progressStore$$.get().pipe(map((progress: GroupProgressModel[])=> {
+
+      const date = (progress.reduce((prev, current) => {
+        return ((prev.createdOn as Date) < (current.createdOn as Date)) ? prev : current
+      })).createdOn as Date;
+
+      return __DateFromStorage(date);
+    }))
   }
 }

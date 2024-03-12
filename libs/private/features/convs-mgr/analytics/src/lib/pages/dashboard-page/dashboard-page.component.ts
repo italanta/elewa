@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
@@ -14,7 +15,7 @@ import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-base
 import { ProgressMonitoringService, ProgressMonitoringState } from '@app/state/convs-mgr/monitoring';
 
 import { AllClassroom, AllCourse } from '../../utils/mock.data';
-import { getDateRange } from '../../utils/analytics.utils';
+import { getDateRange, getPeriodFromRange } from '../../utils/analytics.utils';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -32,6 +33,12 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   period$: Observable<Periodicals>;
   isLast$: Observable<boolean>;
   isFirst$: Observable<boolean>;
+
+  analyticsStartDate: Date;
+
+  todaysDate = new Date();
+
+  customPeriodForm: FormGroup;
 
   periodical: Periodicals = 'Weekly';
 
@@ -64,13 +71,50 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.isLast$ = this._state$$.isLast();
     this.isFirst$ = this._state$$.isFirst();
 
+    this._progressService.getAnalyticsStartDate()
+      .pipe(take(1))
+        .subscribe((startDate)=> {
+          this.analyticsStartDate = startDate.toDate();
+        }); 
+
     this.initStateDataLayer();
+
+    this.initCustomPeriodForm();
+
+    this.handleCustomRange();
+  }
+
+  initCustomPeriodForm() {
+    this.customPeriodForm = new FormGroup({
+      start: new FormControl<Date | null>(null),
+      end: new FormControl<Date | null>(null),
+    });
   }
   
   initStateDataLayer() {
     this.courses$ = this._botServ$.getBots();
     this.classrooms$ = this._clasroomServ$.getAllClassrooms();
     this.botModules$ = this._botModServ$.getBotModules(); 
+  }
+
+  handleCustomRange() {
+    this.customPeriodForm.get('end')?.valueChanges.subscribe((end)=> {
+      if(end) {
+        const dateRange = {
+          start: this.customPeriodForm.value.start,
+          end: end
+        }
+
+        this._state$$.customSelectedDate = dateRange;
+
+        // Set the period to use based on the user range selection
+        this._state$$.customPeriod = getPeriodFromRange(dateRange);
+
+        this._state$$.setPeriod('Custom');
+        this.periodical = 'Custom';
+      }
+    })
+
   }
 
   selectActiveCourse(course: Bot) {
@@ -88,6 +132,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   selectProgressTracking(trackBy: Periodicals) {
 
+    this.customPeriodForm.reset();
     // Resets the page number
     //  Each period has different page numbers, so we reset the page
     //    number so that the user can start from the current date data
@@ -101,7 +146,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     if(this._state$$.dateRange) {
       return getDateRange(period, this._state$$.dateRange);
     };
-    return null
+    return null;
   }
 
   ngOnDestroy() {
