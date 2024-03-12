@@ -23,6 +23,10 @@ import { SpecificTimeModalComponent } from './modals/specific-time-modal/specifi
 import { AfterInactivityModalComponent } from './modals/after-inactivity-modal/after-inactivity-modal.component';
 import { MilestoneReachedModalComponent } from './modals/milestone-reached-modal/milestone-reached-modal.component';
 import { MessageTemplateRouterModule } from './message-template.router';
+import { BodyVariablesSampleSectionComponent } from './components/body-variables-sample-section copy/body-variables-sample-section.component';
+import { HeaderVariablesSampleSectionComponent } from './components/header-variables-sample-section/header-variables-sample-section.component';
+
+import { ClickOutsideDirective } from './directives/click-outside.directive';
 
 @NgModule({
   imports: [
@@ -48,6 +52,11 @@ import { MessageTemplateRouterModule } from './message-template.router';
     AfterInactivityModalComponent,
     MilestoneReachedModalComponent,
     MessageTemplatesHistoryComponent,
-  ]
+    BodyVariablesSampleSectionComponent,
+    HeaderVariablesSampleSectionComponent,
+
+    // Directives
+    ClickOutsideDirective
+  ],
 })
 export class ConvsMgrMessageTemplatesModule {}

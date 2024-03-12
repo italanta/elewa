@@ -108,7 +108,8 @@ export class EngineBotManager
       // STEP 2: Update the isComplete flag
       //         We need to update the isComplete flag to -1 so that the user can continue the conversation
       //         We do this here because we have successfully received the message
-      await this._endUserService$.setConversationComplete(END_USER_ID, -1, lastActiveTime);
+      this.endUser = await this._endUserService$.setConversationComplete(END_USER_ID, -1, lastActiveTime);
+
 
       // STEP 3: Process the message
       //         Because the status of the chat can change anytime, we use the current status

@@ -40,6 +40,8 @@ export class BotsStateService {
   publishBot(bot: Bot)
   {
     bot.isPublished = true;
+    bot.publishedOn = new Date();
+    
     return this.updateBot(bot);
   }
 

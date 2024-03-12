@@ -35,6 +35,8 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
 
   @Input() bots$: Observable<Bot[]>
 
+  isPublishing: boolean;
+
   sorting$$ = new BehaviorSubject<ActionSortingOptions>(
     ActionSortingOptions.Newest
   );
@@ -141,11 +143,11 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
 
   publishBot(bot: Bot)
   {
-    bot.isPublishing = true;
+    this.isPublishing = true;
     this._sbS.sink = this._botsService.publishBot(bot)
       .subscribe(() =>
       {
-        bot.isPublishing = false;
+        this.isPublishing = false;
       });
   }
 

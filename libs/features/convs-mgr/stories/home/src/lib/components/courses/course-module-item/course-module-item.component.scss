@@ -3,6 +3,7 @@
   grid-template-columns: repeat(5, 1fr);
   padding: 1rem 0;
   border-bottom: 1px solid rgba(112, 112, 112, 0.3);
+  padding-left: 2rem;
 
   * {
     display: flex;
@@ -49,4 +50,8 @@
   :last-child {
     justify-self: flex-end;
   }
+}
+
+.tooltip-menu {
+  background-color: transparent;
 }

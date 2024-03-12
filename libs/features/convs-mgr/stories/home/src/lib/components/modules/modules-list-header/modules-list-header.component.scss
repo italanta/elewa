@@ -19,20 +19,26 @@
     }
   }
 
-  .modules-btn {
+  .modules-header-btns {
     display: flex;
     justify-content: flex-end;
+  }
+
+  .module-btns {
+    display: flex;
+    gap: 1rem;
 
     .btn {
-      padding: 0.8rem;
-      background-color: teal;
+      padding: 0.7rem;
       outline: none;
       border: none;
       color: white;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 0.6rem;
       border-radius: 40px;
+      width: 9rem;
       cursor: pointer;
       transition: ease;
 
@@ -48,6 +54,23 @@
         width: 1.5rem;
       }
     }
+
+    .create-module {
+      background-color: teal;
+    }
+
+    .connect-bot {
+      background-color: #4A1A4C;
+    }
+
+    .publish-bot {
+      background-color: #111441;
+    }
+
+    button:disabled {
+      background-color: grey;
+      pointer-events: none;
+   }
   }
 
   .modules-search {

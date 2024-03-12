@@ -11,7 +11,7 @@ import {
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
 import { EnrolledEndUser, EnrolledUserBotModule } from '@app/model/convs-mgr/learners';
-import { MeasureProgressCommand, ParticipantProgressMilestone } from '@app/model/analytics/group-based/progress';
+import { EnrolledUserProgress, MeasureProgressCommand, ParticipantProgressMilestone } from '@app/model/analytics/group-based/progress';
 
 /**
  * Function which calculates progress of a given participant based on the stories they have completed.
@@ -58,7 +58,12 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
 
     const parentModule = await botModDataService.getBotModule(story.parentModule);
 
-    const progress = await _computeLearnerProgress(participant.enrolledUser, storiesDataService);
+    let progress = null;
+
+    if(participant.enrolledUser.courses) {
+      progress = await _computeLearnerProgress(participant.enrolledUser, storiesDataService);
+    };
+    
 
     return {
       participant: {
@@ -72,7 +77,7 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
       milestoneId: story.parentModule,
       courseId: parentModule.parentBot,
       storyId: story.id,
-    }
+    } as ParticipantProgressMilestone;
   }
 }
 
@@ -85,15 +90,19 @@ const _computeLearnerProgress = async (enrolledUser: EnrolledEndUser, storiesDat
   
     const moduleProgress = await Promise.all(modulePromises);
 
-    // Calculate average module progress
-    const totalCourseProgress = moduleProgress.reduce((acc, mod) => acc + mod.moduleProgress, 0);
-    const avgCourseProgress = moduleProgress.length > 0 ? totalCourseProgress / moduleProgress.length : 0;
+    // Calculate total course progress
+    //  Sums up all the progress in the module to get the total course progress
+    const totalModuleProgress = moduleProgress.reduce((acc, mod) => acc + mod.moduleProgress, 0);
+
+    // Get the average by dividing the total course progress by the number of modules
+    const avgCourseProgress = moduleProgress.length > 0 ? totalModuleProgress / moduleProgress.length : 0;
 
     return {
       courseId: course.courseId,
       courseProgress: avgCourseProgress,
-      modules: moduleProgress
-    };
+      modules: moduleProgress,
+      lastActiveTime: course.lastEngagementTime || null
+    } as EnrolledUserProgress;
   })
 
   const courses = await Promise.all(coursePromises);

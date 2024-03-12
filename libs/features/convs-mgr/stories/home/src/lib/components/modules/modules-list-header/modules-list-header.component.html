@@ -8,11 +8,21 @@
     <app-ital-breadcrumb [breadcrumbs$]="breadcrumbs$"></app-ital-breadcrumb>
   </div>
 
-  <div class="modules-btn">
-    <button class="btn" (click)="createBot()">
-      <img class="add-icon" src="assets\svgs\carbon-add-filled.svg" alt="add icon">
-      <span class="btn-text">Create Module</span>
-    </button>
+  <div class="modules-header-btns">
+      <div class="module-btns">
+        <button class="btn create-module" (click)="createModule()">
+          <img class="add-icon" src="assets\svgs\carbon-add-filled.svg" alt="add icon">
+          <span class="btn-text">Create Module</span>
+        </button>
+    
+        <button class="btn connect-bot" (click)="connectToChannel(activeBotId)">
+          <span class="btn-text">Connect bot</span>
+        </button>
+    
+        <button class="btn publish-bot" (click)="publishBot(activeBot)" [disabled]="activeBot?.isPublished">
+          <span class="btn-text">Publish</span>
+        </button>
+      </div>
   </div>
 
   <div class="modules-search">
@@ -45,7 +55,7 @@
   </div>
 
   <div class="no-content" *ngIf="!dataFound">
-      <div class="create-assessments" (click)="createBot()" fxLayout="row" fxLayout="center center">
+      <div class="create-assessments" (click)="createModule()" fxLayout="row" fxLayout="center center">
         <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
           <i class="fa fa-plus fa-5x" aria-hidden="true"></i>
           <p> Add Module</p>

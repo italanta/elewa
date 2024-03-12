@@ -42,7 +42,7 @@
     "@types/googlemaps": "^3.43.3",
     "@types/unzipper": "^0.10.6",
     "axios": "^0.27.2",
-    "caniuse-lite": "^1.0.30001519",
+    "caniuse-lite": "^1.0.30001588",
     "chart.js": "^4.2.1",
     "cronstrue": "^2.47.0",
     "crypto-js": "^4.1.1",

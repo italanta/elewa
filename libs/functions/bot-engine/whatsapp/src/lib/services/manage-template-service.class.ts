@@ -52,6 +52,8 @@ export class ManageTemplateService
 
   public async update(messageTemplate: MessageTemplate): Promise<ManageTemplateResponse>  
   {
+    this._tools.Logger.log(()=> `[ManageTemplateService].create - Updating template: ${JSON.stringify(messageTemplate)}`);
+
     const whatsappCommChannel = this._communicationChannel as WhatsAppCommunicationChannel;
 
     const updateURL = this.baseURL + `${messageTemplate.templateId}`;

@@ -1,13 +1,7 @@
 import { HandlerTools } from '@iote/cqrs';
 
 import { BotDataService } from '@app/functions/bot-engine';
-import { 
-  GroupProgressModel, 
-  UsersProgressMilestone, 
-  GroupedProgressMilestone, 
-  EnrolledUserCount,
-  CompletionRateProgress
-} from '@app/model/analytics/group-based/progress';
+import { GroupProgressModel} from '@app/model/analytics/group-based/progress';
 
 /**
  * monitoring and eval data service
@@ -28,20 +22,8 @@ export class MonitoringAndEvaluationService extends BotDataService<GroupProgress
     this._docPath = `orgs/${orgId}/monitoring`;
   }
 
-  async createNewMilestone(
-    time:number, measurements: UsersProgressMilestone[], 
-    groupedMeasurements: GroupedProgressMilestone[], todaysEnrolledUsersCount: EnrolledUserCount, 
-    progressCompletion: CompletionRateProgress, Milestoneid: string
-  )
+  async createNewMilestone(newMilestone: GroupProgressModel , Milestoneid: string)
   {
-    const newMilestone: GroupProgressModel = {
-      time,
-      measurements,
-      groupedMeasurements,
-      todaysEnrolledUsersCount,
-      progressCompletion,
-    };
-
     const milestone = await this.writeDocument(newMilestone, this._docPath, Milestoneid);
     return milestone;
   }

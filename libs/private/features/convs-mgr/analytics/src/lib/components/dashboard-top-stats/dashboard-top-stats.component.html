@@ -1,0 +1,14 @@
+<div class="cards">
+
+  <div *ngFor="let stat of topStats" class="card" [style.background-color]="stat.color">
+    <div class="card-header">
+      <img class="card-icon" [src]="'assets/icons/'+ stat.icon"/>
+      <span class="card-title">
+        {{ stat.text }}
+      </span>
+    </div>
+    <span class="card-number">
+      {{stat.count}}
+    </span>
+  </div>
+</div>

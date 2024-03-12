@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
-import { switchMap } from 'rxjs';
+import { combineLatest, switchMap } from 'rxjs';
 
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules'
@@ -14,7 +14,7 @@ import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Classroom } from '@app/model/convs-mgr/classroom';
 import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 
-import { periodicals } from '../../models/periodicals.interface';
+
 import { 
   formatDate, 
   getColor, 
@@ -39,7 +39,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
 
   activeCourse: Bot;
   activeClassroom: Classroom;
-  selectedPeriodical: periodicals;
+  selectedPeriodical: Periodicals;
 
   showData = false;
 
@@ -48,7 +48,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   monthlyProgress: GroupProgressModel[];
 
   @Input()
-  set setPeriodical(value: periodicals) {
+  set setPeriodical(value: Periodicals) {
     this.selectedPeriodical = value;
     this.selectProgressTracking(value);
   }
@@ -73,24 +73,28 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.initDataLayer();
+    const dataLayer$ = this.initDataLayer();
+    
+    const milestones$ = this._progressService.getMilestones();
 
-    this._sBs.sink = this._progressService.getMilestones().subscribe((models) => {
-      if (models.length) {
-        this.showData = true;
+    this._sBs.sink = combineLatest([dataLayer$, milestones$])
+      .subscribe(([botModules, models]) => {
+        this.botModules = botModules;
+        if (models.length) {
+          this.showData = true;
 
-        // 1. save all progress
-        this.dailyProgress = getDailyProgress(models);
-        this.weeklyProgress = getWeeklyProgress(models);
-        this.monthlyProgress = getMonthlyProgress(models);
-        this.chart = this._loadChart(this.weeklyProgress);
-      }
-    });
+          // 1. save all progress
+          this.dailyProgress = getDailyProgress(models);
+          this.weeklyProgress = getWeeklyProgress(models);
+          this.monthlyProgress = getMonthlyProgress(models);
+          this.chart = this._loadChart(this.weeklyProgress);
+        }
+      });
   }
 
   /** initialise the data layer (fetch bots, modules and classrooms) */
   initDataLayer() {
-    this._sBs.sink = this._botServ$.getBots().pipe(
+    return this._botServ$.getBots().pipe(
       switchMap(bots => {
         this.courses = bots
 
@@ -100,13 +104,14 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
           return this._botModServ$.getBotModules()
         }))
       })
-    ).subscribe(botModules => this.botModules = botModules);
+    )
   }
 
 
-  /** select progress tracking periodicals */
-  selectProgressTracking(periodical: periodicals) {
+  /** select progress tracking Periodicals */
+  selectProgressTracking(periodical: Periodicals) {
     if (!this.dailyProgress) return //return if there's no progress to visualise (avoid chart js errors)
+
 
     if (periodical === 'Daily') {
       this.chart = this._loadChart(this.dailyProgress);
@@ -126,7 +131,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     return new Chart('chart-ctx', {
       type: 'bar',
       data: {
-        labels: model.map((day) => formatDate(day.time)),
+        labels: model.map((day) => formatDate(day.time, this.selectedPeriodical)),
         datasets: this.getDatasets(model),
       },
       options: {
@@ -138,10 +143,32 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
             display: true,
             text: 'Course progression',
           },
+          legend: {
+            display: true,
+            position: "bottom",
+            labels: {
+              boxWidth: 12,
+              useBorderRadius: true,
+              borderRadius: 6
+            },
+          },
         },
         scales: {
-          x: { stacked: true },
-          y: { stacked: true },
+          x: { 
+            stacked: true, 
+            grid: {display: false} ,
+            ticks: { 
+              maxTicksLimit: 12,
+              autoSkip: false
+            },
+          },
+          y: { 
+            stacked: true, 
+            grid: {color: '#F0F0F0'},  
+            ticks: { 
+              maxTicksLimit: 6, 
+              autoSkip: true 
+            }},
         },
       },
     });

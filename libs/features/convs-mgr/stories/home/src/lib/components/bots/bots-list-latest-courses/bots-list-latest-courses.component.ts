@@ -56,19 +56,12 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
       data: { botId: botId }
     });
   }
-  
-  deleteBot(botId: Bot)
-  {
-    this._sBs.sink = this._botsService.deleteBot(botId).subscribe();
-  }
-
-  publishBot(bot: Bot)
-  {
-    bot.isPublishing = true;
-    this._sBs.sink = this._botsService.publishBot(bot)
-      .subscribe(() =>
-      {
-        bot.isPublishing = false;
+  publishBot(bot:Bot){
+    this.isPublishing = true;
+    bot.isPublished = true;
+    this._botsService.updateBot(bot)
+      .subscribe(() => {
+        this.isPublishing = false;
       });
   }
 
@@ -81,6 +74,10 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
   {
     this._router$$.navigate(['bots', id]);
   }
+
+  deleteBot(botId:Bot){
+    this._botsService.deleteBot(botId)
+  } 
 
   ngOnDestroy(): void
   {
