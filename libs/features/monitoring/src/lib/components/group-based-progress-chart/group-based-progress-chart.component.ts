@@ -12,7 +12,7 @@ import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { Bot } from '@app/model/convs-mgr/bots';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Classroom } from '@app/model/convs-mgr/classroom';
-import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
+import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 
 
 import { 
