@@ -46,6 +46,34 @@ export function formatDate(time: number, period: Periodicals): string {
   // return date.getDate() + '/' + (date.getMonth() + 1);
 }
 
+export function getLabels(models: GroupProgressModel[], period: Periodicals) {
+  const currentDate = moment();
+
+  const labels = models.map((day) => formatDate(day.time, period));
+
+  if (period !== 'Daily') {
+
+    // Push only if not end of period
+    if (!isEndOfWeek(currentDate) || !isEndOfMonth(currentDate)) {
+      labels.push(formatDate(Date.now(), period));
+    }
+    
+  }
+  return labels;
+}
+
+function isEndOfWeek(date: moment.Moment) {
+  const dayOfWeek = date.day();
+
+  return dayOfWeek === 6;
+}
+
+function isEndOfMonth(date: moment.Moment) {
+  // Check if date is the last day of the month
+  return date.endOf('month').isSame(date, 'day');
+}
+
+
 /** getRandomColor */
 export function getColor(idx: number) {
   return chartColors[idx];
@@ -72,6 +100,37 @@ export function getWeeklyProgress(allProgress: GroupProgressModel[]) {
     if (dayOfWeek === 5) return true; // if friday
     else return false;
   });
+}
+
+export function getAllDaysCountCourse(dailyProgress: GroupProgressModel[], usersType: string, courseId: string) {
+  return dailyProgress.map((mod) => {
+    return {
+      count: mod.courseProgress[courseId][usersType].dailyCount,
+      date: __DateFromStorage(mod.createdOn as Date)
+    }
+  });
+}
+
+export function getUsersCurrentWeek(daily: {count: number, date: moment.Moment}[]): number {
+  const currentDate = moment();
+  const startOfWeek = currentDate.clone().startOf('isoWeek');
+
+  const usersEnrolledInCurrentWeek = daily
+    .filter(data => data.date.isSameOrAfter(startOfWeek))
+    .reduce((total, data) => total + data.count, 0);
+
+  return usersEnrolledInCurrentWeek;
+}
+
+export function getUsersCurrentMonth(daily: {count: number, date: moment.Moment}[]): number {
+  const currentDate = moment();
+  const startOfMonth = currentDate.clone().startOf('month');
+
+  const usersEnrolledInCurrentMonth = daily
+    .filter(data => data.date.clone().isSameOrAfter(startOfMonth))
+    .reduce((total, data) => total + data.count, 0);
+
+  return usersEnrolledInCurrentMonth;
 }
 
 /** Retrieves monthly milestones of all users */
