@@ -93,19 +93,21 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 
 	private unpackResponse(webhookBlock: WebhookBlock, response: any)
 	{
-		let unpackedResponse = {};
+		const unpackedResponse = {};
 		// Loop through webhookBlock.variablesToSave and and create an object with t
-		for(let i of webhookBlock.variablesToSave) {
-			let value =   i.value.split('.').reduce((obj, key) => obj[key], response);
-
-			unpackedResponse[i.name] = value;
+		for(const i of webhookBlock.variablesToSave) {
+			if(i.name && i.value) {
+				const value =   i.value.split('.').reduce((obj, key) => obj[key], response);
+	
+				unpackedResponse[i.name] = value;
+			}
 		}
 
 		return unpackedResponse;
 	}
 
 	private createPayload(variablesToPost: string[], savedVariables: any) {
-		let result = {};
+		const result = {};
 
 		variablesToPost.forEach((key, i) => {
 				result[key] = savedVariables[key];

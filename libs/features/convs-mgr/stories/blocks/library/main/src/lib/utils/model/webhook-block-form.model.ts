@@ -1,5 +1,5 @@
 
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { StoryBlockTypes, HttpMethodTypes } from "@app/model/convs-mgr/stories/blocks/main";
 // import { HttpMethodTypes } from "@app/model/convs-mgr/stories/blocks/main";
@@ -16,7 +16,8 @@ export function _CreateWebhookBlockForm(_fb: FormBuilder, blockData: WebhookBloc
     id: [blockData?.id! ?? ''],
     httpUrl: [blockData.httpUrl ?? ''],
     variablesToPost: [blockData?.variablesToPost! ?? []],
-    variablesToSave: [blockData?.variablesToSave! ?? []],
+    variablesToSave: _fb.array([]),
+
     type: [blockData.type ?? StoryBlockTypes.WebhookBlock],
     position: [blockData.position ?? { x: 200, y: 50 }],
 
