@@ -65,6 +65,12 @@ export const APP_ROUTES: Route[] = [
     data: { breadCrumb: 'Learners' },
     canActivate: [IsLoggedInGuard, CanAccessLearnersGuard],
   },
+  {
+    path: 'user-groups',
+    loadChildren: () => import('@app/features/convs-mgr/user-groups').then(m => m.ConvsMgrUserGroupsModule),
+    data: { breadCrumb: 'User Groups' },
+    canActivate: [IsLoggedInGuard, CanAccessLearnersGuard],
+  },
 
   {
     path: 'chats',

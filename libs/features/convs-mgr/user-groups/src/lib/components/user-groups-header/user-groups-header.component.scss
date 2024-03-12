@@ -1,0 +1,23 @@
+.user-group-header {
+    display: flex;
+    flex-direction: column;
+
+    .user-groups-title {
+        color: #101010;
+        font-size: 2rem;
+        font-weight: 400;
+    }
+
+    .btn {
+        width: 8.875rem;
+        height: 2.813rem;
+        outline: none;
+        border: none;
+        padding: 0.875rem;
+        border-radius: 1.25rem;
+        background-color: #1F7A8C;
+        color: white;
+        margin-left: auto;
+        cursor: pointer;
+    }
+}

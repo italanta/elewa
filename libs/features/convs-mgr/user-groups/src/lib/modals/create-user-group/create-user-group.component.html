@@ -1,0 +1,44 @@
+<div class="create-modal-wrapper">
+  <span class="create-modal-header">
+    <span *ngIf="!edit; else showEditTitle">
+      Create User Group
+    </span>
+    <ng-template #showEditTitle>
+      Edit User Group
+    </ng-template>
+  </span>
+
+  <form [formGroup]="createUserGroupForm">
+
+    <div fxLayout="column" class="form-inputs" fxLayoutAlign="start">
+      <h4 class="label">
+        Group name
+      </h4>
+      <mat-form-field appearance="outline">
+        <input type="text" matInput formControlName="className"/>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" class="form-inputs" fxLayoutAlign="start">
+      <h4 class="label">Description</h4>
+
+      <mat-form-field appearance="outline">
+        <textarea matInput formControlName="description">
+        </textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="create-modal-btns">
+      <button mat-stroked-button mat-dialog-close class="create-modal-cancel">
+        {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CANCEL' | transloco }}
+      </button>
+      <button mat-raised-button class="add-btn" color="primary" class="create-modal-confirm" (click)="onSubmit()">
+        <span *ngIf="!edit; else showUpdate">{{ 'CLASSESS.MODALS.USER-FROM-GROUP.CONFIRM' | transloco }}</span>
+          <ng-template #showUpdate>
+            Update
+          </ng-template>
+      </button>
+    </div>
+  </form>
+</div>
+

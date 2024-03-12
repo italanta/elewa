@@ -11,8 +11,8 @@ import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 
 import { Bot } from '@app/model/convs-mgr/bots';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
-import { Classroom, defaultClassroom } from '@app/model/convs-mgr/classroom';
-import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
+import { Classroom } from '@app/model/convs-mgr/classroom';
+import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 
 
 import { 
@@ -101,18 +101,12 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
         return this._clasroomServ$.getAllClassrooms().pipe(
           switchMap(clsrooms => {
           this.classrooms = clsrooms;
-          this.addDefaultClass();
           return this._botModServ$.getBotModules()
         }))
       })
     )
   }
 
-  /** add default class */
-  addDefaultClass() {
-    const classroom = this.classrooms.find(cls => cls.className === defaultClassroom.className)
-    classroom ?? this.classrooms.push(defaultClassroom);
-  }
 
   /** select progress tracking Periodicals */
   selectProgressTracking(periodical: Periodicals) {

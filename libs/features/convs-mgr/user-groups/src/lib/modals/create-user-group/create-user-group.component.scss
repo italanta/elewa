@@ -1,0 +1,86 @@
+.create-modal-wrapper {
+  display: flex;
+  padding: 1.8rem;
+  flex-direction: column;
+  min-width: 25rem;
+  max-width: max-content;
+  gap: 0.4rem;
+}
+
+.create-modal-btns {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+}
+
+.create-modal-cancel {
+  color: var(--convs-mgr-color-bright-teal);
+}
+
+
+.create-modal-btns > button {
+  width: 7rem;
+  border-radius: 1.25rem;;
+}
+
+.create-modal-header {
+  font-size: x-large;
+  font-weight: 400;
+}
+
+.modal {
+  padding: 20px
+}
+
+.add-btn {
+  color: white;
+}
+
+.cancel-btn {
+  margin-right: 8px;
+}
+
+.bot-buttons {
+  margin-top: 30px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.label {
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+label {
+  margin-right: 20px;
+  width: 120px;
+  margin-bottom: 10px;
+  margin-top: 2px;
+  background: #3E788A;
+  padding: 10px;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.form-inputs {
+  padding-bottom: 0.5rem;
+}
+
+input {
+  height: 4rem;
+}
+
+::ng-deep .mat-mdc-form-field {
+  width: 100%;
+}
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  height: 0;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 1rem!important;
+}
