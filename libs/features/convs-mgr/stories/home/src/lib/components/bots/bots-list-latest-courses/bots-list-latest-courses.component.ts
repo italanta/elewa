@@ -14,6 +14,7 @@ import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
 import { ConfirmPublishModalComponent } from '../../../modals/confirm-publish-modal/confirm-publish-modal.component';
+import { ConfirmDeleteModalComponent } from '../../../modals/confirm-delete-modal/confirm-delete-modal.component';
 
 @Component({
   selector: 'italanta-apps-bots-list-latest-courses',
@@ -80,8 +81,10 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
     this._router$$.navigate(['bots', id]);
   }
 
-  deleteBot(botId:Bot){
-    this._botsService.deleteBot(botId)
+  deleteBot(bot:Bot){
+    this._dialog.open(ConfirmDeleteModalComponent, {
+      data: { bot }
+    });
   } 
 
   ngOnDestroy(): void

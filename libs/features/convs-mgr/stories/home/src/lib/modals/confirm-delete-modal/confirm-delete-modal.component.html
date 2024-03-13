@@ -1,1 +1,29 @@
-<p>confirm-delete-modal works!</p>
+<div class="modal-wrapper" *ngIf="bot">
+  <span class="modal-header">
+
+    <span class="modal-title">
+      Delete Bot
+    </span>
+
+    <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </span>
+  <p class="modal-message">
+    You are about to delete <strong>{{bot.name}}</strong>. Are you sure you want to proceed?
+  </p>
+
+  <div class="modal-info">
+    <mat-icon class="material-symbols-outlined">info</mat-icon>
+    <span> This action cannot be undone</span>
+  </div>
+
+  <div class="modal-btns">
+    <button mat-stroked-button mat-dialog-close class="modal-cancel" [disabled]="isDeleting">
+      {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CANCEL' | transloco }}
+    </button>
+    <button mat-raised-button class="add-btn" color="primary" class="modal-confirm" (click)="delete()">
+      {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CONFIRM' | transloco }}
+    </button>
+  </div>
+</div>
