@@ -1,1 +1,23 @@
-<p>confirm-publish-modal works!</p>
+<div class="modal-wrapper">
+  <span class="modal-header">
+
+    <span class="modal-title">
+      Publish Bot
+    </span>
+
+    <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </span>
+  <p class="modal-message">
+    You are about to publish <strong>Demo</strong>. Are you sure you want to proceed?
+  </p>
+  <div class="modal-btns">
+    <button mat-stroked-button mat-dialog-close class="modal-cancel">
+      {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CANCEL' | transloco }}
+    </button>
+    <button mat-raised-button class="add-btn" color="primary" class="modal-confirm">
+      {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CONFIRM' | transloco }}
+    </button>
+  </div>
+</div>

@@ -13,6 +13,7 @@ import { Bot } from '@app/model/convs-mgr/bots';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
+import { ConfirmPublishModalComponent } from '../../../modals/confirm-publish-modal/confirm-publish-modal.component';
 
 @Component({
   selector: 'italanta-apps-bots-list-latest-courses',
@@ -56,12 +57,16 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
   }
   
   publishBot(bot:Bot){
-    this.isPublishing = true;
-    bot.isPublished = true;
-    this._botsService.updateBot(bot)
-      .subscribe(() => {
-        this.isPublishing = false;
-      });
+    // this.isPublishing = true;
+    // bot.isPublished = true;
+    // this._botsService.updateBot(bot)
+    //   .subscribe(() => {
+    //     this.isPublishing = false;
+    //   });
+
+    this._dialog.open(ConfirmPublishModalComponent, {
+      data: { bot }
+    });
   }
 
   archiveBot(bot: Bot) 
