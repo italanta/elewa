@@ -18,7 +18,7 @@
 
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="connectToChannel(bot.id!)"> {{ 'BOTS.CONNECT-BOT-TO-CHANNEL' | transloco }}</button>
-      <button mat-menu-item (click)="publishBot(bot)" [disabled]="bot.isPublished"> {{ 'BOTS.PUBLISH-BOT' | transloco }}</button>
+      <button mat-menu-item (click)="publishBot(bot)"> {{ 'BOTS.PUBLISH-BOT' | transloco }}</button>
       <button mat-menu-item (click)="archiveBot(bot)" [disabled]="bot.isArchived">{{ 'BOTS.ARCHIVE-BOT' | transloco }} </button>
       <button mat-menu-item (click)="deleteBot(bot)" [disabled]="bot.isPublished"> {{ 'BOTS.DELETE-BOT' | transloco }}</button>
     </mat-menu>
