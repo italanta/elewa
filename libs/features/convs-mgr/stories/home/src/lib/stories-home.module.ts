@@ -32,6 +32,7 @@ import { SpinnerModalComponent } from './modals/spinner-modal/spinner-modal.comp
 import { ChannelComponent } from './modals/channel/channel.component';
 import { MainChannelModalComponent } from './modals/main-channel-modal/main-channel-modal.component';
 import { ConfirmPublishModalComponent } from './modals/confirm-publish-modal/confirm-publish-modal.component';
+import { ConfirmDeleteModalComponent } from './modals/confirm-delete-modal/confirm-delete-modal.component';
 
 @NgModule({
   imports: [
@@ -66,6 +67,7 @@ import { ConfirmPublishModalComponent } from './modals/confirm-publish-modal/con
     ChannelComponent,
     MainChannelModalComponent,
     ConfirmPublishModalComponent,
+    ConfirmDeleteModalComponent,
   ],
 })
 export class ConvsMgrStoriesHomeModule {}
