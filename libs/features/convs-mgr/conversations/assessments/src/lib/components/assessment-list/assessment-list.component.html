@@ -35,9 +35,11 @@
 				</div>
 			</div>
 
-			<div *ngIf="!dataFound">
+			<!-- <div *ngIf="!dataFound">
 				<ng-container *ngTemplateOutlet="noAssessments"></ng-container>
-			</div>
+			</div> -->
+
+			<convl-empty-page-illustration *ngIf="!dataFound" text="No assessment has been created"></convl-empty-page-illustration>
 
 			<div *ngIf="dataFound">
 				<app-assessments-list-view *ngIf="viewInListView" [dataSource]="dataSource" [assessments]="assessments"></app-assessments-list-view>
@@ -45,14 +47,5 @@
 			</div>
 		</div>
 	</div>
-
-	<ng-template #noAssessments>
-		<div class="create-assessments" fxLayout="row" fxLayout="center center">
-			<div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
-				<i class="fa fa-plus fa-5x" aria-hidden="true"></i>
-				<p>{{'ASSESSMENTS.BUTTON.ADD-ASSESSMENT' | transloco}}</p>
-			</div>
-		</div>
-	</ng-template>
 
 </div>
