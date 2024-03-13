@@ -1,5 +1,5 @@
 <convl-page>
-  <div class="page-container">
+  <div class="page-container" [class.page-container-center]="!dataSource.data.length">
 
     <!-- top actions and filter container -->
     <div class="top-wrapper">
@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <div class="table-filters">
+      <div class="table-filters" *ngIf="dataSource.data.length">
 
         <div class="search">
           <i class="fas fa-search search_tooltip"></i>
@@ -61,7 +61,7 @@
     <!-- end top actions and filter container -->
 
     <!-- mat-table -->
-    <div class="table-wrapper">
+    <div class="table-wrapper" *ngIf="dataSource.data.length">
       <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="assessments-table">
         <ng-container matColumnDef="select">
           <th class="table-header" mat-header-cell *matHeaderCellDef>
@@ -133,6 +133,6 @@
         [ariaLabel]="'ASSESSMENTS.RESULTS.ACCESSIBILITY.SELECT-RESULTS-PAGE' | transloco "></mat-paginator>
     </div>
     <!-- end mat-table -->
-
+    <convl-empty-page-illustration *ngIf="!dataSource.data.length" text="No users yet"></convl-empty-page-illustration>
   </div>
 </convl-page>
