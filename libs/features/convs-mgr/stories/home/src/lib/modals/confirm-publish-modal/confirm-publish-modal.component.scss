@@ -2,7 +2,8 @@
   display: flex;
   padding: 1.8rem;
   flex-direction: column;
-  width: max-content;
+  width: 35rem;
+  gap: 1rem;
 }
 
 .modal-btns {
@@ -19,7 +20,6 @@
   line-height: 1.5;
   font-size: medium;
   font-weight: 300;
-  padding-bottom: 1rem;
 }
 
 .modal-btns > button {
