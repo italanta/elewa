@@ -37,6 +37,15 @@
   align-items: center;
 }
 
+.modal-info {
+  padding-bottom: 1rem;
+  color: grey;
+  display: flex;
+  gap: 0.7rem;
+  font-size: 0.9rem;
+  align-items: center;
+}
+
 .modal-title {
   font-size: larger;
   font-weight: 400;

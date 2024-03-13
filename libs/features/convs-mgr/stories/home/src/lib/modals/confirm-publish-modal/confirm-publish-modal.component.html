@@ -12,6 +12,10 @@
   <p class="modal-message">
     You are about to publish <strong>{{bot.name}}</strong>. Are you sure you want to proceed?
   </p>
+  <div class="modal-info">
+    <mat-icon class="material-symbols-outlined">info</mat-icon>
+    <span> Media publishes once you connect the course to a channel </span>
+  </div>
   <div class="modal-btns">
     <button mat-stroked-button mat-dialog-close class="modal-cancel" [disabled]="isPublishing">
       {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CANCEL' | transloco }}
