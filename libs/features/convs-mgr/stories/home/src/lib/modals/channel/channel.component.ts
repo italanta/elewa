@@ -96,7 +96,6 @@ export class ChannelComponent implements OnChanges
   returnToPlatform()
   {
     this.dialogRef.close();
-
   }
 
 }
