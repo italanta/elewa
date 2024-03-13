@@ -117,6 +117,7 @@ export function getEngagedUsersCurrentWeek(dailyProgress: GroupProgressModel[], 
 
   const usersEnrolledInCurrentWeek = dailyProgress
     .filter(data => __DateFromStorage(data.createdOn as Date).isSameOrAfter(startOfWeek))
+    .filter(data => data.courseProgress)
     .reduce((total, data) => total + data.courseProgress[courseId][usersType].dailyCount, 0);
 
   return usersEnrolledInCurrentWeek;
