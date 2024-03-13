@@ -14,8 +14,7 @@ import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
   templateUrl: './channel.component.html',
   styleUrls: ['./channel.component.scss'],
 })
-export class ChannelComponent
-{
+export class ChannelComponent {
   selectedPlatform: PlatformType;
   bot: Bot;
   channels: CommunicationChannel[];

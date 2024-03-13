@@ -12,35 +12,39 @@ import { Bot } from '@app/model/convs-mgr/bots';
   templateUrl: './main-channel-modal.component.html',
   styleUrls: ['./main-channel-modal.component.scss'],
 })
-export class MainChannelModalComponent implements OnInit, OnDestroy {
+export class MainChannelModalComponent implements OnInit, OnDestroy
+{
   private _sBs = new SubSink();
   selectedTab = 1;
   bot: Bot;
 
-  modalData: {selectedPlatform: PlatformType, bot: Bot};
-  
+  modalData: { selectedPlatform: PlatformType, bot: Bot; };
 
-  constructor(private router: ActivatedRoute,  
-              @Inject(MAT_DIALOG_DATA) public data: { bot: Bot}) {
-                this.bot = data.bot;
-              }
+  constructor(private router: ActivatedRoute,
+    @Inject(MAT_DIALOG_DATA) public data: { bot: Bot; })
+  {
+    this.bot = data.bot;
+  }
 
-  ngOnInit() {
-    this._sBs.sink = this.router.queryParams.subscribe((params) => {
+  ngOnInit()
+  {
+    this._sBs.sink = this.router.queryParams.subscribe((params) =>
+    {
       this.selectedTab = params['selectedTab'];
     });
   }
-  
-  getPlatform(value: {selectedPlatform: PlatformType}) {
-    this.modalData ={
+
+  getPlatform(value: { selectedPlatform: PlatformType; })
+  {
+    this.modalData = {
       selectedPlatform: value.selectedPlatform,
       bot: this.bot,
-    }
+    };
     this.selectedTab = 2;
-}
+  }
 
-
-  ngOnDestroy(): void {
+  ngOnDestroy(): void
+  {
     this._sBs.unsubscribe();
   }
 } 

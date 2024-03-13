@@ -12,25 +12,27 @@ import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 })
 
 export class ConnectToChannelModalComponent {
-  @Output() selectedPlatformOutput = new EventEmitter<{selectedPlatform: PlatformType}>();
+  @Output() selectedPlatformOutput = new EventEmitter<{ selectedPlatform: PlatformType; }>();
 
-  channels:CommunicationChannel[];
+  channels: CommunicationChannel[];
   selectedPlatform: PlatformType;
-  channelForm:FormGroup;
-  selectedChannelId:string;
+  channelForm: FormGroup;
+  selectedChannelId: string;
   whatsappValue: PlatformType = PlatformType.WhatsApp;
   messengerValue: PlatformType = PlatformType.Messenger;
-  
+
   constructor(
     private fb: FormBuilder,
     private _dialog: MatDialog
-    ){}
+  ) { }
 
-  onPlatformSelected(){
-    this.selectedPlatformOutput.emit({selectedPlatform: this.selectedPlatform});
+  onPlatformSelected()
+  {
+    this.selectedPlatformOutput.emit({ selectedPlatform: this.selectedPlatform });
   }
 
-   closeDialog(){
+  closeDialog()
+  {
     this._dialog.closeAll();
-   }
+  }
 }
