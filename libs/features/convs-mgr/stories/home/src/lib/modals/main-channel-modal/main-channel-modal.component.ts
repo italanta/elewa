@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
-
-
+import { Bot } from '@app/model/convs-mgr/bots';
 
 @Component({
   selector: 'italanta-apps-main-channel-modal',
@@ -15,10 +15,15 @@ import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 export class MainChannelModalComponent implements OnInit, OnDestroy {
   private _sBs = new SubSink();
   selectedTab = 1;
-  selectedPlatformAndBot: {selectedPlatform: PlatformType, botId: string};
+  bot: Bot;
+
+  modalData: {selectedPlatform: PlatformType, bot: Bot};
   
 
-  constructor(private router: ActivatedRoute) {}
+  constructor(private router: ActivatedRoute,  
+              @Inject(MAT_DIALOG_DATA) public data: { bot: Bot}) {
+                this.bot = data.bot;
+              }
 
   ngOnInit() {
     this._sBs.sink = this.router.queryParams.subscribe((params) => {
@@ -26,8 +31,11 @@ export class MainChannelModalComponent implements OnInit, OnDestroy {
     });
   }
   
-  handlePlatformAndBotSelected(value: {selectedPlatform: PlatformType, botId: string}) {
-    this.selectedPlatformAndBot = value;
+  getPlatform(value: {selectedPlatform: PlatformType}) {
+    this.modalData ={
+      selectedPlatform: value.selectedPlatform,
+      bot: this.bot,
+    }
     this.selectedTab = 2;
 }
 

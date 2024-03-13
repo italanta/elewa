@@ -10,8 +10,6 @@ import { Observable, map, tap } from 'rxjs';
 import { __DateFromStorage } from '@iote/time';
 
 import { Bot } from '@app/model/convs-mgr/bots';
-import { BotsStateService } from '@app/state/convs-mgr/bots';
-import { FileStorageService } from '@app/state/file';
 
 import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
 import { ConfirmPublishModalComponent } from '../../../modals/confirm-publish-modal/confirm-publish-modal.component';
@@ -44,9 +42,7 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
 
   constructor(
     private _router$$: Router, 
-    private _dialog: MatDialog, 
-    private _botsService: BotsStateService,
-    private _fileStorageService: FileStorageService
+    private _dialog: MatDialog
     ) { }
 
   ngOnInit(): void
@@ -61,10 +57,10 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
     }
   }
 
-  connectToChannel(botId: string)
+  connectToChannel(bot: Bot)
   {
     this._dialog.open(MainChannelModalComponent, {
-      data: { botId: botId }
+      data: { bot }
     });
   }
   

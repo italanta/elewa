@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Inject, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
@@ -12,7 +12,7 @@ import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 })
 
 export class ConnectToChannelModalComponent {
-  @Output() platformAndBotSelected = new EventEmitter<{selectedPlatform: PlatformType, botId: string}>();
+  @Output() selectedPlatformOutput = new EventEmitter<{selectedPlatform: PlatformType}>();
 
   channels:CommunicationChannel[];
   selectedPlatform: PlatformType;
@@ -22,13 +22,12 @@ export class ConnectToChannelModalComponent {
   messengerValue: PlatformType = PlatformType.Messenger;
   
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: string,
     private fb: FormBuilder,
     private _dialog: MatDialog
     ){}
 
   onPlatformSelected(){
-    this.platformAndBotSelected.emit({selectedPlatform: this.selectedPlatform, botId: this.data});
+    this.selectedPlatformOutput.emit({selectedPlatform: this.selectedPlatform});
   }
 
    closeDialog(){
