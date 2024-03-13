@@ -4,12 +4,9 @@
     fxLayoutAlign="start" [fxFlex]="screenWidth < 1500 ? 32 : 25">
 
     <span class="card-title" fxFlex>
-      <div class="modals"  [ngClass]="{'hidden': !isPublishing}" >
-        <italanta-apps-spinner-modal/>
-      </div>
       
-        <button class="published" *ngIf="bot.isPublished" [ngClass]="{'hidden': isPublishing}">{{ 'BOTS.CREATE-MODAL.PUBLISHED' | transloco }}</button> 
-        <button class="draft" *ngIf="!bot.isPublished" [ngClass]="{'hidden': isPublishing}">{{ 'BOTS.CREATE-MODAL.DRAFT' | transloco }}</button>
+        <button class="published" *ngIf="bot.isPublished">{{ 'BOTS.CREATE-MODAL.PUBLISHED' | transloco }}</button> 
+        <button class="draft" *ngIf="!bot.isPublished">{{ 'BOTS.CREATE-MODAL.DRAFT' | transloco }}</button>
       
       <button mat-button [matMenuTriggerFor]="menu">
         <i class="fa-solid fa-ellipsis-vertical menu-tooltip"></i>

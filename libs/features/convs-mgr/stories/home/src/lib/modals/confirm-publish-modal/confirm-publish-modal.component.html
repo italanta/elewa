@@ -1,4 +1,4 @@
-<div class="modal-wrapper">
+<div class="modal-wrapper" *ngIf="bot">
   <span class="modal-header">
 
     <span class="modal-title">
@@ -10,13 +10,13 @@
     </button>
   </span>
   <p class="modal-message">
-    You are about to publish <strong>Demo</strong>. Are you sure you want to proceed?
+    You are about to publish <strong>{{bot.name}}</strong>. Are you sure you want to proceed?
   </p>
   <div class="modal-btns">
-    <button mat-stroked-button mat-dialog-close class="modal-cancel">
+    <button mat-stroked-button mat-dialog-close class="modal-cancel" [disabled]="isPublishing">
       {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CANCEL' | transloco }}
     </button>
-    <button mat-raised-button class="add-btn" color="primary" class="modal-confirm">
+    <button mat-raised-button class="add-btn" color="primary" class="modal-confirm" (click)="publish()">
       {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CONFIRM' | transloco }}
     </button>
   </div>

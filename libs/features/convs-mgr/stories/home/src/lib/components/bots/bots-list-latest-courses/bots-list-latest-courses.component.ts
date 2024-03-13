@@ -57,16 +57,17 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
   }
   
   publishBot(bot:Bot){
-    // this.isPublishing = true;
-    // bot.isPublished = true;
-    // this._botsService.updateBot(bot)
-    //   .subscribe(() => {
-    //     this.isPublishing = false;
-    //   });
+    this.isPublishing = true;
 
-    this._dialog.open(ConfirmPublishModalComponent, {
+    const dialogRef = this._dialog.open(ConfirmPublishModalComponent, {
       data: { bot }
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.isPublishing = false;
+      }
+    })
   }
 
   archiveBot(bot: Bot) 
