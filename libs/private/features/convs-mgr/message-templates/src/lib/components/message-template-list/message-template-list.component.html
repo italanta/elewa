@@ -1,6 +1,6 @@
 <div class="message-template-list-container">
       <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex 
-          [style.visibility]="dataSource.data ? '' : 'hidden'" >
+          [style.visibility]="dataSource.data.length ? '' : 'hidden'" >
         <form [formGroup]="searchForm" class="search">
           <i class="fas fa-search search_tooltip"></i>
           <input formControlName="searchInput" class="search_input" type="text" name="" placeholder="Search templates" />
@@ -12,9 +12,9 @@
           </button>
     </div>
 </div>
-  <convl-empty-page-illustration *ngIf="!dataSource.data" text="No message templates have been created"></convl-empty-page-illustration>
+  <convl-empty-page-illustration *ngIf="!dataSource.data.length" text="No message templates have been created"></convl-empty-page-illustration>
 
-<div class="table" *ngIf="dataSource.data">
+<div class="table" *ngIf="dataSource.data.length">
     <mat-spinner *ngIf="isSaving" radius="15"></mat-spinner>
     <div fxFlex *ngIf="!isSaving">
         <table mat-table [dataSource]="dataSource"  class="assessments-table" 
