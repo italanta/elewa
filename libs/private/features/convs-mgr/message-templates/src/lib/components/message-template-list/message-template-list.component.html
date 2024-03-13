@@ -1,34 +1,20 @@
 <div class="message-template-list-container">
-      <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex>
+      <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex 
+          [style.visibility]="dataSource.data ? '' : 'hidden'" >
         <form [formGroup]="searchForm" class="search">
           <i class="fas fa-search search_tooltip"></i>
           <input formControlName="searchInput" class="search_input" type="text" name="" placeholder="Search templates" />
         </form>
-        <!-- <span class="list-title-message">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.LIST-TITLE.LIST-TITLE-MESSAGE'| transloco }}</span> -->
-        <!-- <span class="list-title-sub">2 learners selected</span> -->
     </div>
     <div class="list-title-button">
         <button mat-raised-button class="create-btn" (click)="createTemplate()">
             <span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.LIST-TITLE-BUTTON.CREATE-BUTTON.CREATE-TEMPLATE'| transloco }} </span>
-            <!-- <mat-spinner diameter="25" *ngIf="isSaving"></mat-spinner> -->
           </button>
     </div>
 </div>
-<!-- <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex>
-    <div class="search" fxFlex="70">
-      <i class="fas fa-search search_tooltip"></i>
-      <input  class="search_input" type="text" name="" placeholder="Search template" />
-    </div>
-  </div> -->
-  <!-- <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex>
-    <form [formGroup]="searchForm" class="search">
-      <i class="fas fa-search search_tooltip"></i>
-      <input formControlName="searchInput" class="search_input" type="text" name="" placeholder="search templates" />
-    </form>
-  </div> -->
+  <convl-empty-page-illustration *ngIf="!dataSource.data" text="No message templates have been created"></convl-empty-page-illustration>
 
-
-<div class="table">
+<div class="table" *ngIf="dataSource.data">
     <mat-spinner *ngIf="isSaving" radius="15"></mat-spinner>
     <div fxFlex *ngIf="!isSaving">
         <table mat-table [dataSource]="dataSource"  class="assessments-table" 
