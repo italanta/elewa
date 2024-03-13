@@ -7,13 +7,13 @@ import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { ConfirmPublishModalComponent } from '../confirm-publish-modal/confirm-publish-modal.component';
 
 @Component({
-  selector: 'italanta-apps-confirm-delete-modal',
-  templateUrl: './confirm-delete-modal.component.html',
-  styleUrls: ['./confirm-delete-modal.component.scss'],
+  selector: 'italanta-apps-confirm-archive-modal',
+  templateUrl: './confirm-archive-modal.component.html',
+  styleUrls: ['./confirm-archive-modal.component.scss'],
 })
-export class ConfirmDeleteModalComponent {
+export class ConfirmArchiveModalComponent {
   bot: Bot;
-  isDeleting: boolean;
+  isArchiving: boolean;
 
   constructor(private _botsService: BotsStateService,
               public dialogRef: MatDialogRef<ConfirmPublishModalComponent>, 
@@ -21,11 +21,11 @@ export class ConfirmDeleteModalComponent {
                 this.bot = data.bot;
               }
 
-  delete() { 
-    this.isDeleting = true;
-    this._botsService.deleteBot(this.bot)
+  archive() { 
+    this.isArchiving = true;
+    this._botsService.archiveBot(this.bot)
       .subscribe(() => {
-        this.isDeleting = false;
+        this.isArchiving = false;
         this.dialogRef.close(true);
       });
   }
