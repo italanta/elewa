@@ -39,7 +39,6 @@ export class ChannelComponent {
   fetchChannels()
   {
     if(this.selectedPlatform) {
-      // Check if selectedPlatformAndBot and selectedPlatform are defined
       this.channelService.getChannelsByType(this.selectedPlatform).subscribe((channels) =>
       {
         this.channels = channels;
