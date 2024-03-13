@@ -3,7 +3,6 @@
   padding: 1.8rem;
   flex-direction: column;
   width: 35rem;
-  gap: 1rem;
 }
 
 .modal-btns {
@@ -26,6 +25,10 @@
   width: 22%;
   height: 2rem;
   border-radius: 1.25rem;
+}
+
+.modal-btns {
+  padding-top: 1rem;
 }
 
 .modal-header {
