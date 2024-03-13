@@ -6,24 +6,26 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, Observable, combineLatest, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, map, of, switchMap, tap } from 'rxjs';
 
 import { __DateFromStorage } from '@iote/time';
 
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 import { FileStorageService } from '@app/state/file';
-
 import { 
   CreateBotModalComponent,
-  DeleteBotModalComponent,
-  DeleteElementsEnum,
   ActionSortingOptions
 } from '@app/elements/layout/convs-mgr/story-elements';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
+
 import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
+import { ConfirmArchiveModalComponent } from '../../../modals/confirm-archive-modal/confirm-archive-modal.component';
+import { ConfirmDeleteModalComponent } from '../../../modals/confirm-delete-modal/confirm-delete-modal.component';
+import { ConfirmPublishModalComponent } from '../../../modals/confirm-publish-modal/confirm-publish-modal.component';
 
 @Component({
   selector: 'italanta-apps-bots-list-all-courses',
@@ -37,8 +39,7 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
   @Input() bots$: Observable<Bot[]>
 
   isPublishing: boolean;
-
-  uploadMedia: boolean;
+  isUploading: boolean;
 
   sorting$$ = new BehaviorSubject<ActionSortingOptions>(
     ActionSortingOptions.Newest
@@ -55,7 +56,7 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
 
   constructor(private _dialog: MatDialog,
               private _router$$: Router,
-              private _botsService: BotsStateService,
+              private _snackBar: MatSnackBar,
               private _fileStorageService: FileStorageService) { }
 
   ngOnInit(): void {
@@ -85,15 +86,6 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
       minWidth: '600px', 
       data: { 
         botMode: BotMutationEnum.EditMode, bot: bot
-      }
-    }).afterClosed();
-  }
-
-  deleteBot(bot: Bot) {
-    this._dialog.open(DeleteBotModalComponent, {
-      minWidth: 'fit-content', 
-      data: { 
-        mode: DeleteElementsEnum.Bot, element: bot,
       }
     }).afterClosed();
   }
@@ -136,35 +128,62 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
     this._router$$.navigateByUrl('/bots/view-all')
   }
 
-  connectToChannel(botId: string)
+  connectToChannel(bot: Bot)
   {
     this._dialog.open(MainChannelModalComponent, {
-      width: '30rem',
-      height: '27rem',
-      data: { botId: botId }
+      data: { bot }
     });
   }
-
-  publishBot(bot: Bot)
-  {
+  
+  publishBot(bot:Bot){
     this.isPublishing = true;
-    this._sbS.sink = this._botsService.publishBot(bot)
-      .subscribe(() =>
-      {
-        this.isPublishing = false;
-      });
 
-    // Upload Media to platform server e.g. whatsapp server
-    //  Solves delays in sending images vs text  
-    if(this.uploadMedia && bot.linkedChannel) {
-      this._fileStorageService.uploadMediaToPlatform(bot.linkedChannel).subscribe()
-    }
+    const dialogRef = this._dialog.open(ConfirmPublishModalComponent, {
+      data: { bot }
+    });
+
+    const published$ = dialogRef.afterClosed();
+
+    published$.pipe(tap((published)=> {
+      if(published) {
+        this.isPublishing = false;
+      }
+    }), 
+      switchMap(() => {
+        if(bot.linkedChannel) {
+          this.isUploading = true;
+          return this._fileStorageService.uploadMediaToPlatform(bot.linkedChannel);
+        } else {
+          return of(null);
+        }
+      })).subscribe((result)=> {
+          this.isUploading = false;
+          if(result.success) {
+            this.openSnackBar('Media upload successful', 'OK');
+          } else {
+            // Show failure due to linked channel
+            this.openSnackBar('Media upload failed. Confirm channel details', 'OK');
+          }
+        })
   }
 
   archiveBot(bot: Bot) 
   {
-    this._sbS.sink = this._botsService.archiveBot(bot).subscribe();
+    this._dialog.open(ConfirmArchiveModalComponent, {
+      data: { bot }
+    });
   }
+
+  deleteBot(bot:Bot){
+    this._dialog.open(ConfirmDeleteModalComponent, {
+      data: { bot }
+    });
+  } 
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
+
 
   ngOnDestroy() {
     this._sbS.unsubscribe();
