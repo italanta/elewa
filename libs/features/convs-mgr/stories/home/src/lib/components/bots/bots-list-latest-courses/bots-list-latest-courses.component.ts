@@ -3,13 +3,15 @@ import { orderBy as __orderBy } from 'lodash';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { SubSink } from 'subsink';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map, of, switchMap, tap } from 'rxjs';
 
 import { __DateFromStorage } from '@iote/time';
 
 import { Bot } from '@app/model/convs-mgr/bots';
+import { FileStorageService } from '@app/state/file';
 
 import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
 import { ConfirmPublishModalComponent } from '../../../modals/confirm-publish-modal/confirm-publish-modal.component';
@@ -42,7 +44,9 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
 
   constructor(
     private _router$$: Router, 
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _fileStorageService: FileStorageService,
+    private _snackBar: MatSnackBar,
     ) { }
 
   ngOnInit(): void
@@ -71,11 +75,29 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
       data: { bot }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+    const published$ = dialogRef.afterClosed();
+
+    published$.pipe(tap((published)=> {
+      if(published) {
         this.isPublishing = false;
       }
-    })
+    }), 
+      switchMap(() => {
+        if(bot.linkedChannel) {
+          this.isUploading = true;
+          return this._fileStorageService.uploadMediaToPlatform(bot.linkedChannel);
+        } else {
+          return of(null);
+        }
+      })).subscribe((result)=> {
+          this.isUploading = false;
+          if(result.success) {
+            this.openSnackBar('Media upload successful', 'OK');
+          } else {
+            // Show failure due to linked channel
+            this.openSnackBar('Media upload failed. Confirm channel details', 'OK');
+          }
+        })
   }
 
   archiveBot(bot: Bot) 
@@ -95,6 +117,10 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
       data: { bot }
     });
   } 
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
 
   ngOnDestroy(): void
   {
