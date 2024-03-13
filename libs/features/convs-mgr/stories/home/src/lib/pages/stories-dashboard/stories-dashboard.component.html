@@ -12,8 +12,10 @@
     </span>
 
     <div class="latest-courses" fxFlex>
-      <italanta-apps-bots-list-latest-courses [bots$]="bots$">
+      <italanta-apps-bots-list-latest-courses [bots$]="bots$" *ngIf="(bots$ |async)?.length">
       </italanta-apps-bots-list-latest-courses>
+
+    <convl-empty-page-illustration *ngIf="!(bots$ |async)?.length" text="You have not created any courses yet"></convl-empty-page-illustration>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -21,8 +23,8 @@
 
     </div>
 
-    <div class="my-courses" fxFlex>
-      <italanta-apps-bots-list-all-courses [bots$]="bots$">
+    <div class="my-courses" fxFlex  *ngIf="(bots$ |async)?.length">
+      <italanta-apps-bots-list-all-courses [bots$]="bots$" *ngIf="(bots$ |async)?.length">
       </italanta-apps-bots-list-all-courses>
     </div>
   </div>
