@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class EmptyPageIllustrationComponent {
   @Input() text: string;
+  @Input() customStyle: any;
 }
