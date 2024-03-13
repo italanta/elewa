@@ -33,6 +33,10 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
 
   @Input() classroom: Classroom;
 
+  emptyPageStyle = {
+    'padding-top': '7rem'
+  }
+
   _sbs = new SubSink();
 
   allPlatforms: string[] = ['whatsapp', 'messenger'];

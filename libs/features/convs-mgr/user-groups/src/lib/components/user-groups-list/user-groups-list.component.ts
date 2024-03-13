@@ -41,7 +41,7 @@ export class UserGroupsListComponent implements OnInit {
   ngOnInit(): void {
     this._classroomService.getAllClassrooms().subscribe(
      (data: Classroom[]) => {
-      //  this.dataSource = new MatTableDataSource<Classroom>(data);
+       this.dataSource = new MatTableDataSource<Classroom>(data);
        this.dataSource.sort = this.sort;
        this.dataSource.paginator = this.paginator;
  }

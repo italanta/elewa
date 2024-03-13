@@ -5,7 +5,7 @@
       <button class="btn move-users" *ngIf="selection.selected.length > 0" (click)="moveUsersModal()" transloco="LEARNERS.USER-GROUPS.BUTTONS.MOVE-USERS"></button>
       <!-- <button class="btn" >Add User to Group</button> -->
     </div>
-    <div class="table-filters">
+    <div class="table-filters" *ngIf="dataSource.data.length">
 
         <div class="search"> 
             <i class="fas fa-search search_tooltip"></i>
@@ -30,7 +30,9 @@
             </div>
     </div>
 
-    <div class="table-wrapper">
+    <convl-empty-page-illustration *ngIf="!dataSource.data.length" text="No users yet" [customStyle]="emptyPageStyle"></convl-empty-page-illustration>
+
+    <div class="table-wrapper" *ngIf="dataSource.data.length">
       <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="assessments-table">
         <ng-container matColumnDef="select">
           <th class="table-header" mat-header-cell *matHeaderCellDef>
