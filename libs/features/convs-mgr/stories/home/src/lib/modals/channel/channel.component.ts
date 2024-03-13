@@ -63,7 +63,6 @@ export class ChannelComponent {
     if (!selectedChannel) {
       return;
     }
-
     // Add the botId to the selected channel
     selectedChannel.linkedBot = this.bot.id;
 

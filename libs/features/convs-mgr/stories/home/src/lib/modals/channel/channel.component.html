@@ -16,7 +16,7 @@
            
         <div class="buttons">
             <button class="cancel" type="button" (click)="close()">{{ "BOTS.CREATE-MODAL.CANCEL" | transloco }}</button>
-            <button class="submit" type="submit" (click)="addBotToChannel()">{{ "BOTS.CREATE-MODAL.CONNECT" | transloco }}</button>
+            <button class="submit" type="submit" [disabled]="!bot" (click)="addBotToChannel()">{{ "BOTS.CREATE-MODAL.CONNECT" | transloco }}</button>
         </div>
     </div>
 </div>
