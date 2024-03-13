@@ -54,6 +54,6 @@ import { EmptyPageIllustrationComponent } from './components/empty-page-illustra
   ],
 
   providers: [],
-  exports: [ConvlPageComponent],
+  exports: [ConvlPageComponent, EmptyPageIllustrationComponent],
 })
 export class ConvlPageModule {}
