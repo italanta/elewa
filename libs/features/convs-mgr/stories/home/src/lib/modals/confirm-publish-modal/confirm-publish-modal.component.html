@@ -12,7 +12,7 @@
   <p class="modal-message">
     You are about to publish <strong>{{bot.name}}</strong>. Are you sure you want to proceed?
   </p>
-  <div class="modal-info">
+  <div class="modal-info" *ngIf="!bot.linkedChannel">
     <mat-icon class="material-symbols-outlined">info</mat-icon>
     <span> Media publishes once you connect the course to a channel </span>
   </div>
