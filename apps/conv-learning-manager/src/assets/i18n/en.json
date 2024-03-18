@@ -265,6 +265,8 @@
       "CHATS": "Chats",
       "MESSAGING": "Messaging",  
       "MESSAGE-TEMPLATES": "Message Templates",    
+      "USERS": "Users",    
+      "USER-GROUPS": "User Groups",    
       "ASSESSMENTS": "Assessments",
       "SURVEYS": "Surveys",
       "LOG-OUT": "Logout",

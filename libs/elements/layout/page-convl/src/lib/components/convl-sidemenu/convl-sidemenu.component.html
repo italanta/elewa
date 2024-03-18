@@ -149,7 +149,7 @@
 
               <div *ngIf="isDropdownOpen">
                 <ul class="sub-side-menu">
-                  <li matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}">
+                  <li matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.USERS'| transloco }}">
                     <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/learners" routerLinkActive="active" (click)="$event.stopPropagation()">
                       <span class="menu-icon">
                         <img src="assets/icons/message-chat.svg" class="img" alt="">
@@ -159,7 +159,7 @@
                       </span>
                     </a>
                   </li>
-                  <li matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGE-TEMPLATES'| transloco }}">
+                  <li matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.USER-GROUPS'| transloco }}">
                     <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/user-groups" routerLinkActive="active" (click)="$event.stopPropagation()">
                       <span class="menu-icon">
                         <img src="assets/icons/message-template.svg" class="img" alt="">
