@@ -5,10 +5,15 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class MenuStateToggleService {
-  private _showChildren = new BehaviorSubject(false);
+  private initVal = {
+    messaging: true,
+    manageUsers: true,
+  }
+
+  private _showChildren = new BehaviorSubject(this.initVal);
   menuState$ = this._showChildren.asObservable();
 
-  toggleMenuState(value: boolean) {
+  toggleMenuState(value: {messaging: boolean, manageUsers: boolean}) {
     this._showChildren.next(value);
   }
 }
