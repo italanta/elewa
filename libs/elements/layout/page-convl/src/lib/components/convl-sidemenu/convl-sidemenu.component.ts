@@ -38,7 +38,10 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
   projectName: string;
   projectInfo: string;
 
-  isExpanded:boolean;
+  isMessagingDropdownOpen: boolean;
+  isManageUsersDropdownOpen: boolean;
+
+  isExpanded: boolean;
 
   readonly CAN_ACCESS_BOTS = AppClaimDomains.BotsView;
   readonly CAN_ACCESS_ANALYTICS = AppClaimDomains.AnalyticsView;
@@ -59,8 +62,12 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
               private cdr: ChangeDetectorRef,
               @Inject('ENVIRONMENT') private _env: any)
   {
-    this._sbS.sink = this.sideMenu.menuStatus$.subscribe((isOpen) => (this.isExpanded = isOpen));
-    this._sbS.sink = this._mMenuState.menuState$.subscribe((isOpen) => (this.isDropdownOpen = isOpen));
+    this._sbS.sink = this.sideMenu.menuStatus$.subscribe((isOpen) => this.isExpanded = isOpen);
+
+    this._sbS.sink = this._mMenuState.menuState$.subscribe((isOpen) => {
+      this.isMessagingDropdownOpen = isOpen.messaging;
+      this.isManageUsersDropdownOpen = isOpen.manageUsers;
+    });
     this._sbS.sink = this.featureFlagsService.init(); 
     
   }
@@ -147,8 +154,25 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
     this.sideMenu.toggleExpand(!this.isExpanded)
   }
 
-  toggleDropdown() {
-    this._mMenuState.toggleMenuState(!this.isDropdownOpen);
+  toggleDropdown(section: string) {
+    const newState = {
+      messaging: this.isMessagingDropdownOpen,
+      manageUsers: this.isManageUsersDropdownOpen
+    }
+
+    switch (section) {
+      case 'messaging':
+        newState.messaging = !this.isMessagingDropdownOpen;
+        break;
+      case 'manage-users':
+        newState.manageUsers = !this.isManageUsersDropdownOpen;
+        break;
+      default:
+        break;
+    }
+
+    
+    this._mMenuState.toggleMenuState(newState);
   }
 
   ngOnDestroy() {
