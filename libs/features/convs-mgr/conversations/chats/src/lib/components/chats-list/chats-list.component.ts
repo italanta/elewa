@@ -29,6 +29,10 @@ export class ChatsListComponent implements AfterViewInit, OnDestroy
   private _sbs = new SubSink()
   currentChat: Chat;
 
+  emptyChatStyle = {
+    'height': '70vh' 
+  }
+
   chats$: Observable<Chat[]>;
 
   isLoading = true;

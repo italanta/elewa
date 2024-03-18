@@ -20,6 +20,10 @@ export class UserGroupsListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Output() groupSelect = new EventEmitter<string>();
 
+  emptyPageStyle= {
+    'padding-top': '7rem'
+  }
+
 
   displayedColumns = [
     'className',

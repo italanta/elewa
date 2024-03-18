@@ -1,4 +1,4 @@
-<div class="table-wrapper">
+<div class="table-wrapper" *ngIf="dataSource.data.length">
     <table mat-table [dataSource]="dataSource" class="user-groups-table">
         <ng-container matColumnDef="className">
             <th class="table-header" mat-header-cell *matHeaderCellDef>Group Name</th>
@@ -44,3 +44,5 @@
 
 
 </div>
+
+<convl-empty-page-illustration *ngIf="!dataSource.data.length" text="No user groups have been created" [customStyle]="emptyPageStyle"></convl-empty-page-illustration>
