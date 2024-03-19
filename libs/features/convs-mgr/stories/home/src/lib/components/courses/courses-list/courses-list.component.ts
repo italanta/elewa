@@ -5,14 +5,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SubSink } from 'subsink';
 import { Observable, of, switchMap, tap } from 'rxjs';
 
-import { CreateLessonModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
+import { ConfirmDeleteModalComponent, CreateLessonModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { FileStorageService } from '@app/state/file';
 
 import { Course } from '../../../model/courses.interface';
 import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
 import { ConfirmArchiveModalComponent } from '../../../modals/confirm-archive-modal/confirm-archive-modal.component';
-import { ConfirmDeleteModalComponent } from '../../../modals/confirm-delete-modal/confirm-delete-modal.component';
 import { ConfirmPublishModalComponent } from '../../../modals/confirm-publish-modal/confirm-publish-modal.component';
 
 @Component({

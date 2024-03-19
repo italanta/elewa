@@ -8,7 +8,7 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 
 import {
-  DeleteBotModalComponent,
+  ConfirmDeleteModalComponent,
   DeleteElementsEnum, 
   CreateLessonModalComponent
 } from '@app/elements/layout/convs-mgr/story-elements';
@@ -40,7 +40,7 @@ export class ModulesLessonsGridViewComponent {
   }
 
   deleteLesson(story: Story) {
-    this._dialog.open(DeleteBotModalComponent, {
+    this._dialog.open(ConfirmDeleteModalComponent, {
       minWidth: 'fit-content', 
       data: { 
         mode: DeleteElementsEnum.Story, element: story, parentElement:story.parentModule

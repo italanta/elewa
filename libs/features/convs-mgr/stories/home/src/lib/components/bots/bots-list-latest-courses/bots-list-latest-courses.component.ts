@@ -12,10 +12,10 @@ import { __DateFromStorage } from '@iote/time';
 
 import { Bot } from '@app/model/convs-mgr/bots';
 import { FileStorageService } from '@app/state/file';
+import { ConfirmDeleteModalComponent, DeleteElementsEnum } from '@app/elements/layout/convs-mgr/story-elements';
 
 import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
 import { ConfirmPublishModalComponent } from '../../../modals/confirm-publish-modal/confirm-publish-modal.component';
-import { ConfirmDeleteModalComponent } from '../../../modals/confirm-delete-modal/confirm-delete-modal.component';
 import { ConfirmArchiveModalComponent } from '../../../modals/confirm-archive-modal/confirm-archive-modal.component';
 
 @Component({
@@ -114,7 +114,9 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
 
   deleteBot(bot:Bot){
     this._dialog.open(ConfirmDeleteModalComponent, {
-      data: { bot }
+      data: { 
+        mode: DeleteElementsEnum.BotModule, element: bot,
+      }
     });
   } 
 

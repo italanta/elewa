@@ -12,8 +12,8 @@ import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { FileStorageService } from '@app/state/file';
 import { 
   DeleteElementsEnum,
-  DeleteBotModalComponent,
-  CreateLessonModalComponent
+  CreateLessonModalComponent,
+  ConfirmDeleteModalComponent
 } from '@app/elements/layout/convs-mgr/story-elements';
 
 import { ConnectToChannelModalComponent } from '../../../modals/connect-to-channel-modal/connect-to-channel-modal.component';
@@ -60,7 +60,7 @@ export class CourseModuleItemComponent {
   }
 
   deleteLesson(story: Story) {
-    this._dialog.open(DeleteBotModalComponent, {
+    this._dialog.open(ConfirmDeleteModalComponent, {
       minWidth: 'fit-content', 
       data: { 
         mode: DeleteElementsEnum.Story, element: story, parentElement:story.parentModule

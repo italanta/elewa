@@ -18,13 +18,13 @@ import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 import { FileStorageService } from '@app/state/file';
 import { 
   CreateBotModalComponent,
-  ActionSortingOptions
+  ActionSortingOptions,
+  DeleteElementsEnum,
+  ConfirmDeleteModalComponent
 } from '@app/elements/layout/convs-mgr/story-elements';
-import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
 import { ConfirmArchiveModalComponent } from '../../../modals/confirm-archive-modal/confirm-archive-modal.component';
-import { ConfirmDeleteModalComponent } from '../../../modals/confirm-delete-modal/confirm-delete-modal.component';
 import { ConfirmPublishModalComponent } from '../../../modals/confirm-publish-modal/confirm-publish-modal.component';
 
 @Component({
@@ -176,7 +176,9 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
 
   deleteBot(bot:Bot){
     this._dialog.open(ConfirmDeleteModalComponent, {
-      data: { bot }
+      data: { 
+        mode: DeleteElementsEnum.BotModule, element: bot,
+      }
     });
   } 
 
