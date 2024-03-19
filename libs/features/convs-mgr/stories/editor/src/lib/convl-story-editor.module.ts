@@ -25,8 +25,6 @@ import { GroupedBlocksComponent } from './components/grouped-blocks/grouped-bloc
 import { StoryEditorInitialiserService } from './providers/story-editor-initialiser.service';
 import { ManageChannelStoryLinkService } from './providers/manage-channel-story-link.service';
 
-import { AddBotToChannelModal } from './modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
-
 import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module';
 import { PinchZoomDirective } from './directives/app-pinch-zoom.directive';
 import { TrackCursorDirective } from './directives/track-cursor.directive';
@@ -51,7 +49,6 @@ import { SaveStoryService } from './providers/save-story.service';
 
   declarations: [
     StoryEditorPageComponent,
-    AddBotToChannelModal,
     StoryEditorFrameComponent,
     GroupedBlocksComponent,
     BlocksLibraryComponent,

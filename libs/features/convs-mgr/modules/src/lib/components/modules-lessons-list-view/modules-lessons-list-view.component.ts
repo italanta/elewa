@@ -8,9 +8,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
 import {
-  DeleteBotModalComponent, 
   DeleteElementsEnum, 
-  CreateLessonModalComponent
+  CreateLessonModalComponent,
+  ConfirmDeleteModalComponent
 } from '@app/elements/layout/convs-mgr/story-elements';
 
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
@@ -58,7 +58,7 @@ export class ModulesLessonsListViewComponent implements AfterViewInit {
   }
 
   deleteLesson(story: Story) {
-    this._dialog.open(DeleteBotModalComponent, {
+    this._dialog.open(ConfirmDeleteModalComponent, {
       minWidth: 'fit-content', 
       data: { 
         mode: DeleteElementsEnum.Story, element: story, parentElement:story.parentModule

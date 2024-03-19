@@ -1,23 +1,27 @@
+import { orderBy as __orderBy } from 'lodash';
+
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, Observable, combineLatest, map, tap } from 'rxjs';
-import { orderBy as __orderBy } from 'lodash';
+import { BehaviorSubject, Observable, combineLatest, map, of, switchMap, tap } from 'rxjs';
 
 import { __DateFromStorage } from '@iote/time';
 
 import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb';
-
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
-
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
-
 import { ActionSortingOptions, CreateModuleModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
 import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
+import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { FileStorageService } from '@app/state/file';
+
+import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
+import { ConfirmPublishModalComponent } from '../../../modals/confirm-publish-modal/confirm-publish-modal.component';
 
 @Component({
   selector: 'italanta-apps-modules-list-header',
@@ -33,6 +37,10 @@ export class BotModulesListHeaderComponent implements OnInit, OnDestroy {
   private _sBs = new SubSink();
 
   activeBotId:string;
+  activeBot: Bot;
+
+  isPublishing: boolean;
+  isUploading: boolean;
 
   dataSource = new MatTableDataSource<BotModule>();
   filteredBotModules: BotModule[];
@@ -51,7 +59,10 @@ export class BotModulesListHeaderComponent implements OnInit, OnDestroy {
   constructor(
     private _dialog: MatDialog, 
     private _route: ActivatedRoute,
-    private _breadCrumbServ: BreadcrumbService
+    private _breadCrumbServ: BreadcrumbService,
+    private _botsService$: BotsStateService,
+    private _snackBar: MatSnackBar,
+    private _fileStorageService: FileStorageService
   ) {
     this.activeBotId = this._route.snapshot.paramMap.get('id') as string;
     this.breadcrumbs$ = this._breadCrumbServ.breadcrumbs$;
@@ -64,11 +75,19 @@ export class BotModulesListHeaderComponent implements OnInit, OnDestroy {
             botModules.map((b) => { 
               return { ...b, lastEdited: TIME_AGO(this.parseDate(b.updatedOn ? b.updatedOn : b.createdOn as Date)) }})),
           tap((botModules) => {
+            this.dataFound = botModules.length > 0;
             this.dataSource.data = botModules
             this.filteredBotModules = botModules
           })).subscribe();
 
     this.configureFilter();
+
+    // TODO: Refactor to pass the bot data through the router
+    this._sBs.sink = this._botsService$.getBotById(this.activeBotId).subscribe((bot)=> {
+      if(bot) {
+        this.activeBot = bot
+      }
+    })
   }
 
   /** order BotModules */
@@ -84,7 +103,7 @@ export class BotModulesListHeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  createBot() {
+  createModule() {
     const dialogData = {
       botMode: BotMutationEnum.CreateMode,
       botId: this.activeBotId
@@ -94,6 +113,49 @@ export class BotModulesListHeaderComponent implements OnInit, OnDestroy {
       minWidth: '600px',
       data: dialogData,
     });
+  }
+
+  connectToChannel(bot: Bot)
+  {
+    this._dialog.open(MainChannelModalComponent, {
+      data: { bot }
+    });
+  }
+  
+  publishBot(bot:Bot){
+    this.isPublishing = true;
+
+    const dialogRef = this._dialog.open(ConfirmPublishModalComponent, {
+      data: { bot }
+    });
+
+    const published$ = dialogRef.afterClosed();
+
+    published$.pipe(tap((published)=> {
+      if(published) {
+        this.isPublishing = false;
+      }
+    }), 
+      switchMap(() => {
+        if(bot.linkedChannel) {
+          this.isUploading = true;
+          return this._fileStorageService.uploadMediaToPlatform(bot.linkedChannel);
+        } else {
+          return of(null);
+        }
+      })).subscribe((result)=> {
+          this.isUploading = false;
+          if(result.success) {
+            this.openSnackBar('Media upload successful', 'OK');
+          } else {
+            // Show failure due to linked channel
+            this.openSnackBar('Media upload failed. Confirm channel details', 'OK');
+          }
+        })
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
   }
 
   configureFilter() {

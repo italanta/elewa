@@ -1,7 +1,7 @@
 <div class="wrapper">
   <div class="assessment-card" *ngIf="scoresComputed; else fetchingAssessment">
     <div class="title">
-      <span>{{'INSIGHTS.CHART.ASSESSMENTS.TITLE' | transloco }}</span>
+      <span>{{'ANALYTICS.CHART.ASSESSMENTS.TITLE' | transloco }}</span>
     </div>
 
     <div class="assessment-select">
@@ -21,19 +21,19 @@
     <div class="assessment-scores">
       <div class="highscore">
         <i class="fa-solid fa-arrow-up tooltip"></i>
-        <span>{{'INSIGHTS.CHART.ASSESSMENTS.HIGHEST-SCORE' | transloco }} {{ highestScore }}</span>
+        <span>{{'ANALYTICS.CHART.ASSESSMENTS.HIGHEST-SCORE' | transloco }} {{ highestScore }}</span>
       </div>
 
       <div class="lowscore">
         <i class="fa-solid fa-arrow-down tooltip"></i>
-        <span>{{'INSIGHTS.CHART.ASSESSMENTS.LOWEST-SCORE' | transloco }} {{ lowestScore }}</span>
+        <span>{{'ANALYTICS.CHART.ASSESSMENTS.LOWEST-SCORE' | transloco }} {{ lowestScore }}</span>
       </div>
     </div>
   </div>
 
   <ng-template #fetchingAssessment>
     <div class="loader">
-      <span>{{'INSIGHTS.CHART.ASSESSMENTS.COMPUTING-SCORES' | transloco }}</span>
+      <span>{{'ANALYTICS.CHART.ASSESSMENTS.COMPUTING-SCORES' | transloco }}</span>
       <mat-spinner diameter="25" strokeWidth="3"></mat-spinner>
     </div>
   </ng-template>

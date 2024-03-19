@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { MatDialog } from '@angular/material/dialog';
 
+import { of, switchMap } from 'rxjs';
+
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
-import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { WhatsappUploadFileService } from '@app/state/file/whatsapp';
+import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
 import { FILE_LIMITS } from '../model/platform-file-size-limits';
 
@@ -16,7 +18,8 @@ export class FileStorageService
 
   constructor(private _afS$$: AngularFireStorage,
     private dialog: MatDialog,
-    private _whatsappUploadFileService: WhatsappUploadFileService
+    private _whatsappUploadFileService: WhatsappUploadFileService,
+    private channelService: CommunicationChannelService,
   ) { }
 
   async uploadSingleFile(file: File, filePath: string) {
@@ -61,10 +64,15 @@ export class FileStorageService
     }
   }
 
-  uploadMediaToPlatform(channel: CommunicationChannel)
+  uploadMediaToPlatform(channelId: string)
   {
-    // TODO: Add support for other platforms
-    return this._whatsappUploadFileService.uploadMedia(channel);
+    return this.channelService.getSpecificChannel(channelId).pipe(switchMap((channel)=> {
+      if(channel) {
+        return this._whatsappUploadFileService.uploadMedia(channel);
+      } else {
+        return of(null);
+      }
+    }))
   }
 
 }

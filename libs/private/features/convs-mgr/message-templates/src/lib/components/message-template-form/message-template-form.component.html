@@ -10,12 +10,12 @@
                     (selectedOptionsChange)="onSelectedOptionsChange($event)"></app-template-form-dropdown>
                 </div> -->
                 <mat-accordion class="multi-drop">
-                    <mat-expansion-panel (opened)="panelOpenState = true"
+                    <mat-expansion-panel expanded="true" (opened)="panelOpenState = true"
                                          (closed)="panelOpenState = false">
                       <mat-expansion-panel-header>
                         <mat-panel-title>
                             <div class="titles">
-                                <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.TITLE'| transloco }}</p>
+                                <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.TITLE'| transloco }} <span class="asteric">*</span> </p>
                                 <!-- <p>Category, channel, language</p> -->
                             </div>
                         </mat-panel-title>
@@ -26,31 +26,44 @@
                         <div class="form-group">
                             <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CATEGORY'| transloco }}</p>
                             <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CATEGORY-DESCRIPTION'| transloco }}</p>
-                              <mat-form-field  class="selec">
-                                <mat-select  formControlName="category">
+                              <mat-form-field  class="selec" appearance="outline"> 
+                                    <mat-select  formControlName="category">
                                     <mat-option *ngFor="let category of categories" [value]="category.value">{{ category.display }}</mat-option>
                                   </mat-select>
+                              
                               </mat-form-field>
                         </div>
                         
                         <div class="form-group">
                             <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.LANGUAGE'| transloco }}</p>
                             <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.LANGUAGE-DESCRIPTION'| transloco }}</p>
-                            <mat-form-field  class="selec" >
+                            <mat-form-field  class="selec" appearance="outline" >
                                 <mat-select formControlName="language">
                                     <mat-option *ngFor="let language of languages" [value]="language.value">{{ language.display }}</mat-option>
                                 </mat-select>
                                 </mat-form-field>
+                                <!-- uncomment incase QA wants a border radius, but advice on selection color that cant be changed -->
+                            <!-- <select 
+                                formControlName="language">
+                                    <option></option>
+                                    <option *ngFor="let language of languages" [value]="language.value">{{ language.display }}</option>
+                            </select> -->
                         </div>
                       </div>
                       <div class="form-group">
                         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CHANNEL'| transloco }}</p>
                         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CHANNEL-DESCRIPTION'| transloco }} </p>
-                        <mat-form-field  class="">
+                        <mat-form-field  appearance="outline">
                             <mat-select class="mat-outline" formControlName="channelId">
                                 <mat-option *ngFor="let channel of (channels$ | async)" [value]="channel.id">{{ channel.name }}</mat-option>
                             </mat-select>
                         </mat-form-field>
+                        <!-- uncomment incase QA wants a border radius, but advice on selection color that cant be changed -->
+                        <!-- <select 
+                            formControlName="channelId">
+                            <option></option>
+                            <option *ngFor="let channel of (channels$ | async)" [value]="channel.id">{{ channel.name }}</option>
+                        </select> -->
                         <p *ngIf="!(channels$ | async)?.length" class="channel-dd">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.NO-CHANNEL'| transloco }}</p>
                       </div>
                     </mat-expansion-panel>
@@ -59,99 +72,87 @@
                 <div class="form-group head-cont">
                     <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TITLE'| transloco }}<span class="asteric">*</span> </p>
                     <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TITLE-DESCRIPTION'| transloco }}</p>
-                    <mat-form-field >
-                        <input type="text" matInput formControlName="name">
-                    </mat-form-field>
+                    
+                        <input class="header-input" type="text" matInput formControlName="name">
+                    
                 </div>
+                
+                <!-- TODO: Change to flexbox -->
                 <div class="conte" formGroupName="content">
                     <div class="form-group head" formGroupName="header">
-                        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.HEADER.HEADER'| transloco }}</p>
-                        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.HEADER.HEADER-DESCRIPTION'| transloco }} <span> <span class="spec">T</span> </span></p>
+                        <p class="text">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.HEADER.HEADER'| transloco }}</p>
+                        <p  class="text">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.HEADER.HEADER-DESCRIPTION'| transloco }}</p>
           
-                        <mat-form-field >
-                          <input type="text" matInput formControlName="text">
-                        </mat-form-field>
-                      </div>
-
-
-                      <div class="variables" *ngIf="showHeaderSection">
-                        <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.HEADER-SAMPLES.SAMPLES'| transloco }}</p>
-                        <p class="np">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.HEADER-SAMPLES.NOTICE'| transloco }}</p>
-                        <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.HEADER'| transloco }}</p>
+                          <input class="header-input" type="text" name="text" matInput formControlName="text">
                         
-                        <h6 class="vars" *ngFor="let variable of newHeaderVariables$ | async">{{variable.placeholder}}: <span>{{variable.variable}}</span></h6>
-                          <div [formGroup] = "newVariableHeaderForm" *ngIf="newHeaderVariables.length < 1" >
-                            <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinput">
-                            <input type="text" formControlName="newVariable" placeholder="Enter Content" class="eveinputs" [attr.disabled]="newVariableHeaderForm.get('newVariable')?.disabled ? true : null">
-                            </div>
                     </div>
 
+                    <app-header-variables-sample-section #headerSection 
+                        *ngIf="template" 
+                        [hidden]="!showHeaderExampleSection" 
+                        [templateForm]="templateForm" [template]="template">
+                    </app-header-variables-sample-section>
 
                       <div class="add-variable-header header">
                         <p class="dropdown" [matMenuTriggerFor]="menu" (click)="fetchBots()">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.ADD-VARIABLE'| transloco }}<i class="fas fa-chevron-down"></i></p>
                     </div>
-                        <mat-menu #menu="matMenu">
-                            <mat-radio-group aria-label="Select an option" class="options" formControlName="frequency" (change)="onBotSelected($event, 'header')">
-                                <mat-radio-button *ngFor="let bot of bots" [value]="{ id: bot.id, name: bot.name }">{{ bot.name }}</mat-radio-button>
-                              </mat-radio-group>                                        
+                        <mat-menu #menu="matMenu">                         
+                            <div class="div" *ngFor="let bot of bots">
+                                <mat-radio-button [value]="{ id: bot.id, name: bot.name }" (change)="onBotSelected(bot.id, bot.name, 'header')">{{ bot.name }}</mat-radio-button>
+                            </div>  
                         </mat-menu>  
-                        <div class="var-card" *ngIf="showCard">
+
+                        <!-- TODO: Move to separate component -->
+                        <div class="var-card" *ngIf="showCard" (clickOutside)="showCard = false">
                             <mat-card  *ngFor="let variable of fetchedVariables" class="header-card">
-                                <div *ngIf="selectedClass === 'header'">
-                                    <h4>{{ botName }}</h4>
-                                    <ul  class="header">
-                                        <li (click)="updateVariableAndPlaceholder(variable.name); hideCard()">{{ '{{' + variable.name + '}}' }}</li>
-                                    </ul>
+                                <div *ngIf="selectedClass === 'header'" class="var-wrapper">
+                                    <span class="bot-name">{{ botName }}</span>
+                                    <div class="variables-list">
+                                        <span class="single-variable" (click)="addExample(variable.name, 'header'); hideCard()">{{ '{{' + variable.name + '}}' }}</span>
+                                    </div>
                                 </div>
                               </mat-card>
-                        </div>
+                         </div>  
 
                     <div class="form-group body" formGroupName="body">
-                        <p> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}<span class="asteric">*</span></p>
-                        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY-DESCRIPTION'| transloco }}</p>
-                        <mat-form-field>
-                            <input #textAreaElement type="textarea" matInput formControlName="text" height="300px" >
-                        </mat-form-field>
+                        <p  class="text"> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}<span class="asteric">*</span></p>
+                        <p  class="text">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY-DESCRIPTION'| transloco }}</p>
+                       
+                            <textarea class="body-input" name="text" rows="4" cols="50" formControlName="text"></textarea>
+                       
                         <div class="add-variable-body">
                             <p class="dropdown" [matMenuTriggerFor]="bodymenu" (click)="fetchBots()">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.ADD-VARIABLE'| transloco }}<i class="fas fa-chevron-down"></i></p>
                         </div>
-                            <mat-menu #bodymenu="matMenu">
-                                <mat-radio-group aria-label="Select an option" class="options" formControlName="frequency" (change)="onBotSelected($event, 'body')">
-                                    <mat-radio-button *ngFor="let bot of bots" [value]="{ id: bot.id, name: bot.name }">{{ bot.name }}</mat-radio-button>
-                                  </mat-radio-group>                                        
+                            <mat-menu #bodymenu="matMenu">                                    
+                                <div class="div" *ngFor="let bot of bots">
+                                    <mat-radio-button [value]="{ id: bot.id, name: bot.name }" (change)="onBotSelected(bot.id, bot.name, 'body')">{{ bot.name }}</mat-radio-button>
+                                </div>  
                             </mat-menu>  
 
-                         <div class="var-card" *ngIf="showCard">
+                         <div class="var-card" *ngIf="showCard" (clickOutside)="showCard = false">
                             <mat-card  *ngFor="let variable of fetchedVariables" class="body-card">
-                                <div *ngIf="selectedClass === 'body'">
-                                    <h4>{{ botName }}</h4>
-                                    <ul  class="body">
-                                        <li (click)="updateVariableAndPlaceholder(variable.name); hideCard()">{{ '{{' + variable.name + '}}' }}</li>
-                                    </ul>
+                                <div *ngIf="selectedClass === 'body'" class="var-wrapper">
+                                    <span class="bot-name">{{ botName }}</span>
+                                    <div class="variables-list">
+                                        <span class="single-variable" (click)="addExample(variable.name, 'body'); hideCard()">{{ '{{' + variable.name + '}}' }}</span>
+                                    </div>
                                 </div>
                               </mat-card>
                          </div>   
                           
                         <br>
-
-                        <div class="variables" *ngIf="showVariablesSection">
-                            <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.SAMPLES'| transloco }}</p>
-                            <p class="np">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.NOTICE'| transloco }}</p>
-                            <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}</p>
-                            
-                            <h6 class="vars" *ngFor="let variable of newVariables$ | async">{{variable.placeholder}}: <span>{{variable.variable}}</span></h6>
-                              <div [formGroup] = "newVariableForm">
-                                <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinput">
-                                <input type="text" formControlName="newVariable" placeholder="Enter Content" class="eveinputs" [attr.disabled]="newVariableForm.get('newVariable')?.disabled ? true : null">
-                                </div>
-                        </div>
-                        </div>
+                        <app-body-variables-sample-section #bodySection 
+                            *ngIf="template"
+                            [hidden]="!showBodyExampleSection"
+                            [templateForm]="templateForm" [template]="template"
+                            ></app-body-variables-sample-section>
+                    </div>
                     <div class="form-group">
                         <p> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.FOOTER.FOOTER'| transloco }}</p>
                         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.FOOTER.FOOTER-DESCRIPTION'| transloco }}</p>
-                        <mat-form-field >
-                            <input type="textarea" matInput formControlName="footer">
-                        </mat-form-field>
+                        
+                            <input class="header-input" type="textarea" matInput formControlName="footer">
+                       
                     </div>
 
                     <div class="form-header-buttons">

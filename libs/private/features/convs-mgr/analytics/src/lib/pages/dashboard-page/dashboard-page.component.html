@@ -1,52 +1,82 @@
 <convl-page>
   <div class="container">
     <div>
-      <span class="title">{{'INSIGHTS.TITLE' | transloco }}</span>
+      <span class="title">{{'ANALYTICS.TITLE' | transloco }}</span>
     </div>
 
-    <div class="menu-items">
+    <div class="top-filters">
       <!-- courses -->
-      <div class="items">
-        <button class="item_btn" mat-button [matMenuTriggerFor]="coursesMenu">{{ activeCourse.name | titlecase  }} Course(s) &nbsp; <i class="fas fa-caret-down"></i></button>
+      <div class="items courses">
+        <button class="item_btn" mat-button [matMenuTriggerFor]="coursesMenu"> <div class="button-content"><div>{{ activeCourse.name | titlecase  }} Course(s)  &nbsp;</div> <div> <i class="fas fa-caret-down"></i></div> </div></button>
         <mat-menu #coursesMenu="matMenu">
-          <button mat-menu-item (click)="selectActiveCourse(allCourse)">{{'INSIGHTS.ALL-OPTION' | transloco }}</button>
+          <button mat-menu-item (click)="selectActiveCourse(allCourse)">{{'ANALYTICS.ALL-OPTION' | transloco }}</button>
           <div *ngFor="let course of (courses$ | async)">
               <button mat-menu-item (click)="selectActiveCourse(course)">{{ course.name | titlecase  }}</button>
             </div>
         </mat-menu>
       </div>
 
-      <!-- classrooms -->
-      <div class="items">
-        <button class="item_btn" mat-button [matMenuTriggerFor]="classMenu">{{ activeClassroom.className | titlecase  }} Classroom(s) &nbsp; <i class="fas fa-caret-down"></i></button>
-        <mat-menu #classMenu="matMenu">
-          <button mat-menu-item (click)="selectActiveClassroom(allClass)">{{'INSIGHTS.ALL-OPTION' | transloco }}</button>
-            <div *ngFor="let classroom of (classrooms$ | async)">
-              <button mat-menu-item (click)="selectActiveClassroom(classroom)">{{ classroom.className | titlecase }}</button>
-            </div>
-        </mat-menu>
-      </div>
+      <div class="menu-items">
+  
+        <!-- classrooms -->
+        <!-- <div class="items">
+          <button class="item_btn" mat-button [matMenuTriggerFor]="classMenu">{{ activeClassroom.className | titlecase  }} Classroom(s) &nbsp; <i class="fas fa-caret-down"></i></button>
+          <mat-menu #classMenu="matMenu">
+            <button mat-menu-item (click)="selectActiveClassroom(allClass)">{{'ANALYTICS.ALL-OPTION' | transloco }}</button>
+              <div *ngFor="let classroom of (classrooms$ | async)">
+                <button mat-menu-item (click)="selectActiveClassroom(classroom)">{{ classroom.className | titlecase }}</button>
+              </div>
+          </mat-menu>
+        </div> -->
+  
+        <!-- periodical -->
+        <!-- <div class="items">
+          <button class="item_btn" mat-button [matMenuTriggerFor]="periodicalMenu">{{ periodical | titlecase  }} {{'ANALYTICS.CHART.PROGRESSION' | transloco }} &nbsp; <i class="fas fa-caret-down"></i></button>
+          <mat-menu #periodicalMenu="matMenu">
+            <button mat-menu-item (click)=" selectProgressTracking('Monthly')">{{'ANALYTICS.CHART.PERIODICALS.MONTH' | transloco }}</button>
+            <button mat-menu-item (click)=" selectProgressTracking('Weekly')">{{'ANALYTICS.CHART.PERIODICALS.WEEK' | transloco }}</button>
+            <button mat-menu-item (click)=" selectProgressTracking('Daily')">{{'ANALYTICS.CHART.PERIODICALS.DAY' | transloco }}</button>
+          </mat-menu>
+        </div> -->
 
-      <!-- periodical -->
-      <div class="items">
-        <button class="item_btn" mat-button [matMenuTriggerFor]="periodicalMenu">{{ periodical | titlecase  }} {{'INSIGHTS.CHART.PROGRESSION' | transloco }} &nbsp; <i class="fas fa-caret-down"></i></button>
-        <mat-menu #periodicalMenu="matMenu">
-          <button mat-menu-item (click)=" selectProgressTracking('Monthly')">{{'INSIGHTS.CHART.PERIODICALS.MONTH' | transloco }}</button>
-          <button mat-menu-item (click)=" selectProgressTracking('Weekly')">{{'INSIGHTS.CHART.PERIODICALS.WEEK' | transloco }}</button>
-          <button mat-menu-item (click)=" selectProgressTracking('Daily')">{{'INSIGHTS.CHART.PERIODICALS.DAY' | transloco }}</button>
-        </mat-menu>
+        <div class="period-filters">
+          <ul>
+            <li><a  [ngClass]="{'active': periodical === 'Daily'}" (click)=" selectProgressTracking('Daily')">{{'ANALYTICS.CHART.PERIODICALS.DAY' | transloco }}</a></li>
+            <li><a [ngClass]="{'active': periodical === 'Weekly'}" (click)=" selectProgressTracking('Weekly')">{{'ANALYTICS.CHART.PERIODICALS.WEEK' | transloco }}</a></li>
+            <li><a [ngClass]="{'active': periodical === 'Monthly'}" class="active" (click)=" selectProgressTracking('Monthly')">{{'ANALYTICS.CHART.PERIODICALS.MONTH' | transloco }}</a></li>
+            <li><a (click)="picker.opened ? picker.close() : picker.open()" [ngClass]="{'active': periodical === 'Custom'}">{{'ANALYTICS.CHART.PERIODICALS.CUSTOM' | transloco }}</a>
+            </li>
+            
+            <mat-date-range-input [max]="todaysDate" [min]="analyticsStartDate" [formGroup]="customPeriodForm" [rangePicker]="picker">
+              <input matStartDate formControlName="start" placeholder="Start date">
+              <input matEndDate formControlName="end" placeholder="End date">
+            </mat-date-range-input>
+            <mat-date-range-picker xPosition="end" yPosition="below" #picker></mat-date-range-picker>
+          </ul>
+      </div>
       </div>
     </div>
 
-    <div class="charts">
-      <app-group-based-progress-chart 
-        [setActiveCourse]="activeCourse" 
-        [setActiveClassroom]="activeClassroom" 
-        [setPeriodical]="periodical"
-      ></app-group-based-progress-chart>
-      <app-assessment-progress-chart></app-assessment-progress-chart>
-      <app-enrolled-user-progress-chart [setPeriodical]="periodical"></app-enrolled-user-progress-chart>
-      <app-progress-completion-rate-chart [setActiveCourse]="activeCourse"></app-progress-completion-rate-chart>
+    <div class="period-paginator no-select" *ngIf="getDateRange(period$ | async)">
+      <div class="prev">
+        <a (click)="move('past')" [class.inactive]="isFirst$ | async"> <span class="move-icon"><&nbsp;</span> {{getDateRange(period$ | async)?.start}}</a>
+      </div>
+      <span class="paginator-dash">-</span>
+      <div class="next">
+        <a (click)="move('future')" [class.inactive]="isLast$ | async"> {{getDateRange(period$ | async)?.end}} <span class="move-icon">&nbsp;></span></a>
+      </div>
+    </div>
+    
+    <div class="main-section">
+      <app-all-courses-page *ngIf="!activeCourse.id" [periodical]="periodical" [progress$]="progress$" [period$]="period$" [isLast$]="isLast$"></app-all-courses-page>
+      <app-single-course-page 
+        *ngIf="activeCourse.id"
+        [progress$]="progress$" 
+        [period$]="period$"
+        [isLast$]="isLast$"
+        [activeCourse]="activeCourse" 
+        [activeClassroom]="activeClassroom" 
+        ></app-single-course-page>
     </div>
   </div>
 </convl-page>

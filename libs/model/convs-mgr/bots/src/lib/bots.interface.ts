@@ -23,7 +23,17 @@ export interface Bot extends IObject {
   modules: string[];
 
   /** Type of the element */
-  type: 'Bot'
+  type: 'Bot';
+
+  isPublished?: boolean;
+
+  publishedOn?: Date;
+
+  /* bot archive status*/
+  isArchived?: boolean;
+
+  /** The id channel this bot is connected to */
+  linkedChannel?: string;
 }
 
 /** botmutation enum - has the different bot mutations you can perfom on a bot */

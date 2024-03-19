@@ -1,26 +1,31 @@
+import { orderBy as __orderBy } from 'lodash';
+
 import { Component, Input, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, Observable, combineLatest, map, tap } from 'rxjs';
-import { orderBy as __orderBy } from 'lodash';
+import { BehaviorSubject, Observable, combineLatest, map, of, switchMap, tap } from 'rxjs';
 
 import { __DateFromStorage } from '@iote/time';
 
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
-
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
-
+import { FileStorageService } from '@app/state/file';
 import { 
   CreateBotModalComponent,
-  DeleteBotModalComponent,
+  ActionSortingOptions,
   DeleteElementsEnum,
-  ActionSortingOptions
+  ConfirmDeleteModalComponent
 } from '@app/elements/layout/convs-mgr/story-elements';
+
+import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
+import { ConfirmArchiveModalComponent } from '../../../modals/confirm-archive-modal/confirm-archive-modal.component';
+import { ConfirmPublishModalComponent } from '../../../modals/confirm-publish-modal/confirm-publish-modal.component';
 
 @Component({
   selector: 'italanta-apps-bots-list-all-courses',
@@ -32,6 +37,9 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
   private _sbS = new SubSink();
 
   @Input() bots$: Observable<Bot[]>
+
+  isPublishing: boolean;
+  isUploading: boolean;
 
   sorting$$ = new BehaviorSubject<ActionSortingOptions>(
     ActionSortingOptions.Newest
@@ -47,7 +55,9 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
   sortCoursesBy = 'newest';
 
   constructor(private _dialog: MatDialog,
-              private _router$$: Router) { }
+              private _router$$: Router,
+              private _snackBar: MatSnackBar,
+              private _fileStorageService: FileStorageService) { }
 
   ngOnInit(): void {
     this._sbS.sink = combineLatest(([this.bots$, this.sorting$$.asObservable()]))
@@ -76,15 +86,6 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
       minWidth: '600px', 
       data: { 
         botMode: BotMutationEnum.EditMode, bot: bot
-      }
-    }).afterClosed();
-  }
-
-  deleteBot(bot: Bot) {
-    this._dialog.open(DeleteBotModalComponent, {
-      minWidth: 'fit-content', 
-      data: { 
-        mode: DeleteElementsEnum.Bot, element: bot,
       }
     }).afterClosed();
   }
@@ -126,6 +127,65 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
   openViewAllPage() {
     this._router$$.navigateByUrl('/bots/view-all')
   }
+
+  connectToChannel(bot: Bot)
+  {
+    this._dialog.open(MainChannelModalComponent, {
+      data: { bot }
+    });
+  }
+  
+  publishBot(bot:Bot){
+    this.isPublishing = true;
+
+    const dialogRef = this._dialog.open(ConfirmPublishModalComponent, {
+      data: { bot }
+    });
+
+    const published$ = dialogRef.afterClosed();
+
+    published$.pipe(tap((published)=> {
+      if(published) {
+        this.isPublishing = false;
+      }
+    }), 
+      switchMap(() => {
+        if(bot.linkedChannel) {
+          this.isUploading = true;
+          return this._fileStorageService.uploadMediaToPlatform(bot.linkedChannel);
+        } else {
+          return of(null);
+        }
+      })).subscribe((result)=> {
+          this.isUploading = false;
+          if(result.success) {
+            this.openSnackBar('Media upload successful', 'OK');
+          } else {
+            // Show failure due to linked channel
+            this.openSnackBar('Media upload failed. Confirm channel details', 'OK');
+          }
+        })
+  }
+
+  archiveBot(bot: Bot) 
+  {
+    this._dialog.open(ConfirmArchiveModalComponent, {
+      data: { bot }
+    });
+  }
+
+  deleteBot(bot:Bot){
+    this._dialog.open(ConfirmDeleteModalComponent, {
+      data: { 
+        mode: DeleteElementsEnum.BotModule, element: bot,
+      }
+    });
+  } 
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
+  }
+
 
   ngOnDestroy() {
     this._sbS.unsubscribe();

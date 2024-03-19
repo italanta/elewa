@@ -6,6 +6,21 @@
     color: white;
     border-radius: 10px;
 
+      .published, .draft {
+        height: 1.75rem;
+        width: 30%;
+        border-radius: 25px;
+        background: transparent;
+        color: white;
+        border: 1px solid white;
+        margin-left: 1rem;
+      }
+   
+    
+    .botName{
+      padding: 0 0 0 1rem;
+    }    
+    
     .card-badge {
       width: fit-content;
       display: inline-block;
@@ -25,10 +40,12 @@
     .card-title {
       font-size: 1.3rem;
       font-weight: 300;
-      max-width: 90%;
+      max-width: 100%;
       line-height: normal;
       word-wrap: break-word;
-      padding: 20px;
+      padding-top: 20px;
+      display: flex;
+      justify-content:space-between;
     }
 
     .open-bot {
@@ -60,6 +77,9 @@
         }
       }
     }
+    .hidden {
+      display: none;
+     }
   }
 
   .card:nth-of-type(2) {
@@ -83,4 +103,8 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
   border-radius: 10px;
+}
+
+.menu-tooltip {
+  color: white;
 }

@@ -25,7 +25,6 @@ import { getActiveBlock } from '../../providers/fetch-active-block-component.fun
 import { SaveStoryService } from '../../providers/save-story.service';
 
 import { StoryEditorFrameComponent } from '../../components/editor-frame/editor-frame.component';
-import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
 @Component({
   selector: 'convl-story-editor-page',
@@ -194,14 +193,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   //
   // END SAVE
   //
-
-  addToChannel() {
-    // this.checkStoryErrors();
-    this._dialog.open(AddBotToChannelModal, {
-      width: '550px'
-    })
-
-  }
 
   toggleSidenav() {
     this.sideScreen.toggleSideScreen(!this.isSideScreenOpen)

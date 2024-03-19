@@ -42,4 +42,9 @@ export interface CommunicationChannel extends IObject
    *          `{platform}_{n}_{end-user-ID}` with n being the n'th connection that an
    *          organisation is making to the same platform. */
   n: number;
+
+   /**
+   * Each Channel can be assigned only a single bot 
+   */
+   linkedBot?:string
 }

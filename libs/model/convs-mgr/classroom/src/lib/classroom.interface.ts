@@ -8,20 +8,18 @@ export interface Classroom extends IObject {
   /** A brief description of the classroom */
   description: string;
 
+  /** Id of users present in this class */
+  users?: string[];
+
   /** A boolean flag indicating whether the classroom has been deleted */
   deleted: boolean;
+
+  /** The course the users in the classroom are enrolled to */
+  course?: string;
 }
 
 /** classroom mode enum - has the different classroom mutations you can perfom on a user */
 export enum ClassroomUpdateEnum {
   ChangeClass = 'Change Class',
   AddToClass = 'Add To Class',
-}
-
-// TODO: move elsewhere, potentially to DB - to be decided
-/** example of a classroom - we use to group ungrouped users (classroom) */
-export const defaultClassroom: Classroom = {
-  className: 'Not Assigned',
-  description: 'the default classroom',
-  deleted: false
 }

@@ -27,6 +27,12 @@ import { CoursesViewAllPageComponent } from './pages/courses-view-all-page/cours
 
 import { ConvsMgrStoriesRouterModule } from './stories.router';
 import { FilterCoursePipe } from './pipes/filter-course.pipe';
+import { ConnectToChannelModalComponent } from './modals/connect-to-channel-modal/connect-to-channel-modal.component';
+import { SpinnerModalComponent } from './modals/spinner-modal/spinner-modal.component';
+import { ChannelComponent } from './modals/channel/channel.component';
+import { MainChannelModalComponent } from './modals/main-channel-modal/main-channel-modal.component';
+import { ConfirmPublishModalComponent } from './modals/confirm-publish-modal/confirm-publish-modal.component';
+import { ConfirmArchiveModalComponent } from './modals/confirm-archive-modal/confirm-archive-modal.component';
 
 @NgModule({
   imports: [
@@ -40,7 +46,7 @@ import { FilterCoursePipe } from './pipes/filter-course.pipe';
     ChatsRouterModule,
     MatStepperModule,
     FormsModule,
-    ItalBreadCrumbModule
+    ItalBreadCrumbModule,
   ],
   declarations: [
     StoriesDashboardComponent,
@@ -55,7 +61,13 @@ import { FilterCoursePipe } from './pipes/filter-course.pipe';
     FilterCoursePipe,
     BotModulesGridViewComponent,
     BotModulesListViewComponent,
-    BotModulesListHeaderComponent
+    BotModulesListHeaderComponent,
+    ConnectToChannelModalComponent,
+    SpinnerModalComponent,
+    ChannelComponent,
+    MainChannelModalComponent,
+    ConfirmPublishModalComponent,
+    ConfirmArchiveModalComponent,
   ],
 })
 export class ConvsMgrStoriesHomeModule {}

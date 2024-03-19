@@ -203,8 +203,18 @@ export class WhatsappActiveChannel implements ActiveChannel
           this._tools.Logger.log(() => `Axios post request: Response Data error 💀 ${JSON.stringify(axiosError.response.data)}`);
           this._tools.Logger.log(() => `Axios post request: Response Header error 🤕 ${JSON.stringify(axiosError.response.headers)}`);
           this._tools.Logger.log(() => `Axios post request.sendMessage: Response status error⛽ ${JSON.stringify(axiosError.response.status)}`);
+          
+          const data = axiosError.response.data as any;
+          
+          // If we have hit the rate limit, wait 300ms second then resend the message
+          if(data.error.code == 131056) {
+            this._tools.Logger.debug(() => `[SendWhatsAppMessageModel]. PAIR RATE LIMIT HIT! Attempting to resend message`);
+            await new Promise(resolve => setTimeout(resolve, 300));
+            return this.send(whatsappMessage, standardMessage);
+          } else {
+            return {success: false, data: axiosError.response.data};
+          }
 
-          return {success: false, data: axiosError.response.data};
         } else if (axiosError.request) {
           // The request was made but no response was received
           this._tools.Logger.log(() => `Axios post request: Request error 🐱‍🚀${axiosError.request}`);

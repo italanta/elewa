@@ -4,14 +4,16 @@
 
   <button class="btn btn-module" (click)="openModule(botModule.id!)">{{ botModule.name }}</button>
   <button class="btn btn-story" (click)="openLesson(story.id!)">View Story</button>
-  <div class="status">status</div>
+  <div class="status">{{ specificBot?.isPublished ? ('BOTS.CREATE-MODAL.PUBLISHED' | transloco) : ('BOTS.CREATE-MODAL.DRAFT' | transloco) }}</div>
 
   <div class="actions">
-    <button mat-flat-button [matMenuTriggerFor]="menu">
+    <button class="tooltip-menu" mat-flat-button [matMenuTriggerFor]="menu">
       <i class="fa-solid fa-ellipsis-vertical tooltip"></i>
     </button>
 
     <mat-menu #menu="matMenu">
+      <!-- leaving this here incase it is needed later -->
+      
       <button mat-menu-item (click)="editLesson(story)">
         <span> {{ "BOTS.BOTS-PAGE.EDIT" | transloco }} </span>
       </button>

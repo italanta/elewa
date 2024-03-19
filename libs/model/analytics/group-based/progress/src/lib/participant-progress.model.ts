@@ -29,6 +29,9 @@ export interface EnrolledUserProgress {
   courseId: string;
   courseProgress: number;
   modules: ModuleProgress[];
+
+  /** Last time this user engaged with the bot */
+  lastActiveTime: Date;
 }
 
 /** user progress per module */

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { GroupBasedProgressModule } from '@app/features/monitoring';
@@ -15,6 +17,10 @@ import { ReportsPageComponent } from './pages/reports-page/reports-page.componen
 
 import { AnalyticsRouterModule } from './analytics.router.module';
 
+import { DashboardTopStatsComponent } from './components/dashboard-top-stats/dashboard-top-stats.component';
+import { AllCoursesPageComponent } from './pages/all-courses-page/all-courses-page.component';
+import { SingleCoursePageComponent } from './pages/single-course-page/single-course-page.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -23,8 +29,11 @@ import { AnalyticsRouterModule } from './analytics.router.module';
     GroupBasedProgressModule,
     MaterialBricksModule,
     MultiLangModule,
-    MaterialDesignModule
+    MaterialDesignModule,
+    MatDatepickerModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  declarations: [DashboardPageComponent, ReportsPageComponent],
+  declarations: [DashboardPageComponent, ReportsPageComponent, DashboardTopStatsComponent, AllCoursesPageComponent, SingleCoursePageComponent],
 })
 export class AnalyticsModule {}

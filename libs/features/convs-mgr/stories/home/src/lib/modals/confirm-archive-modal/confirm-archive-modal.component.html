@@ -1,0 +1,24 @@
+<div class="modal-wrapper" *ngIf="bot">
+  <span class="modal-header">
+
+    <span class="modal-title">
+      Archive Bot
+    </span>
+
+    <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </span>
+  <p class="modal-message">
+    You are about to archive <strong>{{bot.name}}</strong>. Are you sure you want to proceed?
+  </p>
+
+  <div class="modal-btns">
+    <button mat-stroked-button mat-dialog-close class="modal-cancel" [disabled]="isArchiving">
+      {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CANCEL' | transloco }}
+    </button>
+    <button mat-raised-button class="add-btn" color="primary" class="modal-confirm" (click)="archive()">
+      {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CONFIRM' | transloco }}
+    </button>
+  </div>
+</div>

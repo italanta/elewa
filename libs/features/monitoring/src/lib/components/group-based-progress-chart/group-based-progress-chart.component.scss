@@ -2,13 +2,13 @@
   padding: 1rem;
   background-color: white;
   border-radius: 5px;
-  height: 280px;
+  height: 415px;
   width: 50vw;
 
   .chart {
     position: relative;
     margin: auto;
-    height: 280px; // This value has to be less than 100% for the chart to be dynamically responsive
+    height: 415px; // This value has to be less than 100% for the chart to be dynamically responsive
     width: 95%; // same here
     display: none;
 

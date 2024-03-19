@@ -25,7 +25,7 @@ import { __SendWhatsAppWebhookVerificationToken } from './utils/validate-webhook
  * This improves the performance of the bot as it does not need to upload 
  *      the media to WhatsApp every time a media block is sent.
  */
-export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationChannel, RestResult>
+export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationChannel, any>
 {
   channel: WhatsAppCommunicationChannel;
   _tools: HandlerTools;
@@ -33,55 +33,59 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
 
   public async execute(payload: CommunicationChannel, context: HttpsContext, tools: HandlerTools) 
   {
-    this._tools = tools;
-    this.channel = payload as WhatsAppCommunicationChannel;
-    const storyPublishedTime = __DateFromStorage(await this.__getStoryPublishedDate(this.channel.orgId, this.channel.defaultStory));
-
-    this._tools.Logger.log(()=> `[WhatsApp Upload Media Handler] - Uploading media for Story: ${this.channel.defaultStory}`);
-
-    const connDataService = new ConnectionsDataService(this.channel, tools);
-    const blockDataService = new BlockDataService(this.channel, connDataService, this._tools);
-
-    // Get all media blocks from the story and nested stories
-    const mediaBlocksData = (await blockDataService.getAllMediaBlocks(this.channel.orgId, this.channel.defaultStory));
-
-    // Upload media to WhatsApp and update the block with the media ID
-    for(const blockData of mediaBlocksData)
-    {
-      const fileBlock = blockData.data as FileMessageBlock;
-      // Get block updated time
-      const blockUpdatedTime = __DateFromStorage(fileBlock.updatedOn);
-
-      // Only upload media if the block was updated after the story was published
-      if(!storyPublishedTime) return {status: 400} as RestResult;
-
-      // TODO: Uncomment this when the storyPublishedTime is fixed
-      if(blockUpdatedTime > storyPublishedTime || this.__hasExpired(blockUpdatedTime)) {
-
-      // Only upload media if the block has a file source
-      if(fileBlock.fileSrc)
+    try {
+      this._tools = tools;
+      this.channel = payload as WhatsAppCommunicationChannel;
+      const botPublishedTime = __DateFromStorage(await this.__getStoryPublishedDate(this.channel.linkedBot, this.channel.orgId));
+  
+      this._tools.Logger.log(()=> `[WhatsApp Upload Media Handler] - Uploading media for Story: ${this.channel.defaultStory}`);
+  
+      const connDataService = new ConnectionsDataService(this.channel, tools);
+      const blockDataService = new BlockDataService(this.channel, connDataService, this._tools);
+  
+      // Get all media blocks from the story and nested stories
+      const mediaBlocksData = (await blockDataService.getAllMediaBlocks(this.channel.orgId, this.channel.defaultStory));
+  
+      // Upload media to WhatsApp and update the block with the media ID
+      for(const blockData of mediaBlocksData)
       {
-        let mediaId: string;
-
-        // Download the file from Firebase Storage
-        const filename = await this._downloadFromFirebaseURL(fileBlock.fileSrc);
-
-        // Upload the file to WhatsApp
-        if(filename) mediaId = await this._uploadMediaToWhatsApp(this.channel, filename);
-
-        // Update the block with the media ID
-        if(mediaId) {
-          fileBlock.whatsappMediaId = mediaId;
-
-          await blockDataService.updateBlock(this.channel.orgId, blockData.storyId, fileBlock);
-
-          this._tools.Logger.log(()=> `Block ${fileBlock.id} updated with Media ID: ${mediaId}`);
+        const fileBlock = blockData.data as FileMessageBlock;
+        // Get block updated time
+        const blockUpdatedTime = __DateFromStorage(fileBlock.updatedOn || fileBlock.createdOn);
+  
+        // Only upload media if the block was updated after the story was published
+        if(!botPublishedTime) return {status: 400} as RestResult;
+  
+        // TODO: Uncomment this when the storyPublishedTime is fixed
+        if(blockUpdatedTime > botPublishedTime || this.__hasExpired(blockUpdatedTime)) {
+  
+        // Only upload media if the block has a file source
+        if(fileBlock.fileSrc)
+        {
+          let mediaId: string;
+  
+          // Download the file from Firebase Storage
+          const filename = await this._downloadFromFirebaseURL(fileBlock.fileSrc);
+  
+          // Upload the file to WhatsApp
+          if(filename) mediaId = await this._uploadMediaToWhatsApp(this.channel, filename);
+  
+          // Update the block with the media ID
+          if(mediaId) {
+            fileBlock.whatsappMediaId = mediaId;
+  
+            await blockDataService.updateBlock(this.channel.orgId, blockData.storyId, fileBlock);
+  
+            this._tools.Logger.log(()=> `Block ${fileBlock.id} updated with Media ID: ${mediaId}`);
+          }
         }
       }
+      }
+  
+      return {success: true, status: 200, message: "Media uploaded successful"};
+    } catch (error) {
+      return {success: false, status: 500, message: error};
     }
-    }
-
-    return {status: 200} as RestResult;
   }
 
   /**
@@ -171,12 +175,12 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
 
   }
 
-  private async __getStoryPublishedDate(storyId: string, orgId: string) { 
-    const storyRepo$ = this._tools.getRepository<Story>(`orgs/${orgId}/stories`);
+  private async __getStoryPublishedDate(botId: string, orgId: string) { 
+    const botsRepo$ = this._tools.getRepository<Story>(`orgs/${orgId}/bots`);
 
-    const story  = await storyRepo$.getDocumentById(storyId);
+    const bot  = await botsRepo$.getDocumentById(botId);
 
-    return story.publishedOn;
+    return bot.publishedOn;
   }
 
   private __hasExpired(blockUpdatedTime: moment.Moment) 

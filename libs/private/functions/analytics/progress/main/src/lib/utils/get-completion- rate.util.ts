@@ -9,6 +9,8 @@ export function _getProgressCompletionRateData(allUsersProgress: ParticipantProg
     if (!participantProgress) return result;
 
     const { participant } = participantProgress;
+    
+    if(!participant.progress) return result;
 
     participant.progress.map((enrolledUserProgress) => {
       const { courseId } = enrolledUserProgress;

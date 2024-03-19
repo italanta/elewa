@@ -23,20 +23,22 @@ export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTo
   {
     switch (comp) {
       case "body": {
-        let rawBody = messageTemplate.content[comp] as TemplateBody;
+        const rawBody = messageTemplate.content[comp] as TemplateBody;
+        const bodyExamples = messageTemplate.bodyExamples.map((exmp)=> exmp.value);
+
         const parsedText = parseVariables(rawBody.text);
 
-        let bodyComponent: WhatsappBodyTemplateComponent = {
+        const bodyComponent: WhatsappBodyTemplateComponent = {
           type: WhatsappTemplateComponentTypes.Body,
           text: parsedText.newText,
         };
 
         if (parsedText.varCount > 0) {
-          if (parsedText.varCount === rawBody.examples.length) {
+          if (parsedText.varCount === bodyExamples.length) {
             bodyComponent.example = {
               // For some reason, whatsapp requires the examples to be inside anotehr array
               //   if they are more than one
-              body_text: parsedText.varCount > 1 ? [rawBody.examples] : rawBody.examples
+              body_text: parsedText.varCount > 1 ? [bodyExamples] : bodyExamples
             }
           } else {
             tools.Logger.error(() => `Error parsing template body - Variable count mismatch`);
@@ -46,7 +48,7 @@ export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTo
       }
 
       case "footer": {
-        let footerComponent: WhatsappBodyTemplateComponent = {
+        const footerComponent: WhatsappBodyTemplateComponent = {
           type: WhatsappTemplateComponentTypes.Footer,
           text: messageTemplate.content[comp],
         };
@@ -54,7 +56,9 @@ export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTo
       }
 
       case "header": {
-        let rawHeader = messageTemplate.content[comp] as TemplateHeader;
+        const rawHeader = messageTemplate.content[comp] as TemplateHeader;
+        const headerExample = messageTemplate.headerExamples.map((exmp)=> exmp.value);
+
         let headerComponent: WhatsappHeaderTemplateComponent = {
           format: rawHeader.type,
           type: WhatsappTemplateComponentTypes.Header,
@@ -62,15 +66,15 @@ export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTo
 
         headerComponent = mapHeaders(headerComponent, rawHeader);
 
-        if(rawHeader.examples) {
-          headerComponent = addExampleToHeader(headerComponent, rawHeader.examples[0], tools);
+        if(headerExample) {
+          headerComponent = addExampleToHeader(headerComponent, headerExample[0], tools);
         }
         return headerComponent;
       }
 
       case "buttons": {
-        let rawButtons = messageTemplate.content[comp] as WhatsappTemplateButtons[];
-        let buttonsComponent: WhatsappButtonsTemplateComponent = {
+        const rawButtons = messageTemplate.content[comp] as WhatsappTemplateButtons[];
+        const buttonsComponent: WhatsappButtonsTemplateComponent = {
           type: WhatsappTemplateComponentTypes.Buttons,
           buttons: rawButtons,
         };
@@ -125,7 +129,7 @@ function addExampleToHeader(header: WhatsappHeaderTemplateComponent, headerExamp
 }
 
 function parseVariables(text: string): { newText: string; varCount: number } {
-  const varExp: RegExp = new RegExp(/\{\{([^}]+)\}\}/g);
+  const varExp = new RegExp(/\{\{([^}]+)\}\}/g);
 
   let count = 0;
 
