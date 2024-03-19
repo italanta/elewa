@@ -32,7 +32,6 @@ import { SpinnerModalComponent } from './modals/spinner-modal/spinner-modal.comp
 import { ChannelComponent } from './modals/channel/channel.component';
 import { MainChannelModalComponent } from './modals/main-channel-modal/main-channel-modal.component';
 import { ConfirmPublishModalComponent } from './modals/confirm-publish-modal/confirm-publish-modal.component';
-import { ConfirmDeleteModalComponent } from './modals/confirm-delete-modal/confirm-delete-modal.component';
 import { ConfirmArchiveModalComponent } from './modals/confirm-archive-modal/confirm-archive-modal.component';
 
 @NgModule({
@@ -68,7 +67,6 @@ import { ConfirmArchiveModalComponent } from './modals/confirm-archive-modal/con
     ChannelComponent,
     MainChannelModalComponent,
     ConfirmPublishModalComponent,
-    ConfirmDeleteModalComponent,
     ConfirmArchiveModalComponent,
   ],
 })

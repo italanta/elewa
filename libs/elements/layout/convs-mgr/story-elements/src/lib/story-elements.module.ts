@@ -12,6 +12,7 @@ import { DeleteBotModalComponent } from './modals/delete-bot-modal/delete-bot-mo
 import { BotCreateFlowModalComponent } from './modals/bot-create-flow-modal/bot-create-flow-modal.component';
 import { CreateModuleModalComponent } from './modals/create-module-modal/create-module-modal.component';
 import { CreateLessonModalComponent } from './modals/create-lesson-modal/create-lesson-modal.component';
+import { ConfirmDeleteModalComponent } from './modals/confirm-delete-modal/confirm-delete-modal.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { CreateLessonModalComponent } from './modals/create-lesson-modal/create-
     CreateModuleModalComponent,
     CreateLessonModalComponent,
     BotCreateFlowModalComponent,
+    ConfirmDeleteModalComponent,
   ],
 })
 export class ConvsMgrStoryElementsModule {}
