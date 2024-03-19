@@ -1,6 +1,8 @@
 import { HandlerTools } from '@iote/cqrs';
 
 import { EndUser } from '@app/model/convs-mgr/conversations/chats';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+
 import { BotDataService } from './data-service-abstract.class';
 
 /**
@@ -11,7 +13,7 @@ export class VariablesDataService extends BotDataService<any>{
   tools: HandlerTools;
   endUserId: string;
 
-  constructor(tools: HandlerTools, orgId: string, endUserId: string) 
+  constructor(tools: HandlerTools, orgId: string, endUserId: string, private _commChannel: CommunicationChannel) 
   {
     super(tools);
     this.tools = tools;
@@ -26,9 +28,12 @@ export class VariablesDataService extends BotDataService<any>{
   }
 
   public getAllVariables(endUser: EndUser) {
+    // Get channel details and include them in variables
     return {
+      ...this._commChannel,
       ...endUser,
-      ...endUser.variables
+      ...endUser.variables,
+      platform: this._commChannel.type
     }
   }
 
