@@ -168,3 +168,8 @@ select::-ms-expand {
 .no-content, .content-section {
   padding: 2rem 0;
 }
+
+.no-content {
+  cursor: pointer;
+  padding-top: 12rem;
+}

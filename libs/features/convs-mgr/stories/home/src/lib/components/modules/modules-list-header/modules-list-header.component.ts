@@ -75,6 +75,7 @@ export class BotModulesListHeaderComponent implements OnInit, OnDestroy {
             botModules.map((b) => { 
               return { ...b, lastEdited: TIME_AGO(this.parseDate(b.updatedOn ? b.updatedOn : b.createdOn as Date)) }})),
           tap((botModules) => {
+            this.dataFound = botModules.length > 0;
             this.dataSource.data = botModules
             this.filteredBotModules = botModules
           })).subscribe();
