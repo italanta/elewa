@@ -29,11 +29,17 @@ export class VariablesDataService extends BotDataService<any>{
 
   public getAllVariables(endUser: EndUser) {
     // Get channel details and include them in variables
-    return {
-      ...this._commChannel,
-      ...endUser,
-      ...endUser.variables,
+
+    const channelDetails = {
+      channelName: this._commChannel.name,
+      botPhoneNumber: this._commChannel['phoneNumber'] || null,
       platform: this._commChannel.type
+    }
+    
+    return {
+      ...endUser,
+      ...channelDetails,
+      ...endUser.variables,
     }
   }
 
