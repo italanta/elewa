@@ -14,6 +14,7 @@ import { ConnectionsDataService } from "../../data-services/connections.service"
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
 import { MultipleOptionsMessageService } from "../../next-block/block-type/multiple-options-block.service";
+import { ActiveChannel } from "../../../model/active-channel.service";
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
  *  so that we can process the response based on that block.
@@ -27,7 +28,7 @@ export class ConditionalBlockService extends MultipleOptionsMessageService imple
 	tools: HandlerTools;
 	blockDataService: BlockDataService;
 
-	constructor(blockDataService: BlockDataService, connDataService: ConnectionsDataService, tools: HandlerTools)
+	constructor(blockDataService: BlockDataService, connDataService: ConnectionsDataService, tools: HandlerTools, private _activeChannel: ActiveChannel)
 	{
 		super(blockDataService, connDataService, tools);
 		this.tools = tools;
@@ -40,7 +41,7 @@ export class ConditionalBlockService extends MultipleOptionsMessageService imple
 		const variableToCheck = storyBlock.selectedVar ? storyBlock.selectedVar : storyBlock.typedVar;
 
 		// get variable value from DB
-		const varDataService = new VariablesDataService(this.tools, orgId, endUser.id);
+		const varDataService = new VariablesDataService(this.tools, orgId, endUser.id, this._activeChannel.channel);
 
 		const allVariables = varDataService.getAllVariables(endUser);
 

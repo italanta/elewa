@@ -42,7 +42,7 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
     const storyRepo = tools.getRepository<Story>(`orgs/${orgId}/stories`);
 
     // Get User's Name
-    const varService = new VariablesDataService(tools, orgId, participant.endUser.id);
+    const varService = new VariablesDataService(tools, orgId, participant.endUser.id, null);
 
     const userName = await varService.getSpecificVariable(participant.endUser.id, 'name');
 
