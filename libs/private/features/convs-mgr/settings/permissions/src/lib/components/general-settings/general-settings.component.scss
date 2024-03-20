@@ -1,6 +1,6 @@
 .mat-expansion-panel {
   margin: 35px;
-  background: #F6F6F6;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 8px;
 }
@@ -8,7 +8,7 @@
 mat-expansion-panel {
   mat-expansion-panel-header {
     height:85px; 
-    background: #F6F6F6; 
+    background: #FFFFFF; 
   }
 }
 
@@ -35,16 +35,13 @@ mat-expansion-panel {
 }
 
 .titles {
-  padding: 20px 10px;
+  text-align: left;
+  padding: 15px 40px;
   color: #101010;
   font-size: 18px;
   font-family: Roboto;
   font-weight: 300;
   word-wrap: break-word
-}
-
-.titles:nth-child(even) {
-  background-color: #F7F7F7;
 }
 
 .center-text {
