@@ -1,7 +1,8 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { MessageTemplate, TextHeader, VariableExample } from '@app/model/convs-mgr/functions';
 
 import { customTextValidator } from '../utils/validator';
-import { MessageTemplate, TextHeader } from '@app/model/convs-mgr/functions';
 
 export function createTemplateForm(fb: FormBuilder, template?: MessageTemplate): FormGroup {
   return fb.group({
@@ -11,19 +12,38 @@ export function createTemplateForm(fb: FormBuilder, template?: MessageTemplate):
     language: [template?.language ?? '', Validators.required],
     id: [template?.id ?? ''],
     templateId: [template?.templateId ?? ''],
+    headerExamples: loadExamples(fb, 'headerExamples', template),
+    bodyExamples: loadExamples(fb, 'bodyExamples', template),
     content: fb.group({
       header: fb.group({
         type: "TEXT",
         text: [(template?.content?.header as TextHeader)?.text ?? '',  Validators.required],
-        examples: fb.array([]),
       }),
       body: fb.group({
         text: [template?.content?.body?.text ?? '', Validators.required],
-        examples: fb.array([]),
       }),
       footer: [template?.content?.footer ?? ''],
     }),
     sent: [''],
     buttons: fb.array([]),
+  });
+}
+
+function loadExamples(fb: FormBuilder, section: string, template?: MessageTemplate) {
+  const examples = fb.array([]) as FormArray;
+
+  if(!template) return examples;
+
+  template[section]?.forEach((example: VariableExample) => {
+    examples.push(createExampleFB(example, fb));
+  })
+  return examples;
+}
+
+function createExampleFB(example: VariableExample, fb: FormBuilder)
+{
+  return fb.group({
+    name: [example?.name ?? ''],
+    value: [example?.value ?? '']
   });
 }

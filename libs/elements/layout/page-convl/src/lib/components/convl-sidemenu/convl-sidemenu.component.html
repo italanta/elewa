@@ -60,8 +60,8 @@
             </li>
 
             <!-- Messaging sections -->
-            <li class="menu-item" (click)="toggleDropdown()">
-              <a matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}" [matTooltipDisabled]="isDropdownOpen">
+            <li class="menu-item" (click)="toggleDropdown('messaging')">
+              <a matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}" [matTooltipDisabled]="isMessagingDropdownOpen">
                 <span class="menu-icon">
                   <img *ngIf="isExpanded" src="assets/icons/chats-stroked.svg" class="img" alt="">
                   <img *ngIf="!isExpanded"  src="assets/icons/chats-stroked.svg" class="img" alt="">
@@ -70,13 +70,13 @@
                   {{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}
                 </span>
                 <span class="menu-icon" [ngClass]="{'chev-collapsed': !isExpanded}">
-                  <img src="assets/icons/chevron-down.png" alt="" class="img chevron" [ngClass]="{'chevron-up': isDropdownOpen}">
+                  <img src="assets/icons/chevron-down.png" alt="" class="img chevron" [ngClass]="{'chevron-up': isMessagingDropdownOpen}">
                 </span>
               </a>
 
-              <div *ngIf="isDropdownOpen">
+              <div *ngIf="isMessagingDropdownOpen">
                 <ul class="sub-side-menu">
-                  <li matTooltipPosition="above" [matTooltipDisabled]="isDropdownOpen" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}">
+                  <li matTooltipPosition="above" [matTooltipDisabled]="isMessagingDropdownOpen" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}">
                     <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/chats" routerLinkActive="active" (click)="$event.stopPropagation()">
                       <span class="menu-icon">
                         <img src="assets/icons/message-chat.svg" class="img" alt="">
@@ -86,7 +86,7 @@
                       </span>
                     </a>
                   </li>
-                  <li matTooltipPosition="above" [matTooltipDisabled]="isDropdownOpen" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGE-TEMPLATES'| transloco }}">
+                  <li matTooltipPosition="above" [matTooltipDisabled]="isMessagingDropdownOpen" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGE-TEMPLATES'| transloco }}">
                     <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/messaging" routerLinkActive="active" (click)="$event.stopPropagation()">
                       <span class="menu-icon">
                         <img src="assets/icons/message-template.svg" class="img" alt="">
@@ -133,16 +133,45 @@
             </li>
 
             <!-- Learners sections -->
-            <li *hasViewAccess="CAN_ACCESS_LEARNERS" class="menu-item" routerLink="/learners" routerLinkActive="active" >
-              <a>
+            <li *hasViewAccess="CAN_ACCESS_LEARNERS" class="menu-item" (click)="toggleDropdown('manage-users')">
+              <a matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MANAGE-USERS'| transloco }}" [matTooltipDisabled]="isManageUsersDropdownOpen">
                 <span class="menu-icon">
                   <img *ngIf="isExpanded" src="assets/icons/learners-stroked.svg" class="img" alt="">
-                  <img *ngIf="!isExpanded" matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.LEARNERS'| transloco }}" src="assets/icons/learners-stroked.svg" class="img" alt="">
+                  <img *ngIf="!isExpanded"  src="assets/icons/learners-stroked.svg" class="img" alt="">
                 </span>
-                <span *ngIf="isExpanded" class="menu-title" routerLink="/budgets" routerLinkActive="active">
-                  {{'PAGE-CONTENT.SIDE-MENU.LEARNERS'| transloco }}
+                <span *ngIf="isExpanded" class="menu-title">
+                  Manage
+                </span>
+                <span class="menu-icon" [ngClass]="{'chev-collapsed': !isExpanded}">
+                  <img src="assets/icons/chevron-down.png" alt="" class="img chevron" [ngClass]="{'chevron-up': isManageUsersDropdownOpen}">
                 </span>
               </a>
+
+              <div *ngIf="isManageUsersDropdownOpen">
+                <ul class="sub-side-menu">
+                  <li matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.USERS'| transloco }}">
+                    <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/learners" routerLinkActive="active" (click)="$event.stopPropagation()">
+                      <span class="menu-icon">
+                        <img src="assets/icons/message-chat.svg" class="img" alt="">
+                      </span>
+                      <span *ngIf="isExpanded" class="menu-title">
+                        Users
+                      </span>
+                    </a>
+                  </li>
+                  <li matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.USER-GROUPS'| transloco }}">
+                    <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/user-groups" routerLinkActive="active" (click)="$event.stopPropagation()">
+                      <span class="menu-icon">
+                        <img src="assets/icons/message-template.svg" class="img" alt="">
+                      </span>
+                      <span *ngIf="isExpanded" class="menu-title">
+                        User Groups
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              
             </li>
 
             <li *hasViewAccess="CAN_ACCESS_SETTINGS" class="menu-item" routerLink="/settings" routerLinkActive="active" >

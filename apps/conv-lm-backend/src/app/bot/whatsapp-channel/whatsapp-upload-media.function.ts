@@ -1,4 +1,4 @@
-import { EndpointRegistrar } from "@ngfi/functions";
+import { RestRegistrar } from "@ngfi/functions";
 
 import { WhatsAppUploadMediaHandler } from "@app/functions/bot-engine/whatsapp";
 
@@ -18,7 +18,7 @@ const handler = new WhatsAppUploadMediaHandler();
  * 
  */
 export const channelWhatsappUploadMedia = new ConvLearnFunction('channelWhatsappUploadMedia', 
-                                                  new EndpointRegistrar(), 
+                                                  new RestRegistrar(), 
                                                   [], 
                                                   handler)
                                .build();

@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
-import { combineLatest, tap } from 'rxjs';
+import { Observable, combineLatest, tap } from 'rxjs';
 
-import { Periodicals } from '@app/model/analytics/group-based/progress';
+import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 
@@ -14,6 +14,11 @@ import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 })
 export class AllCoursesPageComponent implements OnInit {
   @Input() periodical: Periodicals;
+
+  @Input() progress$: Observable<{scopedProgress: GroupProgressModel[], allProgress: GroupProgressModel[]}>;
+  @Input() period$: Observable<Periodicals>;
+  @Input() isLast$: Observable<boolean>;
+
 
   _sBs = new SubSink();
 

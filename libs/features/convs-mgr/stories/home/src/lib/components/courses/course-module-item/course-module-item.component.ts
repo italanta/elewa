@@ -9,10 +9,11 @@ import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { FileStorageService } from '@app/state/file';
 import { 
   DeleteElementsEnum,
-  DeleteBotModalComponent,
-  CreateLessonModalComponent
+  CreateLessonModalComponent,
+  ConfirmDeleteModalComponent
 } from '@app/elements/layout/convs-mgr/story-elements';
 
 import { ConnectToChannelModalComponent } from '../../../modals/connect-to-channel-modal/connect-to-channel-modal.component';
@@ -29,9 +30,12 @@ export class CourseModuleItemComponent {
   _sBs = new SubSink();
   isPublishing :boolean;
 
+  uploadMedia: boolean;
+
   constructor(private _dialog: MatDialog,
               private _botsService$: BotsStateService, 
-              private _router$: Router) {}
+              private _router$: Router,
+              private _fileStorageService: FileStorageService) {}
 
   specificBot: Bot | undefined; /**adding undefined here since it is described that way in the store service, removing might break something, check on this */
 
@@ -56,7 +60,7 @@ export class CourseModuleItemComponent {
   }
 
   deleteLesson(story: Story) {
-    this._dialog.open(DeleteBotModalComponent, {
+    this._dialog.open(ConfirmDeleteModalComponent, {
       minWidth: 'fit-content', 
       data: { 
         mode: DeleteElementsEnum.Story, element: story, parentElement:story.parentModule
@@ -79,6 +83,7 @@ export class CourseModuleItemComponent {
     bot.isArchived = true;
     this._botsService$.updateBot(bot)
   }
+
   publishBot(bot:Bot){
     this.isPublishing = true;
     bot.isPublished = true;
@@ -86,5 +91,9 @@ export class CourseModuleItemComponent {
       .subscribe(() => {
         this.isPublishing = false;
       });
+
+    if(this.uploadMedia && bot.linkedChannel) {
+      this._fileStorageService.uploadMediaToPlatform(bot.linkedChannel).subscribe()
+    }
    }
 }

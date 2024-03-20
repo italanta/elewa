@@ -31,6 +31,8 @@ import { ConnectToChannelModalComponent } from './modals/connect-to-channel-moda
 import { SpinnerModalComponent } from './modals/spinner-modal/spinner-modal.component';
 import { ChannelComponent } from './modals/channel/channel.component';
 import { MainChannelModalComponent } from './modals/main-channel-modal/main-channel-modal.component';
+import { ConfirmPublishModalComponent } from './modals/confirm-publish-modal/confirm-publish-modal.component';
+import { ConfirmArchiveModalComponent } from './modals/confirm-archive-modal/confirm-archive-modal.component';
 
 @NgModule({
   imports: [
@@ -64,6 +66,8 @@ import { MainChannelModalComponent } from './modals/main-channel-modal/main-chan
     SpinnerModalComponent,
     ChannelComponent,
     MainChannelModalComponent,
+    ConfirmPublishModalComponent,
+    ConfirmArchiveModalComponent,
   ],
 })
 export class ConvsMgrStoriesHomeModule {}

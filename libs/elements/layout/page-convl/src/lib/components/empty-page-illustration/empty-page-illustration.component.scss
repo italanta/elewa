@@ -1,0 +1,19 @@
+.empty-page-wrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  padding-bottom: 1rem;
+}
+
+img {
+  width: 16rem;
+}
+
+.empty-page-text {
+  color: #7C7C7C;
+  font-size: large;
+  font-weight: 300;
+}

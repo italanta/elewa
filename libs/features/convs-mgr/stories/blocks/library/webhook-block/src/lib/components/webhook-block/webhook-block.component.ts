@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Subscription, Observable } from 'rxjs';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { VariablesConfigStore } from '@app/state/convs-mgr/stories/variables-config';
+
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
+
+import { Subscription, Observable } from 'rxjs';
 
 import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
 
@@ -27,7 +28,8 @@ export class WebhookBlockComponent implements OnInit {
   @Input() webhookForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
-  vars$: Observable<string[]>;
+  allVars$: Observable<string[]>;
+  variablesToPost: string[];
 
   httpCategories: HttpMethods[] = [
     { method: HttpMethodTypes.POST, name: 'POST' },
@@ -43,37 +45,64 @@ export class WebhookBlockComponent implements OnInit {
   webhookType = StoryBlockTypes.WebhookBlock;
   variables = new FormControl();
   search: FormControl;
-  userName: FormControl;
-  userValue: FormControl;
+
   variables$: Observable<Variable[]>;
 
-  constructor(private _variablesStore$$: VariablesConfigStore, private variableser: VariablesService) {
-    this.vars$ = this.variableser.getAllVariables();
-  }
+  constructor(private variableService: VariablesService, private _fb: FormBuilder) { }
 
 
   ngOnInit() {
-    this.variables$ = this._variablesStore$$.get();
+    this.allVars$ = this.variableService.getAllVariables();
     this.webhookInputId = `webhook-${this.id}`;
 
     this.search = new FormControl('');
-    this.userName = new FormControl('', Validators.required);
-    this.userValue = new FormControl('', Validators.required);
 
+    this.block.variablesToSave?.forEach((varToSave) => {
+      this.variablesToSave.push(this.addVariablesToSave(varToSave));
+    })
   }
 
-  /**
- * submits webhook form
- */
+  addVariablesToSave(varToSave?: VariablesToSave) {
+    return this._fb.group({
+      name: [varToSave?.name ?? ''],
+      value: [varToSave?.value ?? '']
+    })
+  }
 
-  onSubmit(){
-    const variablesToSave: VariablesToSave = {
-      name:this.userName.value,
-      value: this.userValue.value
+  onChanged(variable: string, event: any) {
+    const variablesToPost = this.webhookForm.get('variablesToPost')?.value as string[];
+
+    // Use a set to ensure unique values
+    const variableSet = new Set(variablesToPost);
+
+    // If the action is check, then we add the variable to the set,
+    //  otherwise we remove it.
+    if(event.target.checked) {
+      variableSet.add(variable);
+    } else {
+      variableSet.delete(variable);
     }
     
-    // pushes variablesToSave in webhookForm control
-    this.webhookForm.get('variablesToSave')?.value.push(variablesToSave)
+    this.webhookForm.patchValue({variablesToPost: Array.from(variableSet)});
+  }
 
+  isChecked(variable: string) {
+    const variablesToPost = this.webhookForm.get('variablesToPost')?.value as string[];
+
+    return variablesToPost.includes(variable);
+  }
+
+  get variablesToSave(): FormArray {
+    return this.webhookForm.controls['variablesToSave'] as FormArray;
+  }
+
+
+  addVariable() {
+    this.variablesToSave.push(this.addVariablesToSave())
+  }
+
+  deleteVariable(i: number) 
+  {
+    this.variablesToSave.removeAt(i);
   }
 }

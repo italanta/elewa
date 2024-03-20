@@ -65,10 +65,10 @@
           <i class="fa-solid fa-ellipsis"></i>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="connectToChannel(bot.id!)">
+          <button mat-menu-item (click)="connectToChannel(bot)">
             <span> {{ 'BOTS.CONNECT-BOT-TO-CHANNEL' | transloco }} </span>
           </button>
-          <button mat-menu-item (click)="publishBot(bot)" [disabled]="bot.isPublished">
+          <button mat-menu-item (click)="publishBot(bot)">
             <span> {{ 'BOTS.PUBLISH-BOT' | transloco }} </span>
           </button>
           <button mat-menu-item (click)="archiveBot(bot)" [disabled]="bot.isArchived">

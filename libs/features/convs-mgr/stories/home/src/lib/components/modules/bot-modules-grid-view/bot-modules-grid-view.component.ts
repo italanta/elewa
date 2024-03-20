@@ -9,9 +9,9 @@ import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 
 import { 
-  DeleteBotModalComponent,
   DeleteElementsEnum, 
-  CreateModuleModalComponent
+  CreateModuleModalComponent,
+  ConfirmDeleteModalComponent
 } from '@app/elements/layout/convs-mgr/story-elements';
 
 @Component({
@@ -41,7 +41,7 @@ export class BotModulesGridViewComponent {
   }
 
   deleteBot(botModule: BotModule) {
-    this._dialog.open(DeleteBotModalComponent, {
+    this._dialog.open(ConfirmDeleteModalComponent, {
       minWidth: 'fit-content', 
       data: { 
         mode: DeleteElementsEnum.BotModule, element: botModule,

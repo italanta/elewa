@@ -16,6 +16,7 @@ import { MailMergeVariables } from "../../variable-injection/mail-merge-variable
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
 import { HttpService } from "../../../utils/http-service/http.service";
+import { ActiveChannel } from "../../../model/active-channel.service";
 
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
@@ -32,7 +33,7 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 
 	private httpService: HttpService;
 
-	constructor(blockDataService: BlockDataService, connDataService: ConnectionsDataService, tools: HandlerTools)
+	constructor(blockDataService: BlockDataService, connDataService: ConnectionsDataService, tools: HandlerTools, private _activeChannel: ActiveChannel)
 	{
 		super(blockDataService, connDataService, tools);
 		this.tools = tools;
@@ -44,7 +45,7 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 	public async handleBlock(storyBlock: WebhookBlock, updatedCursor: Cursor, orgId: string, endUser: EndUser)
 	{
 
-		const varDataService = new VariablesDataService(this.tools, orgId, endUser.id);
+		const varDataService = new VariablesDataService(this.tools, orgId, endUser.id, this._activeChannel.channel);
 
 		const allVariables =  varDataService.getAllVariables(endUser);
 
@@ -93,19 +94,21 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 
 	private unpackResponse(webhookBlock: WebhookBlock, response: any)
 	{
-		let unpackedResponse = {};
+		const unpackedResponse = {};
 		// Loop through webhookBlock.variablesToSave and and create an object with t
-		for(let i of webhookBlock.variablesToSave) {
-			let value =   i.value.split('.').reduce((obj, key) => obj[key], response);
-
-			unpackedResponse[i.name] = value;
+		for(const i of webhookBlock.variablesToSave) {
+			if(i.name && i.value) {
+				const value =   i.value.split('.').reduce((obj, key) => obj[key], response);
+	
+				unpackedResponse[i.name] = value;
+			}
 		}
 
 		return unpackedResponse;
 	}
 
 	private createPayload(variablesToPost: string[], savedVariables: any) {
-		let result = {};
+		const result = {};
 
 		variablesToPost.forEach((key, i) => {
 				result[key] = savedVariables[key];

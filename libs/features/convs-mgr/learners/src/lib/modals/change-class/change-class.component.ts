@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { Observable } from 'rxjs';
+import { Observable, map, of, switchMap, take } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
@@ -53,10 +53,20 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
   submitAction() {
     if (!this.selectedClass || !this.enrolledUser) return;
 
+    const userId = this.enrolledUser.id as string
+
     this.isUpdatingClass = true;
-    this.enrolledUser.classId = this.selectedClass;
+
+    this.classrooms$.pipe((switchMap((cls)=> 
+    {
+      const sClass = (cls.filter((cl)=> cl.id == this.selectedClass))[0];
+
+      sClass.users = sClass.users ? [...sClass.users, userId] : [userId];
+      return this._classroom$.updateClassroom(sClass);
+    }))).pipe(take(1)).subscribe();
+
     this._sBs.sink = this._enrolledUser$
-      .updateLearner$(this.enrolledUser)
+      .updateLearnerClass$(this.enrolledUser, this.selectedClass)
       .subscribe(() => {
         this.isUpdatingClass = false;
         this.dialogRef.close();

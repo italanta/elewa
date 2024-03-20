@@ -33,7 +33,7 @@ export function formatDate(time: number, period: Periodicals): string {
 
   switch (period) {
     case "Daily":
-      return momentDate.format('dddd');
+      return momentDate.format('ddd DD/MM/YY')
     case "Weekly":
       return momentDate.format("[Week] W");
     case "Monthly":
@@ -45,6 +45,34 @@ export function formatDate(time: number, period: Periodicals): string {
   // const date = new Date(time);
   // return date.getDate() + '/' + (date.getMonth() + 1);
 }
+
+export function getLabels(models: GroupProgressModel[], period: Periodicals, isLast: boolean) {
+  const currentDate = moment();
+
+  const labels = models.map((day) => formatDate(day.time, period));
+
+  if (period !== 'Daily' && isLast) {
+
+    // Push only if not end of period
+    if (!isEndOfWeek(currentDate) || !isEndOfMonth(currentDate)) {
+      labels.push(formatDate(Date.now(), period));
+    }
+    
+  }
+  return labels;
+}
+
+function isEndOfWeek(date: moment.Moment) {
+  const dayOfWeek = date.day();
+
+  return dayOfWeek === 6;
+}
+
+function isEndOfMonth(date: moment.Moment) {
+  // Check if date is the last day of the month
+  return date.endOf('month').isSame(date, 'day');
+}
+
 
 /** getRandomColor */
 export function getColor(idx: number) {
@@ -72,6 +100,60 @@ export function getWeeklyProgress(allProgress: GroupProgressModel[]) {
     if (dayOfWeek === 5) return true; // if friday
     else return false;
   });
+}
+
+export function getAllDaysCountCourse(dailyProgress: GroupProgressModel[], usersType: string, courseId: string) {
+  return dailyProgress.map((mod) => {
+    return {
+      count: mod.courseProgress[courseId][usersType].dailyCount,
+      date: __DateFromStorage(mod.createdOn as Date)
+    }
+  });
+}
+
+export function getEngagedUsersCurrentWeek(dailyProgress: GroupProgressModel[], usersType: string, courseId: string): number {
+  const currentDate = moment();
+  const startOfWeek = currentDate.clone().startOf('isoWeek');
+
+  const usersEnrolledInCurrentWeek = dailyProgress
+    .filter(data => __DateFromStorage(data.createdOn as Date).isSameOrAfter(startOfWeek))
+    .filter(data => data.courseProgress)
+    .reduce((total, data) => total + data.courseProgress[courseId][usersType].dailyCount, 0);
+
+  return usersEnrolledInCurrentWeek;
+}
+
+export function getEngagedUsersCurrentMonth(dailyProgress: GroupProgressModel[], usersType: string, courseId: string): number {
+  const currentDate = moment();
+  const startOfMonth = currentDate.clone().startOf('month');
+
+  const usersEnrolledInCurrentWeek = dailyProgress
+  .filter(data => __DateFromStorage(data.createdOn as Date).clone().isSameOrAfter(startOfMonth))
+    .reduce((total, data) => total + data.courseProgress[courseId][usersType].dailyCount, 0);
+
+  return usersEnrolledInCurrentWeek;
+}
+
+export function getEnrolledUsersCurrentWeek(dailyProgress: GroupProgressModel[]): number {
+  const currentDate = moment();
+  const startOfWeek = currentDate.clone().startOf('isoWeek');
+
+  const usersEnrolledInCurrentWeek = dailyProgress
+    .filter(data => __DateFromStorage(data.createdOn as Date).isSameOrAfter(startOfWeek))
+    .reduce((total, data) => total + data.todaysEnrolledUsersCount.dailyCount, 0);
+
+  return usersEnrolledInCurrentWeek;
+}
+
+export function getEnrolledUsersCurrentMonth(dailyProgress: GroupProgressModel[]): number {
+  const currentDate = moment();
+  const startOfMonth = currentDate.clone().startOf('month');
+
+  const usersEnrolledInCurrentMonth = dailyProgress
+    .filter(data => __DateFromStorage(data.createdOn as Date).clone().isSameOrAfter(startOfMonth))
+    .reduce((total, data) => total + data.todaysEnrolledUsersCount.dailyCount, 0);
+
+  return usersEnrolledInCurrentMonth;
 }
 
 /** Retrieves monthly milestones of all users */

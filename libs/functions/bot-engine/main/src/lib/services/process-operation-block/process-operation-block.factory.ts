@@ -26,13 +26,13 @@ export class OperationBlockFactory
       case StoryBlockTypes.JumpBlock:
         return new JumpStoryBlockService(this._blockDataService, this._connDataService, this.tools);
       case StoryBlockTypes.WebhookBlock:
-        return new WebhookBlockService(this._blockDataService, this._connDataService, this.tools);
+        return new WebhookBlockService(this._blockDataService, this._connDataService, this.tools, this._activeChannel);
       case StoryBlockTypes.EndStoryAnchorBlock:
         return new EndStoryBlockService(this._blockDataService, this._connDataService, this.tools);
       case StoryBlockTypes.FailBlock:
         return new FailBlockService(this._blockDataService, this._connDataService, this.tools);
       case StoryBlockTypes.Conditional:
-        return new ConditionalBlockService(this._blockDataService, this._connDataService, this.tools);
+        return new ConditionalBlockService(this._blockDataService, this._connDataService, this.tools, this._activeChannel);
       case StoryBlockTypes.Assessment:
         return new AssessmentBlockService(this._blockDataService, this._connDataService, this.tools);
       case StoryBlockTypes.Event:

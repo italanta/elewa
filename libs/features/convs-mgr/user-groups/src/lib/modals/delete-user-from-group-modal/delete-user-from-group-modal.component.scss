@@ -1,0 +1,31 @@
+.delete-user-wrapper {
+  display: flex;
+  padding: 1.8rem;
+  flex-direction: column;
+  width: max-content;
+}
+
+.delete-user-btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-user-cancel {
+  color: var(--convs-mgr-color-bright-teal);
+}
+
+.delete-user-message {
+  white-space: pre-wrap;
+  line-height: 1.5;
+  font-size: large;
+}
+
+.delete-user-btns > button {
+  border-radius: 1.25rem;;
+}
+
+.delete-user-header {
+  font-size: x-large;
+  font-weight: 400;
+  padding-bottom: 0.5rem;
+}

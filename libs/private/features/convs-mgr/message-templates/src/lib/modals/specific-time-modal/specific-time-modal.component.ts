@@ -34,25 +34,26 @@ export class SpecificTimeModalComponent {
   menuButtonText = 'Never';
   cronFormat: string; 
 
+  todaysDate = new Date();
 
-    // Arrays to populate the "Repeat every" select dropdowns
-    dailyOptions: number[] = Array.from({ length: 30 }, (_, i) => i + 1);
-    weeklyOptions: number[] = Array.from({ length: 20 }, (_, i) => i + 1);
-    monthlyOptions: number[] = Array.from({ length: 31 }, (_, i) => i + 1);
+  // Arrays to populate the "Repeat every" select dropdowns
+  dailyOptions: number[] = Array.from({ length: 30 }, (_, i) => i + 1);
+  weeklyOptions: number[] = Array.from({ length: 20 }, (_, i) => i + 1);
+  monthlyOptions: number[] = Array.from({ length: 31 }, (_, i) => i + 1);
 
-    // Add the weekdays array to your component
-    weekdays = weekdays;
+  // Add the weekdays array to your component
+  weekdays = weekdays;
 
-     // Define an array of radio option values
-    recurrenceOptions = recurrenceOptions;
+    // Define an array of radio option values
+  recurrenceOptions = recurrenceOptions;
 
-  
-    // Properties for selected repeat values
-    selectedDailyRepeat: number;
-    selectedWeeklyRepeat: number;
-    selectedMonthlyRepeat: number;
-    Date = "Date";
-    Time = "Date";
+
+  // Properties for selected repeat values
+  selectedDailyRepeat: number;
+  selectedWeeklyRepeat: number;
+  selectedMonthlyRepeat: number;
+  Date = "Date";
+  Time = "Date";
 
   constructor(
     private dialogRef: MatDialogRef<SpecificTimeModalComponent>, 

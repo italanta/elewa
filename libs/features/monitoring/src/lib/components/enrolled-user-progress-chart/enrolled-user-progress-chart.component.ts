@@ -3,16 +3,14 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
 
-import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
-import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
+import { Observable, combineLatest } from 'rxjs';
 
-import {
-  formatDate,
-  getColor,
-  getDailyProgress,
-  getMonthlyProgress,
-  getWeeklyProgress,
-} from '../../providers/helper-fns.util';
+import { __DateFromStorage } from '@iote/time';
+
+import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
+import { ProgressMonitoringService, ProgressMonitoringState } from '@app/state/convs-mgr/monitoring';
+
+import { getEnrolledUsersCurrentMonth, getEnrolledUsersCurrentWeek, getLabels } from '../../providers/helper-fns.util';
 
 @Component({
   selector: 'app-enrolled-user-progress-chart',
@@ -21,12 +19,18 @@ import {
 })
 export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
   private _sBs = new SubSink();
+
+  @Input() progress$: Observable<{scopedProgress: GroupProgressModel[], allProgress: GroupProgressModel[]}>;
+  @Input() period$: Observable<Periodicals>;
+  @Input() isLast$: Observable<boolean>;
   
   chart: Chart;
 
   activeCourse: string;
   activeClassroom: string;
   selectedPeriodical: Periodicals;
+
+  private _state$$: ProgressMonitoringState;
 
   showData = false;
 
@@ -35,46 +39,35 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
   weeklyProgress: GroupProgressModel[];
   monthlyProgress: GroupProgressModel[];
 
-  @Input()
-  set setPeriodical(value: Periodicals) {
-    this.selectedPeriodical = value;
-    this.selectProgressTracking(value);
-  }
+  currentWeekCount = 0;
+  currentMonthCount = 0;
 
-  constructor(private _progressService: ProgressMonitoringService) {}
+  constructor(private _progressService: ProgressMonitoringService) {
+    this._state$$ = _progressService.getProgressState();
+  }
 
   ngOnInit(): void {
     this.getProgressData();
   }
 
   getProgressData() {
-    this._sBs.sink = this._progressService.getMilestones().subscribe((model) => {
-      if (model.length) {
-        this.showData = true;
+    this._sBs.sink = combineLatest([this.period$, this.progress$, this.isLast$])
+        .subscribe(([period, progress, isLast])=> {
+          this.selectedPeriodical = period;
+          if(progress.scopedProgress.length > 0) {
+            this.showData = true;
+          } else {
+            this.showData = false;
+          }
 
-        this.chart = this._loadChart(model);
-        this.dailyProgress = getDailyProgress(model);
-        this.weeklyProgress = getWeeklyProgress(model);
-        this.monthlyProgress = getMonthlyProgress(model);
+          this.currentWeekCount = getEnrolledUsersCurrentWeek(progress.allProgress);
+          this.currentMonthCount = getEnrolledUsersCurrentMonth(progress.allProgress);
 
-        this.chart = this._loadChart(this.weeklyProgress);
-      }
-    });
+          this.chart = this._loadChart(progress.scopedProgress, isLast);
+        })
   }
 
-  selectProgressTracking(periodical: Periodicals) {
-    if (!this.dailyProgress) return
-
-    if (periodical === 'Daily') {
-      this.chart = this._loadChart(this.dailyProgress);
-    } else if (periodical === 'Weekly') {
-      this.chart = this._loadChart(this.weeklyProgress);
-    } else {
-      this.chart = this._loadChart(this.monthlyProgress);
-    }
-  }
-
-  private _loadChart(models: GroupProgressModel[]) {
+  private _loadChart(models: GroupProgressModel[], isLast: boolean) {
     if (this.chart) {
       this.chart.destroy();
     }
@@ -82,7 +75,7 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
     return new Chart('user-chart', {
       type: 'bar',
       data: {
-        labels: models.map((day) => formatDate(day.time, this.selectedPeriodical)),
+        labels: getLabels(models, this.selectedPeriodical, isLast),
         datasets: [
           {
             label: `Enrolled User's`,
@@ -138,9 +131,13 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
     if (this.selectedPeriodical === 'Daily') {
       return models.map((mod) => mod.todaysEnrolledUsersCount.dailyCount);
     } else if (this.selectedPeriodical === 'Weekly') {
-      return models.map((mod) => mod.todaysEnrolledUsersCount.pastWeekCount);
+      const weeklyData = models.map((mod) => mod.todaysEnrolledUsersCount.pastWeekCount);
+      weeklyData.push(this.currentWeekCount);
+      return weeklyData;
     } else {
-      return models.map((mod) => mod.todaysEnrolledUsersCount.pastMonthCount);
+      const monthlyData = models.map((mod) => mod.todaysEnrolledUsersCount.pastMonthCount);
+      monthlyData.push(this.currentMonthCount);
+      return monthlyData;
     }
   }
 

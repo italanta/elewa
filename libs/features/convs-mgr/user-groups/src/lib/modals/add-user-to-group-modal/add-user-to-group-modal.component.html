@@ -1,0 +1,35 @@
+<div class="create-modal-wrapper">
+    <span class="create-modal-header">
+        Add User to Group
+    </span>
+  
+    <form [formGroup]="addUserToGroupForm">
+  
+      <div fxLayout="column" class="form-inputs" fxLayoutAlign="start">
+        <label class="label">
+          User name
+        </label>
+        <mat-form-field appearance="outline">
+          <input type="text" matInput formControlName="userName"/>
+        </mat-form-field>
+      </div>
+  
+      <div fxLayout="column" class="form-inputs" fxLayoutAlign="start">
+        <label class="label">Phone Number</label>
+        <mat-form-field appearance="outline">
+          <textarea matInput formControlName="phoneNumber">
+          </textarea>
+        </mat-form-field>
+      </div>
+  
+      <div class="create-modal-btns">
+        <button mat-stroked-button mat-dialog-close class="create-modal-cancel">
+          {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CANCEL' | transloco }}
+        </button>
+        <button mat-raised-button class="add-btn" color="primary" class="create-modal-confirm" (click)="addUserToGroup()">
+          <span>{{ 'CLASSESS.MODALS.USER-FROM-GROUP.CONFIRM' | transloco }}</span>
+        </button>
+      </div>
+    </form>
+  </div>
+  

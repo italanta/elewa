@@ -1,0 +1,18 @@
+<div class="delete-user-group-wrapper">
+  <span class="delete-user-group-header">
+    {{ 'CLASSESS.MODALS.CLASS.DELETE-TITLE' | transloco }}
+  </span>
+
+  <mat-divider></mat-divider>
+  <p class="delete-user-group-message">
+    {{ 'CLASSESS.MODALS.CLASS.DELETE-MESSAGE' | transloco }}
+  </p>
+  <div class="delete-user-group-btns">
+    <button mat-stroked-button mat-dialog-close class="delete-user-group-cancel">
+      {{ 'CLASSESS.MODALS.CLASS.CANCEL' | transloco }}
+    </button>
+    <button mat-raised-button class="add-btn" color="primary" class="delete-user-group-confirm" (click)="deleteClassroom()">
+      {{ 'CLASSESS.MODALS.CLASS.CONFIRM' | transloco }}
+    </button>
+  </div>
+</div>

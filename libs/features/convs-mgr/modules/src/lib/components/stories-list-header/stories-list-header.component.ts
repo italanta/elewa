@@ -68,6 +68,7 @@ export class StoriesListHeaderComponent implements OnInit, OnDestroy {
             stories.map((b) => { 
               return { ...b, lastEdited: TIME_AGO(this.parseDate(b.updatedOn ? b.updatedOn : b.createdOn as Date)) }})),
           tap((stories) => {
+            this.dataFound = stories.length > 0;
             this.dataSource.data = stories
             this.filteredStories = stories
           })).subscribe();

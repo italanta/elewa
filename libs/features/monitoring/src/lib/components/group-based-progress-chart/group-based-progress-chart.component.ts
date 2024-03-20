@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
-import { combineLatest, switchMap } from 'rxjs';
+import { Observable, combineLatest, switchMap } from 'rxjs';
 
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules'
@@ -11,7 +11,7 @@ import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 
 import { Bot } from '@app/model/convs-mgr/bots';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
-import { Classroom, defaultClassroom } from '@app/model/convs-mgr/classroom';
+import { Classroom } from '@app/model/convs-mgr/classroom';
 import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
 
 
@@ -20,7 +20,8 @@ import {
   getColor, 
   getDailyProgress, 
   getWeeklyProgress,
-  getMonthlyProgress 
+  getMonthlyProgress, 
+  getLabels
 } from '../../providers/helper-fns.util';
 
 @Component({
@@ -30,6 +31,10 @@ import {
 })
 export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   @Input() chart: Chart;
+
+  @Input() progress$: Observable<{scopedProgress: GroupProgressModel[], allProgress: GroupProgressModel[]}>;
+  @Input() period$: Observable<Periodicals>;
+  @Input() isLast$: Observable<boolean>;
 
   private _sBs = new SubSink();
 
@@ -47,22 +52,21 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   weeklyProgress: GroupProgressModel[];
   monthlyProgress: GroupProgressModel[];
 
-  @Input()
-  set setPeriodical(value: Periodicals) {
-    this.selectedPeriodical = value;
-    this.selectProgressTracking(value);
-  }
+  currentProgress: {
+    label: string;
+    data: number[];
+    backgroundColor: string;
+    borderRadius: number;
+  }[];
 
   @Input()
   set setActiveCourse(value: Bot) {
     this.activeCourse = value
-    this.selectProgressTracking(this.selectedPeriodical);
   }
 
   @Input()
   set setActiveClassroom(value: Classroom) {
     this.activeClassroom = value
-    this.selectProgressTracking(this.selectedPeriodical);
   }
 
   constructor (
@@ -74,20 +78,22 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const dataLayer$ = this.initDataLayer();
-    
-    const milestones$ = this._progressService.getMilestones();
 
-    this._sBs.sink = combineLatest([dataLayer$, milestones$])
-      .subscribe(([botModules, models]) => {
+    this._sBs.sink = combineLatest([dataLayer$, this.period$, this.progress$, this.isLast$])
+      .subscribe(([botModules, period, progress, isLast]) => {
         this.botModules = botModules;
-        if (models.length) {
-          this.showData = true;
+        if (progress.scopedProgress.length) {
+          this.selectedPeriodical = period;
 
-          // 1. save all progress
-          this.dailyProgress = getDailyProgress(models);
-          this.weeklyProgress = getWeeklyProgress(models);
-          this.monthlyProgress = getMonthlyProgress(models);
-          this.chart = this._loadChart(this.weeklyProgress);
+          if(progress.scopedProgress.length > 0) {
+            this.showData = true;
+          } else {
+            this.showData = false;
+          }
+
+          this.currentProgress = this.getDatasets(progress.allProgress);
+
+          this.chart = this._loadChart(progress.scopedProgress, isLast);
         }
       });
   }
@@ -101,35 +107,29 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
         return this._clasroomServ$.getAllClassrooms().pipe(
           switchMap(clsrooms => {
           this.classrooms = clsrooms;
-          this.addDefaultClass();
           return this._botModServ$.getBotModules()
         }))
       })
     )
   }
 
-  /** add default class */
-  addDefaultClass() {
-    const classroom = this.classrooms.find(cls => cls.className === defaultClassroom.className)
-    classroom ?? this.classrooms.push(defaultClassroom);
-  }
 
-  /** select progress tracking Periodicals */
-  selectProgressTracking(periodical: Periodicals) {
-    if (!this.dailyProgress) return //return if there's no progress to visualise (avoid chart js errors)
+  // /** select progress tracking Periodicals */
+  // selectProgressTracking(periodical: Periodicals) {
+  //   if (!this.dailyProgress) return //return if there's no progress to visualise (avoid chart js errors)
 
 
-    if (periodical === 'Daily') {
-      this.chart = this._loadChart(this.dailyProgress);
-    } else if (periodical === 'Weekly') {
-      this.chart = this._loadChart(this.weeklyProgress);
-    } else {
-      this.chart = this._loadChart(this.monthlyProgress);
-    }
-  }
+  //   if (periodical === 'Daily') {
+  //     this.chart = this._loadChart(this.dailyProgress);
+  //   } else if (periodical === 'Weekly') {
+  //     this.chart = this._loadChart(this.weeklyProgress);
+  //   } else {
+  //     this.chart = this._loadChart(this.monthlyProgress);
+  //   }
+  // }
 
   /** draw chart. */
-  private _loadChart(model: GroupProgressModel[]): Chart {
+  private _loadChart(model: GroupProgressModel[], isLast: boolean): Chart {
     if (this.chart) {
       this.chart.destroy();
     }
@@ -137,7 +137,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     return new Chart('chart-ctx', {
       type: 'bar',
       data: {
-        labels: model.map((day) => formatDate(day.time, this.selectedPeriodical)),
+        labels: getLabels(model, this.selectedPeriodical, isLast),
         datasets: this.getDatasets(model),
       },
       options: {
@@ -236,7 +236,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   /** get data while unpacking at the module level */
   private getData(moduleMilestone: BotModule, model: GroupProgressModel[]): number[] {
     // return moduleMilestone data from users of the active course and class === selected tab
-    return model.map(
+    const data = model.map(
       (item) => {
         if (this.activeClassroom.className === 'All') {
           const courseGroup = item.groupedMeasurements.find((course) => course?.id === this.activeCourse.id);
@@ -253,6 +253,18 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
         }
       }
     );
+
+    // Get current daily progress for monthly and weekly
+    if (this.selectedPeriodical !== 'Daily') {
+      const md = this.currentProgress?.find(((modProgress)=> modProgress.label === moduleMilestone.name))
+
+      if (md) {
+        // Push only the current day's progress 
+        data.push(md.data[md.data.length -1])
+      }
+    }
+    
+    return data
   }
 
   ngOnDestroy() {

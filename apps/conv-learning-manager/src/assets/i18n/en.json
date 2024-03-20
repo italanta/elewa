@@ -265,7 +265,10 @@
       "CHATS": "Chats",
       "MESSAGING": "Messaging",  
       "MESSAGE-TEMPLATES": "Message Templates",    
+      "USERS": "Users",    
+      "USER-GROUPS": "User Groups",    
       "ASSESSMENTS": "Assessments",
+      "MANAGE-USERS": "Manage Users",
       "SURVEYS": "Surveys",
       "LOG-OUT": "Logout",
       "BOT": "Bots",
@@ -475,10 +478,25 @@
   },
   "CLASSESS": {
     "MODALS": {
+      "CLASS": {
+        "DELETE-TITLE": "Delete User Group",
+        "DELETE-MESSAGE": "Are you sure you want to delete this user group?\n This action cannot be undone.",
+        "CANCEL": "Cancel",
+        "CONFIRM": "Confirm"
+      },
+
+      "USER-FROM-GROUP": {
+        "DELETE-TITLE": "Delete User from Group",
+        "DELETE-MESSAGE": "Are you sure you want to delete user from group?",
+        "CANCEL": "Cancel",
+        "CONFIRM": "Confirm"
+      },
       "CREATE-CLASS": "Create Class",
       "CLASSNAME": "ClassName",
+      "GROUPNAME": "GroupName",
       "DESCRIPTION": "Description",
       "ACTION-BUTTONS": {
+        "SAVE":"Save",
         "CANCEL": "Cancel",
         "CONTINUE": "Continue"
       }
@@ -778,11 +796,44 @@
     "LEARNERS" : "Learners",
     "TABLE-HEADER": {
       "NAME": "Name",
-      "PHONE-NUMBER": "Phone Number",
+      "DATE-ENROLLED": "Date Enrolled",
       "COURSE": "Course",
       "CLASS": "Class",
-      "STATUS": "Status"
+      "STATUS": "Status",
+      "USERNAME":"UserName",
+      "PHONE-NUMBER": "Phone number"
+
     },
+
+    "TABLE-CONTENT": {
+      "ACTIONS": {
+        "DELETE": "Delete"
+      }
+    },
+
+    "USER-GROUPS":{
+      "TITLE":"User Groups",
+      "USER-GROUPS-HEADER":{
+        "GROUP-NAME":"GroupName",
+        "USERS":"Users",
+        "DESCRIPTION":"Description",
+        "COURSENAME":"CourseName",
+        "CLASSNAME":"ClassName"
+
+      },
+      "BUTTONS":{
+        "CREATE-GROUP":"Create User Group",
+        "MOVE-USERS":"Move users to another group",
+        "DELETE-USERS":"Delete Users from group ",
+        "ADD-USER-TO-GROUP":"Add user to group",
+        "ACTION-BUTTONS":{
+          "SAVE":"Save",
+          "CANCEL":"Cancel",
+          "CONTINUE":"Continue"
+        }
+      }
+    },
+
     "PLACEHOLDERS":{
       "SEARCH-PLACEHOLDER": "Search for a learner"
     },
@@ -829,6 +880,7 @@
       }
     }
   },
+
   "TOAST": {
     "EDIT-BOT": {
       "SUCCESSFUL": "Edit operation was successful",
