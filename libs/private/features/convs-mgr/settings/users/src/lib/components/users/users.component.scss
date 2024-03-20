@@ -13,8 +13,7 @@
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
-  background: color #1f7a8c;
-  opacity: 40%;
+  background-color: rgba(31, 122, 140, 0.3);
   cursor: pointer;
 }
 
@@ -69,8 +68,8 @@
         }
         .search_input {
           width: calc(100% - 3px);
-          padding-left: 30px;
-          height: 30px;
+          padding-left: 60px;
+          height: 45px;
           border: none;
           outline: none;
           font-size: 14px;
