@@ -18,6 +18,7 @@ import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 import { WhatsappOutgoingMessageParser } from "../io/outgoing-message-parser/whatsapp-api-outgoing-message-parser.class";
 import { StandardMessageOutgoingMessageParser } from "../io/outgoing-message-parser/standardized-message-to-outgoing-message.parser";
+import { check24HoursPassed } from "../utils/send-message.util";
 
 /**
  * After the bot engine processes the incoming message and returns the next block,
@@ -105,7 +106,9 @@ export class WhatsappActiveChannel implements ActiveChannel
       // Get the date in milliseconds
       const latestMessageTime = __DateFromStorage(latestMessage.createdOn as Date);
 
-      if ((Date.now() - latestMessageTime.unix() * 1000) > 864000) {
+      const has24HoursPassed = check24HoursPassed(latestMessageTime);
+
+      if (has24HoursPassed) {
 
         this._tools.Logger.log(() => `[SendOutgoingMsgHandler].execute - Whatsapp 24 hours limit has passed`);
         this._tools.Logger.log(() => `[SendOutgoingMsgHandler].execute - Sending opt-in message to ${phone}`);
