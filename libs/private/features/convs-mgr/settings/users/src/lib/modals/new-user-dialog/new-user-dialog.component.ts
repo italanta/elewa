@@ -14,7 +14,7 @@ export class NewUserDialogComponent implements OnInit {
   newUserFormGroup: FormGroup;
   reversedRoles: string[]; 
 
-  creatingUser: boolean = false;
+  creatingUser: boolean;
 
   constructor(private _fb: FormBuilder,
               public dialogRef: MatDialogRef<NewUserDialogComponent>,
@@ -35,7 +35,7 @@ export class NewUserDialogComponent implements OnInit {
   }
 
   inviteNewUser() {
-    if (!!this.newUserFormGroup.valid) {
+    if (this.newUserFormGroup.valid) {
       this.creatingUser = true;
       this._usersService.addUserToOrg(this.newUserFormGroup).subscribe(() => {
         this.dialogRef.close();
