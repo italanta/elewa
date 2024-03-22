@@ -77,7 +77,10 @@ export class OrgStore extends DataStore<Organisation>
       contact: {
         name: u.displayName ?? 'Unidentified',
         email: u.email
-      }
+      },
+      users: [],
+      roles: [],
+      permissions: {}
     };
   }
 

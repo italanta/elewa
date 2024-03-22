@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="53" height="45" viewBox="0 0 53 45">
+  <g id="MDI_check-all" data-name="MDI / check-all" opacity="0.525">
+    <g id="Boundary" fill="#fff" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
+      <rect width="53" height="45" stroke="none"/>
+      <rect x="0.5" y="0.5" width="52" height="44" fill="none"/>
+    </g>
+    <path id="Path_check-all" data-name="Path / check-all" d="M.41,24.992,13.03,38.85l3.183-3.52L3.616,21.5M49.693,5.58,25.808,31.834,16.416,21.5l-3.228,3.5L25.808,38.85,52.9,9.1m-12.778,0L36.937,5.58,22.6,21.322l3.206,3.5Z" transform="translate(-0.212 -0.58)" fill="#fff"/>
+  </g>
+</svg>

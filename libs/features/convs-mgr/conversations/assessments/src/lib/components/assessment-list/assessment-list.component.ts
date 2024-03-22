@@ -1,61 +1,90 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
-import { Observable } from 'rxjs';
-import { TranslateService } from '@ngfi/multi-lang';
+import { SubSink } from 'subsink';
+import { BehaviorSubject, Observable, combineLatest, map, switchMap, tap } from 'rxjs';
+
+import { orderBy as __orderBy } from 'lodash';
+
+import { __DateFromStorage } from '@iote/time';
 
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
-
+import { EndUserService } from '@app/state/convs-mgr/end-users';
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
-import { CreateAssessmentModalComponent } from '../../modals/create-assessment-modal/create-assessment-modal.component';
-import { DeleteAssessmentModalComponent } from '../../modals/delete-assessment-modal/delete-assessment-modal.component';
-import { AssessmentDataSource } from '../../data-source/assessment-data-source.class';
-
+import { AssessmentMetricsService } from '../../services/assessment-metrics.service';
+import { ActionSortingOptions } from '../../utils/sorting-options.enum';
 
 @Component({
   selector: 'app-assessment-list',
   templateUrl: './assessment-list.component.html',
   styleUrls: ['./assessment-list.component.scss'],
 })
-export class AssessmentListComponent implements OnInit{
+export class AssessmentListComponent implements OnInit, OnDestroy {
+  private _sBs = new SubSink();
+
+  sorting$$ = new BehaviorSubject<ActionSortingOptions>(
+    ActionSortingOptions.Newest
+  );
+
+  sortAssessmentsBy = 'newest';
+
   assessments$: Observable<Assessment[]>;
 
-  assessmentsColumns = ['title', 'inProgress', 'responses', 'actions'];
-
-  dataSource: AssessmentDataSource;
+  dataSource = new MatTableDataSource<Assessment>();
 
   dataFound = true;
+  viewInListView = true;
 
-  @ViewChild(MatSort) set matSort(sort: MatSort){
-    this.dataSource.sort = sort;
-  }
-
-  @ViewChild(MatPaginator) set matPaginator(paginator: MatPaginator){
-    this.dataSource.paginator = paginator;
-  }
-
-  constructor(private _assessments: AssessmentService,
+  constructor(private _aMetrics: AssessmentMetricsService,
+              private _assessments: AssessmentService,
+              private _endUserService: EndUserService,
               private _dialog: MatDialog,
-              private _liveAnnounce: LiveAnnouncer,
-              private _translate: TranslateService,
-              private _router: Router){}
+  ){}
 
   ngOnInit(): void {
     this.assessments$ = this._assessments.getAssessments$();
-    this.dataSource = new AssessmentDataSource(this.assessments$);
+    this._sBs.sink = combineLatest(([this.assessments$, this.sorting$$.asObservable()]))
+          .pipe(map(([assessments, sort]) => 
+            __orderBy(assessments,(a) => __DateFromStorage(a.createdOn!).unix(),
+            sort === ActionSortingOptions.Newest ? 'desc' : 'asc'
+          )),
+          tap((assessments) => { 
+            this.dataSource.data = assessments;
+            this.dataFound = assessments.length > 0;
+          })).subscribe()
+    this.getMetrics();
+
+    this.configureFilter();
   }
 
-  openAssessment(assessmentId: string) {
-    this._router.navigate(['/assessments', assessmentId]);
+  getMetrics() {
+    this._sBs.sink = this._endUserService
+      .getUserDetailsAndTheirCursor()
+      .pipe(
+        switchMap((endUsers) => {
+          return this._assessments.getAssessments$().pipe(
+            map((assessments) => {
+              return assessments.map((assessment) => {
+                return (assessment.metrics = this._aMetrics.computeMetrics(endUsers,assessment).assessmentMetrics);
+              });
+            })
+          );
+        })
+      )
+      .subscribe();
   }
 
-  openAssessmentResults(assessmentId: string) {
-    this._router.navigate(['/assessments', assessmentId, 'results']);
+  configureFilter() {
+    this.dataSource.filterPredicate = (data: Assessment, filter: string) => {
+      // Convert the filter to lowercase and remove extra spaces
+      const filterText = filter.trim().toLowerCase(); 
+    
+      // Filtering using only specific columns
+      return (data.title.toLowerCase().includes(filterText) || 
+              data.description.toLowerCase().includes(filterText));
+    };
   }
 
   searchTable(event: Event){
@@ -64,23 +93,13 @@ export class AssessmentListComponent implements OnInit{
     this.dataFound = (this.dataSource.filteredData.length > 0);
   }
 
-  openCreateAssessmentDialog(){
-    this._dialog.open(CreateAssessmentModalComponent);
+  sortBy(event: Event) {
+    const searchValue = (event.target as HTMLInputElement).value as ActionSortingOptions;
+    this.sortAssessmentsBy = searchValue;
+    this.sorting$$.next(searchValue);
   }
 
-  // For assistive technology to be notified of table sorting changes
-  onSortChange(sort: Sort){
-    if(sort.direction == 'asc'){
-      this._liveAnnounce.announce(this._translate.translate('ASSESSMENTS.ACCESSIBILITY.SORTED-ASC'));
-    } else if(sort.direction == 'desc'){
-      this._liveAnnounce.announce(this._translate.translate('ASSESSMENTS.ACCESSIBILITY.SORTED-DESC'));
-    }
-  }
-
-  openDeleteModal(assessment: Assessment) {
-    this._dialog.open(DeleteAssessmentModalComponent, {
-      data: { assessment },
-      panelClass: 'delete-assessment-container',
-    });
+  ngOnDestroy(): void {
+    this._sBs.unsubscribe();
   }
 }

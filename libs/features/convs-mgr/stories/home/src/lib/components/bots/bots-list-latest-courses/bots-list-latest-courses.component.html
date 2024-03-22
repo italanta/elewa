@@ -1,0 +1,41 @@
+<div *ngIf="bots" class="cards" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30px"
+  fxFlex>
+  <div *ngFor="let bot of bots | slice: 0 : screenWidth < 1500 ? 3 : 4; let i = index" class="card" fxLayout="column" fxLayoutGap="20px"
+    fxLayoutAlign="start" [fxFlex]="screenWidth < 1500 ? 32 : 25">
+
+    <span class="card-title" fxFlex>
+      
+        <button class="published" *ngIf="bot.isPublished">{{ 'BOTS.CREATE-MODAL.PUBLISHED' | transloco }}</button> 
+        <button class="draft" *ngIf="!bot.isPublished">{{ 'BOTS.CREATE-MODAL.DRAFT' | transloco }}</button>
+      
+      <button mat-button [matMenuTriggerFor]="menu">
+        <i class="fa-solid fa-ellipsis-vertical menu-tooltip"></i>
+      </button>
+
+    </span>
+
+    <p class="botName">{{ bot.name }}</p>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="connectToChannel(bot)"> {{ 'BOTS.CONNECT-BOT-TO-CHANNEL' | transloco }}</button>
+      <button mat-menu-item (click)="publishBot(bot)"> {{ 'BOTS.PUBLISH-BOT' | transloco }}</button>
+      <button mat-menu-item (click)="archiveBot(bot)" [disabled]="bot.isArchived">{{ 'BOTS.ARCHIVE-BOT' | transloco }} </button>
+      <button mat-menu-item (click)="deleteBot(bot)" [disabled]="bot.isPublished"> {{ 'BOTS.DELETE-BOT' | transloco }}</button>
+    </mat-menu>
+
+    <div class="open-bot" fxFlex="50">
+      <img [src]="bot.imageField ? bot.imageField : defaultImageUrl">
+
+      <div class="overlay"></div> 
+      
+      <div class="open-bot-content" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+        <span> {{ "BOTS.BOTS-PAGE.OPEN-BOT" | transloco }} </span>
+
+        <button mat-fab class="btn-add" (click)="openBot(bot.id!)">
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

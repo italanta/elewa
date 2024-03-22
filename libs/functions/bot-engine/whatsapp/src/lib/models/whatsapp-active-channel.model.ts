@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import { tmpdir } from 'os';
 import { createWriteStream } from "fs";
@@ -14,10 +14,11 @@ import { WhatsAppOutgoingMessage } from "@app/model/convs-mgr/functions";
 import { PlatformType, WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { Message, MessageTemplateConfig, TemplateMessageParams } from "@app/model/convs-mgr/conversations/messages";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 import { WhatsappOutgoingMessageParser } from "../io/outgoing-message-parser/whatsapp-api-outgoing-message-parser.class";
 import { StandardMessageOutgoingMessageParser } from "../io/outgoing-message-parser/standardized-message-to-outgoing-message.parser";
-import { EndUser } from "@app/model/convs-mgr/conversations/chats";
+import { check24HoursPassed } from "../utils/send-message.util";
 
 /**
  * After the bot engine processes the incoming message and returns the next block,
@@ -38,6 +39,7 @@ export class WhatsappActiveChannel implements ActiveChannel
 {
   channel: WhatsAppCommunicationChannel;
   endUserService: EndUserDataService;
+  API_VERSION: string = process.env.WHATSAPP_VERSION || 'v18.0';
 
   constructor(private _tools: HandlerTools, channel: WhatsAppCommunicationChannel)
   {
@@ -52,8 +54,30 @@ export class WhatsappActiveChannel implements ActiveChannel
     return outgoingMessagePayload;
   }
 
-  parseOutStandardMessage(message: Message, phone: string)
+  async parseOutStandardMessage(message: Message)
   {
+    const phone = message.endUserPhoneNumber;
+    
+    const n = this.channel.n;
+    const endUserId = generateEndUserId(phone, PlatformType.WhatsApp, n);
+    const endUser = await this.endUserService.getEndUser(endUserId)
+
+    if(message.params) {
+      const variables = {
+        ...endUser,
+        ...endUser.variables
+      }
+
+      const newParams = message.params.map((param)=> {
+        if(param.value == '_var_'){
+          param.value = variables[param.name] || 'undefined';
+        }
+        return param;
+      })
+  
+      message.params = newParams;
+    }
+
     const outgoingMessagePayload = new StandardMessageOutgoingMessageParser().parse(message, phone);
 
     return outgoingMessagePayload;
@@ -74,6 +98,7 @@ export class WhatsappActiveChannel implements ActiveChannel
     const n = this.channel.n;
     const orgId = this.channel.orgId;
     const endUserId = generateEndUserId(phone, PlatformType.WhatsApp, n);
+    const endUser = await this.endUserService.getEndUser(endUserId)
 
     const latestMessage = await msgService.getLatestUserMessage(endUserId, orgId);
 
@@ -81,7 +106,9 @@ export class WhatsappActiveChannel implements ActiveChannel
       // Get the date in milliseconds
       const latestMessageTime = __DateFromStorage(latestMessage.createdOn as Date);
 
-      if ((Date.now() - latestMessageTime.unix() * 1000) > 864000) {
+      const has24HoursPassed = check24HoursPassed(latestMessageTime);
+
+      if (has24HoursPassed) {
 
         this._tools.Logger.log(() => `[SendOutgoingMsgHandler].execute - Whatsapp 24 hours limit has passed`);
         this._tools.Logger.log(() => `[SendOutgoingMsgHandler].execute - Sending opt-in message to ${phone}`);
@@ -91,7 +118,7 @@ export class WhatsappActiveChannel implements ActiveChannel
         if (templateConfig) {
           let params = message.params || templateConfig.params || null;
 
-          if(params) params = await this.__resolveParamVariables(params, orgId, endUserId);
+          if(params) params = await this.__resolveParamVariables(params, orgId, endUser.variables);
 
           // Get the message template
           return this.parseOutMessageTemplate(templateConfig, params, phone, message);
@@ -103,17 +130,11 @@ export class WhatsappActiveChannel implements ActiveChannel
     }
   }
 
-  private __getValueFromVariable(orgId: string, endUserId: string, variable: string) {
-    const variablesService = new MailMergeVariables(this._tools);
-
-    return variablesService.getSingleVariableValue(orgId, endUserId, variable)
-  }
-
-  private async __resolveParamVariables(params: TemplateMessageParams[], orgId: string, endUserId: string) { 
+  private async __resolveParamVariables(params: TemplateMessageParams[], orgId: string, variables: any) { 
     const resolvedParams = params.map(async (param) => {
 
       if(param.value === '_var_') {
-        const value = await this.__getValueFromVariable(orgId, endUserId, param.name);
+        const value = variables[param.name];
 
         return { 
           name: param.name,
@@ -127,74 +148,90 @@ export class WhatsappActiveChannel implements ActiveChannel
     return Promise.all(resolvedParams);
   }
 
-  async send(whatsappMessage: WhatsAppOutgoingMessage, standardMessage?: Message)
-  {
-    if(standardMessage) {
-      whatsappMessage = await this._handle24hourWindow(whatsappMessage.to, standardMessage) || whatsappMessage;
-    }
-    // STEP 1: Assign the access token and the business phone number id
-    //            required by the whatsapp api to send messages
-    const ACCESS_TOKEN = this.channel.accessToken;
+  async send(whatsappMessage: WhatsAppOutgoingMessage, standardMessage?: Message) {
+
     const PHONE_NUMBER_ID = this.channel.id;
+    const URL = `https://graph.facebook.com/${this.API_VERSION}/${PHONE_NUMBER_ID}/messages`;
 
-
-    // STEP 2: Prepare the outgoing whatsapp message
-    //         Convert it to a JSON string
-    const outgoingMessage = JSON.stringify(whatsappMessage);
-
-    this._tools.Logger.log(() => `[SendWhatsAppMessageModel]._sendRequest - Generated message ${JSON.stringify(whatsappMessage)}`);
-
-    // STEP 3: Send the message
-    //         Generate the facebook url through which we send the message
-    const URL = `https://graph.facebook.com/v14.0/${PHONE_NUMBER_ID}/messages`;
-
-    /**
-     * Execute the post request using axios and pass in the URL, ACCESS_TOKEN and the outgoingMessage
-     * 
-     * @see https://axios-http.com/docs/post_example
-     * 
-     */
-    const res = await axios.post(
-      URL,
-      outgoingMessage,
-      {
-        headers: {
-          'Authorization': `Bearer ${ACCESS_TOKEN}`,
-          'Content-Type': 'application/json'
+    try {
+      if (standardMessage) {
+        whatsappMessage = (await this._handle24hourWindow(whatsappMessage.to, standardMessage)) || whatsappMessage;
+      }
+  
+      // STEP 1: Assign the access token and the business phone number id
+      // required by the WhatsApp API to send messages
+      const ACCESS_TOKEN = this.channel.accessToken;
+  
+      // STEP 2: Prepare the outgoing WhatsApp message
+      // Convert it to a JSON string
+      const outgoingMessage = JSON.stringify(whatsappMessage);
+  
+      this._tools.Logger.log(() => `[SendWhatsAppMessageModel]._sendRequest - Generated message ${JSON.stringify(whatsappMessage)}`);
+  
+      // STEP 3: Send the message
+      // Generate the Facebook URL through which we send the message
+      // TODO: Move the versions to environment
+  
+      /**
+       * Execute the post request using axios and pass in the URL, ACCESS_TOKEN, and the outgoingMessage
+       *
+       * @see https://axios-http.com/docs/post_example
+       *
+       */
+      const response = await axios.post(
+        URL,
+        outgoingMessage,
+        {
+          headers: {
+            Authorization: `Bearer ${ACCESS_TOKEN}`,
+            'Content-Type': 'application/json',
+          },
         }
-      }
-    ).then(response =>
-    {
-      this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Success in sending message ${JSON.stringify(response.data)}`);
-
-      // Mark the conversation as complete
-      this.endUserService.setConversationComplete(`w_${this.channel.n}_${whatsappMessage.to}`, 1).then(() => {
-
-        this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Conversation marked as complete`);
-      }).catch(err => {
-        this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Error in updating isComplete`);
-      }
       );
+  
+      this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Success in sending message ${JSON.stringify(response.data)}`);
+  
+      // Mark the conversation as complete
+      await this.endUserService.setConversationComplete(`w_${this.channel.n}_${whatsappMessage.to}`, 1);
+  
+      this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Conversation marked as complete`);
+      
+      return {success: true, data: response.data};
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response) {
+          // Request made and server responded
+          this._tools.Logger.debug(() => `[SendWhatsAppMessageModel].sendMessage: url is: ${URL}`);
+          this._tools.Logger.log(() => `Axios post request: Response Data error 💀 ${JSON.stringify(axiosError.response.data)}`);
+          this._tools.Logger.log(() => `Axios post request: Response Header error 🤕 ${JSON.stringify(axiosError.response.headers)}`);
+          this._tools.Logger.log(() => `Axios post request.sendMessage: Response status error⛽ ${JSON.stringify(axiosError.response.status)}`);
+          
+          const data = axiosError.response.data as any;
+          
+          // If we have hit the rate limit, wait 300ms second then resend the message
+          if(data.error.code == 131056) {
+            this._tools.Logger.debug(() => `[SendWhatsAppMessageModel]. PAIR RATE LIMIT HIT! Attempting to resend message`);
+            await new Promise(resolve => setTimeout(resolve, 300));
+            return this.send(whatsappMessage, standardMessage);
+          } else {
+            return {success: false, data: axiosError.response.data};
+          }
 
-    }).catch(error =>
-    {
-      if (error.response) {
-        // Request made and server responded
-        this._tools.Logger.debug(() => `[SendWhatsAppMessageModel].sendMessage: url is: ${URL}`);
-        this._tools.Logger.log(() => `Axios post request: Response Data error 💀 ${JSON.stringify(error.response.data)}`);
-        this._tools.Logger.log(() => `Axios post request: Response Header error 🤕 ${JSON.stringify(error.response.headers)}`);
-        this._tools.Logger.log(() => `Axios post request.sendMessage: Response status error⛽ ${JSON.stringify(error.response.status)}`);
-
-      } else if (error.request) {
-        // The request was made but no response was received
-        this._tools.Logger.log(() => `Axios post request: Request error 🐱‍🚀${error.request}`);
+        } else if (axiosError.request) {
+          // The request was made but no response was received
+          this._tools.Logger.log(() => `Axios post request: Request error 🐱‍🚀${axiosError.request}`);
+          return {success: false, data: axiosError.request};
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          this._tools.Logger.log(() => `Axios post request: Different Error is ${axiosError.message}`);
+          return {success: false, data: axiosError.message};
+        }
       } else {
-        // Something happened in setting up the request that triggered an Error
-        this._tools.Logger.log(() => `Axios post request: Different Error is ${error.message}`);
+        // Handle non-Axios errors here
+        this._tools.Logger.log(() => `Error: ${error.message}`);
       }
-    });
-    return res;
-
+    }
   }
 
 
@@ -220,7 +257,7 @@ export class WhatsappActiveChannel implements ActiveChannel
   private async _getMediaUrl(mediaId: string)
   {
     if (mediaId) {
-      const URL = `https://graph.facebook.com/v15.0/${mediaId}`;
+      const URL = `https://graph.facebook.com/${this.API_VERSION}/${mediaId}`;
       try {
         const mediaInformation = await axios.get(URL,
           {

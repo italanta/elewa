@@ -15,6 +15,6 @@ export interface FileUpload extends IObject
   /**Stores the path with https in firebase storage  */
   filePath?: string;
   
-  /**Store the size of the file */
-  size?: string;
+  /**Store the size of the file in KiloBytes*/
+  size?: number;
 }

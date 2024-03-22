@@ -56,6 +56,7 @@ export abstract class OutgoingMessageParser
       case StoryBlockTypes.Email:                         parser = this.getTextBlockParserOut;     break;
       case StoryBlockTypes.PhoneNumber:                   parser = this.getTextBlockParserOut;     break;   
       case StoryBlockTypes.QuestionBlock:                 parser = this.getQuestionBlockParserOut; break;
+      case StoryBlockTypes.FallbackBlock:                 parser = this.getQuestionBlockParserOut; break;
       case StoryBlockTypes.List:                          parser = this.getListBlockParserOut;     break;
       case StoryBlockTypes.Image:                         parser = this.getImageBlockParserOut;    break;
       case StoryBlockTypes.Video:                         parser = this.getVideoBlockParserOut;    break;

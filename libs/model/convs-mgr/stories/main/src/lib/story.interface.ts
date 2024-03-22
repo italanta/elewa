@@ -15,7 +15,7 @@ export interface Story extends IObject
   orgId: string;
 
   /* Name of the story */
-  name: string;
+  name?: string;
 
   /* image of the story */
   imageField?: string;
@@ -23,12 +23,18 @@ export interface Story extends IObject
   /* description of the story */
   description?: string;
 
-  /* Labels of the story */
-  labels?: string[];
-
   /* chapter of the story */
   chapter?: string;
 
+  /** id of the parent module */
+  parentModule?: string
+
   /* type of the story */
   isAssessment?: boolean
+
+  /* time of publishing */
+  publishedOn?: Date;
+
+  /** total number of blocks in the story */
+  blocksCount?: number;
 }

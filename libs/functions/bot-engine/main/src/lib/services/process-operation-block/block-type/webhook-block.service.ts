@@ -4,15 +4,19 @@ import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 
 import { WebhookBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { HttpMethodTypes } from "@app/model/convs-mgr/stories/blocks/main";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 import { DefaultOptionMessageService } from "../../next-block/block-type/default-block.service";
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
+import { VariablesDataService } from "../../data-services/variables.service";
+import { EndUserDataService } from "../../data-services/end-user.service";
+import { MailMergeVariables } from "../../variable-injection/mail-merge-variables.service";
 
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
 import { HttpService } from "../../../utils/http-service/http.service";
-import { MailMergeVariables } from "../../variable-injection/mail-merge-variables.service";
+import { ActiveChannel } from "../../../model/active-channel.service";
 
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
@@ -29,7 +33,7 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 
 	private httpService: HttpService;
 
-	constructor(blockDataService: BlockDataService, connDataService: ConnectionsDataService, tools: HandlerTools)
+	constructor(blockDataService: BlockDataService, connDataService: ConnectionsDataService, tools: HandlerTools, private _activeChannel: ActiveChannel)
 	{
 		super(blockDataService, connDataService, tools);
 		this.tools = tools;
@@ -38,10 +42,14 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 		this.httpService = new HttpService();
 	}
 
-	public async handleBlock(storyBlock: WebhookBlock, updatedCursor: Cursor, orgId: string, endUserId: string)
+	public async handleBlock(storyBlock: WebhookBlock, updatedCursor: Cursor, orgId: string, endUser: EndUser)
 	{
 
-		const response = await this.makeRequest(storyBlock, orgId, endUserId);
+		const varDataService = new VariablesDataService(this.tools, orgId, endUser.id, this._activeChannel.channel);
+
+		const allVariables =  varDataService.getAllVariables(endUser);
+
+		const response = await this.makeRequest(storyBlock, orgId, allVariables);
 
 		if(storyBlock.variablesToSave) {
 
@@ -49,10 +57,10 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 
 			// Save variable here
 			// Traverse through the unpacked response keys and save each key and its value to variables collection
-			await this.saveToDB(orgId, endUserId, unpackedResponse);
+			await this.saveToDB(orgId, endUser, unpackedResponse);
 		}
 
-		const newCursor = await this.getNextBlock(null, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUserId);
+		const newCursor = await this.getNextBlock(null, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUser.id);
 
 		const nextBlock = await this.blockDataService.getBlockById(newCursor.position.blockId, orgId, newCursor.position.storyId);
 
@@ -65,13 +73,11 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 	/**
 	 * This function is the one that makes the request to the webhook
 	 */
-	private async makeRequest(storyBlock: WebhookBlock, orgId: string, endUserId: string)
+	private async makeRequest(storyBlock: WebhookBlock, orgId: string, savedVariables: {[key:string]:any})
 	{
 		const variablesToPost = storyBlock.variablesToPost;
 
-		const savedVariables = await this.savedVariables(orgId, endUserId);
-
-		const URL = await this.mergeVariables(storyBlock.httpUrl, orgId, endUserId);
+		const URL = await this.mergeVariables(storyBlock.httpUrl, orgId, savedVariables);
 
 		// Write a function that creates an object from the variablesToPost and the saved variables
 		const payload = this.createPayload(variablesToPost, savedVariables);
@@ -86,30 +92,23 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 		}
 	}
 
-	private async savedVariables(orgId: string, endUserId: string) 
-	{
-		const variableRepo = this.tools.getRepository<any>(`orgs/${orgId}/end-users/${endUserId}/variables`);
-
-		const variableValues = await variableRepo.getDocumentById(`values`);
-
-		return variableValues;
-	}
-
 	private unpackResponse(webhookBlock: WebhookBlock, response: any)
 	{
-		let unpackedResponse = {};
+		const unpackedResponse = {};
 		// Loop through webhookBlock.variablesToSave and and create an object with t
-		for(let i of webhookBlock.variablesToSave) {
-			let value =   i.value.split('.').reduce((obj, key) => obj[key], response);
-
-			unpackedResponse[i.name] = value;
+		for(const i of webhookBlock.variablesToSave) {
+			if(i.name && i.value) {
+				const value =   i.value.split('.').reduce((obj, key) => obj[key], response);
+	
+				unpackedResponse[i.name] = value;
+			}
 		}
 
 		return unpackedResponse;
 	}
 
 	private createPayload(variablesToPost: string[], savedVariables: any) {
-		let result = {};
+		const result = {};
 
 		variablesToPost.forEach((key, i) => {
 				result[key] = savedVariables[key];
@@ -117,31 +116,22 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 		return result;
 	}
 
-	private async mergeVariables(url: string, orgId: string, endUserId: string){
+	private async mergeVariables(url: string, orgId: string, variables: {[key:string]:any}){
 		const mailMergeVariables = new MailMergeVariables(this.tools);
 
-		return mailMergeVariables.merge(url, orgId, endUserId);
+		return mailMergeVariables.merge(url, orgId, variables);
 
 	}
 
-	private async saveToDB(orgId: string, endUserId: string, responseData: any) {
-		const docPath = `orgs/${orgId}/end-users/${endUserId}/variables`;
+	private saveToDB(orgId: string, endUser: EndUser, responseData: any) {
+		const endUserService = new EndUserDataService(this.tools, orgId);
 
-    const valuesRepo$ = this.tools.getRepository<any>(docPath);
-
-		const savedInputs = await valuesRepo$.getDocumentById('values');
-
-		if (!savedInputs) {
-
-			return valuesRepo$.create(responseData, 'values');
-		} else {
-			// If the variable tagged already has a value, we create an array and push the new value
-			const newSavedInputs = {
-				...savedInputs,
-				...responseData
-			}
-			return valuesRepo$.update(newSavedInputs);
+		endUser.variables = {
+			...endUser.variables,
+			...responseData
 		}
+
+		return endUserService.updateEndUser(endUser)
 	}
 
 }

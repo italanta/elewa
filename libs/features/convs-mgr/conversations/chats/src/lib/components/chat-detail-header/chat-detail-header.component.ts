@@ -1,5 +1,4 @@
 import { Timestamp } from '@firebase/firestore-types';
-
 import {
   Component,
   Input,
@@ -22,13 +21,20 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
-import { EndUserPosition } from '@app/model/convs-mgr/conversations/admin/system';
+import { EndUserPosition, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { SpinnerService } from '@app/features/convs-mgr/conversations/messaging';
+import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
+import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
+import { ClassroomService } from '@app/state/convs-mgr/classrooms';
+import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
 import { MoveChatModal } from '../../modals/move-chat-modal/move-chat-modal.component';
 import { StashChatModal } from '../../modals/stash-chat-modal/stash-chat-modal.component';
 import { ConfirmActionModal } from '../../modals/confirm-action-modal/confirm-action-modal.component';
 import { ViewDetailsModal } from '../../modals/view-details-modal/view-details-modal.component';
+import { GET_USER_AVATAR, GET_RANDOM_COLOR } from '../../providers/avatar.provider';
+
+
 
 @Component({
   selector: 'app-chat-detail-header',
@@ -44,23 +50,34 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
 
   private _sbs = new SubSink();
 
+  extractedLearnerId: string ;// This variable will be used to store the ID of a learner extracted from enrolled learners.
+  learnerClass: string ;
+  className: string;
+
   confirmDialogRef: MatDialogRef<ConfirmActionModal>;
   moveChatDialogRef: MatDialogRef<MoveChatModal>;
   agentPaused = true;
   loading = true;
   user: iTalUser;
 
-  constructor(
-    private _snackBar: MatSnackBar,
-    private userService: UserService<iTalUser>,
-    private _backendService: BackendService,
-    private _router: Router,
-    private _toastService: ToastService,
-    private _afsF: AngularFireFunctions,
-    private _dialog: MatDialog,
-    private _spinner: SpinnerService,
+  avatarBgColor: string;
+
+  constructor(private _snackBar: MatSnackBar,
+              private userService: UserService<iTalUser>,
+              private _backendService: BackendService,
+              private _router: Router,
+              private _toastService: ToastService,
+              private _afsF: AngularFireFunctions,
+              private _dialog: MatDialog,
+              private _spinner: SpinnerService,
+              private _enrolledLearners: EnrolledLearnersService,
+              private _router$$: Router,
+              private _classRoomService$ :ClassroomService,
+              private _channelService$ :CommunicationChannelService,
+
   ) {
     this._sbs.sink = this.userService.getUser().subscribe((user) => (this.user = user));
+    this.avatarBgColor = this.randomColor();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -75,6 +92,23 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
         this.moveChatDialogRef = null as any;
       }
     }
+  
+    this._enrolledLearners
+    .getLearnerId$(PlatformType.WhatsApp, this.chat.id)
+    .subscribe(
+      (learners: EnrolledEndUser[]) => {
+        const learner = learners[0];
+        // Check if learner.id is defined before passing it a string since learner.id is nullable
+        this.extractedLearnerId = learner.id ?? ''
+        // Check if learner.classId exists and set learnerClass accordingly
+          this.learnerClass = learner.classId ?? '' 
+      },
+    );
+    this._classRoomService$.getSpecificClassroom(this.learnerClass).subscribe(
+      (classroomDetails: any) => {
+        this.className = classroomDetails;
+      }
+    );
   }
 
   formatDate = (date: Timestamp | Date) => __FormatDateFromStorage(date);
@@ -139,7 +173,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
 
   viewDetails() {
     this._dialog.open(ViewDetailsModal, {
-      data: { chat: this.chat, isAdmin: this.user.roles.admin },
+      data: { chat: this.chat, isAdmin: this.user.roles['admin' as keyof typeof this.user.roles]},
       width: '500px',
     });
   }
@@ -207,29 +241,42 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
     });
   }
 
+  checkIfChannelExist(chat: Chat){
+    const channelNo = parseInt(chat.id.split('_')[1]);
+    return  this._channelService$.getChannelByNumber(channelNo)
+  }
+
   unblockUser() {
-    if (this.chat.isConversationComplete === -1) {
-      const storyId = this.currentPosition.storyId;
-      const blockId = this.currentPosition.blockId;
-
-      const req = { storyId, endUserId: this.chat.id, blockId };
-
-      this._spinner.show();
-      this._sbs.sink = this._afsF
-        .httpsCallable('moveChat')(req)
-        .pipe(tap(() => this._spinner.hide()))
-        .subscribe(() =>
-          this._snackBar.open('User unblocked!', 'OK', {
-            duration: 3000,
-            verticalPosition: 'top',
-          })
-        );
-    } else {
+    if (this.chat.isConversationComplete !== -1) {
       this._snackBar.open('User is not blocked!', 'OK', {
         duration: 3000,
         verticalPosition: 'top',
       });
-    }
+    } 
+
+    this._sbs.sink = this.checkIfChannelExist(this.chat).subscribe((val) => {
+      if (val.length) {
+        const { storyId, blockId } = this.currentPosition;
+        const req = { storyId, endUserId: this.chat.id, blockId };
+
+        this._spinner.show();
+        this._sbs.sink = this._afsF
+          .httpsCallable('moveChat')(req)
+          .pipe(tap(() => this._spinner.hide()))
+          .subscribe(() =>
+            this._snackBar.open('User unblocked!', 'OK', {
+              duration: 3000,
+              verticalPosition: 'top',
+            })
+          );
+
+      } else {
+        this._snackBar.open('Communication channel does not exist!', 'OK', {
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+      }
+    });
   }
 
   // cancelReq()
@@ -250,6 +297,18 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
 
   goBack() {
     this._router.navigate(['/chats']);
+  }
+
+
+  getUserName = (name: string) => GET_USER_AVATAR(name);
+  randomColor = () => GET_RANDOM_COLOR();
+
+  navigateToClass(){
+    this._router.navigate([`/classes/${this.learnerClass}`]);
+  }
+
+  navigateToStory(){
+    this._router.navigate([`/bots/${this.currentStory.id}`]);
   }
 
   ngOnDestroy() {

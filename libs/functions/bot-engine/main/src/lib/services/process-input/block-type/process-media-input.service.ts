@@ -2,6 +2,7 @@ import { HandlerTools } from "@iote/cqrs";
 
 import { FileMessage, Message } from "@app/model/convs-mgr/conversations/messages";
 import { ActiveChannel } from "@app/functions/bot-engine";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 import { StoryBlock, StoryBlockTypes, VariableTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
@@ -20,7 +21,7 @@ export class ProcessMediaInput extends ProcessInput<string> implements IProcessI
     this.activeChannel = _activeChannel;
   }
 
-  public async handleInput(message: Message, lastBlock: StoryBlock, orgId: string, endUserId: string): Promise<boolean> 
+  public async handleInput(message: Message, lastBlock: StoryBlock, orgId: string, endUser: EndUser): Promise<boolean> 
   {
       const fileMessage = message as FileMessage;
 
@@ -29,9 +30,9 @@ export class ProcessMediaInput extends ProcessInput<string> implements IProcessI
 
       const variableType = lastBlock.variable ? lastBlock.variable.type : VariableTypes.String;
   
-      const inputValue = await this._processMediaService.getFileURL(fileMessage, endUserId, this.activeChannel) || null;
+      const inputValue = await this._processMediaService.getFileURL(fileMessage, endUser.id, this.activeChannel) || null;
 
-      return this.saveInput(orgId, endUserId, inputValue, message.type, variableType); 
+      return this.saveInput(orgId, endUser, inputValue, message.type, variableType); 
   }
 
   private setVariableName (lastBlockType: StoryBlockTypes, blockId: string) {

@@ -168,13 +168,20 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
   {
     const imageBlock = storyBlock as ImageMessageBlock;
 
+    const imagePayload = {
+      caption: imageBlock.message || "",
+    }
+
+    if (imageBlock.whatsappMediaId) { 
+      imagePayload['id'] = imageBlock.whatsappMediaId;
+    } else {
+      imagePayload['link'] = imageBlock.fileSrc;
+    }
+
     // Create the image payload which will be sent to api
     const mediaMessage = {
       type: WhatsAppMessageType.IMAGE,
-      image: {
-        caption: imageBlock.message || "",
-        link: imageBlock.fileSrc,
-      },
+      image: imagePayload,
     } as WhatsAppImageMessage;
 
     /**
@@ -195,12 +202,18 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
   {
     const audioBlock = storyBlock as VoiceMessageBlock;
 
+    const audioPayload = {};
+
+    if (audioBlock.whatsappMediaId) { 
+      audioPayload['id'] = audioBlock.whatsappMediaId;
+    } else {
+      audioPayload['link'] = audioBlock.fileSrc;
+    }
+
     // Create the text payload which will be sent to api
     const mediaMessage = {
       type: WhatsAppMessageType.AUDIO,
-      audio: {
-        link: audioBlock.fileSrc,
-      },
+      audio: audioPayload
     } as WhatsAppAudioMessage;
 
     /**
@@ -221,13 +234,20 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
   {
     const videoBlock = storyBlock as VideoMessageBlock;
 
+    const videoPayload = {
+      caption: videoBlock.message || "",
+    }
+
+    if (videoBlock.whatsappMediaId) { 
+      videoPayload['id'] = videoBlock.whatsappMediaId;
+    } else {
+      videoPayload['link'] = videoBlock.fileSrc;
+    }
+
     // Create the text payload which will be sent to api
     const mediaMessage = {
       type: WhatsAppMessageType.VIDEO,
-      video: {
-        caption: videoBlock.message || "",
-        link: videoBlock.fileSrc,
-      },
+      video: videoPayload,
     } as WhatsAppVideoMessage;
 
     /**

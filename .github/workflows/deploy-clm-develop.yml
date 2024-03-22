@@ -11,6 +11,6 @@ jobs:
     uses: ./.github/workflows/reusable-deploy-project-workflow.yml
     with:
       environment: elewa-dev
-      project_id: ele-convl-manager-7cd0a
+      project_id: elewa-clm-test
       channelId: live
     secrets: inherit

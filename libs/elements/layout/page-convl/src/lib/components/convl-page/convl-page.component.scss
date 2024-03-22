@@ -6,6 +6,7 @@
 .content-wrapper-inner {
   overflow: auto;
   height: 100%;
+  background-color: #F6F6F6;
 }
 
 .content-wrapper-inner.nomarg {
@@ -14,4 +15,7 @@
 
 convl-navbar{
   margin-bottom: 1px;
+}
+.page{
+  background-color: var(--convs-mgr-color-primary-light-grey);
 }

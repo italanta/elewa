@@ -1,0 +1,11 @@
+<mat-stepper #stepper>
+  <mat-step label="Create Bot" errorMessage="Create Bot first">
+    <app-create-bot-modal (nextStepEvent)="moveToNextStep($event)"></app-create-bot-modal>
+  </mat-step>
+  <mat-step label="Create Module">
+    <app-create-module-modal (nextStepEvent)="moveToNextStep($event)" [botFromStepper]="botFromStepper"></app-create-module-modal>
+  </mat-step>
+  <mat-step label="Create Lesson">
+    <app-create-lesson-modal [botModFromStepper]="botModFromStepper"></app-create-lesson-modal>
+  </mat-step>
+</mat-stepper>

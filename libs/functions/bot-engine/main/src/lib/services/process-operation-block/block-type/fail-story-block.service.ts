@@ -8,6 +8,7 @@ import { ConnectionsDataService } from "../../data-services/connections.service"
 
 import { CursorDataService } from "../../data-services/cursor.service";
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 /**
  * When an end user hit a fail block we can either end the conversation(return null) or 
@@ -28,7 +29,7 @@ export class FailBlockService implements IProcessOperationBlock
    *  3. Update the cursor
    *  4. Resolve and return the fail block
    */
-  async handleBlock(storyBlock: FailBlock, currentCursor: Cursor, orgId: string, endUserId?: string)
+  async handleBlock(storyBlock: FailBlock, currentCursor: Cursor, orgId: string, endUser?: EndUser)
   {
     const cursorService = new CursorDataService(this.tools);
 
@@ -49,7 +50,7 @@ export class FailBlockService implements IProcessOperationBlock
 
       };
       // Update the cursor
-      await cursorService.updateCursor(endUserId, orgId, newCursor);
+      await cursorService.updateCursor(endUser.id, orgId, newCursor);
 
       // Resolve and return the fail block
       const nextBlock = await this._blockDataService.getBlockById(topRoutineBlockFail, orgId, topRoutineStoryId);

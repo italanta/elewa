@@ -1,10 +1,45 @@
 mat-card {
-	min-width: 200px;
+	width: 100%;
+	border-radius: 0.01rem;
+}
+
+.outer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	&:hover {
+		cursor: move;
+	}
+}
+
+.block-title-container {
+	display: flex;
+	align-items: center;
+	padding-left: 1rem;
+	gap: 0.5rem;
+}
+
+.line-splitter {
+	display: flex;
+	margin: 0 1rem;
+	margin-top: 0.1rem;
+	padding: 0;
+	height: 1px;
+	background-color: var(--convs-mgr-border-color);
+}
+
+:host ::ng-deep .mat-mdc-icon-button.mat-mdc-button-base  {
+	padding: 0 !important;
 }
 
 .block {
 	position: relative;
 	cursor: move;
+}
+
+.svgIcon {
+	width: 1.5rem;
 }
 
 .avatar-img {
@@ -13,57 +48,26 @@ mat-card {
 	height: 30px;
 }
 
-.block-title-container {
-	display: flex;
-	align-items: center;
-}
-
 .icon-color {
-	color: var(--convs-mgr-color-primary-purple)
+	color: var(--convs-mgr-color-primary-black)
 }
 
 .block-title {
-	font-weight: 600;
-	font-size: small;	margin: 0 0 0 .4em;
+	font-weight: 400;
 	color: var(--convs-mgr-color-text-black);
-}
-
-.outer {
-	display: flex;
-	align-items: center;
-	gap: 15px;
-	justify-content: space-between;
-	padding: 10px;
-	padding-bottom: 1px;
-
-	&:hover {
-		cursor: move;
-	}
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.8125rem;
+	line-height: normal;
 }
 
 .block-card {
-	border-radius: 10px;
-	padding: 10px;
-	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+	border-radius: 1rem;
+	padding: 0;
+	box-shadow: 0 0.2rem 1rem rgb(0 0 0 / 0.2);
 }
 
-.icon-block {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-
-	.icons {
-		cursor: pointer;
-	
-		* {
-			color: var(--convs-mgr-color-medium-shade);
-			
-			&:hover {
-				color: var(--convs-mgr-color-primary-purple);
-			}
-		}
-	}
-}
 .hide-block {
 	display: none;
 }
@@ -71,3 +75,16 @@ mat-card {
 ::ng-deep .mat-mdc-card-content {
 	padding: 0;
 }
+
+hr {
+	border: 0.5px solid var(--convs-mgr-border-color);
+}
+
+.icon-with-text{
+	margin-left: 0.3125rem;
+}
+
+:host ::ng-deep .mat-mdc-unelevated-button .mdc-button__label {
+  z-index: 0 !important;
+}
+

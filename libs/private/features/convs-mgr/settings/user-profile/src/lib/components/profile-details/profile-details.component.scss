@@ -1,0 +1,253 @@
+.user-profile-picture img {
+  width: 100%;
+  height: 100%;
+   border: 1px #707070 solid;
+  object-fit: cover; 
+}
+
+.user-profile-picture {
+  width: 200px; /* Adjust as needed */
+  height: 200px; /* Adjust as needed */
+  border-radius: 50%;
+  border: 1px #707070 solid;
+  overflow: hidden; /* Clip the image to the circular border */
+  margin: 3vh 25vh 0 10vh;
+}
+
+.text-button {
+  color: var(--convs-mgr-color-primary-yellow);
+  font-size: 1rem;
+  font-weight: bolder;
+}
+// .edit-btn{
+
+// }
+
+.btn {
+  background-color: var(--convs-mgr-button-color)!important;
+  color: white!important;
+}
+
+
+
+.password-button{
+  margin-right: 5vh;
+  margin-top: 2vh;
+  width: 212px;
+  height: 35px;
+  border-radius: 25px;
+}
+
+
+
+
+.text-button:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.bolder {
+  font-weight: bolder;
+}
+
+.label-blue {
+  margin: 10px 0 20px 0;
+  font-weight: 600;
+  color: #3E788A;
+  font-size: 1rem;
+}
+
+.blue {
+  color: var(--convs-mgr-color-primary-yellow);
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.user-profile-picture img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.profile-details {
+  padding: 3vh 3vh;
+  height: 100%;
+  max-width: 100%;
+}
+
+.names {
+  width: 100%;
+}
+
+
+div{
+  .section-one {
+    width: 100%;
+    height: fit-content;
+    padding-bottom: 110px;
+    margin-bottom: 1vh;
+    border-bottom: solid #C7CDD7 1px;
+    .user-data{
+      .user-profile-picture{
+        .top-butons{
+          margin-top: 10px;
+        }
+      }
+     
+      div{
+        button{
+          border-radius: 25px;
+          height: 35px;
+          width: 102px;
+          // position: fixed;
+          top: -10vh;
+         }
+      }
+      
+      .user-info{
+        margin-right: 10vh;    
+        div{
+          .label{
+             color: #101010;
+             font-size: 18px; 
+             font-family: Roboto; 
+             font-weight: 300; 
+             word-wrap: break-word;
+             margin-top: 3vh;
+          }
+          .names{
+            
+            input{
+              width: 100%; 
+              height: 41px; 
+              border-radius: 8px; 
+              border: 1px #707070 solid;
+              color: #101010;
+              font-size: 16px;
+              font-family: Roboto;
+              font-weight: 300;
+              word-wrap: break-word;
+              padding-left: 20px;  
+            }
+          }
+        }
+        .bottom-buttons{
+          margin-top: 346px;
+          right: 1px;
+          position: absolute;
+          display: flex;
+          div{
+            .edit-btn{
+              margin-right: 10vh;
+            }
+            .cancel-btn{
+              margin-right: 0.5vh;
+            }
+          }
+        }
+      }
+    }
+  }
+  .section-two{
+    padding-top: 5px;
+    border-bottom: solid #C7CDD7 1px;
+    .label{
+      color: #101010;
+      font-size: 18px;
+      font-family: Roboto;
+      font-weight: 400;
+      word-wrap: break-word
+    }
+    .email-details{
+      .your-email{
+        color: black;
+        font-size: 18px;
+        font-family: Roboto;
+        font-weight: 300;
+        word-wrap: break-word;
+        margin: 15.25px 0 43px 0;
+      }
+    }
+    div{
+      margin-bottom: 1vh;
+    }
+    .delete-profile{
+      .underline{
+        color: #3E788A;
+        font-size: 18px;
+        font-family: Roboto;
+        font-weight: 400;
+        text-decoration: underline;
+        word-wrap: break-word
+      }
+      p{
+        color: black;
+        font-size: 18px;
+        font-family: Roboto;
+        font-weight: 300;
+        line-height: 26px;
+        word-wrap: break-word
+      }
+      
+    }
+  }
+}
+
+
+
+
+.email-button {
+  margin-bottom: 20px;
+  width: fit-content;
+  color: white;
+}
+
+.toolbar {
+  padding: 30px 10px 0 10px;
+  width: 100%;
+}
+
+.spinner {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner p {
+  margin-right: 30px;
+}
+
+:host ::ng-deep .mat-mdc-form-field {
+  width: 100%!important;
+}
+
+:host ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined 
+.mat-mdc-form-field-infix {
+  padding-top: 8px!important;
+  padding-bottom: 0px!important;
+}
+
+:host ::ng-deep .mat-mdc-form-field-infix {
+  min-height: 40px!important;
+  max-height: 40px!important;
+}
+
+:host ::ng-deep .mat-mdc-icon-button.mat-mdc-button-base {
+  height: 40px!important;
+  padding: 7px!important;
+}
+::ng-deep .mat-mdc-tab-body-content{
+  overflow: hidden !important;
+}
+
+/* Target the input boxes */
+.mat-form-field input.mat-input {
+  background-color: #f0f0f0;
+  color: #333;
+}
+

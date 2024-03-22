@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "strictPropertyInitialization": false,
+    "suppressImplicitAnyIndexErrors": true,
     "paths": {
       "@app/admin/config/environment-config": [
         "libs/admin/config/environment-config/src/index.ts"
@@ -28,6 +29,9 @@
       "@app/elements/base/date-time": [
         "libs/elements/base/date-time/src/index.ts"
       ],
+      "@app/elements/base/feature-flags": [
+        "libs/elements/base/feature-flags/src/index.ts"
+      ],
       "@app/elements/base/firebase": [
         "libs/elements/base/firebase/src/index.ts"
       ],
@@ -37,6 +41,12 @@
       "@app/elements/convs-mgr/controls/input-fields": [
         "libs/elements/convs-mgr/controls/input-fields/src/index.ts"
       ],
+      "@app/elements/layout/convs-mgr/story-elements": [
+        "libs/elements/layout/convs-mgr/story-elements/src/index.ts"
+      ],
+      "@app/elements/layout/ital-bread-crumb": [
+        "libs/elements/layout/ital-bread-crumb/src/index.ts"
+      ],
       "@app/elements/layout/modals": [
         "libs/elements/layout/modals/src/index.ts"
       ],
@@ -44,17 +54,19 @@
       "@app/elements/layout/page-convl": [
         "libs/elements/layout/page-convl/src/index.ts"
       ],
+      "@app/elements/layout/toast": ["libs/elements/layout/toast/src/index.ts"],
       "@app/elements/layout/user-menu": [
         "libs/elements/layout/user-menu/src/index.ts"
       ],
       "@app/elements/nav/convl/breadcrumbs": [
         "libs/elements/nav/convl/breadcrumbs/src/index.ts"
       ],
-      "@app/features/analytics/group-based/progress": [
-        "libs/features/analytics/group-based/progress/src/index.ts"
-      ],
+      "@app/features/analytics": ["libs/features/analytics/src/index.ts"],
       "@app/features/app/auth/login": [
         "libs/features/app/auth/login/src/index.ts"
+      ],
+      "@app/features/convs-mgr/analytics": [
+        "libs/features/convs-mgr/analytics/src/index.ts"
       ],
       "@app/features/convs-mgr/conversations/assessments": [
         "libs/features/convs-mgr/conversations/assessments/src/index.ts"
@@ -65,11 +77,23 @@
       "@app/features/convs-mgr/conversations/messaging": [
         "libs/features/convs-mgr/conversations/messaging/src/index.ts"
       ],
+      "@app/features/convs-mgr/conversations/surveys": [
+        "libs/features/convs-mgr/conversations/surveys/src/index.ts"
+      ],
       "@app/features/convs-mgr/dashboard": [
         "libs/features/convs-mgr/dashboard/src/index.ts"
       ],
       "@app/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
+      ],
+      "@app/features/convs-mgr/learners": [
+        "libs/features/convs-mgr/learners/src/index.ts"
+      ],
+      "@app/features/convs-mgr/lessons": [
+        "libs/features/convs-mgr/lessons/src/index.ts"
+      ],
+      "@app/features/convs-mgr/modules": [
+        "libs/features/convs-mgr/modules/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/edit/blocks-edit": [
         "libs/features/convs-mgr/stories/blocks/edit/blocks-edit/src/index.ts"
@@ -128,9 +152,6 @@
       "@app/features/convs-mgr/stories/blocks/library/main": [
         "libs/features/convs-mgr/stories/blocks/library/main/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/blocks/library/multi-content-input-block": [
-        "libs/features/convs-mgr/stories/blocks/library/multi-content-input-block/src/index.ts"
-      ],
       "@app/features/convs-mgr/stories/blocks/library/multiple-input-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/multiple-input-message-block/src/index.ts"
       ],
@@ -179,6 +200,13 @@
       "@app/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
+      "@app/features/convs-mgr/user-groups": [
+        "libs/features/convs-mgr/user-groups/src/index.ts"
+      ],
+      "@app/features/monitoring": ["libs/features/monitoring/src/index.ts"],
+      "@app/functions/analytics/metabase": [
+        "libs/functions/analytics/metabase/src/index.ts"
+      ],
       "@app/functions/analytics/progress/main": [
         "libs/functions/analytics/progress/main/src/index.ts"
       ],
@@ -203,11 +231,25 @@
       ],
       "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
       "@app/functions/intent": ["libs/functions/intent/src/index.ts"],
+      "@app/functions/convs-mgr/story-editor//check-story-for-errors": [
+        "libs/functions/convs-mgr/story-editor/check-story-for-errors/src/index.ts"
+      ],
+      "@app/functions/user": ["libs/functions/user/src/index.ts"],
+      "@app/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block": [
+        "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src/index.ts"
+      ],
       "@app/model/analytics/group-based/progress": [
         "libs/model/analytics/group-based/progress/src/index.ts"
       ],
       "@app/model/bot/blocks/default-block": [
         "libs/model/bot/blocks/default-block/src/index.ts"
+      ],
+      "@app/model/convs-mgr/bot-modules": [
+        "libs/model/convs-mgr/bot-modules/src/index.ts"
+      ],
+      "@app/model/convs-mgr/bots": ["libs/model/convs-mgr/bots/src/index.ts"],
+      "@app/model/convs-mgr/classroom": [
+        "libs/model/convs-mgr/classroom/src/index.ts"
       ],
       "@app/model/convs-mgr/conversations/admin/system": [
         "libs/model/convs-mgr/conversations/admin/system/src/index.ts"
@@ -224,8 +266,14 @@
       "@app/model/convs-mgr/conversations/messages": [
         "libs/model/convs-mgr/conversations/messages/src/index.ts"
       ],
+      "@app/model/convs-mgr/conversations/surveys": [
+        "libs/model/convs-mgr/conversations/surveys/src/index.ts"
+      ],
       "@app/model/convs-mgr/functions": [
         "libs/model/convs-mgr/functions/src/index.ts"
+      ],
+      "@app/model/convs-mgr/learners": [
+        "libs/model/convs-mgr/learners/src/index.ts"
       ],
       "@app/model/convs-mgr/stories/blocks/main": [
         "libs/model/convs-mgr/stories/blocks/main/src/index.ts"
@@ -246,10 +294,105 @@
         "libs/model/finance/payments/src/index.ts"
       ],
       "@app/model/finance/sales": ["libs/model/finance/sales/src/index.ts"],
+      "@app/model/layout/ital-breadcrumb": [
+        "libs/model/layout/ital-breadcrumb/src/index.ts"
+      ],
+      "@app/model/layout/toast": ["libs/model/layout/toast/src/index.ts"],
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
       "@app/model/user/bot-users": ["libs/model/user/bot-users/src/index.ts"],
+      "@app/private/elements/convs-mgr/access-control": [
+        "libs/private/elements/convs-mgr/access-control/src/index.ts"
+      ],
+      "@app/private/features/convs-mgr/analytics": [
+        "libs/private/features/convs-mgr/analytics/src/index.ts"
+      ],
+      "@app/private/features/convs-mgr/message-templates": [
+        "libs/private/features/convs-mgr/message-templates/src/index.ts"
+      ],
+      "@app/private/features/convs-mgr/orgs": [
+        "libs/private/features/convs-mgr/orgs/src/index.ts"
+      ],
+      "@app/private/features/convs-mgr/settings/billing": [
+        "libs/private/features/convs-mgr/settings/billing/src/index.ts"
+      ],
+      "@app/private/features/convs-mgr/settings/main": [
+        "libs/private/features/convs-mgr/settings/main/src/index.ts"
+      ],
+      "@app/private/features/convs-mgr/settings/organisation-details": [
+        "libs/private/features/convs-mgr/settings/organisation-details/src/index.ts"
+      ],
+      "@app/private/features/convs-mgr/settings/permissions": [
+        "libs/private/features/convs-mgr/settings/permissions/src/index.ts"
+      ],
+      "@app/private/features/convs-mgr/settings/user-profile": [
+        "libs/private/features/convs-mgr/settings/user-profile/src/index.ts"
+      ],
+      "@app/private/features/convs-mgr/settings/users": [
+        "libs/private/features/convs-mgr/settings/users/src/index.ts"
+      ],
+      "@app/private/features/convs-mgr/stories/blocks/library/cmi5-block": [
+        "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src/index.ts"
+      ],
+      "@app/private/functions/analytics/progress/main": [
+        "libs/private/functions/analytics/progress/main/src/index.ts"
+      ],
+      "@app/private/functions/convs-mgr/conversations/message-templates/scheduler": [
+        "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/src/index.ts"
+      ],
+      "@app/private/functions/function-utils": [
+        "libs/private/functions/function-utils/src/index.ts"
+      ],
+      "@app/private/functions/micro-apps/base": [
+        "libs/private/functions/micro-apps/base/src/index.ts"
+      ],
+      "@app/private/functions/micro-apps/cmi5": [
+        "libs/private/functions/micro-apps/cmi5/src/index.ts"
+      ],
+      "@app/private/functions/micro-apps/surveys": [
+        "libs/private/functions/micro-apps/surveys/src/index.ts"
+      ],
+      "@app/private/functions/organisation": [
+        "libs/private/functions/organisation/src/index.ts"
+      ],
+      "@app/private/model/access-control": [
+        "libs/private/model/access-control/src/index.ts"
+      ],
+      "@app/private/model/convs-mgr/micro-apps/base": [
+        "libs/private/model/convs-mgr/micro-apps/base/src/index.ts"
+      ],
+      "@app/private/model/convs-mgr/micro-apps/cmi5": [
+        "libs/private/model/convs-mgr/micro-apps/cmi5/src/index.ts"
+      ],
+      "@app/private/model/convs-mgr/micro-apps/surveys": [
+        "libs/private/model/convs-mgr/micro-apps/surveys/src/index.ts"
+      ],
+      "@app/private/state/access-control": [
+        "libs/private/state/access-control/src/index.ts"
+      ],
+      "@app/private/state/analytics": [
+        "libs/private/state/analytics/src/index.ts"
+      ],
+      "@app/private/state/message-templates": [
+        "libs/private/state/message-templates/src/index.ts"
+      ],
+      "@app/private/state/organisation/main": [
+        "libs/private/state/organisation/main/src/index.ts"
+      ],
+      "@app/private/state/user/base": [
+        "libs/private/state/user/base/src/index.ts"
+      ],
       "@app/reply-message-block": ["libs/reply-message-block/src/index.ts"],
+      "@app/state/convs-mgr/analytics": [
+        "libs/state/convs-mgr/analytics/src/index.ts"
+      ],
+      "@app/state/convs-mgr/bots": ["libs/state/convs-mgr/bots/src/index.ts"],
+      "@app/state/convs-mgr/channels": [
+        "libs/state/convs-mgr/channels/src/index.ts"
+      ],
+      "@app/state/convs-mgr/classrooms": [
+        "libs/state/convs-mgr/classrooms/src/index.ts"
+      ],
       "@app/state/convs-mgr/conversations/analytics/traffic-by-day": [
         "libs/state/convs-mgr/conversations/analytics/traffic-by-day/src/index.ts"
       ],
@@ -262,8 +405,17 @@
       "@app/state/convs-mgr/conversations/messages": [
         "libs/state/convs-mgr/conversations/messages/src/index.ts"
       ],
+      "@app/state/convs-mgr/conversations/surveys": [
+        "libs/state/convs-mgr/conversations/surveys/src/index.ts"
+      ],
       "@app/state/convs-mgr/end-users": [
         "libs/state/convs-mgr/end-users/src/index.ts"
+      ],
+      "@app/state/convs-mgr/learners": [
+        "libs/state/convs-mgr/learners/src/index.ts"
+      ],
+      "@app/state/convs-mgr/modules": [
+        "libs/state/convs-mgr/modules/src/index.ts"
       ],
       "@app/state/convs-mgr/monitoring": [
         "libs/state/convs-mgr/monitoring/src/index.ts"
@@ -283,7 +435,11 @@
       "@app/state/convs-mgr/story-editor": [
         "libs/state/convs-mgr/story-editor/src/index.ts"
       ],
+      "@app/state/convs-mgr/variables": [
+        "libs/state/convs-mgr/variables/src/index.ts"
+      ],
       "@app/state/file": ["libs/state/file/store/src/index.ts"],
+      "@app/state/file/whatsapp": ["libs/state/file/whatsapp/src/index.ts"],
       "@app/state/organisation": ["libs/state/organisation/main/src/index.ts"],
       "@app/state/user": ["libs/state/user/base/src/index.ts"],
       "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"],

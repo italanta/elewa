@@ -119,7 +119,7 @@ Open the project with your prefered IDE (VS Code, Sublime, e.t.c)
 You need to add the environment config to your app to connect to firebase, follow the steps below:
 
 ```
-1. Create a folder called environments inside -> app/conv-learning-manager/src
+1. Create a folder called environments inside -> apps/conv-learning-manager/src
 2. Create a file called environment.ts inside this folder
 3. Create a file called environment.prod.ts inside this folder
 ```
@@ -286,17 +286,35 @@ This command connects your local machine to Firebase and grants you access to yo
 ```
 
 ```bash
-  npm install
+  npm install --legacy-peer-deps
 ```
 
 The project is now succesfuly installed on your machine.
 
 ### Setup Firebase Emulators
 
-Make sure the below are installed: 
+To Build the serveless functions you need to make sure you add an environments folder to the following path `libs/functions/bot-engine/messenger/src/lib/`:
+
+- Create an `environment.ts` and an `environment.prod.ts` files.
+- After that paste the code below to both the `environment.ts` and `environment.prod.ts` files.
+- Change production property value in the `environment.ts` file to false.
+
+``` typeScript
+  export const environment = {
+  production: true,
+ 
+  useEmulators: true,
+ 
+  messenger: {
+    verifyToken: 'MESSENGER_VERIFY_TOKEN_76544',
+  }
+}
+```
+
+Make sure the below are installed:
 
 - Node.js version 8.0 or higher.
-- Java JDK version 11 or higher 
+- Java JDK version 11 or higher.
 
 Download the JDK from [here](https://www.oracle.com/ke/java/technologies/downloads/)
 

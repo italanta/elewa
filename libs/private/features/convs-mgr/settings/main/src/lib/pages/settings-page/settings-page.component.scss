@@ -1,0 +1,26 @@
+:host ::ng-deep .settings-page .mat-mdc-ink-bar {
+  height: 5px;
+}
+
+:host ::ng-deep .settings-page .mat-mdc-tab-group {
+  border-radius: 5px;
+  background-color: #F6F6F6;
+}
+
+:host ::ng-deep .mat-mdc-tab .mdc-tab__text-label{
+  font-size: 16px;
+}
+
+// TODO: @JAPHETHNYARANGA, 
+.page-wrapper {
+  background-color: #F6F6F6;
+  padding: 1.4rem;
+
+  .admin-header{   
+    font-family: Roboto;
+    word-wrap: break-word;
+    color: #101010;
+    font-size: 2rem;
+    font-weight: 400;
+  }
+}

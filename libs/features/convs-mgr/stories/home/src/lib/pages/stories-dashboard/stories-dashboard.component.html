@@ -1,19 +1,32 @@
-<convl-page title="Home" [breadcrumbs]="breadcrumbs" fxLayout="column" fxFlexFill>
+<convl-page fxLayout="column" fxFlexFill>
 
-  <div class="wrapper">
-    <div fxLayout="row" fxLayoutAlign="space-between center">
-      <div>
-        <div *ngIf="org$ | async as org">
-          <h2>{{ org.name }} bots</h2>
-        </div>
-      </div>
-  
-      <div id="add-btn-holder">
-        <button class="mat-raised-button"  (click)="openCreateDialog()">{{ 'BOTS.ACTIONS.LBL-NEW-BOT' | transloco }}</button>
-      </div>
+  <div class="bots-page" fxLayout="column" fxLayoutAlign="start" fxFlex>
+    <span class="bots"> {{ 'BOTS.BOTS-PAGE.BOTS' | transloco }} </span>
+
+    <div class="bots-header" fxFlex>
+      <italanta-apps-bots-list-header></italanta-apps-bots-list-header>
     </div>
-  
-    <convl-italanta-apps-story-list fxFlexFill>
-    </convl-italanta-apps-story-list>
+
+    <span class="sub-title">
+      {{ 'BOTS.BOTS-PAGE.LATEST-COURSES' | transloco }}
+    </span>
+
+    <div class="latest-courses" fxFlex>
+      <italanta-apps-bots-list-latest-courses [bots$]="bots$" *ngIf="(bots$ |async)?.length">
+      </italanta-apps-bots-list-latest-courses>
+
+    <convl-empty-page-illustration *ngIf="!(bots$ |async)?.length" text="You have not created any courses yet"></convl-empty-page-illustration>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <!-- <span class="sub-title"> {{ "BOTS.BOTS-PAGE.ALL-COURSES" | transloco }} </span> -->
+
+    </div>
+
+    <div class="my-courses" fxFlex  *ngIf="(bots$ |async)?.length">
+      <italanta-apps-bots-list-all-courses [bots$]="bots$" *ngIf="(bots$ |async)?.length">
+      </italanta-apps-bots-list-all-courses>
+    </div>
   </div>
+  
 </convl-page>

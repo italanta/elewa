@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45">
+  <g id="MDI_book-check-outline" data-name="MDI / book-check-outline" opacity="0.53">
+    <g id="Boundary" fill="#fff" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
+      <rect width="45" height="45" stroke="none"/>
+      <rect x="0.5" y="0.5" width="44" height="44" fill="none"/>
+    </g>
+    <path id="Path_book-check-outline" data-name="Path / book-check-outline" d="M32.05,43.16,26,37.035l2.552-2.368,3.5,3.246,7.9-7.33L42.5,33.462l-10.45,9.7M34.8,2a4.263,4.263,0,0,1,4.4,4.083V25.153a14.227,14.227,0,0,0-4.4-.694V6.083h-11V22.417l-5.5-4.594-5.5,4.594V6.083H8.4V38.75H21.776a11.667,11.667,0,0,0,1.584,4.083H8.4A4.263,4.263,0,0,1,4,38.75V6.083A4.263,4.263,0,0,1,8.4,2Z" transform="translate(-1 0)" fill="#fff"/>
+  </g>
+</svg>

@@ -1,1 +1,1 @@
-export * from './lib/features-convs-mgr-stories-home.module';
+export * from './lib/stories-home.module';

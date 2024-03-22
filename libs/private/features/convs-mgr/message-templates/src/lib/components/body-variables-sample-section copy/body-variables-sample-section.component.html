@@ -1,0 +1,20 @@
+<div class="samples-wrapper" [formGroup]="templateForm">
+  <p class="samples-title">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.SAMPLES'| transloco }}</p>
+  <p class="info">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.NOTICE'| transloco }}</p>
+
+  <div class="content-section">
+    <p class="content-header">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}</p>
+    
+    <div class="samples-list">
+
+      <div formArrayName="bodyExamples" *ngFor="let example of bodyExamples.controls; let i = index">
+
+        <div class="sample" [formGroupName]="i">
+          <input class="variable-name" type="text" class="sample-input" formControlName="name" readonly hidden/>
+          <p class="variable-name"> {{ '{{'}}{{example.value.name}}{{'}}' }} </p>
+          <input type="text" placeholder="Enter content for variable" class="sample-input" formControlName="value"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

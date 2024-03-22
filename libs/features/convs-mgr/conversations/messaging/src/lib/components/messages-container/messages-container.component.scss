@@ -3,11 +3,12 @@
   max-height: 100%;
   overflow-y: scroll;
   height: 100%;
+  background-color: #F6F6F6;
 }
 
 .new-msg-btn {
   color: #fff;
-  background-color: var(--convs-mgr-color-primary-yellow);
+  // background-color: var(--convs-mgr-color-primary-yellow);
   z-index: 5;
 }
 
@@ -51,14 +52,14 @@ mat-list {
 .message-block .right {
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   padding-right: 10px;
 }
 
 .message-block .left {
   width: 100%;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   padding-left: 10px;
 }
 

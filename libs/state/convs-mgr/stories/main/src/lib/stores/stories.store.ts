@@ -11,7 +11,7 @@ import { Logger } from '@iote/bricks-angular';
 import { Organisation } from '@app/model/organisation';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
-import { ActiveOrgStore } from '@app/state/organisation';
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 @Injectable()
 export class StoriesStore extends DataStore<Story>
@@ -46,6 +46,7 @@ export class StoriesStore extends DataStore<Story>
   }
 
   publish(story: Story){
+    story.publishedOn = new Date();
     return this._activeRepo.write(story, story.id!);
   }
 }

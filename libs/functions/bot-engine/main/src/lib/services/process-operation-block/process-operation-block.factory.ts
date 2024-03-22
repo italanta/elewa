@@ -13,11 +13,12 @@ import { FailBlockService } from "./block-type/fail-story-block.service";
 import { ConditionalBlockService } from "./block-type/conditional-block.service";
 import { EventBlockService } from "./block-type/event-block.service";
 import { AssessmentBlockService } from "./block-type/assessment-block.service";
+import { ActiveChannel } from "../../model/active-channel.service";
 
 
 export class OperationBlockFactory
 {
-  constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, private tools: HandlerTools) { }
+  constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, private tools: HandlerTools, private _activeChannel?: ActiveChannel) {}
 
   resolve(storyBlockType: StoryBlockTypes): IProcessOperationBlock
   {
@@ -25,17 +26,17 @@ export class OperationBlockFactory
       case StoryBlockTypes.JumpBlock:
         return new JumpStoryBlockService(this._blockDataService, this._connDataService, this.tools);
       case StoryBlockTypes.WebhookBlock:
-        return new WebhookBlockService(this._blockDataService, this._connDataService, this.tools);
+        return new WebhookBlockService(this._blockDataService, this._connDataService, this.tools, this._activeChannel);
       case StoryBlockTypes.EndStoryAnchorBlock:
         return new EndStoryBlockService(this._blockDataService, this._connDataService, this.tools);
       case StoryBlockTypes.FailBlock:
         return new FailBlockService(this._blockDataService, this._connDataService, this.tools);
       case StoryBlockTypes.Conditional:
-        return new ConditionalBlockService(this._blockDataService, this._connDataService, this.tools);
+        return new ConditionalBlockService(this._blockDataService, this._connDataService, this.tools, this._activeChannel);
       case StoryBlockTypes.Assessment:
         return new AssessmentBlockService(this._blockDataService, this._connDataService, this.tools);
       case StoryBlockTypes.Event:
-        return new EventBlockService(this._blockDataService, this._connDataService, this.tools);
+        return new EventBlockService(this._blockDataService, this._connDataService, this.tools, this._activeChannel);
       default:
         break;
     }

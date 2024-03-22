@@ -9,7 +9,7 @@
  */ 
 export interface AssessmentCursor 
 {
-  /** The id of the child story */
+  /** The id of the assessment */
   assessmentId: string;
 
   /** Maximum score of the assessment */
@@ -17,9 +17,6 @@ export interface AssessmentCursor
 
   /** The time the user started the assessment  */
   startedOn?: Date;
-
-  /** The time the user finished the assessment */
-  finishedOn?: Date;
 
   /** The score the learner has in the assessment */
   score: number;
@@ -35,4 +32,8 @@ export interface AssessmentCursor
   /** The id of the block to navigate to if the learner passes the assessment 
    */
   pass?: string;
+
+  /** The time the user finished the assessment */
+  finishedOn?: Date;
+
 }

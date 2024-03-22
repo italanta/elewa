@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 
+import { Observable } from 'rxjs';
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
 @Component({
@@ -8,7 +9,7 @@ import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessmen
   styleUrls: ['./assessment-questions.component.scss'],
 })
 export class AssessmentQuestionsComponent {
-  @Input() questions: AssessmentQuestion[];
+  @Input() questions$: Observable<AssessmentQuestion[]>;
   
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   filterQuestions(event: Event){

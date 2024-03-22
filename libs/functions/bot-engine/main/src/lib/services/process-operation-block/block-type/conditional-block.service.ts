@@ -4,6 +4,7 @@ import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 
 import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
 import { ConditionalBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 import { BlockDataService } from "../../data-services/blocks.service";
@@ -13,6 +14,7 @@ import { ConnectionsDataService } from "../../data-services/connections.service"
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
 import { MultipleOptionsMessageService } from "../../next-block/block-type/multiple-options-block.service";
+import { ActiveChannel } from "../../../model/active-channel.service";
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
  *  so that we can process the response based on that block.
@@ -26,22 +28,24 @@ export class ConditionalBlockService extends MultipleOptionsMessageService imple
 	tools: HandlerTools;
 	blockDataService: BlockDataService;
 
-	constructor(blockDataService: BlockDataService, connDataService: ConnectionsDataService, tools: HandlerTools)
+	constructor(blockDataService: BlockDataService, connDataService: ConnectionsDataService, tools: HandlerTools, private _activeChannel: ActiveChannel)
 	{
 		super(blockDataService, connDataService, tools);
 		this.tools = tools;
 		this.blockDataService = blockDataService;
 	}
 
-	public async handleBlock(storyBlock: ConditionalBlock, updatedCursor: Cursor, orgId: string, endUserId: string, _message:Message)
+	public async handleBlock(storyBlock: ConditionalBlock, updatedCursor: Cursor, orgId: string, endUser: EndUser, _message:Message)
 	{
 		// get the selected or typed variable (only one is returned)
 		const variableToCheck = storyBlock.selectedVar ? storyBlock.selectedVar : storyBlock.typedVar;
 
 		// get variable value from DB
-		const varDataService = new VariablesDataService(this.tools, orgId, endUserId);
+		const varDataService = new VariablesDataService(this.tools, orgId, endUser.id, this._activeChannel.channel);
 
-		const variableValue = await varDataService.getSpecificVariable(variableToCheck);
+		const allVariables = varDataService.getAllVariables(endUser);
+
+		const variableValue = allVariables[variableToCheck];
 
 		// if variable stored in the db is undefined or null return an empty string (prevents bot from crushing ahead)
 		const message = variableValue ? variableValue : ''
@@ -52,7 +56,7 @@ export class ConditionalBlockService extends MultipleOptionsMessageService imple
 			options : this.getOptions(storyBlock)
 		}
 
-		const newCursor = await this.getNextBlock(newMessage, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUserId, "matchText");
+		const newCursor = await this.getNextBlock(newMessage, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUser.id, "matchText");
 
 		const nextBlock = await this.blockDataService.getBlockById(newCursor.position.blockId, orgId, newCursor.position.storyId);
 

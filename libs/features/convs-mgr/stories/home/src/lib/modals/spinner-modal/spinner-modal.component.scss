@@ -1,0 +1,32 @@
+.spinner{
+  display: flex;
+  p{
+    padding: 0 0 0 1rem;
+  }
+  .loader{
+    margin-top: 1rem;
+  }
+  background-color: var(--convs-mgr-webhook-button-bg-color);
+  border-radius: 1.56rem;
+  padding: 0 2rem;
+}
+.loader {
+  border: 6px solid var(--convs-mgr-placeholder-color);
+  border-radius: 50%;
+  border-top: 6px solid transparent;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

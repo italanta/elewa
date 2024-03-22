@@ -5,15 +5,22 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { Chart } from 'chart.js';
 import { SubSink } from 'subsink';
+import { map, switchMap, Observable } from 'rxjs';
 import { Timestamp } from 'firebase-admin/firestore';
 
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
 import { EndUserService } from '@app/state/convs-mgr/end-users';
 import { EndUserDetails } from '@app/state/convs-mgr/end-users';
-import { ActiveAssessmentStore } from '@app/state/convs-mgr/conversations/assessments';
-import { AssessmentCursor } from '@app/model/convs-mgr/conversations/admin/system';
+import { ActiveAssessmentStore, AssessmentQuestionService } from '@app/state/convs-mgr/conversations/assessments';
+
+import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb'; 
+import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
+
+import { AssessmentMetricsService } from '../../services/assessment-metrics.service';
+import { pieChartOptions } from '../../utils/chart.util';
 
 @Component({
   selector: 'app-assessment-results',
@@ -21,13 +28,22 @@ import { AssessmentCursor } from '@app/model/convs-mgr/conversations/admin/syste
   styleUrls: ['./assessment-results.component.scss'],
 })
 export class AssessmentResultsComponent implements OnInit, OnDestroy {
+  chart: Chart;
+
   id: string;
   assessment: Assessment;
 
   dataSource: MatTableDataSource<EndUserDetails>;
-  itemsLength: number
-  assessmentResults = ['name', 'phone', 'startedOn', 'finishedOn', 'score', 'scoreCategory'];
+  itemsLength: number;
+  assessmentResults = ['index', 'name', 'phone', 'startedOn', 'finishedOn', 'score', 'scoreCategory'];
   pageTitle: string;
+
+  highestScore: number;
+  lowestScore: number;
+  averageScore: number | string;
+  totalQuestions: number;
+
+  breadcrumbs$: Observable<iTalBreadcrumb[]>;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -38,68 +54,146 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _liveAnnouncer: LiveAnnouncer,
     private _activeAssessment$$: ActiveAssessmentStore,
-    private _endUserService: EndUserService
-  ) {}
-
-  ngOnInit() {
-    this._sBs.sink = this._activeAssessment$$.get().subscribe((assess) => this.assessment = assess);
-    this.pageTitle = `Assessments/${this.assessment?.title}/results`;
-
-    this._sBs.sink = this._endUserService.getUserDetailsAndTheirCursor().subscribe((results) => {
-      const data = this.filterData(results);
-      this.itemsLength = data.length;
-
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    });
+    private _assessmentQuestion: AssessmentQuestionService,
+    private _aMetrics: AssessmentMetricsService,
+    private _endUserService: EndUserService,
+    private _breadcrumbService: BreadcrumbService
+  ) {
+    this.breadcrumbs$ = this._breadcrumbService.breadcrumbs$;
   };
 
-  filterData(results: EndUserDetails[]) {
-    const data = results.filter(user => {
-      if (!user.cursor[0].assessmentStack) return false
+  ngOnInit() {
+    this._sBs.sink = this._assessmentQuestion.getQuestions$().subscribe((qstns) => this.totalQuestions = qstns.length);
+    this.getMetrics();
+  };
 
-      const assessExists = user.cursor[0].assessmentStack.find(assess => assess.assessmentId === this.assessment.id)
+  getMetrics() {
+    this._sBs.sink = this._activeAssessment$$.get()
+      .pipe(
+        switchMap((assessment) => {
+          this.assessment = assessment
+          this.pageTitle = `Assessments / ${assessment.title} / results`;
 
-      if (assessExists) {
-        user.selectedAssessmentCursor = assessExists
-        return true
+          return this._endUserService.getUserDetailsAndTheirCursor().pipe(
+            map((endUsers) => {
+              const { data, chartData, scores } = this._aMetrics.computeMetrics(endUsers,assessment);
+              this.itemsLength = data.length;
+              this.initDataSource(data);
+              this.computeScores(scores);
+              this._loadChart(chartData);
+            })
+          );
+        })
+      )
+      .subscribe();
+  };
+
+  private initDataSource(data:EndUserDetails[]) {
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.sortingDataAccessor = (endUser, property) => {
+      switch(property) {
+        case 'phoneNumber': 
+          return endUser.user.phoneNumber;
+        case 'startedOn': 
+          return endUser.selectedAssessmentCursor?.startedOn;
+        case 'score': 
+          return endUser.selectedAssessmentCursor?.score;
+        case 'finishedOn': 
+          return endUser.selectedAssessmentCursor?.finishedOn;
+        default:
+          return endUser[property];
       }
+    };
 
-      else return false
-    })
-
-    return data
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
+
+  private _loadChart(chartData: number[]) {
+    // don't generate graph if no data is present
+    const isData = chartData.find(score => score > 1)
+
+    if (this.chart) this.chart.destroy();
+
+    if (!isData) {
+      return this._drawEmptyChart();
+    };
+
+    return new Chart('chart-ctx', {
+      type: 'pie',
+      data: {
+        labels: ['Pass (75-100)','Average (50-74)', 'In Progress', 'Below Average (35-49)','Fail (0-34)'],
+        datasets: [{
+          data: chartData,
+          backgroundColor: [
+            'rgb(0, 144, 0)',
+            'rgb(100, 24, 195)',
+            'rgb(2, 179, 254)',
+            'rgb(255, 171, 45)',
+            'rgb(255, 0, 0)',
+          ],
+          hoverOffset: 4
+        }]
+      },
+      options: pieChartOptions
+    });
+  }
+
+  private _drawEmptyChart() {
+    return new Chart('chart-ctx', {
+      type: 'doughnut',
+      data: {
+        labels: ['No Metrics Available'],
+        datasets: [{
+          data: [100],
+          backgroundColor: ['rgba(128, 128, 128, 1)'],
+          hoverOffset: 4
+        }]
+      },
+      options: pieChartOptions
+    })
+  }
+
+  computeScores(scores:number[]) {
+    if (!scores.length) return;
+
+    this.highestScore = Math.max(...scores);
+    this.lowestScore = Math.min(...scores);
+
+    const sum = scores.reduce((prev, next) => prev + next);
+    this.averageScore = (sum/scores.length).toFixed(2);
+  };
 
   sortData(sortState: Sort) {
     if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction} ending`);
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
 
-  formatDate(time: Timestamp): string {
-    if (!time) return 'In progress';
+  formatDate(timeStamp: Timestamp): string {
+    if (!timeStamp) return 'In progress';
+    const date = new Date(timeStamp.seconds * 1000);
 
-    const date = new Date(time.seconds * 1000);
-    return date.getDate() + '/' + (date.getMonth() + 1) + '/' + (date.getFullYear());
+    const year = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    const time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    return  `${year} ${time}`;
   }
 
-  getScoreCategory(assessmentCursor: AssessmentCursor) {
-    if (!assessmentCursor.finishedOn) return 'In progress';
+  modifyTitle(title: string) {
+    const firstChar = title.charAt(0).toUpperCase();
+    const restChars = title.slice(1).toLowerCase();
 
-    const finalScore = assessmentCursor.score;
-    const finalPercentage = (assessmentCursor.maxScore == 0 ? 0 : (finalScore/assessmentCursor.maxScore)) * 100;
+    return `${firstChar}${restChars}`
+  }
 
-    if (finalPercentage >= 0 && finalPercentage < 50) {
-      return 'Failed';
-    } else if (finalPercentage >= 50 && finalPercentage <= 75) {
-      return 'Average';
-    } else {
-      return 'Pass';
-    }
+  addClass(endUser: EndUserDetails) {
+    if (endUser.scoreCategory === 'In progress') {
+      return 'in-progress'
+    } else if (endUser.scoreCategory === 'Below Average') {
+      return 'below-average'
+    } else return endUser.scoreCategory
   }
 
   searchTable(event: Event){
@@ -111,7 +205,12 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     this._router.navigate(['/assessments'])
   }
 
+  edit() {
+    this._router.navigate(['/assessments', this.assessment.id], { queryParams: { mode: 'edit' }})
+  }
+
   ngOnDestroy() {
     this._sBs.unsubscribe();
+    this.chart?.destroy();
   }
 }

@@ -1,17 +1,17 @@
-<div id="chat-list" fxLayout="column">
-  <div class="heading-area" fxLayout="column">
-    <div *ngIf="!filterMode else filter" fxLayout="row" fxLayoutAlign="space-between center">
+<div *ngIf="!isLoading else loading" id="chat-list" fxLayout="column" fxFlex>
+  <div class="heading-area" fxLayout="column" fxFlex>
+    <!-- <div *ngIf="!filterMode else filter" fxLayout="row" fxLayoutAlign="space-between center">
       <div fxLayout="row" fxLayoutAlign="start center">
         <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Select a category">
           <i class="fas fa-bars menu-icon"></i>
         </button>
         <mat-menu #menu="matMenu">
-          <!-- <button mat-menu-item (click)="updateList('learning', 'Learning')">Learning</button>
+          <button mat-menu-item (click)="updateList('learning', 'Learning')">Learning</button>
           <button mat-menu-item (click)="updateList('paused', 'Help Requests/Inquiries')">Help Requests/Inquiries</button>
           <button mat-menu-item (click)="updateList('paused-by-agent', 'Paused By Trainer')">Paused By Trainer</button>
           <button mat-menu-item (click)="updateList('active', 'Onboarding')">Onboarding</button>
           <button mat-menu-item (click)="updateList('stashed', 'Stashed')">Stashed</button>
-          <button mat-menu-item (click)="updateList('completed', 'Completed')">Completed</button> -->
+          <button mat-menu-item (click)="updateList('completed', 'Completed')">Completed</button>
           <button mat-menu-item (click)="updateList('all', 'All')">All</button>
           <button mat-menu-item (click)="updateList('blocked', 'Help Requests')">Help Requests</button>
         </mat-menu>
@@ -24,31 +24,49 @@
           <i class="fas fa-search"></i>
         </button>
       </div>
-    </div>
+    </div> -->
 
-    <ng-template #filter>
-      <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center">
-        <mat-form-field fxFlex="80" class="filter">
-          <i matPrefix class="fas fa-search" style="margin-right: 10px;"></i>
-          <input matInput type="text" placeholder="search"[formControl]="search">
-        </mat-form-field>
-        <div>
-          <button class="close-btn" mat-icon-button (click)="toggleFilter()" matTooltip="Close search">
-            <i class="fas fa-search-minus"></i>
-          </button>
-        </div>
+    <p class="title">Chats</p>
+    <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex>
+      <div class="search" fxFlex="70">
+        <i class="fas fa-search search_tooltip"></i>
+        <input [formControl]="search" class="search_input" type="text" name="" placeholder="Search for chats"/>
       </div>
-    </ng-template>
+      <div class="select" fxFlex>
+        <select (change)="updateList($event)">
+          <option value="all">All</option>
+          <option value="blocked">Help Requests</option>
+        </select>
+      </div>
+    </div>
   </div>
 
-  <mat-paginator #matPagi [pageSizeOptions]="[ 10, 20, 30, 40, 100]" [hidePageSize]="isMobile()"></mat-paginator>
+  
+  <div class="list" fxFlex="90" *ngIf="(chats$ |async)?.length">
+    <app-chat-card *ngFor="let item of chats$ | async as chats; index as i" [chat]="chats[i]"
+    [routerLink]="['/chats', chats[i].id]" [currentChat]="currentChat">
+  </app-chat-card>
+</div>
 
-  <div class="list" *ngIf="!isLoading else loading">
-    <app-chat-card *ngFor="let item of (chats$|filter:searchString$) | async as chats; index as i" [chat]="chats[i]" [routerLink]="['/chats', chats[i].id]"
-                    [currentChat]="currentChat">
-    </app-chat-card>
-  </div>
+<convl-empty-page-illustration *ngIf="!(chats$ |async)?.length" text="There are no chats yet" [customStyle]="emptyChatStyle"></convl-empty-page-illustration>
+
+<div class="pagination">
+  <a (click)="goToPage(0)"><i class="pagination-nav fa-solid fa-angle-double-left"></i></a>
+  <a (click)="move('past')"><i class="pagination-nav fa-solid fa-angle-left"></i></a>
+
+  <a class="current-page">{{currentPage}}</a>
+
+  <a (click)="move('future')"><i class="pagination-nav fa-solid fa-angle-right"></i></a>
+  <a (click)="goToPage(totalPageCount)"><i class="pagination-nav fa-solid fa-angle-double-right"></i></a>
+</div>
 
 </div>
 
-<ng-template #loading><app-spinner></app-spinner></ng-template>
+<ng-template #loading>
+  <div fxLayout="column" fxLayoutAlign="center center" fxFlex>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" fxFlex>
+      <span>Fetching chats</span>
+      <mat-spinner diameter="25" strokeWidth="3"></mat-spinner>
+    </div>
+  </div>
+</ng-template>

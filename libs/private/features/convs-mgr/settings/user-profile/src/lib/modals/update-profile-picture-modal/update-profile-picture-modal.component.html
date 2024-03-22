@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Change Profile Picture</h1>
+<div mat-dialog-content>
+  <div>
+    <input type="file" [accept]="acceptedFileTypes" (change)="onFileSelected($event)"/>
+    <button [disabled]='disableBtn' type="button" (click)="onUploadProfilePic()"> Upload </button>
+  </div>
+  <h4>  Allowed image formats png, jpeg or jpg</h4>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</div>

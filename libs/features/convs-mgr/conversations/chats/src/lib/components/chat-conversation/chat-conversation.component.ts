@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
 import { Subscription, concatMap, map, tap } from 'rxjs';
@@ -13,6 +13,7 @@ import {
 import { Chat } from '@app/model/convs-mgr/conversations/chats';
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { EndUserPosition } from '@app/model/convs-mgr/conversations/admin/system';
+import { GET_RANDOM_COLOR } from '../../providers/avatar.provider';
 
 @Component({
   selector: 'app-chat-conversation',
@@ -29,17 +30,20 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
   currentStory: Story;
   chatStatus: string;
   userClass: string;
+  chatAvatarColor: string;
 
   constructor(
     private _activeChat$: ActiveChatConnectedStore,
     private _chatStore: ChatsStore,
-    private _logger: Logger
+    private _logger: Logger,
+    private _cd: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     if (!this.chat) {
       this.getActiveChat();
     }
+    this._cd.detectChanges();
   }
 
   getActiveChat() {
@@ -47,7 +51,10 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
       .get()
       .pipe(
         tap((chat) => {
-          if (chat?.id) this.chat = chat;
+          if (chat?.id) {
+            this.chat = chat;
+            this.chatAvatarColor = GET_RANDOM_COLOR();
+          }
         }),
         tap(() => this.getChatInfo())
       )
@@ -56,12 +63,14 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
 
   getChatInfo() {
     this.getUserClass();
-    this._sbs.sink = this.getCurrentUserPosAndStory(this.chat.id).subscribe();
-    this.chatStatus = this.getUserChatStatus(this.chat);
+    if(this.chat) {
+      this._sbs.sink = this.getCurrentUserPosAndStory(this.chat.id).subscribe();
+      this.chatStatus = this.getUserChatStatus(this.chat);
+    }
   }
 
   getUserClass() {
-    if (this.chat.labels) {
+    if (this.chat && this.chat.labels) {
       const userClass = this.chat.labels.map((label) => {
         const split = label.split('_');
         return split[1];

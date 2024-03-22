@@ -1,0 +1,62 @@
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelState = true" (closed)="panelState = false">
+    <mat-expansion-panel-header [ngClass]="{'hoverEffect': panelState === false}">
+      <mat-panel-title>
+        <p class="main-title">{{ 'PERMISSIONS.GENERAL-SETTINGS.SETTINGS' | transloco }} </p>
+      </mat-panel-title>
+      <mat-panel-description>
+
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div [formGroup]="generalSettingsFormGroup" fxLayout="column" class="general">
+      <div formGroupName="GeneralSettings">
+        <div fxLayout="row" class="titles">
+          <p class="main-title" fxFlex="20%"></p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let role of viewRoles" color="primary" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <p class="title">{{role}}</p>
+            </div>
+          </div>
+        </div>
+    
+        <div formGroupName="CanAddNewMember" fxLayout="row" fxLayoutAlign="start center" class="titles">
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.GENERAL-SETTINGS.ADD' | transloco }}  </p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              
+              <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
+              <app-switch-button  [generalSettingsFormGroup]="generalSettingsFormGroup" 
+                  [formGroupNameGeneralValue]="'GeneralSettings'"
+                  [formGroupNameValue]="'CanAddNewMember'" 
+                  [formControlNameValue]="control"
+                  [attr.disabled]="true"  
+                  [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+                  [style.opacity]="control === 'Admin' ? '0.5' : '1'">
+            </app-switch-button>
+            </div>
+          </div>
+        </div>
+    
+        <div formGroupName="CanDeleteMember" fxLayout="row" fxLayoutAlign="start center" class="titles">
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.GENERAL-SETTINGS.DELETE' | transloco }} </p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>   -->
+            <app-switch-button  [generalSettingsFormGroup]="generalSettingsFormGroup" 
+                                [formGroupNameGeneralValue]="'GeneralSettings'"
+                                [formGroupNameValue]="'CanDeleteMember'" 
+                                [formControlNameValue]="control"
+                                [attr.disabled]="true"  
+                                [ngClass]="{ 'disabled':true }"
+                                [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+                                [style.opacity]="control === 'Admin' ? '0.5' : '1'">
+            </app-switch-button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

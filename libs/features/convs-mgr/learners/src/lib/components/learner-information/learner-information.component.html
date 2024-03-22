@@ -1,0 +1,28 @@
+<div class="page-container">
+    <div class="learner-information">
+        <div class="learner-information-details">
+            <div class="learner-avatar" [style.background-color]="'#EC652A'">
+                <span *ngIf="learnerInitials">{{ learnerInitials }}</span>
+            </div>
+            <div class="learner-details">
+                <p>{{currentLearner.name}}</p>
+                <p>
+                    <i class="fas fa-phone-alt phone-icon"></i>
+                    {{ formatPhoneNumber(currentLearner.phoneNumber) }}
+                </p>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{location}}
+                </p>                 
+            </div>
+        </div>
+        <div class="learner-activity">
+            <div class="activity-pill">
+                {{getStatus()}}
+            </div>
+            <a class="chat-button" (click)="goToChat()" routerLinkActive="router-link-active">
+                    {{'LEARNERS.BUTTONS.GO-TO-CHAT'| transloco }}
+            </a>
+        </div>
+    </div>
+</div>

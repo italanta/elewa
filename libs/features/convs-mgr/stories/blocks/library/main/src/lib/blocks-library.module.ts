@@ -28,24 +28,23 @@ import { ConvsMgrDocumentMessageBlockModule } from '@app/features/convs-mgr/stor
 import { ConvsMgrReplyMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/reply-message-block';
 
 import { ConvsMgrJumpBlockModule } from '@app/features/convs-mgr/stories/blocks/library/jump-story-block';
-import { ConvsMgrMultipleInputMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/multiple-input-message-block';
 import { ConvsMgrImageInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/image-input-block';
 import { ConvsMgrLocationInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/location-input-block';
 import { ConvsMgrStoriesWebhookBlockModule } from '@app/features/convs-mgr/stories/blocks/library/webhook-block';
 
 import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
 import { ConvsMgrOpenEndedQuestionBlockModule } from '@app/features/convs-mgr/stories/blocks/library/open-ended-question-block';
-import { ConvsMgrMultiContentInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/multi-content-input-block';
 
 import { ConvsMgrVideoInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/video-input-block';
 import { ConvsMgrKeywordJumpBlockModule } from '@app/features/convs-mgr/stories/blocks/library/keyword-jump-block';
 import { ConvsMgrEventBlockModule } from '@app/features/convs-mgr/stories/blocks/library/event-block';
 import { ConvsMgrAssessmentBrickModule } from '@app/features/convs-mgr/stories/blocks/library/assessment-brick';
 import { ConvsMgrConditionalBlockModule } from '@app/features/convs-mgr/stories/blocks/library/conditional-block';
+import { ConvsMgrCMI5BlockModule } from '@app/private/features/convs-mgr/stories/blocks/library/cmi5-block';
 
-import { FileStateModule, UploadFileService } from '@app/state/file';
+import { FileStateModule } from '@app/state/file';
 
-import { BlockInjectorService } from './providers/block-injector.service';
+import { BlockInjectorService } from './block-injector.service';
 import { BlockComponent } from './components/block/block.component';
 
 @NgModule({
@@ -75,13 +74,11 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrBlockOptionsModule,
     ConvsMgrJumpBlockModule,
     ConvsMgrTextMessageBlockModule,
-    ConvsMgrMultipleInputMessageBlockModule,
     ConvsMgrFailBlockModule,
     ConvsMgrLocationInputBlockModule,
     ConvsMgrImageInputBlockModule,
     ConvsMgrAudioInputBlockModule,
     ConvsMgrStoriesWebhookBlockModule,
-    ConvsMgrMultiContentInputBlockModule,
 
     ConvsMgrAnchorBlockModule,
     ConvsMgrVideoInputBlockModule,
@@ -90,6 +87,7 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrEventBlockModule,
     ConvsMgrAssessmentBrickModule,
     ConvsMgrConditionalBlockModule,
+    ConvsMgrCMI5BlockModule,
 
     FileStateModule,
   ],
@@ -99,6 +97,6 @@ import { BlockComponent } from './components/block/block.component';
   exports: [BlockComponent],
 
   // Injector which creates all block types within the editor context.
-  providers: [BlockInjectorService, UploadFileService],
+  providers: [BlockInjectorService],
 })
 export class BlocksLibraryModule {}

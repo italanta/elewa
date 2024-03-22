@@ -11,6 +11,7 @@ import { ConnectionsDataService } from "../../data-services/connections.service"
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
 import { MultipleOptionsMessageService } from "../../next-block/block-type/multiple-options-block.service";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
  *  so that we can process the response based on that block.
@@ -31,9 +32,9 @@ export class KeywordJumpBlockService extends MultipleOptionsMessageService imple
 		this.blockDataService = blockDataService;
 	}
 
-	public async handleBlock(storyBlock: WebhookBlock, updatedCursor: Cursor, orgId: string, endUserId: string, message: Message)
+	public async handleBlock(storyBlock: WebhookBlock, updatedCursor: Cursor, orgId: string, endUser: EndUser, message: Message)
 	{
-		const newCursor = await this.getNextBlock(message, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUserId, "matchText");
+		const newCursor = await this.getNextBlock(message, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUser.id, "matchText");
 
 		const nextBlock = await this.blockDataService.getBlockById(newCursor.position.blockId, orgId, newCursor.position.storyId);
 

@@ -6,7 +6,11 @@ import { iTalUserRoles } from './ital-user-roles.interface';
 export interface iTalUser extends User
 {
   profile: iTalUserProfile;
-  roles:   iTalUserRoles;
+
+  /** TODO: @LemmyMwaura - improve typesafety 
+   * roles in any organisation is dynamically generated so leaving this as any for now.
+  */
+  roles:   any;
 
   /**
    * Organisations the user has a role in (if not admin)
@@ -14,7 +18,7 @@ export interface iTalUser extends User
    * @type {string[]}
    * @memberof EleUser
    */
-  orgs: string[];
+  orgIds: string[];
 
   /** Active Organisation ID. Users can only have one currently active org.
    *    The active org ID is used to determine which screen to route non-admins too when selecting orgs. */

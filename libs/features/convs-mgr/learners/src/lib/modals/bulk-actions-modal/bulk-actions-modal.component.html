@@ -1,0 +1,23 @@
+<div class="modal-wrapper">
+  <div class="title-section">
+    <p class="title">Actions</p>
+    <span class="selected-users">{{ selectedUsers.length }} students selected</span>
+  </div>
+
+  <div class="middle-section">
+    <div class="one">
+      <input type="radio" name="bulk-action" id="invitation" value="sendInvitation" (change)="onChange($event)">
+      <label for="invitation">Send invitation</label>
+    </div>
+
+    <div class="two">
+      <input type="radio" name="bulk-action" id="reminder" value="sendReminder" (change)="onChange($event)">
+      <label for="reminder">Send reminder</label>
+    </div>
+  </div>
+
+  <div class="action-btns">
+    <button class="btn" (click)="onCancel()">Cancel</button>
+    <button class="btn" (click)="submitAction()">Continue</button>
+  </div>
+</div>

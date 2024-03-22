@@ -8,4 +8,9 @@ export interface MessengerCommunicationChannel extends CommunicationChannel
      *  We pass the access token in the Authorization header when sending a http request 
      * */
     accessToken?: string;
+
+    /**this is the page id provided by facebook
+     * 
+     * */
+    pageId?:string;
 }

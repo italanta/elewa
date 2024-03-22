@@ -100,11 +100,6 @@ export enum StoryBlockTypes {
    */
   JumpBlock = 18,
 
-  /**
-   * Block that sends a list of items for user to choose and asks a question if they want to choose again
-   */
-  MultipleInput = 19,
-
   /** */
   FailBlock = 20,
   AudioInput = 21,
@@ -117,7 +112,6 @@ export enum StoryBlockTypes {
   /**
    * Block that accepts any type of input
    */
-  MultiContentInput = 28,
 
   /**
    * Block that accepts an Open-ended answer from the user
@@ -144,6 +138,14 @@ export enum StoryBlockTypes {
   /** The block that represents a single assessment question */
   AssessmentQuestionBlock = 33,
 
+  CMI5Block = 34,
+
+  /** The block that represents a single survey question */
+  SurveyQuestionBlock = 35,
+
+  /** Fallback block - Block to send incase our engine does not understand the message */
+  FallbackBlock = 36,
+
   EndStoryAnchorBlock = 9999,
 }
 
@@ -161,6 +163,8 @@ export function isOutputBlock(blockType: StoryBlockTypes): boolean {
       return true;
     case StoryBlockTypes.Document:
       return true;
+      case StoryBlockTypes.CMI5Block:
+        return true;    
     default:
       return false;
   }
@@ -208,7 +212,42 @@ export function isMediaBlock(blockType: StoryBlockTypes): boolean {
       return true;
     case StoryBlockTypes.Document:
       return true;
+    case StoryBlockTypes.CMI5Block:
+      return true;  
     default:
       return false
   }
 }
+
+// Return Blocks with options generally
+export function isOptionBlock(blockType: StoryBlockTypes) {
+  switch (blockType) {
+    case StoryBlockTypes.ListBlock:
+      return true;
+    case StoryBlockTypes.keyword:
+      return true;
+    case StoryBlockTypes.QuestionBlock:
+      return true
+    case StoryBlockTypes.CMI5Block:
+      return true
+    case StoryBlockTypes.Assessment:
+      return true
+    case StoryBlockTypes.Conditional:
+      return true
+    case StoryBlockTypes.JumpBlock:
+      return true
+    default:
+      return false
+  }
+}
+
+export function isFallBack(blockId: string) {
+  if(blockId.includes('fallback')) {
+    return true;
+  }
+  return false;
+}
+
+
+
+

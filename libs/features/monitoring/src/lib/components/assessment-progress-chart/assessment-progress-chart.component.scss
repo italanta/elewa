@@ -1,0 +1,76 @@
+.wrapper {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 5px;
+  height: 280px;
+
+  .assessment-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+  }
+
+  .title {
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .assessment-select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    select {
+      width: 100%;
+      padding: 0.3rem;
+      border: 2px solid teal;
+      outline: none;
+      border-radius: 10px;
+      margin: 0;
+    }
+
+    .container {
+      width: 50%;
+    }
+  }
+
+  .score {
+    height: 30%;
+    font-size: 4.5rem;
+    text-align: center;
+    color: teal;
+  }
+
+  .assessment-scores {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-rows: 1fr 1fr;
+    place-content: center;
+
+    .highscore,
+    .lowscore {
+      display: flex;
+      gap: 0.3rem;
+      text-align: center;
+
+      .tooltip {
+        color: teal;
+      }
+    }
+  }
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+}
+
+::host ::ng-deep .mat-mdc-select-value {
+  text-align: center;
+}

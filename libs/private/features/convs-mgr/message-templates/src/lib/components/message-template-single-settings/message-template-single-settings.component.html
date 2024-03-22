@@ -1,0 +1,37 @@
+<div class="message-template-settings">
+    
+    <div class="btn-cont">
+        <button [ngClass]="{'gray-out': !action}" mat-raised-button class="send-btn" (click)="saveSchedule()">
+            <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.BTN-CONT.SAVE-BUTTON.SAVE'| transloco }}  </span>
+        </button>
+    </div>
+
+    <div class="form-group head">
+        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.MESSAGE-CONDITIONS'| transloco }}</p>
+        <div class="info" [hidden]="canBeScheduled"><i class="fas fa-info-circle"></i> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.INFO'| transloco }}</div>
+        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.SET-UP-CONDITIONS'| transloco }} </p>
+
+        <div class="data-result">
+          <div class="schedule-list" *ngFor="let schedule of schedules| slice:0:limit">
+            <input type="text" name="text"  [value]="getReadableFormat(schedule)" readonly>
+            <div class="buttons">
+              <img src="assets/icons/edit-item.svg" alt="edit" (click)="editModal(schedule)">
+              <img src="assets/icons/delete-item.svg" alt="delete" (click)="deleteSchedule(schedule)">
+            </div>
+          </div>
+        </div>
+
+        <p class="add-condition" (click)="showMessageConditions = !showMessageConditions" *ngIf="schedules.length < 1">Add message condition</p>
+
+        <ng-container *ngIf="showMessageConditions">
+          <mat-form-field appearance="outline" class="frequency-select" *ngIf="schedules.length < 1">
+            <mat-label>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.MESSAGE-CONDITIONS-LABEL'| transloco }}</mat-label>
+            <mat-select [(ngModel)]="selectedOption">
+              <mat-option *ngFor="let condition of messageTemplateFrequency" (click)="openModal()" [value]="condition.value">
+                {{condition.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+    </div>
+</div>

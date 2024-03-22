@@ -1,78 +1,51 @@
-<div class="mat-elevation-z1">
-    <div *ngIf="assessments$ | async as assessments">
-        <div *ngIf="assessments.length > 0; else noAssessments">
-            <div class="header-wrapper" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1%">
-                <mat-form-field appearance="outline" class="search">
-                    <mat-label>
-                        <i class="fas fa-search"></i>
-                        <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH-ASSESSMENTS' | transloco}}</span>
-                    </mat-label>
-                    <input matInput (keyup)="searchTable($event)">
-                </mat-form-field>
-            
-                <button mat-flat-button class="btn-add" (click)="openCreateAssessmentDialog()">
-                    {{'ASSESSMENTS.BUTTON.ADD' | transloco}}
-                </button>
-            </div>
+<div>
+	<div *ngIf="assessments$ | async as assessments">
+		<div>
+			<div class="header-wrapper" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="1rem">
+				<app-assessments-header></app-assessments-header>
 
-            <div *ngIf="!dataFound">
-                <ng-container *ngTemplateOutlet="noAssessments"></ng-container>
-            </div>
-            
-            <div *ngIf="dataFound">
-                <table mat-table [dataSource]="dataSource" matSort class="assessments-table" (matSortChange)="onSortChange($event)">
-                    <ng-container matColumnDef="title">
-                        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="title" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-TITLE' | transloco}}">{{'ASSESSMENTS.TABLE-HEADER.TITLE' | transloco}}</th>
-                        <td mat-cell *matCellDef="let assessment">{{assessment.title}}</td>
-                    </ng-container>
-                
-                    <ng-container matColumnDef="inProgress">
-                        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="inProgress" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-IN-PROGRESS' | transloco}}">{{'ASSESSMENTS.TABLE-HEADER.IN-PROGRESS' | transloco}}</th>
-                        <td mat-cell *matCellDef="let assessment">10</td>
-                    </ng-container>
-                
-                    <ng-container matColumnDef="responses">
-                        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="responses" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-RESPONSES' | transloco}}">{{'ASSESSMENTS.TABLE-HEADER.RESPONSES' | transloco}}</th>
-                        <td mat-cell *matCellDef>48</td>
-                    </ng-container>
-                
-                    <ng-container matColumnDef="actions">
-                        <th class="table-header" mat-header-cell *matHeaderCellDef>{{'ASSESSMENTS.TABLE-HEADER.ACTIONS' | transloco}}</th>
-                        <td mat-cell *matCellDef="let assessment">
-                            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%">
-                                <button mat-flat-button class="btn-view" (click)="openAssessment(assessment.id)">
-                                    {{'ASSESSMENTS.BUTTON.VIEW' | transloco}}
-                                </button>
-                                
-                                <button mat-flat-button class="btn-result" (click)="openAssessmentResults(assessment.id)">
-                                    {{'ASSESSMENTS.BUTTON.RESULTS' | transloco}}
-                                </button>
+				<div class="actions" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+					<div class="search" fxFlex="60">
+						<i class="fas fa-search search_tooltip"></i>
+						<input class="search_input" type="text" name="" placeholder="Search for assessments"
+							(keyup)="searchTable($event)" />
+					</div>
 
-                                <button mat-flat-button class="btn-delete" (click)="openDeleteModal(assessment)">
-                                    {{'ASSESSMENTS.BUTTON.DELETE' | transloco}}
-                                </button>
-                            </div>
-                        </td>
-                    </ng-container>
-                
-                    <tr mat-header-row *matHeaderRowDef="assessmentsColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: assessmentsColumns"></tr>
-            
-                </table>
-        
-                <mat-paginator #tablePaginator [length]="assessments.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [ariaLabel]="'ASSESSMENTS.ACCESSIBILITY.SELECT-ASSESSMENT-PAGE' | transloco">
-                </mat-paginator>
-            </div>
-        </div>
-    </div>
-    
-    <ng-template #noAssessments>
-        <div class="create-assessments" fxLayout="row" fxLayout="center center" (click)="openCreateAssessmentDialog()">
-            <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
-              <i class="fa fa-plus fa-5x" aria-hidden="true"></i>
-              <p>{{'ASSESSMENTS.BUTTON.ADD-ASSESSMENT' | transloco}}</p>
-            </div>
-          </div>
-    </ng-template>
-    
+					<div class="sort-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1rem" fxFlex>
+						<div class="grid-list" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1rem" fxFlex>
+
+							<div class="select">
+								<select [value]="sortAssessmentsBy" (change)="sortBy($event)">
+									<option value="newest">Date Created (Newest)</option>
+									<option value="oldest">Date Created (Oldest)</option>
+								</select>
+							</div>
+
+							<button [ngClass]="viewInListView ? 'view-active' : ''" mat-stroked-button (click)="viewInListView = !viewInListView">
+								<i class="fa-solid fa-list-ul"></i>
+								<span style="margin-left: 10px;"> List </span>
+							</button>
+
+							<button [ngClass]="!viewInListView ? 'view-active' : ''" mat-stroked-button (click)="viewInListView = !viewInListView">
+								<i class="fa-solid fa-border-all"></i>
+								<span style="margin-left: 10px;"> Grid </span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- <div *ngIf="!dataFound">
+				<ng-container *ngTemplateOutlet="noAssessments"></ng-container>
+			</div> -->
+
+			<convl-empty-page-illustration *ngIf="!dataFound" text="No assessment has been created"></convl-empty-page-illustration>
+
+			<div *ngIf="dataFound">
+				<app-assessments-list-view *ngIf="viewInListView" [dataSource]="dataSource" [assessments]="assessments"></app-assessments-list-view>
+				<app-assessments-grid-view *ngIf="!viewInListView" [dataSource]="dataSource" [assessments]="assessments"></app-assessments-grid-view>
+			</div>
+		</div>
+	</div>
+
 </div>

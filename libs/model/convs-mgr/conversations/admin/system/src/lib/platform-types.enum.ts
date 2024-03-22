@@ -16,9 +16,8 @@ export enum PlatformType
   WhatsApp  =  'whatsapp',
   /** Telegram API */
   Telegram  =  'telegram',
-
   /** Messenger API */
-  Messenger =  'messenger'
+  Messenger =  'messenger',
 }
 
 /**

@@ -1,0 +1,54 @@
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelState = true" (closed)="panelState = false">
+    <mat-expansion-panel-header [ngClass]="{'hoverEffect': panelState === false}">
+      <mat-panel-title>
+        <p class="main-title">{{ 'PERMISSIONS.ANALYTICS.SETTINGS' | transloco }}</p>
+      </mat-panel-title>
+      <mat-panel-description>
+
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div [formGroup]="analyticsSettingsFormGroup" fxLayout="column" class="companies">
+      <div formGroupName="AnalyticsSettings">
+        <div fxLayout="row" class="titles">
+          <p class="main-title" fxFlex="20%"></p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let role of viewRoles" color="primary" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <p class="title"  style="text-align: center;">{{role}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="CanViewAnalytics" fxLayout="row" fxLayoutAlign="start center" class="titles">
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.ANALYTICS.VIEW-ANALYTICS' | transloco }}</p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="center-toogle" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <app-switch-button  [generalSettingsFormGroup]="analyticsSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'AnalyticsSettings'"
+              [formGroupNameValue]="'CanViewAnalytics'" 
+              [formControlNameValue]="control"
+              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
+              </app-switch-button>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="CanManageAnalytics" fxLayout="row" fxLayoutAlign="start center" class="titles">
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.ANALYTICS.MANAGE-ANALYTICS' | transloco }}</p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <app-switch-button  [generalSettingsFormGroup]="analyticsSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'AnalyticsSettings'"
+              [formGroupNameValue]="'CanManageAnalytics'" 
+              [formControlNameValue]="control"
+              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
+              </app-switch-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

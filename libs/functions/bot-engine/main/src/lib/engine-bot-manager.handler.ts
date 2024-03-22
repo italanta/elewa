@@ -5,6 +5,9 @@ import { RestResult200 } from '@ngfi/functions';
 
 import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 import { FileMessage, Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
+import { isFileMessage } from '@app/model/convs-mgr/functions';
+import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
+import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { ConnectionsDataService } from './services/data-services/connections.service';
 import { CursorDataService } from './services/data-services/cursor.service';
@@ -12,14 +15,14 @@ import { BlockDataService } from './services/data-services/blocks.service';
 import { BotEnginePlay } from './services/bot-engine-play.service';
 import { MessagesDataService } from './services/data-services/messages.service';
 import { EndUserDataService } from './services/data-services/end-user.service';
+import { EnrolledUserDataService } from './services/data-services/enrolled-user.service';
 
 import { ActiveChannel } from './model/active-channel.service';
 
-import { generateEndUserId } from './utils/generateUserId';
+import { generateEnrolledUserId } from './utils/generateEnrolledUserId';
 import { ProcessMessageService } from './services/process-message/process-message.service';
 import { createTextMessage } from './utils/createTextMessage.util';
 import { BotMediaProcessService } from './services/media/process-media-service';
-import { isFileMessage } from '@app/model/convs-mgr/functions';
 
 
 /**
@@ -33,6 +36,8 @@ export class EngineBotManager
   orgId: string;
 
   endUser: EndUser;
+
+  enrolledUser: EnrolledEndUser;
 
   _endUserService$: EndUserDataService;
 
@@ -51,7 +56,7 @@ export class EngineBotManager
    * @param {IncomingMessage} message - An sanitized incoming message from a third-party provider.
    * @returns A REST 200/500 response so the third-party provider knows the message arrived well/failed.
    */
-  public async run(message: Message, endUser: EndUser) 
+  public async run(message: Message, endUser: EndUser)
   {
     /**
      * The chatbot has some asynchronous operations (which we dont have to wait for, in order to process the message) e.g. saving the messages to firebase
@@ -65,6 +70,9 @@ export class EngineBotManager
     try {
       // Set the Organisation Id
       this.orgId = this._activeChannel.channel.orgId;
+      const platform = this._activeChannel.channel.type;
+
+      const lastActiveTime = new Date();
 
       // STEP 1: Initialize the services which are necessary for execution of the bot engine
       // TODO: use a DI container to manage instances and dynamically inject appropriate dependencies
@@ -75,13 +83,15 @@ export class EngineBotManager
       const blockDataService = new BlockDataService(this._activeChannel.channel, connDataService, this._tools);
       const cursorDataService = new CursorDataService(this._tools);
       const _msgDataService$ = new MessagesDataService(this._tools);
-      const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, this._tools, this._activeChannel, processMediaService);
-
+  
       this._endUserService$ = new EndUserDataService(this._tools, this.orgId);
+      const enrolledUserService = new EnrolledUserDataService(this._tools, this.orgId);
+      const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, this._tools, this._activeChannel, processMediaService);
 
       const END_USER_ID = endUser.id;
 
-      this.endUser = await this._endUserService$.getOrCreateEndUser(endUser);
+      // create endUser and enrolledUser equivalent.
+      await this.createEndUser(endUser, enrolledUserService, platform, this._logger);
 
       //TODO: Find a better way because we are passing the active channel twice
       // const bot = new BotEngineMainService(blockDataService, connDataService, _msgDataService$, cursorDataService, this._tools, this._activeChannel, botMediaUploadService);
@@ -98,7 +108,8 @@ export class EngineBotManager
       // STEP 2: Update the isComplete flag
       //         We need to update the isComplete flag to -1 so that the user can continue the conversation
       //         We do this here because we have successfully received the message
-      await this._endUserService$.setConversationComplete(END_USER_ID, -1);
+      this.endUser = await this._endUserService$.setConversationComplete(END_USER_ID, -1, lastActiveTime);
+
 
       // STEP 3: Process the message
       //         Because the status of the chat can change anytime, we use the current status
@@ -128,12 +139,45 @@ export class EngineBotManager
           await _msgDataService$.saveMessage(message, this.orgId, END_USER_ID);
           break;
         default:
+          message.direction = MessageDirection.FROM_END_USER_TO_CHATBOT;
+
+          await bot.play(message, this.endUser, currentCursor);
           break;
       }
       return { success: true } as RestResult200;
     } catch (error) {
       this._tools.Logger.error(() => `[EngineChatManagerHandler].execute: Chat Manager encountered an error: ${error}`);
     }
+  }
+
+  async createEndUser(endUser: EndUser, enrolledUserService: EnrolledUserDataService, platform: PlatformType, logger:Logger) {
+    logger.log(() => `Creating EndUser and Enrolled User Equivalent`);
+    
+    // Step 1: Get or Create End User
+    // TODO: Create enrolled user first
+    let enrolledUser: Promise<EnrolledEndUser>;
+
+    this.endUser = await this._endUserService$.getEndUser(endUser.id);
+
+    if(!this.endUser) {
+      // Create an enrolled user
+      const enrolledUserID = generateEnrolledUserId();
+      enrolledUser = enrolledUserService.createEnrolledUser(endUser, platform, enrolledUserID);
+
+      // Create end user 
+      this.endUser = await this._endUserService$.createEndUser(endUser, enrolledUserID);
+    } else if(this.endUser && !this.endUser.enrolledUserId) {
+
+      const enrolledUserID = generateEnrolledUserId();
+      enrolledUser = enrolledUserService.createEnrolledUser(endUser, platform, enrolledUserID);
+
+      this.endUser.enrolledUserId = enrolledUserID;
+
+      this.endUser = await this._endUserService$.updateEndUser(this.endUser);
+    }
+
+    // step 3: batch and resolve later
+    this.addSideOperation(enrolledUser);
   }
 
   async addSideOperation(operation: Promise<any>)

@@ -1,17 +1,51 @@
-// Import theming functions
-@use '@angular/material' as mat; // Import your custom theme
-@use '_theme';
-@use '_variables';
-
-.mat-raised-button{
-    margin-top: 30px;
-    margin-right: 25px;
-    color: var(--convs-mgr-color-text-white);
-    background-color: var(--background-checked);
-    text-align: center;
-    border-radius: 5px;
+.home-page {
+	padding: 1.4rem;
+	background-color: var(--convs-mgr-color-primary-light-grey);
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 }
 
-.wrapper {
-    padding: 20px;
+.title{
+	color: #101010;
+	font-size: 2rem;
+	font-weight: 400;
+	margin: 0;
+	padding: 0;
+}
+
+p{
+	color: #101010;
+	font-family: Roboto;
+	font-size: 2.25rem;
+	font-style: normal;
+	font-weight: 300;
+	line-height: normal;
+	padding: 0 4.75rem;
+}
+
+:host ::ng-deep .mat-mdc-tab.mdc-tab {
+	background-color: white !important;
+
+	&.mdc-tab--active {
+		color: white !important;
+		background-color: black !important;
+	}
+}
+
+:host ::ng-deep .mat-mdc-tab.mdc-tab:first-child {
+	border-radius: 20px 0px 0px 20px;
+}
+
+:host ::ng-deep .mat-mdc-tab.mdc-tab:last-child {
+	border-radius: 0px 20px 20px 0px;
+}
+
+:host ::ng-deep .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label,
+.mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {
+	color: white !important;
+}
+
+:host ::ng-deep .mdc-tab-indicator__content {
+  display: none;
 }

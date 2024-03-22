@@ -1,0 +1,131 @@
+.section-container {
+  margin-top: 5em; 
+
+  .title {
+    font-size: 22px;
+    font-weight: 400;
+  }
+
+  .course-item-container {
+    .course {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.course-name-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .course-name-tooltip {
+    width: 3px;
+    height: 28px;
+    border-radius: 10%;
+    background-color: black;
+  }
+
+  .course-name {
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .enrollment-date {
+    position: absolute;
+    top: 90%; 
+    left: 0;
+    color: rgba(0, 0, 0, 0.60);
+    font-weight: 300; 
+  }
+}
+
+.module-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .module-title {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center; 
+    margin-top: 1.5rem;
+
+    .module-link {
+      cursor: pointer;
+      text-decoration: underline;
+      color: var(--convs-mgr-color-bright-teal);
+    }
+
+    a{
+      color: var(--convs-mgr-button-color);
+      text-decoration-color:var(--convs-mgr-button-color);
+      font-size: 1em;
+      font-weight: 400;
+    }
+
+    .edit-icon{
+      height: 1.25em;
+      width: 1.25em;
+      margin-left: 0.625em;
+    }
+
+    .view-module-progress{
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+      cursor: pointer;
+
+      span{
+        font-weight: 450;
+        margin-top: 0.313em;
+      }
+  
+      .dropdown-icon{
+        height: 1.563em;
+        width: 1.563em;
+        margin-top: 0.25em;
+      }
+
+      .rotate180 {
+        transform: rotate(180deg);
+      }      
+    }
+  }
+
+  .module-progress-name {
+    font-size: 17px;
+  }
+
+  .lessons-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.5em;
+
+    .course-progress-name{
+      font-size: 1.125em;
+      font-weight: 300;
+    }
+
+    .custom-progress-bar {
+      height: 0.688em;
+      background-color: #D9D9D9;
+      border-radius: 0.5em; 
+      overflow: hidden;
+    }
+    
+    .progress-bar-fill {
+      height: 100%;
+      background-color: var(--convs-mgr-color-bright-teal); 
+      border-radius: 0.5em; 
+    }    
+  }
+
+  .course-progress-bars {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 2.5fr 1fr;
+  }
+}

@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
+import { take } from 'rxjs/operators';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -57,7 +58,6 @@ export class JumpBlockComponent implements OnInit, OnDestroy
     this.setJumpBlockOptions();
 
     this.getStories();
-    this.getBlocks();
   }
 
   get options(): FormArray
@@ -96,20 +96,10 @@ export class JumpBlockComponent implements OnInit, OnDestroy
   getStories()
   {
     this._sBS.sink = this._stories$$.get()
+      .pipe(take(1))
       .subscribe((stories: Story[]) =>
       {
         this.stories = stories;
-      });
-  }
-
-  getBlocks()
-  {
-    const storyId = this.jumpBlockForm.value.targetStoryId;
-
-    this._sBS.sink = this._storyBlockStore$$.getBlocksByStory(storyId)
-      .subscribe((blocks: StoryBlock[]) =>
-      {
-        this.blocks = blocks;
       });
   }
 

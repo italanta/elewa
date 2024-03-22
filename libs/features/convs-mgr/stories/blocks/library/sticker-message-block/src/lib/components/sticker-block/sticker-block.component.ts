@@ -1,22 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
+import { take } from 'rxjs';
+import { SubSink } from 'subsink';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-
+import { FileStorageService } from '@app/state/file';
 import { StickerMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-
-import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { UploadFileService } from '@app/state/file';
-
+import { ICONS_AND_TITLES } from '../../../../../main/src/lib/assets/icons-and-titles';
 
 @Component({
   selector: 'app-sticker-block',
   templateUrl: './sticker-block.component.html',
   styleUrls: ['./sticker-block.component.scss'],
 })
-
-export class StickerBlockComponent implements OnInit {
-
+export class StickerBlockComponent implements OnInit, OnDestroy {
   @Input() id: string;
   @Input() block: StickerMessageBlock;
   @Input() stickerMessageForm: FormGroup;
@@ -24,36 +21,66 @@ export class StickerBlockComponent implements OnInit {
 
   file: File;
   isLoadingSticker: boolean;
-  isStickerLoaded: string;
-  stickerLink = "";
   stickerInputId: string;
-  defaultImage = "assets/images/lib/block-builder/sticker-block-placeholder.png"
-
-  type: StoryBlockTypes;
-  stickerType = StoryBlockTypes.Sticker;
-  blockFormGroup: FormGroup;
+  byPassedLimits: any[] = [];
+  whatsappLimit: boolean;
+  messengerLimit: boolean;
 
 
-  constructor(private _stickerUploadService: UploadFileService) 
-  { }
+  svgIcon = ''
+  private _sBs = new SubSink();
 
-  ngOnInit(): void
-  {
-    this.stickerInputId = `stckr-${this.id}`
+  constructor(private _stickerUploadService: FileStorageService) {}
+
+  ngOnInit(): void {
+    this.stickerInputId = `stckr-${this.id}`;
+
+
+    const fileSize = this.stickerMessageForm.get('fileSize')?.value;
+    this.svgIcon = this.getBlockIconAndTitle(this.block.type).svgIcon
+
+    if (fileSize) {
+      this._checkSizeLimit(fileSize);
+    }
+  }
+  
+  getBlockIconAndTitle(type: number) {
+    return ICONS_AND_TITLES[type];
+  }
+  async processSticker(event: any) {
+    this.file = event.target.files[0];
+
+    if (this.file) {
+      this.isLoadingSticker = true;
+
+      //Step 1 - Create the file path that will be in firebase storage
+      const stickerFilePath = `stickers/${this.file.name}_${new Date().getTime()}`;
+
+      //Step 2 - Upload file to firestore
+      const response = await this._stickerUploadService.uploadSingleFile(this.file, stickerFilePath);
+      
+      const fileSizeInKB = this.file.size / 1024;
+
+      //Step 3 - PatchValue to Block
+      this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url, fileSizeInKB));
+    }
+  };
+
+  /** Check if file bypasses size limit. */
+  private _checkSizeLimit(size:number) {
+    this.byPassedLimits = this._stickerUploadService.checkFileSizeLimits(size, 'sticker');
+
+    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
+    else if (this.byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
   }
 
-  async processSticker(event: any) 
-  {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => this.stickerLink = e.target.result;
-      reader.readAsDataURL(event.target.files[0]);
-      this.file = event.target.files[0];
-    } else {
-      this.stickerLink = this.defaultImage;
-    }
-    this.isLoadingSticker = true;
-    const stickerFilePath = `stickers/${this.file.name}_${new Date().getTime()}`;
-    (await this._stickerUploadService.uploadFile(this.file, this.block, stickerFilePath)).subscribe();
+  private _autofillUrl(url: string, fileSizeInKB: number) {
+    this.stickerMessageForm.patchValue({ fileSrc: url });
+    this.isLoadingSticker = false;
+    this._checkSizeLimit(fileSizeInKB);
+  };
+
+  ngOnDestroy() {
+    this._sBs.unsubscribe();
   }
 }

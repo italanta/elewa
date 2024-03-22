@@ -1,0 +1,57 @@
+.story {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(112, 112, 112, 0.3);
+  padding-left: 2rem;
+
+  * {
+    display: flex;
+    align-items: center;
+  }
+
+  .story-name {
+    color: #101010;
+  }
+
+  .btn {
+    padding: 0.5rem 1.3rem;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    justify-self: center;
+    cursor: pointer;
+    transition: ease;
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &.btn-module {
+      background-color: transparent;
+      border: 1px solid teal;
+      color: teal;
+    }
+
+    &.btn-story {
+      background-color: teal;
+      color: white;
+    }
+  }
+
+  .status {
+    justify-self: center;
+  }
+
+  :last-child {
+    justify-self: flex-end;
+  }
+}
+
+.tooltip-menu {
+  background-color: transparent;
+}

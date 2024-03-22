@@ -1,6 +1,20 @@
-.assessment-config{
-    padding: 1rem 1.25rem;
-    margin: 1rem 0 1.25rem 0;
-    border: 1px solid var(--convs-mgr-color-primary-grey);
-    border-radius: 0.4rem;
+.assessment-config {
+	padding: 1rem 1.25rem;
+	margin: 30px auto;
+	border-radius: 1rem;
+	width: 60%;
+	background-color: white;
+
+	h4 {
+		font-size: 1.3rem;
+		font-weight: 400;
+	}
+	span {
+		font-size: 1rem;
+		font-weight: 400;
+	}
+}
+
+:host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+	background-color: white !important;
 }

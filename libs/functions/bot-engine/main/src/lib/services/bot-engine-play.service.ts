@@ -8,6 +8,7 @@ import { isFileMessage, MessageTypes } from "@app/model/convs-mgr/functions";
 
 import { CursorDataService } from "./data-services/cursor.service";
 import { MessagesDataService } from "./data-services/messages.service";
+import { VariablesDataService } from "./data-services/variables.service";
 
 import { MailMergeVariables } from "./variable-injection/mail-merge-variables.service";
 import { ProcessMessageService } from "./process-message/process-message.service";
@@ -80,9 +81,9 @@ export class BotEnginePlay implements IBotEnginePlay
 
     // If the last block sent was media, we wait for 500ms 
     //  before replying as media processing can take a while
-    if(this.blockSent && isMediaBlock(this.blockSent.type) && !isMediaBlock(nextBlock.type)) {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-    } 
+    // if(this.blockSent && isMediaBlock(this.blockSent.type) && !isMediaBlock(nextBlock.type)) {
+    await new Promise(resolve => setTimeout(resolve, 300));
+    // } 
 
     await this.__reply(nextBlock, endUser, message);
 
@@ -130,15 +131,18 @@ export class BotEnginePlay implements IBotEnginePlay
       const currentStory  = endUserPosition.position.storyId;
 
       // If the end user exists, then we continue the story by returning the next block.
-      return this._processMessageService$.resolveNextBlock(message, endUserPosition, endUser.id, this.orgId, currentStory, this._tools);
+      return this._processMessageService$.resolveNextBlock(message, endUserPosition, endUser, this.orgId, currentStory, this._tools);
     }
   }
 
   async __reply(nextBlock: StoryBlock, endUser: EndUser, message?: Message)
   {
+    const varDataService = new VariablesDataService(this._tools, this.orgId, endUser.id, this._activeChannel.channel);
 
+		const allVariables =  varDataService.getAllVariables(endUser);
+    
     // Inject Variables to the block
-    const mailMergedBlock = await this.__mailMergeVariables(nextBlock, endUser.id);
+    const mailMergedBlock = await this.__mailMergeVariables(nextBlock, allVariables);
 
     this._tools.Logger.log(() => `Block to be sent: ${JSON.stringify(mailMergedBlock)}`)
 
@@ -149,14 +153,14 @@ export class BotEnginePlay implements IBotEnginePlay
     await this._sendBlockMessage(mailMergedBlock, endUser);
   }
 
-  private async __mailMergeVariables(storyBlock: StoryBlock, endUserId: string) 
+  private async __mailMergeVariables(storyBlock: StoryBlock, variables: {[key:string]:any}) 
   {
     const newBlock = storyBlock;
     // Initialize the variable injector service
     const mailMergeVariables = new MailMergeVariables(this._tools);
 
     // Find and replace any variables included in the block message
-    if(newBlock.message) newBlock.message = await mailMergeVariables.merge(storyBlock.message, this.orgId, endUserId);
+    if(newBlock.message) newBlock.message = await mailMergeVariables.merge(storyBlock.message, this.orgId, variables);
 
     return newBlock;
   }

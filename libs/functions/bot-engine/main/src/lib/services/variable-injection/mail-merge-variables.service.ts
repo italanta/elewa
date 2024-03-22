@@ -29,13 +29,11 @@ export class MailMergeVariables
    *          we add the text to the block as 'Hello {{name}}'
    * 
    */
-  async merge(outgoingText: string, orgId: string, endUserId: string, savedVariables?: any): Promise<string>
+  async merge(outgoingText: string, orgId: string, savedVariableValues: {[key:string]:any}): Promise<string>
   {
     this._tools.Logger.log(() => `[VariableInjectorService] - Checking message :: ${outgoingText}`);
 
     if(!this._exp.test(outgoingText)) return outgoingText;
-
-    const savedVariableValues = await this.__getVariableValues(orgId, endUserId);
 
     const outgoingTextArray = outgoingText.split(" ");
 
@@ -67,22 +65,5 @@ export class MailMergeVariables
     if (!variable) return null;
 
     return variable[1];
-  }
-
-  private async __getVariableValues(orgId: string, endUserId: string) 
-  {
-    const variableRepo = this._tools.getRepository<any>(`orgs/${orgId}/end-users/${endUserId}/variables`);
-
-    const variableValues = await variableRepo.getDocumentById(`values`);
-
-    return variableValues;
-  }
-
-  async getSingleVariableValue(orgId: string, endUserId: string, variableName: string) {
-    const variableRepo = this._tools.getRepository<any>(`orgs/${orgId}/end-users/${endUserId}/variables`);
-
-    const variableValues = await variableRepo.getDocumentById(`values`);
-
-    return variableValues[variableName];
   }
 }

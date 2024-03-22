@@ -1,3 +1,5 @@
+import * as _ from "lodash";
+
 import { HandlerTools, Logger } from "@iote/cqrs";
 
 import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
@@ -44,12 +46,17 @@ export class MultipleOptionsMessageService extends NextBlockService
 		const cursor = currentCursor;
 		
 		const response = msg as QuestionMessage;
-
-		const lastBlock = currentBlock as QuestionMessageBlock
+		
+		const lastBlock = currentBlock as QuestionMessageBlock;
 
 		// Set the match strategy to exactMatch
 		// TODO: Add a dynamic way of selecting matching strategies
 		this.matchInput.setMatchStrategy(new ExactMatch());
+
+		if(!response.options) {
+			currentCursor.position.blockId = null;
+			return currentCursor;
+		}
 
 		const selectedOptionIndex = this.match(type || "matchId", response, lastBlock.options);
 
@@ -65,7 +72,7 @@ export class MultipleOptionsMessageService extends NextBlockService
 
 		const newUserPosition: EndUserPosition = {
 			storyId: currentStory,
-			blockId: connection.targetId
+			blockId: connection ? connection.targetId : null
 		}
 		cursor.position = newUserPosition;
 
@@ -90,17 +97,17 @@ export class MultipleOptionsMessageService extends NextBlockService
 		// check for next block from default option
 		const connection = await this._connDataService.getConnBySourceId(lastBlock.id, orgId, currentStory);
 
-		if (!connection.targetId) {
+		if (!connection) {
 			this.tools.Logger.error(() => `The message did not match any option and no default next block was found`)
 		}
 
 		const newUserPosition: EndUserPosition = {
 			storyId: currentStory,
-			blockId: connection.targetId
+			blockId: connection ? connection.targetId : null
 		}
 
 		cursor.position = newUserPosition;
 
-		return cursor
+		return cursor;
 	}
 }

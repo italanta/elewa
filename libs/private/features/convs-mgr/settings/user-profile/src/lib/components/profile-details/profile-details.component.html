@@ -1,0 +1,97 @@
+<div *ngIf="userDetailsLoaded; else loading" class="profile-details">
+
+  <div class="section-one" [formGroup]="userFormGroup">
+    <div class="user-data" fxLayout="row" fxLayoutAlign="space-between start">
+
+      <div fxLayout="column" fxLayoutAlign="start start" class="user-profile-picture">
+        <img [src]="user.photoUrl" alt="" (click)="newProfileImg()">
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="start start" class="user-info" fxFlex="40%">
+
+        <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="84px" style="width: 100%;" fxFlex>
+          <div fxLayout="column" fxLayoutAlign="start start" class="names">
+            <p class="label">{{ 'PROFILE-DETAILS.FIRST-NAME' | transloco }}</p>
+            
+              <input formControlName="firstName" matInput placeholder="Jack">
+           
+          </div>
+  
+          <div fxLayout="column" fxLayoutAlign="start start" class="names">
+            <p class="label"> {{ 'PROFILE-DETAILS.LAST-NAME' | transloco }}</p>
+            
+              <input formControlName="lastName" matInput placeholder="Sparrow">
+            
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="84px" style="width: 100%;" fxFlex>
+          <div fxLayout="column" fxLayoutAlign="start start" class="names">
+            <p class="label">{{ 'PROFILE-DETAILS.ROLE' | transloco }}</p>
+           
+              <input disabled="true" matInput [placeholder]="roles">
+            
+          </div>
+  
+          <div fxLayout="column" fxLayoutAlign="start start" class="names">
+            <p class="label"> {{ 'PROFILE-DETAILS.EMAIL' | transloco }}</p>
+            
+            <input formControlName="email" matInput [value]="user.email">
+            
+          </div>
+        </div> 
+         
+       
+        <div class="bottom-buttons">
+          <div class="cancel">
+            <button class="cancel-btn" mat-raised-button *ngIf="editProfile" (click)="editUserProfile()">
+              {{ 'PROFILE-DETAILS.CANCEL' | transloco }}
+            </button>
+          </div>
+  
+          <div class="edit" >     
+            <button class="btn edit-btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editUserProfile()" mat-raised-button>
+              <span *ngIf="!editProfile; else saveProfile">Edit Profile</span>
+              <ng-template #saveProfile>
+                <span>{{ 'PROFILE-DETAILS.SAVE-PROFILE' | transloco }}</span>
+              </ng-template>
+            </button>
+          </div>
+        </div> 
+      </div>                  
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="space-between" class="section-two">
+    <div fxLayout="column">
+      <p class="label">{{ 'PROFILE-DETAILS.CHANGE-PASSWORD' | transloco }}</p>
+  
+      <div fxLayout="row" fxLayoutAlign="space-between start" class="email-details">
+        <p class="your-email">
+          {{ 'PROFILE-DETAILS.PASSWORD-INFO' | transloco }}
+        </p>
+      </div>
+    </div>
+    
+    <div fxLayout="column">
+      <!-- <button class="btn password-button" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="updatePassword()" mat-raised-button>{{ 'PROFILE-DETAILS.BUTTON.PASSWORD-RESET' | transloco }}</button> -->
+    </div>
+  </div>
+  
+  
+  <div class="section-two">
+    <div fxLayout="column" fxLayoutAlign="start start" class="delete-profile">
+      <p class="label-blue underline"> Delete Profile</p>
+      <p>
+        {{ 'PROFILE-DETAILS.DELETE-TEXT' | transloco }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="spinner">
+    <p>{{ 'PROFILE-DETAILS.FETCH-USER-DATA' | transloco }}</p>
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+</ng-template>

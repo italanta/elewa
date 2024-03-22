@@ -1,0 +1,170 @@
+.container {
+  margin: 0px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.4rem;
+  overflow-x: hidden;
+
+  .title {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-top: -10px;
+    text-transform: capitalize;
+  }
+
+  .menu-items {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+
+  }
+  .items {
+    display: flex;
+    gap: 0.5rem;
+    
+    .item_btn {
+      display: flex;
+      gap: 0.2rem;
+      background-color: #FFFFFF;
+      color: #101010;
+      width: 13.75rem;
+      border-radius: 1.875rem;
+      padding: 0.75rem 1.563rem;
+      .btn {
+        background-color: #f0f0f0;
+      }
+
+      .active {
+        text-align: center;
+        background-color: teal;
+      }
+    }
+  }
+
+  .charts {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+.main-section {
+  width: 100%;
+}
+
+::ng-deep .courses > .mdc-button  > .mdc-button__label  {
+  width: 100% !important;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.top-filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-top: 1.5rem;
+  padding-bottom: 0.6rem;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #FFFFFF;
+
+  &:first-child {
+    border-top-left-radius: 0.625rem;
+    border-bottom-left-radius: 0.625rem;
+  }
+
+  &:last-child {
+    border-top-right-radius: 0.625rem;
+    border-bottom-right-radius: 0.625rem;
+  }
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  text-align: center;
+  padding: 0.688rem 1.5rem;
+  text-decoration: none;
+  color: #101010;
+  cursor: pointer;
+}
+
+li a:hover:not(.active) {
+  background-color: teal;
+  color: #FFFFFF;
+}
+
+.active {
+  background-color: #101010;
+  color: #FFFFFF !important;
+}
+
+.period-paginator {
+  display: flex;
+  align-self: end;
+  padding-bottom: 0.7rem;
+  padding-right: 0.4rem;
+  gap: 1rem;
+}
+
+.prev, .next {
+  cursor: pointer;
+}
+
+.move-icon {
+  font-size: larger;
+}
+
+.paginator-dash {
+  display: flex;
+  align-self: center;
+  font-size: larger;
+}
+
+.inactive {
+  pointer-events: none;
+  color: gray;
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+
+::ng-deep .mat-datepicker-popup {
+  top: 9.063rem !important;
+}
+// ::ng-deep .mat-input-underline{ visibility: visible; z-index: -999; display: block; }

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="45" height="40.23" viewBox="0 0 45 40.23">
+  <g id="MDI_flag" data-name="MDI / flag" opacity="0.53">
+    <g id="Boundary" fill="#fff" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
+      <rect width="45" height="40.23" stroke="none"/>
+      <rect x="0.5" y="0.5" width="44" height="39.23" fill="none"/>
+    </g>
+    <path id="Path_flag" data-name="Path / flag" d="M27.56,7.909,26.6,4H5V37.23H9.8V23.547H23.24l.96,3.909H41V7.909Z" fill="#fff"/>
+  </g>
+</svg>

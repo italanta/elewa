@@ -1,0 +1,185 @@
+<div class="message-template-form">
+    <div class="mt-form" >
+        <div class="form-header">
+            <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.EDIT-TEMPLATE'| transloco }}</p>
+        </div>
+        <div class="form-body">
+            <form [formGroup]="templateForm" >
+                <!-- <div class="form-group">
+                    <app-template-form-dropdown 
+                    (selectedOptionsChange)="onSelectedOptionsChange($event)"></app-template-form-dropdown>
+                </div> -->
+                <mat-accordion class="multi-drop">
+                    <mat-expansion-panel expanded="true" (opened)="panelOpenState = true"
+                                         (closed)="panelOpenState = false">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <div class="titles">
+                                <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.TITLE'| transloco }} <span class="asteric">*</span> </p>
+                                <!-- <p>Category, channel, language</p> -->
+                            </div>
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      
+                      <div class="dd-holder">
+
+                        <div class="form-group">
+                            <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CATEGORY'| transloco }}</p>
+                            <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CATEGORY-DESCRIPTION'| transloco }}</p>
+                              <mat-form-field  class="selec" appearance="outline"> 
+                                    <mat-select  formControlName="category">
+                                    <mat-option *ngFor="let category of categories" [value]="category.value">{{ category.display }}</mat-option>
+                                  </mat-select>
+                              
+                              </mat-form-field>
+                        </div>
+                        
+                        <div class="form-group">
+                            <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.LANGUAGE'| transloco }}</p>
+                            <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.LANGUAGE-DESCRIPTION'| transloco }}</p>
+                            <mat-form-field  class="selec" appearance="outline" >
+                                <mat-select formControlName="language">
+                                    <mat-option *ngFor="let language of languages" [value]="language.value">{{ language.display }}</mat-option>
+                                </mat-select>
+                                </mat-form-field>
+                                <!-- uncomment incase QA wants a border radius, but advice on selection color that cant be changed -->
+                            <!-- <select 
+                                formControlName="language">
+                                    <option></option>
+                                    <option *ngFor="let language of languages" [value]="language.value">{{ language.display }}</option>
+                            </select> -->
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CHANNEL'| transloco }}</p>
+                        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CHANNEL-DESCRIPTION'| transloco }} </p>
+                        <mat-form-field  appearance="outline">
+                            <mat-select class="mat-outline" formControlName="channelId">
+                                <mat-option *ngFor="let channel of (channels$ | async)" [value]="channel.id">{{ channel.name }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- uncomment incase QA wants a border radius, but advice on selection color that cant be changed -->
+                        <!-- <select 
+                            formControlName="channelId">
+                            <option></option>
+                            <option *ngFor="let channel of (channels$ | async)" [value]="channel.id">{{ channel.name }}</option>
+                        </select> -->
+                        <p *ngIf="!(channels$ | async)?.length" class="channel-dd">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.NO-CHANNEL'| transloco }}</p>
+                      </div>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                  
+                <div class="form-group head-cont">
+                    <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TITLE'| transloco }}<span class="asteric">*</span> </p>
+                    <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TITLE-DESCRIPTION'| transloco }}</p>
+                    
+                        <input class="header-input" type="text" matInput formControlName="name">
+                    
+                </div>
+                
+                <!-- TODO: Change to flexbox -->
+                <div class="conte" formGroupName="content">
+                    <div class="form-group head" formGroupName="header">
+                        <p class="text">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.HEADER.HEADER'| transloco }}</p>
+                        <p  class="text">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.HEADER.HEADER-DESCRIPTION'| transloco }}</p>
+          
+                          <input class="header-input" type="text" name="text" matInput formControlName="text">
+                        
+                    </div>
+
+                    <app-header-variables-sample-section #headerSection 
+                        *ngIf="template" 
+                        [hidden]="!showHeaderExampleSection" 
+                        [templateForm]="templateForm" [template]="template">
+                    </app-header-variables-sample-section>
+
+                      <div class="add-variable-header header">
+                        <p class="dropdown" [matMenuTriggerFor]="menu" (click)="fetchBots()">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.ADD-VARIABLE'| transloco }}<i class="fas fa-chevron-down"></i></p>
+                    </div>
+                        <mat-menu #menu="matMenu">                         
+                            <div class="div" *ngFor="let bot of bots">
+                                <mat-radio-button [value]="{ id: bot.id, name: bot.name }" (change)="onBotSelected(bot.id, bot.name, 'header')">{{ bot.name }}</mat-radio-button>
+                            </div>  
+                        </mat-menu>  
+
+                        <!-- TODO: Move to separate component -->
+                        <div class="var-card" *ngIf="showCard" (clickOutside)="showCard = false">
+                            <mat-card  *ngFor="let variable of fetchedVariables" class="header-card">
+                                <div *ngIf="selectedClass === 'header'" class="var-wrapper">
+                                    <span class="bot-name">{{ botName }}</span>
+                                    <div class="variables-list">
+                                        <span class="single-variable" (click)="addExample(variable.name, 'header'); hideCard()">{{ '{{' + variable.name + '}}' }}</span>
+                                    </div>
+                                </div>
+                              </mat-card>
+                         </div>  
+
+                    <div class="form-group body" formGroupName="body">
+                        <p  class="text"> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}<span class="asteric">*</span></p>
+                        <p  class="text">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY-DESCRIPTION'| transloco }}</p>
+                       
+                            <textarea class="body-input" name="text" rows="4" cols="50" formControlName="text"></textarea>
+                       
+                        <div class="add-variable-body">
+                            <p class="dropdown" [matMenuTriggerFor]="bodymenu" (click)="fetchBots()">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.ADD-VARIABLE'| transloco }}<i class="fas fa-chevron-down"></i></p>
+                        </div>
+                            <mat-menu #bodymenu="matMenu">                                    
+                                <div class="div" *ngFor="let bot of bots">
+                                    <mat-radio-button [value]="{ id: bot.id, name: bot.name }" (change)="onBotSelected(bot.id, bot.name, 'body')">{{ bot.name }}</mat-radio-button>
+                                </div>  
+                            </mat-menu>  
+
+                         <div class="var-card" *ngIf="showCard" (clickOutside)="showCard = false">
+                            <mat-card  *ngFor="let variable of fetchedVariables" class="body-card">
+                                <div *ngIf="selectedClass === 'body'" class="var-wrapper">
+                                    <span class="bot-name">{{ botName }}</span>
+                                    <div class="variables-list">
+                                        <span class="single-variable" (click)="addExample(variable.name, 'body'); hideCard()">{{ '{{' + variable.name + '}}' }}</span>
+                                    </div>
+                                </div>
+                              </mat-card>
+                         </div>   
+                          
+                        <br>
+                        <app-body-variables-sample-section #bodySection 
+                            *ngIf="template"
+                            [hidden]="!showBodyExampleSection"
+                            [templateForm]="templateForm" [template]="template"
+                            ></app-body-variables-sample-section>
+                    </div>
+                    <div class="form-group">
+                        <p> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.FOOTER.FOOTER'| transloco }}</p>
+                        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.FOOTER.FOOTER-DESCRIPTION'| transloco }}</p>
+                        
+                            <input class="header-input" type="textarea" matInput formControlName="footer">
+                       
+                    </div>
+
+                    <div class="form-header-buttons">
+                        <button mat-raised-button  class="cancel-btn" (click)="cancel()">
+                            <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.CANCEL-BUTTON'| transloco }} </span>
+                        </button>
+                        <button mat-raised-button  class="save-btn" (click)="save()">
+                            <span *ngIf="isSaving; else saving" class="loading">
+                                <span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.SAVE-BUTTON.SAVING'| transloco }} </span>
+                                <mat-spinner diameter="20"></mat-spinner>
+                            </span>
+                            <ng-template #saving>
+                                <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.SAVE-BUTTON.SAVE'| transloco }} </span>
+                            </ng-template>
+                        </button>
+                    </div>
+                </div>
+                
+
+                <!-- <div class="form-group">
+                    <p> Add responses</p>
+                    <p>Add buttons or list that let learners respond to your message</p>
+                    <p>Add buttons +</p>
+                    <p>Add list +</p>
+                    
+                </div> -->
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<convl-page title="User Detail Tab">
+    <div class="page-container">
+        <div *ngIf="currentLearner">
+            <app-learner-information [currentLearner]="currentLearner"></app-learner-information>
+            <app-learner-enrolled-courses [currentLearner]="currentLearner"></app-learner-enrolled-courses>
+        </div>
+
+        <app-learner-assessment-history [assessments]="endUserAssessments"></app-learner-assessment-history>
+    </div>
+</convl-page>

@@ -1,7 +1,7 @@
-<div [id]="id" *ngIf="audioMessageForm">
+<div class="wide" [id]="id" *ngIf="audioMessageForm">
     <form [formGroup]="audioMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-        <div [id]="audioInputId" class="audio_bg">
+        <div [id]="audioInputId" class="audio_bg"  [ngClass]="byPassedLimits.length ? 'error' : ''">
 
             <div *ngIf="this.block.fileSrc && !isLoadingAudio">
                 <audio controls>
@@ -12,17 +12,28 @@
                 <i class="fas fa-circle-notch fa-spin"></i>
             </div>
             <div *ngIf="!this.block.fileSrc && !isLoadingAudio" class="audio-icon" (click)="audioInput.click()">
-                <i class="fas fa-file-audio" (click)="audioInput.click()"></i>
+                <img [src]="svgIcon" (click)="audioInput.click()"  class="svgIcon" >
             </div>
             <div>
                 <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc">
             </div>
         </div>
+
+        <div class="error-message" *ngIf="whatsappLimit">
+            <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-ONE' | transloco }}</span><br>
+            <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-TWO' | transloco }}</span>
+        </div>
+
         <input type="text" formControlName="fileSrc"
             [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco " name="audio-link "
             id="audio-link ">
 
+        <div *ngIf="this.block.fileSrc && !isLoadingAudio" class="waveform-container">
+            <img (click)="togglePlayPause()" src="assets/svgs/blocks/play.svg" class="play-button" alt="">
+            <div class="wave">
+                <div #waveform></div>
+            </div>
+        </div>
         <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="audioMessageForm"></app-default-option-field>
-
     </form>
 </div>

@@ -1,6 +1,7 @@
 {
   "functions": {
     "source": "dist/apps/conv-lm-backend",
+    "runtime": "nodejs18",
     "predeploy": [
       "nx build conv-lm-backend --skip-nx-cache --prod",
       "node tools/scripts/build-gc-functions-package.js"

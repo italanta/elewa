@@ -2,6 +2,7 @@ import { HandlerTools } from "@iote/cqrs";
 
 import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
 import { MessageTypes } from "@app/model/convs-mgr/functions";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 import { ProcessInput } from "../process-input.class";
 
@@ -17,7 +18,7 @@ export class ProcessOptionsInput extends ProcessInput<string> implements IProces
     this.tools = tools;
   }
 
-  public async handleInput(message: Message, lastBlock: StoryBlock, orgId: string, endUserId: string): Promise<boolean> 
+  public async handleInput(message: Message, lastBlock: StoryBlock, orgId: string, endUser: EndUser): Promise<boolean> 
   {
     this.tools.Logger.log(()=> `ProcessOptionsInput: ${JSON.stringify(message)} ${lastBlock.message}`)
 
@@ -27,14 +28,20 @@ export class ProcessOptionsInput extends ProcessInput<string> implements IProces
       // const formattedTitle = lastBlock.blockTitle.replace(/ /g,"_").toLowerCase();
 
       // If the storyblock is already assigned a variable we use that variable first
-      this.variableName = this.variableExists(lastBlock.variable) ? lastBlock.variable.name : `${lastBlock.id}_${lastBlock.type}`;
+      if(this.variableExists(lastBlock.variable)) {
 
-      const variableType = lastBlock.variable ? lastBlock.variable.type : VariableTypes.String
+        this.variableName = lastBlock.variable.name;
+        
+        const variableType = lastBlock.variable.type;
+  
+        const inputValue = questionMessage.options[0].optionText;
+        
+        if (message.type !== MessageTypes.QUESTION) return false;
+  
+        return this.saveInput(orgId, endUser, inputValue, message.type, variableType); 
+      } else {
+        return false;
+      }
 
-      const inputValue = questionMessage.options[0].optionText;
-      
-      if (message.type !== MessageTypes.QUESTION) return false;
-
-      return this.saveInput(orgId, endUserId, inputValue, message.type, variableType); 
   }
 }

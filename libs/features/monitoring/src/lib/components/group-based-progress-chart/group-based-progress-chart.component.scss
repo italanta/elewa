@@ -1,0 +1,30 @@
+.chart-container {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 5px;
+  height: 415px;
+  width: 50vw;
+
+  .chart {
+    position: relative;
+    margin: auto;
+    height: 415px; // This value has to be less than 100% for the chart to be dynamically responsive
+    width: 95%; // same here
+    display: none;
+
+    &.show-canvas {
+      display: block;
+    }
+  }
+
+  .no-data {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    &.hide-no-data {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,51 @@
+.cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.card {
+
+  display: flex;
+  box-sizing: border-box;
+  place-content: stretch flex-start;
+  align-items: stretch;
+  flex: 1 1 100%;
+  max-width: 24%;
+
+
+  // justify-content: space-between;
+  flex-direction: column;
+  color: #FFFFFF;
+  padding: 20px;
+
+  height: 132px;
+  border-radius: 1.25rem;
+
+  .card-header {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding-bottom: 0.875rem;
+
+    .card-icon {
+      width: 12%;
+      opacity: 0.53;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 400;
+    }
+  }
+
+  .card-number {
+    font-size: 3rem;
+  }
+}
+
+.card-header, .card-number {
+  padding-left: 0.2rem;
+}

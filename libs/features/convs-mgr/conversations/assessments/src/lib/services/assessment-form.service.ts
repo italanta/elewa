@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder } from '@angular/forms';
 
-import { 
-  AssessmentConfiguration, 
-  AssessmentQuestion, 
-  AssessmentQuestionOptions, 
-  AssessmentQuestionType 
-} from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment, AssessmentConfiguration, AssessmentQuestion, AssessmentQuestionOptions, 
+  AssessmentQuestionType } from '@app/model/convs-mgr/conversations/assessments';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AssessmentFormService {
 
   constructor(private _formBuilder: FormBuilder) {}
 
-  createAssessmentDetailForm(configs?: AssessmentConfiguration){
+  createAssessmentDetailForm(assessment: Assessment){
     return this._formBuilder.group({
+      id: [assessment.id ?? ''],
+      title: [assessment?.title ?? ''],
+      questionsOrder: [assessment?.questionsOrder ?? []],
       configs: this._formBuilder.group({
-        feedback: [configs?.feedback ?? ''],
-        userAttempts: [configs?.userAttempts ?? '']
+        feedback: [assessment!.configs?.feedback ?? ''],
+        userAttempts: [assessment!.configs?.userAttempts ?? '']
       }),
       questions: this._formBuilder.array([])
     });
@@ -31,13 +31,9 @@ export class AssessmentFormService {
       questionType: AssessmentQuestionType.SingleSelectOptions,
       marks: [question?.marks ?? ''],
       message: [question?.message ?? ''],
-
-      feedback: this._formBuilder.group({
-        message: [question?.feedback?.message ?? ''],
-        condition: [question?.feedback?.condition ?? '']
-      }),
-  
-      options: question?.options ? this._prefillOptions(question?.options) : this._formBuilder.array([]),
+      options: question?.options ? this._prefillOptions(question?.options) : this._formBuilder.array([
+        this.createDefaultChoice()
+      ]),
       nextQuestionId: [question?.nextQuestionId ?? null],
       prevQuestionId: [question?.prevQuestionId ?? null],
     });
@@ -47,7 +43,17 @@ export class AssessmentFormService {
     return this._formBuilder.group({
       id: [`${questionId} - ${options.length + 1}`],
       text: [''],
-      accuracy: ['']
+      accuracy: [''],
+      feedback: ['']
+    });
+  }
+
+  createDefaultChoice() {
+    return this._formBuilder.group({
+      id: [`0-1`],
+      text: [''],
+      accuracy: [''],
+      feedback: ['']
     });
   }
 
@@ -58,7 +64,8 @@ export class AssessmentFormService {
       const group = this._formBuilder.group({
         id: [option?.id],
         text: [option?.text],
-        accuracy: [option?.accuracy]
+        accuracy: [option?.accuracy],
+        feedback: [option?.feedback]
       })
 
       formArray.push(group);

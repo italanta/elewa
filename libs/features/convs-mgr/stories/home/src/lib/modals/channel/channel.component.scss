@@ -1,0 +1,62 @@
+.container{
+    .header{
+        text-align: center;
+        font-size: large;
+        color: var(--connector-color-teal-blue);
+      }
+    .platform{
+      .select-wrapper {
+        height: 4.5rem; 
+        overflow-y: auto;
+       }
+       
+      .buttons{
+        padding-top: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        .cancel{
+            padding: 0.5rem 2rem;
+            color: var(--connector-color-teal-blue);
+            background-color: transparent;
+            font-size: 14px;
+            font-family: Roboto;
+            font-weight: 400;
+            word-wrap: break-word;
+            border-radius: 30px;
+            border: 1px var(--convs-mgr-color-3E788A)solid;
+        }
+          
+        .submit{
+            padding: 0.5rem 2rem;
+            color: white;
+            background: var(--convs-mgr-color-3E788A); 
+            border-radius: 30px;
+            border: none;
+        }
+      }
+      .info-text{
+        color: grey;
+        font-weight: 300;
+        line-height: 0.3;
+      }
+      
+    }
+  }
+
+.cancel, .submit {
+  cursor: pointer;
+}
+  
+.select {
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.4rem 0;
+}
+.info-text-section {
+  padding-bottom: 0.5rem;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 1.6rem!important;
+}
+  

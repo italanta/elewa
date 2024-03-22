@@ -1,14 +1,15 @@
-import { AfterViewInit, Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, OnDestroy, ViewChildren, QueryList } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, startWith } from 'rxjs';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { ConditionalBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
 import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
+import { OptionInputFieldComponent, __FocusCursorOnNextInputOfBlock } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
   selector: 'app-conditional-block',
@@ -21,9 +22,13 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   @Input() conditionalBlockForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
+  @ViewChildren('optionInputFields') optionInputFields: QueryList<OptionInputFieldComponent>;
+
+  private currentIndex = 0;
+  private _sBs = new SubSink();
+
   vars$: Observable<string[]>;
 
-  private _sBs = new SubSink();
   readonly listOptionInputLimit = 20;
   readonly listOptionsArrayLimit = 10;
 
@@ -32,7 +37,7 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   }
 
   ngOnInit() {
-    this.manageFormControls()
+    this.manageFormControls();
   }
 
   ngAfterViewInit(): void {
@@ -42,30 +47,33 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   }
 
   manageFormControls() {
-    this._sBs.sink = this.isTyped.valueChanges.pipe(startWith(this.isTyped.value),map(isTyped => {
+    this._sBs.sink = this.isTyped.valueChanges.pipe(startWith(this.isTyped.value)).subscribe((isTyped) => {
       if (isTyped) {
-        this.selectedVar.reset()
-        this.selectedVar.disable()
-        this.typedVar.enable()
+        this.selectedVar.reset();
+        this.selectedVar.disable();
+        this.typedVar.enable();
+        // Disable the select element if it's not null
+        this.conditionalBlockForm.get('assessmentlabel')?.disable();
+      } else {
+        this.typedVar.reset();
+        this.typedVar.disable();
+        this.selectedVar.enable();
+        // Enable the select element if it's not null
+        this.conditionalBlockForm.get('assessmentlabel')?.enable();
       }
-      else {
-        this.typedVar.reset()
-        this.typedVar.disable()
-        this.selectedVar.enable()
-      }
-    })).subscribe()
+    });
   }
 
   get isTyped(): AbstractControl {
-    return this.conditionalBlockForm.controls['isTyped']
+    return this.conditionalBlockForm.controls['isTyped'];
   }
 
   get selectedVar(): AbstractControl {
-    return this.conditionalBlockForm.controls['selectedVar']
+    return this.conditionalBlockForm.controls['selectedVar'];
   }
 
   get typedVar(): AbstractControl {
-    return this.conditionalBlockForm.controls['typedVar']
+    return this.conditionalBlockForm.controls['typedVar'];
   }
 
   get options(): FormArray {
@@ -76,21 +84,28 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
     return this._fb.group({
       id: [optionItem?.id ?? `${this.id}-${this.options.length + 1}`],
       message: [optionItem?.message ?? ''],
-      value: [optionItem?.value ?? '']
-    })
+      value: [optionItem?.value ?? ''],
+    });
   }
 
   addNewOption() {
     if (this.options.length < this.listOptionsArrayLimit) {
       this.options.push(this.addExistingOptions());
     }
+    setTimeout(() => {
+      this.setFocusOnNextInput();
+    });
   }
 
   deleteInput(i: number) {
     this.options.removeAt(i);
   }
 
+  setFocusOnNextInput() {
+    this.currentIndex = __FocusCursorOnNextInputOfBlock(this.currentIndex, this.optionInputFields);
+  }
+
   ngOnDestroy() {
-    this._sBs.unsubscribe()
+    this._sBs .unsubscribe();
   }
 }

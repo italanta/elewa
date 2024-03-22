@@ -1,0 +1,70 @@
+<div class="header">
+  <div class="modules-title">
+    <span class="tooltip"></span>
+    <span class="name" >{{ (parentBot$ | async)?.name }} </span>
+  </div>
+
+  <div *ngIf="breadcrumbs$">
+    <app-ital-breadcrumb [breadcrumbs$]="breadcrumbs$"></app-ital-breadcrumb>
+  </div>
+
+  <div class="modules-header-btns">
+      <div class="module-btns">
+        <button class="btn create-module" (click)="createModule()">
+          <img class="add-icon" src="assets\svgs\carbon-add-filled.svg" alt="add icon">
+          <span class="btn-text">Create Module</span>
+        </button>
+    
+        <button class="btn connect-bot" (click)="connectToChannel(activeBot)">
+          <span class="btn-text">Connect bot</span>
+        </button>
+    
+        <button class="btn publish-bot" (click)="publishBot(activeBot)">
+          <span class="btn-text">Publish</span>
+        </button>
+      </div>
+  </div>
+
+  <div class="modules-search">
+    <div class="search-wrapper">
+      <i class="fas fa-search search-wrapper_tooltip"></i>
+      <input class="search-input" placeholder="search module" type="search" (keyup)="searchTable($event)" name="" id="">
+    </div>
+
+    <div class="sort-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1rem" fxFlex>
+      <div class="grid-list" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1rem" fxFlex>
+        <div class="select">
+          <select [value]="sortCoursesBy" (change)="sortBy($event)">
+            <option value="default">Default Order (A-Z)</option>
+            <option value="newest">Date Created (Newest)</option>
+            <option value="oldest">Date Created (Oldest)</option>
+          </select>
+        </div>
+
+        <button [ngClass]="viewInListView ? 'view-active' : ''" mat-stroked-button (click)="viewInListView = !viewInListView">
+          <i class="fa-solid fa-list-ul"></i>
+          <span style="margin-left: 10px;"> List </span>
+        </button>
+
+        <button [ngClass]="!viewInListView ? 'view-active' : ''" mat-stroked-button (click)="viewInListView = !viewInListView">
+          <i class="fa-solid fa-border-all"></i>
+          <span style="margin-left: 10px;"> Grid </span>
+        </button>
+      </div>
+    </div> 
+  </div>
+
+  <div class="no-content" *ngIf="!dataFound">
+      <div class="create-assessments" (click)="createModule()" fxLayout="row" fxLayout="center center">
+        <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+          <i class="fa fa-plus fa-5x" aria-hidden="true"></i>
+          <p> Add Module</p>
+        </div>
+      </div>
+  </div>
+
+  <div class="content-section" *ngIf="dataFound">
+    <italanta-apps-bot-modules-list-view *ngIf="viewInListView" [parentBot$]="parentBot$" [botModulesData]="dataSource"></italanta-apps-bot-modules-list-view>
+    <italanta-apps-bot-modules-grid-view  *ngIf="!viewInListView" [parentBot$]="parentBot$" [botModules]="filteredBotModules"></italanta-apps-bot-modules-grid-view>
+  </div>
+</div>
