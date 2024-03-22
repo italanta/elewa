@@ -21,7 +21,7 @@
         </div>
     
         <div formGroupName="CanAddNewMember" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.GENERAL-SETTINGS.ADD' | transloco }}  </p>
+          <p class="title left-title" fxFlex="20%">{{ 'PERMISSIONS.GENERAL-SETTINGS.ADD' | transloco }}  </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               
@@ -39,7 +39,7 @@
         </div>
     
         <div formGroupName="CanDeleteMember" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.GENERAL-SETTINGS.DELETE' | transloco }} </p>
+          <p class="title left-title" fxFlex="20%">{{ 'PERMISSIONS.GENERAL-SETTINGS.DELETE' | transloco }} </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>   -->

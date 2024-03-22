@@ -154,6 +154,8 @@ $sidebar-footer-height: 230px;
     .sidebar-content {
       flex-grow: 1;
       padding: 10px 0;
+      display: flex;
+      justify-content: center;
     }
     .sidebar-footer {
       height: $sidebar-footer-height;
@@ -196,6 +198,11 @@ $sidebar-footer-height: 230px;
   }
 }
 
+.menu-item a:hover {
+  background-color: rgba(160, 196, 204, 0.6);
+  border-radius: 0.4rem;
+}
+
 .layout {
   .sidebar {
     .menu {
@@ -213,15 +220,17 @@ $sidebar-footer-height: 230px;
         opacity: 0.5;
       }
       .menu-item {
+        padding: 5px;
         a {
           display: flex;
           align-items: center;
           height: 25px;
-          padding: 0 20px;
+          padding: 22px 20px;
+          // margin-bottom: 10px;
           color: $text-color;
-          margin-bottom: 20px;
           padding-left: 30px;
           justify-content: center;
+          width: 100%;
 
           .menu-icon {
             cursor: pointer;
