@@ -199,7 +199,7 @@ $sidebar-footer-height: 230px;
 }
 
 .menu-item a:hover {
-  background-color: #A0C4CC;
+  background-color: rgba(160, 196, 204, 0.6);
   border-radius: 0.4rem;
 }
 
@@ -220,7 +220,7 @@ $sidebar-footer-height: 230px;
         opacity: 0.5;
       }
       .menu-item {
-        padding: 10px;
+        padding: 5px;
         a {
           display: flex;
           align-items: center;
