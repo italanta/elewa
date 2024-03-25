@@ -4,8 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 
-import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
-import { Bot } from '@app/model/convs-mgr/bots';
+import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 @Component({
   selector: 'app-main-channel-modal',
@@ -16,14 +15,14 @@ export class MainChannelModalComponent implements OnInit, OnDestroy
 {
   private _sBs = new SubSink();
   selectedTab = 1;
-  bot: Bot;
+  channel: CommunicationChannel;
 
-  modalData: { selectedPlatform: PlatformType, bot: Bot; };
+  modalData: { selectedPlatform: PlatformType, channel: CommunicationChannel; };
 
   constructor(private router: ActivatedRoute,
-    @Inject(MAT_DIALOG_DATA) public data: { bot: Bot; })
+    @Inject(MAT_DIALOG_DATA) public data: { channel: CommunicationChannel; })
   {
-    this.bot = data.bot;
+    this.channel = data.channel;
   }
 
   ngOnInit()
@@ -38,7 +37,7 @@ export class MainChannelModalComponent implements OnInit, OnDestroy
   {
     this.modalData = {
       selectedPlatform: value.selectedPlatform,
-      bot: this.bot,
+      channel: this.channel,
     };
     this.selectedTab = 2;
   }
