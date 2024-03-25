@@ -15,7 +15,7 @@ import { OrganisationService } from '@app/private/state/organisation/main';
 // import { FileStorageService } from '@app/features/files';
 
 import { UpdateCompanyLogoModalComponent } from '../../modals/update-company-logo-modal/update-company-logo-modal.component';
-import { AddChannelModalComponent } from '../../modals/add-channel-modal/add-channel-modal.component';
+import { AddChannelModalComponent } from '../../modals/select-channel-modal/select-channel-modal.component';
 import { ChannelFormModalComponent } from '../../modals/channel-form-modal/channel-form-modal.component';
 
 
