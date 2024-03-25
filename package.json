@@ -1,7 +1,7 @@
 {
   "name": "elewa",
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "MIT", 
   "scripts": {
     "ng": "nx",
     "emulators:start": "nx build conv-lm-backend --skip-nx-cache --prod && node tools/scripts/build-gc-functions-package.js && firebase emulators:start --import=emulator-data --export-on-exit",
