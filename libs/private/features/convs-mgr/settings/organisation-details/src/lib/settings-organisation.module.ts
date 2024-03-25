@@ -19,6 +19,7 @@ import { CompanyDataComponent } from './components/company-data/company-data.com
 import { UpdateCompanyLogoModalComponent } from './modals/update-company-logo-modal/update-company-logo-modal.component';
 import { AddChannelModalComponent } from './modals/add-channel-modal/add-channel-modal.component';
 import { ChannelFormModalComponent } from './modals/channel-form-modal/channel-form-modal.component';
+import { MainChannelModalComponent } from './modals/main-channel-modal/main-channel-modal.component';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { ChannelFormModalComponent } from './modals/channel-form-modal/channel-f
     UpdateCompanyLogoModalComponent,
     AddChannelModalComponent,
     ChannelFormModalComponent,
+    MainChannelModalComponent,
   ],
   exports: [CompanyDataComponent],
   providers: [
