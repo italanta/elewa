@@ -21,10 +21,23 @@ import { _channelMessengerForm, _channelWhatsAppForm } from '../../providers/cha
 })
 export class ChannelFormModalComponent implements OnInit, OnDestroy {
 
-  @Input() channelData : { selectedPlatform: PlatformType, channel: CommunicationChannel };
+  @Input() set channelData(data: { selectedPlatform: PlatformType, channel: CommunicationChannel })
+  {
+    if (data && data.selectedPlatform) {
+      this.selectedPlatform = data.selectedPlatform;
+      
+      this.initForm();
+    }
+    
+    if(data && data.channel) {
+      this.channel = data.channel;
+      this.initForm();
+    }
 
+  }
   selectedPlatform: PlatformType;
-  showWhatsAppForm :boolean;
+
+  channel: CommunicationChannel;
  
   channelForm: FormGroup;
   
@@ -37,40 +50,39 @@ export class ChannelFormModalComponent implements OnInit, OnDestroy {
     private _dialog: MatDialog,
     private fb: FormBuilder,
     private _orgService$$: OrganisationService,
-  ){  }
-  ngOnInit(): void {
-    this.showForm();
-    this.initForm();
-    this.getActiveOrg();
-  }
+  ) { }
 
-  showForm() {
-    if (this.channelData && this.channelData.selectedPlatform) {
-      this.selectedPlatform = this.channelData.selectedPlatform;
-      this.showWhatsAppForm = this.selectedPlatform === PlatformType.WhatsApp;
-    }
+  ngOnInit(): void {
+    this.getActiveOrg();
   }
 
   getActiveOrg() {
     this._sbS.sink = this._orgService$$.getActiveOrg().subscribe((org) => {
       this.activeOrg = org;
+      if(this.channelForm) {
+        this.setOrgId(this.activeOrg.id as string);
+      }
     });
   }
 
-  initForm() {
-    const orgId = this.activeOrg?.id as string; 
-  
+  initForm() { 
+    if(!this.selectedPlatform) return;
     if (this.selectedPlatform === PlatformType.WhatsApp) {
-      this.channelForm = _channelWhatsAppForm(this.fb, orgId);
+      this.channelForm = _channelWhatsAppForm(this.fb);
     } else {
-      this.channelForm = _channelMessengerForm(this.fb, orgId);
+      this.channelForm = _channelMessengerForm(this.fb);
     }
+    if(this.channel) {
+     this.channelForm.patchValue(this.channel);
+    }
+  }
 
-    if(this.channelData) {
-      // Populate the form with initial values if available
-     const initialValues = this.channelData.channel || {};
-     this.channelForm.patchValue(initialValues);
-    }
+  setOrgId(orgId: string) {
+
+    this.channelForm.patchValue({
+      orgId: orgId,
+    });
+
   }
 
   
@@ -78,9 +90,21 @@ export class ChannelFormModalComponent implements OnInit, OnDestroy {
     if (!this.channelForm.valid) {
       return;
     }
-  
+    let idKey;
+
     // Set id based on the selected platform
-    const idKey = this.showWhatsAppForm ? 'phoneNumberId' : 'pageId';
+    switch (this.selectedPlatform) {
+      case PlatformType.WhatsApp:
+        idKey = 'phoneNumberId';
+        break;
+      case PlatformType.Messenger:
+        idKey = 'pageId';
+        break;
+      default:
+        idKey = 'phoneNumberId';
+        break;
+    }
+
     this.channelForm.patchValue({
       id: this.channelForm.get(idKey)?.value,
     });

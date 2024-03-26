@@ -3,7 +3,7 @@
         <h3>{{"COMPANY-INFORMATION.CHANNEL-MODAL.ADD-CHANNEL" | transloco}}</h3>
       </div>    
       <!-- WhatsApp Form -->
-<div *ngIf="showWhatsAppForm">
+<div *ngIf="selectedPlatform === 'whatsapp'">
   <form [formGroup]="channelForm" (ngSubmit)="onChannelFormSubmit()">
     <div class="general">
       <label for="fname">{{"COMPANY-INFORMATION.CHANNEL-MODAL.GENERAL-DETAILS" | transloco}}</label><br>
@@ -21,7 +21,7 @@
 
       <div class="input-data">
         <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER" | transloco}}</label>
-        <input type="text" formControlName="phoneNumber" id="phoneNumber" name="botPhoneNumber" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER" | transloco}}'>
+        <input type="text" formControlName="phoneNumber" id="phoneNumber" name="phoneNumber" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER" | transloco}}'>
       </div>
 
       <div class="input-data">
@@ -46,7 +46,7 @@
 </div>
 
 <!-- Messenger Form -->
-<div *ngIf="!showWhatsAppForm">
+<div *ngIf="selectedPlatform === 'messenger'">
   <form [formGroup]="channelForm" (ngSubmit)="onChannelFormSubmit()">
     <div class="general">
       <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.GENERAL-DETAILS" | transloco}}</label><br>
