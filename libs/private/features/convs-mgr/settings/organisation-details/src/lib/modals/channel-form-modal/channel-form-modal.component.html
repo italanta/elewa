@@ -1,15 +1,12 @@
-<div class="card">
-      <div class="top">
-        <h3>{{"COMPANY-INFORMATION.CHANNEL-MODAL.ADD-CHANNEL" | transloco}}</h3>
-      </div>    
+<div class="card"> 
       <!-- WhatsApp Form -->
 <div *ngIf="selectedPlatform === 'whatsapp'">
   <form [formGroup]="channelForm" (ngSubmit)="onChannelFormSubmit()">
     <div class="general">
       <label for="fname">{{"COMPANY-INFORMATION.CHANNEL-MODAL.GENERAL-DETAILS" | transloco}}</label><br>
       <div class="input-data">
-        <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}</label>
-        <input type="text" formControlName="name" id="name" name="name" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}'>
+        <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.CHANNEL-NAME" | transloco}}</label>
+        <input type="text" formControlName="name" id="name" name="name" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.CHANNEL-NAME" | transloco}}'>
       </div>
     </div>
     <div class="channel-details">
@@ -35,12 +32,11 @@
       </div>
     </div>
     <div class="buttons">
-      <div class="cancel">
-        <div (click)="closeModal()">{{"COMPANY-INFORMATION.BUTTON.CANCEL" | transloco}}</div>
-      </div>
-      <div class="continue">
-        <button type="submit">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.ADD-CHANNEL" | transloco}}</button>
-      </div>
+      <button class="cancel" type="button" (click)="closeModal()" >{{"COMPANY-INFORMATION.BUTTON.CANCEL" | transloco}}</button>
+      <button class="submit" type="submit" >
+        <span *ngIf="!channel">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.ADD-CHANNEL" | transloco}}</span> 
+        <span *ngIf="channel">{{"COMPANY-INFORMATION.CHANNEL-MODAL.EDIT-CHANNEL" | transloco}}</span> 
+      </button>
     </div>
   </form>
 </div>
@@ -68,12 +64,11 @@
       </div>
     </div>
     <div class="buttons">
-      <div class="cancel">
-        <div (click)="closeModal()">{{"COMPANY-INFORMATION.BUTTON.CANCEL" | transloco}}</div>
-      </div>
-      <div class="continue">
-        <button type="submit">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.ADD-CHANNEL" | transloco}}</button>
-      </div>
+      <button class="cancel" type="button" (click)="closeModal()" >{{"COMPANY-INFORMATION.BUTTON.CANCEL" | transloco}}</button>
+      <button class="submit" type="submit" >
+        <span *ngIf="!channel">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.ADD-CHANNEL" | transloco}}</span> 
+        <span *ngIf="channel">{{"COMPANY-INFORMATION.CHANNEL-MODAL.EDIT-CHANNEL" | transloco}}</span> 
+      </button>
     </div>
   </form>
 </div>
