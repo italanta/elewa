@@ -1222,6 +1222,7 @@
         "ADD-CHANNEL":"Add Channel"
       },
       "ADD-CHANNEL":"Add Channel",
+      "EDIT-CHANNEL":"Edit Channel",
       "SELECT-PLATFORM":"Select Platform",
       "SELECT-CHANNEL":"Select Channel",
       "ADD-DETAILS":"Add Details",
@@ -1238,8 +1239,7 @@
       "MESSENGER-CHANNEL-DETAILS":"Messenger Channel Details",
       "CHANNEL-NAME":"Channel Name",
       "PLATFORM":"Platform",
-      "FIRST-STORY":"First Story",
-      "EDIT-CHANNEL":"Edit Channel"
+      "FIRST-STORY":"First Story"
       
   }
 }
