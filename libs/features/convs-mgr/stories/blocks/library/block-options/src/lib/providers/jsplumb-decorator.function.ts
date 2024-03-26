@@ -18,7 +18,13 @@ export function _JsPlumbInputOptionDecorator(sourceElement: Element, jsPlumb: Br
     endpoint: 'Dot',
     // Where to position the anchor
     anchor: "Right",
-    connector : FlowchartConnector.type
+    connector: {
+      type: 'Flowchart',
+      options: {
+        cssClass: 'frame-connector',
+        cornerRadius: 100
+      },
+    },
   });  
   return sourceElement;
 }
