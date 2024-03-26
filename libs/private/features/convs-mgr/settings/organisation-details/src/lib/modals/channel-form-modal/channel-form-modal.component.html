@@ -1,24 +1,7 @@
 <div class="card">
-    <div class="cancel-icon">
-      <img src="assets/icons/delete-x.svg" class="close-button" (click)="closeModal()">
-    </div>
       <div class="top">
         <h3>{{"COMPANY-INFORMATION.CHANNEL-MODAL.ADD-CHANNEL" | transloco}}</h3>
-      </div>
-      <div class="lines">
-          <div class="left-line"></div>
-          <div class="right-line"></div>
-      </div>
-      <div class="platform">
-        <div class="select">
-          <p>{{"COMPANY-INFORMATION.CHANNEL-MODAL.SELECT-PLATFORM" | transloco}}</p>
-        </div>
-        <div class="add">
-          <p>{{"COMPANY-INFORMATION.CHANNEL-MODAL.ADD-DETAILS" | transloco}}</p>
-        </div>
-      </div>
-    
-    
+      </div>    
       <!-- WhatsApp Form -->
 <div *ngIf="showWhatsAppForm">
   <form [formGroup]="channelForm" (ngSubmit)="onChannelFormSubmit()">
