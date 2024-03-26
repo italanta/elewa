@@ -111,13 +111,18 @@ export class ChannelFormModalComponent implements OnInit, OnDestroy {
   
   
     const channelData = this.channelForm.value;
-  
+    channelData.orgId = this.activeOrg.id as string;
+
+    let channel$;
     // Check if it's an update or new channel
-    const channelObservable = this.channelData.channel ?
-      this._channelService$.updateChannel(channelData) :
-      this._channelService$.addChannels(channelData, this.channelForm.get('id')?.value);
+    if(this.channel) {
+      channelData.id = this.channel.id;
+      channel$ = this._channelService$.updateChannel(channelData);
+    } else {
+      channel$ =this._channelService$.addChannels(channelData, this.channelForm.get('id')?.value);
+    }
   
-    channelObservable.subscribe(() => {
+    channel$.subscribe(() => {
       this.closeModal();
     });
   }
