@@ -15,8 +15,9 @@ import { OrganisationService } from '@app/private/state/organisation/main';
 // import { FileStorageService } from '@app/features/files';
 
 import { UpdateCompanyLogoModalComponent } from '../../modals/update-company-logo-modal/update-company-logo-modal.component';
-import { AddChannelModalComponent } from '../../modals/select-channel-modal/select-channel-modal.component';
+import { SelectChannelModalComponent } from '../../modals/select-channel-modal/select-channel-modal.component';
 import { ChannelFormModalComponent } from '../../modals/channel-form-modal/channel-form-modal.component';
+import { MainChannelModalComponent } from '../../modals/main-channel-modal/main-channel-modal.component';
 
 
 
@@ -119,18 +120,13 @@ export class CompanyDataComponent implements OnInit {
   }
 
   addChannel(){
-    this._dialog.open(AddChannelModalComponent, {
-      minWidth: '30%',
-      minHeight: '21.125rem',
-    });
+    this._dialog.open(MainChannelModalComponent);
   }
 
   editChannel(channel: CommunicationChannel) {
     // Determine the platform and open the modal with the respective form
-    this._dialog.open(ChannelFormModalComponent, {
-      minWidth: '30%',
-      minHeight: '21.125rem',
-      data: { selectedPlatform: channel.type, initialValues: channel, update: true }
+    this._dialog.open(MainChannelModalComponent, {
+      data: { channel: channel}
     });
   
   }
