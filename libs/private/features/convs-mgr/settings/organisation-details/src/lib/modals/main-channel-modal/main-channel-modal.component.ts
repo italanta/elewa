@@ -17,12 +17,18 @@ export class MainChannelModalComponent implements OnInit, OnDestroy
   selectedTab = 1;
   channel: CommunicationChannel;
 
-  modalData: { selectedPlatform: PlatformType, channel: CommunicationChannel; };
+  modalData: { selectedPlatform: PlatformType, channel: CommunicationChannel };
 
   constructor(private router: ActivatedRoute,
-    @Inject(MAT_DIALOG_DATA) public data: { channel: CommunicationChannel; })
+    @Inject(MAT_DIALOG_DATA) public data: { channel: CommunicationChannel})
   {
-    this.channel = data.channel;
+    if(data) {
+      this.channel = data.channel;
+      this.modalData = {
+        selectedPlatform: this.channel.type,
+        channel: data.channel
+      }
+    }
   }
 
   ngOnInit()
@@ -31,13 +37,17 @@ export class MainChannelModalComponent implements OnInit, OnDestroy
     {
       this.selectedTab = params['selectedTab'];
     });
+
+    if(this.data) {
+      this.selectedTab = 2;
+    }
   }
 
   getPlatform(value: { selectedPlatform: PlatformType; })
   {
     this.modalData = {
       selectedPlatform: value.selectedPlatform,
-      channel: this.channel,
+      channel: this.channel
     };
     this.selectedTab = 2;
   }

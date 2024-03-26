@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
@@ -21,6 +21,8 @@ import { _channelMessengerForm, _channelWhatsAppForm } from '../../providers/cha
 })
 export class ChannelFormModalComponent implements OnInit, OnDestroy {
 
+  @Input() channelData : { selectedPlatform: PlatformType, channel: CommunicationChannel };
+
   selectedPlatform: PlatformType;
   showWhatsAppForm :boolean;
  
@@ -35,24 +37,23 @@ export class ChannelFormModalComponent implements OnInit, OnDestroy {
     private _dialog: MatDialog,
     private fb: FormBuilder,
     private _orgService$$: OrganisationService,
-    @Inject(MAT_DIALOG_DATA) private data: { selectedPlatform: PlatformType, initialValues: CommunicationChannel , update : boolean}
   ){  }
   ngOnInit(): void {
     this.showForm();
+    this.initForm();
+    this.getActiveOrg();
   }
 
   showForm() {
-    if (this.data && this.data.selectedPlatform) {
-      this.selectedPlatform = this.data.selectedPlatform;
+    if (this.channelData && this.channelData.selectedPlatform) {
+      this.selectedPlatform = this.channelData.selectedPlatform;
       this.showWhatsAppForm = this.selectedPlatform === PlatformType.WhatsApp;
-      this.getActiveOrg();
     }
   }
 
   getActiveOrg() {
     this._sbS.sink = this._orgService$$.getActiveOrg().subscribe((org) => {
       this.activeOrg = org;
-      this.initForm();
     });
   }
 
@@ -65,9 +66,11 @@ export class ChannelFormModalComponent implements OnInit, OnDestroy {
       this.channelForm = _channelMessengerForm(this.fb, orgId);
     }
 
-     // Populate the form with initial values if available
-    const initialValues = this.data.initialValues || {};
-    this.channelForm.patchValue(initialValues);
+    if(this.channelData) {
+      // Populate the form with initial values if available
+     const initialValues = this.channelData.channel || {};
+     this.channelForm.patchValue(initialValues);
+    }
   }
 
   
@@ -86,7 +89,7 @@ export class ChannelFormModalComponent implements OnInit, OnDestroy {
     const channelData = this.channelForm.value;
   
     // Check if it's an update or new channel
-    const channelObservable = this.data.update ?
+    const channelObservable = this.channelData.channel ?
       this._channelService$.updateChannel(channelData) :
       this._channelService$.addChannels(channelData, this.channelForm.get('id')?.value);
   
