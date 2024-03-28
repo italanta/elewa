@@ -1,32 +1,12 @@
-<div class="card">
-    <div class="cancel-icon">
-      <img src="assets/icons/delete-x.svg" class="close-button" (click)="closeModal()">
-    </div>
-      <div class="top">
-        <h3>{{"COMPANY-INFORMATION.CHANNEL-MODAL.ADD-CHANNEL" | transloco}}</h3>
-      </div>
-      <div class="lines">
-          <div class="left-line"></div>
-          <div class="right-line"></div>
-      </div>
-      <div class="platform">
-        <div class="select">
-          <p>{{"COMPANY-INFORMATION.CHANNEL-MODAL.SELECT-PLATFORM" | transloco}}</p>
-        </div>
-        <div class="add">
-          <p>{{"COMPANY-INFORMATION.CHANNEL-MODAL.ADD-DETAILS" | transloco}}</p>
-        </div>
-      </div>
-    
-    
+<div class="card"> 
       <!-- WhatsApp Form -->
-<div *ngIf="showWhatsAppForm">
+<div *ngIf="selectedPlatform === 'whatsapp'">
   <form [formGroup]="channelForm" (ngSubmit)="onChannelFormSubmit()">
     <div class="general">
       <label for="fname">{{"COMPANY-INFORMATION.CHANNEL-MODAL.GENERAL-DETAILS" | transloco}}</label><br>
       <div class="input-data">
-        <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}</label>
-        <input type="text" formControlName="name" id="name" name="name" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}'>
+        <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.CHANNEL-NAME" | transloco}}</label>
+        <input type="text" formControlName="name" id="name" name="name" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.CHANNEL-NAME" | transloco}}'>
       </div>
     </div>
     <div class="channel-details">
@@ -38,7 +18,7 @@
 
       <div class="input-data">
         <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER" | transloco}}</label>
-        <input type="text" formControlName="phoneNumber" id="phoneNumber" name="botPhoneNumber" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER" | transloco}}'>
+        <input type="text" formControlName="phoneNumber" id="phoneNumber" name="phoneNumber" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER" | transloco}}'>
       </div>
 
       <div class="input-data">
@@ -52,18 +32,17 @@
       </div>
     </div>
     <div class="buttons">
-      <div class="cancel">
-        <div (click)="closeModal()">{{"COMPANY-INFORMATION.BUTTON.CANCEL" | transloco}}</div>
-      </div>
-      <div class="continue">
-        <button type="submit">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.ADD-CHANNEL" | transloco}}</button>
-      </div>
+      <button class="cancel" type="button" (click)="closeModal()" >{{"COMPANY-INFORMATION.BUTTON.CANCEL" | transloco}}</button>
+      <button class="submit" type="submit" >
+        <span *ngIf="!channel">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.ADD-CHANNEL" | transloco}}</span> 
+        <span *ngIf="channel">{{"COMPANY-INFORMATION.CHANNEL-MODAL.EDIT-CHANNEL" | transloco}}</span> 
+      </button>
     </div>
   </form>
 </div>
 
 <!-- Messenger Form -->
-<div *ngIf="!showWhatsAppForm">
+<div *ngIf="selectedPlatform === 'messenger'">
   <form [formGroup]="channelForm" (ngSubmit)="onChannelFormSubmit()">
     <div class="general">
       <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.GENERAL-DETAILS" | transloco}}</label><br>
@@ -85,12 +64,11 @@
       </div>
     </div>
     <div class="buttons">
-      <div class="cancel">
-        <div (click)="closeModal()">{{"COMPANY-INFORMATION.BUTTON.CANCEL" | transloco}}</div>
-      </div>
-      <div class="continue">
-        <button type="submit">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.ADD-CHANNEL" | transloco}}</button>
-      </div>
+      <button class="cancel" type="button" (click)="closeModal()" >{{"COMPANY-INFORMATION.BUTTON.CANCEL" | transloco}}</button>
+      <button class="submit" type="submit" >
+        <span *ngIf="!channel">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.ADD-CHANNEL" | transloco}}</span> 
+        <span *ngIf="channel">{{"COMPANY-INFORMATION.CHANNEL-MODAL.EDIT-CHANNEL" | transloco}}</span> 
+      </button>
     </div>
   </form>
 </div>

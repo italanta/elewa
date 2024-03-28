@@ -50,7 +50,10 @@ export class AssessmentListComponent implements OnInit, OnDestroy {
             __orderBy(assessments,(a) => __DateFromStorage(a.createdOn!).unix(),
             sort === ActionSortingOptions.Newest ? 'desc' : 'asc'
           )),
-          tap((assessments) => { this.dataSource.data = assessments})).subscribe()
+          tap((assessments) => { 
+            this.dataSource.data = assessments;
+            this.dataFound = assessments.length > 0;
+          })).subscribe()
     this.getMetrics();
 
     this.configureFilter();

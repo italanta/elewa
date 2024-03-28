@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
@@ -21,8 +21,23 @@ import { _channelMessengerForm, _channelWhatsAppForm } from '../../providers/cha
 })
 export class ChannelFormModalComponent implements OnInit, OnDestroy {
 
+  @Input() set channelData(data: { selectedPlatform: PlatformType, channel: CommunicationChannel })
+  {
+    if (data && data.selectedPlatform) {
+      this.selectedPlatform = data.selectedPlatform;
+      
+      this.initForm();
+    }
+    
+    if(data && data.channel) {
+      this.channel = data.channel;
+      this.initForm();
+    }
+
+  }
   selectedPlatform: PlatformType;
-  showWhatsAppForm :boolean;
+
+  channel: CommunicationChannel;
  
   channelForm: FormGroup;
   
@@ -35,39 +50,39 @@ export class ChannelFormModalComponent implements OnInit, OnDestroy {
     private _dialog: MatDialog,
     private fb: FormBuilder,
     private _orgService$$: OrganisationService,
-    @Inject(MAT_DIALOG_DATA) private data: { selectedPlatform: PlatformType, initialValues: CommunicationChannel , update : boolean}
-  ){  }
-  ngOnInit(): void {
-    this.showForm();
-  }
+  ) { }
 
-  showForm() {
-    if (this.data && this.data.selectedPlatform) {
-      this.selectedPlatform = this.data.selectedPlatform;
-      this.showWhatsAppForm = this.selectedPlatform === PlatformType.WhatsApp;
-      this.getActiveOrg();
-    }
+  ngOnInit(): void {
+    this.getActiveOrg();
   }
 
   getActiveOrg() {
     this._sbS.sink = this._orgService$$.getActiveOrg().subscribe((org) => {
       this.activeOrg = org;
-      this.initForm();
+      if(this.channelForm) {
+        this.setOrgId(this.activeOrg.id as string);
+      }
     });
   }
 
-  initForm() {
-    const orgId = this.activeOrg?.id as string; 
-  
+  initForm() { 
+    if(!this.selectedPlatform) return;
     if (this.selectedPlatform === PlatformType.WhatsApp) {
-      this.channelForm = _channelWhatsAppForm(this.fb, orgId);
+      this.channelForm = _channelWhatsAppForm(this.fb);
     } else {
-      this.channelForm = _channelMessengerForm(this.fb, orgId);
+      this.channelForm = _channelMessengerForm(this.fb);
     }
+    if(this.channel) {
+     this.channelForm.patchValue(this.channel);
+    }
+  }
 
-     // Populate the form with initial values if available
-    const initialValues = this.data.initialValues || {};
-    this.channelForm.patchValue(initialValues);
+  setOrgId(orgId: string) {
+
+    this.channelForm.patchValue({
+      orgId: orgId,
+    });
+
   }
 
   
@@ -75,22 +90,39 @@ export class ChannelFormModalComponent implements OnInit, OnDestroy {
     if (!this.channelForm.valid) {
       return;
     }
-  
+    let idKey;
+
     // Set id based on the selected platform
-    const idKey = this.showWhatsAppForm ? 'phoneNumberId' : 'pageId';
+    switch (this.selectedPlatform) {
+      case PlatformType.WhatsApp:
+        idKey = 'phoneNumberId';
+        break;
+      case PlatformType.Messenger:
+        idKey = 'pageId';
+        break;
+      default:
+        idKey = 'phoneNumberId';
+        break;
+    }
+
     this.channelForm.patchValue({
       id: this.channelForm.get(idKey)?.value,
     });
   
   
     const channelData = this.channelForm.value;
-  
+    channelData.orgId = this.activeOrg.id as string;
+
+    let channel$;
     // Check if it's an update or new channel
-    const channelObservable = this.data.update ?
-      this._channelService$.updateChannel(channelData) :
-      this._channelService$.addChannels(channelData, this.channelForm.get('id')?.value);
+    if(this.channel) {
+      channelData.id = this.channel.id;
+      channel$ = this._channelService$.updateChannel(channelData);
+    } else {
+      channel$ =this._channelService$.addChannels(channelData, this.channelForm.get('id')?.value);
+    }
   
-    channelObservable.subscribe(() => {
+    channel$.subscribe(() => {
       this.closeModal();
     });
   }

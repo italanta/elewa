@@ -20,6 +20,8 @@ export class StoryConnectionsStore extends DataStore<StoryBlockConnection>
   protected store = 'story-connections-store';
   protected _activeRepo: Repository<StoryBlockConnection>;
 
+  private _activeStory: Story;
+
   constructor(_story$$: ActiveStoryStore,
               private _activeOrgStore$$: ActiveOrgStore,
               private _repoFac: DataService,
@@ -28,9 +30,11 @@ export class StoryConnectionsStore extends DataStore<StoryBlockConnection>
     super("always", _logger);
 
     const activeOrg$ = this._activeOrgStore$$.get();
+    const activeStory$ = _story$$.get();
 
-    const data$ = combineLatest([activeOrg$,  _story$$.get()])
+    const data$ = combineLatest([activeOrg$,  activeStory$])
                 .pipe(
+                  tap(([org, story]) => this._activeStory  = story),
                   tap(([org, story]) => this._activeRepo = _repoFac.getRepo<StoryBlockConnection>(`orgs/${org.id}/stories/${story.id}/connections`)),
                   switchMap(([_org, story]) => 
                     story ? this._activeRepo.getDocuments() : of([] as StoryBlockConnection[])),
@@ -74,7 +78,8 @@ export class StoryConnectionsStore extends DataStore<StoryBlockConnection>
     return connections.map(connection => repo.write(connection, connection.id!));
   }
 
-  getConnectionsByStory(storyId: string, orgId: string) {
+  getConnectionsByStory(storyId: string, orgId?: string) {
+    orgId = this._activeStory? this._activeStory.orgId : orgId;
     const repo = this._repoFac.getRepo<StoryBlockConnection>(`orgs/${orgId}/stories/${storyId}/connections`);
     return repo.getDocuments();
   }

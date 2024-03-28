@@ -137,7 +137,7 @@ export class BotEnginePlay implements IBotEnginePlay
 
   async __reply(nextBlock: StoryBlock, endUser: EndUser, message?: Message)
   {
-    const varDataService = new VariablesDataService(this._tools, this.orgId, endUser.id);
+    const varDataService = new VariablesDataService(this._tools, this.orgId, endUser.id, this._activeChannel.channel);
 
 		const allVariables =  varDataService.getAllVariables(endUser);
     

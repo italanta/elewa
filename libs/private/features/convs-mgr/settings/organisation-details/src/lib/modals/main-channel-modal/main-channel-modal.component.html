@@ -1,0 +1,18 @@
+<div class="channel-modal">
+  <mat-tab-group [(selectedIndex)]="selectedTab">
+      <mat-tab label='{{"COMPANY-INFORMATION.CHANNEL-MODAL.SELECT-PLATFORM" | transloco}}'>
+          <div class="mt-create">
+              <app-select-channel-modal (selectedPlatformOutput)="getPlatform($event)"></app-select-channel-modal>
+          </div>
+      </mat-tab>
+      <mat-tab *ngIf="!channel" label='{{"COMPANY-INFORMATION.CHANNEL-MODAL.ADD-CHANNEL" | transloco}}'>
+          <app-channel-form-modal [channelData]="modalData"></app-channel-form-modal>
+      </mat-tab>
+
+    <mat-tab *ngIf="channel" label='{{"COMPANY-INFORMATION.CHANNEL-MODAL.EDIT-CHANNEL" | transloco}}'>
+        <app-channel-form-modal [channelData]="modalData"></app-channel-form-modal>
+    </mat-tab>
+    
+  </mat-tab-group>
+</div>
+

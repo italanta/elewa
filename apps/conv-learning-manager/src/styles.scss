@@ -30,13 +30,6 @@ body {
   stroke: var(--connector-outline-color-blue);
 }
 
-//connector
-.jsplumb_instance svg path {
-  stroke: var(--connector-color);
-  stroke-width: 0.0625rem;
-
-}
-
 //blocks
 .wide {
   padding: 1rem;
@@ -75,6 +68,13 @@ body {
 .jtk-hover+.jtk-overlay {
   display: block;
 }
+
+// Connector styling
+svg.frame-connector path {
+  stroke: var(--connector-color);
+  stroke-width: 2;
+}
+
 
 .doc-icon {
 	text-align: center;
