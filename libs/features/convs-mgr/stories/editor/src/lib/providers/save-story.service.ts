@@ -54,14 +54,13 @@ export class SaveStoryService
   {
     const connsToProcess = [];
     const connsPlumb = frame.jsPlumbInstance.connections;
-
     for(const c of connsPlumb)
     {
       // Get target block from target ID or target.id param on the connection
       const target = state.blocks.find(b => b.id === c.target.id) ?? state.blocks.find(b => b.id === c.targetId);
       
       if(target)
-        connsToProcess.push(({ id: c.id, sourceId: c.sourceId, targetId: target.id }) as StoryBlockConnection);
+        connsToProcess.push(({ id: c.id, sourceId: c.source.id, targetId: target.id }) as StoryBlockConnection);
       else 
         this.validator.push({ 
           type: StoryErrorType.MissingConnection,
