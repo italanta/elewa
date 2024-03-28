@@ -126,22 +126,6 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
       });
     });
   }
-  
-  navigateToBots(){
-    this._router$$.navigate(['/bots'])
-  }
-
-  navigateToHome(){
-    this._router$$.navigate(['/home'])
-  }
-
-  navigateToAnalytics() {
-    this._router$$.navigate(['/analytics/dashboard']);
-  }
-
-  navigateToSurveys(){
-    this._router$$.navigate(['/surveys']);
-  }
 
   openActiveFeature(feature: string, ) {
     const features = ['home', 'stories', 'analytics', 'assessments', 'chats'];

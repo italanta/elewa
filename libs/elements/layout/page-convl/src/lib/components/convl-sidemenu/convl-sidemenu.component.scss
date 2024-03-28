@@ -19,15 +19,18 @@ $sidebar-footer-height: 230px;
 .active {
   font-weight: bolder;
   border-right: solid var(--convs-mgr-button-color) 1px;
+
   .menu-title{
     color: var(--convs-mgr-button-color)!important;
   }
+
   .menu-icon{
     .img{
       filter: invert(42%) sepia(20%) saturate(1520%) hue-rotate(142deg) brightness(91%) contrast(88%);
     }
   }
 }
+
 .img{
   height: 24px;
   width: 24px;
