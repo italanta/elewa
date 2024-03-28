@@ -33,38 +33,38 @@ export class NewStoryService implements OnDestroy {
 
   /** Save story for the first time */
   saveStory(story: Story, parentModule: BotModule) {
-    this._sbS.sink = this._org$$.get().pipe(take(1), switchMap((org) => {
-      if (org) {
-        story.orgId = org.id as string;
+    return this._org$$.get().pipe(take(1), switchMap((org) => {
+      if (!org) return of(null);
   
-        return this._storyServ$.createStory(story).pipe(
-          take(1),
-          switchMap((newStory) => {
-            return this._botModulesServ$.getBotModuleById(parentModule.id as string).pipe(
-              take(1),
-              switchMap((bot) => {
-                if (!bot) return of(null);  // Handle the case where module is null (should never happen);
+      story.orgId = org.id as string;
 
-                bot.stories.push(newStory.id as string);
+      return this._storyServ$.createStory(story).pipe(
+        take(1),
+        switchMap((newStory) => {
+          return this._botModulesServ$.getBotModuleById(parentModule.id as string).pipe(
+            take(1),
+            switchMap((bot) => {
+              if (!bot) return of(null);  // Handle the case where module is null (should never happen);
 
-                return this._botModulesServ$.updateBotModules(bot as BotModule).pipe(
-                  tap(() => {
-                    this._dialog.closeAll();
-                    this._router.navigate(['/stories', newStory.id]);
-                    this.createStoryEndBlock(newStory.orgId, newStory.id as string);
-                  })
-                );
-              })
-            )
-          }),
-        )
-      } return of(null);
-    })).subscribe();
+              bot.stories.push(newStory.id as string);
+
+              return this._botModulesServ$.updateBotModules(bot as BotModule).pipe(
+                tap(() => {
+                  this._dialog.closeAll();
+                  this._router.navigate(['/stories', newStory.id]);
+                  this.createStoryEndBlock(newStory.orgId, newStory.id as string);
+                })
+              );
+            })
+          )
+        }),
+      )
+    }))
   }
 
   /** 2. Update the story details in the Db. */
   updateStory(story: Story, parentModule: BotModule, oldParentModule: string) {
-    this._sbS.sink = this._storyServ$.updateStory(story).pipe(
+    return this._storyServ$.updateStory(story).pipe(
       take(1),
       switchMap((newStory) => {
         if (story.parentModule !== oldParentModule) {
@@ -73,13 +73,11 @@ export class NewStoryService implements OnDestroy {
 
         return this.addNewParent(newStory, parentModule)
       }),
-    ).subscribe();
+    )
   }
 
   /** delete story from DB */
   removeStory(story: Story, parentModule:BotModule) {
-    console.log(parentModule)
-
     return this._storyServ$.deleteStory(story).pipe(
       take(1),
       switchMap((oldStory) => {
@@ -124,9 +122,7 @@ export class NewStoryService implements OnDestroy {
 
         botModule.stories.push(newStory.id as string);
 
-        return this._botModulesServ$.updateBotModules(botModule as BotModule).pipe(
-          tap(() => this.openStory(newStory)) // open story after the botmodule update operation is done
-        );
+        return this._botModulesServ$.updateBotModules(botModule as BotModule)
       })
     )
   }

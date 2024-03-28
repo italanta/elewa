@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit, Input } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, OnInit, Input, OnDestroy } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
@@ -17,7 +17,7 @@ import { STORY_FORM } from '../../providers/forms/story-form.provider';
   templateUrl: './create-lesson-modal.component.html',
   styleUrls: ['./create-lesson-modal.component.scss'],
 })
-export class CreateLessonModalComponent implements OnInit {
+export class CreateLessonModalComponent implements OnInit, OnDestroy {
   private _sBs = new SubSink();
 
   selectedBotModule: BotModule;
@@ -39,6 +39,7 @@ export class CreateLessonModalComponent implements OnInit {
     private _stateStoryServ$: NewStoryService,
     private _botModulesServ$: BotModulesStateService,
     private _formBuilder: FormBuilder,
+    public dialogRef: MatDialogRef<CreateLessonModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { botMode: BotMutationEnum; story?: Story, botModId?: string }
   ) {
     this.isCreateMode = data.botMode === BotMutationEnum.CreateMode;
@@ -72,11 +73,15 @@ export class CreateLessonModalComponent implements OnInit {
   }
 
   add(story: Story, parentModule: BotModule) {
-    this._stateStoryServ$.saveStory(story, parentModule);
+    this._sBs.sink = this._stateStoryServ$
+      .saveStory(story, parentModule)
+      .subscribe();
   }
 
   update(story: Story, parentModule: BotModule) {
-    this._stateStoryServ$.updateStory(story, parentModule, this.data.story?.parentModule as string);
+    this._sBs.sink = this._stateStoryServ$
+      .updateStory(story, parentModule, this.data.story?.parentModule as string)
+      .subscribe(() => this.dialogRef.close())
   }
 
   submitForm() {
@@ -94,5 +99,9 @@ export class CreateLessonModalComponent implements OnInit {
     this.isCreateMode
       ? this.add(story, parentModule)
       : this.update(story, parentModule);
+  }
+
+  ngOnDestroy() {
+    this._sBs.unsubscribe();
   }
 }
