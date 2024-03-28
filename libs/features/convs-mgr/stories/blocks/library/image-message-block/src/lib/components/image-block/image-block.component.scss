@@ -42,10 +42,11 @@ input {
 	color: var(--convs-mgr-color-primary-black) !important;
 	min-width: calc(100% - 20px) !important; 
 	padding: 10px;
-	height: 4rem;
+	height: 5rem;
 	background-color: var(--convs-mgr-placeholder-color) !important;
 	border-radius: 0.6rem;
 	opacity: 1;
+	overflow: hidden;
 
 	&.error {
 		border: 0.1875rem solid red !important;
@@ -62,9 +63,9 @@ input {
 }
 
 .upload-image {
-	max-width: 100%;
-	max-height: 9.375rem;
-	object-fit: cover;
+	width: 100%;
+	max-height: 9rem;
+	object-fit: contain;
 }
 
 #imageFile {
