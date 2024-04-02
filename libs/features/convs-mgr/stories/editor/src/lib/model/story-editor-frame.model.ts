@@ -185,7 +185,7 @@ export class StoryEditorFrame
         source: sourceElement as Element,
         target: targetElement as Element,
         anchors: ['Right', 'Left'],
-        endpoints: ['Dot', 'Dot'],
+        endpoints: ['Dot', 'Rectangle'],
         connector: {
           type: 'Flowchart',
           options: {

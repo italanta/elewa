@@ -20,7 +20,7 @@ export function _VideoInputBlockDecoratePlumb(block: VideoInputBlock, comp: Comp
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass:"block_endpoint",
-    endpoint: "Dot",
+    endpoint: 'Rectangle',
     anchor: "Left",
     maxConnections: -1
   });

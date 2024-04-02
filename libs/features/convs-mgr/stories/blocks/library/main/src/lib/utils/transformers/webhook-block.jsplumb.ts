@@ -21,7 +21,7 @@ export function _WebhookBlockDecoratePlumb(block: WebhookBlock, comp: ComponentR
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass:"block_endpoint",
-    endpoint: "Dot",
+    endpoint: 'Rectangle',
     anchor: "Left",
     maxConnections: -1
   });
