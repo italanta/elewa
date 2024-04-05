@@ -28,6 +28,11 @@
         padding: 20px;
         border-radius: 20px;
         margin-left: 20px;
+
+        &.send-message-btn {
+          background-color: black;
+          color: white;
+        }
       }
 
       .bulk-actions {

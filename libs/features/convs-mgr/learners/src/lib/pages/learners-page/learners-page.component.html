@@ -6,13 +6,15 @@
       <div class="top-actions">
         <span class="learners-title"> {{ "LEARNERS.LEARNERS" | transloco }} </span>
         <div>
-          <button mat-raised-button [hidden]="!activeMessageId" class="btn" (click)="sendMessageButtonClicked()">
-            {{'LEARNERS.BUTTONS.SEND-MESSAGE'| transloco }}
-          </button>
           <!-- <button mat-raised-button class="btn add-to-class"
             (click)="openCreateClassModal()">{{'LEARNERS.BUTTONS.CREATE-CLASS'| transloco }}</button> -->
-          <button mat-raised-button color="primary" class="btn add-to-class">
+
+          <button mat-raised-button color="primary" class="btn add-to-class" (click)="openChangeClassModal($event)">
             {{'LEARNERS.BUTTONS.ADD-TO-CLASS'| transloco }}
+          </button>
+
+          <button mat-raised-button  class="btn send-message-btn" (click)="sendMessageButtonClicked()">
+            {{'LEARNERS.BUTTONS.SEND-MESSAGE'| transloco }}
           </button>
         </div>
       </div>
@@ -92,7 +94,7 @@
         <ng-container matColumnDef="course">
           <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="course">
             {{'LEARNERS.TABLE-HEADER.COURSE'| transloco }}</th>
-          <td mat-cell *matCellDef="let enrolledUsr">{{ enrolledUsr.currentCourse | titlecase }}</td>
+          <td mat-cell *matCellDef="let enrolledUsr">{{ getLearnersCourse(enrolledUsr) | titlecase }}</td>
         </ng-container>
 
         <ng-container matColumnDef="class">

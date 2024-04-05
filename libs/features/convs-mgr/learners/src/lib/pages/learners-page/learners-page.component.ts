@@ -11,7 +11,7 @@ import { SubSink } from 'subsink';
 
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
 
-import { Classroom, ClassroomUpdateEnum } from '@app/model/convs-mgr/classroom';
+import { Classroom } from '@app/model/convs-mgr/classroom';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
@@ -109,7 +109,6 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     });
   }
 
-
   getAllClasses() {
     this._sBs.sink = this._classroomServ$.getAllClassrooms().subscribe((allClasses) => {
       this.allClasses = allClasses
@@ -137,12 +136,6 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   getIcon(status: number) {
     return `/assets/svgs/learners/${this.getStatus(status)}.svg`
-  }
-
-  getMode(enrolledUser: EnrolledEndUser) {
-    return enrolledUser.classId
-      ? ClassroomUpdateEnum.ChangeClass
-      : ClassroomUpdateEnum.AddToClass;
   }
 
   searchTable(event: Event) {
@@ -213,6 +206,12 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     return this.selection.selected.length > 0;
   }
 
+  getLearnersCourse(learner: EnrolledEndUser) {
+    if (!learner.courses || !learner.courses.length) return "";
+
+    return learner.courses[learner.courses?.length - 1].courseName;
+  }
+
   sortData(sortState: Sort) {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction} ending`);
@@ -229,12 +228,11 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  openChangeClassModal(event: Event, enrolledUsr: EnrolledEndUser) {
+  openChangeClassModal(event: Event) {
     event.stopPropagation();
-    const mode = this.getMode(enrolledUsr);
 
     this._dialog.open(ChangeClassComponent, {
-      data: { enrolledUsr, mode },
+      data: { enrolledUsrs: this.selection.selected },
       width: '400px',
     });
   }
