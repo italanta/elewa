@@ -124,7 +124,7 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
     }
   }
 
-  searchTable(event: Event){
+  searchTable(event: Event) {
     const searchValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = searchValue.trim();
   }

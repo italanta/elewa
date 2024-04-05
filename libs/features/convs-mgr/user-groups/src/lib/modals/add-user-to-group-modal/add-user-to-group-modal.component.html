@@ -21,12 +21,18 @@
           </textarea>
         </mat-form-field>
       </div>
+
+      <div>
+        <div *ngIf="isExisting" class="existing-user-message">
+          A user with this number already exists.
+        </div>
+      </div>
   
       <div class="create-modal-btns">
         <button mat-stroked-button mat-dialog-close class="create-modal-cancel">
           {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CANCEL' | transloco }}
         </button>
-        <button mat-raised-button class="add-btn" color="primary" class="create-modal-confirm" (click)="addUserToGroup()">
+        <button [disabled]="isExisting" mat-raised-button class="add-btn" color="primary" class="create-modal-confirm" (click)="addUserToGroup()">
           <span>{{ 'CLASSESS.MODALS.USER-FROM-GROUP.CONFIRM' | transloco }}</span>
         </button>
       </div>
