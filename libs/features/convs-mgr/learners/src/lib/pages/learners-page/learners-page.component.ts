@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -11,7 +11,6 @@ import { SubSink } from 'subsink';
 
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
 
-import { SurveyService } from '@app/state/convs-mgr/conversations/surveys';
 import { Classroom, ClassroomUpdateEnum } from '@app/model/convs-mgr/classroom';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
@@ -27,6 +26,7 @@ import { Bot } from '@app/model/convs-mgr/bots';
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
 import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
 import { CreateClassModalComponent } from '../../modals/create-class-modal/create-class-modal.component';
+import { filterLearnersByClass, filterLearnersByCourse, filterLearnersByPlatform, filterLearnersByStatus } from '../../utils/learner-filter.util';
 
 @Component({
   selector: 'app-learners-page',
@@ -46,20 +46,27 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     'course',
     'class',
     'status',
-    'actions',
   ];
 
   dataSource = new MatTableDataSource<EnrolledEndUser>();
   selection = new SelectionModel<EnrolledEndUser>(true, []);
 
+  EnrolledEndUserStatus = EnrolledEndUserStatus;
   allLearners: EnrolledEndUser[];
   allClasses: Classroom[] = [];
   allPlatforms: string[] = [];
   allCourses: Bot[] = [];
 
-  selectedClass: any = 'Class';
-  selectedCourse: any = 'Course';
-  selectedPlatform: any = 'Platform';
+  allStatus = [
+    EnrolledEndUserStatus.Inactive,
+    EnrolledEndUserStatus.Active,
+    EnrolledEndUserStatus.Stuck
+  ];
+
+  selectedClass = 'allClasses';
+  selectedCourse = 'allCourses';
+  selectedPlatform = 'allPlatforms';
+  selectedStatus = 'allStatus';
 
   surveyId: string;
   templateId: string;
@@ -78,9 +85,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     private _liveAnnouncer: LiveAnnouncer,
     private _botServ$: BotsStateService,
     private _dialog: MatDialog,
-    private _surveyService: SurveyService,
     private _messageService: MessageTemplatesService,
-    private _route: ActivatedRoute,
     private _scheduleMessageService: ScheduleMessageService,
     private _route$$: Router
   ) {}
@@ -147,20 +152,41 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   filterTable(event: Event, mode:string) {
     const selectedValue = (event.target as HTMLSelectElement).value;
+
     switch (mode) {
       case 'class':
-        this.filterLearnersByClass(selectedValue);
+        this.selectedClass = selectedValue;
+        break
+      case 'course':
+        this.selectedCourse = selectedValue;
+        break
+      case 'status':
+        this.selectedStatus = selectedValue;
+        break
+      case 'platform':
+        this.selectedPlatform = selectedValue;
         break
     }
+
+    this.filterLearners()
   }
 
-  filterLearnersByClass(selectedClassId: string): void {
-    if (selectedClassId === 'allClasses') {
-      this.dataSource.data = this.allLearners;
-      return
+  filterLearners() {
+    let filteredLearners = [...this.allLearners];
+  
+    if (this.selectedClass !== 'allClasses') {
+      filteredLearners = filterLearnersByClass(filteredLearners, this.selectedClass);
+    }
+    if (this.selectedCourse !== 'allCourses') {
+      filteredLearners = filterLearnersByCourse(filteredLearners, this.selectedCourse);
+    }
+    if (this.selectedStatus !== 'allStatus') {
+      filteredLearners = filterLearnersByStatus(filteredLearners, this.selectedStatus);
+    }
+    if (this.selectedPlatform !== 'allPlatforms') {
+      filteredLearners = filterLearnersByPlatform(filteredLearners, this.selectedPlatform);
     }
 
-    const filteredLearners = this.allLearners.filter(learner => learner.classId === selectedClassId);
     this.dataSource.data = filteredLearners;
   }
 
@@ -230,9 +256,9 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
         this.selectedTime = options.dispatchDate;
       }
     })
-   }
+  }
 
-   sendMessageButtonClicked() {
+  sendMessageButtonClicked() {
     const selectedUsers = this.selection.selected;
     const action = this.scheduleMessageOptions.action
     if(this.scheduleMessageOptions && this.templateMessage) {

@@ -8,7 +8,6 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { SubSink } from 'subsink';
-import { combineLatest, take } from 'rxjs';
 
 import { Timestamp } from '@firebase/firestore-types';
 import { __DateFromStorage } from '@iote/time';
