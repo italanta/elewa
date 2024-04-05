@@ -54,12 +54,11 @@
       .search {
         height: 5px;
         width: 90%;
-        background-color: var(--convs-mgr-color-primary-white);
-        border-radius: 20px;
+        background-color: white;
+        border-radius: 18px;
         display: flex;
         align-items: center;
         padding: 20px;
-        border: solid #dadada 1px;
 
         &_tooltip {
           color: gray;
