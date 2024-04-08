@@ -124,7 +124,15 @@ export class BlockComponent implements OnInit
 
   // TODO: Use proper inheritance instead of firing from here
   editBlock() 
-  {   
+  {
+    if (this.type === this.videoType) {
+      this.matdialog.open(VideoUploadModalComponent, {
+        data: { videoMessageForm: this.blockFormGroup },
+      });
+
+      return
+    }
+
     // Normal case - open side menu
     this.sideMenu.toggleExpand(false)
     this.sideScreen.toggleSideScreen(true)
