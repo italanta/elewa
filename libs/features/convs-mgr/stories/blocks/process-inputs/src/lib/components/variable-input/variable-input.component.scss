@@ -87,6 +87,31 @@
   }
 }
 
+.variables-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.success-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #41C936 0% 0% no-repeat padding-box;
+  border: none;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-top: 0.8rem;
+  color: white;
+  width: 80%;
+  align-self: center;
+}
+
+.success-message > .message {
+  font-weight: 300;
+  font-size: 0.875rem;
+}
+
 
 
 /* Customize the label (the container) */

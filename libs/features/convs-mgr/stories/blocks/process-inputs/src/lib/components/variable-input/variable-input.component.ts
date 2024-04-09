@@ -35,6 +35,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   validationForm: FormGroup;
 
   saveAnswersInVariable: boolean;
+  showSuccess: boolean;
 
   variablesTypesList = [
     { name: VariableTypes[1], value: 1 },
