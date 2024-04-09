@@ -1,15 +1,12 @@
 <section class="variables-section">
-  <!-- <div class="save-answers-toggle">
-    <input class="save-answers-checkbox" type="checkbox" name="saveAnswers"/>
-    <span class="save-answers-text"> Save answers in variable</span>
-  </div> -->
 
   <label class="save-answers-toggle">
-    <input type="checkbox">
+    <input type="checkbox" (click)="toggleSaveAnswers()">
     <span class="checkmark"></span>
     <div class="save-answers-text">Save answers in variable</div>
   </label>
-  <form [formGroup]="variablesForm" class="variables-form" [ngSwitch]="blockType" (ngSubmit)="onSubmit()">
+
+  <form *ngIf="saveAnswersInVariable" [formGroup]="variablesForm" class="variables-form" [ngSwitch]="blockType" (ngSubmit)="onSubmit()">
     <div formGroupName="variable" class="variables-container">
 
       <!-- dynamic rendering of optional validation forms -->

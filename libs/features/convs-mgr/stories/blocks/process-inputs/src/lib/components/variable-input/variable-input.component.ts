@@ -160,6 +160,9 @@ export class VariableInputComponent implements OnInit, OnDestroy {
       });
   }
 
+  toggleSaveAnswers() {
+    this.saveAnswersInVariable = !this.saveAnswersInVariable;
+  }
   
 
   ngOnDestroy(): void {
