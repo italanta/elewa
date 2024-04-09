@@ -188,3 +188,63 @@ mat-form-field.full-field{
   flex-direction: column;
   gap: 0.5rem;
 }
+
+// Customize validation checkbox
+
+/* Customize the label (the container) */
+.block-edit-validation-check {
+  display: flex;
+  align-self: flex-start;
+  align-items: center;
+  position: relative;
+  padding-left: 2.7rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  height: 1.1rem;
+}
+
+/* Hide the default checkbox */
+.block-edit-validation-check input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create the custom checkmark */
+.block-edit-validation-check > .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0.55rem;
+  height: 0.875rem;
+  width: 0.875rem;
+  background-color: transparent;
+  border: 2px solid teal;
+  border-radius: 4px;
+}
+
+/* White checkmark (hidden by default) */
+.block-edit-validation-check > .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 1px;
+  width: 3px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Show the checkmark when the checkbox is checked */
+.block-edit-validation-check input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Teal background when the checkbox is checked */
+.block-edit-validation-check input:checked ~ .checkmark {
+  background-color: teal;
+  border: 2px solid teal;
+}
