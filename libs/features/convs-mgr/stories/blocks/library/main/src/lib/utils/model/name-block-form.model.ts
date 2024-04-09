@@ -22,7 +22,7 @@ export function _CreateNameMessageBlockForm(
 
     // variables FormGroup
     variable: _fb.group({
-      name: [blockData.variable?.name ?? '', [Validators.required]],
+      name: [blockData.variable?.name ?? 'name', [Validators.required]],
       type: [blockData.variable?.type ?? 1, [Validators.required]],
       validate: [blockData.variable?.validate ?? false, [Validators.required]],
 
