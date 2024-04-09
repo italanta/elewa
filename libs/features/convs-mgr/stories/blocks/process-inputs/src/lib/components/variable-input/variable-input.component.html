@@ -3,7 +3,7 @@
   <label class="save-answers-toggle">
     <input type="checkbox" (click)="toggleSaveAnswers()">
     <span class="checkmark"></span>
-    <div class="save-answers-text">Save answers in variable</div>
+    <div class="save-answers-text">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.VARIABLE-INFO" | transloco }}</div>
   </label>
 
   <form *ngIf="saveAnswersInVariable" [formGroup]="variablesForm" class="variables-form" [ngSwitch]="blockType" (ngSubmit)="onSubmit()">
@@ -32,13 +32,12 @@
 
       <div class="variable-defaults">
         <div class="variables_name">
-          <label class="label" for="name">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.VARIABLE-INFO" | transloco }}</label>
           <input class="input" type="text" id="variable" name="variable" formControlName="name">
           <div class="errors" *ngIf="name?.invalid">{{ name?.errors?.['incorrect'] }}</div>
         </div>
 
         <div class="variables_type">
-          <label class="label" for="type">type</label>
+          <label class="label" for="type">Type of variable</label>
           <select class="select" formControlName="type" id="type" required>
             <option class="option" *ngFor="let type of variablesTypesList; let i=index" [value]="type.value">
               {{ type.name }}

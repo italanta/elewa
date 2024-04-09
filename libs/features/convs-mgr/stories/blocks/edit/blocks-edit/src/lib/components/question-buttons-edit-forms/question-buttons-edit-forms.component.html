@@ -12,7 +12,7 @@
       <mat-divider></mat-divider>
     </div>
 
-    <div formArrayName="options" fxFlexFill>
+    <div formArrayName="options">
       <div *ngFor="let option of options.controls; let i = index" class="full-width" fxFlexFill>
         <span [formGroupName]="i" fxFlex>
           <div class="inputList">

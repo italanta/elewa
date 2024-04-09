@@ -6,8 +6,8 @@
 
 .input {
   outline: none;
-  border-radius: 5px;
-  border: 2px solid var(--convs-mgr-color-primary-purple);
+  border-radius: 10px;
+  border: none;
 }
 
 .btn {
@@ -19,6 +19,9 @@
 }
 
 .variables-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
   padding: 0.5rem;
 
   .variables-container {
@@ -57,7 +60,8 @@
       .select {
         padding: 0.7rem;
         outline: none;
-        border: 2px solid var(--convs-mgr-color-primary-purple);
+        border: none;
+        border-radius: 10px;
       }
     }
   }
@@ -68,6 +72,10 @@
   color: white;
   padding: 0.5rem;
   margin-top: 1rem;
+
+  border-radius: 30px;
+  background: #3E788A 0% 0% no-repeat padding-box;
+  height: 2.5rem;
 
   &:active {
     transform: scale(0.98);
