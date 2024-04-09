@@ -5,10 +5,11 @@
       formControlName="message" />
   </form>
 
-  <div class="validation-check">
-    <label class="label" for="setValidation">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.SET-VALIDATION-CHECKBOX" | transloco }}</label>
-    <input class="checkbox" type="checkbox" [checked]="validate" (change)="setValidation()" name="setValidation" id="">
-  </div>
+  <label class="validation-check">
+    <input type="checkbox" (change)="setValidation()">
+    <span class="checkmark"></span>
+    <div class="save-answers-text">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.SET-VALIDATION-CHECKBOX" | transloco }}</div>
+  </label>
 
   <app-variable-input [BlockFormGroup]="form" [setValidation]="validate"></app-variable-input>
 </div>
