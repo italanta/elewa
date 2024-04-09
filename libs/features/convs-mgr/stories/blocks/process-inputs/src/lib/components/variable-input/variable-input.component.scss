@@ -78,3 +78,63 @@
     cursor: default;
   }
 }
+
+
+
+/* Customize the label (the container) */
+.save-answers-toggle {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  height: 1.1rem;
+}
+
+/* Hide the default checkbox */
+.save-answers-toggle input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create the custom checkmark */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0.875rem;
+  width: 0.875rem;
+  background-color: transparent;
+  border: 2px solid teal;
+  border-radius: 4px;
+}
+
+/* White checkmark (hidden by default) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 1px;
+  width: 3px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Show the checkmark when the checkbox is checked */
+.save-answers-toggle input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Teal background when the checkbox is checked */
+.save-answers-toggle input:checked ~ .checkmark {
+  background-color: teal;
+  border: 2px solid teal;
+}
