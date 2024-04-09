@@ -92,12 +92,11 @@
   flex-direction: column;
 }
 
-.success-message {
+.save-variable-message {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: #41C936 0% 0% no-repeat padding-box;
   border: none;
   border-radius: 10px;
   padding: 1rem;
@@ -107,12 +106,18 @@
   align-self: center;
 }
 
-.success-message > .message {
+.save-variable > .message {
   font-weight: 300;
   font-size: 0.875rem;
 }
 
+.success {
+  background: #41C936 0% 0% no-repeat padding-box;
+}
 
+.error {
+  background: red 0% 0% no-repeat padding-box;
+}
 
 /* Customize the label (the container) */
 .save-answers-toggle {

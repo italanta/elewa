@@ -49,9 +49,14 @@
     
     <input class="btn submit-btn" [disabled]="variablesForm.invalid" type="submit" value="Apply">
 
-    <div class="success-message">
-      <div class="success-icon"><i class="far fa-check-circle"></i></div>
+    <div class="save-variable-message success">
+      <div class="icon"><i class="far fa-check-circle"></i></div>
       <span class="message">Success. Variable created</span>
+    </div>
+
+    <div class="save-variable-message error">
+      <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
+      <span class="message">Error</span>
     </div>
   </form>
 </section>

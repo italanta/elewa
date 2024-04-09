@@ -92,7 +92,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
               );
 
               if (isPresent) {
-                this.name?.setErrors({ incorrect: 'name is already used' });
+                this.name?.setErrors({ incorrect: 'The variable already exists' });
               }
             })
           )
