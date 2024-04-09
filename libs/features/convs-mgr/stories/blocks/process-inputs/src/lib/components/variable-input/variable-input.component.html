@@ -1,7 +1,7 @@
 <section class="variables-section">
 
   <label class="save-answers-toggle">
-    <input type="checkbox" (click)="toggleSaveAnswers()">
+    <input type="checkbox" (click)="toggleSaveAnswers()" [checked]="saveAnswersInVariable">
     <span class="checkmark"></span>
     <div class="save-answers-text">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.VARIABLE-INFO" | transloco }}</div>
   </label>

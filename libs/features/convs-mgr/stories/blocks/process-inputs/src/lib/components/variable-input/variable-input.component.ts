@@ -64,8 +64,11 @@ export class VariableInputComponent implements OnInit, OnDestroy {
     private route:ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.blockId = this.BlockFormGroup.value.id;
-    this.blockType = this.BlockFormGroup.value.type;
+    const blockValues = this.BlockFormGroup.value;
+    this.blockId = blockValues.id;
+    this.blockType = blockValues.type;
+
+    this.saveAnswersInVariable = blockValues.variable.name && blockValues.variable.name !== '';
 
     /**
      * * we create a copy of the formGroup so we can validate before setting the values on submit.
