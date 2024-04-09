@@ -189,7 +189,7 @@ mat-form-field.full-field{
   gap: 0.5rem;
 }
 
-// Customize validation checkbox
+// ---- Customize validation ----- //
 
 /* Customize the label (the container) */
 .block-edit-validation-check {
@@ -248,3 +248,55 @@ mat-form-field.full-field{
   background-color: teal;
   border: 2px solid teal;
 }
+
+// global styles component-level
+.validation-label {
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+.validation-input {
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  padding: 0.5rem;
+  min-width: 5rem;
+  width: auto;
+}
+
+.validation-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.validation_minmax {
+  display: flex;
+  justify-content: space-between;
+  gap: 10%;
+}
+
+.validation_message {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#validationMessage {
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    padding: 0.5rem;
+    color: #101010;
+}
+
+.validation_regex,
+.validation_max,
+.validation_min {
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  gap: 5px;
+}
+
