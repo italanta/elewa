@@ -84,6 +84,8 @@
   &:disabled {
     transform: scale(1);
     cursor: default;
+
+    background: gray 0% 0% no-repeat padding-box;
   }
 }
 
