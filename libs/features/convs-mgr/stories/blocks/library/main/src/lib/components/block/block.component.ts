@@ -128,7 +128,7 @@ export class BlockComponent implements OnInit
     // Normal case - open side menu
     this.sideMenu.toggleExpand(false)
     this.sideScreen.toggleSideScreen(true)
-    this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);  
+    this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle, this.iconClass);  
   }
 
   copyMe() {
