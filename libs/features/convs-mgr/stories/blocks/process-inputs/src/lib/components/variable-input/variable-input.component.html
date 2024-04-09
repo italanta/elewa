@@ -11,7 +11,7 @@
 
       <!-- dynamic rendering of optional validation forms -->
       <div *ngSwitchCase="nametype">
-        <app-name-validations [variablesForm]="variablesForm" [validate]="validate"></app-name-validations>
+        <app-name-validations [variablesForm]="variablesForm" [setValidation]="validate"></app-name-validations>
       </div>
 
       <div *ngSwitchCase="emailtype">

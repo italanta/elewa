@@ -22,7 +22,12 @@ import { VariablesService } from '../../providers/variables.service';
   styleUrls: ['./variable-input.component.scss'],
 })
 export class VariableInputComponent implements OnInit, OnDestroy {
-  @Input() validate: boolean;
+  
+  @Input() set setValidation(value: boolean) {
+    this.validate = value;
+  };
+  
+  validate: boolean;
   @Input() BlockFormGroup: FormGroup;
   private _sub = new SubSink();
 
