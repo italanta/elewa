@@ -6,9 +6,11 @@
     </div>
     <textarea class="text" id="message" name="message" formControlName="message"></textarea>
   
-    <mat-divider></mat-divider>
-    <app-variable-input [BlockFormGroup]="form"></app-variable-input>
-    <mat-divider></mat-divider>
+    <div class="variable-input-section">
+      <mat-divider></mat-divider>
+      <app-variable-input [BlockFormGroup]="form"></app-variable-input>
+      <mat-divider></mat-divider>
+    </div>
 
     <div formArrayName="options" fxFlexFill>
       <div *ngFor="let option of options.controls; let i = index" class="full-width" fxFlexFill>
