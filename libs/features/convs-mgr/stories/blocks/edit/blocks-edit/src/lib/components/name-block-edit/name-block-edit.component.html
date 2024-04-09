@@ -15,11 +15,8 @@
   </form>
 
   <label class="block-edit-validation-check">
-    <input type="checkbox" (change)="setValidation()">
+    <input type="checkbox" (change)="setValidation()" [checked]="validate">
     <span class="checkmark"></span>
     <div class="save-answers-text">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.SET-VALIDATION-CHECKBOX" | transloco }}</div>
   </label>
-
-
-  <!-- <app-variable-input [BlockFormGroup]="form" [setValidation]="validate"></app-variable-input> -->
 </div>
