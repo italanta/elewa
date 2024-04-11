@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { cloneDeep as __cloneDeep } from 'lodash';
-import { map, switchMap } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import {
@@ -22,7 +22,12 @@ import { VariablesService } from '../../providers/variables.service';
   styleUrls: ['./variable-input.component.scss'],
 })
 export class VariableInputComponent implements OnInit, OnDestroy {
-  @Input() validate: boolean;
+  
+  @Input() set setValidation(value: boolean) {
+    this.validate = value;
+  };
+  
+  validate: boolean;
   @Input() BlockFormGroup: FormGroup;
   private _sub = new SubSink();
 
@@ -33,6 +38,11 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   blockType: StoryBlockTypes;
   variablesForm: FormGroup;
   validationForm: FormGroup;
+
+  saveAnswersInVariable: boolean;
+  showSuccess: boolean;
+  showError: boolean;
+  errorMessage: string;
 
   variablesTypesList = [
     { name: VariableTypes[1], value: 1 },
@@ -54,15 +64,17 @@ export class VariableInputComponent implements OnInit, OnDestroy {
     private route:ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.blockId = this.BlockFormGroup.value.id;
-    this.blockType = this.BlockFormGroup.value.type;
+    const blockValues = this.BlockFormGroup.value;
+    this.blockId = blockValues.id;
+    this.blockType = blockValues.type;
+
+    this.saveAnswersInVariable = blockValues.variable.name && blockValues.variable.name !== '';
 
     /**
      * * we create a copy of the formGroup so we can validate before setting the values on submit.
      * * using the blocksFormGroup creates a very rare race condition where two variables can exist with the same name (if the user is warned that the variable is alredy used but still doesn't change the value) this is why we clone.
      */
     this.variablesForm = __cloneDeep(this.BlockFormGroup);
-    this.validateForm();
 
     // Subscribe to route param changes to get the botId
    this.getBotId()
@@ -70,32 +82,6 @@ export class VariableInputComponent implements OnInit, OnDestroy {
 
   get name() {
     return this.variablesForm.get('variable.name');
-  }
-
-  /**
-   * - Validates the form by checking if the variable name is already used in other blocks.
-   * - If the variable name is already used, the form control will be marked as invalid.
-   */
-  validateForm() {
-    this._sub.sink = this.variablesForm.controls['variable'].valueChanges
-      .pipe(
-        switchMap((value: StoryBlockVariable) =>
-          this._variablesSer.blocksWithVars$.pipe(
-            map((blocks) => {
-              const isPresent = blocks.find(
-                (block) =>
-                  block.variable?.name === value.name &&
-                  block.id !== this.blockId
-              );
-
-              if (isPresent) {
-                this.name?.setErrors({ incorrect: 'name is already used' });
-              }
-            })
-          )
-        )
-      )
-      .subscribe();
   }
 
   /**
@@ -135,7 +121,27 @@ export class VariableInputComponent implements OnInit, OnDestroy {
       this.BlockFormGroup.get('variable.validators')?.reset();
     }
 
-    this._variablesSer.saveVariables(storyBlockVariable);
+    this._variablesSer.blocksWithVars$.subscribe((blocks)=> {
+
+          const isPresent = blocks.find(
+          (block) =>
+            block.variable?.name === name &&
+            block.id !== this.blockId
+        );
+
+          if (isPresent) {
+            this.errorMessage = "The variable already exists";
+            this.showError = true;
+            this.showSuccess = false;
+          } else {
+            this.showSuccess = true;
+            this.showError = false;
+            this.errorMessage = "";
+
+            this._variablesSer.saveVariables(storyBlockVariable);
+          }
+    })
+
   }
 
   getBotId() {
@@ -158,6 +164,9 @@ export class VariableInputComponent implements OnInit, OnDestroy {
       });
   }
 
+  toggleSaveAnswers() {
+    this.saveAnswersInVariable = !this.saveAnswersInVariable;
+  }
   
 
   ngOnDestroy(): void {

@@ -8,8 +8,11 @@ import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario
   styleUrls: ['./list-block-edit.component.scss'],
 })
 export class ListBlockEditComponent {
-  @Input() form: FormGroup
-  @Input() title: string
+  @Input() form: FormGroup;
+  @Input() title: string;
+  @Input() icon: string;
+
+  isEdit = true;
 
   constructor(private _fb: FormBuilder){}
 

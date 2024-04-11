@@ -18,7 +18,7 @@ export function _CreatePhoneMessageBlockForm(_fb: FormBuilder, blockData: PhoneM
     position: [blockData.position ?? { x: 200, y: 50 }],
 
     variable: _fb.group({
-      name: [blockData.variable?.name ?? '', [Validators.required]],
+      name: [blockData.variable?.name ?? 'phoneNumber', [Validators.required]],
       type: [blockData.variable?.type ?? 1, [Validators.required]],
       validate: [blockData.variable?.validate ?? false, [Validators.required]],
 

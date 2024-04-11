@@ -8,4 +8,6 @@ import { FormGroup } from '@angular/forms';
 })
 export class MessageBlockEditComponent {
   @Input() form: FormGroup;
+  @Input() title: string;
+  @Input() icon: string;
 }
