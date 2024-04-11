@@ -8,7 +8,7 @@
       <div *ngIf="opened; else library">
         <div class="wrapper-edit">
           <div class="top-section-edit">
-            <input type="button" class="goToBlocks"/>
+            <input type="button" class="goToBlocks" (click)="onClose()"/>
             <div class="btn-wrapper" (click)="onClose()">
               <i class="fas fa-chevron-left"></i>
             </div>
