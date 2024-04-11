@@ -15,7 +15,7 @@
       </div>
 
       <div *ngSwitchCase="emailtype">
-        <app-email-validations [variablesForm]="variablesForm" [validate]="validate"></app-email-validations>
+        <app-email-validations [variablesForm]="variablesForm" [setValidation]="validate"></app-email-validations>
       </div>
 
       <div *ngSwitchCase="phonetype">
