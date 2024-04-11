@@ -36,9 +36,14 @@ export class OptionInputFieldComponent implements OnInit, AfterViewInit {
   }
 
   private _decorateInput() {
-    const input = document.getElementById(this.inputUniqueId) as Element;
+    // Get the block id
+    const blockId = this.inputUniqueId.split("-")[2];
+
+    // Ensure that we decorate only the input in the main block and
+    //  not in the block edit section
+    const input = document.querySelector(`#${blockId} #${this.inputUniqueId}`) as Element;
     if (this.jsPlumb) {
-      _JsPlumbInputOptionDecorator(input, this.jsPlumb);
+        _JsPlumbInputOptionDecorator(input, this.jsPlumb);
     }
   }
   
