@@ -12,6 +12,8 @@ export class ListBlockEditComponent {
   @Input() title: string;
   @Input() icon: string;
 
+  isEdit = true;
+
   constructor(private _fb: FormBuilder){}
 
   get options(): FormArray {

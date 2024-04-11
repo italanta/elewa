@@ -17,9 +17,8 @@
         <div *ngFor="let option of options.controls; let i = index" class="full-width" fxFlexFill>
           <span [formGroupName]="i" fxFlex>
             <div class="inputList">
-              <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>
               <app-option-input-field [blockFormGroup]="form" [formGroupNameInput]="i"
-                class="input"></app-option-input-field>
+                class="input" [isEditSection]="isEdit"></app-option-input-field>
             </div>
           </span>
         </div>
