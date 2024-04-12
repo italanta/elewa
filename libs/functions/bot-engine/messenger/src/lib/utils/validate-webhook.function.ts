@@ -1,8 +1,6 @@
 import { HandlerTools } from "@iote/cqrs";
 import { RestResult, RestResult200 } from "@ngfi/functions";
 
-import { environment } from "../environments/environment";
-
 /**
  * One-time procedure which happens on registration of the Whatsapp Business API webhook.
  * 
@@ -15,7 +13,7 @@ export function __ValidateVerificationRequest(context: any, mode: string, token:
 {
   const challengeKey = 'hub.challenge';
 
-  if (mode === "subscribe" && token === environment.messenger.verifyToken) {
+  if (mode === "subscribe" && token === process.env.VERIFY_TOKEN) {
     // Respond with the challenge token from the request
     tools.Logger.log(() => `[MessengerReceiveMsgHandler] Token match successful ✅`);
     return context.eventContext.request.query[challengeKey] as RestResult200;
