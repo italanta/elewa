@@ -149,7 +149,7 @@
               <div *ngIf="isManageUsersDropdownOpen">
                 <ul class="sub-side-menu">
                   <li matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.USERS'| transloco }}">
-                    <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/learners" routerLinkActive="active" (click)="$event.stopPropagation()">
+                    <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/users" routerLinkActive="active" (click)="$event.stopPropagation()">
                       <span class="menu-icon">
                         <img src="assets/icons/message-chat.svg" class="img" alt="">
                       </span>

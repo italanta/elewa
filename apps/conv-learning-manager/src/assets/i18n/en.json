@@ -793,7 +793,7 @@
     }
   },
   "LEARNERS":{
-    "LEARNERS" : "Learners",
+    "LEARNERS" : "Users",
     "TABLE-HEADER": {
       "NAME": "Name",
       "DATE-ENROLLED": "Date Enrolled",
