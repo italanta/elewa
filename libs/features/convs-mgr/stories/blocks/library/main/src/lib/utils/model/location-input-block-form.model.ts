@@ -25,11 +25,13 @@ export function _CreateLocationInputBlockForm(_fb: FormBuilder, blockData: Locat
 
       validators: _fb.group({
         regex: [blockData.variable?.validators?.regex ?? ''],
+        min: [blockData.variable?.validators?.min ?? ''],
+        max: [blockData.variable?.validators?.max ?? ''],
         validationMessage: [
           blockData.variable?.validators?.validationMessage ??
-            "I'm afraid I didn't get that, could you send your pin again, please?",
+            "I'm afraid I didn't understand, could you try again, please?",
         ],
-      })
+      }),
     })
   })
 }

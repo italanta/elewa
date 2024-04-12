@@ -15,7 +15,7 @@ export class BlockPortalService {
     //
   }
 
-  public sendFormGroup(form: FormGroup, title: string) {
-    this.activePortal.next({ form, title });
+  public sendFormGroup(form: FormGroup, title: string, icon: string) {
+    this.activePortal.next({ form, title, icon });
   }
 }

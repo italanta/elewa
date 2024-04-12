@@ -206,9 +206,9 @@
       },
       "VALIDATORS": {
         "SET-VALIDATION-CHECKBOX": "Set Validation",
-        "VARIABLE-INFO": "save answers in the variable",
-        "REGEX": "regex",
-        "PLACEHOLDER-REGEX": "regex",
+        "VARIABLE-INFO": "Save answers in the variable",
+        "REGEX": "Regex",
+        "PLACEHOLDER-REGEX": "Regex",
         "MAX": "Max",
         "PLACEHOLDER-MAX": "Max Characters",
         "MIN": "Min",

@@ -9,6 +9,8 @@ import { FormGroup } from '@angular/forms';
 export class OpenEndedQuestionEditComponent implements OnInit {
   @Input() form:FormGroup;
   @Input() title: string;
+  @Input() icon: string;
+  
   validate: boolean;
 
   ngOnInit() {

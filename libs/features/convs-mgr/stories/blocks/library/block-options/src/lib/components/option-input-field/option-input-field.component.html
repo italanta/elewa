@@ -1,10 +1,12 @@
-<div *ngIf="blockFormGroup" fxFlex>
+<div *ngIf="blockFormGroup">
   <div [formGroup]="blockFormGroup" fxFlex>
     <div formArrayName="options" fxFlex>
-      <div [formGroupName]="formGroupNameInput" class="option" fxFlex>
-        <input [id]="inputUniqueId" [class]="optionClass" [readOnly]="isReadOnly"
+      <div [formGroupName]="formGroupNameInput" class="option" [class.option-edit]="isEditSection" fxFlex>
+        <input [id]="inputUniqueId" [class]="optionClass" [class.input-edit]="isEditSection" [readOnly]="isReadOnly"
         [ngClass]="isReadOnly ? 'readonly' : ''" formControlName="message"
         type="text" placeholder="Option {{formGroupNameInput + 1}}" [maxlength]="charMaxlength" fxFlexFill>
+
+        <button *ngIf="isEditSection"><img src="/assets/icons/x-icon.svg" alt="clear" /></button>
         <span class="length-error" *ngIf="optionValue.length >= charMaxlength">
           {{ 'OPTION-INPUT.MAX-CHARACTERS' | transloco }}
         </span>

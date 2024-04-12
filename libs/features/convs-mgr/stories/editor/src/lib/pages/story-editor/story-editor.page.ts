@@ -36,8 +36,9 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   private _sb = new SubSink();
   portal$: Observable<TemplatePortal>;
   activeComponent: ComponentPortal<any>
-  activeBlockForm: FormGroup
-  activeBlockTitle: string
+  activeBlockForm: FormGroup;
+  activeBlockTitle: string;
+  activeBlockIcon: string;
 
   errors: StoryError[] = [];
   shownErrors: StoryError[] = [];
@@ -110,6 +111,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
           const comp = getActiveBlock(blockDetails.form.value.type);
           this.activeBlockForm = blockDetails.form
           this.activeBlockTitle = blockDetails.title
+          this.activeBlockIcon = blockDetails.icon
           this.activeComponent = new ComponentPortal(comp);
           this.opened = true;
         }
@@ -124,6 +126,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     ref = ref as ComponentRef<any>
     ref.instance['form'] = this.activeBlockForm;
     ref.instance['title'] = this.activeBlockTitle;
+    ref.instance['icon'] = this.activeBlockIcon;
   }
 
   /**  Detach and close Block Edit form */
