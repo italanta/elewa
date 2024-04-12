@@ -839,7 +839,7 @@
     },
     "BUTTONS": {
       "CREATE-CLASS":"Create Class",
-      "ADD-TO-CLASS": "Add to Class",
+      "ADD-TO-GROUP": "Add to Group",
       "BULK-ACTIONS": "Send Message",
       "CLASS": "Class",
       "COURSE": "Course",
@@ -847,7 +847,6 @@
       "GO-TO-CHAT": "Go to Chat",
       "SEND-SURVEY": "Send survey",
       "SEND-MESSAGE": "Send Message"
-      
     },
     "MODALS": {
       "ACTIONS": "Actions",
