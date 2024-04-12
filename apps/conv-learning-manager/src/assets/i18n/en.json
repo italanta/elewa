@@ -793,7 +793,7 @@
     }
   },
   "LEARNERS":{
-    "LEARNERS" : "Learners",
+    "LEARNERS" : "Users",
     "TABLE-HEADER": {
       "NAME": "Name",
       "DATE-ENROLLED": "Date Enrolled",
@@ -835,7 +835,7 @@
     },
 
     "PLACEHOLDERS":{
-      "SEARCH-PLACEHOLDER": "Search for a learner"
+      "SEARCH-PLACEHOLDER": "Search for a user"
     },
     "BUTTONS": {
       "CREATE-CLASS":"Create Class",
