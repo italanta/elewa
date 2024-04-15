@@ -1,7 +1,7 @@
 .card{
     cursor: pointer;
     box-sizing: border-box;
-    padding: 10%;
+    padding: 7%;
 
     .cancel-icon{
         .close-button {
@@ -74,13 +74,13 @@
     }
     div{
         form{
-            padding: 0 0 5%;
+            padding: 0 0 3%;
             .general{
                 padding: 0 0 5%;
             }
             
             .input-data{
-                padding-top: 0.5rem;
+                padding-top: 0.6rem;
 
                 input{
                     width: 100%;
@@ -91,7 +91,7 @@
                     // General Details
                     // Bot Name
                     color: var(--convs-mgr-input-color);
-                    font-size: medium;
+                    font-size: 14px;
                     font-family: Roboto;
                     font-weight: 300;
                     word-wrap: break-word;
@@ -100,7 +100,7 @@
                 label{
                     // Messenger Channel Details
                     color: var(--convs-mgr-color-101010 );
-                    font-size: smaller;
+                    font-size: 14px;
                     font-family: Roboto;
                     font-weight: 400;
                     word-wrap: break-word
@@ -120,14 +120,14 @@
 }
 
 .buttons{
-    padding-top: 3rem;
+    padding-top: 2rem;
     display: flex;
     justify-content: space-between;
-    height: 2.1rem;
+    height: 2.5rem;
     
     .cancel{
       cursor: pointer;
-      margin-left: 1rem;
+      //margin-left: 1rem;
       padding: 0.5rem 2rem;
       color: var(--connector-color-teal-blue);
       background-color: transparent;
