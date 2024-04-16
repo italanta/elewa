@@ -41,10 +41,14 @@ export class OptionInputFieldComponent implements OnInit, AfterViewInit {
 
     // Ensure that we decorate only the input in the main block and
     //  not in the block edit section
-    const input = document.querySelector(`#${blockId} #${this.inputUniqueId}`) as Element;
-    if (this.jsPlumb) {
+    const parent = document.getElementById(blockId);
+
+    const input = parent?.querySelector(`#${this.inputUniqueId}`) as Element;
+    
+      if (this.jsPlumb) {
         _JsPlumbInputOptionDecorator(input, this.jsPlumb);
-    }
+    }      
+
   }
   
   setFocus() {
