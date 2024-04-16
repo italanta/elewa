@@ -1,7 +1,7 @@
 import { HandlerTools } from '@iote/cqrs';
 import { Logger } from '@iote/bricks-angular';
 
-import { RestResult200 } from '@ngfi/functions';
+import { RestResult, RestResult200 } from '@ngfi/functions';
 
 import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 import { FileMessage, Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
@@ -147,6 +147,7 @@ export class EngineBotManager
       return { success: true } as RestResult200;
     } catch (error) {
       this._tools.Logger.error(() => `[EngineChatManagerHandler].execute: Chat Manager encountered an error: ${error}`);
+      return { success: true } as RestResult200;
     }
   }
 

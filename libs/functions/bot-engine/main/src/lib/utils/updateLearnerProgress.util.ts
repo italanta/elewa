@@ -2,6 +2,9 @@ import { HandlerTools } from "@iote/cqrs";
 
 import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { EnrolledUserBotModule, EnrolledUserCourse } from "@app/model/convs-mgr/learners";
+import { BotModule } from "@app/model/convs-mgr/bot-modules";
+import { Bot } from "@app/model/convs-mgr/bots";
 
 import { EnrolledUserDataService } from "../services/data-services/enrolled-user.service";
 import { BotModuleDataService } from "../services/data-services/botmodules.service";
@@ -10,62 +13,81 @@ import { CoursesDataService } from "../services/data-services/courses.service";
 
 /** update the enrolled user's progress with the just completed story(lesson's) details*/
 export async function updateLearnerProgress (currentStory: string, lastBlock:StoryBlock, endUser:EndUser, tools:HandlerTools, orgId:string) {
+  if(!currentStory) return;
+
   const enrolledDataServ = new EnrolledUserDataService(tools, orgId);
   const botModDataService = new BotModuleDataService(tools, orgId);
   const storiesDataService = new StoriesDataService(tools, orgId);
   const courseDataService = new CoursesDataService(tools, orgId);
 
+  let enrolledCourse: EnrolledUserCourse;
+  let parentCourse: Bot;
+  let parentModule: BotModule;
+
   const enrolledUser = await enrolledDataServ.getEnrolledUser(endUser.enrolledUserId ?? '');
 
   const lesson = (await storiesDataService.getStory(currentStory));
-  const parentModule = (await botModDataService.getBotModule(lesson.parentModule));
-  const parentCourse = (await courseDataService.getBot(parentModule.parentBot));
 
+  if (lesson.parentModule) {
+    parentModule = (await botModDataService.getBotModule(lesson.parentModule));
+  }
+
+  if (parentModule.parentBot) {
+    parentCourse = (await courseDataService.getBot(parentModule.parentBot));
+  }
+
+  // Skip learner progress if user does not exist
   if (!enrolledUser) return;
 
   if (enrolledUser.courses == null) enrolledUser.courses = [];
 
   // Find or create the course
-  let theCourse = enrolledUser.courses.find(course => course.courseId === parentCourse.id);
+  if(parentCourse) {
+    enrolledCourse = enrolledUser.courses.find(course => course.courseId === parentCourse.id);
+  }
 
-  if (!theCourse) {
-    theCourse = {
-      courseId: parentCourse.id, 
-      courseName: parentCourse.name,
+  if (!enrolledCourse) {
+    enrolledCourse = {
+      courseId: parentCourse ? parentCourse.id : 'unknown', 
+      courseName: parentCourse ? parentCourse.name : 'unknown',
       enrollmentDate: new Date(),
       lastEngagementTime: endUser.lastActiveTime,
       modules: [],
     };
 
-    enrolledUser.courses.push(theCourse);
+    enrolledUser.courses.push(enrolledCourse);
   } else {
-    theCourse.courseName = parentCourse.name;
-    theCourse.lastEngagementTime = endUser.lastActiveTime;
+    enrolledCourse.courseName = parentCourse.name;
+    enrolledCourse.lastEngagementTime = endUser.lastActiveTime;
   };
 
   // Find or create the module
-  let theModule = theCourse.modules.find(mod => mod.moduleId === parentModule.id);
+  let  enrolledModule: EnrolledUserBotModule;
+  if(parentModule) {
+    enrolledModule = enrolledCourse.modules.find(mod => mod.moduleId === parentModule.id);
+  }
 
-  if (!theModule) {
-    theModule = { moduleId: parentModule.id, moduleName: parentModule.name, lessons: [] };
-    theCourse.modules.push(theModule);
-  } else theModule.moduleName = parentModule.name;
+  if (!enrolledModule) {
+    enrolledModule = { moduleId: parentModule.id, moduleName: parentModule.name, lessons: [] };
+    enrolledCourse.modules.push(enrolledModule);
+  } else enrolledModule.moduleName = parentModule.name;
 
-  let theLesson = theModule.lessons.find(lesson => lesson.lessonId === currentStory);
 
-  if (!theLesson) {
-    theLesson = { lessonId: currentStory, lessonName: lesson.name,  blocks: [] };
-    theModule.lessons.push(theLesson);
-  } else theLesson.lessonName = lesson.name;
+  let enrolledLesson = enrolledModule.lessons.find(lesson => lesson.lessonId === currentStory);
 
-  const block = theLesson.blocks.find((blockId) => blockId === lastBlock.id)
-  if (!block) theLesson.blocks.push(lastBlock.id);
+  if (!enrolledLesson) {
+    enrolledLesson = { lessonId: currentStory, lessonName: lesson.name,  blocks: [] };
+    enrolledModule.lessons.push(enrolledLesson);
+  } else enrolledLesson.lessonName = lesson.name;
+
+  const block = enrolledLesson.blocks.find((blockId) => blockId === lastBlock.id)
+  if (!block) enrolledLesson.blocks.push(lastBlock.id);
 
   tools.Logger.log(() => `Updating enrolled user progress for ${endUser.enrolledUserId}`);
   tools.Logger.log(() => `Current Story: ${currentStory}`);
   tools.Logger.log(() => `Parent Module: ${parentModule.id}`);
   tools.Logger.log(() => `Parent Course: ${parentCourse.id}`);
-  tools.Logger.log(() => `Lesson: ${JSON.stringify(theLesson)}`);
+  tools.Logger.log(() => `Lesson: ${JSON.stringify(enrolledLesson)}`);
 
   // Save changes
   await enrolledDataServ.updateEnrolledUser(enrolledUser);
