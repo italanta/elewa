@@ -32,7 +32,7 @@ export async function updateLearnerProgress (currentStory: string, lastBlock:Sto
     parentModule = (await botModDataService.getBotModule(lesson.parentModule));
   }
 
-  if (parentModule.parentBot) {
+  if (parentModule) {
     parentCourse = (await courseDataService.getBot(parentModule.parentBot));
   }
 
