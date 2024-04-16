@@ -23,10 +23,6 @@ import { VariablesService } from '../../providers/variables.service';
 })
 export class VariableInputComponent implements OnInit, OnDestroy {
   
-  @Input() set setValidation(value: boolean) {
-    this.validate = value;
-  };
-  
   validate: boolean;
   @Input() BlockFormGroup: FormGroup;
   private _sub = new SubSink();
@@ -166,6 +162,10 @@ export class VariableInputComponent implements OnInit, OnDestroy {
 
   toggleSaveAnswers() {
     this.saveAnswersInVariable = !this.saveAnswersInVariable;
+  }
+
+  setValidation() {
+    this.validate = !this.validate;
   }
   
 

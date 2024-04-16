@@ -17,7 +17,5 @@ export class OpenEndedQuestionEditComponent implements OnInit {
     this.validate = this.form.value.variable.validate;
   }
 
-  setValidation() {
-    this.validate = !this.validate;
-  }
+
 }
