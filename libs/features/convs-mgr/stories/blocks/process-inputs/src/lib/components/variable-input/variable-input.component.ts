@@ -25,6 +25,8 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   
   validate: boolean;
   @Input() BlockFormGroup: FormGroup;
+  @Input() noValidation: boolean;
+
   private _sub = new SubSink();
 
   parentModuleId:string;

@@ -38,7 +38,7 @@
       <span class="message">{{errorMessage}}</span>
     </div>
 
-    <label class="block-edit-validation-check">
+    <label class="block-edit-validation-check" *ngIf="!noValidation">
       <input type="checkbox" (change)="setValidation()" [checked]="validate">
       <span class="checkmark"></span>
       <div class="save-answers-text">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.SET-VALIDATION-CHECKBOX" | transloco }}</div>

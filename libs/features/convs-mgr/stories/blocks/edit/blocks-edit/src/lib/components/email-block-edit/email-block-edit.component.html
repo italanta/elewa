@@ -9,15 +9,8 @@
 
     <div class="block-edit-variable-input-section">
       <mat-divider></mat-divider>
-      <app-variable-input [BlockFormGroup]="form" [setValidation]="validate"></app-variable-input>
+      <app-variable-input [BlockFormGroup]="form"></app-variable-input>
       <mat-divider></mat-divider>
     </div>
   </form>
-
-  <label class="block-edit-validation-check">
-    <input type="checkbox" (change)="setValidation()" [checked]="validate">
-    <span class="checkmark"></span>
-    <div class="save-answers-text">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.SET-VALIDATION-CHECKBOX" | transloco }}</div>
-  </label>
-
 </div>
