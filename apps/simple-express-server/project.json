@@ -1,0 +1,72 @@
+{
+  "name": "simple-express-server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/simple-express-server/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/simple-express-server",
+        "main": "apps/simple-express-server/src/main.ts",
+        "tsConfig": "apps/simple-express-server/tsconfig.app.json",
+        "assets": ["apps/simple-express-server/src/assets"],
+        "generatePackageJson": true
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/simple-express-server/src/environments/environment.ts",
+              "with": "apps/simple-express-server/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "deploy": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "nx build simple-express-server",
+          "docker build -f ./apps/simple-express-server/src/Dockerfile -t simple-express-server ."
+        ],
+        "parallel": false
+      }
+    },    
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "options": {
+        "buildTarget": "simple-express-server:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "simple-express-server:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/simple-express-server/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/simple-express-server"],
+      "options": {
+        "jestConfig": "apps/simple-express-server/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

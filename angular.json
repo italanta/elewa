@@ -2092,6 +2092,7 @@
       },
       "tags": []
     },
+    "simple-express-server": "apps/simple-express-server",
     "state-convs-mgr-bots": {
       "projectType": "library",
       "root": "libs/state/convs-mgr/bots",
