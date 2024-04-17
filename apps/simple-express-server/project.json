@@ -36,11 +36,11 @@
       "options": {
         "commands": [
           "nx build simple-express-server",
-          "docker build -f ./apps/simple-express-server/src/Dockerfile -t simple-express-server ."
+          "docker build -f ./apps/simple-express-server/Dockerfile -t simple-express-server:{args.tag||'latest'} ."
         ],
         "parallel": false
       }
-    },    
+    }, 
     "serve": {
       "executor": "@nrwl/js:node",
       "options": {
