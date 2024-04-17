@@ -7,4 +7,10 @@ export interface UserCount {
 
   /** Monthly user count */
   pastMonthCount: number;
+
+  /** Current Week user count */
+  currentWeekCount?: number;
+
+  /** Current Month user count */
+  currentMonthCount?: number;
 }
