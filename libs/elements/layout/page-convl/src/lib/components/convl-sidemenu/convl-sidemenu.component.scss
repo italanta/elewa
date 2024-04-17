@@ -19,15 +19,18 @@ $sidebar-footer-height: 230px;
 .active {
   font-weight: bolder;
   border-right: solid var(--convs-mgr-button-color) 1px;
+
   .menu-title{
     color: var(--convs-mgr-button-color)!important;
   }
+
   .menu-icon{
     .img{
       filter: invert(42%) sepia(20%) saturate(1520%) hue-rotate(142deg) brightness(91%) contrast(88%);
     }
   }
 }
+
 .img{
   height: 24px;
   width: 24px;
@@ -154,6 +157,8 @@ $sidebar-footer-height: 230px;
     .sidebar-content {
       flex-grow: 1;
       padding: 10px 0;
+      display: flex;
+      justify-content: center;
     }
     .sidebar-footer {
       height: $sidebar-footer-height;
@@ -196,6 +201,11 @@ $sidebar-footer-height: 230px;
   }
 }
 
+.menu-item a:hover {
+  background-color: rgba(160, 196, 204, 0.6);
+  border-radius: 0.4rem;
+}
+
 .layout {
   .sidebar {
     .menu {
@@ -213,15 +223,17 @@ $sidebar-footer-height: 230px;
         opacity: 0.5;
       }
       .menu-item {
+        padding: 5px;
         a {
           display: flex;
           align-items: center;
           height: 25px;
-          padding: 0 20px;
+          padding: 22px 20px;
+          // margin-bottom: 10px;
           color: $text-color;
-          margin-bottom: 20px;
           padding-left: 30px;
           justify-content: center;
+          width: 100%;
 
           .menu-icon {
             cursor: pointer;
@@ -657,7 +669,10 @@ a {
 }
 
 .sub-side-menu{
-  padding-left: 1rem!important;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem 0 0.5rem 1rem !important;
   font-size: .85rem!important;
   li{
     margin-top: -10px;

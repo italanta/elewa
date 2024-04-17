@@ -60,9 +60,9 @@ export const APP_ROUTES: Route[] = [
   },
 
   {
-    path: 'learners',
+    path: 'users',
     loadChildren: () => import('@app/features/convs-mgr/learners').then(m => m.ConvsMgrLearnersModule),
-    data: { breadCrumb: 'Learners' },
+    data: { breadCrumb: 'users' },
     canActivate: [IsLoggedInGuard, CanAccessLearnersGuard],
   },
   {

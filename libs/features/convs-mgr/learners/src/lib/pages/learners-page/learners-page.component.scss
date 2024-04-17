@@ -28,6 +28,11 @@
         padding: 20px;
         border-radius: 20px;
         margin-left: 20px;
+
+        &.send-message-btn {
+          background-color: black;
+          color: white;
+        }
       }
 
       .bulk-actions {
@@ -49,12 +54,11 @@
       .search {
         height: 5px;
         width: 90%;
-        background-color: var(--convs-mgr-color-primary-white);
-        border-radius: 20px;
+        background-color: white;
+        border-radius: 18px;
         display: flex;
         align-items: center;
         padding: 20px;
-        border: solid #dadada 1px;
 
         &_tooltip {
           color: gray;
@@ -76,7 +80,7 @@
       .dropdown {
         display: grid;
         gap: 0.3rem;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
 
         select {
           appearance: none;

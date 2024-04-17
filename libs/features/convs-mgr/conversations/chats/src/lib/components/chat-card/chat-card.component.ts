@@ -48,13 +48,12 @@ export class ChatCardComponent implements OnChanges, AfterViewInit, OnDestroy
   }
 
   getChatName() {
-    this._sbs.sink = combineLatest([this._chats$.getChatUserName(this.chat.id), 
-                                    this._msgsQuery$.getLatestMessageDate(this.chat.id)])
-                          .pipe(tap(([variables, date]) => {
-                                  this.chat.name = variables?.name ?? '';
-                                  this.lastMessageDate = TIME_AGO(date.seconds);
-                                }))
-                          .subscribe();
+    this.chat.name = this.chat.variables?.['name'] || '';
+
+    const lastMessageDate = __DateFromStorage((this.chat.lastActiveTime as Date) || (this.chat.updatedOn as Date))
+
+    this.lastMessageDate = TIME_AGO(lastMessageDate.unix());
+
     this.chatAvatarColor = GET_RANDOM_COLOR();
   }
 

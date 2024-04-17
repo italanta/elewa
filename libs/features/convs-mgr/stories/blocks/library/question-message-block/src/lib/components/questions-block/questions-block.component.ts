@@ -65,10 +65,15 @@ export class QuestionsBlockComponent implements OnInit
   }
 
   deleteInput(i: number) {
+    const optionElementId = `i-${i}-${this.id}`;
+
+    const optionElement = document.getElementById(optionElementId) as Element;
+    
+    this.jsPlumb.removeAllEndpoints(optionElement);
+    
+    this.jsPlumb.deleteConnectionsForElement(optionElement)
+    
     this.options.removeAt(i);
-    // TODO: Wrapper around jsPlumb instance that can take care of such operations more cleanly
-    const conns = this.jsPlumb.connections.filter((c) => c.sourceId === `i-${i}-${this.id}`);
-    conns.forEach(c => this.jsPlumb.deleteConnection(c));
   }
 
   setFocusOnNextInput() {

@@ -88,5 +88,6 @@ export interface EnrolledEndUser extends IObject {
  */
 export enum EnrolledEndUserStatus {
   Active = 1,
-  Inactive = 2
+  Inactive = 2,
+  Stuck = 3
 }

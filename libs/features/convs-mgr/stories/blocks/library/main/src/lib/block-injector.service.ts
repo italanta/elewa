@@ -77,9 +77,10 @@ export class BlockInjectorService
     // Remove the connections linked to the block
     state.connections = state.connections.filter(conn => conn.sourceId !== block.id && conn.targetId !== block.id);
         // Remove on viewport - @see https://docs.jsplumbtoolkit.com/community/6.x/lib/querying
-    const sourceConns = plumb.connections.filter(conn => conn.sourceId.includes(block.id as string));
+    const sourceConns = plumb.connections.filter(conn => conn.source.id.includes(block.id as string));
     const targetConns = plumb.connections.filter(conn => conn.target.id.includes(block.id as string) || conn.targetId.includes(block.id as string));
 
+    // TODO: Also delete the connection endpoints
     sourceConns.forEach(c => plumb.deleteConnection(c));
     targetConns.forEach(c => plumb.deleteConnection(c));
   }

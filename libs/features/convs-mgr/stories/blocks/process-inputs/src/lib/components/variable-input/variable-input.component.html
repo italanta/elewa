@@ -1,14 +1,57 @@
 <section class="variables-section">
-  <form [formGroup]="variablesForm" class="variables-form" [ngSwitch]="blockType" (ngSubmit)="onSubmit()">
+
+  <label class="save-answers-toggle">
+    <input type="checkbox" (click)="toggleSaveAnswers()" [checked]="saveAnswersInVariable">
+    <span class="checkmark"></span>
+    <div class="save-answers-text">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.VARIABLE-INFO" | transloco }}</div>
+  </label>
+
+  <form *ngIf="saveAnswersInVariable" [formGroup]="variablesForm" class="variables-form" [ngSwitch]="blockType" (ngSubmit)="onSubmit()">
     <div formGroupName="variable" class="variables-container">
 
+      <div class="variable-defaults">
+        <div class="variables_name">
+          <input class="input" type="text" id="variable" name="variable" formControlName="name">
+          <div class="errors" *ngIf="name?.invalid">{{ name?.errors?.['incorrect'] }}</div>
+        </div>
+
+        <div class="variables_type">
+          <label class="label" for="type">Type of variable</label>
+          <select class="select" formControlName="type" id="type" required>
+            <option class="option" *ngFor="let type of variablesTypesList; let i=index" [value]="type.value">
+              {{ type.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <input class="btn submit-btn" [disabled]="variablesForm.invalid" type="submit" value="Apply">
+
+    <div class="save-variable-message success" *ngIf="showSuccess">
+      <div class="icon"><i class="far fa-check-circle"></i></div>
+      <span class="message">Success. Variable created</span>
+    </div>
+
+    <div class="save-variable-message error" *ngIf="showError">
+      <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
+      <span class="message">{{errorMessage}}</span>
+    </div>
+
+    <label class="block-edit-validation-check" *ngIf="!noValidation">
+      <input type="checkbox" (change)="setValidation()" [checked]="validate">
+      <span class="checkmark"></span>
+      <div class="save-answers-text">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.SET-VALIDATION-CHECKBOX" | transloco }}</div>
+    </label>
+
+    <div>
       <!-- dynamic rendering of optional validation forms -->
       <div *ngSwitchCase="nametype">
-        <app-name-validations [variablesForm]="variablesForm" [validate]="validate"></app-name-validations>
+        <app-name-validations [variablesForm]="variablesForm" [setValidation]="validate"></app-name-validations>
       </div>
 
       <div *ngSwitchCase="emailtype">
-        <app-email-validations [variablesForm]="variablesForm" [validate]="validate"></app-email-validations>
+        <app-email-validations [variablesForm]="variablesForm" [setValidation]="validate"></app-email-validations>
       </div>
 
       <div *ngSwitchCase="phonetype">
@@ -22,25 +65,6 @@
       <div *ngSwitchCase="OpenEndedQuestion">
         <app-open-ended-validations [variablesForm]="variablesForm" [validate]="validate"></app-open-ended-validations>
       </div>
-
-      <div class="variable-defaults">
-        <div class="variables_name">
-          <label class="label" for="name">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.VARIABLE-INFO" | transloco }}</label>
-          <input class="input" type="text" id="variable" name="variable" formControlName="name">
-          <div class="errors" *ngIf="name?.invalid">{{ name?.errors?.['incorrect'] }}</div>
-        </div>
-
-        <div class="variables_type">
-          <label class="label" for="type">type</label>
-          <select class="select" formControlName="type" id="type" required>
-            <option class="option" *ngFor="let type of variablesTypesList; let i=index" [value]="type.value">
-              {{ type.name }}
-            </option>
-          </select>
-        </div>
-      </div>
     </div>
-    
-    <input class="btn submit-btn" [disabled]="variablesForm.invalid" type="submit" value="Apply">
   </form>
 </section>

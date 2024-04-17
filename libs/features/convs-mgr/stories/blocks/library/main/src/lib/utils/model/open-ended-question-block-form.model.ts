@@ -23,8 +23,13 @@ export function _CreateOpenEndedQuestionBlockForm(_fb: FormBuilder, blockData: O
       validate: [blockData.variable?.validate ?? false, [Validators.required]],
 
       validators: _fb.group({
+        regex: [blockData.variable?.validators?.regex ?? ''],
         max: [blockData.variable?.validators?.max ?? ''],
         min: [blockData.variable?.validators?.min ?? ''],
+        validationMessage: [
+          blockData.variable?.validators?.validationMessage ??
+            "I'm afraid I didn't understand, could you try again, please?",
+        ],
       })
     })
   })

@@ -1,11 +1,11 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { Observable, map, of, switchMap, take } from 'rxjs';
+import { Observable, forkJoin, of, switchMap, take } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
-import { Classroom } from '@app/model/convs-mgr/classroom';
+import { Classroom, ClassroomUpdateEnum } from '@app/model/convs-mgr/classroom';
 
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
@@ -27,19 +27,21 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
     private _enrolledUser$: EnrolledLearnersService,
     public dialogRef: MatDialogRef<ChangeClassComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: { enrolledUsr: EnrolledEndUser; mode: string }
+    public data: { enrolledUsrs: EnrolledEndUser[]; mode: string }
   ) {}
 
   ngOnInit() {
     this.classrooms$ = this._classroom$.getAllClassrooms();
   }
 
-  get enrolledUser() {
-    return this.data.enrolledUsr;
+  get enrolledUsers() {
+    return this.data.enrolledUsrs;
   }
 
-  get mode() {
-    return this.data.mode;
+  getMode(enrolledUser: EnrolledEndUser) {
+    return enrolledUser.classId
+      ? ClassroomUpdateEnum.ChangeClass
+      : ClassroomUpdateEnum.AddToClass;
   }
 
   onCancel() {
@@ -51,26 +53,36 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
   }
 
   submitAction() {
-    if (!this.selectedClass || !this.enrolledUser) return;
-
-    const userId = this.enrolledUser.id as string
-
+    if (!this.selectedClass || !this.enrolledUsers || this.enrolledUsers.length === 0) return;
     this.isUpdatingClass = true;
+  
+    this._sBs.sink = this.classrooms$.pipe(
+      switchMap(cls => {
+        const classRoom = cls.find((classroom) => classroom.id === this.selectedClass);
+  
+        if (classRoom) {
+          const userIds = this.enrolledUsers.map(user => user.id as string);
 
-    this.classrooms$.pipe((switchMap((cls)=> 
-    {
-      const sClass = (cls.filter((cl)=> cl.id == this.selectedClass))[0];
+          classRoom.users = classRoom.users ? [...classRoom.users, ...userIds] : userIds;
+          return this._classroom$.updateClassroom(classRoom);
+        }
 
-      sClass.users = sClass.users ? [...sClass.users, userId] : [userId];
-      return this._classroom$.updateClassroom(sClass);
-    }))).pipe(take(1)).subscribe();
+        return of(null)
+      }),
+      take(1)
+    )
+    .subscribe(() => this.updateLearners());
+  }
 
-    this._sBs.sink = this._enrolledUser$
-      .updateLearnerClass$(this.enrolledUser, this.selectedClass)
-      .subscribe(() => {
-        this.isUpdatingClass = false;
-        this.dialogRef.close();
-      });
+  updateLearners() {
+    const updatedLearners$ = this.enrolledUsers.map(user => {
+      return this._enrolledUser$.updateLearnerClass$(user, this.selectedClass);
+    });
+
+    this._sBs.sink = forkJoin(updatedLearners$).subscribe(() => {
+      this.isUpdatingClass = false;
+      this.dialogRef.close();
+    })
   }
 
   ngOnDestroy() {

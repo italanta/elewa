@@ -21,8 +21,7 @@ export function _JumpBlockDecoratePlumb(block: JumpBlock, comp: ComponentRef<Blo
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass:"block_endpoint",
-
-    endpoint: 'Dot',
+    endpoint: 'Rectangle',
     anchor: "Left"
 
   });

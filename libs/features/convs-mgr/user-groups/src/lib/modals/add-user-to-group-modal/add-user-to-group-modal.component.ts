@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -13,12 +13,14 @@ import { Classroom } from '@app/model/convs-mgr/classroom';
   templateUrl: './add-user-to-group-modal.component.html',
   styleUrls: ['./add-user-to-group-modal.component.scss'],
 })
-export class AddUserToGroupModalComponent implements OnInit {
-
+export class AddUserToGroupModalComponent implements OnInit, OnDestroy {
   private _sBs = new SubSink();
+
   addUserToGroupForm:FormGroup;
-  isLoading:boolean;
+  isLoading: boolean;
   classroom: Classroom;
+  learners: EnrolledEndUser[];
+  isExisting?: EnrolledEndUser;
 
   constructor(private _fb:FormBuilder, 
               private _dialog:MatDialog,
@@ -30,6 +32,11 @@ export class AddUserToGroupModalComponent implements OnInit {
   ngOnInit(): void {
     this.classroom = this.data;
     this.buildForm();
+    this.checkPhoneNumber();
+
+    this._sBs.sink = this._enrollLearnerService.getAllLearners$().subscribe((leaners) => {
+      this.learners = leaners
+    })
   }
 
   buildForm(){
@@ -39,7 +46,17 @@ export class AddUserToGroupModalComponent implements OnInit {
     })
   }
 
-  closeModal(){
+  checkPhoneNumber() {
+    this._sBs.sink = this.addUserToGroupForm.get('phoneNumber')?.valueChanges
+      .subscribe((val: string) => {
+        // TODO: check back to make sure it works for most countries
+        const last9Digits = val.substring(val.length - 9);
+  
+        this.isExisting = this.learners.find((learner) => learner.phoneNumber?.endsWith(last9Digits));
+      });
+  }
+
+  closeModal() {
     this._dialog.closeAll();
   }
 
@@ -61,4 +78,7 @@ export class AddUserToGroupModalComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this._sBs.unsubscribe();
+  }
 }

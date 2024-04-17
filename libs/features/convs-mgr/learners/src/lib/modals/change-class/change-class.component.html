@@ -1,15 +1,16 @@
 <div class="modal-wrapper">
-  <div class="title-section">
-    <p class="title">{{ mode }}</p>
-    <span>{{ enrolledUser.name || 'No Name' }}</span>
+  <div *ngFor="let user of enrolledUsers">
+    <div class="title-section">
+      <p class="mode">{{ getMode(user) | titlecase }}</p>
+      <span class="name">{{ user.name || 'No Name' | titlecase }}</span>
+    </div>
   </div>
 
   <!-- Change Class -->
   <div class="middle-section" *ngIf="(classrooms$ | async) as classrooms">
     <div class="class" *ngFor="let classroom of classrooms">
-      <input type="radio" name="classroom" id="classroom" [checked]="classroom.id === enrolledUser.classId"
-        [value]="classroom.id" (change)="onChange($event)">
-      <label for="classroom">{{ classroom.className }}</label>
+      <input type="radio" name="classroom" id="classroom" [value]="classroom.id" (change)="onChange($event)">
+      <label for="classroom">{{ classroom.className | titlecase }}</label>
     </div>
   </div>
 

@@ -4,7 +4,7 @@ import { SubSink } from 'subsink';
 import { flatten as ___flatten, cloneDeep as ___cloneDeep } from 'lodash';
 
 import { combineLatest, Observable, of } from 'rxjs';
-import { catchError, debounceTime, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
 
@@ -13,6 +13,7 @@ import { StoryBlock, StoryBlockConnection } from '@app/model/convs-mgr/stories/b
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { StoryConnectionsStore } from '@app/state/convs-mgr/stories/block-connections';
+import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { StoryEditorState } from '../model/story-editor-state.model';
 
@@ -48,28 +49,43 @@ export class StoryEditorStateService
    * @returns : The initial state of the story editor @see {StoryEditorState}
    */
   get(): Observable<StoryEditorState> 
-  {
-    const state$ = this._story$$.get().pipe(
-                      debounceTime(500),
-                      // Load story editor state. This includes the story itself, the blocks which it consists and the connections.
-                      switchMap(story => story ? combineLatest([of(story), 
-                                                                this._blocks$$.get(), 
-                                                                this._connections$$.get()]) 
-                                                : of([])));
-    
-    // The information is combined into a single state that contains all the latest objects.
-    const stateData$ = state$.pipe(
-      // Fix {CLM-73} - Multiple refresh bug on story saving.
-      filter(() => !this._isSaving),
-      map(([story, blocks, connections]) => ({ story, blocks, connections }) as StoryEditorState));
+  {             
+    // Initialize the state object                           
+    const state: StoryEditorState = {
+      blocks: [],
+      connections: [],
+      story: {} as Story,
+    };
 
-    // Store the first load to later diff. between previous and new state (to allow deletion of blocks etc.)
-    stateData$.pipe(take(1)).subscribe((state) => (
-      this._setLastLoadedState(state)
-    ));
+    // Changed from combineLatest to switchMap to 
+    //  make sure that we get the story first before
+    //   using it to get blocks and connections.
+
+    // Fixes #CLM-407 - When you open a new story, it opens the last one instead of the one selected
+    const state$ = this._story$$.get().pipe(
+      switchMap(story => {
+        state.story = story;
+
+        // this._blocks$$.get() & this._connections$$.get()  used to fetch blocks from the last
+        //   openned story even if the active story has changed and is correct.
+
+        return this._blocks$$.getBlocksByStory(story.id as string).pipe(
+          switchMap((blocks: StoryBlock[])=> {
+            state.blocks = blocks;
+            return this._connections$$.getConnectionsByStory(state.story.id as string).pipe(
+
+              switchMap((connections: StoryBlockConnection[]) => {
+                state.connections = connections;
+
+                this._setLastLoadedState(state);
+                return of(state)
+              }))
+          })
+        )
+      }))
 
     // Return state.
-    return stateData$;
+    return state$;
   }
 
   /** Persists a story editor state. */

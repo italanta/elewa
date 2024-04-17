@@ -7,6 +7,11 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./email-validations.component.scss'],
 })
 export class EmailValidationsComponent {
-  @Input() validate: boolean;
+  @Input() set setValidation(value: boolean) {
+    this.validate = value;
+  };
+
   @Input() variablesForm: FormGroup;
+  
+  validate: boolean;
 }

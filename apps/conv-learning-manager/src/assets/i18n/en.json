@@ -206,9 +206,9 @@
       },
       "VALIDATORS": {
         "SET-VALIDATION-CHECKBOX": "Set Validation",
-        "VARIABLE-INFO": "save answers in the variable",
-        "REGEX": "regex",
-        "PLACEHOLDER-REGEX": "regex",
+        "VARIABLE-INFO": "Save answers in the variable",
+        "REGEX": "Regex",
+        "PLACEHOLDER-REGEX": "Regex",
         "MAX": "Max",
         "PLACEHOLDER-MAX": "Max Characters",
         "MIN": "Min",
@@ -793,7 +793,7 @@
     }
   },
   "LEARNERS":{
-    "LEARNERS" : "Learners",
+    "LEARNERS" : "Users",
     "TABLE-HEADER": {
       "NAME": "Name",
       "DATE-ENROLLED": "Date Enrolled",
@@ -835,11 +835,11 @@
     },
 
     "PLACEHOLDERS":{
-      "SEARCH-PLACEHOLDER": "Search for a learner"
+      "SEARCH-PLACEHOLDER": "Search for a user"
     },
     "BUTTONS": {
       "CREATE-CLASS":"Create Class",
-      "ADD-TO-CLASS": "Add to Class",
+      "ADD-TO-GROUP": "Add to Group",
       "BULK-ACTIONS": "Send Message",
       "CLASS": "Class",
       "COURSE": "Course",
@@ -847,7 +847,6 @@
       "GO-TO-CHAT": "Go to Chat",
       "SEND-SURVEY": "Send survey",
       "SEND-MESSAGE": "Send Message"
-      
     },
     "MODALS": {
       "ACTIONS": "Actions",
@@ -1222,6 +1221,7 @@
         "ADD-CHANNEL":"Add Channel"
       },
       "ADD-CHANNEL":"Add Channel",
+      "EDIT-CHANNEL":"Edit Channel",
       "SELECT-PLATFORM":"Select Platform",
       "SELECT-CHANNEL":"Select Channel",
       "ADD-DETAILS":"Add Details",
@@ -1238,8 +1238,7 @@
       "MESSENGER-CHANNEL-DETAILS":"Messenger Channel Details",
       "CHANNEL-NAME":"Channel Name",
       "PLATFORM":"Platform",
-      "FIRST-STORY":"First Story",
-      "EDIT-CHANNEL":"Edit Channel"
+      "FIRST-STORY":"First Story"
       
   }
 }

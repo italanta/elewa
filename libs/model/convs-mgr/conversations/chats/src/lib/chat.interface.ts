@@ -28,6 +28,8 @@ export interface Chat extends IObject
   channelId: string;
   channelName: string;
 
+  variables?: {[key:string]:any};
+
   status: ChatStatus;
 
   flow?: ChatFlowStatus;
@@ -51,6 +53,8 @@ export interface Chat extends IObject
   onboardedOn?: Timestamp | Date;
 
   instructors?: string[];
+
+  lastActiveTime?: Date;
 
   lastMsg?: any;
 

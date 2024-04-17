@@ -23,7 +23,7 @@ export function _KeywordJumpBlockDecoratePlumb(
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass: 'block_endpoint',
-    endpoint: 'Dot',
+    endpoint: 'Rectangle',
     anchor: "Left",
     maxConnections: -1,
   });

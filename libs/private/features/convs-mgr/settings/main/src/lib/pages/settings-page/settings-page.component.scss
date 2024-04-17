@@ -11,6 +11,11 @@
   font-size: 16px;
 }
 
+:host ::ng-deep .mat-mdc-tab-labels {
+  display: flex;
+  padding-top: 1.5rem;
+}
+
 // TODO: @JAPHETHNYARANGA, 
 .page-wrapper {
   background-color: #F6F6F6;

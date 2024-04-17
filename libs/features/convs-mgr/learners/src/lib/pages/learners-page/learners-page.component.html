@@ -6,19 +6,20 @@
       <div class="top-actions">
         <span class="learners-title"> {{ "LEARNERS.LEARNERS" | transloco }} </span>
         <div>
-          <button mat-raised-button [hidden]="!activeMessageId" class="btn" (click)="sendMessageButtonClicked()">{{'LEARNERS.BUTTONS.SEND-MESSAGE'| transloco
-          }}</button>
-          <button mat-raised-button class="btn add-to-class"
-            (click)="openCreateClassModal()">{{'LEARNERS.BUTTONS.CREATE-CLASS'| transloco }}</button>
-          <!-- <button mat-raised-button color="primary" class="btn add-to-class">{{'LEARNERS.BUTTONS.ADD-TO-CLASS'|
-            transloco }}</button> -->
-          <!-- <button mat-raised-button class="btn bulk-actions"
-            (click)="openBulkActionsDialog()">{{'LEARNERS.BUTTONS.BULK-ACTIONS'| transloco }}</button> -->
+          <!-- <button mat-raised-button class="btn add-to-class"
+            (click)="openCreateClassModal()">{{'LEARNERS.BUTTONS.CREATE-CLASS'| transloco }}</button> -->
+
+          <button mat-raised-button color="primary" class="btn add-to-class" (click)="openChangeClassModal($event)">
+            {{'LEARNERS.BUTTONS.ADD-TO-GROUP'| transloco }}
+          </button>
+
+          <button mat-raised-button  class="btn send-message-btn" (click)="sendMessageButtonClicked()">
+            {{'LEARNERS.BUTTONS.SEND-MESSAGE'| transloco }}
+          </button>
         </div>
       </div>
 
-      <div class="table-filters" *ngIf="dataSource.data.length">
-
+      <div class="table-filters">
         <div class="search">
           <i class="fas fa-search search_tooltip"></i>
           <input class="search_input" type="text" name="search table"
@@ -28,30 +29,29 @@
 
         <div class="dropdown">
           <div class="select">
-            <select [(value)]="selectedClass" (change)="filterTable($event,'class')">
+            <select (change)="filterTable($event, 'class')">
               <option value="allClasses" selected>{{ 'All Classes' | titlecase  }}</option>
               <option *ngFor="let class of allClasses" [value]="class.id">{{ class.className | titlecase }}</option>
             </select>
           </div>
 
           <div class="select">
-            <select>
-              <option [value]="null" selected>All Courses</option>
-              <option *ngFor="let course of allCourses" [value]="course">{{ course.name | titlecase }}</option>
+            <select (change)="filterTable($event, 'course')">
+              <option value="allCourses" selected>All Courses</option>
+              <option *ngFor="let course of allCourses" [value]="course.id">{{ course.name | titlecase }}</option>
             </select>
           </div>
 
-          <!-- TODO Add status sort -->
-          <!-- <div class="select">
-            <select>
-              <option [value]="null" selected> All Status </option>
-              <option *ngFor="let platform of allPlatforms" [value]="platform">{{ platform }}</option>
+          <div class="select">
+            <select (change)="filterTable($event, 'status')">
+              <option value="allStatus" selected> All Status </option>
+              <option *ngFor="let status of allStatus" [value]="EnrolledEndUserStatus[status]">{{ EnrolledEndUserStatus[status] | titlecase }}</option>
             </select>
-          </div> -->
+          </div>
 
           <div class="select">
-            <select>
-              <option [value]="null" selected>All Platforms</option>
+            <select (change)="filterTable($event, 'platform')">
+              <option value="allPlatform" selected>All Platforms</option>
               <option *ngFor="let platform of allPlatforms" [value]="platform">{{ platform | titlecase }}</option>
             </select>
           </div>
@@ -94,7 +94,7 @@
         <ng-container matColumnDef="course">
           <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="course">
             {{'LEARNERS.TABLE-HEADER.COURSE'| transloco }}</th>
-          <td mat-cell *matCellDef="let enrolledUsr">{{ enrolledUsr.currentCourse | titlecase }}</td>
+          <td mat-cell *matCellDef="let enrolledUsr">{{ getLearnersCourse(enrolledUsr) | titlecase }}</td>
         </ng-container>
 
         <ng-container matColumnDef="class">
@@ -116,14 +116,14 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="actions">
+        <!-- <ng-container matColumnDef="actions">
           <th class="table-header" mat-header-cell *matHeaderCellDef> Action </th>
           <td mat-cell *matCellDef="let enrolledUsr">
             <button mat-raised-button (click)="openChangeClassModal($event, enrolledUsr)">
               {{ getMode(enrolledUsr) | titlecase  }}
             </button>
           </td>
-        </ng-container>
+        </ng-container> -->
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>

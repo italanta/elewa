@@ -2,14 +2,16 @@ import { Injectable } from '@angular/core';
 
 import { Repository, DataService } from '@ngfi/angular';
 import { DataStore }  from '@ngfi/state';
+import { Query } from '@ngfi/firestore-qbuilder';
 
 import { of } from 'rxjs'
-import { tap, throttleTime, switchMap, map, mergeMap } from 'rxjs/operators';
+import { tap, throttleTime, switchMap, map } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
+import { __DateFromStorage } from '@iote/time';
 
 import { Organisation } from '@app/model/organisation';
-import { Story } from '@app/model/convs-mgr/stories/main';
+
 import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
 
@@ -43,9 +45,7 @@ export class ChatsStore extends DataStore<Chat>
                       tap((org: Organisation) => this._activeOrg  = org),
                       tap((org: Organisation) => this._activeRepo = _repoFac.getRepo<Chat>(`orgs/${org.id}/end-users`)),
                       switchMap((org: Organisation) => 
-                        org ? this._activeRepo.getDocuments() : of([] as Chat[])),
-                      // update chat.name with the end-user's name
-
+                        org ? this._activeRepo.getDocuments(new Query().orderBy('updatedOn', 'desc')) : of([] as Chat[])),
                       throttleTime(500, undefined, { leading: true, trailing: true }));
 
     this._sbS.sink = data$.subscribe(properties => {
