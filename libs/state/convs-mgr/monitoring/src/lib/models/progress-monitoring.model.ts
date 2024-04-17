@@ -327,7 +327,7 @@ export class ProgressMonitoringState
       const timeInDate = new Date(model.time);
       const dayOfWeek = timeInDate.getDay();
 
-      if (dayOfWeek === 5) return true; // if friday
+      if (dayOfWeek === 0) return true; // if friday
       else return false;
     });
   }
