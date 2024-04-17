@@ -112,26 +112,17 @@ export function getAllDaysCountCourse(dailyProgress: GroupProgressModel[], users
 }
 
 export function getEngagedUsersCurrentWeek(dailyProgress: GroupProgressModel[], usersType: string, courseId: string): number {
-  const currentDate = moment();
-  const startOfWeek = currentDate.clone().startOf('isoWeek');
+  const usersEnrolledInCurrentWeek = dailyProgress[dailyProgress.length-1];
+  const userCount = usersEnrolledInCurrentWeek.courseProgress[courseId][usersType];
 
-  const usersEnrolledInCurrentWeek = dailyProgress
-    .filter(data => __DateFromStorage(data.createdOn as Date).isSameOrAfter(startOfWeek))
-    .filter(data => data.courseProgress)
-    .reduce((total, data) => total + data.courseProgress[courseId][usersType].dailyCount, 0);
-
-  return usersEnrolledInCurrentWeek;
+  return userCount.currentWeekCount || userCount.dailyCount;
 }
 
 export function getEngagedUsersCurrentMonth(dailyProgress: GroupProgressModel[], usersType: string, courseId: string): number {
-  const currentDate = moment();
-  const startOfMonth = currentDate.clone().startOf('month');
+  const usersEnrolledInCurrentMonth = dailyProgress[dailyProgress.length-1];
+  const userCount = usersEnrolledInCurrentMonth.courseProgress[courseId][usersType];
 
-  const usersEnrolledInCurrentWeek = dailyProgress
-  .filter(data => __DateFromStorage(data.createdOn as Date).clone().isSameOrAfter(startOfMonth))
-    .reduce((total, data) => total + data.courseProgress[courseId][usersType].dailyCount, 0);
-
-  return usersEnrolledInCurrentWeek;
+  return userCount.currentMonthCount || userCount.dailyCount;
 }
 
 export function getEnrolledUsersCurrentWeek(dailyProgress: GroupProgressModel[]): number {
