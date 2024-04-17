@@ -33,8 +33,9 @@ export class ProgressMonitoringService {
     return new ProgressMonitoringState(this._progressStore$$);
   }
 
-  getLatestProgress(): Observable<GroupProgressModel> {
+  getLatestProgress(): Observable<GroupProgressModel | null> {
     return this._progressStore$$.get().pipe(map((models)=> {
+      if(models.length < 1) return null;
       return models.reduce((prev, current) => {
         return ((prev.createdOn as Date) > (current.createdOn as Date)) ? prev : current
       });
@@ -52,13 +53,13 @@ export class ProgressMonitoringService {
     );
   }
 
-  allCoursesTopStats(bots: Bot[], latestProgress: GroupProgressModel) {
+  allCoursesTopStats(bots: Bot[], latestProgress: GroupProgressModel | null) {
     const data = [{count: 0, text: "Courses Published", color: "#05668D", icon: "check-all.svg"},
     {count: 0, text: "Courses Unpublished", color: "#392F5A", icon: "camera-timer.svg"},
     {count: 0, text: "Courses Started", color: "#404E4D", icon: "book-multiple-outline.svg"},
     {count: 0, text: "Courses Completed", color: "#69306D", icon: "book-check-outline.svg"}];
 
-    if(!latestProgress.courseProgress) {
+    if(!latestProgress || latestProgress.courseProgress) {
       return data;
     }
 
@@ -77,14 +78,14 @@ export class ProgressMonitoringService {
     return data;
   }
   
-  singleCourseTopStats(courseId: string, latestProgress: GroupProgressModel) {
+  singleCourseTopStats(courseId: string, latestProgress: GroupProgressModel | null) {
     // TODO: Move this to component level
     const data = [{count: 0, text: "Engaged Users", color: "#4E4187", icon: "check-all.svg"},
     {count: 0, text: "Active Chats", color: "#EC652A", icon: "camera-timer.svg"},
     {count: 0, text: "Paused Chats", color: "#37505C", icon: "book-multiple-outline.svg"},
     {count: 0, text: "Seeking Assistance", color: "#2B4570", icon: "book-check-outline.svg"}]
 
-    if(!latestProgress.courseProgress) {
+    if(!latestProgress || !latestProgress.courseProgress) {
       return of(data);
     }
 
@@ -108,7 +109,7 @@ export class ProgressMonitoringService {
 
   getAnalyticsStartDate() {
     return this._progressStore$$.get().pipe(map((progress: GroupProgressModel[])=> {
-
+      if(progress.length < 1) return null;
       const date = (progress.reduce((prev, current) => {
         return ((prev.createdOn as Date) < (current.createdOn as Date)) ? prev : current
       })).createdOn as Date;

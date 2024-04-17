@@ -74,7 +74,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this._progressService.getAnalyticsStartDate()
       .pipe(take(1))
         .subscribe((startDate)=> {
-          this.analyticsStartDate = startDate.toDate();
+          this.analyticsStartDate = startDate ? startDate.toDate() : new Date()
         }); 
 
     this.initStateDataLayer();
