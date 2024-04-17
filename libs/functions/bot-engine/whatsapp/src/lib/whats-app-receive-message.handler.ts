@@ -85,6 +85,8 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
 
     const whatsappIncomingMessageParser = new WhatsappIncomingMessageParser().resolve(sanitizedResponse.type);
 
+    if (!whatsappIncomingMessageParser) return { status: 500, message: `Incoming message format unknown: ${sanitizedResponse.message}` } as RestResult;
+
     const message = whatsappIncomingMessageParser.parse(sanitizedResponse.message);
 
     // Don't process the message if we cannot parse it
