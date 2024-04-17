@@ -48,9 +48,9 @@ export class SingleCoursePageComponent implements OnInit
       .subscribe((stats) => this.topStatsSingleCourse = stats);
   }
 
-  getCompletionRate(courseId: string, progress: GroupProgressModel)
+  getCompletionRate(courseId: string, progress: GroupProgressModel | null)
   {
-    if(!progress.courseProgress) {
+    if(!progress || !progress.courseProgress) {
       return 0;
     }
 
@@ -60,11 +60,12 @@ export class SingleCoursePageComponent implements OnInit
     return (this.learnersCompletedCourse / this.totalLearnersInCourse) * 100;
   }
 
-  getAverageCompletionTime(courseId: string, progress: GroupProgressModel)
+  getAverageCompletionTime(courseId: string, progress: GroupProgressModel | null)
   {
-    if(!progress.courseProgress) {
+    if(!progress || !progress.courseProgress) {
       return "";
     }
+
     const totalCompletionDuration = progress.courseProgress[courseId].totalCompletionDuration as number;
     const usersCompletedCourse = progress.courseProgress[courseId].completedLearnerCount as number;
 
