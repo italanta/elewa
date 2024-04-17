@@ -1,6 +1,9 @@
 /**
  * This is not a production server yet!
  * This is only a minimal backend to get started.
+ * 
+ * Nx+Docker
+ * https://blog.nrwl.io/nx-and-node-microservices-b6df3cd1bad6
  */
 
 import * as express from 'express';
