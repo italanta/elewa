@@ -44,12 +44,20 @@
     "deploy-cloud-run": {
       "builder": "@nrwl/workspace:run-commands",
       "options": {
-        "imageTag": "asia-south1-docker.pkg.dev/elewa-clm-test/goomza-images-repository/goomza/simple-express-server:latest",
         "commands": [
           "nx build simple-express-server",
-          "docker buildx build --platform linux/amd64 -t asia-south1-docker.pkg.dev/elewa-clm-test/goomza-images-repository/goomza/simple-express-server:latest -f ./apps/simple-express-server/Dockerfile .",
-          "docker push asia-south1-docker.pkg.dev/elewa-clm-test/goomza-images-repository/goomza/simple-express-server:latest",
-          "gcloud run deploy simple-express-server --image asia-south1-docker.pkg.dev/elewa-clm-test/goomza-images-repository/goomza/simple-express-server:latest --region=asia-south1 --quiet --allow-unauthenticated"
+          {
+            "command": "docker buildx build --platform linux/amd64 -t {args.region}-docker.pkg.dev/$(gcloud config get-value project)/{args.repo}/goomza/simple-express-server:latest -f ./apps/simple-express-server/Dockerfile .",
+            "forwardAllArgs": true
+          },
+          {
+            "command": "docker push {args.region}-docker.pkg.dev/$(gcloud config get-value project)/{args.repo}/goomza/simple-express-server:latest",
+            "forwardAllArgs": true
+          },
+            {
+            "command": "gcloud run deploy simple-express-server --image {args.region}-docker.pkg.dev/$(gcloud config get-value project)/{args.repo}/goomza/simple-express-server:latest --region={args.region} --quiet --allow-unauthenticated",
+            "forwardAllArgs": true
+            }
         ],
         "parallel": false
       }
