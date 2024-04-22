@@ -19,6 +19,9 @@ export IMAGE="bar-project-image"
 # use the region you chose above here in the URL:
 export IMAGE_TAG=${REGION}-docker.pkg.dev/$GCLOUD_PROJECT/$REPO/$IMAGE
 
+## Running straight from nx command
+## nx deploy-cloud-run simple-express-server --repo=goomza-images-repository --region=asia-south1
+
 nx build simple-express-server
 
 # Build with linux/amd64 as required by Google Cloud Run
