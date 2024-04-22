@@ -274,6 +274,7 @@
       "BOT": "Bots",
       "REPORTS": "Reports",
       "LEARNERS": "Learners",
+      "FALLBACK": "AI fallback",
       "ADMIN_SETTINGS": "Settings"
     },
     "TOP-BAR": {

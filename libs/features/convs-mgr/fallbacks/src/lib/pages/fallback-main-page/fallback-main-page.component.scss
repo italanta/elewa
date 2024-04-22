@@ -1,0 +1,14 @@
+.page-container {
+  padding: 1.4rem;
+  background-color: #f6f6f6;
+  min-height: calc(100vh - 8.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.title {
+  color: #101010;
+  font-size: 2rem;
+  font-weight: 400;
+}
