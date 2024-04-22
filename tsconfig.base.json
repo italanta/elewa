@@ -271,6 +271,9 @@
       "@app/model/convs-mgr/conversations/surveys": [
         "libs/model/convs-mgr/conversations/surveys/src/index.ts"
       ],
+      "@app/model/convs-mgr/fallbacks": [
+        "libs/model/convs-mgr/fallbacks/src/index.ts"
+      ],
       "@app/model/convs-mgr/functions": [
         "libs/model/convs-mgr/functions/src/index.ts"
       ],
