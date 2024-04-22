@@ -31,7 +31,7 @@
         }
       }
     },
-    "deploy": {
+    "deploy-local": {
       "builder": "@nrwl/workspace:run-commands",
       "options": {
         "commands": [
@@ -41,7 +41,7 @@
         "parallel": false
       }
     }, 
-    "deploy-cloud-run": {
+    "deploy": {
       "builder": "@nrwl/workspace:run-commands",
       "options": {
         "commands": [
