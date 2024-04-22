@@ -83,6 +83,9 @@
       "@app/features/convs-mgr/dashboard": [
         "libs/features/convs-mgr/dashboard/src/index.ts"
       ],
+      "@app/features/convs-mgr/fallbacks": [
+        "libs/features/convs-mgr/fallbacks/src/index.ts"
+      ],
       "@app/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
       ],
