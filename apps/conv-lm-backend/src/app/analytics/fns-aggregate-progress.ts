@@ -7,7 +7,7 @@ import { ConvLearnFunction } from "../../conv-learn-func.class";
 const handler = new AggregateProgressHandler();
 
 /**
- * @Description : M&E of all participants or a single group 
+ * @Description : Aggregate progress from all the orgs into a single collection 
  * 
  */
 export const aggregateProgress 
