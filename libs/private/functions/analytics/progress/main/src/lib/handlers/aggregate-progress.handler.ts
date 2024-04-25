@@ -25,28 +25,27 @@ export class AggregateProgressHandler extends FunctionHandler<any, any>
     const config = await analyticsRepo$.getDocumentById('config');
 
     if (!config && !config.orgIds) {
-      tools.Logger.error(() => `[measureGroupProgressHandler].execute - Config missing, No orgs to aggregate data`);
+      tools.Logger.error(() => `[AggregateProgressHandler].execute - Config missing, No orgs to aggregate data`);
     } else {
-      const latestProgress = config.orgIds.map(async (orgId)=> {
+
+      for(const orgId of config.orgIds) {
         const progress = await this._getLatestProgress(tools, orgId);
+        tools.Logger.log(() => `[AggregateProgressHandler].execute - Org:${orgId} - Progress: ${JSON.stringify(progress)}`);
+        if(!progress) continue;
+
         progress.orgId = orgId;
         const id = `${progress.id}_${orgId}`;
-        tools.Logger.log(() => `[measureGroupProgressHandler].execute - Org:${orgId} - Progress: ${JSON.stringify(progress)}`);
         
         await aggregatedAnalyticsRepo$.write(progress, id);
-        
-        return progress;
-      })
-      
-      await Promise.all(latestProgress);
-      tools.Logger.log(() => `[measureGroupProgressHandler].execute - Aggregating progress done`);
+      }
+      tools.Logger.log(() => `[AggregateProgressHandler].execute - Aggregating progress done`);
     }
   }
 
   private async _getLatestProgress(tools: HandlerTools, orgId: string) {
     const monitoringRepo$ = tools.getRepository<GroupProgressModel>(`orgs/${orgId}/monitoring`);
 
-    const latestProgress = await monitoringRepo$.getDocuments(new Query().orderBy('createdOn', 'desc'))
+    const latestProgress = await monitoringRepo$.getDocuments(new Query().orderBy('createdOn', 'desc'));
 
     return latestProgress[0]
   }
