@@ -16,6 +16,8 @@ export * from './app/bot/main/talk-to-human.function';
 export * from './app/bot/main/move-chat.function';
 
 export * from './app/analytics/fns-measure-group-progress';
+export * from './app/analytics/fns-aggregate-progress';
+
 export * from './app/bot/messenger/messenger-receive-message.function';
 export * from './app/bot/main/send-multiple-messages.function';
 export * from './app/bot/main/schedule/schedule-message-templates.function';
