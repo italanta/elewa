@@ -1,11 +1,10 @@
-import { __DateFromStorage } from "@iote/time";
 import { HandlerTools } from "@iote/cqrs";
 
-import { __DECODE_AES } from "@app/elements/base/security-config";
-import { ActiveChannel, EndUserDataService } from "@app/functions/bot-engine";
+import { ActiveChannel, BlockToStandardMessage, EndUserDataService, MessagesDataService } from "@app/functions/bot-engine";
 import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
-import { Message } from "@app/model/convs-mgr/conversations/messages";
+import { Message, MessageDirection } from "@app/model/convs-mgr/conversations/messages";
+import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
 
 /**
  * After the bot engine processes the incoming message and returns the next block,
@@ -24,10 +23,10 @@ import { Message } from "@app/model/convs-mgr/conversations/messages";
  */
 export class PreviewActiveChannel implements ActiveChannel
 {
-  channel: any;
+  channel: CommunicationChannel;
   endUserService: EndUserDataService;
 
-  constructor(private _tools: HandlerTools, channel: any)
+  constructor(private _tools: HandlerTools, channel: CommunicationChannel)
   {
     this.channel = channel;
     this.endUserService = new EndUserDataService(_tools, channel.orgId);
@@ -35,11 +34,20 @@ export class PreviewActiveChannel implements ActiveChannel
   
   parseOutMessage(storyBlock: StoryBlock, endUser: EndUser)
   {
-    return {} as any;
+    const blockToStandardMessage = new BlockToStandardMessage();
+    return blockToStandardMessage.convert(storyBlock);
   }
   
-  send(msg: any, standardMessage?: Message)
+  async send(msg: Message)
   {
-    throw new Error("Method not implemented.");
+    // Save in DB
+    const messageService = new MessagesDataService(this._tools, true);
+
+    msg.direction = MessageDirection.FROM_CHATBOT_TO_END_USER;
+
+    const orgId = this.channel.orgId;
+    const endUserId = this.channel.id;
+
+    await messageService.saveMessage(msg, orgId, endUserId);
   }
 }
