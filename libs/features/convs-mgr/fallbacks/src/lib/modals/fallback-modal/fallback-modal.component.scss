@@ -1,0 +1,21 @@
+.main {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .title-section,
+  .input-analysis {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .title {
+      font-weight: 500;
+    }
+
+    .text {
+      font-size: 0.9rem;
+    }
+  }
+}
