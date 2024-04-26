@@ -1,7 +1,7 @@
 import { HandlerTools } from '@iote/cqrs';
 import { Logger } from '@iote/bricks-angular';
 
-import { RestResult, RestResult200 } from '@ngfi/functions';
+import { RestResult200 } from '@ngfi/functions';
 
 import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 import { FileMessage, Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
@@ -41,6 +41,8 @@ export class EngineBotManager
 
   _endUserService$: EndUserDataService;
 
+  previewMode: boolean;
+
   sideOperations: Promise<any>[] = [];
 
   constructor(private _tools: HandlerTools, private _logger: Logger, private _activeChannel: ActiveChannel) { }
@@ -72,12 +74,16 @@ export class EngineBotManager
       this.orgId = this._activeChannel.channel.orgId;
       const platform = this._activeChannel.channel.type;
 
+      if(platform == 'preview') {
+        this.previewMode = true;
+      }
+
       const lastActiveTime = new Date();
 
       // STEP 1: Initialize the services which are necessary for execution of the bot engine
       // TODO: use a DI container to manage instances and dynamically inject appropriate dependencies
 
-      const processMediaService = new BotMediaProcessService(this._tools);
+      const processMediaService = new BotMediaProcessService(this._tools, this.previewMode);
 
       const connDataService = new ConnectionsDataService(this._activeChannel.channel, this._tools);
       const blockDataService = new BlockDataService(this._activeChannel.channel, connDataService, this._tools);
@@ -86,7 +92,7 @@ export class EngineBotManager
   
       this._endUserService$ = new EndUserDataService(this._tools, this.orgId);
       const enrolledUserService = new EnrolledUserDataService(this._tools, this.orgId);
-      const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, this._tools, this._activeChannel, processMediaService);
+      const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, this._tools, this._activeChannel, processMediaService, this.isPreviewMode);
 
       const END_USER_ID = endUser.id;
 
@@ -162,14 +168,19 @@ export class EngineBotManager
     if(!this.endUser) {
       // Create an enrolled user
       const enrolledUserID = generateEnrolledUserId();
-      enrolledUser = enrolledUserService.createEnrolledUser(endUser, platform, enrolledUserID);
+      if(!this.previewMode) {
+        enrolledUser = enrolledUserService.createEnrolledUser(endUser, platform, enrolledUserID);
+      }
 
       // Create end user 
       this.endUser = await this._endUserService$.createEndUser(endUser, enrolledUserID);
     } else if(this.endUser && !this.endUser.enrolledUserId) {
 
       const enrolledUserID = generateEnrolledUserId();
-      enrolledUser = enrolledUserService.createEnrolledUser(endUser, platform, enrolledUserID);
+
+      if(!this.previewMode) {
+        enrolledUser = enrolledUserService.createEnrolledUser(endUser, platform, enrolledUserID);
+      }
 
       this.endUser.enrolledUserId = enrolledUserID;
 
@@ -183,5 +194,14 @@ export class EngineBotManager
   async addSideOperation(operation: Promise<any>)
   {
     this.sideOperations.push(operation);
+  }
+
+  getPreviewMode() {
+    return this.isPreviewMode;
+  }
+
+  setPreviewMode(preview: boolean) {
+    this.isPreviewMode = preview;
+    return this.isPreviewMode;
   }
 }
