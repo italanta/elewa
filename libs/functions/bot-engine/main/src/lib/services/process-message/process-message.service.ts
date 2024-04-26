@@ -38,6 +38,7 @@ export class ProcessMessageService
     private _tools: HandlerTools,
     private _activeChannel: ActiveChannel,
     private _processMediaService$: BotMediaProcessService,
+    private _isPreview?: boolean
   ) { 
     this.channel = _activeChannel.channel;
   }
@@ -94,9 +95,11 @@ export class ProcessMessageService
     this.sideOperations.push(inputPromise);
 
     // upodate leaner progrress
-    const updateLearnersProgressPromise = updateLearnerProgress(currentStory, lastBlock, endUser, tools, orgId);
+    if(!this._isPreview) {
+      const updateLearnersProgressPromise = updateLearnerProgress(currentStory, lastBlock, endUser, tools, orgId);
+      this.sideOperations.push(updateLearnersProgressPromise);
+    }
 
-    this.sideOperations.push(updateLearnersProgressPromise);
 
     // Return the cursor updated with the next block in the story
     let {newCursor, nextBlock} = await this.__nextBlockService(currentCursor, lastBlock, orgId, currentStory, msg, endUser.id);

@@ -19,11 +19,11 @@ export class ProcessInputFactory
   processInput(message: Message, lastBlock: StoryBlock, orgId: string, endUser: EndUser) {
     switch (message.type) {
       case MessageTypes.TEXT:
-        return new ProcessTextInput(this.tools).handleInput(message, lastBlock, orgId, endUser);
+        return new ProcessTextInput(this.tools, this._activeChannel).handleInput(message, lastBlock, orgId, endUser);
       case MessageTypes.LOCATION:
-        return new ProcessLocationInput(this.tools).handleInput(message, lastBlock, orgId, endUser);
+        return new ProcessLocationInput(this.tools, this._activeChannel).handleInput(message, lastBlock, orgId, endUser);
       case MessageTypes.QUESTION:
-        return new ProcessOptionsInput(this.tools).handleInput(message, lastBlock, orgId, endUser);
+        return new ProcessOptionsInput(this.tools, this._activeChannel).handleInput(message, lastBlock, orgId, endUser);
       case MessageTypes.IMAGE:
         return new ProcessMediaInput(this.tools, this._activeChannel, this.processMediaService).handleInput(message, lastBlock, orgId, endUser);
       case MessageTypes.VIDEO:

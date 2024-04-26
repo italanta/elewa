@@ -11,7 +11,7 @@ import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
   private _docPath: string;
   tools: HandlerTools;
 
-  constructor(tools: HandlerTools, orgId: string) 
+  constructor(tools: HandlerTools, orgId: string, private isPreview?: boolean) 
   {
     super(tools);
     this.tools = tools;
@@ -20,7 +20,7 @@ import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 
   protected _init(orgId: string): void 
   {
-    this._docPath = `orgs/${orgId}/end-users`;
+    this._docPath = this._getDocPath(orgId);
   }
 
   async createEndUser(endUser: EndUser, enrolledUserID: string)
@@ -82,5 +82,15 @@ import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 
       return this.updateDocument(newEndUser, this._docPath, endUser.id);
     }
+  }
+
+  private _getDocPath(orgId: string) {
+    this._docPath = `orgs/${orgId}/end-users`;
+
+    if(this.isPreview) {
+      this._docPath = `orgs/${orgId}/preview-channels`;
+    }
+
+    return this._docPath;
   }
 }

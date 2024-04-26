@@ -13,7 +13,7 @@ export class VariablesDataService extends BotDataService<any>{
   tools: HandlerTools;
   endUserId: string;
 
-  constructor(tools: HandlerTools, orgId: string, endUserId: string, private _commChannel: CommunicationChannel) 
+  constructor(tools: HandlerTools, orgId: string, endUserId: string, private _commChannel: CommunicationChannel, private isPreview?: boolean) 
   {
     super(tools);
     this.tools = tools;
@@ -22,7 +22,7 @@ export class VariablesDataService extends BotDataService<any>{
 
   protected _init(orgId: string, endUserId:string): void 
   {
-    this._docPath = `orgs/${orgId}/end-users`;
+    this._docPath = this._getDocPath(orgId);
 
     this.endUserId = endUserId;
   }
@@ -57,5 +57,15 @@ export class VariablesDataService extends BotDataService<any>{
     if(!allVariables) return '';
 
     return allVariables[variable];
+  }
+
+  private _getDocPath(orgId: string) {
+    this._docPath = `orgs/${orgId}/end-users`;
+
+    if(this.isPreview) {
+      this._docPath = `orgs/${orgId}/preview-channels`;
+    }
+
+    return this._docPath;
   }
 }
