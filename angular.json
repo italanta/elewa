@@ -898,6 +898,29 @@
       },
       "tags": []
     },
+    "functions-bot-engine-preview": {
+      "root": "libs/functions/bot-engine/preview",
+      "sourceRoot": "libs/functions/bot-engine/preview/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/functions/bot-engine/preview/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/functions/bot-engine/preview"],
+          "options": {
+            "jestConfig": "libs/functions/bot-engine/preview/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "functions-bot-engine-send-message": {
       "root": "libs/functions/bot-engine/send-message",
       "sourceRoot": "libs/functions/bot-engine/send-message/src",
