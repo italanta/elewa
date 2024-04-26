@@ -1,1 +1,1 @@
-export * from './lib/functions-bot-engine-preview';
+export * from './lib/preview-channel.handler';
