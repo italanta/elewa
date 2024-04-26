@@ -54,7 +54,7 @@ export class BotMediaProcessService
   async getFileURL(message: FileMessage, endUserId: string, activeChannel: ActiveChannel)
   {
     if(!this.mediaFileURL) {
-      const file = await activeChannel.getMediaFile(message.mediaId, message.mime_type);
+      const file = await activeChannel.getMediaFile(message.mediaId, message.mime_type) as any;
 
       if (file) this.mediaFileURL = await this._uploadFile(endUserId, message.type, file.filePath, file.fileName) as string;
 

@@ -87,12 +87,12 @@ export class EngineBotManager
 
       const connDataService = new ConnectionsDataService(this._activeChannel.channel, this._tools);
       const blockDataService = new BlockDataService(this._activeChannel.channel, connDataService, this._tools);
-      const cursorDataService = new CursorDataService(this._tools);
-      const _msgDataService$ = new MessagesDataService(this._tools);
+      const cursorDataService = new CursorDataService(this._tools, this.previewMode);
+      const _msgDataService$ = new MessagesDataService(this._tools, this.previewMode);
   
-      this._endUserService$ = new EndUserDataService(this._tools, this.orgId);
+      this._endUserService$ = new EndUserDataService(this._tools, this.orgId, this.previewMode);
       const enrolledUserService = new EnrolledUserDataService(this._tools, this.orgId);
-      const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, this._tools, this._activeChannel, processMediaService, this.isPreviewMode);
+      const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, this._tools, this._activeChannel, processMediaService, this.previewMode);
 
       const END_USER_ID = endUser.id;
 
@@ -197,11 +197,11 @@ export class EngineBotManager
   }
 
   getPreviewMode() {
-    return this.isPreviewMode;
+    return this.previewMode;
   }
 
   setPreviewMode(preview: boolean) {
-    this.isPreviewMode = preview;
-    return this.isPreviewMode;
+    this.previewMode = preview;
+    return this.previewMode;
   }
 }
