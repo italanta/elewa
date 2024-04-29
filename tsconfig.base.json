@@ -416,6 +416,9 @@
       "@app/state/convs-mgr/end-users": [
         "libs/state/convs-mgr/end-users/src/index.ts"
       ],
+      "@app/state/convs-mgr/fallback": [
+        "libs/state/convs-mgr/fallback/src/index.ts"
+      ],
       "@app/state/convs-mgr/learners": [
         "libs/state/convs-mgr/learners/src/index.ts"
       ],
