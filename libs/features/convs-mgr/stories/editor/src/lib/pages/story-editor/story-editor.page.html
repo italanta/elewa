@@ -37,15 +37,13 @@
         </button>
 
         <!-- Zoom button -->
-        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-          <button class="zoom-btn" [disabled]="zoomLevel.value <= 25" mat-mini-fab (click)="decreaseZoom()">
-            <mat-icon>zoom_out</mat-icon>
+        <div class="zoom-section">
+          <button class="zoom-btn" [disabled]="zoomLevel.value >= 100" mat-mini-fab (click)="increaseZoom()">
+            <i class="fas fa-plus"></i>
           </button>
 
-          <input style="margin-right: 0px;" [formControl]="zoomLevel" min="25" max="100" [disabled]="true" type="number" />
-
-          <button class="zoom-btn" [disabled]="zoomLevel.value >= 100" mat-mini-fab (click)="increaseZoom()">
-            <mat-icon>zoom_in</mat-icon>
+          <button class="zoom-btn" [disabled]="zoomLevel.value <= 25" mat-mini-fab (click)="decreaseZoom()">
+            <i class="fas fa-minus"></i>
           </button>
         </div>
 
