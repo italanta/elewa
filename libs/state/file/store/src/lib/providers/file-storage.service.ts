@@ -9,6 +9,7 @@ import { WhatsappUploadFileService } from '@app/state/file/whatsapp';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
 import { FILE_LIMITS } from '../model/platform-file-size-limits';
+import { Bot } from '@app/model/convs-mgr/bots';
 
 @Injectable({
   providedIn: 'root'
@@ -64,15 +65,14 @@ export class FileStorageService
     }
   }
 
-  uploadMediaToPlatform(channelId: string)
+  uploadMediaToPlatform(bot: Bot)
   {
-    return this.channelService.getSpecificChannel(channelId).pipe(switchMap((channel)=> {
-      if(channel) {
-        return this._whatsappUploadFileService.uploadMedia(channel);
+    return this.channelService.getSpecificChannel(bot.linkedChannel as string).pipe(switchMap((channel)=> {
+      if (channel) {
+        return this._whatsappUploadFileService.uploadMedia(bot, channel);
       } else {
         return of(null);
       }
     }))
   }
-
 }

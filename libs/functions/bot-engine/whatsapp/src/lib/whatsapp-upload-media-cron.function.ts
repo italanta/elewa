@@ -6,6 +6,7 @@ import { FunctionHandler, HttpsContext } from '@ngfi/functions';
 
 import { Bot } from '@app/model/convs-mgr/bots';
 import { HttpMethodTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
 /** Handler responsible for managing and creating whatspp app media update cron job when a bot is published */
 export class WhatsappUploadMediaCronHandler extends FunctionHandler<any, any> {
@@ -18,7 +19,7 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<any, any> {
     this.cloudSchedulerClient = new CloudSchedulerClient();
   }
 
-  public async execute(data: any, context: HttpsContext, tools: HandlerTools) {
+  public async execute(data: { channel: CommunicationChannel, bot: Bot }, context: HttpsContext, tools: HandlerTools) {
     try {
       tools.Logger.log(() => `[WhatsappMediaUpdateCronHandler] - Updating whatsapp Media`);
       
