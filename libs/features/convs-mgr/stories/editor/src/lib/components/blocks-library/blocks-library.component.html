@@ -1,4 +1,9 @@
 <div class="nav" fxLayout="column" fxLayoutAlign="start" fxFlex>
+  <div class="block-library-top-section">
+    <div *ngIf="isSideScreenOpen" class="btn-wrapper" (click)="toggleSidenav()">
+      <i class="fas fa-chevron-left"></i>
+    </div>
+  </div>
   <div class="search" fxFlex>
     <mat-form-field class="search-input" appearance="outline">
       <input matInput placeholder="Search" (input)="filterBlocks($event)" />

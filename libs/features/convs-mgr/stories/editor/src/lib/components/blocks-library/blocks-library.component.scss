@@ -19,6 +19,22 @@
   width: 5px;
 }
 
+.block-library-top-section {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  align-items: flex-end;
+
+  .btn-wrapper {
+    padding: 0.2rem;
+    cursor: pointer;
+    right: 5px;
+    top: 5px;
+    color: black;
+  }
+}
+
 .search-input {
   width: 100%;
 }
