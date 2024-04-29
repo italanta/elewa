@@ -1,3 +1,4 @@
+import * as admin from 'firebase-admin';
 import { CloudSchedulerClient } from '@google-cloud/scheduler';
 
 import { HandlerTools } from '@iote/cqrs';
@@ -12,15 +13,18 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<any, any> {
   private projectId: string;
   private locationId = 'europe-west1';
 
-  constructor(projectId:string = process.env.GCLOUD_PROJECT) {
+  constructor() {
     super();
-    this.projectId = projectId;
     this.cloudSchedulerClient = new CloudSchedulerClient();
   }
 
   public async execute(data: any, context: HttpsContext, tools: HandlerTools) {
     try {
       tools.Logger.log(() => `[WhatsappMediaUpdateCronHandler] - Updating whatsapp Media`);
+      
+      admin.initializeApp();
+
+      this.projectId = admin.instanceId().app.options.projectId;
 
       const endpoint = this.getEndpoint();
       const jobName = this.getJobName(data.bot as Bot);
