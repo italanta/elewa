@@ -5,11 +5,13 @@ import { HandlerTools } from '@iote/cqrs';
 import { FunctionHandler, HttpsContext } from '@ngfi/functions';
 
 import { Bot } from '@app/model/convs-mgr/bots';
-import { HttpMethodTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
+import { GcpJob, HttpMethodTypes } from './models/gcp-job.interface';
+import { WhatsappCronUpdateData } from './models/whatsapp-cron.interface';
+
 /** Handler responsible for managing and creating whatspp app media update cron job when a bot is published */
-export class WhatsappUploadMediaCronHandler extends FunctionHandler<any, any> {
+export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCronUpdateData, any> {
   private cloudSchedulerClient: CloudSchedulerClient;
   private projectId: string;
   private locationId = 'europe-west1';
@@ -19,7 +21,7 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<any, any> {
     this.cloudSchedulerClient = new CloudSchedulerClient();
   }
 
-  public async execute(data: { channel: CommunicationChannel, bot: Bot }, context: HttpsContext, tools: HandlerTools) {
+  public async execute(data: WhatsappCronUpdateData, context: HttpsContext, tools: HandlerTools) {
     try {
       tools.Logger.log(() => `[WhatsappMediaUpdateCronHandler] - Running`);
 
@@ -35,11 +37,9 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<any, any> {
         return;
       }
 
-      tools.Logger.log(() => `[WhatsappMediaUpdateCronHandler] - Creating Whatsapp media cron job`);
-
-      const res = await this.createCronJob(data.channel, jobName);
+      const [res] = await this.createCronJob(data.channel, jobName);
     
-      tools.Logger.log(() => `[WhatsappMediaUpdateCronHandler] - Job successfully created with Name: ${res[0].name}`);
+      tools.Logger.log(() => `[WhatsappMediaUpdateCronHandler] - Job successfully created with Name: ${res.name}`);
       console.log({res});
 
     } catch (error) {
@@ -60,7 +60,7 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<any, any> {
     const endpoint = `https://${this.locationId}-${this.projectId}.cloudfunctions.net/channelWhatsappUploadMedia`;
     const body = JSON.stringify(channel);
 
-    const newJob = {
+    const newJob: GcpJob = {
       name: jobName,
       httpTarget: {
         uri: endpoint,
@@ -68,15 +68,16 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<any, any> {
         httpMethod: HttpMethodTypes.POST,
         headers: { 'Content-Type': 'application/json' },
       },
-      schedule: '0 18 * * *',
+      schedule: '0 18 */30 * *'
+
     };
 
     const request = {
       parent: `projects/${this.projectId}/locations/${this.locationId}`,
-      newJob,
+      job: newJob,
     };
 
-    return this.cloudSchedulerClient.createJob(request);
+    return this.cloudSchedulerClient.createJob(request as any);
   }
 
   private getJobName(bot: Bot): string {
