@@ -31,8 +31,8 @@
       <div class="sub-bar" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
 
         <!-- Toggle block library button -->
-        <button class="toggle-btn" (click)="toggleSidenav()">
-          <span *ngIf="!isSideScreenOpen"><i class="fas fa-chevron-right"></i></span>
+        <button *ngIf="!isSideScreenOpen" class="toggle-btn" (click)="toggleSidenav()">
+          <span><i class="fas fa-chevron-right"></i></span>
         </button>
 
         <!-- Zoom button -->

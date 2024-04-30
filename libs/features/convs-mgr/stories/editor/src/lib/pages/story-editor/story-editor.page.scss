@@ -81,12 +81,14 @@ mat-sidenav {
 
 
 .toggle-btn { 
-  background-color: transparent;
+  position: fixed;
+  background-color: white;
   border: none;
   transition: transform 0.3s ease;
-  border-radius: 5px;
   cursor: pointer;
   color: black;
+  margin-left: -1rem;
+  padding: 0.2rem 0.3rem 0.2rem 0.6rem;
 
   .tooltip {
     font-size: 1.2rem;
