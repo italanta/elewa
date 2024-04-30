@@ -1,4 +1,5 @@
 import * as admin from 'firebase-admin';
+import { Timestamp } from 'firebase-admin/firestore';
 import { CloudSchedulerClient } from '@google-cloud/scheduler';
 
 import { HandlerTools } from '@iote/cqrs';
@@ -60,6 +61,8 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCron
     const endpoint = `https://${this.locationId}-${this.projectId}.cloudfunctions.net/channelWhatsappUploadMedia`;
     const body = JSON.stringify(channel);
 
+    const currentTime = Timestamp.fromDate(new Date());
+  
     const newJob: GcpJob = {
       name: jobName,
       httpTarget: {
@@ -68,8 +71,8 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCron
         httpMethod: HttpMethodTypes.POST,
         headers: { 'Content-Type': 'application/json' },
       },
-      schedule: '0 18 */30 * *'
-
+      schedule: '0 18 */30 * *',
+      scheduleTime: currentTime
     };
 
     const request = {

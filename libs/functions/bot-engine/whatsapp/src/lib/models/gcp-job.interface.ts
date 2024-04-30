@@ -26,6 +26,9 @@ export interface GcpJob
     headers: ({ [k: string]: string }|null);
     body: string;
   };
+
+  /** In case of a Cloud Scheduler, the time at which to perform the action */
+  scheduleTime: Timestamp;
 }
 
 export enum HttpMethodTypes {
