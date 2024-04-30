@@ -166,6 +166,8 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
             this.openSnackBar('Media upload failed. Confirm channel details', 'OK');
           }
         })
+
+    this._sbS.unsubscribe();
   }
 
   archiveBot(bot: Bot) {
