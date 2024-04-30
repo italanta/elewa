@@ -41,7 +41,6 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCron
       const [res] = await this.createCronJob(data.channel, jobName);
     
       tools.Logger.log(() => `[WhatsappMediaUpdateCronHandler] - Job successfully created with Name: ${res.name}`);
-      console.log({res});
 
     } catch (error) {
       tools.Logger.error(() => `[WhatsappMediaUpdateCronHandler] - Error in WhatsappMediaUpdateCronHandler: ${error.message}`);
@@ -59,7 +58,8 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCron
 
   private async createCronJob(channel: CommunicationChannel, jobName: string) {
     const endpoint = `https://${this.locationId}-${this.projectId}.cloudfunctions.net/channelWhatsappUploadMedia`;
-    const body = JSON.stringify(channel);
+    
+    const body = JSON.stringify({data: channel});
 
     const currentTime = Timestamp.fromDate(new Date());
   
@@ -72,7 +72,8 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCron
         headers: { 'Content-Type': 'application/json' },
       },
       schedule: '0 18 */30 * *',
-      scheduleTime: currentTime
+      scheduleTime: currentTime,
+      timeZone: 'Etc/UTC'
     };
 
     const request = {

@@ -29,6 +29,7 @@ export interface GcpJob
 
   /** In case of a Cloud Scheduler, the time at which to perform the action */
   scheduleTime: Timestamp;
+  timeZone: string;
 }
 
 export enum HttpMethodTypes {
