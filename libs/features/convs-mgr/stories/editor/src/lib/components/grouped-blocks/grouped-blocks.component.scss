@@ -3,12 +3,18 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 
-  .blocks-main {
-    height: 60px;
-    border-radius: 5px;
-    word-wrap: break-word;
+  .block {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     background-color: #fff;
     box-shadow: 0px 10px -14px 14px #fff;
+    border-radius: 10px;
+    padding: 1.4rem 0.4rem;
+  }
+
+  .blocks-main {
+    word-wrap: break-word;
   }
 
   .svgIcon {
@@ -30,7 +36,7 @@
   }
 
   .block-messages {
-    font-size: 0.7rem;
+    font-size: 0.725rem;
     text-align: center;
     white-space: normal;
     word-break: normal;
