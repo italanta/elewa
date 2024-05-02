@@ -48,16 +48,19 @@
   flex-direction: column;
 
   ::placeholder {
+    font-size: small;
     font-weight: 300;
     color: #101010;
   }
-
+  
   :-ms-input-placeholder { 
+    font-size: small;
     font-weight: 300;
     color: #101010;
-   }
-   
-   ::-ms-input-placeholder { 
+  }
+  
+  ::-ms-input-placeholder { 
+    font-size: small;
     font-weight: 300;
     color: #101010;
    }
