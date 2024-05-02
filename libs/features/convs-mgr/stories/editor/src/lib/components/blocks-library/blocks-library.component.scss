@@ -12,10 +12,10 @@
   overflow-y: hidden;
   scrollbar-gutter: stable both-edges;
   background-color: #F6F6F6;
-  color: slategray;
+  color: #101010;
 }
 
-.blocks-nav:hover {
+.nav:hover {
   overflow-y: scroll;
   scrollbar-gutter: stable both-edges;
 }
@@ -39,20 +39,27 @@
   }
 }
 
+.header-title {
+
+}
+
 .block-filters {
   display: flex;
   flex-direction: column;
 
   ::placeholder {
     font-weight: 300;
+    color: #101010;
   }
 
   :-ms-input-placeholder { 
     font-weight: 300;
+    color: #101010;
    }
    
    ::-ms-input-placeholder { 
     font-weight: 300;
+    color: #101010;
    }
 }
 
@@ -66,7 +73,7 @@
   padding: 20px;
 
   &_tooltip {
-    color: gray;
+    color: #101010;
     font-size: 20px;
     font-weight: 300 !important;
   }
@@ -86,6 +93,7 @@
     margin-bottom: 0.4rem;
     font-size: 0.8rem;
     margin-top: 0px;
+    font-weight: 400;
 
     &:not(.first-title) {
       margin-top: 1rem;
