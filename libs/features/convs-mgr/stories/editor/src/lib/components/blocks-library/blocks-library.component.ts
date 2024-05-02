@@ -18,6 +18,7 @@ import {
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { DragDropService } from '../../providers/drag-drop.service';
 import { ICONS_AND_TITLES } from '@app/features/convs-mgr/stories/blocks/library/main';
+import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
 
 /**
  * Component which holds a library (list) of all blocks that can be created
@@ -33,6 +34,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
 
   @Input() frame: StoryEditorFrame;
   filterInput$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  isSideScreenOpen:boolean;
 
   blockTemplates: StoryBlock[] = [
     { id: 'input-message-block', type: StoryBlockTypes.TextMessage, message: 'Message', blockIcon: this.getBlockIcon(StoryBlockTypes.TextMessage), blockCategory: 'messages-block' } as TextMessageBlock,
@@ -71,9 +73,13 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
 
-  constructor(private _logger: Logger, private dragService: DragDropService) {}
+  constructor(private _logger: Logger, private dragService: DragDropService, private sideScreen: SideScreenToggleService,) {}
 
   ngOnInit(): void {
+    this._sbS.sink 
+    = this.sideScreen.sideScreen$
+        .subscribe((isOpen) => this.isSideScreenOpen = isOpen);
+
     // WARN in case frame is not yet loaded. This might cause issues on the node loader.
     if (!this.frame || !this.frame.loaded)
       this._logger.warn(() => `Blocks library loaded yet frame not yet loaded.`);
@@ -97,6 +103,11 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
 
   filterBlocks(event: any) {
     this.filterInput$$.next(event.target.value);
+  }
+
+  toggleSidenav() {
+    this.sideScreen.toggleSideScreen(!this.isSideScreenOpen)
+    // this.onClose()
   }
 
   ngOnDestroy() {

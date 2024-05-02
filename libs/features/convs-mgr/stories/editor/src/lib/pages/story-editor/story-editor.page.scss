@@ -65,28 +65,30 @@ mat-sidenav {
 .sub-bar {
   width: auto;
   padding: 10px;
-  background-color: white;
-  border-bottom: solid #eee 1px;
-  // box-shadow: 0px 4px 8px slategrey;
+  background-color: #F6F6F6;
 }
 
 .subbar-btn {
-  background-color: #ffab2d !important;
+  background-color: #00112B !important;
+  border-radius: 2rem;
+  font-weight: 400;
   color: white !important;
-  font-weight: 600;
   min-width: 100px;
+  width: 7rem;
+  height: 3rem;
+
 }
 
 
 .toggle-btn { 
-  background-color: var(--endpoint-color);
+  position: fixed;
+  background-color: white;
   border: none;
   transition: transform 0.3s ease;
-  padding: 8px;
-  border-radius: 5px;
-  width: 3.5rem;
   cursor: pointer;
-  color: var(--endpoint-outline);
+  color: black;
+  margin-left: -1rem;
+  padding: 0.2rem 0.3rem 0.2rem 0.6rem;
 
   .tooltip {
     font-size: 1.2rem;
@@ -96,6 +98,31 @@ mat-sidenav {
 .zoom-btn {
   background-color: white;
   color: black;
+  width: 3.2rem;
+  height: 3.2rem;
+}
+
+.zoom-btn:disabled {
+  color: grey;
+}
+
+.zoom-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+
+  position: fixed;
+  z-index: 2147483003;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none;
+  bottom: 150px;
+  right: 20px;
+  max-width: 48px;
+  width: 48px;
+  max-height: 48px;
+  height: 48px;
+  cursor: pointer;
 }
 
 .wrapper-edit {
@@ -134,7 +161,7 @@ convl-story-editor-frame {
 
 .error-count{
   color: #707070;
-  background-color: white;
+  background-color: #F6F6F6;
   padding-right: 17em;
   /* Reg 14 */
   font-family: Roboto;

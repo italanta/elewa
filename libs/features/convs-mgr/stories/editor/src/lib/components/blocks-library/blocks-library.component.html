@@ -1,10 +1,24 @@
-<div class="nav" fxLayout="column" fxLayoutAlign="start" fxFlex>
-  <div class="search" fxFlex>
-    <mat-form-field class="search-input" appearance="outline">
-      <input matInput placeholder="Search" (input)="filterBlocks($event)" />
-      <mat-icon matPrefix class="fa fa-search"></mat-icon>
-    </mat-form-field>
+<div class="nav">
+  <div class="block-library-top-section">
+    <div *ngIf="isSideScreenOpen" class="btn-wrapper" (click)="toggleSidenav()">
+      <i class="fas fa-chevron-left"></i>
+    </div>
   </div>
+
+  <div class="blocks-header">
+    <span class="header-title"> Choose Element</span>
+  </div>
+
+  <div class="block-filters">
+    <div class="search">
+      <i class="fas fa-search search_tooltip"></i>
+      <input class="search_input" type="text" name="search table"
+        placeholder="Search element" id=""
+        (keyup)="filterBlocks($event)">
+        </div>
+  </div>
+
+  <mat-divider></mat-divider>
 
   <div fxLayout="column" *ngIf="blockTemplate$ | async as blocks" fxFlex>
     <!-- message block -->
