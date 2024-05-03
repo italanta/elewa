@@ -1,1 +1,2 @@
-export * from './lib/model-cloud-scheduler.module';
+export * from './lib/gcp-job.interface';
+export * from './lib/gcp-task.interface';
