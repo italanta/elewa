@@ -12,10 +12,11 @@ import { GcpJob, HttpMethodTypes } from '@app/model/cloud-scheduler';
 import { WhatsappCronUpdateData } from './models/whatsapp-cron.interface';
 
 /** Handler responsible for managing and creating whatspp app media update cron job when a bot is published */
-export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCronUpdateData, any> {
+export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCronUpdateData,any> {
   private cloudSchedulerClient: CloudSchedulerClient;
   private projectId: string;
   private locationId = 'europe-west1';
+  private baseCronPath: string;
 
   constructor() {
     super();
@@ -27,6 +28,9 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCron
       tools.Logger.log(() => `[WhatsappMediaUpdateCronHandler] - Running`);
 
       this.projectId = admin.instanceId().app.options.projectId;
+
+      this.baseCronPath = `projects/${this.projectId}/locations/${this.locationId}`;
+
       const jobName = this.getJobName(data.bot);
 
       tools.Logger.log(() => `[WhatsappMediaUpdateCronHandler] - Checking if cron already exists`);
@@ -39,9 +43,8 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCron
       }
 
       const [res] = await this.createCronJob(data.channel, jobName);
-    
-      tools.Logger.log(() => `[WhatsappMediaUpdateCronHandler] - Job successfully created with Name: ${res.name}`);
 
+      tools.Logger.log(() =>`[WhatsappMediaUpdateCronHandler] - Job successfully created with Name: ${res.name}`);
     } catch (error) {
       tools.Logger.error(() => `[WhatsappMediaUpdateCronHandler] - Error in WhatsappMediaUpdateCronHandler: ${error.message}`);
     }
@@ -49,43 +52,40 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCron
 
   private async checkIfJobExists(jobName: string) {
     const [jobs] = await this.cloudSchedulerClient.listJobs({
-      parent: `projects/${this.projectId}/locations/${this.locationId}`,
-    })
+      parent: this.baseCronPath,
+    });
 
     const job = jobs.find((job) => job.name === jobName);
-    return job
+    return job;
   }
 
   private async createCronJob(channel: CommunicationChannel, jobName: string) {
     const endpoint = `https://${this.locationId}-${this.projectId}.cloudfunctions.net/channelWhatsappUploadMedia`;
-    
-    const body = JSON.stringify({data: channel});
+
+    const body = JSON.stringify({ data: channel });
 
     const currentTime = Timestamp.fromDate(new Date());
-  
+
     const newJob: GcpJob = {
       name: jobName,
       httpTarget: {
         uri: endpoint,
-        body: Buffer.from(body,'utf-8').toString('base64'),
+        body: Buffer.from(body, 'utf-8').toString('base64'),
         httpMethod: HttpMethodTypes.POST,
         headers: { 'Content-Type': 'application/json' },
       },
       schedule: '0 18 */29 * *',
       scheduleTime: currentTime,
-      timeZone: 'Etc/UTC'
+      timeZone: 'Etc/UTC',
     };
 
-    const request = {
-      parent: `projects/${this.projectId}/locations/${this.locationId}`,
-      job: newJob,
-    };
+    const request = { parent: this.baseCronPath, job: newJob };
 
     return this.cloudSchedulerClient.createJob(request as any);
   }
 
   private getJobName(bot: Bot): string {
-    const jobPath = `projects/${this.projectId}/locations/${this.locationId}/jobs/`;
+    const jobPath = `${this.baseCronPath}/jobs/`;
     const jobId = `${bot.id}`;
 
     return jobPath + jobId;
