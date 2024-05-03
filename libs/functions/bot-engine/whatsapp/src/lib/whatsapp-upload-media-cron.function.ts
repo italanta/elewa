@@ -8,7 +8,7 @@ import { FunctionHandler, HttpsContext } from '@ngfi/functions';
 import { Bot } from '@app/model/convs-mgr/bots';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
-import { GcpJob, HttpMethodTypes } from './models/gcp-job.interface';
+import { GcpJob, HttpMethodTypes } from '@app/model/cloud-scheduler';
 import { WhatsappCronUpdateData } from './models/whatsapp-cron.interface';
 
 /** Handler responsible for managing and creating whatspp app media update cron job when a bot is published */
@@ -71,7 +71,7 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCron
         httpMethod: HttpMethodTypes.POST,
         headers: { 'Content-Type': 'application/json' },
       },
-      schedule: '0 18 */30 * *',
+      schedule: '0 18 */29 * *',
       scheduleTime: currentTime,
       timeZone: 'Etc/UTC'
     };
