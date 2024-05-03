@@ -6,9 +6,9 @@ import { HandlerTools } from '@iote/cqrs';
 import { FunctionHandler, HttpsContext } from '@ngfi/functions';
 
 import { Bot } from '@app/model/convs-mgr/bots';
+import { GcpJob, HttpMethodTypes } from '@app/model/cloud-scheduler';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
-import { GcpJob, HttpMethodTypes } from '@app/model/cloud-scheduler';
 import { WhatsappCronUpdateData } from './models/whatsapp-cron.interface';
 
 /** Handler responsible for managing and creating whatspp app media update cron job when a bot is published */
