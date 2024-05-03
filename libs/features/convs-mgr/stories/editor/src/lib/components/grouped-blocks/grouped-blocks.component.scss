@@ -27,12 +27,14 @@
     margin: 0;
   }
 
-  .blocks-main:hover {
-    background-color: #fbc113 !important;
+  .block:hover {
+    background-color: #2E7A8C !important;
+    color: white !important;
+    cursor: pointer;
+  }
 
-    #icons {
-      color: white !important;
-    }
+  .block:hover > .block-messages {
+    color: white !important;
   }
 
   .block-messages {
