@@ -3,11 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { ItalBreadcrumbComponent } from './components/ital-bread-crumb/ital-breadcrumb.component';
-import { StoryBreadcrumbComponent } from './components/story-breadcrumb/story-breadcrumb.component';
-
 @NgModule({
-  declarations: [ItalBreadcrumbComponent, StoryBreadcrumbComponent],
+  declarations: [ItalBreadcrumbComponent],
   imports: [CommonModule, RouterModule],
-  exports: [ItalBreadcrumbComponent, StoryBreadcrumbComponent],
+  exports: [ItalBreadcrumbComponent],
 })
 export class ItalBreadCrumbModule {}
