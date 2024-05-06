@@ -42,7 +42,7 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCron
         return;
       }
 
-      const [res] = await this.createCronJob(data.channel, jobName);
+      const res = await this.createCronJob(data.channel, jobName);
 
       tools.Logger.log(() =>`[WhatsappMediaUpdateCronHandler] - Job successfully created with Name: ${res.name}`);
     } catch (error) {
@@ -81,7 +81,10 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCron
 
     const request = { parent: this.baseCronPath, job: newJob };
 
-    return this.cloudSchedulerClient.createJob(request as any);
+    const [res] = await this.cloudSchedulerClient.createJob(request as any);
+    this.cloudSchedulerClient.runJob({ name: res.name });
+
+    return res
   }
 
   private getJobName(bot: Bot): string {
