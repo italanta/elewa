@@ -1,10 +1,14 @@
 <convl-page>
   <section class="page-container">
-    <span class="title">AI Routing & Fallbacks</span>
+    <span class="title">{{'AI-FALLBACK.MAIN-TITLE'| transloco }}</span>
 
-    <div>
-      Sometimes, your users might get stuck or ask something you didn’t foresee. Through this feature you can use the
-      power of AI to control where to route them for optima learner satisfaction!
+    <div class="desc">
+      {{'AI-FALLBACK.MAIN-DESC'| transloco }}
+    </div>
+
+    <div class="btns-section">
+      <mat-slide-toggle>{{'AI-FALLBACK.TITLE-SECTION.SLIDE-BTN'| transloco }}</mat-slide-toggle>
+      <span>{{'AI-FALLBACK.TITLE-SECTION.TITLE'| transloco }}</span>
     </div>
 
     <button class="btn" (click)="openModal()">OpenModal</button>

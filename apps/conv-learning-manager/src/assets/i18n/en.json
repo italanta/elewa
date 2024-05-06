@@ -880,6 +880,14 @@
       }
     }
   },
+  "AI-FALLBACK": {
+    "MAIN-TITLE":"AI Routing & Fallbacks",
+    "MAIN-DESC": "Sometimes, your users might get stuck or ask something you didn’t foresee. Through this feature you can use the power of AI to control where to route them for optima learner satisfaction!",
+    "TITLE-SECTION": {
+      "SLIDE-BTN": "On",
+      "TITLE": "Ai Routing"
+    }
+  },
 
   "TOAST": {
     "EDIT-BOT": {

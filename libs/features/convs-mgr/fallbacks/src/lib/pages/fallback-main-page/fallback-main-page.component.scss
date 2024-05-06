@@ -13,6 +13,13 @@
   font-weight: 400;
 }
 
+.btns-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2rem;
+}
+
 .btn {
   max-width: 100px;
   max-height: 30px;
