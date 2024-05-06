@@ -1,4 +1,4 @@
-<convl-page class="conv" [breadcrumbs]="breadcrumbs" [title]="pageName" [nomarg]="true">
+<convl-page class="conv" [title]="pageName" [nomarg]="true">
   
   <!-- Main body page -->
   <div class="story-editor" fxFlexFill>
@@ -34,6 +34,11 @@
         <button *ngIf="!isSideScreenOpen" class="toggle-btn" (click)="toggleSidenav()">
           <span><i class="fas fa-chevron-right"></i></span>
         </button>
+
+        <!-- Breadcrumbs -->
+        <div class="breadcrumb-wrapper">
+          <app-ital-breadcrumb [breadcrumbs$]="breadcrumbs$"></app-ital-breadcrumb>
+        </div>
 
         <!-- Zoom button -->
         <div class="zoom-section">
