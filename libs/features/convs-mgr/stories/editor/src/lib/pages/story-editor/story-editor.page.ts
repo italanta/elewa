@@ -321,6 +321,10 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
                 {
                   label: botModule?.name ?? "",
                   link: `/bots/${bot?.id}/modules/${botModule?.id}`
+                },
+                {
+                  label: story?.name ?? "",
+                  link : `/stories/${story?.id}`
                 }
               ]
 
