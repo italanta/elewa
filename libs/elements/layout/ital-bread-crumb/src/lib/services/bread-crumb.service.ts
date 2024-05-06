@@ -6,9 +6,13 @@ import {
   Router,
 } from '@angular/router';
 
-import { BehaviorSubject, filter, map } from 'rxjs';
+import { BehaviorSubject, filter, map, of, switchMap } from 'rxjs';
+
+import { BotModulesStateService } from '@app/state/convs-mgr/modules';
+import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
+import { Story } from '@app/model/convs-mgr/stories/main';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +24,11 @@ export class BreadcrumbService {
   // Observable exposing the breadcrumb hierarchy
   readonly breadcrumbs$ = this._breadcrumbs$.asObservable();
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,          
+    private _moduleStateServ$: BotModulesStateService,
+    private _botStateServ$: BotsStateService,
+  ) {
     this.initRouterEvents();
   };
 
@@ -70,6 +78,42 @@ export class BreadcrumbService {
       );
     };
   };
+
+  // set story breadcrumbs
+  setStoryBreadcrumbs(story: Story) {
+    if (!story.parentModule) return of([])
+  
+    return this._moduleStateServ$
+      .getBotModuleById(story?.parentModule)
+      .pipe(
+        switchMap((botModule) => {
+          return this._botStateServ$.getBotById(botModule?.parentBot as string).pipe(
+            switchMap((bot) => {
+              const breadcrumbs: iTalBreadcrumb[] = [
+                {
+                  label: { src: 'assets/svgs/breadcrumbs/bots-stroked.svg' },
+                  link: `/bots/dashboard`
+                },
+                {
+                  label: bot?.name ?? "",
+                  link: `/bots/${bot?.id}`
+                },
+                {
+                  label: botModule?.name ?? "",
+                  link: `/bots/${bot?.id}/modules/${botModule?.id}`
+                },
+                {
+                  label: story?.name ?? "",
+                  link : `/stories/${story?.id}`
+                }
+              ]
+
+              return of(breadcrumbs);
+            })
+          )
+        }
+      ))
+  }
 
   private getLabel(data: Data) {
     const breadcrumbData = data['breadCrumb'];

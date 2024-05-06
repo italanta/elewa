@@ -5,7 +5,7 @@ import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, filter, Observable, of, switchMap, take } from 'rxjs';
+import { BehaviorSubject, filter, Observable, take } from 'rxjs';
 
 import {  Logger } from '@iote/bricks-angular';
 
@@ -14,11 +14,9 @@ import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/
 import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 
 import { ToastMessageTypeEnum, ToastStatus } from '@app/model/layout/toast';
+import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb';
 import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
-import { Story, StoryError } from '@app/model/convs-mgr/stories/main';
-
-import { BotModulesStateService } from '@app/state/convs-mgr/modules';
-import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { StoryError } from '@app/model/convs-mgr/stories/main';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
@@ -71,8 +69,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   constructor(private _editorStateService: StoryEditorStateService,
               private _blockPortalService: BlockPortalService,
               private _saveStory: SaveStoryService,
-              private _moduleStateServ$: BotModulesStateService,
-              private _botStateServ$: BotsStateService,
+              private _breadCrumbServ$: BreadcrumbService,
               private _sideMenu: SidemenuToggleService,
               private sideScreen: SideScreenToggleService,
 
@@ -97,7 +94,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
         this.pageName = `Story overview :: ${state.story.name}`;
 
         const story = state.story;
-        this.setBreadcrumbs(story);
+        this.breadcrumbs$ = this._breadCrumbServ$.setStoryBreadcrumbs(story);
 
         this.loading.next(false);
       });
@@ -298,41 +295,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
       if(!avoidUpdate) 
         this.storyEditorFrame.setFrameZoom(val / 100);
     }
-  }
-
-  setBreadcrumbs(story: Story) {
-    if (!story.parentModule) return 
-  
-    this.breadcrumbs$ = this._moduleStateServ$
-      .getBotModuleById(story?.parentModule)
-      .pipe(
-        switchMap((botModule) => {
-          return this._botStateServ$.getBotById(botModule?.parentBot as string).pipe(
-            switchMap((bot) => {
-              const breadcrumbs: iTalBreadcrumb[] = [
-                {
-                  label: { src: 'assets/svgs/breadcrumbs/bots-stroked.svg' },
-                  link: `/bots/dashboard`
-                },
-                {
-                  label: bot?.name ?? "",
-                  link: `/bots/${bot?.id}`
-                },
-                {
-                  label: botModule?.name ?? "",
-                  link: `/bots/${bot?.id}/modules/${botModule?.id}`
-                },
-                {
-                  label: story?.name ?? "",
-                  link : `/stories/${story?.id}`
-                }
-              ]
-
-              return of(breadcrumbs);
-            })
-          )
-        }
-      ))
   }
 
   ngOnDestroy() {
