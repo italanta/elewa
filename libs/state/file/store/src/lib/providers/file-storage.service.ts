@@ -4,12 +4,12 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { of, switchMap } from 'rxjs';
 
+import { Bot } from '@app/model/convs-mgr/bots';
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 import { WhatsappUploadFileService } from '@app/state/file/whatsapp';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
 import { FILE_LIMITS } from '../model/platform-file-size-limits';
-import { Bot } from '@app/model/convs-mgr/bots';
 
 @Injectable({
   providedIn: 'root'
