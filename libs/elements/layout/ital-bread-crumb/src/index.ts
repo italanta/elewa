@@ -1,4 +1,4 @@
-export * from './ital-bread-crumb.module';
+export * from './lib/ital-bread-crumb.module';
 export * from './lib/services/bread-crumb.service';
 
 //resolvers

@@ -1082,6 +1082,32 @@
       },
       "tags": []
     },
+    "model-cloud-scheduler": {
+      "projectType": "library",
+      "root": "libs/model/cloud-scheduler",
+      "sourceRoot": "libs/model/cloud-scheduler/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/cloud-scheduler"],
+          "options": {
+            "jestConfig": "libs/model/cloud-scheduler/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/model/cloud-scheduler/**/*.ts",
+              "libs/model/cloud-scheduler/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "model-convs-mgr-bot-modules": {
       "projectType": "library",
       "root": "libs/model/convs-mgr/bot-modules",

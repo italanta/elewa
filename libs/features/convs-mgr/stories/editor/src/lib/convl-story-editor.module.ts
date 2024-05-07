@@ -13,6 +13,8 @@ import { StoryEditorStateModule } from '@app/state/convs-mgr/story-editor';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { ToastModule } from '@app/elements/layout/toast'
 
+import { ItalBreadCrumbModule } from '@app/elements/layout/ital-bread-crumb';
+
 import { BlocksLibraryModule } from '@app/features/convs-mgr/stories/blocks/library/main';
 import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/blocks/library/anchor-block'
 
@@ -33,9 +35,6 @@ import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
 import { StoryEditorMiniMapComponent } from './components/minimap/minimap.component';
 import { SaveStoryService } from './providers/save-story.service';
 
-
-
-
 @NgModule({
   imports: [
     CommonModule, MultiLangModule, PortalModule, InfiniteScrollModule,
@@ -44,7 +43,7 @@ import { SaveStoryService } from './providers/save-story.service';
     ConvlPageModule, ConvsMgrAnchorBlockModule,
     BlocksLibraryModule, StoryEditorStateModule,
     ConvlStoryEditorRouterModule, MatStepperModule,
-    ToastModule
+    ToastModule, ItalBreadCrumbModule
   ],
 
   declarations: [

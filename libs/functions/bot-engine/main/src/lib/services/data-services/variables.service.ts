@@ -30,11 +30,15 @@ export class VariablesDataService extends BotDataService<any>{
   public getAllVariables(endUser: EndUser) {
     // Get channel details and include them in variables
 
-    const channelDetails = {
-      channelName: this._commChannel.name,
-      botPhoneNumber: this._commChannel['phoneNumber'] || null,
-      platform: this._commChannel.type
-    }
+    let channelDetails;
+    
+    if(this._commChannel) {
+      channelDetails = {
+        channelName: this._commChannel.name,
+        botPhoneNumber: this._commChannel['phoneNumber'] || null,
+        platform: this._commChannel.type
+      }
+    } 
     
     return {
       ...endUser,
@@ -49,6 +53,8 @@ export class VariablesDataService extends BotDataService<any>{
     const endUser = await endUserRepo$.getDocumentById(endUserId);
 
     const allVariables = this.getAllVariables(endUser);
+
+    if(!allVariables) return '';
 
     return allVariables[variable];
   }
