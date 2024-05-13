@@ -5,8 +5,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { ScheduleOptions } from '@app/model/convs-mgr/functions';
 
-import { GcpTask } from '../../model/gcp/gcp-task.interface';
-import { GcpJob, HttpMethodTypes } from '../../model/gcp/gcp-job.interface';
+import { GcpJob, GcpTask, HttpMethodTypes } from '@app/model/cloud-scheduler';
 import { ModifyCronString } from '../../utils/modify-custom-cron.util';
 
 class CloudSchedulerService

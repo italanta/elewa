@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { of, switchMap } from 'rxjs';
 
+import { Bot } from '@app/model/convs-mgr/bots';
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 import { WhatsappUploadFileService } from '@app/state/file/whatsapp';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
@@ -64,15 +65,14 @@ export class FileStorageService
     }
   }
 
-  uploadMediaToPlatform(channelId: string)
+  uploadMediaToPlatform(bot: Bot)
   {
-    return this.channelService.getSpecificChannel(channelId).pipe(switchMap((channel)=> {
-      if(channel) {
-        return this._whatsappUploadFileService.uploadMedia(channel);
+    return this.channelService.getSpecificChannel(bot.linkedChannel as string).pipe(switchMap((channel)=> {
+      if (channel) {
+        return this._whatsappUploadFileService.uploadMedia(bot, channel);
       } else {
         return of(null);
       }
     }))
   }
-
 }

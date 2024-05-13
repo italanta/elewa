@@ -144,20 +144,21 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
 
     const published$ = dialogRef.afterClosed();
 
-    published$.pipe(tap((published)=> {
-      if(published) {
+    this._sbS.sink = published$.pipe(tap((published)=> {
+      if (published) {
         this.isPublishing = false;
       }
-    }), 
+    }),
       switchMap(() => {
         if(bot.linkedChannel) {
           this.isUploading = true;
-          return this._fileStorageService.uploadMediaToPlatform(bot.linkedChannel);
+          return this._fileStorageService.uploadMediaToPlatform(bot);
         } else {
           return of(null);
         }
       })).subscribe((result)=> {
-          this.isUploading = false;
+          this.isUploading = false; 
+
           if(result.success) {
             this.openSnackBar('Media upload successful', 'OK');
           } else {
@@ -165,16 +166,17 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
             this.openSnackBar('Media upload failed. Confirm channel details', 'OK');
           }
         })
+
+    this._sbS.unsubscribe();
   }
 
-  archiveBot(bot: Bot) 
-  {
+  archiveBot(bot: Bot) {
     this._dialog.open(ConfirmArchiveModalComponent, {
       data: { bot }
     });
   }
 
-  deleteBot(bot:Bot){
+  deleteBot(bot:Bot) {
     this._dialog.open(ConfirmDeleteModalComponent, {
       data: { 
         mode: DeleteElementsEnum.BotModule, element: bot,
@@ -185,7 +187,6 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
   }
-
 
   ngOnDestroy() {
     this._sbS.unsubscribe();

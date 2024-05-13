@@ -1,4 +1,9 @@
 .nav {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  gap: 1.5rem;
+
   min-width: 100%;
   max-height: 100vh;
   height: 100%;
@@ -7,7 +12,7 @@
   overflow-y: hidden;
   scrollbar-gutter: stable both-edges;
   background-color: #F6F6F6;
-  color: slategray;
+  color: #101010;
 }
 
 .nav:hover {
@@ -19,13 +24,71 @@
   width: 5px;
 }
 
-.search-input {
-  width: 100%;
+.block-library-top-section {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  align-items: flex-end;
+
+  .btn-wrapper {
+    padding: 0.2rem;
+    cursor: pointer;
+    right: 5px;
+    top: 5px;
+    color: black;
+  }
 }
 
-.search,
-.search input {
-  max-width: 100%;
+.header-title {
+
+}
+
+.block-filters {
+  display: flex;
+  flex-direction: column;
+
+  ::placeholder {
+    font-size: small;
+    font-weight: 300;
+    color: #101010;
+  }
+  
+  :-ms-input-placeholder { 
+    font-size: small;
+    font-weight: 300;
+    color: #101010;
+  }
+  
+  ::-ms-input-placeholder { 
+    font-size: small;
+    font-weight: 300;
+    color: #101010;
+   }
+}
+
+.search {
+  height: 5px;
+  width: 90%;
+  background-color: white;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+
+  &_tooltip {
+    color: #101010;
+    font-size: 20px;
+    font-weight: 300 !important;
+  }
+
+  &_input {
+    width: 90%;
+    height: 30px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    padding-left: 6px;
+  }
 }
 
 .block-list {
@@ -33,6 +96,7 @@
     margin-bottom: 0.4rem;
     font-size: 0.8rem;
     margin-top: 0px;
+    font-weight: 400;
 
     &:not(.first-title) {
       margin-top: 1rem;

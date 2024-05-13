@@ -1,4 +1,4 @@
-<convl-page class="conv" [breadcrumbs]="breadcrumbs" [title]="pageName" [nomarg]="true">
+<convl-page class="conv" [title]="pageName" [nomarg]="true">
   
   <!-- Main body page -->
   <div class="story-editor" fxFlexFill>
@@ -31,21 +31,23 @@
       <div class="sub-bar" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
 
         <!-- Toggle block library button -->
-        <button class="toggle-btn" (click)="toggleSidenav()">
-          <span *ngIf="isSideScreenOpen"><i class="fas fa-arrow-left tooltip"></i></span>
-          <span *ngIf="!isSideScreenOpen"><i class="fas fa-arrow-right tooltip"></i></span>
+        <button *ngIf="!isSideScreenOpen" class="toggle-btn" (click)="toggleSidenav()">
+          <span><i class="fas fa-chevron-right"></i></span>
         </button>
 
+        <!-- Breadcrumbs -->
+        <div class="breadcrumb-wrapper">
+          <app-ital-breadcrumb [breadcrumbs$]="breadcrumbs$"></app-ital-breadcrumb>
+        </div>
+
         <!-- Zoom button -->
-        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-          <button class="zoom-btn" [disabled]="zoomLevel.value <= 25" mat-mini-fab (click)="decreaseZoom()">
-            <mat-icon>zoom_out</mat-icon>
+        <div class="zoom-section">
+          <button class="zoom-btn" [disabled]="zoomLevel.value >= 100" mat-mini-fab (click)="increaseZoom()">
+            <i class="fas fa-plus"></i>
           </button>
 
-          <input style="margin-right: 0px;" [formControl]="zoomLevel" min="25" max="100" [disabled]="true" type="number" />
-
-          <button class="zoom-btn" [disabled]="zoomLevel.value >= 100" mat-mini-fab (click)="increaseZoom()">
-            <mat-icon>zoom_in</mat-icon>
+          <button class="zoom-btn" [disabled]="zoomLevel.value <= 25" mat-mini-fab (click)="decreaseZoom()">
+            <i class="fas fa-minus"></i>
           </button>
         </div>
 

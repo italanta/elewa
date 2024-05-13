@@ -65,7 +65,7 @@ export class CoursesListComponent implements OnDestroy {
 
     const published$ = dialogRef.afterClosed();
 
-    published$.pipe(tap((published)=> {
+    this._sBs.sink = published$.pipe(tap((published)=> {
       if(published) {
         this.isPublishing = false;
       }
@@ -73,7 +73,7 @@ export class CoursesListComponent implements OnDestroy {
       switchMap(() => {
         if(bot.linkedChannel) {
           this.isUploading = true;
-          return this._fileStorageService.uploadMediaToPlatform(bot.linkedChannel);
+          return this._fileStorageService.uploadMediaToPlatform(bot);
         } else {
           return of(null);
         }

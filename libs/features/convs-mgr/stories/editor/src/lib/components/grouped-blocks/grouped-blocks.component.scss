@@ -3,12 +3,18 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 
-  .blocks-main {
-    height: 60px;
-    border-radius: 5px;
-    word-wrap: break-word;
+  .block {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     background-color: #fff;
     box-shadow: 0px 10px -14px 14px #fff;
+    border-radius: 10px;
+    padding: 1.4rem 0.4rem;
+  }
+
+  .blocks-main {
+    word-wrap: break-word;
   }
 
   .svgIcon {
@@ -21,22 +27,25 @@
     margin: 0;
   }
 
-  .blocks-main:hover {
-    background-color: #fbc113 !important;
+  .block:hover {
+    background-color: #2E7A8C !important;
+    color: white !important;
+    cursor: pointer;
+  }
 
-    #icons {
-      color: white !important;
-    }
+  .block:hover > .block-messages {
+    color: white !important;
   }
 
   .block-messages {
-    font-size: 0.7rem;
+    font-size: 0.725rem;
     text-align: center;
     white-space: normal;
     word-break: normal;
     height: max-content;
-    font-weight: 500;
-    color: slategray;
+    font-weight: 300;
+    color: #101010;
+    padding-top: 0.3rem;
     margin: 0;
   }
 }
