@@ -5,9 +5,17 @@ import { ButtonsBlockButton } from "@app/model/convs-mgr/stories/blocks/scenario
 import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
 
 import { BlockDataService } from "../../data-services/blocks.service";
+import { fallBackText } from "../../../utils/fallback-text";
 
 export class FallBackBlockService 
 {
+  lang: 'en' | 'es' = 'en';
+
+  constructor(channel: CommunicationChannel) {
+    if(channel.n === 15 || channel.n === 13) {
+      this.lang = 'es';
+    }
+  }
 
   getBlock(failedBlockId: string)
   {
@@ -23,7 +31,7 @@ export class FallBackBlockService
       deleted: false,
       blockTitle: '',
       blockIcon: '',
-      message: `Sorry, I could not understand your message. Please select what you want to do:`,
+      message: fallBackText[this.lang].message,
       options: this.__getFallBackOptions()
     };
     return block;
@@ -34,15 +42,15 @@ export class FallBackBlockService
     const fallBackOptions: ButtonsBlockButton<Button>[] = [
       {
         id: "1",
-        message: "Resend Last Message",
+        message: fallBackText[this.lang].option1,
       },
       {
         id: "2",
-        message: "Restart Story",
+        message: fallBackText[this.lang].option2,
       },
       {
         id: "3",
-        message: "Restart Conversation",
+        message: fallBackText[this.lang].option3,
       },
     ];
 

@@ -28,7 +28,7 @@ export class ProcessMessageService
 {
   isInputValid = true;
   sideOperations: Promise<unknown>[] = [];
-  private fallBackService = new FallBackBlockService();
+  private fallBackService: FallBackBlockService;
   private channel: CommunicationChannel;
 
   constructor(
@@ -40,6 +40,7 @@ export class ProcessMessageService
     private _processMediaService$: BotMediaProcessService,
   ) { 
     this.channel = _activeChannel.channel;
+    this.fallBackService =new FallBackBlockService(this.channel);
   }
 
   /**
