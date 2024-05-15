@@ -12,7 +12,7 @@ export class FallBackBlockService
   lang: 'en' | 'es' = 'en';
 
   constructor(channel: CommunicationChannel) {
-    if(channel.n === 15 || channel.n === 13) {
+    if(channel.n === 14 || channel.n === 13) {
       this.lang = 'es';
     }
   }
