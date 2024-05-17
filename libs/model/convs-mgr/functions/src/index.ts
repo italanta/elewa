@@ -34,4 +34,3 @@ export * from './lib/whatsapp/message-templates/whatsapp-template-component-type
 export * from './lib/whatsapp/message-templates/whatsapp-template-components.interface';
 export * from './lib/whatsapp/message-templates/whatsapp-template-header-component';
 export * from './lib/base/schedule/schedule-options.interface';
-export * from './lib/whatsapp/interactive-url-button-block.interface';
