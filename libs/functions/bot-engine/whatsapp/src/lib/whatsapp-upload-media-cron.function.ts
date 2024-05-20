@@ -10,6 +10,7 @@ import { GcpJob, HttpMethodTypes } from '@app/model/cloud-scheduler';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { WhatsappCronUpdateData } from './models/whatsapp-cron.interface';
+import { ValidateAndSanitize } from './utils/validate-job-name.util';
 
 /** Handler responsible for managing and creating whatspp app media update cron job when a bot is published */
 export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCronUpdateData,any> {
@@ -38,8 +39,9 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCron
       const job = await this.checkIfJobExists(jobName);
 
       if (job) {
-        tools.Logger.log(() => `[WhatsappMediaUpdateCronHandler] - Job ${job.name} already exists. Exiting...`);
-        return;
+        tools.Logger.log(() => `[WhatsappMediaUpdateCronHandler] - Job ${job.name} already exists. Running Job...`);
+        // Run upload job request as user may want to reupload new media
+        this.cloudSchedulerClient.runJob({ name: job.name });
       }
 
       const res = await this.createCronJob(data.channel, jobName);
@@ -89,7 +91,8 @@ export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCron
 
   private getJobName(bot: Bot): string {
     const jobPath = `${this.baseCronPath}/jobs/`;
-    const jobId = `${bot.id}`;
+    const botName = ValidateAndSanitize(bot.name);
+    const jobId = `WhatsappMediaUpload_${botName}_${bot.id}`;
 
     return jobPath + jobId;
   }
