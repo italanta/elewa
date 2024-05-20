@@ -36,6 +36,9 @@ export interface GroupProgressModel extends IObject
 
   /** Courses started */
   coursesStarted: CompletedCourse[];
+
+  /** The organisation this data belongs to */
+  orgId?: string;
 }
 
 /** An object where each key represents a group name and the value is an array of participant objects belonging to that group. */
