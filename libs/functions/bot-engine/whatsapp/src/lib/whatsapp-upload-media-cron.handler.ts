@@ -15,7 +15,7 @@ import { WhatsappCronUpdateData } from './models/whatsapp-cron.interface';
 export class WhatsappUploadMediaCronHandler extends FunctionHandler<WhatsappCronUpdateData,any> {
   private cloudSchedulerClient: CloudSchedulerClient;
   private projectId: string;
-  private locationId = 'europe-west1';
+  private locationId = 'asia-south1';
   private baseCronPath: string;
 
   constructor() {
