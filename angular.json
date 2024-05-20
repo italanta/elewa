@@ -497,6 +497,33 @@
       },
       "tags": []
     },
+    "features-convs-mgr-stories-blocks-library-assessment-micro-app": {
+      "root": "libs/features/convs-mgr/stories/blocks/library/assessment-micro-app",
+      "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/assessment-micro-app/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/blocks/library/assessment-micro-app/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/stories/blocks/library/assessment-micro-app"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/blocks/library/assessment-micro-app/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-stories-blocks-library-audio-input-block": {
       "projectType": "library",
       "root": "libs/features/convs-mgr/stories/blocks/library/audio-input-block",

@@ -104,6 +104,9 @@
       "@app/features/convs-mgr/stories/blocks/library/assessment-brick": [
         "libs/features/convs-mgr/stories/blocks/library/assessment-brick/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/assessment-micro-app": [
+        "libs/features/convs-mgr/stories/blocks/library/assessment-micro-app/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/audio-input-block": [
         "libs/features/convs-mgr/stories/blocks/library/audio-input-block/src/index.ts"
       ],
