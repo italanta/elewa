@@ -230,13 +230,16 @@
         "libs/functions/bot-process-handler/src/index.ts"
       ],
       "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
-      "@app/functions/intent": ["libs/functions/intent/src/index.ts"],
       "@app/functions/convs-mgr/story-editor//check-story-for-errors": [
         "libs/functions/convs-mgr/story-editor/check-story-for-errors/src/index.ts"
       ],
+      "@app/functions/intent": ["libs/functions/intent/src/index.ts"],
       "@app/functions/user": ["libs/functions/user/src/index.ts"],
       "@app/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block": [
         "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src/index.ts"
+      ],
+      "@app/libs/private/functions/intent-fallback-handler": [
+        "libs/libs/private/functions/intent-fallback-handler/src/index.ts"
       ],
       "@app/model/analytics/group-based/progress": [
         "libs/model/analytics/group-based/progress/src/index.ts"
@@ -342,6 +345,9 @@
       ],
       "@app/private/functions/function-utils": [
         "libs/private/functions/function-utils/src/index.ts"
+      ],
+      "@app/private/functions/intent-fallback-handler": [
+        "libs/private/functions/intent-fallback-handler/src/index.ts"
       ],
       "@app/private/functions/micro-apps/base": [
         "libs/private/functions/micro-apps/base/src/index.ts"

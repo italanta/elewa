@@ -1,4 +1,8 @@
-interface DialogflowCXIntent {
+import { IObject } from "@iote/bricks";
+import { IntentParameter } from "./intent-parameter.model";
+import { TrainingPhrase } from "./training-phrase.model";
+
+export interface DialogflowCXIntent extends IObject {
   // Basic properties
   name: string; // Unique identifier for the intent
   displayName: string; // Human-readable name for the intent
@@ -11,4 +15,7 @@ interface DialogflowCXIntent {
   // Entity extraction
   parameters: IntentParameter[]; // List of entities to extract from user input
   events: string[]; // Events triggered by extracted entities
+  orgId: string;
+  moduleId: string;
+  storyId: string; 
 }

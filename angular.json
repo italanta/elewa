@@ -1003,22 +1003,6 @@
       },
       "tags": []
     },
-    "functions-intent": {
-      "root": "libs/functions/intent",
-      "sourceRoot": "libs/functions/intent/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["coverage/libs/functions/intent"],
-          "options": {
-            "jestConfig": "libs/functions/intent/jest.config.ts"
-          },
-          "passWithNoTests": true
-        
-        }
-      }
-    },
     "functions-convs-mgr-story-editor--check-story-for-errors": {
       "root": "libs/functions/convs-mgr/story-editor/check-story-for-errors",
       "sourceRoot": "libs/functions/convs-mgr/story-editor/check-story-for-errors/src",
@@ -1040,6 +1024,48 @@
           ],
           "options": {
             "jestConfig": "libs/functions/convs-mgr/story-editor/check-story-for-errors/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "functions-intent": {
+      "root": "libs/functions/intent",
+      "sourceRoot": "libs/functions/intent/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["coverage/libs/functions/intent"],
+          "options": {
+            "jestConfig": "libs/functions/intent/jest.config.ts"
+          },
+          "passWithNoTests": true
+        }
+      }
+    },
+    "libs-private-functions-intent-fallback-handler": {
+      "root": "libs/libs/private/functions/intent-fallback-handler",
+      "sourceRoot": "libs/libs/private/functions/intent-fallback-handler/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/libs/private/functions/intent-fallback-handler/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/libs/private/functions/intent-fallback-handler"
+          ],
+          "options": {
+            "jestConfig": "libs/libs/private/functions/intent-fallback-handler/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -1770,6 +1796,33 @@
           "outputs": ["coverage/libs/private/functions/function-utils"],
           "options": {
             "jestConfig": "libs/private/functions/function-utils/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-functions-intent-fallback-handler": {
+      "root": "libs/private/functions/intent-fallback-handler",
+      "sourceRoot": "libs/private/functions/intent-fallback-handler/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/functions/intent-fallback-handler/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/functions/intent-fallback-handler"
+          ],
+          "options": {
+            "jestConfig": "libs/private/functions/intent-fallback-handler/jest.config.ts",
             "passWithNoTests": true
           }
         }

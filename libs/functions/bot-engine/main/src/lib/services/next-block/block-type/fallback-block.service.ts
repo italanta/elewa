@@ -5,10 +5,14 @@ import { ButtonsBlockButton } from "@app/model/convs-mgr/stories/blocks/scenario
 import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
 
 import { BlockDataService } from "../../data-services/blocks.service";
+import { IntentFallbackService } from "@app/private/functions/intent-fallback-handler";
 
 export class FallBackBlockService 
 {
-
+  intentFallbackService: IntentFallbackService
+  constructor() {
+    this.intentFallbackService = new IntentFallbackService();
+  }
   getBlock(failedBlockId: string)
   {
     /**
@@ -96,4 +100,13 @@ export class FallBackBlockService
 			newCursor
 		};
 	}
+
+  async newFallBack(channel: CommunicationChannel, currentCursor: Cursor, blockDataService: BlockDataService, message: Message){
+    const botId = channel.linkedBot;
+    const orgId = channel.orgId;
+    const intentRepo = 
+    const intentFallBackService = new IntentFallbackService();
+    const intent = intentFallBackService.detectIntentAndRespond(message., ['intent1', 'intent2']);
+  }
+
 }
