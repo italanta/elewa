@@ -5,4 +5,4 @@ export * from './lib/whats-app-upload-media.handler';
 export * from './lib/models/manage-templates-request.interface';
 export * from './lib/whatsapp-get-templates.handler';
 export * from './lib/whatsapp-manage-templates.handler';
-export * from './lib/whatsapp-upload-media-cron.function';
+export * from './lib/whatsapp-upload-media-cron.handler';
