@@ -8,6 +8,5 @@ export interface MicroAppBlock extends StoryBlock
   /** The name of the micro app. Will be used as the link display text */
   appName: string;
 
-  /** From which platform is the microApp being called */
-  // platformType: PlatformType;
+  
 }

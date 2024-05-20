@@ -146,6 +146,12 @@ export enum StoryBlockTypes {
   /** Fallback block - Block to send incase our engine does not understand the message */
   FallbackBlock = 36,
 
+  /** MicroApp block - Block to send in case we want to extend chat functions */
+  MicroAppBlock = 37,
+
+  /** Interactive URL Button Link: Button that is clicked and redirects a user to the microapp */
+  InteractiveUrlButtonBlock = 38,
+
   EndStoryAnchorBlock = 9999,
 }
 
@@ -163,8 +169,10 @@ export function isOutputBlock(blockType: StoryBlockTypes): boolean {
       return true;
     case StoryBlockTypes.Document:
       return true;
-      case StoryBlockTypes.CMI5Block:
-        return true;    
+    case StoryBlockTypes.CMI5Block:
+      return true;  
+    case StoryBlockTypes.InteractiveUrlButtonBlock:
+      return true;      
     default:
       return false;
   }
@@ -195,6 +203,8 @@ export function isOperationBlock(blockType: StoryBlockTypes)
       return true;
     case StoryBlockTypes.Conditional:
       return true;
+    case StoryBlockTypes.MicroAppBlock:
+      return true;  
     default:
       return false;
   }
