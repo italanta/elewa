@@ -146,7 +146,9 @@
         "VIDEO-MODAL": {
           "MAIN-TITLE": "Upload Video",
           "MEDIA-TITLE":"Media Encoding"
-        }
+        },
+        "ASSESSMENT-MICRO-APP": "Assessment",
+        "MICRO-APP": "General"
       },
       "PLACEHOLDER": {
         "ANCHOR": "Start",
@@ -305,7 +307,8 @@
       "MESSAGE-BLOCK": "Messages",
       "OPERATION-BLOCKS": "Operations",
       "CMI5-BLOCK" :"CMI5 Block",
-      "ADMIN_SETTINGS": "Settings"
+      "ADMIN_SETTINGS": "Settings",
+      "MICRO-APPS": "Micro-apps"
     }
   },
   "BOTS": {
