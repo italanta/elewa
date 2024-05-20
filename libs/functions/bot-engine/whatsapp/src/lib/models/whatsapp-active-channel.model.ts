@@ -225,7 +225,7 @@ export class WhatsappActiveChannel implements ActiveChannel
           if(data.error.code == 131056) {
             this._tools.Logger.debug(() => `[SendWhatsAppMessageModel]. PAIR RATE LIMIT HIT! Attempting to resend message`);
             this.sendAttempt++;
-            await new Promise(resolve => setTimeout(resolve, Math.pow(4000, this.sendAttempt)));
+            await new Promise(resolve => setTimeout(resolve, (Math.pow(4, this.sendAttempt) *1000)));
             await this.send(whatsappMessage, standardMessage);
           } else {
             return {success: false, data: axiosError.response.data};
