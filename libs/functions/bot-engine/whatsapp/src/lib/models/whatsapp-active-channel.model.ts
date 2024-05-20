@@ -41,6 +41,16 @@ export class WhatsappActiveChannel implements ActiveChannel
   endUserService: EndUserDataService;
   API_VERSION: string = process.env.WHATSAPP_VERSION || 'v18.0';
 
+  /**  Message delay in seconds */
+  private messageDelay = 2;
+
+  /** Count the send attempts so that we can use it
+   *  to calculate exponential delay incase we hit the pair rate limit
+   * 
+   * @see https://developers.facebook.com/docs/whatsapp/cloud-api/overview/#pair-rate-limits
+   */
+  private sendAttempt = 0;
+
   constructor(private _tools: HandlerTools, channel: WhatsAppCommunicationChannel)
   {
     this.channel = channel;
@@ -171,7 +181,8 @@ export class WhatsappActiveChannel implements ActiveChannel
       // STEP 3: Send the message
       // Generate the Facebook URL through which we send the message
       // TODO: Move the versions to environment
-  
+      await new Promise(resolve => setTimeout(resolve, this.messageDelay * 1000));
+      
       /**
        * Execute the post request using axios and pass in the URL, ACCESS_TOKEN, and the outgoingMessage
        *
@@ -209,11 +220,13 @@ export class WhatsappActiveChannel implements ActiveChannel
           
           const data = axiosError.response.data as any;
           
-          // If we have hit the rate limit, wait 300ms second then resend the message
+          // If we have hit the rate limit, wait 4 second then resend the message 4^X seconds later
+          // Where X = sendAttempt count
           if(data.error.code == 131056) {
             this._tools.Logger.debug(() => `[SendWhatsAppMessageModel]. PAIR RATE LIMIT HIT! Attempting to resend message`);
-            await new Promise(resolve => setTimeout(resolve, 300));
-            return this.send(whatsappMessage, standardMessage);
+            this.sendAttempt++;
+            await new Promise(resolve => setTimeout(resolve, Math.pow(4000, this.sendAttempt)));
+            await this.send(whatsappMessage, standardMessage);
           } else {
             return {success: false, data: axiosError.response.data};
           }
