@@ -28,3 +28,4 @@ export * from './lib/CMI5-block.interface';
 export * from  './lib/survey-question-block.interface';
 export * from './lib/micro-app-block.interface';
 export * from './lib/interactive-url-button-block.interface'
+export * from './lib/assessment-micro-app.interface'
