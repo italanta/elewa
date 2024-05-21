@@ -12,12 +12,13 @@ import {
   TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, StickerMessageBlock,
   VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, FailBlock,
   ImageInputBlock, LocationInputBlock, AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock,
-  KeywordMessageBlock, EndStoryAnchorBlock, EventBlock, AssessmentBrick, ConditionalBlock, CMI5Block
+  KeywordMessageBlock, EndStoryAnchorBlock, EventBlock, AssessmentBrick, ConditionalBlock, CMI5Block,
+  MicroAppBlock
 } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ICONS_AND_TITLES } from '@app/features/convs-mgr/stories/blocks/library/main';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { DragDropService } from '../../providers/drag-drop.service';
-import { ICONS_AND_TITLES } from '@app/features/convs-mgr/stories/blocks/library/main';
 import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
 
 /**
@@ -69,7 +70,8 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'assessment-brick', type:StoryBlockTypes.Assessment, message: 'Assessment', blockIcon:this.getBlockIcon(StoryBlockTypes.Assessment),  blockCategory: 'bricks' } as AssessmentBrick,
     { id: 'conditional-block', type:StoryBlockTypes.Conditional, message: 'Conditional', blockIcon:this.getBlockIcon(StoryBlockTypes.Conditional), blockCategory: 'operation-block' } as ConditionalBlock,
     // { id: 'end-anchor-block', type:StoryBlockTypes.EndStoryAnchorBlock, message: 'End Story', blockIcon:this.getBlockIcon(StoryBlockTypes.EndStoryAnchorBlock), blockCategory: 'end-block'} as EndStoryAnchorBlock
-    { id: 'CMI5-block', type:StoryBlockTypes.CMI5Block, message: 'CMI5 Block', blockIcon:this.getBlockIcon(StoryBlockTypes.CMI5Block), blockCategory: 'bricks' } as CMI5Block
+    { id: 'CMI5-block', type:StoryBlockTypes.CMI5Block, message: 'CMI5 Block', blockIcon:this.getBlockIcon(StoryBlockTypes.CMI5Block), blockCategory: 'bricks' } as CMI5Block,
+    { id: 'micro-app', type: StoryBlockTypes.MicroAppBlock, message: 'General', blockIcon: this. getBlockIcon(StoryBlockTypes.MicroAppBlock), blockCategory: 'Micro-apps'} as MicroAppBlock 
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
 
@@ -88,6 +90,10 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
 
   getBlockIcon(type: number) {
     return ICONS_AND_TITLES[type].icon;
+  }
+
+  getBlockSvg(type: number){
+    return ICONS_AND_TITLES[type].svgIcon;
   }
 
 
