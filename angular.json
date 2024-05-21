@@ -903,6 +903,32 @@
       },
       "tags": []
     },
+    "features-micro-app-screens": {
+      "projectType": "library",
+      "root": "libs/features/micro-app-screens",
+      "sourceRoot": "libs/features/micro-app-screens/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/micro-app-screens"],
+          "options": {
+            "jestConfig": "libs/features/micro-app-screens/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/micro-app-screens/**/*.ts",
+              "libs/features/micro-app-screens/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-monitoring": {
       "projectType": "library",
       "root": "libs/features/monitoring",
