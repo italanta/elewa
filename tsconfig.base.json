@@ -155,6 +155,9 @@
       "@app/features/convs-mgr/stories/blocks/library/main": [
         "libs/features/convs-mgr/stories/blocks/library/main/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/micro-apps-base": [
+        "libs/features/convs-mgr/stories/blocks/library/micro-apps-base/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/multiple-input-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/multiple-input-message-block/src/index.ts"
       ],
