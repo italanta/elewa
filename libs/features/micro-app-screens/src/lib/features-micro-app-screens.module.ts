@@ -6,6 +6,7 @@ import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { MicroAppMainPageComponent } from './pages/micro-app-main-page/micro-app-main-page.component';
+import { MicroAppsHeaderComponent } from './components/micro-apps-header/micro-apps-header.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { MicroAppMainPageComponent } from './pages/micro-app-main-page/micro-app
   ],
   declarations: [
     MicroAppMainPageComponent,
+    MicroAppsHeaderComponent,
   ],
   exports: [
     MicroAppMainPageComponent
