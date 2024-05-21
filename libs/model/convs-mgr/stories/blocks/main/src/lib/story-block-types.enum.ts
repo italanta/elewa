@@ -152,6 +152,9 @@ export enum StoryBlockTypes {
   /** Interactive URL Button Link: Button that is clicked and redirects a user to the microapp */
   InteractiveUrlButtonBlock = 38,
 
+  /** Assessment specific microApp */
+  AssessmentMicroAppBlock = 39,
+
   EndStoryAnchorBlock = 9999,
 }
 
@@ -204,6 +207,8 @@ export function isOperationBlock(blockType: StoryBlockTypes)
     case StoryBlockTypes.Conditional:
       return true;
     case StoryBlockTypes.MicroAppBlock:
+      return true;  
+    case StoryBlockTypes.AssessmentMicroAppBlock:
       return true;  
     default:
       return false;

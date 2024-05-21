@@ -13,7 +13,7 @@ import {
   VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, FailBlock,
   ImageInputBlock, LocationInputBlock, AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock,
   KeywordMessageBlock, EndStoryAnchorBlock, EventBlock, AssessmentBrick, ConditionalBlock, CMI5Block,
-  MicroAppBlock
+  MicroAppBlock, AssessmentMicroAppBlock, 
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ICONS_AND_TITLES } from '@app/features/convs-mgr/stories/blocks/library/main';
 
@@ -71,7 +71,8 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'conditional-block', type:StoryBlockTypes.Conditional, message: 'Conditional', blockIcon:this.getBlockIcon(StoryBlockTypes.Conditional), blockCategory: 'operation-block' } as ConditionalBlock,
     // { id: 'end-anchor-block', type:StoryBlockTypes.EndStoryAnchorBlock, message: 'End Story', blockIcon:this.getBlockIcon(StoryBlockTypes.EndStoryAnchorBlock), blockCategory: 'end-block'} as EndStoryAnchorBlock
     { id: 'CMI5-block', type:StoryBlockTypes.CMI5Block, message: 'CMI5 Block', blockIcon:this.getBlockIcon(StoryBlockTypes.CMI5Block), blockCategory: 'bricks' } as CMI5Block,
-    { id: 'micro-app', type: StoryBlockTypes.MicroAppBlock, message: 'General', blockIcon: this. getBlockIcon(StoryBlockTypes.MicroAppBlock), blockCategory: 'Micro-apps'} as MicroAppBlock 
+    { id: 'micro-app', type: StoryBlockTypes.MicroAppBlock, message: 'General', blockIcon: this. getBlockIcon(StoryBlockTypes.MicroAppBlock), blockCategory: 'Micro-apps'} as MicroAppBlock,
+    { id: 'assessment-micro-app', type: StoryBlockTypes.AssessmentMicroAppBlock, message: 'Assessments', blockIcon: this. getBlockIcon(StoryBlockTypes.AssessmentMicroAppBlock), blockCategory: 'Micro-apps'} as AssessmentMicroAppBlock,
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
 
