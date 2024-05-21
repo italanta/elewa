@@ -7,6 +7,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { MicroAppMainPageComponent } from './pages/micro-app-main-page/micro-app-main-page.component';
 import { MicroAppsHeaderComponent } from './components/micro-apps-header/micro-apps-header.component';
+import { MicroAppsFooterComponent } from './components/micro-apps-footer/micro-apps-footer.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { MicroAppsHeaderComponent } from './components/micro-apps-header/micro-a
   declarations: [
     MicroAppMainPageComponent,
     MicroAppsHeaderComponent,
+    MicroAppsFooterComponent,
   ],
   exports: [
     MicroAppMainPageComponent
