@@ -41,6 +41,9 @@ export enum MicroAppTypes {
 
 /** 
  * Tracks the status of a Micro app through out a learner's engagement with it
+ * @currentSection
+ * @config
+ * @status
  * Assessment status will extend this interface */
 export interface MicroAppStatus {
   currentSection: MicroAppSectionTypes;
@@ -60,7 +63,7 @@ export interface MicroAppConfig {
 }
 
 /**  At what state is a Micro app in */
-enum MicroAppStatusTypes {
+export enum MicroAppStatusTypes {
   /** user has clicked the micro-app link */
   Launched = "launched",
   /** A user has started consuming the course content, by clicking the start button */
@@ -76,7 +79,7 @@ enum MicroAppStatusTypes {
 }
 
 /** Parts of a a Micro-app screen */
-enum MicroAppSectionTypes {
+export enum MicroAppSectionTypes {
   /** Start page / landing page */
   Start = 0,
   /** Main content consumption section */
