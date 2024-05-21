@@ -1,3 +1,19 @@
-<ng-template transloco let-t>
-  <h1> {{ t('title') }} </h1>
-</ng-template>
+<div class="wide" [id]="id" *ngIf="assessmentMicroAppForm">
+  <form [formGroup]="assessmentMicroAppForm" fxLayout="column" fxLayoutALign="start center">
+    <div fxLayout="row">
+      <div class="form-group">
+        <div class="assess-select-wrapper">
+        <select class="assess-select" name="microAppId" required id="microAppId">
+          <option disabled selected>{{ 'PAGE-CONTENT.BLOCK.LABELS.ASSESSMENTS-NAME' | transloco }}</option>
+          <option>--</option>
+          <option *ngFor="let assessment of assessments" [value]="assessment.id">
+            {{ assessment.title }}
+            <!-- Display all available assessments for the active organization -->
+          </option>
+        </select>
+        <span class="custom-dropdown-arrow"></span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

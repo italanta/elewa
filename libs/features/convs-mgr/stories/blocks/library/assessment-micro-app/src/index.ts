@@ -1,1 +1,1 @@
-export * from './lib/features-convs-mgr-stories-blocks-library-assessment-micro-app.module';
+export * from './lib/convs-mgr-assessment-micro-app.module';
