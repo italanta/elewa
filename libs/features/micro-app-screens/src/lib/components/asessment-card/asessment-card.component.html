@@ -1,12 +1,13 @@
-<mat-card class="question-card">
-  <mat-card-header class="question-header">
-    Question 1
-  </mat-card-header>
-  <mat-card-content class="question-content">
-    <p> What is the recommended percentage of your income to allocate towards savings and investments? </p>
-    <mat-radio-group aria-label="Select an option" class="column-radios">
-      <mat-radio-button value="1">Option 1</mat-radio-button>
-      <mat-radio-button value="2">Option 2</mat-radio-button>
-    </mat-radio-group>    
-  </mat-card-content>
-</mat-card>
+<div *ngIf="assessmentQuestions.length > 0" >
+  <mat-card class="question-card" *ngFor="let question of assessmentQuestions; let i = index">
+    <mat-card-header class="question-header">
+      Question {{i + 1}}
+    </mat-card-header>
+    <mat-card-content class="question-content">
+      <p>{{question.question}}</p>
+      <mat-radio-group aria-label="Select an option" class="column-radios">
+        <mat-radio-button *ngFor="let option of question.options" [value]="option">{{option}}</mat-radio-button>
+      </mat-radio-group>    
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,31 @@
+.wrapper{
+  padding: 36px 4rem;
+  display: grid;
+  grid-template-columns: 5% 90% 5%;
+  background-color: #fff;
+  margin-bottom: 1rem;
+  align-items: center;
+
+  .logo{
+    width: 61px;
+    height: 59px;
+    border: 1px solid black;
+    border-radius: 4px;
+  }
+  .heading{
+    text-align: center;
+  }
+  .timer{
+    width: 115px;
+    height: 44px;
+    .countDown{
+      padding: 0.5rem;
+      border-radius: 2.5rem;
+      background-color: #1F7A8C;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

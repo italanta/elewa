@@ -1,12 +1,12 @@
 <div class="main-content">
 
   <!-- Image Logo -->
-  <div class="img-section">
+  <!-- <div class="img-section">
     <img src="/assets/icons/content-image.png"/>
-  </div>
+  </div> -->
 
   <!-- Text Description -->
-  <div class="text-section">
+  <!-- <div class="text-section">
     <div class="p-text">
       <div class="intro">
         <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.INTRODUCTION-TAG" | transloco}} 
@@ -25,5 +25,18 @@
     <div class="btn-section">
       <button class="teal-btn">{{"MICROAPPS-SCREENS.BUTTON-TEXT" | transloco }}</button>
     </div>
+  </div> -->
+  
+</div>
+
+<div class="assessment-mode">
+  <app-asessment-header></app-asessment-header>
+  <div class="progress-tracker">
+    <div class="progress-bar"></div>
+    <div class="progress-text">
+      2% Complete
+    </div>
   </div>
+
+  <app-asessment-card [assessmentQuestions]="assessmentQuestions"></app-asessment-card> 
 </div>
