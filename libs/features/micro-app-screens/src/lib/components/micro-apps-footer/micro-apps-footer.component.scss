@@ -1,7 +1,15 @@
 .app-footer{
-  // display: flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
   width: 100%;
-  height:  322px;
+  height:  60px;
   position: fixed;
   bottom: 0;
+
+  img{
+    width: 110px;
+    height: 20px;
+  }
 }
