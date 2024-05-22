@@ -9,8 +9,9 @@ import { MicroAppMainPageComponent } from './pages/micro-app-main-page/micro-app
 import { MicroAppsHeaderComponent } from './components/micro-apps-header/micro-apps-header.component';
 import { MicroAppsFooterComponent } from './components/micro-apps-footer/micro-apps-footer.component';
 import { ContentSectionComponent } from './components/content-section/content-section.component';
-import { AsessmentCardComponent } from './components/asessment-card/asessment-card.component';
-import { AsessmentHeaderComponent } from './components/asessment-header/asessment-header.component';
+import { AssessmentCardComponent } from './components/assessment-card/assessment-card.component';
+import { AssessmentHeaderComponent } from './components/assessment-header/assessment-header.component';
+
 
 @NgModule({
   imports: [
@@ -25,8 +26,8 @@ import { AsessmentHeaderComponent } from './components/asessment-header/asessmen
     MicroAppsHeaderComponent,
     MicroAppsFooterComponent,
     ContentSectionComponent,
-    AsessmentCardComponent,
-    AsessmentHeaderComponent,
+    AssessmentCardComponent,
+    AssessmentHeaderComponent
   ],
   exports: [
     MicroAppMainPageComponent
