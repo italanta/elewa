@@ -1,0 +1,16 @@
+.question-card{
+  width: 100%;
+  color: #101010;
+
+  .question-header{
+    border-bottom: 1px solid #00000029;
+    padding-bottom: 8px;
+  }
+  .question-content{
+    padding-top: 8px;
+    .column-radios{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
