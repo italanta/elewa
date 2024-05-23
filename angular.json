@@ -903,17 +903,17 @@
       },
       "tags": []
     },
-    "features-micro-app-screens": {
+    "features-micro-app": {
       "projectType": "library",
-      "root": "libs/features/micro-app-screens",
-      "sourceRoot": "libs/features/micro-app-screens/src",
+      "root": "libs/features/micro-app",
+      "sourceRoot": "libs/features/micro-app/src",
       "prefix": "app",
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/features/micro-app-screens"],
+          "outputs": ["coverage/libs/features/micro-app"],
           "options": {
-            "jestConfig": "libs/features/micro-app-screens/jest.config.ts",
+            "jestConfig": "libs/features/micro-app/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -921,8 +921,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/features/micro-app-screens/**/*.ts",
-              "libs/features/micro-app-screens/**/*.html"
+              "libs/features/micro-app/**/*.ts",
+              "libs/features/micro-app/**/*.html"
             ]
           }
         }

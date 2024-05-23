@@ -33,4 +33,4 @@ import { AssessmentHeaderComponent } from './components/assessment-header/assess
     MicroAppMainPageComponent
   ]
 })
-export class MicroAppScreensModule {}
+export class MicroAppModule {}
