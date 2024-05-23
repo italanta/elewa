@@ -14,7 +14,8 @@ export class MicroAppAssessmentQuestionFormService {
     return this._fb.group({
       id: [assessmentQuestion?.id ?? ""],
       question: [assessmentQuestion?.question ?? ""],
-      options: this._fb.array(assessmentQuestion?.options.map(option => new FormControl(option)) || [])
+      options: this._fb.array(assessmentQuestion?.options.map(option => new FormControl(option)) || []),
+      selectedOption: [''] //tracking the selected option
     });
   }
 

@@ -32,9 +32,9 @@
 <div class="assessment-mode">
   <app-assessment-header></app-assessment-header>
   <div class="progress-tracker">
-    <div class="progress-bar"></div>
+    <div class="progress-bar" [ngStyle]="{ 'width': progressPercentage + '%', 'background-color': getProgressColor() }"></div>
     <div class="progress-text">
-      2% Complete
+      {{progressPercentage}}% Complete
     </div>
   </div>
 
