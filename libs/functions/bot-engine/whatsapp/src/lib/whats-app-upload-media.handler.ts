@@ -180,7 +180,7 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
 
     const bot  = await botsRepo$.getDocumentById(botId);
 
-    return bot.publishedOn;
+    return bot?.publishedOn;
   }
 
   private __hasExpired(blockUpdatedTime: moment.Moment) 

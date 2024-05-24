@@ -12,7 +12,7 @@ const handler = new MeasureParticipantGroupProgressHandler();
  */
 export const measureGroupProgress 
   = new ConvLearnFunction('measureGroupProgress', 
-                          new RestRegistrar(), 
+                          new RestRegistrar('asia-south1'), 
                           [], 
                           handler)
       .build();

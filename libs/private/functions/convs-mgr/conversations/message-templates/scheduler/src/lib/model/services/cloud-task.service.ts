@@ -5,7 +5,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { ScheduleOptions } from '@app/model/convs-mgr/functions';
 
-import { GcpTask } from '../../model/gcp/gcp-task.interface';
+import { GcpTask } from '@app/model/cloud-scheduler';
 
 class CloudTasksService
 {

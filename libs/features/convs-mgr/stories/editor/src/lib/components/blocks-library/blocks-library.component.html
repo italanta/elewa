@@ -33,40 +33,21 @@
       <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
     </div>
 
-      <!-- cmi5 block -->
-      <div class="block-list" *ngIf="blocks | blockCategoryPipe: 'cmi5-block' as groupedBlocks">
-        <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.CMI5-BLOCKS' | transloco }}</h6>
+      <!-- Operations block -->
+      <div class="block-list" *ngIf="blocks | blockCategoryPipe: 'operation-block' as groupedBlocks">
+        <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.OPERATION-BLOCKS' | transloco }}</h6>
         <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
       </div>
-      
 
-    <!-- Image block -->
-    <div class="block-list" *ngIf="blocks | blockCategoryPipe: 'images-block' as groupedBlocks">
-      <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.IMAGE-BLOCKS' | transloco }}</h6>
-      <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
-    </div>
-
-    <!-- documents block -->
-    <div class="block-list" *ngIf="blocks | blockCategoryPipe: 'documents-block' as groupedBlocks">
-      <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.DOCUMENT-BLOCKS' | transloco }}</h6>
-      <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
-    </div>
-
-    <!-- multimedia block -->
-    <div class="block-list" *ngIf="blocks | blockCategoryPipe: 'multimedia-block' as groupedBlocks">
-      <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.MULTIMEDIA-BLOCKS' | transloco }}</h6>
+    <!-- bricks -->
+    <div class="block-list" *ngIf="blocks | blockCategoryPipe: 'bricks' as groupedBlocks">
+      <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.BRICKS' | transloco }}</h6>
       <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
     </div>
 
     <!-- end block -->
     <div class="block-list" *ngIf="blocks | blockCategoryPipe: 'end-block' as groupedBlocks">
       <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.END-BLOCK' | transloco }}</h6>
-      <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
-    </div>
-
-    <!-- bricks -->
-    <div class="block-list" *ngIf="blocks | blockCategoryPipe: 'bricks' as groupedBlocks">
-      <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.BRICKS' | transloco }}</h6>
       <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
     </div>
   </div>

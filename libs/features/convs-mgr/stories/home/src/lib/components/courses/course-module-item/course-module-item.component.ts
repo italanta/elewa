@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatDialog  } from '@angular/material/dialog';
@@ -23,7 +23,7 @@ import { ConnectToChannelModalComponent } from '../../../modals/connect-to-chann
   templateUrl: './course-module-item.component.html',
   styleUrls: ['./course-module-item.component.scss'],
 })
-export class CourseModuleItemComponent {
+export class CourseModuleItemComponent implements OnDestroy {
   @Input() botModule: BotModule;
   @Input() story: Story;
 
@@ -87,13 +87,18 @@ export class CourseModuleItemComponent {
   publishBot(bot:Bot){
     this.isPublishing = true;
     bot.isPublished = true;
-    this._botsService$.updateBot(bot)
+
+    this._sBs.sink = this._botsService$.updateBot(bot)
       .subscribe(() => {
         this.isPublishing = false;
       });
 
-    if(this.uploadMedia && bot.linkedChannel) {
-      this._fileStorageService.uploadMediaToPlatform(bot.linkedChannel).subscribe()
+    if (this.uploadMedia && bot.linkedChannel) {
+      this._sBs.sink = this._fileStorageService.uploadMediaToPlatform(bot).subscribe()
     }
-   }
+  }
+
+  ngOnDestroy() {
+    this._sBs.unsubscribe()
+  }
 }
