@@ -11,12 +11,38 @@ import { AssessmentQuestion } from '../../models/assessment-question.interface';
 export class AssessmentCardComponent implements OnInit {
   @Input() assessmentQuestions: AssessmentQuestion[];
   @Input() assessmentFormArray: FormArray;
+  @Input() assessmentForm: FormGroup;
+  @Input() progressCallback: () => void;
 
-  @Input() assessmentForm: FormGroup
+  stepperForm = true
+
+  /** Tracking questions using stepper */
+  currentStep = 0;
+  totalSteps  = 0;
 
   constructor(){}
 
   ngOnInit(): void {
-      console.log(this.assessmentFormArray)
+    this.totalSteps = this.assessmentFormArray.controls.length
+    // Subscribe to value changes to update progress
+    this.assessmentFormArray.valueChanges.subscribe(() => {
+      this.progressCallback();
+    });
+
+    // Initial progress calculation
+    this.progressCallback();
   }
+
+  prevStep() {
+    if (this.currentStep > 0) {
+      this.currentStep--;
+    }
+  }
+  
+  nextStep() {
+    if (this.currentStep < this.totalSteps - 1) {
+      this.currentStep++;
+    }
+  }
+  
 }

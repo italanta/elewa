@@ -41,7 +41,9 @@
   <app-assessment-card 
     [assessmentQuestions]="assessmentQuestions" 
     [assessmentForm]="assessmentForm" 
-    [assessmentFormArray]="assessmentFormArray" >
+    [assessmentFormArray]="assessmentFormArray"
+    [progressCallback]="getProgress.bind(this)"
+    >
   </app-assessment-card>
    
 </div>

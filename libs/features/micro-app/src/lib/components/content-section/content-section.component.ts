@@ -26,7 +26,8 @@ export class ContentSectionComponent implements OnInit {
 
   ngOnInit() {
     this.buildForms();
-    this.assessmentFormArray.valueChanges.subscribe(()=> this.getProgress())
+    // this.assessmentFormArray.valueChanges.subscribe(()=> this.getProgress())
+    this.getProgress()
   }
 
   /**Building assessment forms */
@@ -40,6 +41,7 @@ export class ContentSectionComponent implements OnInit {
   /** Tracking how far a learner is in their assignment  */
   getProgress(){
     this.progressPercentage = calculateProgress(this.assessmentFormArray.controls);
+    console.log(this.progressPercentage)
   }
   /** Get the color for the progress bar */
   getProgressColor(): string {
