@@ -1,1 +1,304 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+@import '_theme';
+@import '_variables';
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+//Block Connectors
+//endpoint
+.block_endpoint circle {
+
+  fill: var(--connector-color-teal-blue);
+  stroke-width: 1px;
+  stroke: var(--connector-outline-color-blue);
+}
+
+.jtk-endpoint circle {
+  fill: var(--connector-color-teal-blue);
+  stroke-width: 1px;
+  stroke: var(--connector-outline-color-blue);
+}
+
+.jtk-endpoint rect {
+  fill: var(--connector-color-teal-blue);
+  stroke-width: 1px;
+  stroke: var(--connector-outline-color-blue);
+}
+
+//blocks
+.wide {
+  padding: 1rem;
+  width: 15rem;
+}
+
+.frame-connector {
+  z-index: -1;
+}
+
+.jtk-overlay {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 1.9rem;
+  padding: 0.5rem 0.5rem 0.4rem 0.5rem;
+  cursor: pointer;
+  position: relative;
+  display: none;
+  z-index: 5;
+}
+
+.jtk-overlay svg {
+  color: var(--convs-mgr-color-primary-pink) !important;
+  font-size: medium !important;
+}
+
+.jsplumb_instance svg path:hover {
+  stroke: var(--convs-mgr-color-primary-purple);
+}
+
+.jtk-hover {
+  cursor: pointer;
+  z-index: 4;
+}
+
+.jtk-hover+.jtk-overlay {
+  display: block;
+}
+
+// Connector styling
+svg.frame-connector path {
+  stroke: var(--connector-color);
+  stroke-width: 2;
+}
+
+
+.doc-icon {
+	text-align: center;
+	color: var(--convs-mgr-color-primary-purple) !important;
+	background-color: var(--convs-mgr-color-primary-white) !important;
+	opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+	.fa-spin {
+		color: var(--convs-mgr-color-primary-purple) !important;
+		border: none;
+	}
+}
+
+.wrapper {
+  padding: 1.875rem;
+}
+
+mat-form-field.search{
+  width: 100%;
+}
+
+mat-form-field.full-field{
+  width: 100%;
+}
+.jtk-endpoint { z-index:2; }
+
+/** Block edit nav global styles */
+
+.block-edit-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0.5rem;
+  padding-top: 1.2rem;
+  overflow: hidden;
+  
+  .block-form-edit {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0.5rem;
+    width: 100%;
+
+    .title {
+      font-size: 1.2rem;
+    }
+
+    .text {
+      border: 2px transparent;
+      background: #fff;
+      border-radius: 1rem;
+      height: 8rem;
+      padding: 0.8rem;
+      outline: none;
+    }
+
+    .fullwidth{
+      display: grid;
+      grid-template-rows: auto;
+      gap: 0.4rem;
+    }
+
+    .inputList {
+      width: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .listgone {
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+    }
+  }
+
+  .block-edit-add-options-button {
+    width: 100%;
+    color: white !important;
+    border-radius: 30px;
+    background: #3E788A 0% 0% no-repeat padding-box !important;
+    height: 2.5rem;
+  }
+}
+
+.block-edit-header {
+  display: flex;
+  justify-content: start;
+  gap: 1rem;
+  font-size: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.input {
+  width: 100% !important;
+}
+
+.block-edit-variable-input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+// ---- Customize validation ----- //
+
+/* Customize the label (the container) */
+.block-edit-validation-check {
+  display: flex;
+  align-self: flex-start;
+  align-items: center;
+  position: relative;
+  padding-left: 2.7rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  height: 1.1rem;
+  margin-top: 1.2rem;
+}
+
+/* Hide the default checkbox */
+.block-edit-validation-check input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create the custom checkmark */
+.block-edit-validation-check > .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0.55rem;
+  height: 0.875rem;
+  width: 0.875rem;
+  background-color: transparent;
+  border: 2px solid teal;
+  border-radius: 4px;
+}
+
+/* White checkmark (hidden by default) */
+.block-edit-validation-check > .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 1px;
+  width: 3px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Show the checkmark when the checkbox is checked */
+.block-edit-validation-check input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Teal background when the checkbox is checked */
+.block-edit-validation-check input:checked ~ .checkmark {
+  background-color: teal;
+  border: 2px solid teal;
+}
+
+// global styles component-level
+.validation-label {
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+.validation-input {
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  padding: 0.5rem;
+  min-width: 5rem;
+  width: auto;
+}
+
+.validation-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem;
+  padding-top: 1.3rem;
+  border-radius: 5px;
+}
+
+.validation_minmax {
+  display: flex;
+  justify-content: space-between;
+  gap: 10%;
+}
+
+.validation_message {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#validationMessage {
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    padding: 0.5rem;
+    color: #101010;
+}
+
+.validation_regex,
+.validation_max,
+.validation_min {
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  gap: 5px;
+}

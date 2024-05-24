@@ -1,0 +1,11 @@
+{
+  "MICROAPPS-SCREENS": {
+    "FOOTER-TEXT": "Powered by",
+    "CONTENT-SECTION": {
+      "INTRODUCTION-TAG": "Welcome to our assessment on",
+      "DESCRIPTION-TEXT": "In this assessment, you'll navigate through questions designed to gauge your understanding of",
+      "CLOSING-TEXT": "Test your knowledge and gain valuable insights into managing your "
+    },
+    "BUTTON-TEXT": "Start Assessment"
+  }
+}

@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./micro-app-main-page.component.scss']
 })
 export class MicroAppMainPageComponent {
-
+  
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TEST_DATA } from '../../utils/test-data';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MicroAppAssessmentQuestionFormService } from '../../services/microapp-assessment-questions-form.service';
@@ -10,6 +10,7 @@ import { calculateProgress } from '../../utils/calculate-progress.util';
   styleUrls: ['./content-section.component.scss']
 })
 export class ContentSectionComponent implements OnInit {
+  isAssessmentMode: false
 
   assessmentQuestions = TEST_DATA
 

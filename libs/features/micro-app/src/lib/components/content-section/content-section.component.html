@@ -1,49 +1,55 @@
-<div class="main-content">
-
-  <!-- Image Logo -->
-  <!-- <div class="img-section">
-    <img src="/assets/icons/content-image.png"/>
-  </div> -->
-
-  <!-- Text Description -->
-  <!-- <div class="text-section">
-    <div class="p-text">
-      <div class="intro">
-        <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.INTRODUCTION-TAG" | transloco}} 
-          <span class="teal-text"> Financial Literacy!</span>
-        </p>
+<ng-container *ngIf="isAssessmentMode; else defaultMode">
+  <ng-template #assessmentMode>
+    <app-assessment-header></app-assessment-header>
+    <div class="assessment-mode" *ngIf="isAssessmentMode">
+      <div class="progress-tracker">
+        <div class="progress-bar" [ngStyle]="{ 'width': progressPercentage + '%', 'background-color': getProgressColor() }"></div>
+        <div class="progress-text">
+          {{progressPercentage}}% Complete
+        </div>
       </div>
-      <div class="intro">
-        <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.DESCRIPTION-TEXT" | transloco}} 
-          <span class="teal-text"> Personal Finance, budgeting and investment basics.</span>
-        </p>
-      </div>
-        <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.CLOSING-TEXT" | transloco}} finances effectively
-        </p>
+    
+      <app-assessment-card 
+        [assessmentQuestions]="assessmentQuestions" 
+        [assessmentForm]="assessmentForm" 
+        [assessmentFormArray]="assessmentFormArray"
+        [progressCallback]="getProgress.bind(this)"
+        >
+      </app-assessment-card> 
     </div>
+  </ng-template>
+</ng-container>
 
-    <div class="btn-section">
-      <button class="teal-btn">{{"MICROAPPS-SCREENS.BUTTON-TEXT" | transloco }}</button>
+<ng-template #defaultMode>
+  <app-micro-apps-header></app-micro-apps-header>
+  <div class="main-content" *ngIf="!isAssessmentMode">
+
+    <!-- Image Logo -->
+    <div class="img-section">
+      <img src="/assets/icons/content-image.png"/>
     </div>
-  </div> -->
   
-</div>
-
-<div class="assessment-mode">
-  <app-assessment-header></app-assessment-header>
-  <div class="progress-tracker">
-    <div class="progress-bar" [ngStyle]="{ 'width': progressPercentage + '%', 'background-color': getProgressColor() }"></div>
-    <div class="progress-text">
-      {{progressPercentage}}% Complete
+    <!-- Text Description -->
+    <div class="text-section">
+      <div class="p-text">
+        <div class="intro">
+          <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.INTRODUCTION-TAG" | transloco}} 
+            <span class="teal-text"> Financial Literacy!</span>
+          </p>
+        </div>
+        <div class="intro">
+          <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.DESCRIPTION-TEXT" | transloco}} 
+            <span class="teal-text"> Personal Finance, budgeting and investment basics.</span>
+          </p>
+        </div>
+          <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.CLOSING-TEXT" | transloco}} finances effectively
+          </p>
+      </div>
+  
+      <div class="btn-section">
+        <button class="teal-btn">{{"MICROAPPS-SCREENS.BUTTON-TEXT" | transloco }}</button>
+      </div>
     </div>
+    
   </div>
-
-  <app-assessment-card 
-    [assessmentQuestions]="assessmentQuestions" 
-    [assessmentForm]="assessmentForm" 
-    [assessmentFormArray]="assessmentFormArray"
-    [progressCallback]="getProgress.bind(this)"
-    >
-  </app-assessment-card>
-   
-</div>
+</ng-template>
