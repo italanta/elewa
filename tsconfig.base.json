@@ -209,9 +209,7 @@
       "@app/features/convs-mgr/user-groups": [
         "libs/features/convs-mgr/user-groups/src/index.ts"
       ],
-      "@app/features/micro-app": [
-        "libs/features/micro-app/src/index.ts"
-      ],
+      "@app/features/micro-app": ["libs/features/micro-app/src/index.ts"],
       "@app/features/monitoring": ["libs/features/monitoring/src/index.ts"],
       "@app/functions/analytics/metabase": [
         "libs/functions/analytics/metabase/src/index.ts"

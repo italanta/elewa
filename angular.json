@@ -5,6 +5,94 @@
     "admin-config-environment-config": "libs/admin/config/environment-config",
     "conv-learning-manager": "apps/conv-learning-manager",
     "conv-lm-backend": "apps/conv-lm-backend",
+    "conv-lm-micro-app": {
+      "projectType": "application",
+      "root": "apps/conv-lm-micro-app",
+      "sourceRoot": "apps/conv-lm-micro-app/src",
+      "prefix": "app",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/conv-lm-micro-app",
+            "index": "apps/conv-lm-micro-app/src/index.html",
+            "main": "apps/conv-lm-micro-app/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "apps/conv-lm-micro-app/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/conv-lm-micro-app/src/favicon.ico",
+              "apps/conv-lm-micro-app/src/assets"
+            ],
+            "styles": ["apps/conv-lm-micro-app/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "conv-lm-micro-app:build:production"
+            },
+            "development": {
+              "browserTarget": "conv-lm-micro-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "conv-lm-micro-app:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/conv-lm-micro-app/**/*.ts",
+              "apps/conv-lm-micro-app/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/conv-lm-micro-app"],
+          "options": {
+            "jestConfig": "apps/conv-lm-micro-app/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "convs-mgr-event-block": {
       "projectType": "library",
       "root": "libs/features/convs-mgr/stories/blocks/library/event-block",
