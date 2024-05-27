@@ -90,9 +90,11 @@ export class ProcessMessageService
     this._tools.Logger.log(()=> `Processing block: Last block: ${JSON.stringify(lastBlock)}}`);
 
     // Handle input: validates and saves the input to variable
-    const inputPromise = this.processInput(msg, lastBlock, orgId, endUser);
+    if(msg) {
+      const inputPromise = this.processInput(msg, lastBlock, orgId, endUser);
 
-    this.sideOperations.push(inputPromise);
+      this.sideOperations.push(inputPromise);
+    }
 
     // upodate leaner progrress
     const updateLearnersProgressPromise = updateLearnerProgress(currentStory, lastBlock, endUser, tools, orgId);
@@ -187,7 +189,7 @@ export class ProcessMessageService
 
       const processInputFactory = new ProcessInputFactory(this._tools, this._activeChannel, this._processMediaService$);
 
-      this.isInputValid = await processInputFactory.processInput(msg, lastBlock, orgId, endUser);
+      return processInputFactory.processInput(msg, lastBlock, orgId, endUser);
 
     }
   }
