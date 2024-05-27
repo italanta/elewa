@@ -18,7 +18,7 @@ const handler = new WhatsAppUploadMediaHandler();
  * 
  */
 export const channelWhatsappUploadMedia = new ConvLearnFunction('channelWhatsappUploadMedia', 
-                                                  new RestRegistrar(), 
+                                                  new RestRegistrar('asia-south1'), 
                                                   [], 
                                                   handler)
                                .build();
