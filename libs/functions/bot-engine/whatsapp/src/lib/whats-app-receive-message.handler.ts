@@ -56,7 +56,7 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     //         We then need to parse the incoming message and return a standardized format so that our bot engine can read and process the message
     const sanitizedResponse = __ConvertWhatsAppApiPayload(payload);
 
-    if (!sanitizedResponse) return { status: 500, message: `Unexpected Payload :: ${JSON.stringify(payload)}` } as RestResult;
+    if (!sanitizedResponse || !sanitizedResponse.type) return { status: 500, message: `Unexpected Payload :: ${JSON.stringify(payload)}` } as RestResult;
 
     // STEP 3: Get the Channel
     //         TODO: Cache the channel
