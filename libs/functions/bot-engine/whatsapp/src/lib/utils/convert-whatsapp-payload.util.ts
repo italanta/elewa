@@ -6,6 +6,10 @@ export function __ConvertWhatsAppApiPayload(message: IncomingWhatsAppMessage): W
 {
   message = _FormatWhatsAppPayLoad(message);
 
+  if(!message.entry[0].changes[0].value.contacts || message.entry[0].changes[0].value.contacts.length == 0 || message.entry[0].changes[0].value.messages || message.entry[0].changes[0].value.messages.length == 0) {
+    return null;
+  }
+
   return {
     //botAccountDisplayPhoneNumber: formattedPayLoad.entry[0].changes[0].value.metadata.display_phone_number,
     platformId: message.entry[0].changes[0].value.metadata.phone_number_id,
