@@ -25,6 +25,9 @@ export async function updateLearnerProgress (currentStory: string, lastBlock:Sto
   let parentModule: BotModule;
 
   const enrolledUser = await enrolledDataServ.getEnrolledUser(endUser.enrolledUserId ?? '');
+  
+  // Skip learner progress if user does not exist
+  if (!enrolledUser) return;
 
   const lesson = (await storiesDataService.getStory(currentStory));
 
@@ -36,8 +39,6 @@ export async function updateLearnerProgress (currentStory: string, lastBlock:Sto
     parentCourse = (await courseDataService.getBot(parentModule.parentBot));
   }
 
-  // Skip learner progress if user does not exist
-  if (!enrolledUser) return;
 
   if (enrolledUser.courses == null) enrolledUser.courses = [];
 
