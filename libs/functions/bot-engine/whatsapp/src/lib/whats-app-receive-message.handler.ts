@@ -56,6 +56,8 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     //         We then need to parse the incoming message and return a standardized format so that our bot engine can read and process the message
     const sanitizedResponse = __ConvertWhatsAppApiPayload(payload);
 
+    if (!sanitizedResponse || !sanitizedResponse.type) return { status: 500, message: `Unexpected Payload :: ${JSON.stringify(payload)}` } as RestResult;
+
     // STEP 3: Get the Channel
     //         TODO: Cache the channel
     //         The user registers the story/bot to a channel once they are ready to publish it
@@ -83,8 +85,6 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     // STEP 5: Create the bot engine and process the message.
     //        Since we receive different types of messages e.g. text message, location,
     const engine = new EngineBotManager(tools, tools.Logger, whatsappActiveChannel);
-
-    if (!sanitizedResponse) return { status: 500, message: `Invalid Payload :: ${JSON.stringify(payload)}` } as RestResult;
 
     const whatsappIncomingMessageParser = new WhatsappIncomingMessageParser().resolve(sanitizedResponse.type);
 
