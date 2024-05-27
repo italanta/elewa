@@ -40,6 +40,7 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
    */
   public async execute(payload: IncomingWhatsAppMessage, context: HttpsContext, tools: HandlerTools) 
   {
+    tools.Logger.log(() => `Received Whatsapp Payload :: ${JSON.stringify(payload)}`);
     // STEP 1: Validate that this is an incoming message
     // Check if we have any data. If there is no data,then the webhook needs to be validated on whatsapp business platform
     // @See https://developers.facebook.com/docs/whatsapp/cloud-api/guides/set-up-webhooks
@@ -66,7 +67,7 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     const communicationChannel = await _channelService$.getChannelInfo(sanitizedResponse.platformId) as WhatsAppCommunicationChannel;
 
     if (!communicationChannel) {
-      tools.Logger.error(() => `[ChannelInfo].getChannelInfo - This phone number has not been registered to a channel: ID: ${sanitizedResponse.platformId}`);
+      tools.Logger.error(() => `[ChannelInfo].getChannelInfo - This phone number has not been registered to a channel :: ${sanitizedResponse.platformId}`);
 
       return { status: 500 } as RestResult;
     }
@@ -82,6 +83,8 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     // STEP 5: Create the bot engine and process the message.
     //        Since we receive different types of messages e.g. text message, location,
     const engine = new EngineBotManager(tools, tools.Logger, whatsappActiveChannel);
+
+    if (!sanitizedResponse) return { status: 500, message: `Invalid Payload :: ${JSON.stringify(payload)}` } as RestResult;
 
     const whatsappIncomingMessageParser = new WhatsappIncomingMessageParser().resolve(sanitizedResponse.type);
 
