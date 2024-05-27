@@ -42,7 +42,7 @@ export class WhatsappActiveChannel implements ActiveChannel
   API_VERSION: string = process.env.WHATSAPP_VERSION || 'v18.0';
 
   /**  Message delay in seconds */
-  private messageDelay = 2;
+  private messageDelay = 1.5;
 
   /** Count the send attempts so that we can use it
    *  to calculate exponential delay incase we hit the pair rate limit
