@@ -7,5 +7,32 @@
       "CLOSING-TEXT": "Test your knowledge and gain valuable insights into managing your "
     },
     "BUTTON-TEXT": "Start Assessment"
+  },
+  "ASSESSMENT-PAGE": {
+    "BUTTONS-TEXT": {
+      "NEXT-BUTTON": "Next",
+      "PREVIOUS": "Previous",
+      "SUBMIT-TEXT": "Submit assessment",
+      "WHATSAPP-BUTTON": "Go back to WhatsApp",
+      "RETRY-BUTTON": "Retry assessment"
+    },
+    "GRADE-DISPLAY": {
+      "PASS-MESSAGE": {
+        "PASS-TEXT": "You passed!",
+        "GRADE-TEXT": "Grade received",
+        "SCORE-TEXT": "Highest score"
+      },
+      "FAIL-MESSAGE": {
+        "FAIL-TEXT": "You did not pass.",
+        "GRADE-TEXT": "Grade received:"
+      }
+    },
+    "FAIL-FEEDBACK": {
+      "FAIL-MESSAGE": {
+        "INTRO": "Oops! It looks like you didn’t pass the assessment this time. But don’t worry, you can try again.",
+        "TRIAL-TEXT": "You have more trials",
+        "RETAKE-TEXT": "Click Retry assignment button below to give it another go!"
+      }
+    }
   }
 }

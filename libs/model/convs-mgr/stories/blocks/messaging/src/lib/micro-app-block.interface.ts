@@ -25,6 +25,8 @@ export enum PassCriteriaTypes {
   NotApplicable = 'notApplicable',
   /** Test scores meet the pass criteria */
   Passed = 'passed',
+  /** Test scores do not meet the pass criteria */
+  Failed = 'failed',
 }
 
 /**
