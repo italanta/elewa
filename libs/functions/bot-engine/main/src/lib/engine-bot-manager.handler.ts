@@ -18,11 +18,13 @@ import { EndUserDataService } from './services/data-services/end-user.service';
 import { EnrolledUserDataService } from './services/data-services/enrolled-user.service';
 
 import { ActiveChannel } from './model/active-channel.service';
+import { BotState } from './model/bot-state.interface';
 
 import { generateEnrolledUserId } from './utils/generateEnrolledUserId';
 import { ProcessMessageService } from './services/process-message/process-message.service';
 import { createTextMessage } from './utils/createTextMessage.util';
 import { BotMediaProcessService } from './services/media/process-media-service';
+import { HasChanged } from './utils/has-object-changed.util';
 
 
 /**
@@ -71,6 +73,12 @@ export class EngineBotManager
       // Set the Organisation Id
       this.orgId = this._activeChannel.channel.orgId;
       const platform = this._activeChannel.channel.type;
+
+      const isDuplicatePayload = await this.duplicatePayload(this._tools, this.orgId, endUser.id, message);
+      if(isDuplicatePayload) {
+        this._tools.Logger.log(() => `Received duplicate payload. Exiting...`);
+        return { success: true } as RestResult200;
+      }
 
       const lastActiveTime = new Date();
 
@@ -184,4 +192,30 @@ export class EngineBotManager
   {
     this.sideOperations.push(operation);
   }
+
+  /** 
+   * Checks whether we have received the same payload
+   * 
+   * TODO: Move state to memcached or redis
+   */
+  async duplicatePayload(tools: HandlerTools, orgId: string, endUserId: string, message: Message) {
+    const stateRepo$ = tools.getRepository<BotState>(`orgs/${orgId}/end-users/${endUserId}/bot-state`);
+
+    const currentstate = await stateRepo$.getDocumentById('current-state');
+    const newBotState = {
+      lastMessage: message
+    } as BotState;
+
+    if(!currentstate) {
+      await stateRepo$.write(newBotState, 'current-state')
+    } else {
+      await stateRepo$.write(newBotState, 'current-state')
+
+      if(HasChanged(message, currentstate.lastMessage)) {
+        return false;
+      } else {
+        return true;
+      }
+  }
+}
 }
