@@ -6,7 +6,7 @@ export function __ConvertWhatsAppApiPayload(message: IncomingWhatsAppMessage): W
 {
   message = _FormatWhatsAppPayLoad(message);
 
-  if(!message.entry[0].changes[0].value.contacts || message.entry[0].changes[0].value.contacts.length == 0 || message.entry[0].changes[0].value.messages || message.entry[0].changes[0].value.messages.length == 0) {
+  if(!message.entry[0].changes[0].value.contacts || message.entry[0].changes[0].value.contacts.length == 0 || !message.entry[0].changes[0].value.messages || message.entry[0].changes[0].value.messages.length == 0) {
     return null;
   }
 
