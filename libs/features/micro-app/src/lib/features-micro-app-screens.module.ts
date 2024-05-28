@@ -11,7 +11,7 @@ import { MicroAppsFooterComponent } from './components/micro-apps-footer/micro-a
 import { ContentSectionComponent } from './components/content-section/content-section.component';
 import { AssessmentCardComponent } from './components/assessment-card/assessment-card.component';
 import { AssessmentHeaderComponent } from './components/assessment-header/assessment-header.component';
-
+import { AssessmentResultBannerComponent } from './components/assessment-result-banner/assessment-result-banner.component';
 
 @NgModule({
   imports: [
@@ -27,10 +27,9 @@ import { AssessmentHeaderComponent } from './components/assessment-header/assess
     MicroAppsFooterComponent,
     ContentSectionComponent,
     AssessmentCardComponent,
-    AssessmentHeaderComponent
+    AssessmentHeaderComponent,
+    AssessmentResultBannerComponent,
   ],
-  exports: [
-    MicroAppMainPageComponent
-  ]
+  exports: [MicroAppMainPageComponent],
 })
 export class MicroAppModule {}
