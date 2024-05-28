@@ -9,12 +9,13 @@ import { ProcessInput } from "../process-input.class";
 import { StoryBlock, VariableTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { IProcessInput } from "../models/process-input.interface";
+import { ActiveChannel } from "../../../model/active-channel.service";
 
 export class ProcessOptionsInput extends ProcessInput<string> implements IProcessInput {
   tools: HandlerTools;
 
-  constructor(tools: HandlerTools){
-    super(tools)
+  constructor(tools: HandlerTools,  _activeChannel: ActiveChannel){
+    super(tools, _activeChannel);
     this.tools = tools;
   }
 

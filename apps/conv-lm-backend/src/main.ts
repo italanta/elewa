@@ -26,6 +26,8 @@ export * from './app/bot/main/schedule/check-inactivity.function';
 export * from './app/bot/main/schedule/set-inactivity.function';
 export * from './app/bot/main/schedule/run-schedule.function';
 
+export * from './app/bot/preview-channel/preview-channel.function';
+
 export * from './app/micro-apps/cmi5/fetch-token.function';
 export * from './app/micro-apps/cmi5/cmi5-zip-parser.function';
 export * from './app/micro-apps/cmi5/cmi-listener.function';

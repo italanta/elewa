@@ -9,11 +9,12 @@ import { ProcessInput } from "../process-input.class";
 import { StoryBlock, StoryBlockTypes, VariableTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { IProcessInput } from "../models/process-input.interface";
+import { ActiveChannel } from "../../../model/active-channel.service";
 
 export class ProcessTextInput extends ProcessInput<string> implements IProcessInput {
 
-  constructor(tools: HandlerTools){
-    super(tools);
+  constructor(tools: HandlerTools, _activeChannel: ActiveChannel){
+    super(tools, _activeChannel);
   }
 
   public async handleInput(message: Message, lastBlock: StoryBlock, orgId: string, endUser: EndUser): Promise<boolean> 

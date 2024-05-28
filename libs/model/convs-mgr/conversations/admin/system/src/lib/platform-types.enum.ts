@@ -18,6 +18,8 @@ export enum PlatformType
   Telegram  =  'telegram',
   /** Messenger API */
   Messenger =  'messenger',
+
+  Preview   = 'preview'
 }
 
 /**

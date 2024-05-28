@@ -10,8 +10,11 @@ export class ProcessInput<T>
 {
   protected variableName: string;
   protected savedInputs: {[key:string]:any};
+  private isPreview: boolean;
 
-  constructor(private _tools: HandlerTools, private _activeChannel?: ActiveChannel) { }
+  constructor(private _tools: HandlerTools, private _activeChannel: ActiveChannel) { 
+    this.isPreview = this._activeChannel.channel.type === 'preview';
+  }
 
   async saveInput(orgId: string, endUser: EndUser, inputValue: T, inputValueType: MessageTypes, type?: VariableTypes): Promise<boolean>
   {
@@ -20,7 +23,11 @@ export class ProcessInput<T>
     this.savedInputs = endUser.variables;
 
     try {
-      const endUserRepo$ = this._tools.getRepository<EndUser>(`orgs/${orgId}/end-users`);
+      let endUserRepo$ = this._tools.getRepository<EndUser>(`orgs/${orgId}/end-users`);
+
+      if(this.isPreview) {
+        endUserRepo$ = this._tools.getRepository<EndUser>(`orgs/${orgId}/preview-channels`);
+      }
 
       const updatedInputs = this.__updateInputs(this.savedInputs, inputValue, inputValueType, variableType);
 
@@ -84,5 +91,14 @@ export class ProcessInput<T>
         break;
     }
     return updatedInputs;
+  }
+
+  getPreviewMode() {
+    return this.isPreview;
+  }
+
+  setPreviewMode(preview: boolean) {
+    this.isPreview = preview;
+    return this.isPreview;
   }
 }

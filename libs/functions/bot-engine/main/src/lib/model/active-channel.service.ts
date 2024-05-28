@@ -25,9 +25,9 @@ export interface ActiveChannel
    * @returns {Message}
    * A prepared  message which can be sent over the line to its specific channel API.
    */
-  parseOutMessage(storyBlock: StoryBlock, endUser: EndUser): OutgoingMessagePayload;
+  parseOutMessage: (storyBlock: StoryBlock, endUser: EndUser) => OutgoingMessagePayload;
 
-  parseOutStandardMessage(message: Message): any;
+  parseOutStandardMessage?: (message: Message) => any;
 
   /** 
    *  After the bot engine processes the incoming message and returns the next block,
@@ -41,9 +41,9 @@ export interface ActiveChannel
    *                      with the chatbot
    * 
    */
-  send(msg: OutgoingMessagePayload, standardMessage?: Message);
+  send: (msg: OutgoingMessagePayload, standardMessage?: Message) => any;
 
-  getMediaFile(mediaId: string, mime_type: string);
+  getMediaFile?: (mediaId: string, mime_type: string) => Promise<unknown>;
 
-  parseOutMessageTemplate(templateConfig: MessageTemplateConfig, params: TemplateMessageParams[], phoneNumber: string, message: Message);
+  parseOutMessageTemplate?: (templateConfig: MessageTemplateConfig, params: TemplateMessageParams[], phoneNumber: string, message: Message) => any;
 }

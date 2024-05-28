@@ -17,9 +17,10 @@ import { ActiveChannel } from '../../model/active-channel.service';
  */
 export class BotMediaProcessService 
 {
-  private mediaFileURL: string = "";
+  private mediaFileURL = "";
 
-  constructor(private _tools: HandlerTools) { }
+  constructor(private _tools: HandlerTools, private isPreview?: boolean) 
+  { }
 
   /**
    * 
@@ -30,6 +31,12 @@ export class BotMediaProcessService
   {
     const orgId = activeChannel.channel.orgId;
 
+    let fileRepo$ = this._tools.getRepository<FileUpload>(`orgs/${orgId}/end-users/${endUserId}/files`);
+
+    if(this.isPreview) {
+      fileRepo$ = this._tools.getRepository<FileUpload>(`orgs/${orgId}/preview-channels/${endUserId}_${orgId}/files`);
+    }
+
     const mediaFileMessage = message as FileMessage;
 
     const mediaFileInfo: FileUpload = {
@@ -38,7 +45,6 @@ export class BotMediaProcessService
       mime_type: mediaFileMessage.mime_type
     };
 
-    const fileRepo$ = this._tools.getRepository<FileUpload>(`orgs/${orgId}/end-users/${endUserId}/files`);
 
     await fileRepo$.create(mediaFileInfo, mediaFileInfo.id);
 
@@ -48,7 +54,7 @@ export class BotMediaProcessService
   async getFileURL(message: FileMessage, endUserId: string, activeChannel: ActiveChannel)
   {
     if(!this.mediaFileURL) {
-      const file = await activeChannel.getMediaFile(message.mediaId, message.mime_type);
+      const file = await activeChannel.getMediaFile(message.mediaId, message.mime_type) as any;
 
       if (file) this.mediaFileURL = await this._uploadFile(endUserId, message.type, file.filePath, file.fileName) as string;
 

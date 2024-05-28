@@ -217,6 +217,9 @@
       "@app/functions/bot-engine/messenger": [
         "libs/functions/bot-engine/messenger/src/index.ts"
       ],
+      "@app/functions/bot-engine/preview": [
+        "libs/functions/bot-engine/preview/src/index.ts"
+      ],
       "@app/functions/bot-engine/send-message": [
         "libs/functions/bot-engine/send-message/src/index.ts"
       ],

@@ -12,7 +12,7 @@ export class MessagesDataService extends BotDataService<Message> {
   private _msg: Message;
   tools: HandlerTools;
 
-  constructor(tools: HandlerTools) 
+  constructor(tools: HandlerTools, private isPreview?: boolean) 
   {
     super(tools)
     this.tools = tools;
@@ -24,7 +24,7 @@ export class MessagesDataService extends BotDataService<Message> {
    * Assigns an id to the message if it is not yet set before this point
    */
   async saveMessage(msg: Message, orgId: string, endUserId: string): Promise<Message> {
-    this._docPath = `orgs/${orgId}/end-users/${endUserId}/messages`
+    this._docPath = this._getDocPath(orgId, endUserId);
 
     // If the message id is not set, we set it here
     !msg.id && (msg.id = Date.now().toString());
@@ -38,7 +38,7 @@ export class MessagesDataService extends BotDataService<Message> {
   }
 
   async getLatestMessage(endUserId: string, orgId: string): Promise<Message> {
-    this._docPath = `orgs/${orgId}/end-users/${endUserId}/messages`
+    this._docPath = this._getDocPath(orgId, endUserId);
 
     const latestMessage = await this.getLatestDocument(this._docPath);
 
@@ -46,7 +46,7 @@ export class MessagesDataService extends BotDataService<Message> {
   }
 
   async getLatestUserMessage(endUserId: string, orgId: string): Promise<Message> {
-    this._docPath = `orgs/${orgId}/end-users/${endUserId}/messages`
+    this._docPath = this._getDocPath(orgId, endUserId);
 
     const latestMessage = await this.getDocuments(this._docPath);
 
@@ -61,5 +61,15 @@ export class MessagesDataService extends BotDataService<Message> {
     });
 
     return latestUserMessage;
+  }
+
+  private _getDocPath(orgId: string, endUserId: string) {
+    this._docPath = `orgs/${orgId}/end-users/${endUserId}/messages`;
+
+    if(this.isPreview) {
+      this._docPath = `orgs/${orgId}/preview-channels/${endUserId}_${orgId}/messages`;
+    }
+
+    return this._docPath;
   }
 }

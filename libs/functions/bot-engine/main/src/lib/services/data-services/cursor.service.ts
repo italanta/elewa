@@ -18,7 +18,7 @@ export class CursorDataService extends BotDataService<Cursor> {
   private tools: HandlerTools;
   private _currentCursor: Cursor;
 
-  constructor(_tools: HandlerTools) 
+  constructor(_tools: HandlerTools, private isPreview?: boolean) 
   {
     super(_tools);
     this.tools = _tools;
@@ -33,7 +33,7 @@ export class CursorDataService extends BotDataService<Cursor> {
   async getLatestCursor(endUserId: string, orgId: string): Promise<Cursor | boolean>
   {
     // Set the firestore document path
-    this._docPath = `orgs/${orgId}/end-users/${endUserId}/cursor`;
+    this._docPath = this._getDocPath(orgId, endUserId);
 
     // Get the latest document which is the latest cursor = the current position of the end user
     const currentCursor = await this.getLatestDocument(this._docPath);
@@ -59,7 +59,7 @@ export class CursorDataService extends BotDataService<Cursor> {
    */
   async getUserCursorAtSetTime(unixToMeasure: number, orgId:string, endUserId: string) : Promise<{ time: Date, cursor: Cursor }>
   {
-    this._docPath = `orgs/${orgId}/end-users/${endUserId}/cursor`;
+    this._docPath = this._getDocPath(orgId, endUserId);
   
     // Convert unix time to date
     const timeToMeasure = new Date(unixToMeasure);
@@ -87,7 +87,7 @@ export class CursorDataService extends BotDataService<Cursor> {
     const cursorId = Date.now().toString();
 
     // Set the document path of the cursor collection
-    this._docPath = `orgs/${orgId}/end-users/${endUserId}/cursor`;
+    this._docPath = this._getDocPath(orgId, endUserId);
 
     try {
       await this.createDocument(newCursor, this._docPath, cursorId);
@@ -100,5 +100,15 @@ export class CursorDataService extends BotDataService<Cursor> {
 
       return false;
     }
+  }
+
+  private _getDocPath(orgId: string, endUserId: string) {
+    this._docPath = `orgs/${orgId}/end-users/${endUserId}/cursor`;
+
+    if(this.isPreview) {
+      this._docPath = `orgs/${orgId}/preview-channels/${endUserId}_${orgId}/cursor`;
+    }
+
+    return this._docPath;
   }
 }
