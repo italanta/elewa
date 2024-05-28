@@ -7,7 +7,7 @@ import { FormViewMode, PageViewMode } from '../models/view-mode.enum';
 })
 export class AppViewService {
   private formViewModeSource = new BehaviorSubject<FormViewMode >(FormViewMode .MultipleQuestionView);
-  private pageViewModeSource = new BehaviorSubject<PageViewMode>(PageViewMode.HomePageView)
+  private pageViewModeSource = new BehaviorSubject<PageViewMode>(PageViewMode.FailFeedbackMode)
 
   formViewMode$ = this.formViewModeSource.asObservable();
   pageViewMode$ = this.pageViewModeSource.asObservable()
