@@ -209,9 +209,8 @@ export class EngineBotManager
     if(!currentstate) {
       await stateRepo$.write(newBotState, 'current-state')
     } else {
-      await stateRepo$.write(newBotState, 'current-state')
-
       if(HasChanged(message, currentstate.lastMessage)) {
+        await stateRepo$.write(newBotState, 'current-state');
         return false;
       } else {
         return true;
