@@ -25,12 +25,10 @@ export class AssessmentCardComponent implements OnInit {
   ngOnInit(): void {
     this.totalSteps = this.assessmentFormArray.controls.length
     // Subscribe to value changes to update progress
-    this.assessmentFormArray.valueChanges.subscribe(() => {
+    this.assessmentForm.valueChanges.subscribe(() => {
       this.progressCallback();
+      console.log(this.assessmentForm)
     });
-
-    // Initial progress calculation
-    this.progressCallback();
   }
 
   prevStep() {

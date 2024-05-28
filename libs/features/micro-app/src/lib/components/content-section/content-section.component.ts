@@ -1,17 +1,26 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TEST_DATA } from '../../utils/test-data';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { MicroAppAssessmentQuestionFormService } from '../../services/microapp-assessment-questions-form.service';
-import { calculateProgress } from '../../utils/calculate-progress.util';
 
+import { Observable } from 'rxjs';
+
+import { calculateProgress } from '../../utils/calculate-progress.util';
+import { PageViewMode } from '../../models/view-mode.enum';
+
+import { MicroAppAssessmentQuestionFormService } from '../../services/microapp-assessment-questions-form.service';
+import { AppViewService } from '../../services/questions-view-mode.service';
 @Component({
   selector: 'app-content-section',
   templateUrl: './content-section.component.html',
   styleUrls: ['./content-section.component.scss']
 })
 export class ContentSectionComponent implements OnInit {
-  isAssessmentMode: false
 
+  pageView: Observable<PageViewMode>
+  pageViewMode = PageViewMode
+
+  isAssessmentMode: false
+  initialColor = '#fff'
   assessmentQuestions = TEST_DATA
 
   assessmentFormArray: FormArray;
@@ -22,13 +31,14 @@ export class ContentSectionComponent implements OnInit {
   progressPercentage = 0;
 
   constructor ( private _assessFormService: MicroAppAssessmentQuestionFormService,
+                private _pageViewservice: AppViewService,
                 private _fb: FormBuilder,
   ){}
 
   ngOnInit() {
+    this.pageView = this._pageViewservice.getPageViewMode();
     this.buildForms();
-    // this.assessmentFormArray.valueChanges.subscribe(()=> this.getProgress())
-    this.getProgress()
+    this.getProgress();
   }
 
   /**Building assessment forms */
@@ -41,11 +51,19 @@ export class ContentSectionComponent implements OnInit {
 
   /** Tracking how far a learner is in their assignment  */
   getProgress(){
-    this.progressPercentage = calculateProgress(this.assessmentFormArray.controls);
+    this.progressPercentage = calculateProgress(this.assessmentFormArray);
     console.log(this.progressPercentage)
   }
   /** Get the color for the progress bar */
-  getProgressColor(): string {
-    return '#1F7A8C'; 
+  getProgressColor(progress: number): string {
+    // Calculate the gradient stop position based on the progress percentage
+    const gradientStopPosition = progress / 100;
+
+    // Generate the linear gradient string
+    return `linear-gradient(to right, white ${gradientStopPosition}%, #1F7A8C ${gradientStopPosition}%)`;
+  }
+
+  startAssignment(){
+    this._pageViewservice.setPageViewMode(PageViewMode.AssessmentMode)
   }
 }

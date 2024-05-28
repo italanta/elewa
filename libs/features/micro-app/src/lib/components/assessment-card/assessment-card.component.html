@@ -31,13 +31,12 @@
               </mat-radio-group>
             </mat-card-content>
           </mat-card>
-    
-          <div class="stepper-buttons">
-            <button mat-raised-button (click)="prevStep()" [disabled]="currentStep === 0">Previous</button>
-            <button mat-raised-button (click)="nextStep()" [disabled]="currentStep === totalSteps - 1">Next</button>
-          </div>
         </div>
       </form>
+      <div class="stepper-buttons">
+        <button class="btn-btns" mat-raised-button (click)="prevStep()" [hidden]="currentStep === 0">Previous</button>
+        <button class="btn-btns" mat-raised-button (click)="nextStep()" [disabled]="currentStep === totalSteps - 1">Next</button>
+      </div>
     </div>
 </div>
 

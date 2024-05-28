@@ -1,21 +1,34 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ViewMode } from '../models/view-mode.enum';
+import { FormViewMode, PageViewMode } from '../models/view-mode.enum';
 
 @Injectable({
   providedIn: 'root'
 })
-export class QuestionsViewService {
-  private viewModeSource = new BehaviorSubject<ViewMode>(ViewMode.MultipleQuestionView);
-  viewMode$ = this.viewModeSource.asObservable();
+export class AppViewService {
+  private formViewModeSource = new BehaviorSubject<FormViewMode >(FormViewMode .MultipleQuestionView);
+  private pageViewModeSource = new BehaviorSubject<PageViewMode>(PageViewMode.HomePageView)
+
+  formViewMode$ = this.formViewModeSource.asObservable();
+  pageViewMode$ = this.pageViewModeSource.asObservable()
 
   constructor() { }
 
-  setViewMode(viewMode: ViewMode) {
-    this.viewModeSource.next(viewMode);
+  /** Getting and setting the type of form to display */
+  setFormViewMode(viewMode: FormViewMode) {
+    this.formViewModeSource.next(viewMode);
   }
 
-  getViewMode(): Observable<ViewMode> {
-    return this.viewMode$;
+  getFormViewMode(): Observable<FormViewMode> {
+    return this.formViewMode$;
+  }
+
+  /** Getting and setting the page to show */
+  setPageViewMode(viewMode: PageViewMode) {
+    this.pageViewModeSource.next(viewMode);
+  }
+
+  getPageViewMode(): Observable<PageViewMode> {
+    return this.pageViewMode$;
   }
 }
