@@ -1,0 +1,35 @@
+// Assessment passed banner styling
+.content-wrapper{
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+  height: 123px;
+  $color: #1F7A8C;
+  $opacity: 0.35;
+  padding: 0.5rem 0;
+  background-color: rgba($color, $opacity);
+
+  .img-text, .marks-text{
+    display: flex;
+    gap: 64px;
+    align-items: center;
+  }
+}
+
+//Assessment failed banner styling
+.fail-content-wrapper{
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+  height: 123px;
+  $color: #E02222;
+  $opacity: 0.1;
+  padding: 0.5rem 0;
+  background-color: rgba($color, $opacity);
+
+  .img-text, .marks-text{
+    display: flex;
+    gap: 64px;
+    align-items: center;
+  }
+}

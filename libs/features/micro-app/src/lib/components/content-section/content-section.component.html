@@ -1,6 +1,12 @@
 <ng-container *ngIf="pageView | async as pageMode">
   <ng-container *ngIf="pageMode === pageViewMode.AssessmentMode; else defaultMode">
+    <!-- Header with details about assessment -->
     <app-assessment-header></app-assessment-header>
+
+    <!-- Banner with grade details -->
+    <app-assessment-result-banner></app-assessment-result-banner>
+
+    <!--Assessment details  -->
     <div class="assessment-mode">
       <div class="progress-tracker">
         <div class="progress-bar" [ngStyle]="{'width': progressPercentage + '%', 'background-image': getProgressColor(progressPercentage)}"></div>

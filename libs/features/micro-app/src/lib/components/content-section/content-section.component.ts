@@ -1,31 +1,34 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TEST_DATA } from '../../utils/test-data';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
-import { calculateProgress } from '../../utils/calculate-progress.util';
+import { PassCriteriaTypes } from '@app/model/convs-mgr/stories/blocks/messaging';
+
 import { PageViewMode } from '../../models/view-mode.enum';
 
+import { calculateProgress } from '../../utils/calculate-progress.util';
 import { MicroAppAssessmentQuestionFormService } from '../../services/microapp-assessment-questions-form.service';
 import { AppViewService } from '../../services/questions-view-mode.service';
+
 @Component({
   selector: 'app-content-section',
   templateUrl: './content-section.component.html',
   styleUrls: ['./content-section.component.scss']
 })
 export class ContentSectionComponent implements OnInit {
-
+  //Whether a user is viewing assessment content or general page content
   pageView: Observable<PageViewMode>
   pageViewMode = PageViewMode
 
-  isAssessmentMode: false
-  initialColor = '#fff'
   assessmentQuestions = TEST_DATA
-
+  //Form declarations
   assessmentFormArray: FormArray;
-
   assessmentForm: FormGroup;
+
+  //Grading scores
+  passCriteria = PassCriteriaTypes
 
   //How far a learner is in answering questions
   progressPercentage = 0;
