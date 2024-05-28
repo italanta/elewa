@@ -16,12 +16,38 @@
     }
   }
 }
+.single-form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+  .single-question-fm{
+    width: 100%;
+  }
+}
 .stepper-buttons{
   display: flex;
   justify-content: space-between;
   width: 80%;
   margin-top: 1rem;
+  .btn-btns{
+    color: #fff;
+    background-color: #1F7A8C;
+    width: 200px !important;
+  }
+  .previous{
+    color: #1F7A8C;
+    background-color: #fff;
+    width: 200px !important;
+    border: 1px solid #1F7A8C;
+  }
+}
+
+.submit-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   .btn-btns{
     color: #fff;
     background-color: #1F7A8C;

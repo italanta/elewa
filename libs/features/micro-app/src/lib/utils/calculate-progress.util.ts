@@ -8,17 +8,13 @@ import { FormArray } from "@angular/forms";
 export function calculateProgress(formArray: FormArray): number {
   // Using a Set to track question ids since Set objects are collections of values. 
   // A value in the set may only occur once; 
-
-  // console.log(formArray.controls);
-
-  const controls = formArray.controls
   const answeredQuestions = new Set<number>();
 
+  const controls = formArray.controls
+  
   controls.forEach(control => {
     const id = control.value.id;
     const selectedOption = control.value.selectedOption;
-
-    // console.log(control)
 
     if (selectedOption) {
       answeredQuestions.add(id);
@@ -27,6 +23,6 @@ export function calculateProgress(formArray: FormArray): number {
 
   const totalQuestions = controls.length;
   const answeredCount = answeredQuestions.size;
-  debugger
+
   return (answeredCount / totalQuestions) * 100;
 }
