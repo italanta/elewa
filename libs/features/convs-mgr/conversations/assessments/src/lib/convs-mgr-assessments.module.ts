@@ -51,6 +51,7 @@ import { AssessmentFailedSectionComponent } from './components/assessment-failed
 import { AssessmentHeaderComponent } from './components/assessment-header/assessment-header.component';
 import { AssessmentResultBannerComponent } from './components/assessment-result-banner/assessment-result-banner.component';
 import { ContentSectionComponent } from './components/content-section/content-section.component';
+import { PlatformRedirectPageComponent } from './components/platform-redirect-page/platform-redirect-page.component';
 
 
 @NgModule({
@@ -93,6 +94,7 @@ import { ContentSectionComponent } from './components/content-section/content-se
     AssessmentHeaderComponent,
     AssessmentResultBannerComponent,
     ContentSectionComponent,
+    PlatformRedirectPageComponent,
 
 
     CreateAssessmentPageComponent
