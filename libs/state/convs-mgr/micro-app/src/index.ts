@@ -1,1 +1,1 @@
-export * from './lib/libs-state-convs-mgr-micro-app.module';
+export * from './lib/micro-app-state.module';
