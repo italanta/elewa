@@ -1,5 +1,5 @@
 <ng-container *ngIf="pageView | async as pageMode">
-  <ng-container *ngIf="pageMode === pageViewMode.AssessmentMode; else defaultMode">
+  <ng-container *ngIf="pageMode === pageViewMode.AssessmentMode">
     <!-- Header with details about assessment -->
     <app-assessment-header></app-assessment-header>
 
@@ -25,7 +25,7 @@
     </div>
   </ng-container>
   
-  <ng-template #defaultMode>
+  <ng-container *ngIf=" pageMode === pageViewMode.HomePageView "> 
     <app-micro-apps-header></app-micro-apps-header>
     <div class="main-content">
   
@@ -56,5 +56,10 @@
         </div>
       </div>
     </div>
-  </ng-template>
+  </ng-container>
+
+  <ng-container *ngIf=" pageMode ===  pageViewMode.FailFeedbackMode">
+    <app-micro-apps-header></app-micro-apps-header>
+    <app-assessment-failed-section></app-assessment-failed-section>
+  </ng-container>
 </ng-container>

@@ -30,7 +30,10 @@
     "FAIL-FEEDBACK": {
       "FAIL-MESSAGE": {
         "INTRO": "Oops! It looks like you didn’t pass the assessment this time. But don’t worry, you can try again.",
-        "TRIAL-TEXT": "You have more trials",
+        "TRIAL-TEXT": {
+          "INTRO": "You have",
+          "END": " more trials"
+        },
         "RETAKE-TEXT": "Click Retry assignment button below to give it another go!"
       }
     }

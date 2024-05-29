@@ -5,4 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './assessment-failed-section.component.html',
   styleUrls: ['./assessment-failed-section.component.scss'],
 })
-export class AssessmentFailedSectionComponent {}
+export class AssessmentFailedSectionComponent {
+  trials = 2
+}

@@ -10,7 +10,7 @@ import { PageViewMode } from '../../models/view-mode.enum';
 
 import { calculateProgress } from '../../utils/calculate-progress.util';
 import { MicroAppAssessmentQuestionFormService } from '../../services/microapp-assessment-questions-form.service';
-import { AppViewService } from '../../services/questions-view-mode.service';
+import { AppViewService } from '../../services/content-view-mode.service';
 
 @Component({
   selector: 'app-content-section',
