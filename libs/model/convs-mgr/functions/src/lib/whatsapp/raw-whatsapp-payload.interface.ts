@@ -57,7 +57,7 @@ export interface WhatsAppMessagePayLoad extends IncomingMessagePayload
 {
   from: string,
   id: string,
-  timeStamp: string,
+  timestamp: string,
   type: WhatsAppMessageType
 }
 

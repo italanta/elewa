@@ -150,6 +150,10 @@ export class EngineBotManager
           message.direction = MessageDirection.FROM_END_USER_TO_CHATBOT;
 
           await bot.play(message, this.endUser, currentCursor);
+
+          // Resolve all pending operations.
+          await Promise.all([...this.sideOperations, bot.pendingOperations()]);
+          
           break;
       }
       return { success: true } as RestResult200;
