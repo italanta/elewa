@@ -152,7 +152,7 @@ export class EngineBotManager
           await bot.play(message, this.endUser, currentCursor);
 
           // Resolve all pending operations.
-          await Promise.all(bot.pendingOperations());
+          await Promise.all([...this.sideOperations, bot.pendingOperations()]);
           
           break;
       }
