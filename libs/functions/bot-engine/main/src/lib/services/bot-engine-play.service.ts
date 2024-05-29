@@ -95,13 +95,14 @@ export class BotEnginePlay implements IBotEnginePlay
       this.blockSent = nextBlock;
       return await this.play(null, endUser, newCursor);
     }
+  }
 
+   pendingOperations() {
     const processMessageOps = this._processMessageService$.getSideOperations();
 
     this.addSideOperations(processMessageOps);
-    
-    // Resolve all pending operations.
-    await Promise.all(this.sideOperations);
+
+    return this.sideOperations;
   }
 
   /**
