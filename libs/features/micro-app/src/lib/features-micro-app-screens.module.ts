@@ -6,13 +6,10 @@ import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { MicroAppMainPageComponent } from './pages/micro-app-main-page/micro-app-main-page.component';
-import { MicroAppsHeaderComponent } from './components/micro-apps-header/micro-apps-header.component';
+import { ConvsMgrAssessmentsModule } from '@app/features/convs-mgr/conversations/assessments';
 import { MicroAppsFooterComponent } from './components/micro-apps-footer/micro-apps-footer.component';
-import { ContentSectionComponent } from './components/content-section/content-section.component';
-import { AssessmentCardComponent } from './components/assessment-card/assessment-card.component';
-import { AssessmentHeaderComponent } from './components/assessment-header/assessment-header.component';
-import { AssessmentResultBannerComponent } from './components/assessment-result-banner/assessment-result-banner.component';
-import { AssessmentFailedSectionComponent } from './components/assessment-failed-section/assessment-failed-section.component';
+import { MicroAppsHeaderComponent } from './components/micro-apps-header/micro-apps-header.component';
+
 
 @NgModule({
   imports: [
@@ -21,16 +18,13 @@ import { AssessmentFailedSectionComponent } from './components/assessment-failed
     MaterialDesignModule,
     FlexLayoutModule,
     MultiLangModule,
+
+    ConvsMgrAssessmentsModule
   ],
   declarations: [
     MicroAppMainPageComponent,
-    MicroAppsHeaderComponent,
     MicroAppsFooterComponent,
-    ContentSectionComponent,
-    AssessmentCardComponent,
-    AssessmentHeaderComponent,
-    AssessmentResultBannerComponent,
-    AssessmentFailedSectionComponent,
+    MicroAppsHeaderComponent,
   ],
   exports: [MicroAppMainPageComponent],
 })

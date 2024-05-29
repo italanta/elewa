@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { TEST_DATA } from '../../utils/test-data';
+
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
 import { PassCriteriaTypes } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { PageViewMode } from '../../models/view-mode.enum';
-
 import { calculateProgress } from '../../utils/calculate-progress.util';
+import { PageViewMode } from '../../model/view-mode.enum';
+
 import { MicroAppAssessmentQuestionFormService } from '../../services/microapp-assessment-questions-form.service';
 import { AppViewService } from '../../services/content-view-mode.service';
+
+import { TEST_DATA } from '../../utils/test-data';
 
 @Component({
   selector: 'app-content-section',

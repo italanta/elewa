@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { AssessmentQuestion } from '../models/assessment-question.interface';
+import { AssessmentQuestion } from '../model/assessment-question.interface';
 
 @Injectable({
   providedIn: 'root'

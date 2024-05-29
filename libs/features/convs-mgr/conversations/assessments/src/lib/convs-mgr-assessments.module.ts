@@ -46,6 +46,11 @@ import { AssessmentsListViewComponent } from './components/assessments-list-view
 import { CreateAssessmentPageComponent } from './components/create-assessment-flow/create-assessment-page/create-assessment-page.component';
 
 import { AssessmentFormService } from './services/assessment-form.service';
+import { AssessmentCardComponent } from './components/assessment-card/assessment-card.component';
+import { AssessmentFailedSectionComponent } from './components/assessment-failed-section/assessment-failed-section.component';
+import { AssessmentHeaderComponent } from './components/assessment-header/assessment-header.component';
+import { AssessmentResultBannerComponent } from './components/assessment-result-banner/assessment-result-banner.component';
+import { ContentSectionComponent } from './components/content-section/content-section.component';
 
 
 @NgModule({
@@ -82,7 +87,18 @@ import { AssessmentFormService } from './services/assessment-form.service';
     AssessmentsGridViewComponent,
     AssessmentsListViewComponent,
 
+    //Micro-App Assessments
+    AssessmentCardComponent,
+    AssessmentFailedSectionComponent,
+    AssessmentHeaderComponent,
+    AssessmentResultBannerComponent,
+    ContentSectionComponent,
+
+
     CreateAssessmentPageComponent
+  ],
+  exports: [
+    ContentSectionComponent,
   ],
   providers: [
     AssessmentService,

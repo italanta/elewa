@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
-import { AssessmentQuestion } from '../../models/assessment-question.interface';
+import { AssessmentQuestion } from '../../model/assessment-question.interface';
 
 @Component({
   selector: 'app-assessment-card',

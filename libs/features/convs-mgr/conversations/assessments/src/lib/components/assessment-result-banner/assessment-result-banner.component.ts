@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PassCriteriaTypes } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { SetAssessmentScoreService } from '../../services/set-pass-status.service';
+
 import { Observable } from 'rxjs';
+import { SetAssessmentScoreService } from '../../services/set-pass-status.service';
 @Component({
   selector: 'app-assessment-result-banner',
   templateUrl: './assessment-result-banner.component.html',
