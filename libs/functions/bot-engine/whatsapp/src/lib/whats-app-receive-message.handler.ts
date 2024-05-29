@@ -13,6 +13,7 @@ import { __ConvertWhatsAppApiPayload } from './utils/convert-whatsapp-payload.ut
 import { __SendWhatsAppWebhookVerificationToken } from './utils/validate-webhook.function';
 
 import { WhatsappIncomingMessageParser } from './io/incoming-message-parser/whatsapp-api-incoming-message-parser.class';
+import { IsPayloadExpired } from './utils/check-expired-payload.util';
 
 /**
  * Receives a message, through a channel registered on the WhatsApp Business API,
@@ -57,6 +58,8 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     const sanitizedResponse = __ConvertWhatsAppApiPayload(payload);
 
     if (!sanitizedResponse || !sanitizedResponse.type) return { status: 500, message: `Unexpected Payload :: ${JSON.stringify(payload)}` } as RestResult;
+
+    if (IsPayloadExpired(payload)) return { status: 500, message: `Payload expired :: ${JSON.stringify(payload)}` } as RestResult;
 
     // STEP 3: Get the Channel
     //         TODO: Cache the channel
