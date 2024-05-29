@@ -5,7 +5,7 @@ import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks
 import { Cursor, RoutedCursor } from "@app/model/convs-mgr/conversations/admin/system";
 import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
-import { InteractiveURLButtonBlock, MicroAppBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { InteractiveURLButtonBlock, MicroAppConfig } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
 import { BlockDataService } from "../../data-services/blocks.service";
@@ -52,7 +52,9 @@ export class MicroAppBlockService implements IProcessOperationBlock
     
     this.tools.Logger.log(()=> `👉🏾 The next cursor's value is ${nextCursor}`)
 
-    const btnBlock = this._createInteractiveButtonBlock('', '')
+    const microAppLink = this._getMicroAppLink(storyBlock.id, endUser.id, {})
+
+    const btnBlock = this._createInteractiveButtonBlock(microAppLink, '')
 
     return { storyBlock: btnBlock,
              nextCursor
@@ -77,5 +79,19 @@ export class MicroAppBlockService implements IProcessOperationBlock
   }
   
   /** Link param that will be passed to __createInteractiveButtonBlock */
-  private _getMicroAppLink(){}
+  private _getMicroAppLink(microAppId: string, endUserId: string, config: MicroAppConfig): string {
+    // Base URL for the micro-app
+    const baseUrl = process.env.MICRO_APP_URL;
+  
+    // Construct query parameters
+    const params = new URLSearchParams();
+    params.append('microAppId', microAppId);
+    params.append('endUserId', endUserId);
+    params.append('type', config.type.toString());
+    if (config.progressUrl) params.append('progressUrl', config.progressUrl);
+    if (config.completeWebhookUrl) params.append('completeWebhookUrl', config.completeWebhookUrl);
+  
+    return `${baseUrl}?${params.toString()}`;
+  }
+  
 } 

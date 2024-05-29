@@ -19,7 +19,6 @@ import { DragDropService } from '../../providers/drag-drop.service';
 export class GroupedBlocksComponent implements OnInit, OnDestroy {
   @Input() groupedBlocks: StoryBlock[];
   @Input() frame: StoryEditorFrame;
-
   private _sBs = new SubSink();
 
   coordinates: Coordinate;
@@ -129,6 +128,9 @@ export class GroupedBlocksComponent implements OnInit, OnDestroy {
       case StoryBlockTypes.CMI5Block:
         this.frame.newBlock(StoryBlockTypes.CMI5Block, coordinates);
         break;
+      case StoryBlockTypes.AssessmentMicroAppBlock:
+        this.frame.newBlock(StoryBlockTypes.AssessmentMicroAppBlock, coordinates);
+        break; 
       default:
         break;  
     }

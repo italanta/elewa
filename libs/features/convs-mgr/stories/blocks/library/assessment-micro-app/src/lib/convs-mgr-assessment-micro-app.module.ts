@@ -4,8 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MultiLangModule } from '@ngfi/multi-lang';
 import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
+import { MicroAppManagementService } from '@app/libs/state/convs-mgr/micro-app';
 
 import { AssessmentMicroAppBlockComponent } from './components/assessment-micro-app-block/assessment-micro-app-block.component';
+
 @NgModule({
   imports: [CommonModule,
     MultiLangModule,
@@ -21,6 +23,9 @@ import { AssessmentMicroAppBlockComponent } from './components/assessment-micro-
   ],
   exports: [
     AssessmentMicroAppBlockComponent
+  ],
+  providers: [
+    MicroAppManagementService
   ]
 })
 export class ConvsMgrAssessmentMicroAppModule {}
