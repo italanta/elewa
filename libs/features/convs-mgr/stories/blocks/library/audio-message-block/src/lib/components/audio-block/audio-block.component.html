@@ -28,9 +28,9 @@
             [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco " name="audio-link "
             id="audio-link ">
 
-        <div *ngIf="this.block.fileSrc && !isLoadingAudio" class="waveform-container">
-            <img (click)="togglePlayPause()" src="assets/svgs/blocks/play.svg" class="play-button" alt="">
-            <div class="wave">
+        <div class="waveform-container" [ngClass]="getClassObject(block.fileSrc ?? '')">
+            <img *ngIf="this.block.fileSrc && !isLoadingAudio"  (click)="togglePlayPause()" src="assets/svgs/blocks/play.svg" class="play-button" alt="">
+            <div class="wave" [ngClass]="getClassObject(block.fileSrc ?? '')">
                 <div #waveform></div>
             </div>
         </div>

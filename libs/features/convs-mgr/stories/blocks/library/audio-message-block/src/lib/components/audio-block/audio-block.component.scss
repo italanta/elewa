@@ -99,16 +99,25 @@ input {
     color: var(--convs-mgr-color-primary-white) !important;
 }
 
-#waveform {
+.wave.show {
     width: 100%;
-}
-.wave {
-    width: 100%;
+
+    #waveform {
+        width: 100%;
+    }
 }
 
 .waveform-container {
     display: flex;
     align-items: center;
+
+    &.hide {
+        height: 0;
+    }
+
+    &.show {
+        height: auto;
+    }
 }
 
 .play-button {
