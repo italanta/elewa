@@ -6,8 +6,8 @@ import { __DateFromStorage } from "@iote/time";
 import { EnrolledEndUser } from "@app/model/convs-mgr/learners";
 import { CourseProgress } from '@app/model/analytics/group-based/progress';
 
-export function computeCourseProgress(enrolledUsers: EnrolledEndUser[]) {
-  const now = moment();
+export function computeCourseProgress(enrolledUsers: EnrolledEndUser[], timeInUnix: number) {
+  const now = moment.unix(timeInUnix / 1000);
 
   const courseProgress: { [key: string]: CourseProgress } = {};
 
@@ -16,7 +16,7 @@ export function computeCourseProgress(enrolledUsers: EnrolledEndUser[]) {
       user.courses.forEach((course) => {
         const lastEngagementTime = __DateFromStorage(course.lastEngagementTime || user.updatedOn);
         const activeDurationHours = now.diff(lastEngagementTime, 'hours');
-        const startOfCurrentWeek = moment().startOf('isoWeek');
+        const startOfCurrentWeek = now.startOf('isoWeek');
         const courseId = course.courseId;
 
         if (!courseProgress[courseId]) {
@@ -50,7 +50,7 @@ export function computeCourseProgress(enrolledUsers: EnrolledEndUser[]) {
           progress.inactiveUsers.pastMonthCount++;
         }
 
-        if (moment().isSame(lastEngagementTime, 'month')) {
+        if (now.isSame(lastEngagementTime, 'month')) {
           progress.activeUsers.currentMonthCount++;
         } else {
           progress.inactiveUsers.currentMonthCount++;
