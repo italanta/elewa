@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MicroAppBlock, MicroAppConfig } from '../../../../../../model/convs-mgr/stories/blocks/messaging/src/index';
+import { MicroAppDataService } from './micro-app-data-management.service';
 
 
 @Injectable({
@@ -10,7 +11,9 @@ import { MicroAppBlock, MicroAppConfig } from '../../../../../../model/convs-mgr
 //micro-app management service
 export class MicroAppManagementService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private microAppDataService: MicroAppDataService
+  ) { }
   //How do we do http post requests? 
   private microAppEndPoint = 'cloudFucntionEndPoint'
 
@@ -21,7 +24,8 @@ export class MicroAppManagementService {
 
 //init micro-app
   initMicroApp(appId: string, userId: string, configs: MicroAppConfig): Observable<any>{
-    return this.http.post(this.microAppEndPoint, { appId, userId, configs });
+    const url = this.http.post(this.microAppEndPoint, { data: {appId, userId, configs} });
+    return url
   }
 
 
