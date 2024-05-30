@@ -2,7 +2,6 @@ import { IObject } from '@iote/bricks';
 
 import { FallBackActionTypes } from './fallback-action-types.enum';
 
-
 export interface Fallback extends IObject {
   /** A set of user phrases and texts the user might say 
    *    that we link to actions.
