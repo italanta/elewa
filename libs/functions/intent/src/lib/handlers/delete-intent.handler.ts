@@ -2,7 +2,8 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { FunctionHandler, RestResult, HttpsContext, RestResult200 } from '@ngfi/functions';
 
-import {DialogflowCXIntent} from '../models/dialogflow-cx-Intent.model';
+import { DialogflowCXIntent } from '@app/model/convs-mgr/fallbacks';
+
 import { IntentService } from '../services/intent.service';
 
 /**

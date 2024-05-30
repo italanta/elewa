@@ -1,9 +1,10 @@
 import  { IntentsClient } from "@google-cloud/dialogflow-cx";
 
-import {DialogflowCXIntent} from "../models/dialogflow-cx-Intent.model";
 import { HandlerTools } from "@iote/cqrs";
 import { IObject } from "@iote/bricks";
 import { Query } from "@ngfi/firestore-qbuilder";
+
+import { DialogflowCXIntent } from '@app/model/convs-mgr/fallbacks';
 
 export class IntentService {
   private _client: IntentsClient = new IntentsClient();
