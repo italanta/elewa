@@ -136,7 +136,7 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
   //3. get newly Enrolled User Count
   const todaysEnrolledUsersCount = await getEnrolledUserCreationCount(userMetricsService, orgId, tools, timeInUnix);
 
-  const courseProgress =  computeCourseProgress(allUsers);
+  const courseProgress =  computeCourseProgress(allUsers, timeInUnix);
 
   const {coursesCompleted, coursesStarted} = getCourseStats(allUsers);
 
