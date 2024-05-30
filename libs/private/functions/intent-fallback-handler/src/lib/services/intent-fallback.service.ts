@@ -1,7 +1,9 @@
 import { IntentsClient, SessionsClient } from '@google-cloud/dialogflow-cx';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+
+import { DialogflowCXIntent } from '@app/model/convs-mgr/fallbacks';
+
 import { HandlerTools } from '@iote/cqrs';
-import { DialogflowCXIntent } from 'libs/functions/intent/src/lib/models/dialogflow-cx-Intent.model';
 
 const LOW_CONFIDENCE_THRESHOLD = process.env.LOW_CONFIDENCE_THRESHOLD || 0.5;
 
