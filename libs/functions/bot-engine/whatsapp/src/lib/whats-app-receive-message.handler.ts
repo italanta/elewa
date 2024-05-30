@@ -13,6 +13,7 @@ import { __ConvertWhatsAppApiPayload } from './utils/convert-whatsapp-payload.ut
 import { __SendWhatsAppWebhookVerificationToken } from './utils/validate-webhook.function';
 
 import { WhatsappIncomingMessageParser } from './io/incoming-message-parser/whatsapp-api-incoming-message-parser.class';
+import { IsPayloadExpired } from './utils/check-expired-payload.util';
 
 /**
  * Receives a message, through a channel registered on the WhatsApp Business API,
@@ -40,6 +41,7 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
    */
   public async execute(payload: IncomingWhatsAppMessage, context: HttpsContext, tools: HandlerTools) 
   {
+    tools.Logger.log(() => `Received Whatsapp Payload :: ${JSON.stringify(payload)}`);
     // STEP 1: Validate that this is an incoming message
     // Check if we have any data. If there is no data,then the webhook needs to be validated on whatsapp business platform
     // @See https://developers.facebook.com/docs/whatsapp/cloud-api/guides/set-up-webhooks
@@ -55,6 +57,10 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     //         We then need to parse the incoming message and return a standardized format so that our bot engine can read and process the message
     const sanitizedResponse = __ConvertWhatsAppApiPayload(payload);
 
+    if (!sanitizedResponse || !sanitizedResponse.type) return { status: 500, message: `Unexpected Payload :: ${JSON.stringify(payload)}` } as RestResult;
+
+    if (IsPayloadExpired(payload)) return { status: 500, message: `Payload expired :: ${JSON.stringify(payload)}` } as RestResult;
+
     // STEP 3: Get the Channel
     //         TODO: Cache the channel
     //         The user registers the story/bot to a channel once they are ready to publish it
@@ -66,7 +72,7 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     const communicationChannel = await _channelService$.getChannelInfo(sanitizedResponse.platformId) as WhatsAppCommunicationChannel;
 
     if (!communicationChannel) {
-      tools.Logger.error(() => `[ChannelInfo].getChannelInfo - This phone number has not been registered to a channel: ID: ${sanitizedResponse.platformId}`);
+      tools.Logger.error(() => `[ChannelInfo].getChannelInfo - This phone number has not been registered to a channel :: ${sanitizedResponse.platformId}`);
 
       return { status: 500 } as RestResult;
     }
