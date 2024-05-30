@@ -1,6 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { RouterModule, Route, PreloadAllModules }    from '@angular/router';
+import { CanAccessMicroAppGuard } from '@app/elements/base/authorisation';
 import { MicroAppMainPageComponent } from '@app/features/micro-app';
+
 
 
 export const APP_ROUTES: Route[] = [
@@ -10,6 +12,8 @@ export const APP_ROUTES: Route[] = [
   {
     path: 'micro-app',
     component: MicroAppMainPageComponent,
+    canActivate: [() => inject(CanAccessMicroAppGuard)],
+    canLoad: [() => inject(CanAccessMicroAppGuard)]
   },
 
 ];
