@@ -12,7 +12,6 @@ import { PageViewMode } from '../../model/view-mode.enum';
 import { MicroAppAssessmentQuestionFormService } from '../../services/microapp-assessment-questions-form.service';
 import { AppViewService } from '../../services/content-view-mode.service';
 
-import { TEST_DATA } from '../../utils/test-data';
 
 @Component({
   selector: 'app-content-section',
@@ -24,7 +23,7 @@ export class ContentSectionComponent implements OnInit {
   pageView: Observable<PageViewMode>
   pageViewMode = PageViewMode
 
-  assessmentQuestions = TEST_DATA
+  assessmentQuestions = []
   //Form declarations
   assessmentFormArray: FormArray;
   assessmentForm: FormGroup;
