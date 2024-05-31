@@ -9,7 +9,7 @@ import { MicroAppMainPageComponent } from './pages/micro-app-main-page/micro-app
 import { ConvsMgrAssessmentsModule } from '@app/features/convs-mgr/conversations/assessments';
 import { MicroAppsFooterComponent } from './components/micro-apps-footer/micro-apps-footer.component';
 import { MicroAppsHeaderComponent } from './components/micro-apps-header/micro-apps-header.component';
-
+import { MicroAppContentPageComponent } from './pages/micro-app-content-page/micro-app-content-page.component';
 
 @NgModule({
   imports: [
@@ -19,12 +19,13 @@ import { MicroAppsHeaderComponent } from './components/micro-apps-header/micro-a
     FlexLayoutModule,
     MultiLangModule,
 
-    ConvsMgrAssessmentsModule
+    ConvsMgrAssessmentsModule,
   ],
   declarations: [
     MicroAppMainPageComponent,
     MicroAppsFooterComponent,
     MicroAppsHeaderComponent,
+    MicroAppContentPageComponent,
   ],
   exports: [MicroAppMainPageComponent],
 })
