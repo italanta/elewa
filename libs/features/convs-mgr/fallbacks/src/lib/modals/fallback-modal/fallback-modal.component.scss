@@ -19,3 +19,45 @@
     }
   }
 }
+
+.user-input-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-input-list-item:first-child {
+  border: 1px var(--convs-mgr-color-3E788A)solid;
+}
+
+.user-input-list-item:not(:first-child) {
+  border: 1px var(--convs-mgr-color-3E788A)solid;
+  border-top: 0px;
+}
+
+
+.user-input-list-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.6rem;
+  width: 100%;
+}
+
+.user-input-list-item:last-child {
+  justify-content: center;
+  color: var(--convs-mgr-color-3E788A);
+  font-size: 0.9rem;
+}
+
+.add-action, .delete-action {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.add-action > img {
+  width: 1.625rem;
+  filter: invert(44%) sepia(28%) saturate(648%) hue-rotate(148deg) brightness(91%) contrast(97%);
+}
