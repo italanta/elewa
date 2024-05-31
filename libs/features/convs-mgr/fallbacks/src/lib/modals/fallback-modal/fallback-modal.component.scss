@@ -47,6 +47,7 @@
   justify-content: center;
   color: var(--convs-mgr-color-3E788A);
   font-size: 0.9rem;
+  font-weight: 300;
 }
 
 .add-action, .delete-action {
@@ -55,6 +56,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
+  cursor: pointer;
 }
 
 .add-action > img {
