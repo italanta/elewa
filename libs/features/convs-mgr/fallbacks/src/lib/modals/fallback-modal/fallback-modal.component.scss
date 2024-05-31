@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  font-weight: 380;
 
   .title-section,
   .input-analysis {
@@ -62,4 +63,34 @@
 .add-action > img {
   width: 1.625rem;
   filter: invert(44%) sepia(28%) saturate(648%) hue-rotate(148deg) brightness(91%) contrast(97%);
+}
+
+.action {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.dropdown {
+  width: 100%;
+}
+
+.primary-action {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 1rem
+}
+
+.primary-action > span {
+  width: 30%;
+}
+
+select {
+  width: 90%;
+  padding: 0.4rem;
+  font-size: 14px;
+  border-color: var(--convs-mgr-color-3E788A);
+  outline: none;
 }
