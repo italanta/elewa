@@ -11,6 +11,7 @@ import { MicroAppsFooterComponent } from './components/micro-apps-footer/micro-a
 import { MicroAppsHeaderComponent } from './components/micro-apps-header/micro-apps-header.component';
 import { MicroAppContentPageComponent } from './pages/micro-app-content-page/micro-app-content-page.component';
 import { PlatformRedirectPageComponent } from './pages/platform-redirect-page/platform-redirect-page.component';
+import { ConvsMgrAssessmentsModule } from '@app/features/convs-mgr/conversations/assessments';
 
 @NgModule({
   imports: [
@@ -19,13 +20,14 @@ import { PlatformRedirectPageComponent } from './pages/platform-redirect-page/pl
     MaterialDesignModule,
     FlexLayoutModule,
     MultiLangModule,
+    ConvsMgrAssessmentsModule
   ],
   declarations: [
     MicroAppMainPageComponent,
     MicroAppsFooterComponent,
     MicroAppsHeaderComponent,
     MicroAppContentPageComponent,
-    PlatformRedirectPageComponent
+    PlatformRedirectPageComponent,
   ],
   exports: [MicroAppMainPageComponent],
 })

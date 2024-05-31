@@ -24,39 +24,6 @@
       </app-assessment-card> 
     </div>
   </ng-container>
-  
-  <ng-container *ngIf=" pageMode === pageViewMode.HomePageView "> 
-    <div class="main-content">
-  
-      <!-- Image Logo -->
-      <div class="img-section">
-        <img src="/assets/icons/content-image.png"/>
-      </div>
-    
-      <!-- Text Description -->
-      <div class="text-section">
-        <div class="p-text">
-          <div class="intro">
-            <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.INTRODUCTION-TAG" | transloco}} 
-              <span class="teal-text"> Financial Literacy!</span>
-            </p>
-          </div>
-          <div class="intro">
-            <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.DESCRIPTION-TEXT" | transloco}} 
-              <span class="teal-text"> Personal Finance, budgeting and investment basics.</span>
-            </p>
-          </div>
-            <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.CLOSING-TEXT" | transloco}} finances effectively
-            </p>
-        </div>
-    
-        <div class="btn-section">
-          <button class="teal-btn" (click)="startAssignment()">{{"MICROAPPS-SCREENS.BUTTON-TEXT" | transloco }}</button>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-
   <ng-container *ngIf=" pageMode ===  pageViewMode.FailFeedbackMode">
     <app-assessment-failed-section></app-assessment-failed-section>
   </ng-container>

@@ -1,3 +1,8 @@
-<div class="content">
-  <app-content-section></app-content-section>
+<div class="content" *ngIf="appStatusObs$ | async as microAppStatus">
+  <div [ngSwitch]="microAppStatus">
+    <ng-container *ngSwitchCase=" microAppStatus === 'started'">
+      <app-content-section></app-content-section>
+    </ng-container>
+  </div>
+  
 </div>

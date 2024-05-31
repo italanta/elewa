@@ -5,12 +5,12 @@ export interface MicroAppBlock extends StoryBlock
 {
   /** will be used to create the url */
   appId: string;
-  
   /** The name of the micro app. Will be used as the link display text */
   appName: string;
-
+  /** Additional data for the microApp to run */
   configs: MicroAppConfig
-  
+  /** Comprehensive micro-app data  */
+  appStatus?: MicroAppStatus 
 }
 
 /** Provides the criteria that should be met by the learner upon 

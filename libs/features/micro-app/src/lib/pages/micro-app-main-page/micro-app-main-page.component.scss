@@ -1,3 +1,49 @@
 .container{
   min-height: 100vh;
+  
+}
+.main-content{
+  padding: 5% 20%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+
+  .img-section{
+    width: 396.03px;
+    height: 412.55px;
+   
+    img{
+      
+    }
+  }
+  .text-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-style: normal;
+    font-family: 'Roboto';
+    padding-top: 5%;
+    .p-text{
+      text-align: center;
+    }
+    .teal-text{
+      color: #1F7A8C;
+    }
+
+    .btn-section{
+      margin-top: 22%;
+      .teal-btn{
+        background-color: #1F7A8C;
+        width: 200px;
+        height: 48px;
+        border: none;
+        outline: none;
+        border-radius: 4px;
+        color: #f1f1f1;
+      }
+    }
+    
+  }
 }
