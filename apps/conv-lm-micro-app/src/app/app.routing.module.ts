@@ -1,17 +1,31 @@
 import { NgModule, inject } from '@angular/core';
 import { RouterModule, Route, PreloadAllModules }    from '@angular/router';
 import { CanAccessMicroAppGuard } from '@app/elements/base/authorisation';
-import { MicroAppMainPageComponent } from '@app/features/micro-app';
+
+import { MicroAppContentPageComponent, MicroAppMainPageComponent } from '@app/features/micro-app';
+import { PlatformRedirectPageComponent } from 'libs/features/micro-app/src/lib/pages/platform-redirect-page/platform-redirect-page.component';
 
 
 
 export const APP_ROUTES: Route[] = [
 
-  { path: '', redirectTo: 'micro-app', pathMatch: "full" },
+  { path: '', redirectTo: 'start', pathMatch: "full" },
 
   {
-    path: 'micro-app',
+    path: 'start',
     component: MicroAppMainPageComponent,
+    canActivate: [() => inject(CanAccessMicroAppGuard)],
+    canLoad: [() => inject(CanAccessMicroAppGuard)]
+  },
+  {
+    path: 'main',
+    component: MicroAppContentPageComponent,
+    canActivate: [() => inject(CanAccessMicroAppGuard)],
+    canLoad: [() => inject(CanAccessMicroAppGuard)]
+  },
+  {
+    path: 'redirect',
+    component: PlatformRedirectPageComponent,
     canActivate: [() => inject(CanAccessMicroAppGuard)],
     canLoad: [() => inject(CanAccessMicroAppGuard)]
   },
