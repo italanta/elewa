@@ -1,7 +1,9 @@
+import { v4 as uuid } from 'uuid';
+
 import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
-import { Fallback } from '@app/model/convs-mgr/fallbacks';
+import { DialogflowCXIntent, Fallback } from '@app/model/convs-mgr/fallbacks';
 
 import { FallbackStore } from '../store/fallback.store';
 
@@ -16,8 +18,20 @@ export class FallbackService {
   }
 
   addFallback(fallback: Fallback) {
-    this._aff.httpsCallable('createIntent');
-    return this._fallback$$.add(fallback);
+
+    const uniqId = uuid().slice(0,5);
+    const intentId = `${fallback.actionsType}_${uniqId}`;
+    const trainingPhrases = fallback.userInput.map((input)=> ({ text: input}));
+
+    const dialogFlowIntent: DialogflowCXIntent = {
+      name: intentId,
+      displayName: fallback.actionDetails.description,
+      trainingPhrases: trainingPhrases,
+      orgId: fallback.orgId,
+      botId: fallback.botId
+    }
+
+    return this._aff.httpsCallable('createIntent')(dialogFlowIntent);
   }
 
   getSpecificFallback(id: string) {
@@ -29,6 +43,18 @@ export class FallbackService {
   }
 
   updateFallback(fallback: Fallback) {
-    return this._fallback$$.update(fallback);
+    const uniqId = uuid().slice(0,5);
+    const intentId = `${fallback.actionsType}_${uniqId}`;
+    const trainingPhrases = fallback.userInput.map((input)=> ({ text: input}));
+
+    const dialogFlowIntent: DialogflowCXIntent = {
+      name: intentId,
+      displayName: fallback.actionDetails.description,
+      trainingPhrases: trainingPhrases,
+      orgId: fallback.orgId,
+      botId: fallback.botId
+    }
+
+    return this._aff.httpsCallable('updateIntent')(dialogFlowIntent);
   }
 }
