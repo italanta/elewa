@@ -20,9 +20,9 @@ export class GetIntentHandler extends FunctionHandler<DialogflowCXIntent, RestRe
     try {
       /** Write intent to org and module */
       const org = req.orgId;
-      const module = req.moduleId;
+      const module = req.botId;
       
-      const intents = await this._intentService.getModuleIntents(req.orgId, req.moduleId, tools);
+      const intents = await this._intentService.getModuleIntents(req.orgId, req.botId, tools);
       return {
         status: 200,
         message: intents

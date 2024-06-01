@@ -19,20 +19,18 @@ export class IntentService {
   }
 
   createIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<DialogflowCXIntent> {
-    const intentRepo = tools.getRepository(`orgs/${intent.orgId}/modules/${intent.moduleId}/intents`);
+    const intentRepo = tools.getRepository(`orgs/${intent.orgId}/modules/${intent.botId}/intents`);
     const createdIntent = {
       displayName: intent.displayName,
       trainingPhrases: [],
       messages: [],
     };
-    let dialogFlowIntent = {intent: createdIntent}
+    const dialogFlowIntent = {intent: createdIntent}
 
     const dialogFlowIntentCreate =this._client.createIntent(dialogFlowIntent);
     const intentRepoCreate = intentRepo.create(intent);
 
-    return Promise.all([dialogFlowIntentCreate, intentRepoCreate]).then((values) => {
-      return intent;
-    });
+    return Promise.all([dialogFlowIntentCreate, intentRepoCreate]);
   }
 
   getIntent(intent: DialogflowCXIntent): Promise<any>{
@@ -45,14 +43,14 @@ export class IntentService {
     });
   }
 
-  async getModuleIntents(orgId: string, moduleId: string, handlerTools: HandlerTools): Promise<DialogflowCXIntent[]>{
+  async getModuleIntents(orgId: string, botId: string, handlerTools: HandlerTools): Promise<DialogflowCXIntent[]>{
     const moduleRepo = await handlerTools.getRepository(`orgs/${orgId}/modules/${moduleId}/intents`);
     const moduleIntents = await moduleRepo.getDocuments(new Query()) as DialogflowCXIntent[];
     return moduleIntents;
   }
 
   updateIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<DialogflowCXIntent> {
-    const intentRepo = tools.getRepository(`orgs/${intent.orgId}/modules/${intent.moduleId}/intents`);
+    const intentRepo = tools.getRepository(`orgs/${intent.orgId}/modules/${intent.botId}/intents`);
     const updatedIntent = {
       name: intent.name,
       trainingPhrases: intent.trainingPhrases,
