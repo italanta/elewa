@@ -28,6 +28,7 @@ import { EnvironmentConfigModule } from '@app/admin/config/environment-config';
 import { AppRoutingModule } from './app.routing.module';
 
 import { environment } from '../environments/environment';
+import { ClmMicroAppLayoutModule } from '@app/libs/elements/layout/clm-micro-app';
 
 @NgModule({
   declarations: [AppComponent],
@@ -55,6 +56,7 @@ import { environment } from '../environments/environment';
     MatProgressBarModule,
     AppRoutingModule,
     RouterModule,
+    ClmMicroAppLayoutModule,
     MaterialBricksRootModule.forRoot(),
   ],
   providers: [],
