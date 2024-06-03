@@ -41,6 +41,9 @@
       "@app/elements/convs-mgr/controls/input-fields": [
         "libs/elements/convs-mgr/controls/input-fields/src/index.ts"
       ],
+      "@app/elements/layout/convs-mgr/custom-components": [
+        "libs/elements/layout/convs-mgr/custom-components/src/index.ts"
+      ],
       "@app/elements/layout/convs-mgr/story-elements": [
         "libs/elements/layout/convs-mgr/story-elements/src/index.ts"
       ],
