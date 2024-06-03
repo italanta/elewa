@@ -33,6 +33,7 @@
   </div>
 
   <div class="action">
+    <div class="action-header">Action</div>
     <div>What should the bot do when a user expresses this intent?</div>
 
     <div class="primary-action">
@@ -47,13 +48,31 @@
   </div>
 
   <div class="action-details">
-    <div>
-      <span>Story</span>
-      <span>Block</span>
+    <div class="action-header">Action details</div>
+    <div class="action-lists">
+      <div class="primary-action">
+        <span>Story</span>
+          <div class="dropdown">
+            <select name="actions" id="actions">
+              <option value="route">Intro</option>
+              <option value="saab">Another Story</option>
+            </select>
+          </div>
+      </div>
+
+      <div class="primary-action">
+        <span>Block</span>
+          <div class="dropdown">
+            <select name="actions" id="actions" class="actions">
+              <option value="route">2. How are you?</option>
+              <option value="saab">1. How is your morning</option>
+            </select>
+          </div>
+      </div>
     </div>
   </div>
 
-  <div>
-    <button class="btn">Update</button>
+  <div class="update-div">
+    <div class="update-btn"> <span class="btn"> Update </span> </div>
   </div>
 </div>

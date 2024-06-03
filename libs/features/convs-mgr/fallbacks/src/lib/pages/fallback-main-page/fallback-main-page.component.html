@@ -7,10 +7,17 @@
     </div>
 
     <div class="btns-section">
-      <mat-slide-toggle>{{'AI-FALLBACK.TITLE-SECTION.SLIDE-BTN'| transloco }}</mat-slide-toggle>
+      <div class="mat-slide-toggle">
+        <mat-slide-toggle>{{'AI-FALLBACK.TITLE-SECTION.SLIDE-BTN'| transloco }}</mat-slide-toggle>
+      </div>
       <span>{{'AI-FALLBACK.TITLE-SECTION.TITLE'| transloco }}</span>
     </div>
 
-    <button class="btn" (click)="openModal()">OpenModal</button>
+    <div class="fallback-btn">
+      <div class="actions-btn">
+        <span> <i class="fa-solid fa-circle-plus"></i> </span>
+        <div (click)="openModal()">Add General fallback</div>
+      </div>
+    </div>
   </section>
 </convl-page>

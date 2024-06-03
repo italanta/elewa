@@ -18,9 +18,31 @@
   align-items: center;
   justify-content: flex-end;
   gap: 2rem;
+
+  .mat-slide-toggle{
+    border: 1px solid var(--convs-mgr-color-3E788A);
+    border-radius: 20px;
+    width: fit-content;
+    height: fit-content;
+    padding: 4px 1rem;
+  }
 }
 
-.btn {
-  max-width: 100px;
-  max-height: 30px;
+.fallback-btn {
+  display: flex;
+  justify-content: flex-end;
+
+  .actions-btn{
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    padding: 1rem;
+    color: #f6f6f6;
+    cursor: pointer;
+    background-color: var(--convs-mgr-color-3E788A);
+    max-width: 200px;
+    font-size: large;
+  }
 }

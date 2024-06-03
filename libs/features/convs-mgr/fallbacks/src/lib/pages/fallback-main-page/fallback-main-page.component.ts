@@ -13,8 +13,8 @@ export class FallbackMainPageComponent {
 
   openModal() {
     this.dialog.open(FallbackModalComponent, {
-      height: '600px',
-      width: '600px',
+      panelClass: "fallback-modal-class"
+     
     });
   }
 }

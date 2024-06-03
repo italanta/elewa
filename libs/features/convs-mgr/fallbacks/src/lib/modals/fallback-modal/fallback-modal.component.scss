@@ -1,3 +1,8 @@
+::ng-deep .fallback-modal-class{
+  width: 60%;
+  height: 95%;
+  margin-left: 10%;
+}
 .main {
   padding: 2rem;
   display: flex;
@@ -24,6 +29,7 @@
 .user-input-list {
   display: flex;
   flex-direction: column;
+  padding-right: 1rem;
 }
 
 .user-input-list-item:first-child {
@@ -70,9 +76,18 @@
   flex-direction: column;
   gap: 0.7rem;
 }
-
+.action-header{
+  font-size: large;
+  font-weight: 400;
+}
 .dropdown {
   width: 100%;
+  select{
+    padding-right: 4px;
+  }
+}
+.actions{
+  padding-right: 3rem;
 }
 
 .primary-action {
@@ -93,4 +108,26 @@ select {
   font-size: 14px;
   border-color: var(--convs-mgr-color-3E788A);
   outline: none;
+}
+.action-lists{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.update-div{
+  cursor: pointer;
+  display: flex;
+  padding: none;
+  justify-content: flex-end;
+  .update-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 0.5rem 1rem;
+    background-color: var(--convs-mgr-color-3E788A);
+    width: 10%;
+    border-radius: 20px;
+  }
 }
