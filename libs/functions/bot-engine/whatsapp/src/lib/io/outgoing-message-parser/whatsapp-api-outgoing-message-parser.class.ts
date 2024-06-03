@@ -8,6 +8,7 @@ import
   ActionSectionInfoRow,
   InteractiveButtonMessage,
   InteractiveListMessage,
+  InteractiveURLMessage,
   MetaMessagingProducts,
   RecepientType,
   WhatsAppAudioMessage,
@@ -22,7 +23,7 @@ import
   WhatsAppVideoMessage,
 } from '@app/model/convs-mgr/functions';
 
-import { DocumentMessageBlock, ImageMessageBlock, QuestionMessageBlock, TextMessageBlock, VideoMessageBlock, VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { DocumentMessageBlock, ImageMessageBlock, InteractiveURLButtonBlock, QuestionMessageBlock, TextMessageBlock, VideoMessageBlock, VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { Message, MessageTemplateConfig, TemplateMessageParams } from '@app/model/convs-mgr/conversations/messages';
 
 /**
@@ -57,6 +58,39 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     };
 
     return generatedMessage;
+  }
+
+  getInteractiveUrlButtonParserOut(urlBlock: InteractiveURLButtonBlock, phone: string) {
+
+    const interactiveMessage = {
+      type: 'cta_url',
+      body: {
+        text: urlBlock.message || "",
+      },
+      action: {
+        name: 'cta_url',
+        parameters: {
+          display_text: urlBlock.urlDisplayText,
+          url: urlBlock.url
+        }
+      },
+    } as InteractiveURLMessage;
+
+    /**
+     * Add the required fields for the whatsapp api
+     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+     */
+    const generatedMessage: WhatsAppInteractiveMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: phone,
+      type: WhatsAppMessageType.INTERACTIVE,
+      interactive: {
+        ...interactiveMessage,
+      },
+    };
+
+    return generatedMessage; 
   }
 
   /**
