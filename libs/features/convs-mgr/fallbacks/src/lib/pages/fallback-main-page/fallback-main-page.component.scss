@@ -28,20 +28,27 @@
   }
 }
 
-.fallback-btn {
+.content-div{
   display: flex;
-  justify-content: flex-end;
-
-  .actions-btn{
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-    align-items: center;
-    border-radius: 30px;
+  justify-content: space-between;
+  align-items: center;
+  .text-block-header{
+    font-size: larger;
+    font-weight: 400;
     padding: 1rem;
-    color: #f6f6f6;
-    cursor: pointer;
-    background-color: var(--convs-mgr-color-3E788A);
-    font-size: large;
+  }
+  .fallback-btn {
+    .actions-btn{
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      align-items: center;
+      border-radius: 30px;
+      padding: 1rem;
+      color: #f6f6f6;
+      cursor: pointer;
+      background-color: var(--convs-mgr-color-3E788A);
+      font-size: large;
+    }
   }
 }

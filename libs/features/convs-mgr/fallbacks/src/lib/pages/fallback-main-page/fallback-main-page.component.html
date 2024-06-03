@@ -11,11 +11,17 @@
       <span>{{'AI-FALLBACK.TITLE-SECTION.TITLE'| transloco }}</span>
     </div>
 
-    <div class="fallback-btn">
-      <div class="actions-btn">
-        <span> <i class="fa-solid fa-circle-plus"></i> </span>
-        <div (click)="openModal()">Add General fallback</div>
+    <div class="content-div">
+      <div class="text-block-header">
+        General fallback
+      </div>
+      <div class="fallback-btn">
+        <div class="actions-btn">
+          <span> <i class="fa-solid fa-circle-plus"></i> </span>
+          <div (click)="openModal()">Add General fallback</div>
+        </div>
       </div>
     </div>
+    <app-action-table></app-action-table>
   </section>
 </convl-page>

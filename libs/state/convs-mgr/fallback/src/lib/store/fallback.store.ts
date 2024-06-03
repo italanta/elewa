@@ -34,6 +34,7 @@ export class FallbackStore extends DataStore<Fallback> {
 
     const data$ = this._org$$.get().pipe(
       tap((org: Organisation) => (this._activeOrg = org)),
+      // tap((org: Organisation) => (this._activeRepo = _repoFac.getRepo<Fallback>(`orgs/${org.id}/bots/${bot.id}fallbacks`))),
       tap((org: Organisation) => (this._activeRepo = _repoFac.getRepo<Fallback>(`orgs/${org.id}/fallbacks`))),
       switchMap((org: Organisation) =>
         org ? this._activeRepo.getDocuments() : of([] as Fallback[])

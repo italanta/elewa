@@ -1,0 +1,70 @@
+.table-card{
+  border: 1.2px solid var(--convs-mgr-color-3E788A);
+  width: 100%;
+  min-height: fit-content;  
+  
+  .action{
+    display: flex;
+    justify-content: space-around;
+    span{
+      display: flex;
+      justify-content: space-around;
+      gap: 1rem;
+      align-items: center;
+    }
+    svg.svg-inline--fa.fa-pen{
+      color: var(--convs-mgr-color-3E788A);
+      font-size: 18px;
+    }
+  }
+  .table-header{
+    background-color: var(--convs-mgr-color-3E788A);
+    border-left: 1.2px solid var(--convs-mgr-color-3E788A);
+    text-align: center;
+  }
+  
+  .divider-cell{
+    height: 48px !important;
+    border-left: 1.2px solid var(--convs-mgr-color-3E788A);
+    text-align: center;
+    border-bottom: 1.2px solid var(--convs-mgr-color-3E788A);
+  }
+
+  :host ::ng-deep .mat-mdc-table {
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+    border: solid 1.2px var(--convs-mgr-color-3E788A);
+    border-radius: 5px !important;
+    overflow: hidden;
+  }
+  
+  :host
+    ::ng-deep
+    .mat-mdc-text-field-wrapper.mdc-text-field--outlined
+    .mat-mdc-form-field-infix {
+    padding-top: 8px !important;
+    padding-bottom: 0px !important;
+  }
+  
+  :host ::ng-deep .mat-mdc-form-field-infix {
+    min-height: 48px !important;
+    max-height: 48px !important;
+  }
+  
+  :host ::ng-deep .mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align{
+    display: none;
+  }
+  :host ::ng-deep .mat-mdc-row{
+    height: 40px !important;
+    padding: 0 1.4rem !important;
+    vertical-align: middle !important;
+  }
+  :host ::ng-deep .mat-mdc-header-row{
+    height: 40px !important;
+  
+  }
+  :host ::ng-deep .mat-mdc-header-cell{
+    background-color: transparent !important;
+    vertical-align: middle;
+  }
+
+}
