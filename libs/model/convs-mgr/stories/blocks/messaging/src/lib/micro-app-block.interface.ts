@@ -7,16 +7,21 @@ export interface MicroAppBlock extends StoryBlock
   appId: string;
   /** The name of the micro app. Will be used as the link display text */
   appName: string;
+
+  /** The type of the micro-app e.g. assessment */
+  appType: MicroAppTypes;
+
   /** Additional data for the microApp to run */
-  configs: MicroAppConfig
+  configs: MicroAppConfig;
   /** Comprehensive micro-app data  */
-  appStatus?: MicroAppStatus 
+  appStatus?: MicroAppStatus;
 }
 
 /** Provides the criteria that should be met by the learner upon 
  *    finishing the micro-app.
  */
-export enum PassCriteriaTypes {
+export enum PassCriteriaTypes
+{
   /**Percentage set to mark a task as done */
   Completed = 'completed',
   /** A task is done, and test scores meet the pass criteria  */
@@ -32,7 +37,8 @@ export enum PassCriteriaTypes {
 /**
  * The type of Micro App. It can be an assessment, game, lesson and so on. 
  */
-export enum MicroAppTypes {
+export enum MicroAppTypes
+{
   /** Content to study */
   Course = 1,
   /** Tests to take */
@@ -47,41 +53,45 @@ export enum MicroAppTypes {
  * @config
  * @status
  * Assessment status will extend this interface */
-export interface MicroAppStatus {
+export interface MicroAppStatus
+{
   currentSection: MicroAppSectionTypes;
   config: MicroAppConfig;
   status: MicroAppStatusTypes;
 }
 
-export interface MicroAppConfig {
-  passCriteria: PassCriteriaTypes;
-  
+export interface MicroAppConfig
+{
+  passCriteria?: PassCriteriaTypes;
+
   type: MicroAppTypes;
-  
+
   progressUrl?: string;
-  
+
   /** URL to be called after the micro-app is done. The payload will include the user id and their data from the micro app e.g. Assessment results  */
-  completeWebhookUrl?: string;
+  callBackUrl?: string;
 }
 
 /**  At what state is a Micro app in */
-export enum MicroAppStatusTypes {
+export enum MicroAppStatusTypes
+{
   /** user has clicked the micro-app link */
   Launched = "launched",
   /** A user has started consuming the course content, by clicking the start button */
   Started = "started",
   /** A learner has finished with all of the content */
-  Completed = "completed", 
+  Completed = "completed",
   /** A user started interacting with the content and left it unfinished */
-  Abandoned = "abandoned", 
+  Abandoned = "abandoned",
   /** If the micro-app progress has been forcefully marked as completed by the content creator */
-  Waived = "waived", 
+  Waived = "waived",
   /** If the micro-app progress has been brought to an end */
   Terminated = "terminated"
 }
 
 /** Parts of a a Micro-app screen */
-export enum MicroAppSectionTypes {
+export enum MicroAppSectionTypes
+{
   /** Start page / landing page */
   Start = 0,
   /** Main content consumption section */
