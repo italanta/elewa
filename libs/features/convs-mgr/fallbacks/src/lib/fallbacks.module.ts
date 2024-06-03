@@ -14,7 +14,7 @@ import { FallbackMainPageComponent } from './pages/fallback-main-page/fallback-m
 
 import { FallbackRouterModule } from './fallbacks.router';
 import { FallbackModalComponent } from './modals/fallback-modal/fallback-modal.component';
-
+import { ActionTableComponent } from './components/action-table/action-table.component';
 
 @NgModule({
   imports: [
@@ -24,8 +24,12 @@ import { FallbackModalComponent } from './modals/fallback-modal/fallback-modal.c
     MaterialBricksModule,
     MaterialDesignModule,
     MultiLangModule,
-    CustomComponentsModule
+    CustomComponentsModule,
   ],
-  declarations: [FallbackMainPageComponent, FallbackModalComponent],
+  declarations: [
+    FallbackMainPageComponent,
+    FallbackModalComponent,
+    ActionTableComponent,
+  ],
 })
 export class FallbacksModule {}
