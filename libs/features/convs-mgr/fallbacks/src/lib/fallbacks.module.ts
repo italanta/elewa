@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { CustomComponentsModule } from '@app/elements/layout/convs-mgr/custom-components';
 
 import {
   MaterialBricksModule,
@@ -14,6 +15,7 @@ import { FallbackMainPageComponent } from './pages/fallback-main-page/fallback-m
 import { FallbackRouterModule } from './fallbacks.router';
 import { FallbackModalComponent } from './modals/fallback-modal/fallback-modal.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -22,6 +24,7 @@ import { FallbackModalComponent } from './modals/fallback-modal/fallback-modal.c
     MaterialBricksModule,
     MaterialDesignModule,
     MultiLangModule,
+    CustomComponentsModule
   ],
   declarations: [FallbackMainPageComponent, FallbackModalComponent],
 })

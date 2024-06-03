@@ -4,8 +4,9 @@ import { OnOffButtonComponent } from './components/on-off-button/on-off-button.c
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [
-    OnOffButtonComponent
+  declarations: [ OnOffButtonComponent,
   ],
+  exports: [ OnOffButtonComponent,
+  ]
 })
-export class ElementsLayoutConvsMgrCustomComponentsModule {}
+export class CustomComponentsModule {}

@@ -1,3 +1,4 @@
-<ng-template transloco let-t>
-  <h1> {{ t('title') }} </h1>
-</ng-template>
+<div class="btn-wrapper" [class.on]="isOn" (click)="toggle()">
+  <div class="circle"></div>
+  <span class="text-toggle">{{ isOn ? 'ON' : 'OFF' }}</span>
+</div>
