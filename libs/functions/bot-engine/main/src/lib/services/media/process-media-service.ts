@@ -83,8 +83,9 @@ export class BotMediaProcessService
 
       this._tools.Logger.log(() => `${storageFileName} uploaded to /${path}/${storageFileName}.`);
 
-      result[0].makePublic()
-      return result[0].publicUrl()
+      // Permissions should be set on the cloud bucket level.
+      // result[0].makePublic()
+      return result[0].publicUrl();
     }
     catch (e) {
 
