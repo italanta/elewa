@@ -1466,6 +1466,29 @@
       },
       "tags": []
     },
+    "model-convs-mgr-micro-app-base": {
+      "root": "libs/model/convs-mgr/micro-app/base",
+      "sourceRoot": "libs/model/convs-mgr/micro-app/base/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/model/convs-mgr/micro-app/base/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/convs-mgr/micro-app/base"],
+          "options": {
+            "jestConfig": "libs/model/convs-mgr/micro-app/base/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "model-convs-mgr-stories-blocks-main": "libs/model/convs-mgr/stories/blocks/main",
     "model-convs-mgr-stories-blocks-messaging": "libs/model/convs-mgr/stories/blocks/messaging",
     "model-convs-mgr-stories-blocks-scenario": "libs/model/convs-mgr/stories/blocks/scenario",
