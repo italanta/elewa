@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
 
-import { MicroAppConfig } from '../../../../../../model/convs-mgr/stories/blocks/messaging/src/index';
+import { MicroAppConfig } from '@app/model/convs-mgr/micro-app/base';
 
 
 @Injectable({
