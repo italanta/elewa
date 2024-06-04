@@ -38,6 +38,7 @@
     padding: 1rem;
   }
   .fallback-btn {
+    cursor: pointer;
     .actions-btn{
       display: flex;
       gap: 0.5rem;
@@ -46,7 +47,6 @@
       border-radius: 30px;
       padding: 1rem;
       color: #f6f6f6;
-      cursor: pointer;
       background-color: var(--convs-mgr-color-3E788A);
       font-size: large;
     }

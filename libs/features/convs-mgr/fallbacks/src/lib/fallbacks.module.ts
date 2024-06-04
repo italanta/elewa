@@ -15,6 +15,8 @@ import { FallbackMainPageComponent } from './pages/fallback-main-page/fallback-m
 import { FallbackRouterModule } from './fallbacks.router';
 import { FallbackModalComponent } from './modals/fallback-modal/fallback-modal.component';
 import { ActionTableComponent } from './components/action-table/action-table.component';
+import { FallbackService } from '@app/state/convs-mgr/fallback';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -25,11 +27,13 @@ import { ActionTableComponent } from './components/action-table/action-table.com
     MaterialDesignModule,
     MultiLangModule,
     CustomComponentsModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     FallbackMainPageComponent,
     FallbackModalComponent,
     ActionTableComponent,
   ],
+  providers: [FallbackService]
 })
 export class FallbacksModule {}

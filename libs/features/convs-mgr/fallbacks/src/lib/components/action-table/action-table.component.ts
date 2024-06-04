@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TableElement } from '../../models/table-element.model';
-import { TableDataSource } from '../../services/table-data-source-observer.service';
-import { AITableDataService } from '../../services/table-data.service';
+
 import { MatTableDataSource } from '@angular/material/table';
+import { Fallback } from '@app/model/convs-mgr/fallbacks';
+import { FallbackService } from '@app/state/convs-mgr/fallback';
 
 @Component({
   selector: 'app-action-table',
@@ -10,15 +10,15 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./action-table.component.scss'],
 })
 export class ActionTableComponent implements OnInit {
-  displayedColumns = ['userSays', 'action', 'actionDetails', 'actionButtons']
-  dataSource: MatTableDataSource<TableElement> = new MatTableDataSource<TableElement>();
 
-  constructor( private _dataService: AITableDataService,
-  ){}
+  displayedColumns = ['userSays', 'action', 'actionDetails', 'actionButtons']
+  dataSource: MatTableDataSource<Fallback>;
+
+  constructor(private _fallBackService: FallbackService) {}
 
   ngOnInit(): void {
-    this._dataService.getData().subscribe((data: TableElement[]) => {
-      this.dataSource.data = data;
+    this._fallBackService.getAllFallbacks().subscribe((data: Fallback[]) => {
+      this.dataSource = new MatTableDataSource<Fallback>(data);
     });
   }
 }
