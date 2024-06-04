@@ -9,9 +9,14 @@ import { MicroAppStatusTypes } from "./micro-app-status-types.interface";
  * Assessment status will extend this interface */
 export interface MicroAppStatus
 {
-  currentSection: MicroAppSectionTypes;
+  /** The unique Id of the microapp */
+  appId: string;
+  currentSection?: MicroAppSectionTypes;
   config: MicroAppConfig;
   status: MicroAppStatusTypes;
+  startedOn: Date;
+  finishedOn?: Date;
+  timestamp: number;
 }
 
 /** Parts of a a Micro-app screen */

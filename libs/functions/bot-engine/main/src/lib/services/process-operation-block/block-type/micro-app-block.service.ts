@@ -4,7 +4,8 @@ import { HandlerTools } from "@iote/cqrs";
 import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { Cursor, EndUserPosition, RoutedCursor } from "@app/model/convs-mgr/conversations/admin/system";
 import { ChatStatus, EndUser } from "@app/model/convs-mgr/conversations/chats";
-import { InteractiveURLButtonBlock, MicroAppBlock, MicroAppConfig } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { InteractiveURLButtonBlock, MicroAppBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { MicroAppConfig, MicroAppStatus, MicroAppStatusTypes } from "@app/model/convs-mgr/micro-app/base";
 
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
@@ -52,6 +53,15 @@ export class MicroAppBlockService implements IProcessOperationBlock
       blockSuccess: nextCursorId
     };
 
+    // TODO: Move updating of cursor to separate function
+    const microappInitStatus: MicroAppStatus = {
+      appId: storyBlock.appId,
+      timestamp: Date.now(),
+      startedOn: new Date(),
+      status: MicroAppStatusTypes.Initialized,
+      config: storyBlock.configs
+    }
+
     if (!updatedCursor.parentStack) {
       const parentStack = [];
       parentStack.unshift(routedCursor);
@@ -59,6 +69,12 @@ export class MicroAppBlockService implements IProcessOperationBlock
       updatedCursor.parentStack = parentStack;
     } else {
       updatedCursor.parentStack.unshift(routedCursor);
+    }
+
+    if (!updatedCursor.microappStack) {
+      updatedCursor.microappStack = [microappInitStatus];
+    } else {
+      updatedCursor.microappStack.unshift(microappInitStatus);
     }
 
     const newPosition: EndUserPosition = {
