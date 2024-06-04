@@ -16,6 +16,8 @@ export interface MicroAppStatus
   status: MicroAppStatusTypes;
   startedOn: Date;
   finishedOn?: Date;
+
+  // In miliseconds
   timestamp: number;
 }
 

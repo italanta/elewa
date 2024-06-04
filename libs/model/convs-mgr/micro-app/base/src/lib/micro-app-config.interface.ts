@@ -11,4 +11,6 @@ export interface MicroAppConfig
 
   /** URL to be called after the micro-app is done. The payload will include the user id and their data from the micro app e.g. Assessment results  */
   callBackUrl?: string;
+  
+  orgId: string;
 }
