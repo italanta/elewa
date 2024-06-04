@@ -40,7 +40,7 @@
       <span>Primary action</span>
         <div class="dropdown">
           <select name="actions" id="actions">
-            <option value="route">Route</option>
+            <option value="route" class="option-select">Route</option>
             <option value="saab">Restart</option>
           </select>
         </div>
@@ -64,8 +64,7 @@
         <span>Block</span>
           <div class="dropdown">
             <select name="actions" id="actions" class="actions">
-              <option value="route">2. How are you?</option>
-              <option value="saab">1. How is your morning</option>
+              <option  *ngFor="let action of actionTypes" [value]="action">{{action}}</option>
             </select>
           </div>
       </div>

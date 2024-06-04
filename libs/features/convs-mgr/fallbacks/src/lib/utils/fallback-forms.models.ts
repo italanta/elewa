@@ -7,8 +7,8 @@ export function initFallBackFormGroup(
 ) {
   return _fb.group({
     id: ['' ?? fallbackForm.id],
-    userSays: ['' ?? fallbackForm.userSays],
-    actions: ['' ?? fallbackForm.actions],
-    actionDelays: ['' ?? fallbackForm.actionDelays],
+    userInput: ['' ?? fallbackForm.userInput],
+    actions: ['' ?? fallbackForm.actionsType],
+    actionDetails: ['' ?? fallbackForm.actionDetails],
   });
 }
