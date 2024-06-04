@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { Observable } from 'rxjs';
 
-import { MicroAppConfig, MicroAppSectionTypes, MicroAppStatusTypes, MicroAppTypes } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { MicroAppTypes, MicroAppSectionTypes, MicroAppConfig, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
 
 import { MicroAppStatusService } from '../../services/micro-app-status.service';
 

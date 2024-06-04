@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
-import { MicroAppConfig, MicroAppStatus, MicroAppStatusTypes, MicroAppTypes } from '@app/model/convs-mgr/stories/blocks/messaging';
-
 import { MicroAppStatusService } from '../../services/micro-app-status.service';
+
+import { MicroAppStatusTypes, MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
 
 
 @Component({
