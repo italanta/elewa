@@ -139,9 +139,10 @@ export class MicroAppBlockService implements IProcessOperationBlock
 
     // Construct query parameters
     const params = new URLSearchParams();
-    params.append('microAppId', microAppId);
+    params.append('appId', microAppId);
     params.append('endUserId', endUserId);
     params.append('type', config.type.toString());
+    params.append('orgId', config.orgId);
     if (config.progressUrl) params.append('progressUrl', config.progressUrl);
     if (config.callBackUrl) params.append('callBackUrl', config.callBackUrl);
 
