@@ -11,6 +11,7 @@ export interface MicroAppStatus
 {
   /** The unique Id of the microapp */
   appId: string;
+  endUserId: string;
   currentSection?: MicroAppSectionTypes;
   config: MicroAppConfig;
   status: MicroAppStatusTypes;
