@@ -13,11 +13,7 @@ import { MicroAppTypes, MicroAppStatusTypes, MicroAppSectionTypes } from "@app/m
  *  @section Which view should the user be seeing in the app? 
  */
 export class MicroAppStatusService {
-  /** Setting the default microapp to be of type assessment */
-  microAppTypeSource$ = new BehaviorSubject<MicroAppTypes>(MicroAppTypes.Assessment)
-
-  microAppTypeObs$$ = this.microAppTypeSource$.asObservable()
-
+  microAppType: MicroAppTypes = MicroAppTypes.Assessment;
 
   /** 
    * Tracking the interactions of a user within the app
@@ -40,11 +36,11 @@ export class MicroAppStatusService {
   // LOGIC TO SET MICRO-APP TYPE
 
   setMicroApp(microAppType: MicroAppTypes){
-    return this.microAppTypeSource$.next(microAppType)
+    return this.microAppType = microAppType;
   }
 
-  getMicroAppType(): Observable<MicroAppTypes>{
-    return this.microAppTypeObs$$
+  getMicroAppType(): MicroAppTypes {
+    return this.microAppType;
   }
 
   //LOGIC TO SET MICROAPP STATUS
