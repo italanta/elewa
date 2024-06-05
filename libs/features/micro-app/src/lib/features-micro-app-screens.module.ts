@@ -6,7 +6,7 @@ import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 import { ConvsMgrAssessmentsModule } from '@app/features/convs-mgr/conversations/assessments';
 
-import { MicroAppMainPageComponent } from './pages/micro-app-main-page/micro-app-main-page.component';
+import { MicroAppStartPageComponent } from './pages/micro-app-start-page/micro-app-start-page.component';
 
 import { MicroAppContentPageComponent } from './pages/micro-app-content-page/micro-app-content-page.component';
 import { PlatformRedirectPageComponent } from './pages/platform-redirect-page/platform-redirect-page.component';
@@ -24,10 +24,10 @@ import { ClmMicroAppLayoutModule } from '@app/libs/elements/layout/clm-micro-app
     ClmMicroAppLayoutModule,
   ],
   declarations: [
-    MicroAppMainPageComponent,
+    MicroAppStartPageComponent,
     MicroAppContentPageComponent,
     PlatformRedirectPageComponent,
   ],
-  exports: [MicroAppMainPageComponent],
+  exports: [MicroAppStartPageComponent],
 })
 export class MicroAppModule {}
