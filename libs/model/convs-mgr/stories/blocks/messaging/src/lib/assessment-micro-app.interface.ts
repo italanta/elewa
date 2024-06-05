@@ -1,5 +1,5 @@
+import { MicroAppStatus } from "@app/model/convs-mgr/micro-app/base";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
-import { MicroAppStatus } from "./micro-app-block.interface";
 
 
 /**

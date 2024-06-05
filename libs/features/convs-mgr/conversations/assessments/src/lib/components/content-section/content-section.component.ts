@@ -4,8 +4,6 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
-import { PassCriteriaTypes } from '@app/model/convs-mgr/stories/blocks/messaging';
-
 import { calculateProgress } from '../../utils/calculate-progress.util';
 import { PageViewMode } from '../../model/view-mode.enum';
 
@@ -29,7 +27,7 @@ export class ContentSectionComponent implements OnInit {
   assessmentForm: FormGroup;
 
   //Grading scores
-  passCriteria = PassCriteriaTypes
+  passCriteria: any;
 
   //How far a learner is in answering questions
   progressPercentage = 0;

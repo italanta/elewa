@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PassCriteriaTypes } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { Observable } from 'rxjs';
 import { SetAssessmentScoreService } from '../../services/set-pass-status.service';
@@ -10,7 +9,7 @@ import { SetAssessmentScoreService } from '../../services/set-pass-status.servic
 })
 export class AssessmentResultBannerComponent implements OnInit {
 
-  passCriteria$: Observable <PassCriteriaTypes>
+  passCriteria$: Observable <any>
 
   constructor( private _assessmentScoreServ: SetAssessmentScoreService){}
 
