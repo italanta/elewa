@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
+import { MicroAppManagementService } from '@app/libs/state/convs-mgr/micro-app';
+
 import { getPlatformURL } from '../../utils/create-platform-url.util';
 
 @Component({
@@ -15,11 +18,20 @@ export class PlatformRedirectPageComponent implements OnInit
 
   COUNTDOWN = 10;
 
+  constructor(private microAppService: MicroAppManagementService) {}
+
   ngOnInit(): void
   {
     this.getAppStatus();
     this.endUserId = this.status.endUserId;
+    this.callBack();
     this.startCountdown();
+  }
+
+  /** Send data to a callback url */
+  callBack() {
+    this.microAppService.callBack(this.status.appId, this.status.endUserId, this.status.config)
+                          ?.subscribe();
   }
 
   startCountdown(): void {
