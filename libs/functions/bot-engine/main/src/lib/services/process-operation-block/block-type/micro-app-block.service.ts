@@ -45,12 +45,12 @@ export class MicroAppBlockService implements IProcessOperationBlock
     const currentStory = updatedCursor.position.storyId;
 
     const nextPosition = await this.connDataService.getConnBySourceId(storyBlock.id, orgId, currentStory);
-    const nextCursorId = nextPosition.targetId;
+    const nextBlockId = nextPosition.targetId;
 
     // The next default block to route to after the micro-app is complete
     const routedCursor: RoutedCursor = {
       storyId: currentStory,
-      blockSuccess: nextCursorId
+      blockSuccess: nextBlockId
     };
 
     // TODO: Move updating of cursor to separate function
@@ -59,7 +59,8 @@ export class MicroAppBlockService implements IProcessOperationBlock
       timestamp: Date.now(),
       startedOn: new Date(),
       status: MicroAppStatusTypes.Initialized,
-      config: storyBlock.configs
+      config: storyBlock.configs,
+      endUserId: endUser.id
     }
 
     if (!updatedCursor.parentStack) {
