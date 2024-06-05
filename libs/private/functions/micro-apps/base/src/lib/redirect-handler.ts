@@ -7,8 +7,6 @@ import { InitMicroAppCmd, MicroAppSectionTypes, MicroAppStatus, MicroAppStatusTy
 import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 import { ActiveChannelFactory } from '@app/functions/bot-engine/utils';
 import { EngineBotManager } from '@app/functions/bot-engine';
-import { Message, TextMessage } from '@app/model/convs-mgr/conversations/messages';
-import { MessageTypes } from '@app/model/convs-mgr/functions';
 
 /**
  * Moves the user to the next block and sends data to the callback url provided
