@@ -17,6 +17,7 @@ export class MicroAppManagementService {
   // Initializes and returns new status
   private initMicroAppEndPoint = 'initMicroApp';
   private progressEndpoint = 'microAppProgress';
+  private callBackHandler = 'callBack';
 
   /** Building the required parameters of launching an app 
    *  On hitting the microapp block service, the app url will be appended to the configs
@@ -49,6 +50,8 @@ export class MicroAppManagementService {
     }
 
     callBack(appId: string, userId: string, config: MicroAppConfig) {
+      // TODO: Implement a callback handler, that collects the data,
+      //  depending on the app type and sends this data to the provided callbackUrl
       if(!config.callBackUrl) return;
 
       const URL = config.callBackUrl;
