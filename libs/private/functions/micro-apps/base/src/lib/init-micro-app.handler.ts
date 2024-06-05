@@ -59,6 +59,7 @@ export class InitMicroAppHandler extends FunctionHandler<InitMicroAppCmd, InitMi
         newStatus.currentSection = MicroAppSectionTypes.Start;
         newStatus.status = MicroAppStatusTypes.Launched;
         newStatus.timestamp = timestamp;
+        newStatus.endUserId = req.endUserId;
       } else {
         tools.Logger.log(() => `[InitMicroAppHandler].execute - Micro app already initialized. Returning the current user position`);
         // Incase the status is already initialized, then we resume the users progress
