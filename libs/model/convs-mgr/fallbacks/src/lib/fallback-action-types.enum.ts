@@ -1,8 +1,8 @@
 export enum FallBackActionTypes {
-  Restart = 'restart',
-  ResendLastMessage = 'resendlastmessage',
-  NextBlock = 'nextblock',
-  Route = 'route'
+  Restart = 'Restart',
+  ResendLastMessage = 'ResendLastMessage',
+  NextBlock = 'NextBlock',
+  Route = 'Route'
 }
 
 const allEnumsArray = Object.values(FallBackActionTypes);

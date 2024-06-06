@@ -1,4 +1,4 @@
-<div class="main">
+<form [formGroup]="fallbackForm" class="main">
   <div class="title-section">
     <span class="title">Configure fallback - Global - “Hi”</span>
     <div class="text">Fallbacks are configured using a concept called “Intent analysis”. Our AI will classify what a user is trying
@@ -12,23 +12,17 @@
       your list to include all similar words in different languages.
     </div>
 
-    <div class="user-input-list">
-      <div class="user-input-list-item"><div class="text">Hi</div>
-      <div class="delete-action"><i class="far fa-trash-alt"></i><span>Delete</span></div>
-    </div>
+    <div class="user-input-list" formArrayName="userInput">
+      <div *ngFor="let control of userInput.controls; let i = index">
+        <div class="user-input-list-item">
+          <input [formControlName]="i" class="text" type="text" />
+          <div class="delete-action"><i class="far fa-trash-alt"></i><span (click)="removeUserInput(i)">Delete</span></div>
+        </div>
+      </div>
 
-    <div class="user-input-list-item"><div class="text">Hola</div>
-    <div class="delete-action"><i class="far fa-trash-alt"></i><span>Delete</span></div>
+    <div class="user-input-list-item add-keyword">
+      <div class="add-action"><img src="assets/icons/plus-circle.svg"/><span (click)="addUserInput('')">Add Keyword</span></div>
     </div>
-
-    <div class="user-input-list-item"><div class="text">Good morning</div>
-    <div class="delete-action"><i class="far fa-trash-alt"></i><span>Delete</span></div>
-    </div>
-
-    <div class="user-input-list-item">
-    <div class="add-action"><img src="assets/icons/plus-circle.svg"/><span>Add Keyword</span></div>
-    </div>
-
     </div>
   </div>
 
@@ -39,9 +33,8 @@
     <div class="primary-action">
       <span>Primary action</span>
         <div class="dropdown">
-          <select name="actions" id="actions">
-            <option value="route" class="option-select">Route</option>
-            <option value="saab">Restart</option>
+          <select name="actions" id="actions" formControlName="actionsType">
+            <option  *ngFor="let action of actionTypes" [value]="action">{{action}}</option>
           </select>
         </div>
     </div>
@@ -74,4 +67,4 @@
   <div class="update-div">
     <div class="update-btn"> <span class="btn"> Update </span> </div>
   </div>
-</div>
+</form>
