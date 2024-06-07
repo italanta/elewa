@@ -32,7 +32,7 @@
     "@google-cloud/dialogflow-cx": "^4.3.0",
     "@google-cloud/scheduler": "^4.0.1",
     "@google-cloud/tasks": "^4.0.1",
-    "@google/generative-ai": "^0.11.1",
+    "@google/generative-ai": "^0.11.5",
     "@jsplumb/browser-ui": "^6.0.0",
     "@jsplumb/connector-bezier": "^5.9.4",
     "@jsplumb/connector-flowchart": "^5.9.4",
@@ -128,6 +128,7 @@
     "jsonwebtoken",
     "dotenv",
     "@google-cloud/tasks",
-    "@google-cloud/scheduler"
+    "@google-cloud/scheduler",
+    "@google/generative-ai"
   ]
 }
