@@ -15,7 +15,7 @@ export class IntentService {
     agentId: string
   
   }){
-    this._client.agentPath(process.env.projectId, process.env.location, process.env.agentId);
+    this._client.agentPath(process.env.PROJECT_ID, process.env.LOCATION, process.env.AGENT_ID);
   }
 
   async createIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<DialogflowCXIntent> {
