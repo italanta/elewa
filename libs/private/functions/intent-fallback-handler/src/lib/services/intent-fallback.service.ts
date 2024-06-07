@@ -1,7 +1,5 @@
-import { IntentsClient, SessionsClient } from '@google-cloud/dialogflow-cx';
+import { SessionsClient } from '@google-cloud/dialogflow-cx';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-
-import { DialogflowCXIntent } from '@app/model/convs-mgr/fallbacks';
 
 import { HandlerTools } from '@iote/cqrs';
 
@@ -72,9 +70,5 @@ export class IntentFallbackService {
         const response = await geminiQuery.response;
         const responseText = await response.text();
         return intents.findIndex(intentValue => intentValue.includes(`${responseText}`));
-  }
-
-  getBotIntents(handlerTools: string): Promise<DialogflowCXIntent[]> {
-    const intentRepo = handlerTools.getRepository(`orgs/${process.env.ORG_ID}/modules/${process.env.MODULE_ID}/intents`);
   }
 }

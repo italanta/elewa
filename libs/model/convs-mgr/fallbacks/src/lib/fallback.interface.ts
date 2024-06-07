@@ -17,10 +17,14 @@ export interface Fallback extends IObject {
   /** Whether the fallback is active or not */
   active: boolean;
 
+  isGeneralFallback: boolean;
+
+  moduleId: string;
   orgId: string;
   botId: string;
 }
 
 export interface Action {
+  /** Will be mapped as the display name when creating the intent in dialogflow */
   description: string;
 }

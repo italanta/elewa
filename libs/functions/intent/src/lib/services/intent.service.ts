@@ -4,7 +4,7 @@ import { HandlerTools } from "@iote/cqrs";
 import { IObject } from "@iote/bricks";
 import { Query } from "@ngfi/firestore-qbuilder";
 
-import { DialogflowCXIntent } from '@app/model/convs-mgr/fallbacks';
+import { DialogflowCXIntent, TrainingPhrase } from '@app/model/convs-mgr/fallbacks';
 
 export class IntentService {
   private _client: IntentsClient = new IntentsClient();
@@ -18,19 +18,20 @@ export class IntentService {
     this._client.agentPath(process.env.projectId, process.env.location, process.env.agentId);
   }
 
-  createIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<DialogflowCXIntent> {
-    const intentRepo = tools.getRepository(`orgs/${intent.orgId}/modules/${intent.botId}/intents`);
+  async createIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<DialogflowCXIntent> {
+    const intentRepo = tools.getRepository<DialogflowCXIntent>(`orgs/${intent.orgId}/fallbacks`);
     const createdIntent = {
-      displayName: intent.displayName,
+      displayName: intent.actionDetails.description,
       trainingPhrases: [],
       messages: [],
     };
     const dialogFlowIntent = {intent: createdIntent}
 
-    const dialogFlowIntentCreate =this._client.createIntent(dialogFlowIntent);
-    const intentRepoCreate = intentRepo.create(intent);
+    const dialogFlowIntentCreate = await this._client.createIntent(dialogFlowIntent);
+    intent.id = dialogFlowIntentCreate[0].name;
+    intent.name = dialogFlowIntentCreate[0].name;
 
-    return Promise.all([dialogFlowIntentCreate, intentRepoCreate]);
+    return intentRepo.create(intent);
   }
 
   getIntent(intent: DialogflowCXIntent): Promise<any>{
@@ -44,17 +45,25 @@ export class IntentService {
   }
 
   async getModuleIntents(orgId: string, botId: string, handlerTools: HandlerTools): Promise<DialogflowCXIntent[]>{
-    const moduleRepo = await handlerTools.getRepository(`orgs/${orgId}/modules/${moduleId}/intents`);
+    const moduleRepo = await handlerTools.getRepository(`orgs/${orgId}/fallbacks`);
     const moduleIntents = await moduleRepo.getDocuments(new Query()) as DialogflowCXIntent[];
     return moduleIntents;
   }
 
   updateIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<DialogflowCXIntent> {
-    const intentRepo = tools.getRepository(`orgs/${intent.orgId}/modules/${intent.botId}/intents`);
+    const intentRepo = tools.getRepository(`orgs/${intent.orgId}/fallbacks`);
+    
+    const phrases = intent.userInput.map((input)=> {
+      return {text: input}
+    });
+
     const updatedIntent = {
       name: intent.name,
-      trainingPhrases: intent.trainingPhrases,
+      trainingPhrases: [{
+        parts: phrases
+      }]
     };
+    
     this._client.updateIntent({
       intent: updatedIntent
     });
