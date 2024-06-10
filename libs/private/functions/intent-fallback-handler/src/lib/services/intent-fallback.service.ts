@@ -13,10 +13,10 @@ export class IntentFallbackService {
     this.geminiAPIKey = process.env.GEMINI_API_KEY;
   }
 
-  async detectIntentAndRespond(userStatement: string, intents: string[]) {
+  async detectIntentAndRespond(userStatement: string, intents: string[], endUserId: string) {
     const dialogflowClient = new SessionsClient();
     
-    const sessionPath = dialogflowClient.versionPath(process.env.PROJECT_ID, process.env.LOCATION, process.env.AGENT_ID, process.env.SESSION_ID, process.env.VERSION_ID);
+    const sessionPath = dialogflowClient.versionPath(process.env.PROJECT_ID, process.env.LOCATION, process.env.AGENT_ID, endUserId, process.env.VERSION_ID);
   
     try {
       const request = {
