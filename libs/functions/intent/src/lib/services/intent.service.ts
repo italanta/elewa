@@ -1,21 +1,15 @@
 import  { IntentsClient } from "@google-cloud/dialogflow-cx";
 
 import { HandlerTools } from "@iote/cqrs";
-import { IObject } from "@iote/bricks";
 import { Query } from "@ngfi/firestore-qbuilder";
 
-import { DialogflowCXIntent, TrainingPhrase } from '@app/model/convs-mgr/fallbacks';
+import { DialogflowCXIntent } from '@app/model/convs-mgr/fallbacks';
 
 export class IntentService {
   private _client: IntentsClient = new IntentsClient();
   agentPath: string;
-  constructor(intentEnv?: {
-    projectId: string,
-    location: string,
-    agentId: string
-  
-  }){
-    this._client.agentPath(process.env.PROJECT_ID, process.env.LOCATION, process.env.AGENT_ID);
+  constructor(){
+   this.agentPath = this._client.agentPath(process.env.PROJECT_ID, process.env.LOCATION, process.env.AGENT_ID);
   }
 
   async createIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<DialogflowCXIntent> {
@@ -25,6 +19,8 @@ export class IntentService {
       trainingPhrases: [],
       messages: [],
     };
+    createdIntent['parent'] = this.agentPath;
+
     const dialogFlowIntent = {intent: createdIntent}
 
     const dialogFlowIntentCreate = await this._client.createIntent(dialogFlowIntent);

@@ -111,7 +111,7 @@ export class FallBackBlockService
     };
   }
  
-  async fallBack(channel: CommunicationChannel, currentCursor: Cursor, blockDataService: BlockDataService, message: Message){
+  async fallBack(channel: CommunicationChannel, currentCursor: Cursor, endUserId: string, blockDataService: BlockDataService, message: Message){
     let nextBlock: StoryBlock;
     const orgId = channel.orgId;
     const newCursor = currentCursor;
@@ -129,13 +129,13 @@ export class FallBackBlockService
     // Get intents linked to that module
     const savedFallbacks = await intentRepo.getDocuments(new Query().where('moduleId', '==', parentModule));
 
-    const userInputsArr = savedFallbacks.map((fb)=> fb.userInput);
+    const userInputsArr = savedFallbacks.filter((fb)=> fb.active).map((fb)=> fb.userInput);
 
     const userInputs = _.flatten(userInputsArr);
 
     const intentFallBackService = new IntentFallbackService();
 
-    const intent = await intentFallBackService.detectIntentAndRespond(message.payload, userInputs);
+    const intent = await intentFallBackService.detectIntentAndRespond(message.payload, userInputs, endUserId);
 
     if(intent && typeof(intent) !== 'number') {
       const intentResponse = await intentRepo.getDocumentById(intent.name);
