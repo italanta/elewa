@@ -53,16 +53,13 @@ export class IntentService {
     const intentRepo = tools.getRepository<DialogflowCXIntent>(`orgs/${intent.orgId}/fallbacks`);
     
     const phrases = intent.userInput.map((input)=> {
-      return {text: input}
+      return {parts: [{text: input}], repeatCount: 2};
     });
 
     const updatedIntent = {
       displayName: intent.actionDetails.description,
       name: intent.name,
-      trainingPhrases: [{
-        parts: phrases,
-        repeatCount: 2
-      }]
+      trainingPhrases: phrases
     };
     
     await this._client.updateIntent({
