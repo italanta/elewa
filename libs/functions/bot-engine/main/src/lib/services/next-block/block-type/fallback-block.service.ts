@@ -7,7 +7,7 @@ import { CommunicationChannel, Cursor } from "@app/model/convs-mgr/conversations
 import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { Button, QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { ButtonsBlockButton } from "@app/model/convs-mgr/stories/blocks/scenario";
-import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
+import { Message, QuestionMessage, TextMessage } from "@app/model/convs-mgr/conversations/messages";
 import { DialogflowCXIntent, FallBackActionTypes, RouteAction } from "@app/model/convs-mgr/fallbacks";
 import { IntentFallbackService } from "@app/private/functions/intent-fallback-handler";
 import { Story } from "@app/model/convs-mgr/stories/main";
@@ -112,6 +112,8 @@ export class FallBackBlockService
   }
  
   async fallBack(channel: CommunicationChannel, currentCursor: Cursor, endUserId: string, blockDataService: BlockDataService, message: Message){
+    this._handlerTools.Logger.log(()=> `[FallBackBlockService].fallback - Fallback triggered for message ${JSON.stringify(message)}`);
+
     let nextBlock: StoryBlock;
     const orgId = channel.orgId;
     const newCursor = currentCursor;
@@ -135,7 +137,7 @@ export class FallBackBlockService
 
     const intentFallBackService = new IntentFallbackService();
 
-    const intent = await intentFallBackService.detectIntentAndRespond(message.payload, userInputs, endUserId);
+    const intent = await intentFallBackService.detectIntentAndRespond((message as TextMessage).text, userInputs, endUserId);
 
     if(intent && typeof(intent) !== 'number') {
       const intentId = intent.name.split("/").join("_");

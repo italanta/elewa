@@ -6,7 +6,8 @@ import { HandlerTools } from '@iote/cqrs';
 const LOW_CONFIDENCE_THRESHOLD = process.env.LOW_CONFIDENCE_THRESHOLD || 0.5;
 
 export class IntentFallbackService {
-
+  apiEndpoint = `${process.env.LOCATION}-dialogflow.googleapis.com`;
+  
   geminiAPIKey:string;
   handlerTools: HandlerTools;
   constructor(){
@@ -14,9 +15,11 @@ export class IntentFallbackService {
   }
 
   async detectIntentAndRespond(userStatement: string, intents: string[], endUserId: string) {
-    const dialogflowClient = new SessionsClient();
+    console.log("[IntentFallbackService] - Detecting intent for statement:", userStatement);
+
+    const dialogflowClient = new SessionsClient({apiEndpoint: this.apiEndpoint});
     
-    const sessionPath = dialogflowClient.versionPath(process.env.PROJECT_ID, process.env.LOCATION, process.env.AGENT_ID, endUserId, process.env.VERSION_ID);
+    const sessionPath = dialogflowClient.projectLocationAgentSessionPath(process.env.GCLOUD_PROJECT, process.env.LOCATION, process.env.AGENT_ID, endUserId);
   
     try {
       const request = {
@@ -25,13 +28,16 @@ export class IntentFallbackService {
           text: {
             text: userStatement,
           },
+          // TODO: Should be passed from front end
+          languageCode: 'en-US',
         },
       };
       const [dialogflowResponse] = await dialogflowClient.detectIntent(request);
+
       const detectedIntent = dialogflowResponse.queryResult.intent;
       const confidence = dialogflowResponse.queryResult.intentDetectionConfidence;
       const THRESHOLD = parseInt(LOW_CONFIDENCE_THRESHOLD as string);
-      if (confidence < THRESHOLD) {
+      if (!detectedIntent || confidence < THRESHOLD) {
         return this._geminiFallback(userStatement, intents);
       } else {
         console.log('Using Dialogflow CX response with high confidence:', confidence);
