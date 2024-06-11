@@ -5,7 +5,7 @@ import { FallbackMainPageComponent } from './pages/fallback-main-page/fallback-m
 
 const FALLBACK_ROUTES: Route[] = [
   {
-    path: '',
+    path: ':id',
     component: FallbackMainPageComponent,
   },
 ];

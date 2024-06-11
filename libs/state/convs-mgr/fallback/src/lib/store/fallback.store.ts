@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Repository, DataService } from '@ngfi/angular';
 import { DataStore } from '@ngfi/state';
 
-import { of } from 'rxjs';
-import { tap, throttleTime, switchMap } from 'rxjs/operators';
+import { combineLatest, of } from 'rxjs';
+import { tap, throttleTime, switchMap, filter, map } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
 
@@ -11,6 +11,7 @@ import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 import { Organisation } from '@app/model/organisation';
 import { Fallback } from '@app/model/convs-mgr/fallbacks';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Injectable()
 export class FallbackStore extends DataStore<Fallback> {
@@ -26,13 +27,18 @@ export class FallbackStore extends DataStore<Fallback> {
   // Answer: No, as Angular's DI engine is lazy, meaning it will only initialise services the first time they are called.
 
   constructor(
-    private _org$$: ActiveOrgStore,
+    private _activeOrg$$: ActiveOrgStore,
     private _repoFac: DataService,
+    _router: Router,
     _logger: Logger
   ) {
     super('always', _logger);
+    const route$ = _router.events.pipe(filter((ev) => ev instanceof NavigationEnd),
+    map(ev => ev as NavigationEnd));
 
-    const data$ = this._org$$.get().pipe(
+    const activeOrg$ = _activeOrg$$.get();
+
+    const data$ = activeOrg$.pipe(
       tap((org: Organisation) => (this._activeOrg = org)),
       // tap((org: Organisation) => (this._activeRepo = _repoFac.getRepo<Fallback>(`orgs/${org.id}/bots/iLKLgrwio1Qfd1b7spBl/fallbacks`))),
       tap((org: Organisation) => (this._activeRepo = _repoFac.getRepo<Fallback>(`orgs/${org.id}/fallbacks`))),
@@ -43,8 +49,21 @@ export class FallbackStore extends DataStore<Fallback> {
       throttleTime(500, undefined, { leading: true, trailing: true })
     );
 
-    this._sbS.sink = data$.subscribe((properties) => {
-      this.set(properties, 'UPDATE - FROM DB');
+
+    this._sbS.sink = combineLatest([route$, data$]).subscribe(([route, data]) => {
+      const botId = this._getRoute(route);
+
+      const botFallbacks = data.filter((fallbacks)=> fallbacks.botId == botId);
+
+      this.set(botFallbacks, 'UPDATE - FROM DB');
     });
+  }
+
+  private _getRoute(route: NavigationEnd) : string
+  {
+    const elements = route.url.split('/');
+    const storyId = elements.length >= 3 ? elements[2] : '__noop__';
+
+    return storyId;
   }
 }

@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
+import { combineLatest } from 'rxjs';
+
 import { FallbackService } from '@app/state/convs-mgr/fallback';
 
-import { FallbackModalComponent } from '../../modals/fallback-modal/fallback-modal.component';
 import { Fallback } from '@app/model/convs-mgr/fallbacks';
+import { Bot } from '@app/model/convs-mgr/bots';
+
+import { FallbackModalComponent } from '../../modals/fallback-modal/fallback-modal.component';
 
 @Component({
   selector: 'app-fallback-main-page',
@@ -13,22 +17,25 @@ import { Fallback } from '@app/model/convs-mgr/fallbacks';
 })
 export class FallbackMainPageComponent implements OnInit {
   fallbacks: Fallback[];
+  bot: Bot;
 
   constructor(public dialog: MatDialog, private fallbackService: FallbackService) {}
 
   ngOnInit(): void {
-    this.fallbackService.getAllFallbacks()
-                      .subscribe((fallbacks)=> {
-                        if(fallbacks) {
-                          this.fallbacks = fallbacks;
-                        }
-                      })
+    const fallbacks$ =this.fallbackService.getAllFallbacks();
+
+    const bot$ = this.fallbackService.selectedBot$;
+
+    combineLatest([fallbacks$, bot$]).subscribe(([fallbacks, bot])=> {
+      this.fallbacks = fallbacks,
+      this.bot = bot
+    })
   }
 
   openModal() {
     this.dialog.open(FallbackModalComponent, {
-      panelClass: "fallback-modal-class"
-     
+      panelClass: "fallback-modal-class",
+      data: {bot: this.bot}
     });
   }
 }

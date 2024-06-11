@@ -1,4 +1,4 @@
-<div class="table-card">
+<div class="table-card" *ngIf="fallbacks">
   <table mat-table [dataSource]="dataSource" class="table"> 
     <!-- User Prompt -->
     <ng-container matColumnDef="userSays">

@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Bot } from '@app/model/convs-mgr/bots';
 
 import { ActionTypesArray, Fallback } from '@app/model/convs-mgr/fallbacks';
 @Component({
@@ -16,7 +17,7 @@ export class FallbackModalComponent implements OnInit {
   
   constructor(public dialogRef: MatDialogRef<FallbackModalComponent>, 
               private fb: FormBuilder, 
-              @Inject(MAT_DIALOG_DATA) public data: { fallback: Fallback}
+              @Inject(MAT_DIALOG_DATA) public data: { fallback: Fallback, bot: Bot}
             ) {
               if(this.data) {
                 this.fallback = this.data.fallback

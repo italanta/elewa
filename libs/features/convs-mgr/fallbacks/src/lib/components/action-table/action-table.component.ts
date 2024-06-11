@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { Bot } from '@app/model/convs-mgr/bots';
 
 import { FallBackActionTypes, Fallback } from '@app/model/convs-mgr/fallbacks';
 
@@ -10,6 +11,7 @@ import { FallBackActionTypes, Fallback } from '@app/model/convs-mgr/fallbacks';
 })
 export class ActionTableComponent implements OnInit {
   @Input() fallbacks: Fallback[];
+  @Input() bot: Bot;
 
   dummyData: Fallback[] = [
     {
@@ -50,6 +52,6 @@ export class ActionTableComponent implements OnInit {
   dataSource: MatTableDataSource<Fallback>;
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<Fallback>(this.fallbacks && this.fallbacks.length > 0 ? this.fallbacks : this.dummyData);
+    this.dataSource = new MatTableDataSource<Fallback>(this.fallbacks);
   }
 }
