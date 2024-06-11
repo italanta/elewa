@@ -6,7 +6,8 @@ import { Query } from "@ngfi/firestore-qbuilder";
 import { DialogflowCXIntent } from '@app/model/convs-mgr/fallbacks';
 
 export class IntentService {
-  private _client: IntentsClient = new IntentsClient();
+  apiEndpoint = `${process.env.LOCATION}-dialogflow.googleapis.com`
+  private _client: IntentsClient = new IntentsClient({apiEndpoint: this.apiEndpoint});
   agentPath: string;
   constructor(){
    this.agentPath = this._client.agentPath(process.env.PROJECT_ID, process.env.LOCATION, process.env.AGENT_ID);
@@ -19,15 +20,17 @@ export class IntentService {
       trainingPhrases: [],
       messages: [],
     };
-    createdIntent['parent'] = this.agentPath;
-
-    const dialogFlowIntent = {intent: createdIntent}
+    
+    const dialogFlowIntent = {intent: createdIntent};
+    
+    dialogFlowIntent['parent'] = this.agentPath;
 
     const dialogFlowIntentCreate = await this._client.createIntent(dialogFlowIntent);
-    intent.id = dialogFlowIntentCreate[0].name;
+    const id = dialogFlowIntentCreate[0].name.split("/").join("_");
+    intent.id = id;
     intent.name = dialogFlowIntentCreate[0].name;
 
-    return intentRepo.create(intent);
+    return intentRepo.create(intent, intent.id);
   }
 
   getIntent(intent: DialogflowCXIntent): Promise<any>{
@@ -46,29 +49,29 @@ export class IntentService {
     return moduleIntents;
   }
 
-  updateIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<DialogflowCXIntent> {
-    const intentRepo = tools.getRepository(`orgs/${intent.orgId}/fallbacks`);
+  async updateIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<DialogflowCXIntent> {
+    const intentRepo = tools.getRepository<DialogflowCXIntent>(`orgs/${intent.orgId}/fallbacks`);
     
     const phrases = intent.userInput.map((input)=> {
       return {text: input}
     });
 
     const updatedIntent = {
+      displayName: intent.actionDetails.description,
       name: intent.name,
       trainingPhrases: [{
-        parts: phrases
+        parts: phrases,
+        repeatCount: 2
       }]
     };
     
-    this._client.updateIntent({
+    await this._client.updateIntent({
       intent: updatedIntent
     });
     
-    const intentWrite = intentRepo.write(intent, intent.id);
+    intent.trainingPhrases = updatedIntent.trainingPhrases;
 
-    return new Promise((resolve, reject) => {
-      resolve(intentWrite as unknown as DialogflowCXIntent);
-    });
+    return intentRepo.update(intent);
   }
 
   async deleteIntent(intent: DialogflowCXIntent): Promise<string>{
