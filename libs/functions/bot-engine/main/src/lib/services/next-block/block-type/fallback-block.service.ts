@@ -138,7 +138,8 @@ export class FallBackBlockService
     const intent = await intentFallBackService.detectIntentAndRespond(message.payload, userInputs, endUserId);
 
     if(intent && typeof(intent) !== 'number') {
-      const intentResponse = await intentRepo.getDocumentById(intent.name);
+      const intentId = intent.name.split("/").join("_");
+      const intentResponse = await intentRepo.getDocumentById(intentId);
       const action = intentResponse.actionsType;
 
       // TODO: Implement other fallback action types
