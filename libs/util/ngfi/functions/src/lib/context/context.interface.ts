@@ -14,6 +14,4 @@ export interface FunctionContext extends HandlerContext {
 
   eventContext: any;
   params?: any;
-
-  environment: Environment;
 }

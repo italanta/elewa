@@ -23,18 +23,21 @@ export class EndpointRegistrar<T, R> extends FunctionRegistrar<T, any>
 
   async before(req: any, resp: any): Promise<{ data: T; context: HttpsContext; }>
   {
-    const user = await _determineUser(req);
+    const reqR = req as Request;
+    const respR = resp as Response;
+
+    const user = await _determineUser(reqR);
 
     const context = 
     { 
       isAuthenticated: !!user, userId: user?.id ?? 'noop', 
       userToken: user,
-      request: req, response: resp as Response, 
-      eventContext: { response: resp }, 
+      request: req, response: respR as Response, 
+      eventContext: { response: respR }, 
       environment: process.env as any 
     };
     
-    return { data: req.body as any as T, context};
+    return { data: req.body as T, context};
   }
 
   /** Send back result to the server */
