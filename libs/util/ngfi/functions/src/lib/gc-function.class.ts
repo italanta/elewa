@@ -11,6 +11,7 @@ import { Guard } from './guard/guard.interface';
 import { wrapGaurd } from './guard/wrap-gaurd.util';
 import { createContext } from './context/create-context.util';
 import { Environment } from './environment.interface';
+import { HttpsFunction } from 'firebase-functions/v2/https';
 
 /**
  * A conceptual representation of a Google Cloud function which contains the logic of a Firebase Function of type T (input) -> R (result).
@@ -39,7 +40,7 @@ export class GCFunction<T, R>
   /**
    * Turns the registered function into an actual cloud function.
    */
-  build(): CloudFunction<CloudEvent<T>>
+  build(): CloudFunction<CloudEvent<T>> | HttpsFunction
   {
     // Start with the inner core function which is the handler logic or this._handler.execute
     // From there, move up the chain by adding extra layers and steps.

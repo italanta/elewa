@@ -1,4 +1,5 @@
 import { CloudEvent, CloudFunction } from "firebase-functions/v2";
+import { HttpsFunction } from "firebase-functions/v2/https";
 
 import { Logger, getLogger } from '@iote/cqrs';
 import { CustomException } from '@iote/exceptions';
@@ -24,7 +25,7 @@ export abstract class FunctionRegistrar<T, R>
   /**
    * Action before execution of function. Registers the passed function as a cloudfunction.
    */
-  abstract register(func: (dataSnap: any, context: FunctionContext) => Promise<R>): CloudFunction<CloudEvent<T>>;
+  abstract register(func: (dataSnap: any, context: FunctionContext) => Promise<R>): CloudFunction<CloudEvent<T>> | HttpsFunction;
 
   /**
    * Convert params of specific registrar into parameters tailored to FunctionHandler
@@ -36,7 +37,7 @@ export abstract class FunctionRegistrar<T, R>
    *
    * SEALED! Do not override!
    */
-  wrap(func: (data: T, context: FunctionContext) => Promise<R>): CloudFunction<CloudEvent<T>>
+  wrap(func: (data: T, context: FunctionContext) => Promise<R>): CloudFunction<CloudEvent<T>> | HttpsFunction
   {
     return this.register((data, context) =>
     {

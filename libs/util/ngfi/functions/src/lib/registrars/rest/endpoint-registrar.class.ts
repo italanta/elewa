@@ -1,37 +1,57 @@
-import * as functions from 'firebase-functions';
+import { Response } from 'express';
+import { CloudEvent, CloudFunction,  } from 'firebase-functions/v2';
+import { HttpsFunction, HttpsOptions, onRequest } from 'firebase-functions/v2/https';
+
 import { FunctionRegistrar } from "../function-registrar.interface";
 
-import { FIREBASE_REGIONS } from '../regions.type';
 import { HttpsContext } from '../../context/https-context.interface';
 
-
-/**
- * Firestore registrar.
- *
- * REST Service Registration
+/** 
+ * HTTPS Endpoint Registrar.
+ * 
+ * @see 
  */
 export class EndpointRegistrar<T, R> extends FunctionRegistrar<T, any>
 {
-  constructor(private _region: FIREBASE_REGIONS = 'europe-west1') { super(); }
+  // private _ctx: HttpsContext;
 
-  register(func: (req: any, resp: any) => Promise<void>): functions.HttpsFunction
+  constructor(private _options: HttpsOptions = { region: 'europe-west1', cors: true }) 
+  { super(); }
+
+  register(func: (req: any, resp: any) => Promise<void>): CloudFunction<CloudEvent<any>> | HttpsFunction
   {
-    return functions.region(this._region).https.onRequest(func);
+    return onRequest(this._options, func);
   }
 
-  before(req: functions.Request, context: any): { data: T; context: HttpsContext; }
+  before(req: any, resp: any): { data: T; context: HttpsContext; }
   {
-    context = context as functions.Response<R>;
-                                                        // Unsafe!!! TODO: Integrate auth security
-    return { data: req.body as any as T, context: { request: req, response: context, eventContext: context, isAuthenticated: false, userId: 'external', environment: process.env as any }};
+    const context = 
+    { 
+      request: req, 
+      response: resp as Response, 
+
+    // Unsafe!!! TODO: Integrate auth security
+      eventContext: { response: resp }, 
+      isAuthenticated: false, userId: 'external', 
+      environment: process.env as any 
+    };
+    // this._ctx = context;
+    
+    return { data: req.body as any as T, context};
   }
 
-  after(result: R, context: HttpsContext): any {
+  /** Send back result to the server */
+  after(result: R, context: HttpsContext): any 
+  {
     return context.response.send(result);
   }
 
   onError(e: Error) {
-    return new Promise((_) => { console.error(e.message); console.error(e.stack); throw e; });
+    console.error(e.message);
+    console.error(e.stack);
+
+    throw e;
+    return new Promise((err) => 'unreachable');
   }
 
 }
