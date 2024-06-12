@@ -24,11 +24,13 @@ export class FallbackMainPageComponent implements OnInit {
   ngOnInit(): void {
     const fallbacks$ =this.fallbackService.getAllFallbacks();
 
-    const bot$ = this.fallbackService.selectedBot$;
+    const bot$ = this.fallbackService.getSelectedBot();
 
     combineLatest([fallbacks$, bot$]).subscribe(([fallbacks, bot])=> {
-      this.fallbacks = fallbacks,
-      this.bot = bot
+      this.fallbacks = fallbacks
+      if(bot) {
+        this.bot = bot
+      }
     })
   }
 

@@ -8,4 +8,4 @@ export enum FallBackActionTypes {
 const allEnumsArray = Object.values(FallBackActionTypes);
 
 /** Array of Fallback action types */
-export const ActionTypesArray = allEnumsArray.splice(0,(allEnumsArray.length/2));
+export const ActionTypesArray = allEnumsArray.splice(0,(allEnumsArray.length));

@@ -19,9 +19,9 @@ export interface Fallback extends IObject {
 
   isGeneralFallback?: boolean;
 
-  moduleId?: string;
-  orgId?: string;
-  botId?: string;
+  moduleId: string;
+  orgId: string;
+  botId: string;
 }
 
 export interface Action {
