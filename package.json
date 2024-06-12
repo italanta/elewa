@@ -86,7 +86,7 @@
     "@nrwl/node": "19.2.3",
     "@nrwl/workspace": "19.2.3",
     "@types/crypto-js": "^4.1.1",
-    "@types/jest": "29.7.0",
+    "@types/jest": "29.5.12",
     "@types/lodash": "^4.14.182",
     "@types/mime-types": "^2.1.1",
     "@types/node": "18.16.9",
