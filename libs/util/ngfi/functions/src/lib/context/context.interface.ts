@@ -1,4 +1,5 @@
 import { Environment, HandlerContext } from '@iote/cqrs';
+import { DecodedIdToken } from 'firebase-admin/auth';
 
 /** Execution context.
  *
@@ -8,7 +9,8 @@ import { Environment, HandlerContext } from '@iote/cqrs';
 export interface FunctionContext extends HandlerContext {
 
   isAuthenticated: boolean;
-  userId: string;
+  userId?: string;
+  userToken?: DecodedIdToken;
 
   eventContext: any;
   params?: any;

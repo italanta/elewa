@@ -1,20 +1,18 @@
 import { Response } from 'express';
+import { DecodedIdToken, getAuth } from 'firebase-admin/auth';
 import { CloudEvent, CloudFunction,  } from 'firebase-functions/v2';
-import { HttpsFunction, HttpsOptions, onRequest } from 'firebase-functions/v2/https';
+import { HttpsFunction, HttpsOptions, onRequest, Request } from 'firebase-functions/v2/https';
 
 import { FunctionRegistrar } from "../function-registrar.interface";
-
 import { HttpsContext } from '../../context/https-context.interface';
 
 /** 
  * HTTPS Endpoint Registrar.
  * 
- * @see 
+ * @see https://firebase.google.com/docs/functions/http-events?gen=2nd
  */
 export class EndpointRegistrar<T, R> extends FunctionRegistrar<T, any>
 {
-  // private _ctx: HttpsContext;
-
   constructor(private _options: HttpsOptions = { region: 'europe-west1', cors: true }) 
   { super(); }
 
@@ -23,19 +21,18 @@ export class EndpointRegistrar<T, R> extends FunctionRegistrar<T, any>
     return onRequest(this._options, func);
   }
 
-  before(req: any, resp: any): { data: T; context: HttpsContext; }
+  async before(req: any, resp: any): Promise<{ data: T; context: HttpsContext; }>
   {
+    const user = await _determineUser(req);
+
     const context = 
     { 
-      request: req, 
-      response: resp as Response, 
-
-    // Unsafe!!! TODO: Integrate auth security
+      isAuthenticated: !!user, userId: user?.id ?? 'noop', 
+      userToken: user,
+      request: req, response: resp as Response, 
       eventContext: { response: resp }, 
-      isAuthenticated: false, userId: 'external', 
       environment: process.env as any 
     };
-    // this._ctx = context;
     
     return { data: req.body as any as T, context};
   }
@@ -43,7 +40,7 @@ export class EndpointRegistrar<T, R> extends FunctionRegistrar<T, any>
   /** Send back result to the server */
   after(result: R, context: HttpsContext): any 
   {
-    return context.response.send(result);
+    return context.response.status(200).send(result);
   }
 
   onError(e: Error) {
@@ -54,4 +51,40 @@ export class EndpointRegistrar<T, R> extends FunctionRegistrar<T, any>
     return new Promise((err) => 'unreachable');
   }
 
+}
+
+/**
+ * Authenticates and identifies the firebase user calling the service, if service is not called anonymously.
+ * 
+ * @param req - Incoming request
+ * @see https://github.com/firebase/functions-samples/blob/main/Node-1st-gen/authorized-https-endpoint/functions/index.js
+ */
+async function _determineUser(req: Request): Promise<DecodedIdToken>
+{
+  // Get ID token according to code sample 
+  let idToken = null;
+  if(req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+    idToken = req.headers.authorization.split('Bearer ')[1];
+  }
+  else if(req.cookies) {
+    idToken = req.cookies.__session;
+  }
+  if(!idToken)
+    return null;
+
+  // Retrieved structurally stored ID token. Verifying token.
+  try {
+    const decodedIdToken = await getAuth().verifyIdToken(idToken);
+    
+    console.log(`Found ID token inside of the Authorisation Bearer`);
+    console.log(decodedIdToken);
+
+    return decodedIdToken;
+  } 
+  catch (error) {
+    console.error('Error while verifying Firebase ID token:');
+    console.log(error);
+
+    return null;
+  }
 }

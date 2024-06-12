@@ -30,7 +30,7 @@ export abstract class FunctionRegistrar<T, R>
   /**
    * Convert params of specific registrar into parameters tailored to FunctionHandler
    */
-  abstract before(dataSnap: any, context: FunctionContext): { data: T, context: FunctionContext };
+  abstract before(dataSnap: any, context: FunctionContext): Promise<{ data: T, context: FunctionContext }>;
 
   /**
    * Wrapper function that wraps a function handler in a cloudfunction of choice..
@@ -39,9 +39,9 @@ export abstract class FunctionRegistrar<T, R>
    */
   wrap(func: (data: T, context: FunctionContext) => Promise<R>): CloudFunction<CloudEvent<T>> | HttpsFunction
   {
-    return this.register((data, context) =>
+    return this.register(async (data, context) =>
     {
-      const params = this.before(data, context);
+      const params = await this.before(data, context);
 
       return func(params.data, params.context)
                 .then((r: R) => this.after(r, params.context))
