@@ -53,6 +53,6 @@ export class FallbackService {
   }
 
   updateFallback(fallback: Fallback) {
-    return this._aff.httpsCallable('updateIntent')(fallback);
+    return this._aff.httpsCallable('editIntent')(fallback);
   }
 }
