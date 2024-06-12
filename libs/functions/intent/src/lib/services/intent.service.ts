@@ -85,7 +85,6 @@ export class IntentService {
     const transitions = page.transitionRoutes || [];
 
     // Only add the transition route(this is the only way of adding the intent to the flow) if it does not exist
-    // if(page.transitionRoutes && page.transitionRoutes.length > 0) {
       let routeExists;
 
       if(page.transitionRoutes && page.transitionRoutes.length > 0) {
@@ -112,9 +111,6 @@ export class IntentService {
     
         await this._pagesClient.updatePage(updatePageRequest);
       }
-    // }
-
-
     
     intent.trainingPhrases = updatedIntent.trainingPhrases;
 
