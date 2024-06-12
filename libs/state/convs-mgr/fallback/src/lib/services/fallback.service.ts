@@ -1,9 +1,12 @@
-import { v4 as uuid } from 'uuid';
-
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
-import { DialogflowCXIntent, Fallback } from '@app/model/convs-mgr/fallbacks';
+import { BehaviorSubject, switchMap } from 'rxjs';
+
+import { Fallback } from '@app/model/convs-mgr/fallbacks';
+import { Bot } from '@app/model/convs-mgr/bots';
+import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 import { FallbackStore } from '../store/fallback.store';
 
@@ -11,7 +14,26 @@ import { FallbackStore } from '../store/fallback.store';
   providedIn: 'root',
 })
 export class FallbackService {
-  constructor(private _fallback$$: FallbackStore, private _aff:  AngularFireFunctions) {}
+  private bot$ = new BehaviorSubject<Bot>({} as any);
+  selectedBot$ = this.bot$.asObservable();
+  
+  constructor(private _fallback$$: FallbackStore, private _botService: BotsStateService, private _router: Router, private _aff:  AngularFireFunctions) {}
+
+  setBot(bot: Bot) {
+    this.bot$.next(bot);
+  }
+
+  getSelectedBot() {
+   return this.selectedBot$.pipe(switchMap((bot)=> {
+    if(Object.keys(bot).length !== 0) {
+      return this.selectedBot$;
+    } else {
+      const botId = this._router.url.split('/')[2];
+
+      return this._botService.getBotById(botId);
+    }
+   }))
+  }
 
   getAllFallbacks() {
     return this._fallback$$.get();
@@ -19,19 +41,7 @@ export class FallbackService {
 
   addFallback(fallback: Fallback) {
 
-    const uniqId = uuid().slice(0,5);
-    const intentId = `${fallback.actionsType}_${uniqId}`;
-    const trainingPhrases = fallback.userInput.map((input)=> ({ text: input}));
-
-    const dialogFlowIntent: DialogflowCXIntent = {
-      name: intentId,
-      displayName: fallback.actionDetails.description,
-      trainingPhrases: trainingPhrases,
-      orgId: fallback.orgId,
-      botId: fallback.botId
-    }
-
-    return this._aff.httpsCallable('createIntent')(dialogFlowIntent);
+    return this._aff.httpsCallable('createIntent')(fallback);
   }
 
   getSpecificFallback(id: string) {
@@ -43,18 +53,6 @@ export class FallbackService {
   }
 
   updateFallback(fallback: Fallback) {
-    const uniqId = uuid().slice(0,5);
-    const intentId = `${fallback.actionsType}_${uniqId}`;
-    const trainingPhrases = fallback.userInput.map((input)=> ({ text: input}));
-
-    const dialogFlowIntent: DialogflowCXIntent = {
-      name: intentId,
-      displayName: fallback.actionDetails.description,
-      trainingPhrases: trainingPhrases,
-      orgId: fallback.orgId,
-      botId: fallback.botId
-    }
-
-    return this._aff.httpsCallable('updateIntent')(dialogFlowIntent);
+    return this._aff.httpsCallable('updateIntent')(fallback);
   }
 }
