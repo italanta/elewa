@@ -1,8 +1,9 @@
-import * as functions from 'firebase-functions';
+import { DatabaseEvent, DataSnapshot, onValueCreated, ReferenceOptions } from 'firebase-functions/v2/database';
 
 import { FIREBASE_REGIONS } from '../regions.type';
 import { FunctionRegistrar } from '../function-registrar.interface';
 import { FunctionContext } from '../../context/context.interface';
+import { CloudFunction } from 'firebase-functions/v2';
 
 
 /**
@@ -17,18 +18,23 @@ export class RealtimeDbCreateRegistrar<T, R> extends FunctionRegistrar<T, R>
    *                       Can be more extensive path e.g. repository of subcollections.
    */
   constructor(protected _documentPath: string,
-              private   _region: FIREBASE_REGIONS = 'europe-west1')
+              private   _region: FIREBASE_REGIONS = 'europe-west1',
+              private _opts?: ReferenceOptions)
   {
     super();
 
   }
 
-  register(func: (dataSnap: any, context: any) => Promise<R>): functions.CloudFunction<any>
+  register(func: (dataSnap: any, context: any) => Promise<R>) : CloudFunction<any>
   {
-    const base = functions.region(this._region)
+    const opts= {
+      ref: this._documentPath,
+      region: this._region,
 
-    // RealtimeDB and Firestore use same middleware, so we can support both with one registrar.
-    return base.database.ref(this._documentPath).onCreate(func);
+      ... this._opts ?? {}
+    } as ReferenceOptions;
+
+    return onValueCreated(opts, (event => func(event.data, event)));
   }
 
   /**
@@ -37,14 +43,20 @@ export class RealtimeDbCreateRegistrar<T, R> extends FunctionRegistrar<T, R>
    * @param data Snapshot of data to create.
    * @param context
    */
-  before(dataSnap: any, context: any): { data: T; context: FunctionContext; }
+  before(dataSnap: any, context: any): Promise<{ data: T; context: FunctionContext; }>
   {
-    const userId = context.auth ? context.auth.uid: null;
+    const event = context as DatabaseEvent<DataSnapshot, Record<string, string>>;
 
-    return {
-      data: dataSnap.val(),
-      context: { eventContext: context, params: context.params, userId, isAuthenticated: userId != null, environment: process.env as any }
-    };
+    return new Promise(resolve => resolve({
+      data: event.data.val() as T,
+      context: { 
+        eventContext: event, 
+        params: event.params,
+
+        isAuthenticated: true,
+        userId: 'root'
+      }
+    }));
   }
 
   after(result: R, context: FunctionContext): any
