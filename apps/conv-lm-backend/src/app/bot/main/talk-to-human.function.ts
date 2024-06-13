@@ -17,7 +17,7 @@ const handler = new TalkToHumanHandler();
  * 
  */
 export const channelTalkToHuman = new ConvLearnFunction('talkToHuman', 
-                                                  new EndpointRegistrar(),  
+                                                  new EndpointRegistrar({ region: 'asia-south1' }),  
                                                   [], 
                                                   handler)
                                .build();

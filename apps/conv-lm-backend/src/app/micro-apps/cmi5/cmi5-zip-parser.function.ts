@@ -7,7 +7,7 @@ import { ConvLearnFunction } from "../../../conv-learn-func.class";
 const handler = new CMI5ZipParser();
 
 export const cmi5ZipParser = new ConvLearnFunction('cmi5ZipParser', 
-                                                  new RestRegistrar(), 
+                                                  new RestRegistrar({ region: 'asia-south1' }), 
                                                   [], 
                                                   handler)
                                .build();
