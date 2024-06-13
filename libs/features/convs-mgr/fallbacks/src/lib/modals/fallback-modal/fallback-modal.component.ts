@@ -1,8 +1,11 @@
 import * as _ from "lodash";
 
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
+import { SubSink } from "subsink";
+
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Bot } from '@app/model/convs-mgr/bots';
 
@@ -14,12 +17,14 @@ import { Observable, switchMap } from 'rxjs';
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { StoryBlocksStore } from "@app/state/convs-mgr/stories/blocks";
 import { ActiveOrgStore } from "@app/private/state/organisation/main";
+import { FallbackService } from "@app/state/convs-mgr/fallback";
+import { FormControlUtilService } from "../../services/form-actions.util";
 @Component({
   selector: 'app-fallback-modal',
   templateUrl: './fallback-modal.component.html',
   styleUrls: ['./fallback-modal.component.scss'],
 })
-export class FallbackModalComponent implements OnInit {
+export class FallbackModalComponent implements OnInit, OnDestroy {
 
   actionTypes = ActionTypesArray;
   fallbackForm: FormGroup;
@@ -30,7 +35,8 @@ export class FallbackModalComponent implements OnInit {
   stories: Story[] = [];
   allStories: Story[] = [];
   blocks: StoryBlock [] = [];
-  blocks$:Observable<StoryBlock[]> | undefined
+  blocks$:Observable<StoryBlock[]> | undefined;
+  private _sBS = new SubSink();
   
   constructor(public dialogRef: MatDialogRef<FallbackModalComponent>, 
               private fb: FormBuilder,
@@ -38,6 +44,8 @@ export class FallbackModalComponent implements OnInit {
               private _storiesService: StoryStateService, 
               private _blockService: StoryBlocksStore, 
               private _activeOrgStore$$: ActiveOrgStore,
+              private _fallbackService: FallbackService,
+              private formControlUtil: FormControlUtilService,
               @Inject(MAT_DIALOG_DATA) public data: { fallback: Fallback, bot: Bot}
             ) {
               if(this.data) {
@@ -62,6 +70,8 @@ export class FallbackModalComponent implements OnInit {
     });
     this.blocks$ = this.getBlocks();
     // this.setBlocks(this.storyId?.value);
+    this.formControlUtil.handleModuleChange(this.fallbackForm);
+    this.formControlUtil.handleActionChange(this.fallbackForm);
   }
 
   setStories(module: any) {
@@ -103,13 +113,15 @@ export class FallbackModalComponent implements OnInit {
       userInput: this.fb.array([]),
       actionsType: ['', Validators.required],
       actionDetails: this.fb.group({
-        description: [''],
+        description: ['', Validators.required],
         storyId: [''],
         block: [''],
         moduleId: ['', Validators.required],
       }),
-      moduleId: ['', Validators.required],
-      active: [false],
+      orgId: this.bot.orgId,
+      botId: this.bot.id,
+      // moduleId: ['', Validators.required],
+      active: [false]
     });
   }
 
@@ -124,6 +136,7 @@ export class FallbackModalComponent implements OnInit {
         block: fallback.actionDetails.block.id || '',
         moduleId: fallback.moduleId || ''
       },
+      orgId: this.bot.orgId,
       botId: this.bot.id,
       moduleId: fallback.moduleId,
       active: fallback.active
@@ -150,5 +163,34 @@ export class FallbackModalComponent implements OnInit {
 
   removeUserInput(index: number): void {
     this.userInput.removeAt(index);
+  }
+
+  handleSubmit() {
+    if (!this.fallbackForm.valid) return;
+  
+    if (!this.fallback) {
+      // Create new fallback
+      this._sBS.sink = this._fallbackService.addFallback(this.fallbackForm.value).subscribe(_res => console.log(_res));
+    } else if(this.fallback.id){
+      // Update existing fallback
+      const fallback = {
+        ...this.fallback,
+        ...this.fallbackForm.value,
+      } as Fallback;
+      this._sBS.sink = this._fallbackService.updateFallback(fallback).subscribe(_res => {
+        console.log(_res)
+      });
+    }
+  
+    this.dialogRef.close();
+  }
+  
+  // subscribing to changes inputs and rendering differnent views accordingly
+  onActionChange(){
+    const action =  this.fallbackForm.controls['actionsType'].valueChanges.subscribe()
+    console.log(action)
+  }
+  ngOnDestroy(): void {
+    this._sBS.unsubscribe();
   }
 }

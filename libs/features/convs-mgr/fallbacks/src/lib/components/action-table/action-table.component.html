@@ -24,7 +24,7 @@
       <td mat-cell *matCellDef="let element; let i=index" class="divider-cell">
         <div class="action" (click)="openModal(i)">
           <span><i class="fa-solid fa-pen"></i> Edit</span>
-          <app-on-off-button></app-on-off-button>
+          <app-on-off-button (click)="stopPropagation($event)"></app-on-off-button>
         </div>
       </td>
     </ng-container>

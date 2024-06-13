@@ -94,6 +94,17 @@
   select{
     padding-right: 4px;
   }
+  .text__input{
+    padding-right: 4px;
+    border: 1px solid var(--convs-mgr-color-3E788A) !important;
+    outline: none !important;
+    width: 87%;
+    padding: 0.4rem;
+    font-size: 14px;
+    border-color: var(--convs-mgr-color-3E788A);
+    outline: none;
+    min-height: 100%;
+  }
 }
 .actions{
   padding-right: 3rem;

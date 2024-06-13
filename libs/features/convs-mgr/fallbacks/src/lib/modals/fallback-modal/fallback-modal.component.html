@@ -21,7 +21,7 @@
       </div>
 
     <div class="user-input-list-item add-keyword">
-      <div class="add-action"><img src="assets/icons/plus-circle.svg"/><span (click)="addUserInput('')">Add Keyword</span></div>
+      <div class="add-action"><div style="width: fit-content;" class="add-action" (click)="addUserInput('')"><img src="assets/icons/plus-circle.svg"/><span>Add Keyword</span></div></div>
     </div>
     </div>
   </div>
@@ -43,6 +43,14 @@
   <div class="action-details" formGroupName="actionDetails">
     <div class="action-header">Action details</div>
     <div class="action-lists">
+
+      <div class="primary-action">
+        <span>Description</span>
+          <div class="dropdown">
+            <input class="text__input" formControlName="description" type="text" name="actions" id="actions"/>
+          </div>
+      </div>
+
       <div class="primary-action">
         <span>Module</span>
           <div class="dropdown">
@@ -74,6 +82,6 @@
   </div>
 
   <div class="update-div">
-    <div class="update-btn"> <span class="btn"> Update </span> </div>
+    <div class="update-btn"> <span class="btn" (click)="handleSubmit()"> Update </span> </div>
   </div>
 </form>

@@ -5,6 +5,7 @@ import { Bot } from '@app/model/convs-mgr/bots';
 import { FallBackActionTypes, Fallback } from '@app/model/convs-mgr/fallbacks';
 import { FallbackModalComponent } from '../../modals/fallback-modal/fallback-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FallbackService } from '@app/state/convs-mgr/fallback';
 
 @Component({
   selector: 'app-action-table',
@@ -12,16 +13,18 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./action-table.component.scss'],
 })
 export class ActionTableComponent implements OnInit {
-  @Input() fallbacks: Fallback[];
+  fallbacks: Fallback[];
   @Input() bot: Bot;
 
   displayedColumns = ['userSays', 'action', 'actionDetails', 'actionButtons']
   dataSource: MatTableDataSource<Fallback>;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog,
+              private fallbackService: FallbackService
+  ) {}
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<Fallback>(this.fallbacks);
+    this.getFallbacks()
   }
 
   openModal(i: number) {
@@ -31,4 +34,17 @@ export class ActionTableComponent implements OnInit {
       data: {fallback: selectedFallBack, bot: this.bot}
     });
   }
+
+  /** Fetching and subscribing to all fall backs data */
+  getFallbacks(){
+    this.fallbackService.getAllFallbacks().subscribe(_fallbacks => {
+      this.fallbacks = _fallbacks
+      this.dataSource = new MatTableDataSource<Fallback>(_fallbacks);
+    })
+  }
+
+  stopPropagation(event: Event): void {
+    event.stopPropagation();
+  }
+  
 }
