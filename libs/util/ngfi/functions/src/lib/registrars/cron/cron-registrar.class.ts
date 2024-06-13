@@ -1,4 +1,4 @@
-import * as functions from 'firebase-functions';
+import { ScheduleOptions, ScheduledEvent, onSchedule } from 'firebase-functions/v2/scheduler';
 
 import { FunctionRegistrar } from "../function-registrar.interface";
 
@@ -19,19 +19,33 @@ export class CronRegistrar extends FunctionRegistrar<{}, void>
    */
   constructor(private _schedule: string,
               private _timezone?: string,
+              private _config?: ScheduleOptions,
               private _region: FIREBASE_REGIONS = 'europe-west1')
   { super(); }
 
   register(func: (dataSnap: any, context: any) => Promise<void>): functions.CloudFunction<any>
   {
-    return functions.region(this._region)
-                    .pubsub.schedule(this._schedule)
-                    .timeZone(this._timezone ? this._timezone : 'Europe/Brussels')
-                    .onRun((ctx) => func({}, ctx));
+    const runConfig: ScheduleOptions = {
+      schedule: this._schedule,
+      region: this._region,
+
+      ... (this._config ?? {})
+    };
+    if(this._timezone)
+      runConfig.timeZone = this._timezone;
+    
+    return onSchedule(runConfig, (event: ScheduledEvent) => func({}, event))
   }
 
-  before(dataSnap: any, context: any): { data: {}, context: FunctionContext; } {
-    return { data: dataSnap, context };
+  before(dataSnap: any, context: any): Promise<{ data: {}, context: FunctionContext; }>
+  {
+    const event = context as ScheduledEvent;
+    const ctx = {
+      eventContext: event,
+      isAuthenticated: true, userId: 'cron-job'
+    } as FunctionContext;
+
+    return new Promise(resolve => resolve({ data: {}, context: ctx }));
   }
 
   after(result: void, _: any): any {
