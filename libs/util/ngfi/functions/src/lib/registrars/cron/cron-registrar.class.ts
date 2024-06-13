@@ -10,7 +10,7 @@ import { FIREBASE_REGIONS } from '../regions.type';
  *
  * CRON JOB Registration
  */
-export class CronRegistrar extends FunctionRegistrar<{}, void>
+export class CronRegistrar extends FunctionRegistrar<any, void>
 {
   /**
    *
@@ -23,7 +23,7 @@ export class CronRegistrar extends FunctionRegistrar<{}, void>
               private _region: FIREBASE_REGIONS = 'europe-west1')
   { super(); }
 
-  register(func: (dataSnap: any, context: any) => Promise<void>): functions.CloudFunction<any>
+  register(func: (dataSnap: any, context: any) => Promise<void>)
   {
     const runConfig: ScheduleOptions = {
       schedule: this._schedule,
@@ -37,7 +37,7 @@ export class CronRegistrar extends FunctionRegistrar<{}, void>
     return onSchedule(runConfig, (event: ScheduledEvent) => func({}, event))
   }
 
-  before(dataSnap: any, context: any): Promise<{ data: {}, context: FunctionContext; }>
+  before(_: any, context: any): Promise<{ data: any, context: FunctionContext; }>
   {
     const event = context as ScheduledEvent;
     const ctx = {
