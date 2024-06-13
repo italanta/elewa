@@ -22,9 +22,10 @@
     <ng-container matColumnDef="actionButtons">
       <th mat-header-cell *matHeaderCellDef class="table-header"></th>
       <td mat-cell *matCellDef="let element; let i=index" class="divider-cell">
-        <div class="action" (click)="openModal(i)">
-          <span><i class="fa-solid fa-pen"></i> Edit</span>
-          <app-on-off-button [isOn]="element.active" (toggle)="setFallbackOn(element, $event)"></app-on-off-button>
+        <div class="action">
+          <span (click)="openModal(i)"><i class="fa-solid fa-pen"></i> Edit</span>
+          <app-on-off-button [isOn]="element.active" (toggle)="setFallbackOn(element)"></app-on-off-button>
+          <span (click)="onDelete(element)"><i class="fa-solid fa-trash"></i></span>
         </div>
       </td>
     </ng-container>

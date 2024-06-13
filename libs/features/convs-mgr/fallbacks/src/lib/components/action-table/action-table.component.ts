@@ -52,15 +52,16 @@ export class ActionTableComponent implements OnInit, OnDestroy {
     })
   }
 
-  stopPropagation(event: Event): void {
-    event.stopPropagation();
-  }
-  
-  setFallbackOn(fallback: Fallback, event: Event): void {
-    this.stopPropagation(event);
+  setFallbackOn(fallback: Fallback){
     fallback.active = !fallback.active;
     this.fallbackService.updateFallback({ ...fallback, active: fallback.active })
       .subscribe();
+  }
+
+  onDelete(fallback: Fallback){
+    this.fallbackService.deleteFallback(fallback).subscribe(()=> {
+      this.dataSource.data.filter((_fallback) => _fallback.id !== fallback.id)
+    })
   }
 
   ngOnDestroy(): void {
