@@ -84,24 +84,33 @@ export class IntentService {
     const [page] = await this._pagesClient.getPage(getPageRequest);
     const transitions = page.transitionRoutes || [];
 
-    const newTransition = {
-      name: `transition_${updatedIntent.name}`,
-      intent: updatedIntent.name,
-      targetPage: pagePath,
-      targetFlow: flowPath
-    };
+    // Only add the transition route(this is the only way of adding the intent to the flow) if it does not exist
+      let routeExists;
 
-    transitions.push(newTransition);
-
-    const updatePageRequest = {
-      name: page.name,
-      page: {
-        ...page,
-        transitionRoutes: transitions,
-      },
-    };
-
-    await this._pagesClient.updatePage(updatePageRequest);
+      if(page.transitionRoutes && page.transitionRoutes.length > 0) {
+        routeExists = page.transitionRoutes.find((route)=> route.name === `transition_${updatedIntent.name}`);
+      }
+      
+      if(!routeExists) {
+        const newTransition = {
+          name: `transition_${updatedIntent.name}`,
+          intent: updatedIntent.name,
+          targetPage: pagePath,
+          targetFlow: flowPath
+        };
+    
+        transitions.push(newTransition);
+    
+        const updatePageRequest = {
+          name: page.name,
+          page: {
+            ...page,
+            transitionRoutes: transitions,
+          },
+        };
+    
+        await this._pagesClient.updatePage(updatePageRequest);
+      }
     
     intent.trainingPhrases = updatedIntent.trainingPhrases;
 
