@@ -27,7 +27,7 @@ export class GCFunction<T, R>
               private _guards   : Guard<T>[],
               private _handler  : FunctionHandler<T,R>)
   {
-    this._logger = getLogger(this._environment);
+    this._logger = getLogger(process.env['PRODUCTION'] === 'TRUE');
     this._tools = {
       Logger: this._logger,
       getRepository: AdminRepositoryFactory.create

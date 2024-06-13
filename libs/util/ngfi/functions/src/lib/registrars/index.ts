@@ -10,4 +10,7 @@ export * from './firestore';
 export * from './realtimedb/realtimedb-create.registrar';
 export * from './realtimedb/realtimedb-write.registrar';
 
+export * from './auth/before-user-created.registrar.class';
+export * from './auth/before-user-logged-in.registrar.class';
+
 export * from './regions.type';
