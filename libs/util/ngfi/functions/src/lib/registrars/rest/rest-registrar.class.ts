@@ -1,9 +1,8 @@
-import * as functions from 'firebase-functions';
+import { CloudEvent, CloudFunction } from 'firebase-functions/v2';
+import { HttpsFunction, onCall, CallableOptions, CallableRequest } from 'firebase-functions/v2/https';
 
 import { FunctionRegistrar } from "../function-registrar.interface";
-
 import { FunctionContext } from "../../context/context.interface";
-import { FIREBASE_REGIONS } from '../regions.type';
 
 /**
  * Firestore registrar.
@@ -12,15 +11,28 @@ import { FIREBASE_REGIONS } from '../regions.type';
  */
 export class RestRegistrar<T, R> extends FunctionRegistrar<T, R>
 {
-  constructor(private _region: FIREBASE_REGIONS = 'europe-west1') { super(); }
+  constructor(private _options: CallableOptions = { region: 'europe-west1', cors: true, }) 
+  { super(); }
 
-  register(func: (dataSnap: any, context: any) => Promise<R>): functions.CloudFunction<any>
+  register(func: (dataSnap: any, context: any) => Promise<R>): CloudFunction<CloudEvent<any>> | HttpsFunction
   {
-    return functions.region(this._region).https.onCall(func);
+    return onCall(this._options, (req: CallableRequest<T>) => func(req.data, req));
   }
 
-  before(dataSnap: any, context: any): { data: T; context: FunctionContext; } {
-    return { data: dataSnap, context };
+  before(dataSnap: any, context: any): Promise<{ data: T; context: FunctionContext; }>
+  {
+    const data = dataSnap as T;
+    const fnCtx  = context as CallableRequest<T>;
+
+    const isAuth = !!fnCtx.auth && fnCtx.auth.uid != null;
+
+    const ctx: FunctionContext = {
+      eventContext: fnCtx,
+      isAuthenticated: isAuth, userId: isAuth ? fnCtx.auth.uid : 'noop',
+      userToken: isAuth ? fnCtx.auth.token : null
+    }
+
+    return new Promise(resolve => resolve({ data, context: ctx }));
   }
 
   after(result: R, _: any): any {
