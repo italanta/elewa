@@ -117,14 +117,14 @@ export class IntentService {
     return intentRepo.update(intent);
   }
 
-  async deleteIntent(intent: DialogflowCXIntent): Promise<string>{
+  async deleteIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<boolean>{
     const deleteIntent = {
       name: intent.name
     }
-    this._client.deleteIntent(deleteIntent);
-    return new Promise((resolve, reject) => {
-      resolve('Intent deleted successfully');
-    });
+    const fallbackRepo = await tools.getRepository(`orgs/${intent.orgId}/fallbacks`);
+
+    await this._client.deleteIntent(deleteIntent);
+    return fallbackRepo.delete(intent.id);
   }
 
 }
