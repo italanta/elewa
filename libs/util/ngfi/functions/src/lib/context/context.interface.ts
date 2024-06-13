@@ -1,4 +1,4 @@
-import { Environment, HandlerContext } from '@iote/cqrs';
+import { HandlerContext } from '@iote/cqrs';
 import { DecodedIdToken } from 'firebase-admin/auth';
 
 /** Execution context.

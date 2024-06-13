@@ -1,3 +1,5 @@
+import { FirestoreEvent, FirestoreAuthEvent } from 'firebase-functions/v2/firestore';
+
 import { FunctionRegistrar } from "../function-registrar.interface";
 import { FirestoreContext } from './context/firestore.context';
 import { FunctionContext } from "../../context/context.interface";
@@ -21,13 +23,18 @@ export abstract class FirestoreRegistrar<T, R> extends FunctionRegistrar<T, R>
    * @param data Snapshot of data to create.
    * @param context
    */
-  before(dataSnap: any, context: any): { data: T; context: FirestoreContext; } {
-    const userId = context.auth ? context.auth.uid : null;
+  before(dataSnap: any, context: any): Promise<{ data: T; context: FirestoreContext; }> 
+  {
+    const eventAuth = context as FirestoreAuthEvent<T>;
+    
+    // @See https://firebase.google.com/docs/functions/firestore-events?gen=2nd#auth-context
+    const userId = eventAuth.authId ? eventAuth.authId: null;
     // TODO: Sync with parent FirestoreUpdateRegistrar. Build smarter super calls.
-    return {
-      data: dataSnap.data(),
-      context: { eventContext: context, userId, isAuthenticated: userId != null, environment: process.env as any }
-    };
+    
+    return new Promise(resolve => resolve({
+      data: dataSnap,
+      context: { eventContext: eventAuth, userId, isAuthenticated: userId != null }
+    }));
   }
 
   onError(e: Error)

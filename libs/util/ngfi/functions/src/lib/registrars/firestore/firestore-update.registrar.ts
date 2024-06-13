@@ -1,9 +1,9 @@
-import * as functions from 'firebase-functions';
+import { CloudFunction } from 'firebase-functions/v2';
+import { DocumentOptions, FirestoreAuthEvent, onDocumentUpdatedWithAuthContext } from 'firebase-functions/v2/firestore';
 
-import { FirestoreRegistrar } from './firestore.registrar';
-
-import { FirestoreUpdateContext } from './context/firestore-update.context';
 import { FIREBASE_REGIONS } from '../regions.type';
+import { FirestoreRegistrar } from './firestore.registrar';
+import { FirestoreUpdateContext } from './context/firestore-update.context';
 
 
 /**
@@ -16,11 +16,16 @@ export class FirestoreUpdateRegistrar<T, R> extends FirestoreRegistrar<T, R>
    *
    * @param documentPath - Path to document e.g. 'prospects/{prospectId}'.
    *                       Can be more extensive path e.g. repository of subcollections.
+   * 
+   * @param _withMerge - If true, the result of the function will be stored on the object
+   * @param _mergeName - Required to be filled and non-empty when _withMerge is set.
+   *                     Name of the attribute to update with function result when function completes.
    */
   constructor(documentPath: string,
-              protected _withMerge: boolean = false,
-              protected _mergeName: string  = '',
-              private _region: FIREBASE_REGIONS = 'europe-west1')
+              protected _withMerge = false,
+              protected _mergeName = '',
+              private _region: FIREBASE_REGIONS = 'europe-west1',
+              private _options?: DocumentOptions)
   {
     super(documentPath);
 
@@ -29,11 +34,20 @@ export class FirestoreUpdateRegistrar<T, R> extends FirestoreRegistrar<T, R>
       throw new Error(`Firestore Update Registrar compile error for documentPath ${documentPath}. Passed _withMerge as true but no _mergeName.`);
   }
 
-  register(func: (dataSnap: any, context: any) => Promise<R>): functions.CloudFunction<any>
+  register(func: (dataSnap: any, context: any) => Promise<R>): CloudFunction<any>
   {
-    return functions.region(this._region)
-                    .firestore.document(this._documentPath)
-                    .onUpdate(func);
+    const opts = { 
+      document: this._documentPath, 
+      region: this._region,
+      ... this._options ?? {}
+    } as DocumentOptions;
+
+    return onDocumentUpdatedWithAuthContext
+    ( 
+      opts, 
+      (event) => func(event.data.after.data() as T, event)
+   
+    ) as CloudFunction<any>;
   }
 
   /**
@@ -42,17 +56,23 @@ export class FirestoreUpdateRegistrar<T, R> extends FirestoreRegistrar<T, R>
    * @param data Snapshot of data to create.
    * @param context
    */
-  before(dataSnap: any, context: any): { data: T; context: FirestoreUpdateContext; }
+  before(dataSnap: any, context: any): Promise<{ data: T; context: FirestoreUpdateContext; }>
   {
-    const userId = context.auth ? context.auth.uid: null;
+    const eventAuth = context as FirestoreAuthEvent<T>;
+    
+    // @See https://firebase.google.com/docs/functions/firestore-events?gen=2nd#auth-context
+    const userId = eventAuth.authId ? eventAuth.authId: null;
+    // TODO: Sync with parent FirestoreUpdateRegistrar. Build smarter super calls.
+    
+    const ctx = { change: dataSnap, eventContext: eventAuth, userId, isAuthenticated: userId != null } as FirestoreUpdateContext;
 
     const before = dataSnap.before.data();
-    if (before) { context.before = before; }
+    if (before) { ctx.before = before; }
 
-    return {
+    return new Promise(resolve => resolve({
       data: dataSnap.after.data(),
-      context: { change: dataSnap, eventContext: context, userId, isAuthenticated: userId != null, environment: process.env as any }
-    };
+      context: ctx
+    }));
   }
 
   after(result: R, context: FirestoreUpdateContext): any
