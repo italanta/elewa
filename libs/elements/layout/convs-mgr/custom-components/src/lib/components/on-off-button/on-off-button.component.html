@@ -1,4 +1,4 @@
-<div class="btn-wrapper" [class.on]="isOn" (click)="toggle()">
+<div class="btn-wrapper" [class.on]="isOn" (click)="onClick($event)">
   <div class="circle"></div>
   <span class="text-toggle">{{ isOn ? 'ON' : 'OFF' }}</span>
 </div>

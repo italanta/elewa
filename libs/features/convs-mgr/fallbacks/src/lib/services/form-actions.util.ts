@@ -5,6 +5,8 @@ import { distinctUntilChanged } from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
+
+/** This util service helps in setting actions on the fallback form depending on selected actions */
 export class FormControlUtilService {
 
   constructor() {}
@@ -49,6 +51,7 @@ export class FormControlUtilService {
     });
   }
 
+  /** reset controls every time there is a change to enable for new selection */
   private resetFormControls(form: FormGroup): void {
     form?.get('actionDetails.storyId')?.reset();
     form?.get('actionDetails.block')?.reset();
@@ -56,6 +59,7 @@ export class FormControlUtilService {
     form?.get('actionDetails.block')?.disable();
   }
 
+  /** Whick control is enabled depending on the selected action */
   private enableFormControlsBasedOnAction(form: FormGroup): void {
     const action = form?.get('actionsType')?.value;
     switch (action) {

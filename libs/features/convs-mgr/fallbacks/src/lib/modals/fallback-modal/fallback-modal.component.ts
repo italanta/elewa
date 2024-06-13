@@ -170,26 +170,19 @@ export class FallbackModalComponent implements OnInit, OnDestroy {
   
     if (!this.fallback) {
       // Create new fallback
-      this._sBS.sink = this._fallbackService.addFallback(this.fallbackForm.value).subscribe(_res => console.log(_res));
+      this._sBS.sink = this._fallbackService.addFallback(this.fallbackForm.value).subscribe();
     } else if(this.fallback.id){
       // Update existing fallback
       const fallback = {
         ...this.fallback,
         ...this.fallbackForm.value,
       } as Fallback;
-      this._sBS.sink = this._fallbackService.updateFallback(fallback).subscribe(_res => {
-        console.log(_res)
-      });
+      this._sBS.sink = this._fallbackService.updateFallback(fallback).subscribe();
     }
   
     this.dialogRef.close();
   }
   
-  // subscribing to changes inputs and rendering differnent views accordingly
-  onActionChange(){
-    const action =  this.fallbackForm.controls['actionsType'].valueChanges.subscribe()
-    console.log(action)
-  }
   ngOnDestroy(): void {
     this._sBS.unsubscribe();
   }
