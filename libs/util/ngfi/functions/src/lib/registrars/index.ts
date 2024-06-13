@@ -13,4 +13,9 @@ export * from './realtimedb/realtimedb-write.registrar';
 export * from './auth/before-user-created.registrar.class';
 export * from './auth/before-user-logged-in.registrar.class';
 
+export * from './storage/new-object.registrar.class';
+export * from './storage/object-deleted.registrar.class';
+
+
+
 export * from './regions.type';
