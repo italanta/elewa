@@ -19,7 +19,7 @@ export class DeleteIntentHandler extends FunctionHandler<DialogflowCXIntent, Res
     this._intentService = new IntentService();
     tools.Logger.log(() => `[CreateIntentHandler] - Creating Intent: ${JSON.stringify(req)}`);
     try {
-      const deleteResult = await this._intentService.deleteIntent(req);
+      const deleteResult = await this._intentService.deleteIntent(req, tools);
       return { status: 200, message: deleteResult } as unknown as RestResult;
     } catch (e){
       tools.Logger.log(() => `[CreateIntentHandler] - Error Creating Intent: ${JSON.stringify(e)}`);
