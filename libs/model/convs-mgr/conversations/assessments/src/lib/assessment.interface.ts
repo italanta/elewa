@@ -2,6 +2,7 @@ import { Story } from "@app/model/convs-mgr/stories/main";
 
 export interface Assessment extends Story {
     title: string,
+    instructions: string[],
     description: string,
     orgId: string,
     configs?: AssessmentConfiguration,

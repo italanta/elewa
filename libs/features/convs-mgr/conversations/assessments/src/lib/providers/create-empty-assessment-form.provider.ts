@@ -5,6 +5,7 @@ export function CREATE_EMPTY_ASSESSMENT_FORM(_fb: FormBuilder) {
   return _fb.group({
     // main part of form
     title: [''],
+    instructions: [[]],
     description: [''],
 
     questionsOrder: [[]],
@@ -23,6 +24,7 @@ export function CREATE_EMPTY_ASSESSMENT_FORM(_fb: FormBuilder) {
 export function DEFAULT_ASSESSMENT(): Assessment {
   return {
     title: '',
+    instructions: [],
     orgId: '',
     description: '',
     configs: {
