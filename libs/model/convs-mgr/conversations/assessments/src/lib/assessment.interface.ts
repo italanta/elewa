@@ -21,7 +21,8 @@ export interface AssessmentMetrics {
 
 export interface AssessmentConfiguration{
     feedback: FeedbackType,
-    userAttempts?: number
+    userAttempts?: number,
+    retryType?: RetryType,
 }
 
 export interface ScoreCategory{
@@ -41,4 +42,16 @@ export enum CategoryType{
     Fail = 1,
     Pass = 2,
     Exceptional = 3
+}
+
+/** Mode of retry allowed, if any */
+export enum RetryType {
+    Default = 1,
+    OnScore = 2
+}
+
+/** How may questions to display per page */
+export enum QuestionDisplayed {
+    Single = 1,
+    Multiple = 2
 }

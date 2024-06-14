@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { Assessment, FeedbackType } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment, FeedbackType, QuestionDisplayed, RetryType } from '@app/model/convs-mgr/conversations/assessments';
 
 @Component({
   selector: 'app-assessment-config',
@@ -14,9 +14,19 @@ export class AssessmentConfigComponent {
   @Input() assessmentFormGroup: FormGroup;
 
   @Input() previewMode: boolean;
+  /** If a user can retry an assignment  */
+  retry: boolean
 
+  /** Radio control values */
   immediateFeedback = FeedbackType.Immediately;
   onEndFeedback = FeedbackType.OnEnd;
   noFeedback = FeedbackType.Never;
+  defaultRetry = RetryType.Default
+  scoreRetry = RetryType.OnScore
+  singleDisplay = QuestionDisplayed.Single
+  multipleDisplay = QuestionDisplayed.Multiple
   
+  toggleRetry(){
+    this.retry = !this.retry
+  }
 }
