@@ -37,7 +37,11 @@
 				gap: 15%;
 
 				input{
-					width: 40px;
+					width: 45px;
+					height: 23px;
+					outline: none;
+					border: 1px solid gray;
+					border-radius: 4px;
 				}
 			}
 			.score-config{
@@ -50,11 +54,15 @@
 					justify-content: space-between;
 					align-items: center;
 					padding-left: 8%;
-					padding-right: 47.8%;
+					padding-right: 47.5%;
 					padding-top: 0.5rem;
 
 					input{
-						width: 40px;
+						width: 45px;
+						height: 23px;
+						outline: none;
+						border: 1px solid gray;
+						border-radius: 4px;
 					}
 				}
 			}

@@ -19,8 +19,14 @@ export class AssessmentFormService {
       instructions: [assessment?.instructions ?? ''],
       questionsOrder: [assessment?.questionsOrder ?? []],
       configs: this._formBuilder.group({
-        feedback: [assessment!.configs?.feedback ?? ''],
-        userAttempts: [assessment!.configs?.userAttempts ?? '']
+        feedback: [assessment.configs?.feedback ?? ''],
+        userAttempts: [assessment.configs?.userAttempts ?? ''],
+        questionsDisplay: [assessment.configs?.questionsDisplay ?? ''],
+        retryType: [assessment.configs?.retryType ?? ''],
+        scoreAttempts: this._formBuilder.group({
+          minScore: [''],
+          userAttempts: [''],
+        }),
       }),
       questions: this._formBuilder.array([])
     });

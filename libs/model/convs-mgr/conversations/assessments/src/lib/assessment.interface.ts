@@ -23,6 +23,9 @@ export interface AssessmentConfiguration{
     feedback: FeedbackType,
     userAttempts?: number,
     retryType?: RetryType,
+    questionsDisplay: QuestionDisplayed,
+    /** User attempts based on scores */
+    scoreAttempts?: ScoreAttempType,
 }
 
 export interface ScoreCategory{
@@ -54,4 +57,9 @@ export enum RetryType {
 export enum QuestionDisplayed {
     Single = 1,
     Multiple = 2
+}
+
+export interface ScoreAttempType {
+    minScore: number, 
+    userAttemps: number,
 }

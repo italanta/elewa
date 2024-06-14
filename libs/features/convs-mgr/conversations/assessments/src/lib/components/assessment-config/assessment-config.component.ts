@@ -29,4 +29,7 @@ export class AssessmentConfigComponent {
   toggleRetry(){
     this.retry = !this.retry
   }
+
+  
+
 }
