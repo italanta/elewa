@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { Assessment, FeedbackType, QuestionDisplayed, RetryType } from '@app/model/convs-mgr/conversations/assessments';
@@ -8,7 +8,7 @@ import { Assessment, FeedbackType, QuestionDisplayed, RetryType } from '@app/mod
   templateUrl: './assessment-config.component.html',
   styleUrls: ['./assessment-config.component.scss'],
 })
-export class AssessmentConfigComponent {
+export class AssessmentConfigComponent implements OnInit{
   @Input() assessment: Assessment;
   @Input() assessmentMode: number
   @Input() assessmentFormGroup: FormGroup;
@@ -25,11 +25,23 @@ export class AssessmentConfigComponent {
   scoreRetry = RetryType.OnScore
   singleDisplay = QuestionDisplayed.Single
   multipleDisplay = QuestionDisplayed.Multiple
+
+  ngOnInit(): void {
+    this.retry = this.assessmentFormGroup?.get('configs.canRetry')?.value;
+  }
   
   toggleRetry(){
-    this.retry = !this.retry
+    const canRetry = this.assessmentFormGroup?.get('configs.canRetry')?.value;
+    this.assessmentFormGroup.get('configs.canRetry')?.setValue(!canRetry);
+    this.retry = !canRetry;
   }
 
-  
+  get isDefaultRetrySelected(): boolean {
+    return this.assessmentFormGroup?.get('configs.retryType')?.value === this.defaultRetry;
+  }
+
+  get isScoreRetrySelected(): boolean {
+    return this.assessmentFormGroup?.get('configs.retryType')?.value === this.scoreRetry;
+  }
 
 }

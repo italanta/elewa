@@ -20,12 +20,13 @@ export class AssessmentFormService {
       questionsOrder: [assessment?.questionsOrder ?? []],
       configs: this._formBuilder.group({
         feedback: [assessment.configs?.feedback ?? ''],
+        canRetry: [assessment.configs?.canRetry ?? false],
         userAttempts: [assessment.configs?.userAttempts ?? ''],
         questionsDisplay: [assessment.configs?.questionsDisplay ?? ''],
         retryType: [assessment.configs?.retryType ?? ''],
         scoreAttempts: this._formBuilder.group({
-          minScore: [''],
-          userAttempts: [''],
+          minScore: [assessment.configs?.scoreAttempts?.minScore ?? ''],
+          userAttempts: [assessment.configs?.scoreAttempts?.userAttempts ?? ''],
         }),
       }),
       questions: this._formBuilder.array([])

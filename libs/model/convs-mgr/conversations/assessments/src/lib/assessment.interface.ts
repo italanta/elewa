@@ -22,6 +22,8 @@ export interface AssessmentMetrics {
 export interface AssessmentConfiguration{
     feedback: FeedbackType,
     userAttempts?: number,
+    /** Is a user allowed to retake an assessment */
+    canRetry: boolean
     retryType?: RetryType,
     questionsDisplay: QuestionDisplayed,
     /** User attempts based on scores */
@@ -61,5 +63,5 @@ export enum QuestionDisplayed {
 
 export interface ScoreAttempType {
     minScore: number, 
-    userAttemps: number,
+    userAttempts: number,
 }

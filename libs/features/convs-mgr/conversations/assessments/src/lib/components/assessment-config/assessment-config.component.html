@@ -42,9 +42,9 @@
             </div>
         </div>
         <div class="assessment-config">
-            <div class="enable-retrial" >
+            <div class="enable-retrial">
                 <h5>{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.ENABLE-RETRIAL' | transloco}}</h5> 
-                <mat-slide-toggle (change)="toggleRetry()"></mat-slide-toggle>
+                <mat-slide-toggle formControlName="canRetry" (change)="toggleRetry()"></mat-slide-toggle>
             </div>
             <span> {{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-TEXT' | transloco}}</span>
             <div class="retrial-allowed" *ngIf="retry">
@@ -52,15 +52,17 @@
                 <mat-radio-group formControlName="retryType" fxLayout="column" fxLayoutAlign="start">
                     <mat-radio-button [value]="defaultRetry">{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.DEFAULT.DEFAULT-TEXT' |
                         transloco}}</mat-radio-button>
+                        <div class="retry-configs">
+                            <div class="default-config" *ngIf="isDefaultRetrySelected">
+                                <span>{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.DEFAULT.TRIAL-NOS' | transloco}}</span>
+                                <input formControlName="userAttempts" type="number"/>
+                            </div>
+                        </div>    
                     <mat-radio-button [value]="scoreRetry">{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.ON-SCORE.SCORE-TEXT' |
                         transloco}}</mat-radio-button>
                 </mat-radio-group>
-                <div class="retry-configs" *ngIf="defaultRetry">
-                    <div class="default-config">
-                        <span>{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.DEFAULT.TRIAL-NOS' | transloco}}</span>
-                        <input formControlName="userAttempts" type="number"/>
-                    </div>
-                    <div class="score-config" *ngIf="scoreRetry" formGroupName="scoreAttempts">
+                <div class="retry-configs">
+                    <div class="score-config" *ngIf="isScoreRetrySelected" formGroupName="scoreAttempts">
                         <div class="score-descs">
                             <span>{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.ON-SCORE.MINIMUM-SCORE' | transloco}}</span>
                             <input formControlName="minScore" type="number"/>

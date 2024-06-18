@@ -37,10 +37,11 @@ export function DEFAULT_ASSESSMENT(): Assessment {
       feedback: 1,
       userAttempts: 1,
       retryType: 1,
+      canRetry: false,
       questionsDisplay: 1,
       scoreAttempts: {
         minScore: 1,
-        userAttemps: 1
+        userAttempts: 1
       }
     },
   }
