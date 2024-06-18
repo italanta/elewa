@@ -55,7 +55,7 @@
                         <div class="retry-configs">
                             <div class="default-config" *ngIf="isDefaultRetrySelected">
                                 <span>{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.DEFAULT.TRIAL-NOS' | transloco}}</span>
-                                <input formControlName="userAttempts" type="number"/>
+                                <input formControlName="userAttempts" type="number" min="0" max="100"/>
                             </div>
                         </div>    
                     <mat-radio-button [value]="scoreRetry">{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.ON-SCORE.SCORE-TEXT' |
@@ -65,11 +65,11 @@
                     <div class="score-config" *ngIf="isScoreRetrySelected" formGroupName="scoreAttempts">
                         <div class="score-descs">
                             <span>{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.ON-SCORE.MINIMUM-SCORE' | transloco}}</span>
-                            <input formControlName="minScore" type="number"/>
+                            <input formControlName="minScore" type="number" min="0" max="100"/>
                         </div>
                         <div class="score-descs">
                             <span>{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.ON-SCORE.TRIAL-NOS' | transloco}}</span>
-                            <input formControlName="userAttempts" type="number"/>
+                            <input formControlName="userAttempts" type="number" min="0"/>
                         </div>
                     </div>
                 </div>
