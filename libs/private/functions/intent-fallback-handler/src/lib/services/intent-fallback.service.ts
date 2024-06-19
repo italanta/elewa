@@ -35,6 +35,9 @@ export class IntentFallbackService {
       const [dialogflowResponse] = await dialogflowClient.detectIntent(request);
 
       const detectedIntent = dialogflowResponse.queryResult.intent;
+      
+      this.handlerTools.Logger.log(()=> `"Detected Intent :: ${JSON.stringify(detectedIntent)}`);
+
       const confidence = dialogflowResponse.queryResult.intentDetectionConfidence;
       const THRESHOLD = parseInt(LOW_CONFIDENCE_THRESHOLD as string);
       if (!detectedIntent || confidence < THRESHOLD) {
