@@ -9,7 +9,7 @@ import { SubSink } from "subsink";
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Bot } from '@app/model/convs-mgr/bots';
 
-import { ActionTypesArray, Fallback } from '@app/model/convs-mgr/fallbacks';
+import { ActionTypesArray, FallBackActionTypes, Fallback, RouteAction } from '@app/model/convs-mgr/fallbacks';
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 import { StoryStateService } from '@app/state/convs-mgr/stories';
@@ -115,7 +115,7 @@ export class FallbackModalComponent implements OnInit, OnDestroy {
       actionDetails: this.fb.group({
         description: ['', Validators.required],
         storyId: [''],
-        block: [''],
+        blockId: [''],
         moduleId: ['', Validators.required],
       }),
       orgId: this.bot.orgId,
@@ -132,8 +132,8 @@ export class FallbackModalComponent implements OnInit, OnDestroy {
       actionsType: fallback.actionsType,
       actionDetails: {
         description: fallback.actionDetails?.description || '',
-        storyId: fallback.actionDetails.storyId || '',
-        block: fallback.actionDetails.block.id || '',
+        storyId: fallback.actionDetails?.storyId || '',
+        blockId: fallback.actionDetails?.blockId || '',
         moduleId: fallback.moduleId || ''
       },
       orgId: this.bot.orgId,
@@ -168,19 +168,27 @@ export class FallbackModalComponent implements OnInit, OnDestroy {
   handleSubmit() {
     if (!this.fallbackForm.valid) return;
   
-    if (!this.fallback) {
+      // Update existing fallback    
+      if(this.data && this.data.fallback) {
+        const fallback = {
+          ...this.fallback,
+          ...this.fallbackForm.value,
+        };
+
+        
+        this._sBS.sink = this._fallbackService.updateFallback(fallback).subscribe(()=> this.dialogRef.close());
+      } else {
       // Create new fallback
-      this._sBS.sink = this._fallbackService.addFallback(this.fallbackForm.value).subscribe();
-    } else if(this.fallback.id){
-      // Update existing fallback
+
       const fallback = {
-        ...this.fallback,
         ...this.fallbackForm.value,
-      } as Fallback;
-      this._sBS.sink = this._fallbackService.updateFallback(fallback).subscribe();
-    }
-  
-    this.dialogRef.close();
+        active: true
+      };
+
+      this._sBS.sink = this._fallbackService.addFallback(fallback)
+                          .pipe(switchMap((newFB)=> this._fallbackService.updateFallback(newFB)))
+                            .subscribe(()=> this.dialogRef.close());
+      }
   }
   
   ngOnDestroy(): void {

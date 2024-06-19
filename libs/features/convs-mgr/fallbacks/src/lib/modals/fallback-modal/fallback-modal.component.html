@@ -72,7 +72,7 @@
       <div class="primary-action">
         <span>Block</span>
           <div class="dropdown">
-            <select name="actions" id="actions" class="actions" formControlName="block">
+            <select name="actions" id="actions" class="actions" formControlName="blockId">
               <option [value]="null">Select Block</option>
               <option *ngFor="let block of blocks$ | async" [value]="block.id">{{block.message || block.id}}</option>
             </select>

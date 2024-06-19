@@ -4,11 +4,13 @@ import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 import { BehaviorSubject, switchMap } from 'rxjs';
 
-import { Fallback } from '@app/model/convs-mgr/fallbacks';
+import { FallBackActionTypes, Fallback, RouteAction } from '@app/model/convs-mgr/fallbacks';
 import { Bot } from '@app/model/convs-mgr/bots';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 import { FallbackStore } from '../store/fallback.store';
+import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +19,7 @@ export class FallbackService {
   private bot$ = new BehaviorSubject<Bot>({} as any);
   selectedBot$ = this.bot$.asObservable();
   
-  constructor(private _fallback$$: FallbackStore, private _botService: BotsStateService, private _router: Router, private _aff:  AngularFireFunctions) {}
+  constructor(private _fallback$$: FallbackStore, private _blockService: StoryBlocksStore, private _activeOrgStore$$: ActiveOrgStore, private _botService: BotsStateService, private _router: Router, private _aff:  AngularFireFunctions) {}
 
   setBot(bot: Bot) {
     this.bot$.next(bot);
@@ -49,10 +51,31 @@ export class FallbackService {
   }
 
   deleteFallback(fallback: Fallback) {
-    return this._fallback$$.remove(fallback);
+    return this._aff.httpsCallable('deleteIntent')(fallback);
   }
 
   updateFallback(fallback: Fallback) {
-    return this._aff.httpsCallable('editIntent')(fallback);
+
+    if(fallback.actionsType === FallBackActionTypes.Route) {
+      const routeAction = fallback.actionDetails as RouteAction;
+      const storyId = routeAction.storyId;
+      const org$ = this._activeOrgStore$$.get();
+      
+        return org$.pipe(switchMap((org)=> this._blockService.getBlocksByStory(storyId, org.id)))
+          .pipe(switchMap((blocks)=> {
+            const block = blocks.filter((b)=> b.id === (fallback.actionDetails as RouteAction).blockId);
+
+            routeAction.block = block[0];
+
+            fallback.actionDetails = routeAction;
+
+            return this._aff.httpsCallable('editIntent')(fallback);
+          }));
+
+    } else {
+      return this._aff.httpsCallable('editIntent')(fallback);
+    }
+
+    
   }
 }
