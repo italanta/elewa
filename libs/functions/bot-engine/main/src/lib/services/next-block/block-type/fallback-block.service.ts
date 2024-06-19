@@ -139,6 +139,8 @@ export class FallBackBlockService
 
     const intent = await intentFallBackService.detectIntentAndRespond((message as TextMessage).text, userInputs, endUserId);
 
+    this._handlerTools.Logger.log(()=> `Detected Intent :: ${JSON.stringify(intent)}`);
+
     if(intent) {
       const intentId = intent.name.split("/").join("_");
       const intentResponse = await intentRepo.getDocumentById(intentId);

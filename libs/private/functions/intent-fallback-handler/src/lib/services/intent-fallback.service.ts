@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 
 import { HandlerTools } from '@iote/cqrs';
 
-const LOW_CONFIDENCE_THRESHOLD = process.env.LOW_CONFIDENCE_THRESHOLD || 0.3;
+const LOW_CONFIDENCE_THRESHOLD = process.env.LOW_CONFIDENCE_THRESHOLD || 0.5;
 
 export class IntentFallbackService {
   apiEndpoint = `${process.env.LOCATION}-dialogflow.googleapis.com`;
@@ -35,11 +35,15 @@ export class IntentFallbackService {
       const [dialogflowResponse] = await dialogflowClient.detectIntent(request);
 
       const detectedIntent = dialogflowResponse.queryResult.intent;
-
+      
       console.log(`Detection Response :: ${JSON.stringify(dialogflowResponse)}`);
 
+      
       const confidence = dialogflowResponse.queryResult.intentDetectionConfidence;
       const THRESHOLD = parseInt(LOW_CONFIDENCE_THRESHOLD as string);
+
+      console.log('Confidence ::', confidence);
+
       if (!detectedIntent || confidence < THRESHOLD) {
         return null;
         // TODO: Design a fallback strategy for Gemini
