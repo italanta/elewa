@@ -139,7 +139,7 @@ export class FallBackBlockService
 
     const intent = await intentFallBackService.detectIntentAndRespond((message as TextMessage).text, userInputs, endUserId);
 
-    if(intent && typeof(intent) !== 'number') {
+    if(intent) {
       const intentId = intent.name.split("/").join("_");
       const intentResponse = await intentRepo.getDocumentById(intentId);
       const action = intentResponse.actionsType;
@@ -159,6 +159,9 @@ export class FallBackBlockService
         nextBlock = lastBlock;
         newCursor.position.blockId = nextBlock.id;
       }
+    } else {
+      // Return the old fallback options, as we come up with a better Generative AI fallback strategy
+      return this.oldFallBack(channel, currentCursor, blockDataService, message);
     }
     return {
       nextBlock,
