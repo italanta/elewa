@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withJsonpSupport } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { GoogleMapsModule } from '@angular/google-maps';
 
@@ -17,26 +17,14 @@ import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/bloc
 import { LocationBlockComponent } from './components/location-block/location-block.component';
 import { LocationBlockMapComponent } from './components/location-block-map/location-block-map.component';
 
-@NgModule({
-  imports: [
-    CommonModule,
-    MultiLangModule,
-    MaterialDesignModule,
-    FlexLayoutModule,
-    MaterialBricksModule,
-
-    FormsModule,
-    ReactiveFormsModule,
-
-    GoogleMapsModule,
-    HttpClientModule,
-    HttpClientJsonpModule,
-
-    ConvsMgrBlockOptionsModule,
-  ],
-
-  declarations: [LocationBlockComponent, LocationBlockMapComponent],
-
-  exports: [LocationBlockComponent],
-})
+@NgModule({ declarations: [LocationBlockComponent, LocationBlockMapComponent],
+    exports: [LocationBlockComponent], imports: [CommonModule,
+        MultiLangModule,
+        MaterialDesignModule,
+        FlexLayoutModule,
+        MaterialBricksModule,
+        FormsModule,
+        ReactiveFormsModule,
+        GoogleMapsModule,
+        ConvsMgrBlockOptionsModule], providers: [provideHttpClient(withInterceptorsFromDi(), withJsonpSupport())] })
 export class ConvsMgrLocationMessageBlockModule {}
