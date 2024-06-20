@@ -80,10 +80,10 @@ export class ProcessMessageService
                 .handleBlock(null, currentCursor, orgId, endUser, msg);
     }
 
-    // if(isFallBack(lastBlockId)) {
-    //   // Return cursor and block fallbacks
-    //   return this.fallBackService.fallBack(this.channel, currentCursor, this._blockService$, msg);
-    // }
+    if(isFallBack(lastBlockId)) {
+      // Return cursor and block fallbacks
+      return this.fallBackService.legacyFallback(this.channel, currentCursor, this._blockService$, msg);
+    }
 
     const lastBlock = await this._blockService$.getBlockById(lastBlockId, orgId, currentStory);
 
@@ -160,7 +160,7 @@ export class ProcessMessageService
     }
     
     if(updatePosition && !updatePosition.lastBlock) {
-      return this.fallBackService.fallBack(this.channel, currentCursor, endUserId, this._blockService$, msg);
+      return this.fallBackService.fallBack(this.channel, currentCursor, currentBlock, endUserId, this._blockService$, msg);
       // const nextBlock = this.fallBackService.getBlock(currentBlock.id);
       // currentCursor.position.blockId = nextBlock.id;s
 
@@ -178,7 +178,7 @@ export class ProcessMessageService
       // Gets the fallback block if the engine failed to get the next block
       // nextBlock = this.fallBackService.getBlock(currentBlock.id);
       // newCursor.position.blockId = nextBlock.id;
-      return this.fallBackService.fallBack(this.channel, currentCursor, endUserId, this._blockService$, msg);
+      return this.fallBackService.fallBack(this.channel, currentCursor, currentBlock, endUserId, this._blockService$, msg);
     }
 
     return {newCursor, nextBlock};

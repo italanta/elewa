@@ -114,7 +114,7 @@ export class FallBackBlockService
     };
   }
  
-  async fallBack(channel: CommunicationChannel, currentCursor: Cursor, endUserId: string, blockDataService: BlockDataService, message: Message){
+  async fallBack(channel: CommunicationChannel, lastBlock: StoryBlock, currentCursor: Cursor, endUserId: string, blockDataService: BlockDataService, message: Message){
     this._handlerTools.Logger.log(()=> `[FallBackBlockService].fallback - Fallback triggered for message ${JSON.stringify(message)}`);
 
     let nextBlock: StoryBlock;
@@ -166,7 +166,8 @@ export class FallBackBlockService
       }
     } else {
       // Return the old fallback options, as we come up with a better Generative AI fallback strategy
-      return this.legacyFallback(channel, currentCursor, blockDataService, message);
+      nextBlock = this.getBlock(lastBlock.id);
+      newCursor.position.blockId = nextBlock.id;
     }
     return {
       nextBlock,
