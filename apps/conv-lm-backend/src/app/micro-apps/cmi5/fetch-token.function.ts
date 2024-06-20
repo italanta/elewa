@@ -7,7 +7,7 @@ import { ConvLearnFunction } from "../../../conv-learn-func.class";
 const handler = new FetchAuthToken();
 
 export const cmi5FetchToken = new ConvLearnFunction('cmi5FetchToken', 
-                                                  new EndpointRegistrar({ region: 'asia-south1' }), 
+                                                  new EndpointRegistrar('asia-south1'), 
                                                   [], 
                                                   handler)
                                .build();

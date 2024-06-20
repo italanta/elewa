@@ -7,7 +7,7 @@ import { ConvLearnFunction } from "../../../conv-learn-func.class";
 const handler = new CMI5Listener();
 
 export const cmi5Listener= new ConvLearnFunction('cmi5Listener', 
-                                                  new EndpointRegistrar({ region: 'asia-south1' }), 
+                                                  new EndpointRegistrar('asia-south1'), 
                                                   [], 
                                                   handler)
                                .build();

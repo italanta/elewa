@@ -16,7 +16,7 @@ const handler = new CheckInactivityHandler();
  * 
  */
 export const checkInactivity = new ConvLearnFunction('checkInactivity', 
-                                                  new RestRegistrar({ region: 'asia-south1' }), 
+                                                  new RestRegistrar('asia-south1'), 
                                                   [], 
                                                   handler)
                                .build();

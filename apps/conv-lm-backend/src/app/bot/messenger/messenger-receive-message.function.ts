@@ -16,7 +16,7 @@ const handler = new MessengerReceiveMsgHandler();
  * 
  */
 export const channelMessengerReceiveMsg = new ConvLearnFunction('channelMessengerReceiveMsg', 
-                                                  new EndpointRegistrar({ region: 'asia-south1' }), 
+                                                  new EndpointRegistrar('asia-south1'), 
                                                   [], 
                                                   handler)
                                .build();

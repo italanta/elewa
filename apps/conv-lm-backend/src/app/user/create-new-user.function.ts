@@ -7,7 +7,7 @@ import { ConvLearnFunction } from "../../conv-learn-func.class";
 const createNewUserHandler = new CreateNewUserHandler()
 
 export const createNewUser = new ConvLearnFunction('createNewUser',
-                                                  new RestRegistrar({ region: 'asia-south1' }),
+                                                  new RestRegistrar('asia-south1'),
                                                   [],
                                                   createNewUserHandler)
                                                   .build()

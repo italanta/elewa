@@ -16,7 +16,7 @@ const handler = new SendMultipleMessagesHandler();
  * 
  */
 export const sendMultipleMessages = new ConvLearnFunction('sendMultipleMessages', 
-                                                  new RestRegistrar({ region: 'asia-south1' }), 
+                                                  new RestRegistrar('asia-south1'), 
                                                   [], 
                                                   handler)
                                .build();

@@ -18,7 +18,7 @@ const handler = new WhatsappUploadMediaCronHandler();
  * 
  */
 export const channelWhatsappUploadMediaCron = new ConvLearnFunction('channelWhatsappUploadMediaCron', 
-                                                  new RestRegistrar({ region: 'asia-south1' }), 
+                                                  new RestRegistrar('asia-south1'), 
                                                   [], 
                                                   handler)
                                .build();

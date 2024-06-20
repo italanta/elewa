@@ -18,7 +18,7 @@ const handler = new WhatsappManageTemplatesAPI();
  * 
  */
 export const messageTemplateAPI = new ConvLearnFunction('messageTemplateAPI', 
-                                                  new RestRegistrar({ region: 'asia-south1' }), 
+                                                  new RestRegistrar('asia-south1'), 
                                                   [], 
                                                   handler)
                                .build();

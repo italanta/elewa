@@ -16,7 +16,7 @@ const handler = new SetInactivityHandler();
  * 
  */
 export const setInactivity = new ConvLearnFunction('setInactivity', 
-                                                  new RestRegistrar({ region: 'asia-south1' }), 
+                                                  new RestRegistrar('asia-south1'), 
                                                   [], 
                                                   handler)
                                .build();

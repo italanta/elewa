@@ -12,7 +12,7 @@ const handler = new AggregateProgressHandler();
  */
 export const aggregateProgress 
   = new ConvLearnFunction('aggregateProgress', 
-                          new RestRegistrar({ region: 'asia-south1' }), 
+                          new RestRegistrar('asia-south1'), 
                           [], 
                           handler)
       .build();
