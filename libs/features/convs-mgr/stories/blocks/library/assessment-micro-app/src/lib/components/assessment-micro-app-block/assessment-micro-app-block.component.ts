@@ -1,17 +1,16 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
+
+import { SubSink } from 'subsink';
+import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { AssessmentMicroAppBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
-import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { SubSink } from 'subsink';
+
+import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
+
 import { _JsPlumbComponentDecorator } from '../../providers/decorate-jsplumb.provider';
-
-import { ActivatedRoute, Router } from '@angular/router';
-import { MicroAppManagementService } from '@app/libs/state/convs-mgr/micro-app';
-import { MicroAppConfig } from '@app/model/convs-mgr/micro-app/base';
-
 
 @Component({
   selector: 'app-assessment-micro-app-block',
@@ -37,18 +36,10 @@ export class AssessmentMicroAppBlockComponent implements OnInit, AfterViewInit {
   assessments: Assessment[];
 
   constructor(private _assessmentService$: AssessmentService,
-              private _route: ActivatedRoute, 
-              private _router: Router,
-              private _microAppService: MicroAppManagementService
-
-
   ) { }
 
   ngOnInit() {
     this.getAssessments();
-    // this.getRouteParams();
-    console.log(this.assessmentMicroAppForm.value)
-    console.log('open assessment microapp')
   }
 
   ngAfterViewInit(): void
@@ -78,32 +69,5 @@ export class AssessmentMicroAppBlockComponent implements OnInit, AfterViewInit {
       }
     }
   }
-  // /** Building query params with angular router */
-  // private getRouteParams(){
-  //   this._route.queryParams.subscribe(params => {
-  //     const microAppId = params['microAppId'];
-  //     const endUserId = params['endUserId'];
-  //     const config = params['configs']
-
-  //     if (microAppId && endUserId && config) {
-  //       this.initMicroApp(microAppId, endUserId, config);
-  //     }
-  //   });
-  // }
-
-  // /** Getting the link to display in the link section of an assessment */
-  // private initMicroApp(microAppId: string, endUserId: string, config: MicroAppConfig): void {
-  //   this._microAppService.initMicroApp(microAppId, endUserId, config).subscribe(
-  //     response => {
-  //       console.log('Micro-app initialized:', response);
-  //       const navigateUrl = response.navigateUrl;
-  //       // Navigate the user to the micro-app URL
-  //       window.location.href = navigateUrl;
-  //     },
-  //     error => {
-  //       console.error('Error initializing micro-app:', error);
-  //     }
-  //   );
-  // }
-
+  
 }
