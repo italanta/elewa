@@ -63,8 +63,11 @@ export class FallBackBlockService
     return fallBackOptions;
   }
  
-  async oldFallBack(channel: CommunicationChannel, currentCursor: Cursor, blockDataService: BlockDataService, message: Message)
+  async legacyFallback(channel: CommunicationChannel, currentCursor: Cursor, blockDataService: BlockDataService, message: Message)
   {
+    this._handlerTools.Logger.log(()=> `[FallBackBlockService].legacyFallback - Using legacy fallback for message:: ${JSON.stringify(message)}`);
+    console.log(currentCursor.position);
+
     const newCursor = currentCursor;
     let nextBlock: StoryBlock;
  
@@ -163,7 +166,7 @@ export class FallBackBlockService
       }
     } else {
       // Return the old fallback options, as we come up with a better Generative AI fallback strategy
-      return this.oldFallBack(channel, currentCursor, blockDataService, message);
+      return this.legacyFallback(channel, currentCursor, blockDataService, message);
     }
     return {
       nextBlock,
