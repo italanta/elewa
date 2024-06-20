@@ -78,7 +78,9 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy {
 
     this._sBS.sink = combineLatest([of(templates), this.templateStatus$])
       .pipe(
-        map(([templates, statusData]) => {
+        map(([templates, statusData]) => 
+        {
+          // @Reagan, please clarify the 'templates' vall
           const mergedData = templates.map((template) => {
             const status = (statusData['templates'].find((status: any) => template.name === status.name) || {}).status || 'N/A';
             return {...template, status};

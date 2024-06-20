@@ -10,7 +10,7 @@
   "peerDependencies": {
     "@angular/common": "^14.0.0",
     "@angular/core": "^14.0.0",
-    "@ngneat/transloco": "",
+    "@jsverse/transloco": "",
     "@iote/local-persistance": "^2.0.0",
     "@ngfi/angular": "^2.0.0"
   },

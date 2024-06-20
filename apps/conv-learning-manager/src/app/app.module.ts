@@ -11,14 +11,11 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { IntercomModule } from 'ng-intercom';
-
 import { MaterialBricksRootModule } from '@iote/bricks-angular';
 import { NgFireModule } from '@ngfi/angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+// import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 import { AuthorisationModule } from '@app/elements/base/authorisation';
 import { AppConfigurationModule } from '@app/elements/base/configuration';
@@ -54,9 +51,12 @@ import { AppRoutingModule } from './app.routing.module';
 import { environment } from '../environments/environment';
 
 
-@NgModule({ declarations: [AppComponent],
-    bootstrap: [AppComponent], imports: [BrowserModule, BrowserAnimationsModule,
-        GooglePlaceModule,
+@NgModule({ 
+    declarations: [AppComponent],
+    bootstrap: [AppComponent], 
+    imports: [
+        BrowserModule, BrowserAnimationsModule,
+        // GooglePlaceModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule, AngularFirestoreModule, AngularFireFunctionsModule, NgFireModule,
         AngularFireAnalyticsModule,
@@ -97,8 +97,12 @@ import { environment } from '../environments/environment';
             // or after 30 seconds (whichever comes first).
             registrationStrategy: 'registerWhenStable:30000'
         }),
-        IntercomModule.forRoot({
-            appId: 'jvwszj2k',
-            updateOnRouterChange: true // will automatically run `update` on router event changes. Default: `false`
-        })], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        // TODO @Beulah
+        // IntercomModule.forRoot({
+        //     appId: 'jvwszj2k',
+        //     updateOnRouterChange: true // will automatically run `update` on router event changes. Default: `false`
+        // })
+    ], 
+        providers: [provideHttpClient(withInterceptorsFromDi())] }
+    )
 export class AppModule {}

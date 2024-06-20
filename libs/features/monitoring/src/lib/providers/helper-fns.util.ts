@@ -2,7 +2,7 @@ import * as moment from 'moment';
 
 import { __DateFromStorage } from '@iote/time';
 
-import { GroupProgressModel, Periodicals } from '@app/model/analytics/group-based/progress';
+import { GroupProgressModel, Periodicals, UserCount } from '@app/model/analytics/group-based/progress';
 
 const chartColors = [
   "#008080", // Teal
@@ -102,25 +102,30 @@ export function getWeeklyProgress(allProgress: GroupProgressModel[]) {
   });
 }
 
-export function getAllDaysCountCourse(dailyProgress: GroupProgressModel[], usersType: string, courseId: string) {
-  return dailyProgress.map((mod) => {
+export function getAllDaysCountCourse(dailyProgress: GroupProgressModel[], usersType: 'activeUsers' | 'inactiveUsers' | 'totalUsers', courseId: string) {
+  return dailyProgress.map((mod) => 
+  {
+    const course =  mod.courseProgress[courseId];
+    const usersInCourse = course[usersType] as UserCount;
+
     return {
-      count: mod.courseProgress[courseId][usersType].dailyCount,
+      count: usersInCourse.dailyCount,
       date: __DateFromStorage(mod.createdOn as Date)
     }
   });
 }
 
-export function getEngagedUsersCurrentWeek(dailyProgress: GroupProgressModel[], usersType: string, courseId: string): number {
+export function getEngagedUsersCurrentWeek(dailyProgress: GroupProgressModel[], usersType: 'activeUsers' | 'inactiveUsers' | 'totalUsers', courseId: string): number 
+{
   const usersEnrolledInCurrentWeek = dailyProgress[dailyProgress.length-1];
-  const userCount = usersEnrolledInCurrentWeek.courseProgress[courseId][usersType];
+  const userCount = usersEnrolledInCurrentWeek.courseProgress[courseId][usersType] as UserCount;
 
   return userCount.currentWeekCount || userCount.dailyCount;
 }
 
-export function getEngagedUsersCurrentMonth(dailyProgress: GroupProgressModel[], usersType: string, courseId: string): number {
+export function getEngagedUsersCurrentMonth(dailyProgress: GroupProgressModel[], usersType: 'activeUsers' | 'inactiveUsers' | 'totalUsers', courseId: string): number {
   const usersEnrolledInCurrentMonth = dailyProgress[dailyProgress.length-1];
-  const userCount = usersEnrolledInCurrentMonth.courseProgress[courseId][usersType];
+  const userCount = usersEnrolledInCurrentMonth.courseProgress[courseId][usersType]  as UserCount;
 
   return userCount.currentMonthCount || userCount.dailyCount;
 }

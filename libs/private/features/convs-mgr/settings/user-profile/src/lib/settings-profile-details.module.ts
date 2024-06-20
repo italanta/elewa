@@ -2,9 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MatSelectFilterModule } from 'mat-select-filter';
-
-
 import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, MaterialFormBricksModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 // import { FileStorageService } from '@ngfi/files';
@@ -18,8 +15,6 @@ import { UpdateProfilePictureModalComponent } from './modals/update-profile-pict
   imports: [
     CommonModule,
     MultiLangModule,
-
-    MatSelectFilterModule,
 
     MaterialDesignModule,
     FlexLayoutModule,

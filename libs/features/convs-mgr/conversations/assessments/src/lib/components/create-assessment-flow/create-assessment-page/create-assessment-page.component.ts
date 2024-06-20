@@ -3,18 +3,16 @@ import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { Observable, tap, switchMap, take } from 'rxjs';
-import { flatten as __flatten } from 'lodash';
 import { SubSink } from 'subsink';
+import { Observable, tap, switchMap, take } from 'rxjs';
 
 import { Assessment, AssessmentMode, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
-
 import { AssessmentPublishService, AssessmentQuestionService, AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
 import { AssessmentsFormsModel } from '../../../model/questions-form.model';
-
 import { AssessmentFormService } from '../../../services/assessment-form.service';
 import { DEFAULT_ASSESSMENT } from '../../../providers/create-empty-assessment-form.provider';
+
 @Component({
   selector: 'app-create-assessment-page',
   templateUrl: './create-assessment-page.component.html',
@@ -37,7 +35,7 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
 
   isPublishing = false;
   isSaving = false;
-  formHasLoaded: boolean = false;
+  formHasLoaded = false;
 
   action: string;
 
@@ -80,14 +78,15 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
       tap((questions) => { 
         this.questions = questions;
 
-        if (this.assessment?.questionsOrder) {
-          var questionOrdering = {},
+        if (this.assessment?.questionsOrder) 
+        {
+          const questionOrdering = {} as any,
           sortOrder = this.assessment.questionsOrder;
-          for (var i=0; i< sortOrder!.length; i++)
-            questionOrdering[sortOrder![i]] = i;
+          for (let i=0; i< sortOrder.length; i++)
+            questionOrdering[sortOrder[i]] = i;
   
           this.questions.sort( function(a, b) {
-              return (questionOrdering[a.id!] - questionOrdering[b.id!]) || a.id!.localeCompare(b.id!);
+              return (questionOrdering[a.id as string] - questionOrdering[b.id as string]) || (a.id as string).localeCompare(b.id as string);
           });
         }
                 
@@ -104,7 +103,7 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
 
     // since some observables complete before we call combinelatest, we initialise our stream with an empty string
     // we spread the `assessmentQstns$()` since it's an array of Observables.
-    let savedAssessmentId: string = '';
+    let savedAssessmentId = '';
 
     this.insertAssessmentConfig$().pipe(take(1),
         tap((ass) => savedAssessmentId = ass.id!),

@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
-import { CLMFeaturePermission, CLMPermissions } from '@app/model/organisation';
+import { CLMPermissions } from '@app/model/organisation';
 
 import { OrganisationService } from '@app/private/state/organisation/main';
 
@@ -38,21 +38,23 @@ export class PermissionsFormsService {
     return this._state as PermissionsModel;
   }
 
-  _initPermissionsFormGroup(permissionsFormGroup: FormGroup, permissions: CLMPermissions) {
-    let domains = permissionsFormGroup.controls;
+  _initPermissionsFormGroup(permissionsFormGroup: FormGroup, permissions: CLMPermissions) 
+  {
+    const domains = permissionsFormGroup.controls;
     Object.keys(domains).forEach(domain => {      
-      let domainControls = permissionsFormGroup.get(domain) as FormGroup;
-      let roleControls = domainControls.controls
+      const domainControls = permissionsFormGroup.get(domain) as FormGroup;
+      const roleControls = domainControls.controls
 
-      Object.keys(roleControls).forEach(perGroup => {
-        let permission = domainControls.get(perGroup) as FormGroup;
+      Object.keys(roleControls).forEach(perGroup => 
+      {
+        const permission = domainControls.get(perGroup) as FormGroup;
         this.patchRole(permissions, domain, perGroup, permission);
       });
     });
   }
 
   patchRole(permissions: CLMPermissions, domainKey: string, domainGroup: string, permissionsGroup: FormGroup) {
-    const domain = permissions[domainKey as keyof CLMPermissions]!;
+    const domain = permissions[domainKey as keyof CLMPermissions] as any;
     const domG = domain[domainGroup];
     
     const keys = Object.keys(domG);
@@ -64,4 +66,5 @@ export class PermissionsFormsService {
   endModelState() 
   {
     this._state = null;
-  }}
+  }
+}

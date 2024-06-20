@@ -3,7 +3,7 @@ import { NgModule, ModuleWithProviders, PLATFORM_ID, NgZone } from '@angular/cor
 import { TranslateService } from './services/translate.service';
 import { LocalPersistanceModule } from '@iote/local-persistance';
 
-import { TRANSLOCO_LOADER, TRANSLOCO_CONFIG, translocoConfig, TranslocoModule } from '@ngneat/transloco';
+import { TRANSLOCO_LOADER, TRANSLOCO_CONFIG, translocoConfig, TranslocoModule } from '@jsverse/transloco';
 
 import { TranslocoHttpLoader } from './config/http-loader.service';
 import { CustomLanguageLoader } from './config/multi-lang-loader.service';

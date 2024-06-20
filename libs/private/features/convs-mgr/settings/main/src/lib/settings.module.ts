@@ -5,9 +5,6 @@ import { DragDropModule} from '@angular/cdk/drag-drop';
 
 import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, MaterialFormBricksModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
-
-import { MatSelectFilterModule } from 'mat-select-filter';
-
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
 import { SettingsProfileDetailsModule } from '@app/private/features/convs-mgr/settings/user-profile';
@@ -29,8 +26,6 @@ import { SettingsRouterModule } from './settings.router';
   imports: [
     CommonModule,
     MultiLangModule,
-
-    MatSelectFilterModule,
 
     MaterialDesignModule,
     FlexLayoutModule,
