@@ -4,7 +4,7 @@
       <div class="form-group">
         <div class="assess-select-wrapper">
         <select class="assess-select" name="microAppId" required id="microAppId">
-          <option disabled selected>{{ 'PAGE-CONTENT.BLOCK.LABELS.ASSESSMENTS-NAME' | transloco }}</option>
+          <option disabled selected>{{ 'ASSESSMENT-MICROAPP.PLACEHOLDER' | transloco }}</option>
           <option>--</option>
           <option *ngFor="let assessment of assessments" [value]="assessment.id">
             {{ assessment.title }}
@@ -13,7 +13,19 @@
         </select>
         <span class="custom-dropdown-arrow"></span>
         </div>
+        <p class="create-assess"> 
+          <span><i class="fa-solid fa-plus"></i></span>
+          <span> {{ 'ASSESSMENT-MICROAPP.CREATE-TEXT' | transloco }} </span>
+        </p>
       </div>
     </div>
+    <app-text-message [formgroup]="assessmentMicroAppForm"></app-text-message>
+    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="assessmentMicroAppForm"></app-default-option-field>
   </form>
 </div>
+<!-- <div class="wide" [id]="id" *ngIf="assessmentMicroAppForm">
+	<form [formGroup]="assessmentMicroAppForm" fxLayout="column" fxLayoutALign="start center">
+    <app-text-message [formgroup]="assessmentMicroAppForm"></app-text-message>
+		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="assessmentMicroAppForm"></app-default-option-field>
+	</form>
+</div> -->

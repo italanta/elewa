@@ -49,7 +49,9 @@ input {
 .assess-select-wrapper {
   position: relative;
   width: 100%;  
-  margin-top: 1rem;
+}
+app-default-option-field{
+  margin-top: 0.5rem;
 }
 
 .assess-select{
@@ -83,6 +85,11 @@ input {
   pointer-events: none;
 }
 
+.create-assess{
+  color: var(--connector-color-teal-blue);
+  text-align: end;
+  font-size: small;
+}
 .form-group {
 
   width:100%;

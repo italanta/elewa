@@ -1254,6 +1254,9 @@
       "CLOSING-TEXT": "Test your knowledge and gain valuable insights into managing your "
     },
     "BUTTON-TEXT": "Start Assessment"
+  },
+  "ASSESSMENT-MICROAPP": {
+    "PLACEHOLDER": "Select Assessment",
+    "CREATE-TEXT": "Create assessment"
   }
-
 }

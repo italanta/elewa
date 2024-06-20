@@ -11,4 +11,5 @@ export interface AssessmentMicroAppBlock extends StoryBlock {
 
   status?: MicroAppStatus
 
+  defaultTarget?: string;
 }

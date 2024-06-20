@@ -9,5 +9,6 @@ export interface InitMicroAppCmd {
 export interface InitMicroAppResponse {
   success: boolean;
   message: string;
-  status?: MicroAppStatus
+  status?: MicroAppStatus;
+  navigateUrl: string;
 }

@@ -6,7 +6,11 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { MicroAppManagementService } from '@app/libs/state/convs-mgr/micro-app';
 
+import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { ConvsMgrReusableTextAreaModule } from '@app/features/convs-mgr/stories/blocks/library/reusable-text-area';
+
 import { AssessmentMicroAppBlockComponent } from './components/assessment-micro-app-block/assessment-micro-app-block.component';
+
 
 @NgModule({
   imports: [CommonModule,
@@ -17,6 +21,9 @@ import { AssessmentMicroAppBlockComponent } from './components/assessment-micro-
 
     FormsModule,
     ReactiveFormsModule,
+
+    ConvsMgrBlockOptionsModule,
+    ConvsMgrReusableTextAreaModule,
   ],
   declarations: [
     AssessmentMicroAppBlockComponent
