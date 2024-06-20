@@ -25,7 +25,7 @@ import { AppConfigurationModule } from '@app/elements/base/configuration';
 import { DateConfigurationModule } from '@app/elements/base/date-time';
 import { FirebaseConfigurationModule } from '@app/elements/base/firebase';
 
-
+import { FallbackStateModule } from '@app/state/convs-mgr/fallback';
 import { UserStateModule } from '@app/state/user';
 import { StoriesStateModule } from '@app/state/convs-mgr/stories';
 import { LearnersStateModule } from '@app/state/convs-mgr/learners';
@@ -98,6 +98,7 @@ import { environment } from '../environments/environment';
     StateSurveysModule.forRoot(),
     MessageTemplatesModule.forRoot(),
     VariablesModule.forRoot(),
+    FallbackStateModule.forRoot(),
    
 
     MtOrgStateModule.forRoot(),

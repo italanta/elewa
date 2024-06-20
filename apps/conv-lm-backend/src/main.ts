@@ -37,3 +37,9 @@ export * from './app/story/check-story-for-errors.function';
 
 export * from './app/organisation/on-create-org-assign-user-to-org.function';
 
+
+// Intent CRUD
+export * from './app/ai-agent/intent/create-intent.function';
+export * from './app/ai-agent/intent/delete-intent.function';
+export * from './app/ai-agent/intent/edit-intent.function';
+export * from './app/ai-agent/intent/get-intent.function';

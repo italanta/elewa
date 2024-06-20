@@ -41,6 +41,9 @@
       "@app/elements/convs-mgr/controls/input-fields": [
         "libs/elements/convs-mgr/controls/input-fields/src/index.ts"
       ],
+      "@app/elements/layout/convs-mgr/custom-components": [
+        "libs/elements/layout/convs-mgr/custom-components/src/index.ts"
+      ],
       "@app/elements/layout/convs-mgr/story-elements": [
         "libs/elements/layout/convs-mgr/story-elements/src/index.ts"
       ],
@@ -82,6 +85,9 @@
       ],
       "@app/features/convs-mgr/dashboard": [
         "libs/features/convs-mgr/dashboard/src/index.ts"
+      ],
+      "@app/features/convs-mgr/fallbacks": [
+        "libs/features/convs-mgr/fallbacks/src/index.ts"
       ],
       "@app/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
@@ -233,9 +239,13 @@
       "@app/functions/convs-mgr/story-editor//check-story-for-errors": [
         "libs/functions/convs-mgr/story-editor/check-story-for-errors/src/index.ts"
       ],
+      "@app/functions/intent": ["libs/functions/intent/src/index.ts"],
       "@app/functions/user": ["libs/functions/user/src/index.ts"],
       "@app/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block": [
         "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src/index.ts"
+      ],
+      "@app/libs/private/functions/intent-fallback-handler": [
+        "libs/libs/private/functions/intent-fallback-handler/src/index.ts"
       ],
       "@app/model/analytics/group-based/progress": [
         "libs/model/analytics/group-based/progress/src/index.ts"
@@ -268,6 +278,9 @@
       ],
       "@app/model/convs-mgr/conversations/surveys": [
         "libs/model/convs-mgr/conversations/surveys/src/index.ts"
+      ],
+      "@app/model/convs-mgr/fallbacks": [
+        "libs/model/convs-mgr/fallbacks/src/index.ts"
       ],
       "@app/model/convs-mgr/functions": [
         "libs/model/convs-mgr/functions/src/index.ts"
@@ -343,6 +356,9 @@
       "@app/private/functions/function-utils": [
         "libs/private/functions/function-utils/src/index.ts"
       ],
+      "@app/private/functions/intent-fallback-handler": [
+        "libs/private/functions/intent-fallback-handler/src/index.ts"
+      ],
       "@app/private/functions/micro-apps/base": [
         "libs/private/functions/micro-apps/base/src/index.ts"
       ],
@@ -410,6 +426,9 @@
       ],
       "@app/state/convs-mgr/end-users": [
         "libs/state/convs-mgr/end-users/src/index.ts"
+      ],
+      "@app/state/convs-mgr/fallback": [
+        "libs/state/convs-mgr/fallback/src/index.ts"
       ],
       "@app/state/convs-mgr/learners": [
         "libs/state/convs-mgr/learners/src/index.ts"

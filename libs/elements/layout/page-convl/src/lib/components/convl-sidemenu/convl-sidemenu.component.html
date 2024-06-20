@@ -173,6 +173,19 @@
               
             </li>
 
+            <!-- Fallbacks sections -->
+            <!-- <li class="menu-item" >
+              <a routerLink="/ai-fallbacks" routerLinkActive="active">
+                <span class="menu-icon">
+                  <img *ngIf="isExpanded" src="assets/icons/assessments-stroked.svg" class="img" alt="">
+                  <img *ngIf="!isExpanded" matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.FALLBACK'| transloco }}" src="assets/icons/assessments-stroked.svg" class="img" alt="">
+                </span>
+                <span *ngIf="isExpanded" class="menu-title">
+                  {{'PAGE-CONTENT.SIDE-MENU.FALLBACK'| transloco }}
+                </span>
+              </a>
+            </li> -->
+
             <li *hasViewAccess="CAN_ACCESS_SETTINGS" class="menu-item">
               <a routerLink="/settings" routerLinkActive="active">
                 <span class="menu-icon">

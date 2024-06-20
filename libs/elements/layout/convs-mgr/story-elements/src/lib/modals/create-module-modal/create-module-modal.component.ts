@@ -81,7 +81,8 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
       description: this.moduleForm.value.moduleDesc,
       stories: this.moduleForm.value.stories,
       parentBot : this.moduleForm.value.parentBot.id,
-      type: this.moduleForm.value.type
+      type: this.moduleForm.value.type,
+      intent: this.moduleForm.value.intent
     };
 
     if (this.isCreateMode) {

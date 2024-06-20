@@ -63,6 +63,34 @@
       "tags": []
     },
     "elements-base-firebase": "libs/elements/base/firebase",
+    "elements-layout-convs-mgr-custom-components": {
+      "projectType": "library",
+      "root": "libs/elements/layout/convs-mgr/custom-components",
+      "sourceRoot": "libs/elements/layout/convs-mgr/custom-components/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/elements/layout/convs-mgr/custom-components"
+          ],
+          "options": {
+            "jestConfig": "libs/elements/layout/convs-mgr/custom-components/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/elements/layout/convs-mgr/custom-components/**/*.ts",
+              "libs/elements/layout/convs-mgr/custom-components/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "elements-layout-convs-mgr-story-elements": {
       "projectType": "library",
       "root": "libs/elements/layout/convs-mgr/story-elements",
@@ -300,6 +328,32 @@
             "lintFilePatterns": [
               "libs/features/convs-mgr/dashboard/**/*.ts",
               "libs/features/convs-mgr/dashboard/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-convs-mgr-fallbacks": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/fallbacks",
+      "sourceRoot": "libs/features/convs-mgr/fallbacks/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/convs-mgr/fallbacks"],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/fallbacks/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/fallbacks/**/*.ts",
+              "libs/features/convs-mgr/fallbacks/**/*.html"
             ]
           }
         }
@@ -1030,7 +1084,48 @@
       },
       "tags": []
     },
-    "functions-user": "libs/functions/user",
+    "functions-intent": {
+      "root": "libs/functions/intent",
+      "sourceRoot": "libs/functions/intent/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["coverage/libs/functions/intent"],
+          "options": {
+            "jestConfig": "libs/functions/intent/jest.config.ts"
+          },
+          "passWithNoTests": true
+        }
+      }
+    },
+    "libs-private-functions-intent-fallback-handler": {
+      "root": "libs/libs/private/functions/intent-fallback-handler",
+      "sourceRoot": "libs/libs/private/functions/intent-fallback-handler/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/libs/private/functions/intent-fallback-handler/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/libs/private/functions/intent-fallback-handler"
+          ],
+          "options": {
+            "jestConfig": "libs/libs/private/functions/intent-fallback-handler/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "model-analytics-group-based-progress": {
       "root": "libs/model/analytics/group-based/progress",
       "sourceRoot": "libs/model/analytics/group-based/progress/src",
@@ -1211,6 +1306,32 @@
             "lintFilePatterns": [
               "libs/model/convs-mgr/conversations/surveys/**/*.ts",
               "libs/model/convs-mgr/conversations/surveys/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "model-convs-mgr-fallbacks": {
+      "projectType": "library",
+      "root": "libs/model/convs-mgr/fallbacks",
+      "sourceRoot": "libs/model/convs-mgr/fallbacks/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/convs-mgr/fallbacks"],
+          "options": {
+            "jestConfig": "libs/model/convs-mgr/fallbacks/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/model/convs-mgr/fallbacks/**/*.ts",
+              "libs/model/convs-mgr/fallbacks/**/*.html"
             ]
           }
         }
@@ -1787,6 +1908,33 @@
       },
       "tags": []
     },
+    "private-functions-intent-fallback-handler": {
+      "root": "libs/private/functions/intent-fallback-handler",
+      "sourceRoot": "libs/private/functions/intent-fallback-handler/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/functions/intent-fallback-handler/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/functions/intent-fallback-handler"
+          ],
+          "options": {
+            "jestConfig": "libs/private/functions/intent-fallback-handler/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "private-functions-micro-apps-base": {
       "root": "libs/private/functions/micro-apps/base",
       "sourceRoot": "libs/private/functions/micro-apps/base/src",
@@ -2273,6 +2421,32 @@
             "lintFilePatterns": [
               "libs/state/convs-mgr/end-users/**/*.ts",
               "libs/state/convs-mgr/end-users/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "state-convs-mgr-fallback": {
+      "projectType": "library",
+      "root": "libs/state/convs-mgr/fallback",
+      "sourceRoot": "libs/state/convs-mgr/fallback/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/state/convs-mgr/fallback"],
+          "options": {
+            "jestConfig": "libs/state/convs-mgr/fallback/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/state/convs-mgr/fallback/**/*.ts",
+              "libs/state/convs-mgr/fallback/**/*.html"
             ]
           }
         }
