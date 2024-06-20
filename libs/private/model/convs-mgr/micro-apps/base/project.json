@@ -1,0 +1,28 @@
+{
+  "name": "private-model-convs-mgr-micro-apps-base",
+  "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/private/model/convs-mgr/micro-apps/base/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/private/model/convs-mgr/micro-apps/base/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/private/model/convs-mgr/micro-apps/base"
+      ],
+      "options": {
+        "jestConfig": "libs/private/model/convs-mgr/micro-apps/base/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,5 +1,6 @@
 {
   "name": "conv-learning-manager",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/conv-learning-manager/src",
   "prefix": "italanta-apps",
@@ -94,7 +95,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/conv-learning-manager"],
+      "outputs": ["{workspaceRoot}/coverage/apps/conv-learning-manager"],
       "options": {
         "jestConfig": "apps/conv-learning-manager/jest.config.ts",
         "passWithNoTests": true

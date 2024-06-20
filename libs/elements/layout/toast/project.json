@@ -1,0 +1,27 @@
+{
+  "name": "elements-layout-toast",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/elements/layout/toast/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/elements/layout/toast"],
+      "options": {
+        "jestConfig": "libs/elements/layout/toast/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/elements/layout/toast/**/*.ts",
+          "libs/elements/layout/toast/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,12 +1,13 @@
 {
   "name": "util-ngfi-infinite-scroll",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/util/ngfi/infinite-scroll/src",
   "prefix": "ngfi",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/util/ngfi/infinite-scroll"],
+      "outputs": ["{workspaceRoot}/dist/libs/util/ngfi/infinite-scroll"],
       "options": {
         "project": "libs/util/ngfi/infinite-scroll/ng-package.json"
       },
@@ -22,7 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/util/ngfi/infinite-scroll"],
+      "outputs": ["{workspaceRoot}/coverage/libs/util/ngfi/infinite-scroll"],
       "options": {
         "jestConfig": "libs/util/ngfi/infinite-scroll/jest.config.ts",
         "passWithNoTests": true

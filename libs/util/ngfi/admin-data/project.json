@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/util/ngfi/admin-data"],
+      "outputs": ["{workspaceRoot}/coverage/libs/util/ngfi/admin-data"],
       "options": {
         "jestConfig": "libs/util/ngfi/admin-data/jest.config.ts",
         "passWithNoTests": true

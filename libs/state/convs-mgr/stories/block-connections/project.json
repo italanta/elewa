@@ -1,12 +1,15 @@
 {
   "name": "state-convs-mgr-stories-block-connections",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/state/convs-mgr/stories/block-connections/src",
   "prefix": "app",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/state/convs-mgr/stories/block-connections"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/state/convs-mgr/stories/block-connections"
+      ],
       "options": {
         "jestConfig": "libs/state/convs-mgr/stories/block-connections/jest.config.ts",
         "passWithNoTests": true

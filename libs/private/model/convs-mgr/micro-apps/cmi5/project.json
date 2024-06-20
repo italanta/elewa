@@ -1,0 +1,28 @@
+{
+  "name": "private-model-convs-mgr-micro-apps-cmi5",
+  "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/private/model/convs-mgr/micro-apps/cmi5/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/private/model/convs-mgr/micro-apps/cmi5/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/private/model/convs-mgr/micro-apps/cmi5"
+      ],
+      "options": {
+        "jestConfig": "libs/private/model/convs-mgr/micro-apps/cmi5/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

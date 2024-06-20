@@ -1,0 +1,29 @@
+{
+  "name": "private-state-message-templates",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/private/state/message-templates/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/private/state/message-templates"
+      ],
+      "options": {
+        "jestConfig": "libs/private/state/message-templates/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/private/state/message-templates/**/*.ts",
+          "libs/private/state/message-templates/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

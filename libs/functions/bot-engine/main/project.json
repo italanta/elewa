@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/functions/bot-engine/main"],
+      "outputs": ["{workspaceRoot}/coverage/libs/functions/bot-engine/main"],
       "options": {
         "jestConfig": "libs/functions/bot-engine/main/jest.config.ts",
         "passWithNoTests": true

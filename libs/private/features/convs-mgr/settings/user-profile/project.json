@@ -1,0 +1,29 @@
+{
+  "name": "private-features-convs-mgr-settings-user-profile",
+  "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/private/features/convs-mgr/settings/user-profile/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/private/features/convs-mgr/settings/user-profile"
+      ],
+      "options": {
+        "jestConfig": "libs/private/features/convs-mgr/settings/user-profile/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/private/features/convs-mgr/settings/user-profile/**/*.ts",
+          "libs/private/features/convs-mgr/settings/user-profile/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

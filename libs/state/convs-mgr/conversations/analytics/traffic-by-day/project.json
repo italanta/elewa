@@ -1,5 +1,6 @@
 {
   "name": "state-convs-mgr-conversations-analytics-traffic-by-day",
+  "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/state/convs-mgr/conversations/analytics/traffic-by-day/src",
   "prefix": "app",
@@ -7,7 +8,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": [
-        "coverage/libs/state/convs-mgr/conversations/analytics/traffic-by-day"
+        "{workspaceRoot}/coverage/libs/state/convs-mgr/conversations/analytics/traffic-by-day"
       ],
       "options": {
         "jestConfig": "libs/state/convs-mgr/conversations/analytics/traffic-by-day/jest.config.ts",

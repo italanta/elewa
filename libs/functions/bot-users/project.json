@@ -1,0 +1,35 @@
+{
+  "name": "functions-bot-users",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/functions/bot-users/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/functions/bot-users",
+        "tsConfig": "libs/functions/bot-users/tsconfig.lib.json",
+        "packageJson": "libs/functions/bot-users/package.json",
+        "main": "libs/functions/bot-users/src/index.ts",
+        "assets": ["libs/functions/bot-users/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/functions/bot-users/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/functions/bot-users"],
+      "options": {
+        "jestConfig": "libs/functions/bot-users/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

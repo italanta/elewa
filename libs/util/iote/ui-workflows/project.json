@@ -1,12 +1,13 @@
 {
   "name": "util-iote-ui-workflows",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/util/iote/ui-workflows/src",
   "prefix": "italanta-apps",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/util/iote/ui-workflows"],
+      "outputs": ["{workspaceRoot}/dist/libs/util/iote/ui-workflows"],
       "options": {
         "project": "libs/util/iote/ui-workflows/ng-package.json"
       },
@@ -22,7 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/util/iote/ui-workflows"],
+      "outputs": ["{workspaceRoot}/coverage/libs/util/iote/ui-workflows"],
       "options": {
         "jestConfig": "libs/util/iote/ui-workflows/jest.config.ts",
         "passWithNoTests": true

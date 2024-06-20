@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/state/convs-mgr/stories/main"],
+      "outputs": ["{workspaceRoot}/coverage/libs/state/convs-mgr/stories/main"],
       "options": {
         "jestConfig": "libs/state/convs-mgr/stories/main/jest.config.ts",
         "passWithNoTests": true

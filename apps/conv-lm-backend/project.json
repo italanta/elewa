@@ -47,7 +47,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/conv-lm-backend"],
+      "outputs": ["{workspaceRoot}/coverage/apps/conv-lm-backend"],
       "options": {
         "jestConfig": "apps/conv-lm-backend/jest.config.ts",
         "passWithNoTests": true

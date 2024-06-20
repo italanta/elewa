@@ -15,7 +15,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/model/convs-mgr/stories/blocks/scenario"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/model/convs-mgr/stories/blocks/scenario"
+      ],
       "options": {
         "jestConfig": "libs/model/convs-mgr/stories/blocks/scenario/jest.config.ts",
         "passWithNoTests": true

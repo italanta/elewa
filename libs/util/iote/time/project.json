@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/util/iote/time"],
+      "outputs": ["{workspaceRoot}/coverage/libs/util/iote/time"],
       "options": {
         "jestConfig": "libs/util/iote/time/jest.config.ts",
         "passWithNoTests": true

@@ -15,7 +15,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/model/convs-mgr/conversations/admin/system"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/model/convs-mgr/conversations/admin/system"
+      ],
       "options": {
         "jestConfig": "libs/model/convs-mgr/conversations/admin/system/jest.config.ts",
         "passWithNoTests": true

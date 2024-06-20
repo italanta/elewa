@@ -1,0 +1,27 @@
+{
+  "name": "model-convs-mgr-bots",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/model/convs-mgr/bots/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/model/convs-mgr/bots"],
+      "options": {
+        "jestConfig": "libs/model/convs-mgr/bots/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/model/convs-mgr/bots/**/*.ts",
+          "libs/model/convs-mgr/bots/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

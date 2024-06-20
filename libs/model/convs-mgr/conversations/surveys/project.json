@@ -1,0 +1,29 @@
+{
+  "name": "model-convs-mgr-conversations-surveys",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/model/convs-mgr/conversations/surveys/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/model/convs-mgr/conversations/surveys"
+      ],
+      "options": {
+        "jestConfig": "libs/model/convs-mgr/conversations/surveys/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/model/convs-mgr/conversations/surveys/**/*.ts",
+          "libs/model/convs-mgr/conversations/surveys/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

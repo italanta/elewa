@@ -1,0 +1,16 @@
+{
+  "name": "functions-intent",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/functions/intent/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{workspaceRoot}/coverage/libs/functions/intent"],
+      "options": {
+        "jestConfig": "libs/functions/intent/jest.config.ts"
+      },
+      "passWithNoTests": true
+    }
+  }
+}

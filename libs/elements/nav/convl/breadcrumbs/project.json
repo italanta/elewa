@@ -13,7 +13,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/elements/nav/convl/breadcrumbs"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/elements/nav/convl/breadcrumbs"
+      ],
       "options": {
         "jestConfig": "libs/elements/nav/convl/breadcrumbs/jest.config.ts",
         "passWithNoTests": true

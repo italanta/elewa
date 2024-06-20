@@ -1,5 +1,6 @@
 {
   "name": "features-convs-mgr-stories-blocks-library-block-options",
+  "$schema": "../../../../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/block-options/src",
   "prefix": "app",
@@ -7,7 +8,7 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": [
-        "coverage/libs/features/convs-mgr/stories/blocks/library/block-options"
+        "{workspaceRoot}/coverage/libs/features/convs-mgr/stories/blocks/library/block-options"
       ],
       "options": {
         "jestConfig": "libs/features/convs-mgr/stories/blocks/library/block-options/jest.config.ts",

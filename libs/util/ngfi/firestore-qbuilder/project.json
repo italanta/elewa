@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/util/ngfi/firestore-qbuilder"],
+      "outputs": ["{workspaceRoot}/coverage/libs/util/ngfi/firestore-qbuilder"],
       "options": {
         "jestConfig": "libs/util/ngfi/firestore-qbuilder/jest.config.ts",
         "passWithNoTests": true
