@@ -12,18 +12,11 @@
       ],
       "options": {
         "tsConfig": "libs/private/state/organisation/main/tsconfig.json",
-        "jestConfig": "libs/private/state/organisation/main/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/private/state/organisation/main/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/private/state/organisation/main/**/*.ts",
-          "libs/private/state/organisation/main/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

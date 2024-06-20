@@ -12,18 +12,11 @@
       ],
       "options": {
         "tsConfig": "libs/features/convs-mgr/stories/blocks/library/phone-message-block/tsconfig.json",
-        "jestConfig": "libs/features/convs-mgr/stories/blocks/library/phone-message-block/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/features/convs-mgr/stories/blocks/library/phone-message-block/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/features/convs-mgr/stories/blocks/library/phone-message-block/**/*.ts",
-          "libs/features/convs-mgr/stories/blocks/library/phone-message-block/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

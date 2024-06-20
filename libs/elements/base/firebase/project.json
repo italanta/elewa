@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/elements/base/firebase"],
       "options": {
         "tsConfig": "libs/elements/base/firebase/tsconfig.json",
-        "jestConfig": "libs/elements/base/firebase/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/elements/base/firebase/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/elements/base/firebase/**/*.ts",
-          "libs/elements/base/firebase/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/model/cloud-scheduler"],
       "options": {
         "tsConfig": "libs/model/cloud-scheduler/tsconfig.json",
-        "jestConfig": "libs/model/cloud-scheduler/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/model/cloud-scheduler/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/model/cloud-scheduler/**/*.ts",
-          "libs/model/cloud-scheduler/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

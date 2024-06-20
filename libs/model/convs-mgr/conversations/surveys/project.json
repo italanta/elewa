@@ -12,18 +12,11 @@
       ],
       "options": {
         "tsConfig": "libs/model/convs-mgr/conversations/surveys/tsconfig.json",
-        "jestConfig": "libs/model/convs-mgr/conversations/surveys/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/model/convs-mgr/conversations/surveys/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/model/convs-mgr/conversations/surveys/**/*.ts",
-          "libs/model/convs-mgr/conversations/surveys/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

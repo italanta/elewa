@@ -12,16 +12,12 @@
         "tsConfig": "libs/admin/config/environment-config/tsconfig.lib.json",
         "packageJson": "libs/admin/config/environment-config/package.json",
         "main": "libs/admin/config/environment-config/src/index.ts",
-        "assets": ["libs/admin/config/environment-config/*.md"],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/admin/config/environment-config/*.md"]
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/admin/config/environment-config/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -29,8 +25,7 @@
         "{workspaceRoot}/coverage/libs/admin/config/environment-config"
       ],
       "options": {
-        "jestConfig": "libs/admin/config/environment-config/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/admin/config/environment-config/jest.config.ts"
       }
     }
   },

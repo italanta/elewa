@@ -41,18 +41,14 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/conv-lm-backend/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/conv-lm-backend"],
       "options": {
-        "jestConfig": "apps/conv-lm-backend/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/conv-lm-backend/jest.config.ts"
       }
     }
   },

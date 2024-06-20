@@ -5,21 +5,14 @@
   "sourceRoot": "libs/model/convs-mgr/bot-modules/src",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/model/convs-mgr/bot-modules/**/*.ts",
-          "libs/model/convs-mgr/bot-modules/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/model/convs-mgr/bot-modules"],
       "options": {
         "tsConfig": "libs/model/convs-mgr/bot-modules/tsconfig.json",
-        "jestConfig": "libs/model/convs-mgr/bot-modules/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/model/convs-mgr/bot-modules/jest.config.ts"
       }
     }
   },

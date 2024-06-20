@@ -12,18 +12,11 @@
       ],
       "options": {
         "jestConfig": "libs/features/convs-mgr/stories/blocks/library/sticker-message-block/jest.config.ts",
-        "tsConfig": "libs/features/convs-mgr/stories/blocks/library/sticker-message-block/tsconfig.json",
-        "passWithNoTests": true
+        "tsConfig": "libs/features/convs-mgr/stories/blocks/library/sticker-message-block/tsconfig.json"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/features/convs-mgr/stories/blocks/library/sticker-message-block/**/*.ts",
-          "libs/features/convs-mgr/stories/blocks/library/sticker-message-block/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

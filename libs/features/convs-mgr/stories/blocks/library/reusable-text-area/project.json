@@ -12,18 +12,11 @@
       ],
       "options": {
         "tsConfig": "libs/features/convs-mgr/stories/blocks/library/reusable-text-area/tsconfig.json",
-        "jestConfig": "libs/features/convs-mgr/stories/blocks/libraryreusable-text-area/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/features/convs-mgr/stories/blocks/libraryreusable-text-area/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/features/convs-mgr/stories/blocks/library/reusable-text-area/**/*.ts",
-          "libs/features/convs-mgr/stories/blocks/library/reusable-text-area/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

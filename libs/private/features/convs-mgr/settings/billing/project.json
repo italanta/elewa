@@ -12,18 +12,11 @@
       ],
       "options": {
         "tsConfig": "libs/private/features/convs-mgr/settings/billing/tsconfig.json",
-        "jestConfig": "libs/private/features/convs-mgr/settings/billing/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/private/features/convs-mgr/settings/billing/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/private/features/convs-mgr/settings/billing/**/*.ts",
-          "libs/private/features/convs-mgr/settings/billing/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

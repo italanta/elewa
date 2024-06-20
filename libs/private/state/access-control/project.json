@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/private/state/access-control"],
       "options": {
         "tsConfig": "libs/private/state/access-control/tsconfig.json",
-        "jestConfig": "libs/private/state/access-control/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/private/state/access-control/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/private/state/access-control/**/*.ts",
-          "libs/private/state/access-control/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

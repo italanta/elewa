@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/state/user/base"],
       "options": {
         "tsConfig": "libs/state/user/base/tsconfig.json",
-        "jestConfig": "libs/state/user/base/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/state/user/base/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/state/user/base/**/*.ts",
-          "libs/state/user/base/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

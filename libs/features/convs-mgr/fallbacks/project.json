@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/features/convs-mgr/fallbacks"],
       "options": {
         "tsConfig": "libs/features/convs-mgr/fallbacks/tsconfig.json",
-        "jestConfig": "libs/features/convs-mgr/fallbacks/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/features/convs-mgr/fallbacks/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/features/convs-mgr/fallbacks/**/*.ts",
-          "libs/features/convs-mgr/fallbacks/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

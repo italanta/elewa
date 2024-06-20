@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/state/convs-mgr/learners"],
       "options": {
         "tsConfig": "libs/state/convs-mgr/learners/tsconfig.json",
-        "jestConfig": "libs/state/convs-mgr/learners/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/state/convs-mgr/learners/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/state/convs-mgr/learners/**/*.ts",
-          "libs/state/convs-mgr/learners/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

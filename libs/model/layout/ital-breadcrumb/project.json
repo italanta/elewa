@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/model/layout/ital-breadcrumb"],
       "options": {
         "tsConfig": "libs/model/layout/ital-breadcrumb/tsconfig.json",
-        "jestConfig": "libs/model/layout/ital-breadcrumb/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/model/layout/ital-breadcrumb/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/model/layout/ital-breadcrumb/**/*.ts",
-          "libs/model/layout/ital-breadcrumb/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

@@ -5,18 +5,14 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/util/iote/state/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/util/iote/state"],
       "options": {
-        "jestConfig": "libs/util/iote/state/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/util/iote/state/jest.config.ts"
       }
     },
     "build": {
@@ -27,8 +23,7 @@
         "tsConfig": "libs/util/iote/state/tsconfig.lib.json",
         "packageJson": "libs/util/iote/state/package.json",
         "main": "libs/util/iote/state/src/index.ts",
-        "assets": ["libs/util/iote/state/*.md"],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/util/iote/state/*.md"]
       }
     }
   },

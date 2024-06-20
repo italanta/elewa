@@ -5,18 +5,14 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/util/ngfi/firestore-qbuilder/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/util/ngfi/firestore-qbuilder"],
       "options": {
-        "jestConfig": "libs/util/ngfi/firestore-qbuilder/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/util/ngfi/firestore-qbuilder/jest.config.ts"
       }
     },
     "build": {
@@ -27,8 +23,7 @@
         "tsConfig": "libs/util/ngfi/firestore-qbuilder/tsconfig.lib.json",
         "packageJson": "libs/util/ngfi/firestore-qbuilder/package.json",
         "main": "libs/util/ngfi/firestore-qbuilder/src/index.ts",
-        "assets": ["libs/util/ngfi/firestore-qbuilder/*.md"],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/util/ngfi/firestore-qbuilder/*.md"]
       }
     }
   },

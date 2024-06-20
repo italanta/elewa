@@ -12,15 +12,13 @@
       ],
       "options": {
         "tsConfig": "libs/elements/base/security-config/tsconfig.json",
-        "jestConfig": "libs/elements/base/security-config/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/elements/base/security-config/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": [
-          "libs/elements/base/security-config/**/*.ts",
           "libs/elements/base/firesecurity-configbase/**/*.html"
         ]
       }

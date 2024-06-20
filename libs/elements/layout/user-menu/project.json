@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/elements/layout/user-menu"],
       "options": {
         "tsConfig": "libs/elements/layout/user-menu/tsconfig.json",
-        "jestConfig": "libs/elements/layout/user-menu/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/elements/layout/user-menu/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/elements/layout/user-menu/**/*.ts",
-          "libs/elements/layout/user-menu/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

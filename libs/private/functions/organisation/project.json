@@ -5,11 +5,8 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/private/functions/organisation/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -18,8 +15,7 @@
       ],
       "options": {
         "tsConfig": "libs/private/functions/organisation/tsconfig.json",
-        "jestConfig": "libs/private/functions/organisation/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/private/functions/organisation/jest.config.ts"
       }
     }
   },

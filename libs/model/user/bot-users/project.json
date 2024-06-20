@@ -12,24 +12,19 @@
         "tsConfig": "libs/model/user/bot-users/tsconfig.lib.json",
         "packageJson": "libs/model/user/bot-users/package.json",
         "main": "libs/model/user/bot-users/src/index.ts",
-        "assets": ["libs/model/user/bot-users/*.md"],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/model/user/bot-users/*.md"]
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/model/user/bot-users/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/model/user/bot-users"],
       "options": {
         "tsConfig": "libs/model/user/bot-users/tsconfig.json",
-        "jestConfig": "libs/model/user/bot-users/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/model/user/bot-users/jest.config.ts"
       }
     }
   },

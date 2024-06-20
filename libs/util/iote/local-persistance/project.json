@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/util/iote/local-persistance"],
       "options": {
-        "project": "libs/util/iote/local-persistance/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/util/iote/local-persistance/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -27,18 +26,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/util/iote/local-persistance"],
       "options": {
         "tsConfig": "libs/util/iote/local-persistance/tsconfig.json",
-        "jestConfig": "libs/util/iote/local-persistance/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/util/iote/local-persistance/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/util/iote/local-persistance/**/*.ts",
-          "libs/util/iote/local-persistance/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

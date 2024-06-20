@@ -5,11 +5,8 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/elements/nav/convl/breadcrumbs/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -18,8 +15,7 @@
       ],
       "options": {
         "tsConfig": "libs/elements/nav/convl/breadcrumbs/tsconfig.json",
-        "jestConfig": "libs/elements/nav/convl/breadcrumbs/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/elements/nav/convl/breadcrumbs/jest.config.ts"
       }
     }
   },

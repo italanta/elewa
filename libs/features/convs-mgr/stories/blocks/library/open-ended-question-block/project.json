@@ -12,18 +12,11 @@
       ],
       "options": {
         "tsConfig": "libs/features/convs-mgr/stories/blocks/library/open-ended-question-block/tsconfig.json",
-        "jestConfig": "libs/features/convs-mgr/stories/blocks/library/open-ended-question-block/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/features/convs-mgr/stories/blocks/library/open-ended-question-block/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/features/convs-mgr/stories/blocks/library/open-ended-question-block/**/*.ts",
-          "libs/features/convs-mgr/stories/blocks/library/open-ended-question-block/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

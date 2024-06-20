@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/features/monitoring"],
       "options": {
         "tsConfig": "libs/features/monitoring/tsconfig.json",
-        "jestConfig": "libs/features/monitoring/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/features/monitoring/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/features/monitoring/**/*.ts",
-          "libs/features/monitoring/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

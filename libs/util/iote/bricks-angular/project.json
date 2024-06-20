@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/util/iote/bricks-angular"],
       "options": {
-        "project": "libs/util/iote/bricks-angular/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/util/iote/bricks-angular/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -27,18 +26,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/util/iote/bricks-angular"],
       "options": {
         "tsConfig": "libs/util/iote/bricks-angular/tsconfig.json",
-        "jestConfig": "libs/util/iote/bricks-angular/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/util/iote/bricks-angular/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/util/iote/bricks-angular/**/*.ts",
-          "libs/util/iote/bricks-angular/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

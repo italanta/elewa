@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/elements/layout/modals"],
       "options": {
         "tsConfig": "libs/elements/layout/modals/tsconfig.json",
-        "jestConfig": "libs/elements/layout/modals/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/elements/layout/modals/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/elements/layout/modals/**/*.ts",
-          "libs/elements/layout/modals/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

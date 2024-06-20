@@ -12,18 +12,11 @@
       ],
       "options": {
         "tsConfig": "libs/state/convs-mgr/conversations/analytics/traffic-by-day/tsconfig.json",
-        "jestConfig": "libs/state/convs-mgr/conversations/analytics/traffic-by-day/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/state/convs-mgr/conversations/analytics/traffic-by-day/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/state/convs-mgr/conversations/analytics/traffic-by-day/**/*.ts",
-          "libs/state/convs-mgr/conversations/analytics/traffic-by-day/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

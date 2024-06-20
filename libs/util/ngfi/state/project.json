@@ -5,18 +5,14 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/util/ngfi/state/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/util/ngfi/state"],
       "options": {
-        "jestConfig": "libs/util/ngfi/state/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/util/ngfi/state/jest.config.ts"
       }
     },
     "build": {
@@ -27,8 +23,7 @@
         "tsConfig": "libs/util/ngfi/state/tsconfig.lib.json",
         "packageJson": "libs/util/ngfi/state/package.json",
         "main": "libs/util/ngfi/state/src/index.ts",
-        "assets": ["libs/util/ngfi/state/*.md"],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/util/ngfi/state/*.md"]
       }
     }
   },

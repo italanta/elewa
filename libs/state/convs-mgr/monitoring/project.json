@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/state/convs-mgr/monitoring"],
       "options": {
         "tsConfig": "libs/state/convs-mgr/monitoring/tsconfig.json",
-        "jestConfig": "libs/state/convs-mgr/monitoring/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/state/convs-mgr/monitoring/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/state/convs-mgr/monitoring/**/*.ts",
-          "libs/state/convs-mgr/monitoring/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

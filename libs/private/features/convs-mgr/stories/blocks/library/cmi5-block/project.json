@@ -12,18 +12,11 @@
       ],
       "options": {
         "tsConfig": "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/tsconfig.json",
-        "jestConfig": "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/**/*.ts",
-          "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

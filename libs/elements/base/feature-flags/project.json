@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/elements/base/feature-flags"],
       "options": {
         "tsConfig": "libs/elements/base/feature-flags/tsconfig.json",
-        "jestConfig": "libs/elements/base/feature-flags/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/elements/base/feature-flags/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/elements/base/feature-flags/**/*.ts",
-          "libs/elements/base/feature-flags/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

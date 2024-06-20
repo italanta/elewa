@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/model/layout/toast"],
       "options": {
         "tsConfig": "libs/model/layout/toast/tsconfig.json",
-        "jestConfig": "libs/model/layout/toast/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/model/layout/toast/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/model/layout/toast/**/*.ts",
-          "libs/model/layout/toast/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

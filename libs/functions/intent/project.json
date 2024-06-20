@@ -5,7 +5,7 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{workspaceRoot}/coverage/libs/functions/intent"],
       "options": {
         "tsConfig": "libs/functions/intent/tsconfig.json",
@@ -18,8 +18,7 @@
       "outputs": ["{workspaceRoot}/coverage/libs/functions/intent"],
       "options": {
         "tsConfig": "libs/functions/intent/tsconfig.json",
-        "jestConfig": "libs/functions/intent/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/functions/intent/jest.config.ts"
       }
     }
   }

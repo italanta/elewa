@@ -5,18 +5,14 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/util/iote/cqrs/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/util/iote/cqrs"],
       "options": {
-        "jestConfig": "libs/util/iote/cqrs/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/util/iote/cqrs/jest.config.ts"
       }
     },
     "build": {
@@ -27,8 +23,7 @@
         "tsConfig": "libs/util/iote/cqrs/tsconfig.lib.json",
         "packageJson": "libs/util/iote/cqrs/package.json",
         "main": "libs/util/iote/cqrs/src/index.ts",
-        "assets": ["libs/util/iote/cqrs/*.md"],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/util/iote/cqrs/*.md"]
       }
     }
   },

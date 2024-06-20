@@ -12,18 +12,11 @@
       ],
       "options": {
         "tsConfig": "libs/features/convs-mgr/stories/blocks/library/block-options/tsconfig.json",
-        "jestConfig": "libs/features/convs-mgr/stories/blocks/library/block-options/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/features/convs-mgr/stories/blocks/library/block-options/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/features/convs-mgr/stories/blocks/library/block-options/**/*.ts",
-          "libs/features/convs-mgr/stories/blocks/library/block-options/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

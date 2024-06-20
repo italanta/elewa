@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/elements/base/date-time"],
       "options": {
         "tsConfig": "libs/elements/base/date-time/tsconfig.json",
-        "jestConfig": "libs/elements/base/date-time/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/elements/base/date-time/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/elements/base/date-time/**/*.ts",
-          "libs/elements/base/date-time/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

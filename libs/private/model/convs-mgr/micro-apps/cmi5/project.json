@@ -5,13 +5,8 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/private/model/convs-mgr/micro-apps/cmi5/**/*.ts"
-        ]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -20,8 +15,7 @@
       ],
       "options": {
         "tsConfig": "libs/private/model/convs-mgr/micro-apps/cmi5/tsconfig.json",
-        "jestConfig": "libs/private/model/convs-mgr/micro-apps/cmi5/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/private/model/convs-mgr/micro-apps/cmi5/jest.config.ts"
       }
     }
   },

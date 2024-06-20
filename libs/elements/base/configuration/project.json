@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/elements/base/configuration"],
       "options": {
         "tsConfig": "libs/elements/base/configuration/tsconfig.json",
-        "jestConfig": "libs/elements/base/configuration/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/elements/base/configuration/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/elements/base/configuration/**/*.ts",
-          "libs/elements/base/configuration/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/util/ngfi/angular"],
       "options": {
-        "project": "libs/util/ngfi/angular/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/util/ngfi/angular/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -27,18 +26,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/util/ngfi/angular"],
       "options": {
         "tsConfig": "libs/util/ngfi/angular/tsconfig.json",
-        "jestConfig": "libs/util/ngfi/angular/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/util/ngfi/angular/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/util/ngfi/angular/**/*.ts",
-          "libs/util/ngfi/angular/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

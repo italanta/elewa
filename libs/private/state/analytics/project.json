@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/private/state/analytics"],
       "options": {
         "tsConfig": "libs/private/state/analytics/tsconfig.json",
-        "jestConfig": "libs/private/state/analytics/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/private/state/analytics/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/private/state/analytics/**/*.ts",
-          "libs/private/state/analytics/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

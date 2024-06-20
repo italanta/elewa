@@ -12,18 +12,11 @@
       ],
       "options": {
         "tsConfig": "libs/elements/layout/ital-bread-crumb/tsconfig.json",
-        "jestConfig": "libs/elements/layout/ital-bread-crumb/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/elements/layout/ital-bread-crumb/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/elements/layout/ital-bread-crumb/**/*.ts",
-          "libs/elements/layout/ital-bread-crumb/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

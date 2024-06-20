@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/util/ngfi/multi-lang"],
       "options": {
-        "project": "libs/util/ngfi/multi-lang/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/util/ngfi/multi-lang/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -27,18 +26,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/util/ngfi/multi-lang"],
       "options": {
         "tsConfig": "libs/util/ngfi/multi-lang/tsconfig.json",
-        "jestConfig": "libs/util/ngfi/multi-lang/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/util/ngfi/multi-lang/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/util/ngfi/multi-lang/**/*.ts",
-          "libs/util/ngfi/multi-lang/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

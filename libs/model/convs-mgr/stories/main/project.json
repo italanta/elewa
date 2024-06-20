@@ -5,19 +5,15 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/model/convs-mgr/stories/main/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/model/convs-mgr/stories/main"],
       "options": {
         "tsConfig": "libs/model/convs-mgr/stories/main/tsconfig.json",
-        "jestConfig": "libs/model/convs-mgr/stories/main/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/model/convs-mgr/stories/main/jest.config.ts"
       }
     }
   },

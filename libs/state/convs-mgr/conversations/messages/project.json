@@ -12,18 +12,11 @@
       ],
       "options": {
         "tsConfig": "libs/state/convs-mgr/conversations/messages/tsconfig.json",
-        "jestConfig": "libs/state/convs-mgr/conversations/messages/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/state/convs-mgr/conversations/messages/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/state/convs-mgr/conversations/messages/**/*.ts",
-          "libs/state/convs-mgr/conversations/messages/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

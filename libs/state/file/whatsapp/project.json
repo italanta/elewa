@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/state/file/whatsapp"],
       "options": {
         "tsConfig": "libs/state/file/whatsapp/tsconfig.json",
-        "jestConfig": "libs/state/file/whatsapp/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/state/file/whatsapp/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/state/file/whatsapp/**/*.ts",
-          "libs/state/file/whatsapp/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

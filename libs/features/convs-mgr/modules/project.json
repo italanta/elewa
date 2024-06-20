@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/features/convs-mgr/modules"],
       "options": {
         "tsConfig": "libs/features/convs-mgr/modules/tsconfig.json",
-        "jestConfig": "libs/features/convs-mgr/modules/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/features/convs-mgr/modules/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/features/convs-mgr/modules/**/*.ts",
-          "libs/features/convs-mgr/modules/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

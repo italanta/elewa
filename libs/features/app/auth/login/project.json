@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/features/app/auth/login"],
       "options": {
         "tsConfig": "libs/features/app/auth/login/tsconfig.json",
-        "jestConfig": "libs/features/app/auth/login/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/features/app/auth/login/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/features/app/auth/login/**/*.ts",
-          "libs/features/app/auth/login/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

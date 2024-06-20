@@ -12,15 +12,13 @@
       ],
       "options": {
         "tsConfig": "libs/features/convs-mgr/stories/blocks/library/document-message-block/tsconfig.json",
-        "jestConfig": "libs/features/convs-mgr/stories/blocks/library/document-message-block/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/features/convs-mgr/stories/blocks/library/document-message-block/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": [
-          "libs/features/convs-mgr/stories/blocks/library/document-message-block/**/*.ts",
           "libs/features/convs-mgr/stories/blocks/library/documentx-message-block/**/*.html"
         ]
       }

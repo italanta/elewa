@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/util/ngfi/infinite-scroll"],
       "options": {
-        "project": "libs/util/ngfi/infinite-scroll/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/util/ngfi/infinite-scroll/ng-package.json"
       },
       "configurations": {
         "production": {
@@ -27,18 +26,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/util/ngfi/infinite-scroll"],
       "options": {
         "tsConfig": "libs/util/ngfi/infinite-scroll/tsconfig.json",
-        "jestConfig": "libs/util/ngfi/infinite-scroll/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/util/ngfi/infinite-scroll/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/util/ngfi/infinite-scroll/**/*.ts",
-          "libs/util/ngfi/infinite-scroll/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

@@ -10,18 +10,11 @@
       "outputs": ["{workspaceRoot}/coverage/libs/state/convs-mgr/channels"],
       "options": {
         "tsConfig": "libs/state/convs-mgr/channels/tsconfig.json",
-        "jestConfig": "libs/state/convs-mgr/channels/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/state/convs-mgr/channels/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/state/convs-mgr/channels/**/*.ts",
-          "libs/state/convs-mgr/channels/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []
