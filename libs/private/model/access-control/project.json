@@ -6,15 +6,16 @@
   "prefix": "app",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/private/model/access-control"],
       "options": {
+        "tsConfig": "libs/private/model/access-control/tsconfig.json",
         "jestConfig": "libs/private/model/access-control/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/private/model/access-control/**/*.ts",

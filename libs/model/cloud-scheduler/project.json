@@ -6,15 +6,16 @@
   "prefix": "app",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/model/cloud-scheduler"],
       "options": {
+        "tsConfig": "libs/model/cloud-scheduler/tsconfig.json",
         "jestConfig": "libs/model/cloud-scheduler/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/model/cloud-scheduler/**/*.ts",

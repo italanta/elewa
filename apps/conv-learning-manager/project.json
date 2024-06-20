@@ -85,7 +85,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "apps/conv-learning-manager/**/*.ts",
@@ -94,7 +94,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/conv-learning-manager"],
       "options": {
         "jestConfig": "apps/conv-learning-manager/jest.config.ts",

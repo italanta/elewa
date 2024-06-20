@@ -5,16 +5,17 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/functions/base/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/functions/base"],
       "options": {
+        "tsConfig": "libs/functions/base/tsconfig.json",
         "jestConfig": "libs/functions/base/jest.config.ts",
         "passWithNoTests": true
       }

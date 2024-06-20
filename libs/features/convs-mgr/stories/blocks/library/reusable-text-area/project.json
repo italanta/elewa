@@ -1,0 +1,30 @@
+{
+  "name": "features-convs-mgr-stories-blocks-library-reusable-text-area",
+  "$schema": "../../../../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/reusable-text-areak/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/features/convs-mgr/stories/blocks/library/reusable-text-area"
+      ],
+      "options": {
+        "tsConfig": "libs/features/convs-mgr/stories/blocks/library/reusable-text-area/tsconfig.json",
+        "jestConfig": "libs/features/convs-mgr/stories/blocks/libraryreusable-text-area/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/convs-mgr/stories/blocks/library/reusable-text-area/**/*.ts",
+          "libs/features/convs-mgr/stories/blocks/library/reusable-text-area/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

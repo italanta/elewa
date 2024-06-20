@@ -6,17 +6,18 @@
   "prefix": "app",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": [
         "{workspaceRoot}/coverage/libs/private/features/convs-mgr/settings/user-profile"
       ],
       "options": {
+        "tsConfig": "libs/private/features/convs-mgr/settings/user-profile/tsconfig.json",
         "jestConfig": "libs/private/features/convs-mgr/settings/user-profile/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/private/features/convs-mgr/settings/user-profile/**/*.ts",

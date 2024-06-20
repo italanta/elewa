@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { ActivatedRouteSnapshot } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { filter, switchMap, take } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { AssessmentService } from '@app/state/convs-mgr/conversations/assessment
 @Injectable({
   providedIn: 'root',
 })
-export class AssessmentResolverService implements Resolve<Assessment> {
+export class AssessmentResolverService  {
   private fetchedAssessments$: Observable<Assessment[]>;
 
   constructor(private _assessmentService: AssessmentService) {

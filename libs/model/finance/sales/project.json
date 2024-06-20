@@ -5,16 +5,17 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/model/finance/sales/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/model/finance/sales"],
       "options": {
+        "tsConfig": "libs/model/finance/sales/tsconfig.json",
         "jestConfig": "libs/model/finance/sales/jest.config.ts",
         "passWithNoTests": true
       }

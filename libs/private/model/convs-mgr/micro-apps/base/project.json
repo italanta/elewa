@@ -5,7 +5,7 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
@@ -14,11 +14,12 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": [
         "{workspaceRoot}/coverage/libs/private/model/convs-mgr/micro-apps/base"
       ],
       "options": {
+        "tsConfig": "libs/private/model/convs-mgr/micro-apps/base/tsconfig.json",
         "jestConfig": "libs/private/model/convs-mgr/micro-apps/base/jest.config.ts",
         "passWithNoTests": true
       }

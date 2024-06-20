@@ -5,12 +5,22 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{workspaceRoot}/coverage/libs/functions/intent"],
       "options": {
+        "tsConfig": "libs/functions/intent/tsconfig.json",
         "jestConfig": "libs/functions/intent/jest.config.ts"
       },
       "passWithNoTests": true
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/functions/intent"],
+      "options": {
+        "tsConfig": "libs/functions/intent/tsconfig.json",
+        "jestConfig": "libs/functions/intent/jest.config.ts",
+        "passWithNoTests": true
+      }
     }
   }
 }

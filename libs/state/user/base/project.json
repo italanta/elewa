@@ -6,15 +6,16 @@
   "prefix": "app",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/state/user/base"],
       "options": {
+        "tsConfig": "libs/state/user/base/tsconfig.json",
         "jestConfig": "libs/state/user/base/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/state/user/base/**/*.ts",

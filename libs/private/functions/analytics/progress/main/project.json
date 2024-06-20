@@ -5,7 +5,7 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
@@ -14,11 +14,12 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": [
         "{workspaceRoot}/coverage/libs/private/functions/analytics/progress/main"
       ],
       "options": {
+        "tsConfig": "libs/private/functions/analytics/progress/main/tsconfig.json",
         "jestConfig": "libs/private/functions/analytics/progress/main/jest.config.ts",
         "passWithNoTests": true
       }

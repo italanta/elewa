@@ -6,10 +6,11 @@
   "prefix": "ngfi",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
+      "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/util/ngfi/infinite-scroll"],
       "options": {
-        "project": "libs/util/ngfi/infinite-scroll/ng-package.json"
+        "project": "libs/util/ngfi/infinite-scroll/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {
@@ -22,15 +23,16 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/util/ngfi/infinite-scroll"],
       "options": {
+        "tsConfig": "libs/util/ngfi/infinite-scroll/tsconfig.json",
         "jestConfig": "libs/util/ngfi/infinite-scroll/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/util/ngfi/infinite-scroll/**/*.ts",

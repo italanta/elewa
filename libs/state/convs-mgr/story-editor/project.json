@@ -5,16 +5,17 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/state/convs-mgr/story-editor/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/state/convs-mgr/story-editor"],
       "options": {
+        "tsConfig": "libs/state/convs-mgr/story-editor/tsconfig.json",
         "jestConfig": "libs/state/convs-mgr/story-editor/jest.config.ts",
         "passWithNoTests": true
       }

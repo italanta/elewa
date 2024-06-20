@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { ActivatedRouteSnapshot } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { filter, switchMap, take } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { BotsStateService } from '@app/state/convs-mgr/bots';
 @Injectable({
   providedIn: 'root',
 })
-export class BotResolverService implements Resolve<Bot> {
+export class BotResolverService  {
   private fetchedBots$: Observable<Bot[]>;
 
   constructor(private _botsService: BotsStateService) {

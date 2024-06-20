@@ -5,14 +5,14 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/util/iote/exceptions/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/util/iote/exceptions"],
       "options": {
         "jestConfig": "libs/util/iote/exceptions/jest.config.ts",
@@ -20,14 +20,15 @@
       }
     },
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/util/iote/exceptions",
         "tsConfig": "libs/util/iote/exceptions/tsconfig.lib.json",
         "packageJson": "libs/util/iote/exceptions/package.json",
         "main": "libs/util/iote/exceptions/src/index.ts",
-        "assets": ["libs/util/iote/exceptions/*.md"]
+        "assets": ["libs/util/iote/exceptions/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     }
   },

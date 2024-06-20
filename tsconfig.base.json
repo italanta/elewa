@@ -235,8 +235,7 @@
       "@app/functions/bot-process-handler": [
         "libs/functions/bot-process-handler/src/index.ts"
       ],
-      "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
-      "@app/functions/convs-mgr/story-editor//check-story-for-errors": [
+      "@app/functions/convs-mgr/story-editor/check-story-for-errors": [
         "libs/functions/convs-mgr/story-editor/check-story-for-errors/src/index.ts"
       ],
       "@app/functions/intent": ["libs/functions/intent/src/index.ts"],

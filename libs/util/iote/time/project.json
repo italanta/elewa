@@ -5,14 +5,14 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/util/iote/time/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/util/iote/time"],
       "options": {
         "jestConfig": "libs/util/iote/time/jest.config.ts",
@@ -20,14 +20,15 @@
       }
     },
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/util/iote/time",
         "tsConfig": "libs/util/iote/time/tsconfig.lib.json",
         "packageJson": "libs/util/iote/time/package.json",
         "main": "libs/util/iote/time/src/index.ts",
-        "assets": ["libs/util/iote/time/*.md"]
+        "assets": ["libs/util/iote/time/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     }
   },

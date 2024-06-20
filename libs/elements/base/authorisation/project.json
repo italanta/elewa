@@ -6,15 +6,16 @@
   "prefix": "app",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/elements/base/authorisation"],
       "options": {
+        "tsConfig": "libs/elements/base/authorisation/tsconfig.json",
         "jestConfig": "libs/elements/base/authorisation/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/elements/base/authorisation/**/*.ts",

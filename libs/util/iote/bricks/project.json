@@ -5,29 +5,31 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/util/iote/bricks/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/util/iote/bricks"],
       "options": {
+        "tsConfig": "libs/util/iote/bricks/tsconfig.json",
         "jestConfig": "libs/util/iote/bricks/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/util/iote/bricks",
         "tsConfig": "libs/util/iote/bricks/tsconfig.lib.json",
         "packageJson": "libs/util/iote/bricks/package.json",
         "main": "libs/util/iote/bricks/src/index.ts",
-        "assets": ["libs/util/iote/bricks/*.md"]
+        "assets": ["libs/util/iote/bricks/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     }
   },

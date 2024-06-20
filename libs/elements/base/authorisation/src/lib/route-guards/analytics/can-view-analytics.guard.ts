@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Route, UrlSegment } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, Route, UrlSegment } from '@angular/router';
 
 import { Observable, combineLatest } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { PermissionsStateService } from '@app/private/state/organisation/main';
 
 
 @Injectable()
-export class CanAccessAnalyticsGuard implements CanActivate, CanLoad
+export class CanAccessAnalyticsGuard 
 {
 
   permission$: Observable<boolean>;

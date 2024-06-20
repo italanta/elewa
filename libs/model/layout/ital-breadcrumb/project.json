@@ -6,15 +6,16 @@
   "prefix": "app",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/model/layout/ital-breadcrumb"],
       "options": {
+        "tsConfig": "libs/model/layout/ital-breadcrumb/tsconfig.json",
         "jestConfig": "libs/model/layout/ital-breadcrumb/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/model/layout/ital-breadcrumb/**/*.ts",

@@ -5,18 +5,19 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/functions/bot-engine/send-message/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": [
         "{workspaceRoot}/coverage/libs/functions/bot-engine/send-message"
       ],
       "options": {
+        "tsConfig": "libs/functions/bot-engine/send-message/tsconfig.json",
         "jestConfig": "libs/functions/bot-engine/send-message/jest.config.ts",
         "passWithNoTests": true
       }

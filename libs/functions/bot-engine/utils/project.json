@@ -5,16 +5,17 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/functions/bot-engine/utils/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/functions/bot-engine/utils"],
       "options": {
+        "tsConfig": "libs/functions/bot-engine/utils/tsconfig.json",
         "jestConfig": "libs/functions/bot-engine/utils/jest.config.ts",
         "passWithNoTests": true
       }

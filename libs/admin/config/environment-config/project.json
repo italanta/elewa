@@ -5,25 +5,26 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/admin/config/environment-config",
         "tsConfig": "libs/admin/config/environment-config/tsconfig.lib.json",
         "packageJson": "libs/admin/config/environment-config/package.json",
         "main": "libs/admin/config/environment-config/src/index.ts",
-        "assets": ["libs/admin/config/environment-config/*.md"]
+        "assets": ["libs/admin/config/environment-config/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/admin/config/environment-config/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": [
         "{workspaceRoot}/coverage/libs/admin/config/environment-config"
       ],
