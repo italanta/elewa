@@ -27,7 +27,13 @@ export interface Story extends IObject
   chapter?: string;
 
   /** id of the parent module */
-  parentModule?: string
+  parentModule?: string;
+
+  /** Id of the parent bot
+   * 
+   * TODO: Update story creation to implement this.
+   */
+  parentBot?: string
 
   /* type of the story */
   isAssessment?: boolean

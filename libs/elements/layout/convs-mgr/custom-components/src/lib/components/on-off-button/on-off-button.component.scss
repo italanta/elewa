@@ -1,0 +1,45 @@
+.btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80px;
+  padding: 5px;
+  border: 1px solid var(--convs-mgr-color-3E788A);
+  border-radius: 25px;
+  background-color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, flex-direction 0.3s;
+
+  &.on {
+    background-color: var(--convs-mgr-color-3E788A);
+    opacity: 0.9s;
+    padding-right: none;
+    .text-toggle {
+      color: white;
+      padding-left: 8px;
+    }
+    .circle{
+      background-color: #fff;
+      padding: none;
+      margin: none;
+      z-index: 99s;
+    }
+    flex-direction: row-reverse;
+  }
+
+  .circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid var(--convs-mgr-color-3E788A);
+    background-color: var(--convs-mgr-color-3E788A);
+    opacity: 0.5;
+    transition: margin 0.3s;
+  }
+
+  .text-toggle {
+    color: var(--convs-mgr-color-3E788A);
+    transition: color 0.3s;
+    padding-right: 8px;
+  }
+}

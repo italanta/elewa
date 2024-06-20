@@ -1,0 +1,27 @@
+<convl-page>
+  <section class="page-container">
+    <span class="title">{{'AI-FALLBACK.MAIN-TITLE'| transloco }}</span>
+
+    <div class="desc">
+      {{'AI-FALLBACK.MAIN-DESC'| transloco }}
+    </div>
+
+    <div class="btns-section">
+      <app-on-off-button></app-on-off-button>
+      <span>{{'AI-FALLBACK.TITLE-SECTION.TITLE'| transloco }}</span>
+    </div>
+
+    <div class="content-div">
+      <div class="text-block-header">
+        General fallback
+      </div>
+      <div class="fallback-btn" (click)="openModal()">
+        <div class="actions-btn">
+          <span> <i class="fa-solid fa-circle-plus"></i> </span>
+          <div>Add General fallback</div>
+        </div>
+      </div>
+    </div>
+    <app-action-table [bot]="bot"></app-action-table>
+  </section>
+</convl-page>
