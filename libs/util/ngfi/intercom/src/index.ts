@@ -1,1 +1,3 @@
-export * from './lib/intercom/intercom.component';
+export * from './lib/intercom/intercom';
+
+
