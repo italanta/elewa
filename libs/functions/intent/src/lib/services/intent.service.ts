@@ -1,4 +1,4 @@
-import  { AgentsClient, FlowsClient, IntentsClient } from "@google-cloud/dialogflow-cx";
+import { AgentsClient, FlowsClient, IntentsClient } from "@google-cloud/dialogflow-cx";
 
 import { PagesClient } from '@google-cloud/dialogflow-cx';
 
@@ -12,21 +12,23 @@ import { Organisation } from "@app/model/organisation";
 
 import { ValidateAndSanitize } from "../utils/sanitize-bot-name";
 
-export class IntentService {
+export class IntentService
+{
   apiEndpoint = `${process.env.LOCATION}-dialogflow.googleapis.com`;
-  private _client: IntentsClient = new IntentsClient({apiEndpoint: this.apiEndpoint});
-  private _pagesClient: PagesClient = new PagesClient({apiEndpoint: this.apiEndpoint});
-  private _flowsClient: FlowsClient = new FlowsClient({apiEndpoint: this.apiEndpoint});
-  private _agentsClient: AgentsClient = new AgentsClient({apiEndpoint: this.apiEndpoint});
+  private _client: IntentsClient = new IntentsClient({ apiEndpoint: this.apiEndpoint });
+  private _pagesClient: PagesClient = new PagesClient({ apiEndpoint: this.apiEndpoint });
+  private _flowsClient: FlowsClient = new FlowsClient({ apiEndpoint: this.apiEndpoint });
+  private _agentsClient: AgentsClient = new AgentsClient({ apiEndpoint: this.apiEndpoint });
 
   activeAgent: any;
-  
+
   private org: Organisation;
 
   agentPath: string;
   agentID: string;
 
-  async init(intent: DialogflowCXIntent, tools: HandlerTools) {
+  async init(intent: DialogflowCXIntent, tools: HandlerTools)
+  {
     const parent = this._agentsClient.locationPath(process.env.GCLOUD_PROJECT, process.env.LOCATION);
     const orgsRepo$ = tools.getRepository<Organisation>(`orgs`);
 
@@ -34,25 +36,27 @@ export class IntentService {
 
     const agentDisplayName = ValidateAndSanitize(this.org.name).toLowerCase();
 
-    const [agents] = await this._agentsClient.listAgents({parent});
-    tools.Logger.log(()=> `Agents list :: ${JSON.stringify(agents)}`);
-    this.activeAgent = agents.find((ag)=> ag.displayName === agentDisplayName);
+    const [agents] = await this._agentsClient.listAgents({ parent });
+    tools.Logger.log(() => `Agents list :: ${JSON.stringify(agents)}`);
+    this.activeAgent = agents.find((ag) => ag.displayName === agentDisplayName);
 
-    if(!this.activeAgent) {
+    if (!this.activeAgent) {
       this.activeAgent = await this._createAgent(parent, tools);
     }
 
-    const agentID = this._getID(this.activeAgent.name);
+    this.agentID = this._getID(this.activeAgent.name);
 
-    this.agentPath = this._client.agentPath(process.env.GCLOUD_PROJECT, process.env.LOCATION, agentID);
+    this.agentPath = this._client.agentPath(process.env.GCLOUD_PROJECT, process.env.LOCATION, this.agentID);
   }
 
-  private _getID(name: string) {
+  private _getID(name: string)
+  {
     const nameArr = name.split('/');
-    return nameArr[nameArr.length -1];
+    return nameArr[nameArr.length - 1];
   }
 
-  private async _createAgent(parent: string, tools: HandlerTools) {
+  private async _createAgent(parent: string, tools: HandlerTools)
+  {
     const createAgentReq = {
       parent: parent,
       agent: {
@@ -60,49 +64,55 @@ export class IntentService {
         defaultLanguageCode: 'en',
         timeZone: 'Europe/Moscow'
       }
-    }
+    };
     const [newAgent] = await this._agentsClient.createAgent(createAgentReq);
-    tools.Logger.log(()=> `New Agent Created :: ${newAgent}`);
+    tools.Logger.log(() => `New Agent Created :: ${newAgent}`);
     return newAgent;
   }
 
-  async createIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<DialogflowCXIntent> {
+  async createIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<DialogflowCXIntent>
+  {
     const intentRepo = tools.getRepository<DialogflowCXIntent>(`orgs/${intent.orgId}/fallbacks`);
     const createdIntent = {
       displayName: intent.actionDetails.description,
       trainingPhrases: [],
       messages: [],
     };
-    
-    const dialogFlowIntent = {intent: createdIntent};
-    
+
+    const dialogFlowIntent = { intent: createdIntent };
+
     dialogFlowIntent['parent'] = this.agentPath;
 
     const dialogFlowIntentCreate = await this._client.createIntent(dialogFlowIntent);
     const id = dialogFlowIntentCreate[0].name.split("/").join("_");
     intent.id = id;
+    intent.name = dialogFlowIntentCreate[0].name;
     intent.agentName = this.activeAgent.name;
 
     return intentRepo.create(intent, intent.id);
   }
 
-  getIntent(intent: DialogflowCXIntent): Promise<any>{
+  getIntent(intent: DialogflowCXIntent): Promise<any>
+  {
     const intentInfo = {
-        name: intent.name
-    }
+      name: intent.name
+    };
     const intentResponse = this._client.getIntent(intentInfo);
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) =>
+    {
       resolve(intentResponse);
     });
   }
 
-  async getModuleIntents(orgId: string, botId: string, handlerTools: HandlerTools): Promise<DialogflowCXIntent[]>{
+  async getModuleIntents(orgId: string, botId: string, handlerTools: HandlerTools): Promise<DialogflowCXIntent[]>
+  {
     const moduleRepo = await handlerTools.getRepository(`orgs/${orgId}/fallbacks`);
     const moduleIntents = await moduleRepo.getDocuments(new Query()) as DialogflowCXIntent[];
     return moduleIntents;
   }
 
-  async updateIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<DialogflowCXIntent> {
+  async updateIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<DialogflowCXIntent>
+  {
     let page;
     let flow;
     const intentRepo = tools.getRepository<DialogflowCXIntent>(`orgs/${intent.orgId}/fallbacks`);
@@ -112,63 +122,47 @@ export class IntentService {
     const module = await moduleRepo$.getDocumentById(intent.moduleId);
     const bot = await botsRepo$.getDocumentById(intent.botId);
 
-    // Id to the default Goomza flow & page. Should be created manually on dialogflow.cloud.google.com
-    const flowId = bot.id;
+    const [flows] = await this._flowsClient.listFlows({ parent: this.agentPath });
 
-    const flowPath = this._pagesClient.flowPath(process.env.GCLOUD_PROJECT, process.env.LOCATION, this.agentID, flowId);
-    const pagePath = this._pagesClient.pagePath(process.env.GCLOUD_PROJECT, process.env.LOCATION, this.agentID, flowId, module.id);
-    
-    // Create new flow if it doesn't exist
-    const [flows] = await this._flowsClient.listFlows({parent: this.agentPath});
+    const flowExists = flows.find((fl) => fl.displayName.split('-')[1] === bot.id);
 
-    if(!flows || flows.length === 0) {
+    if (!flowExists) {
       // Create new page
       const createFlowReq = {
         parent: this.agentPath,
         flow: {
-          displayName: bot.name
+          displayName: `${bot.name} - ${bot.id}`
         }
-      }
+      };
 
-     const [newFLow] = await this._flowsClient.createFlow(createFlowReq);
-     flow = newFLow;
+      const [newFLow] = await this._flowsClient.createFlow(createFlowReq);
+      flow = newFLow;
+
     } else {
-      const flowExists = flows.find((ag)=> ag.name === this.agentPath);
-      
-      if(!flowExists) {
-        // Create new page
-        const createFlowReq = {
-          parent: this.agentPath,
-          flow: {
-            displayName: bot.name
-          }
-        }
-        
-        const [newFLow] = await this._flowsClient.createFlow(createFlowReq);
-        flow = newFLow;
-      } else {
-        flow = flowExists;
-      }
+      flow = flowExists;
     }
+
+    const flowId = this._getID(flow.name);
+
+    const flowPath = this._pagesClient.flowPath(process.env.GCLOUD_PROJECT, process.env.LOCATION, this.agentID, flowId);
 
     // In our case, each page in dialogflowCX will represent a BOT
-    const [pages] = await this._pagesClient.listPages({parent: flowPath});
+    const [pages] = await this._pagesClient.listPages({ parent: flowPath });
 
-    if(!pages || pages.length === 0) {
-      // Create new page
+    page = pages.find((p) => p.displayName.split('-')[1] == module.id);
+
+    if (!page) {
       const [newPage] = await this._createPage(module, flowPath);
       page = newPage;
-    } else {
-      page = pages.find((p)=> p.name == pagePath);
-
-      if(!page) {
-        const [newPage] = await this._createPage(module, flowPath);
-        page = newPage;
-      }
     }
 
-    const phrases = intent.userInput.map((input)=> {
-      return {parts: [{text: input}], repeatCount: 2};
+    const pageId = this._getID(page.name);
+
+    const pagePath = this._pagesClient.pagePath(process.env.GCLOUD_PROJECT, process.env.LOCATION, this.agentID, flowId, pageId);
+
+    const phrases = intent.userInput.map((input) =>
+    {
+      return { parts: [{ text: input }], repeatCount: 2 };
     });
 
     const updatedIntent = {
@@ -176,7 +170,7 @@ export class IntentService {
       name: intent.name,
       trainingPhrases: phrases
     };
-    
+
     await this._client.updateIntent({
       intent: updatedIntent
     });
@@ -184,33 +178,33 @@ export class IntentService {
     const transitions = page.transitionRoutes || [];
 
     // Only add the transition route(this is the only way of adding the intent to the flow) if it does not exist
-      let routeExists;
+    let routeExists;
 
-      if(page.transitionRoutes && page.transitionRoutes.length > 0) {
-        routeExists = page.transitionRoutes.find((route)=> route.name === `transition_${updatedIntent.name}`);
-      }
-      
-      if(!routeExists) {
-        const newTransition = {
-          name: `transition_${updatedIntent.name}`,
-          intent: updatedIntent.name,
-          targetPage: pagePath,
-          targetFlow: flowPath
-        };
-    
-        transitions.push(newTransition);
-    
-        const updatePageRequest = {
-          name: page.name,
-          page: {
-            ...page,
-            transitionRoutes: transitions,
-          },
-        };
-    
-        await this._pagesClient.updatePage(updatePageRequest);
-      }
-    
+    if (page.transitionRoutes && page.transitionRoutes.length > 0) {
+      routeExists = page.transitionRoutes.find((route) => route.name === `transition_${updatedIntent.name}`);
+    }
+
+    if (!routeExists) {
+      const newTransition = {
+        name: `transition_${updatedIntent.name}`,
+        intent: updatedIntent.name,
+        targetPage: pagePath,
+        targetFlow: flowPath
+      };
+
+      transitions.push(newTransition);
+
+      const updatePageRequest = {
+        name: page.name,
+        page: {
+          ...page,
+          transitionRoutes: transitions,
+        },
+      };
+
+      await this._pagesClient.updatePage(updatePageRequest);
+    }
+
     intent.trainingPhrases = updatedIntent.trainingPhrases;
     intent.flowName = flow.name;
     intent.pageName = page.name;
@@ -223,20 +217,24 @@ export class IntentService {
     return intentRepo.update(intent);
   }
 
-  private async _createPage(module: BotModule, flowPath: string) {
+  private async _createPage(module: BotModule, flowPath: string)
+  {
     const req = {
       parent: flowPath,
-      displayName: module.name,
-      languageCode: 'en-US'
-    }
+      page: {
+        displayName: `${module.name} - ${module.id}`
+      },
+      languageCode: 'en'
+    };
 
     return this._pagesClient.createPage(req);
   }
 
-  async deleteIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<boolean>{
+  async deleteIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<boolean>
+  {
     const deleteIntent = {
       name: intent.name
-    }
+    };
     const fallbackRepo = await tools.getRepository(`orgs/${intent.orgId}/fallbacks`);
 
     await this._client.deleteIntent(deleteIntent);

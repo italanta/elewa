@@ -194,9 +194,10 @@ export class FallbackModalComponent implements OnInit, OnDestroy
       const fallback = {
         ...this.fallback,
         ...this.fallbackForm.value,
+        moduleId: this.fallbackForm.value.actionDetails.moduleId
       };
 
-      this._sBS.sink = this._fallbackService.updateFallback(fallback).subscribe(() =>
+      this._sBS.sink = this._fallbackService.updateFallback(fallback).subscribe((resp) =>
       {
         this.isUpdating = false;
         this.dialogRef.close();
@@ -206,7 +207,8 @@ export class FallbackModalComponent implements OnInit, OnDestroy
 
       const fallback = {
         ...this.fallbackForm.value,
-        active: true
+        active: true,
+        moduleId: this.fallbackForm.value.actionDetails.moduleId
       };
 
       this._sBS.sink = this._fallbackService.addFallback(fallback)
