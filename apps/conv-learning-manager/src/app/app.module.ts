@@ -13,7 +13,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialBricksRootModule } from '@iote/bricks-angular';
 import { NgFireModule } from '@ngfi/angular';
-import { MultiLangModule } from '@ngfi/multi-lang';
+import { MultiLangModule, TranslocoHttpLoader } from '@ngfi/multi-lang';
 
 // import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
@@ -49,6 +49,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 
 import { environment } from '../environments/environment';
+import { provideTransloco } from '@jsverse/transloco';
 
 
 @NgModule({ 
@@ -103,6 +104,18 @@ import { environment } from '../environments/environment';
         //     updateOnRouterChange: true // will automatically run `update` on router event changes. Default: `false`
         // })
     ], 
-        providers: [provideHttpClient(withInterceptorsFromDi())] }
-    )
+    providers: 
+        [provideHttpClient(withInterceptorsFromDi()),
+         provideTransloco({
+            config: {
+                availableLangs: ['en', 'fr', 'nl'],
+                fallbackLang: 'en',
+                // Remove this option if your application doesn't support changing language in runtime.
+                reRenderOnLangChange: true,
+                prodMode: environment.production
+            },
+            loader: TranslocoHttpLoader
+        })] 
+    }
+)
 export class AppModule {}
