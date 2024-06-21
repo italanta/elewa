@@ -9,15 +9,16 @@ import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import {
   ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock,
-  TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, StickerMessageBlock,
-  VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, FailBlock,
+  TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, 
+  VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, 
   ImageInputBlock, LocationInputBlock, AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock,
-  KeywordMessageBlock, EndStoryAnchorBlock, EventBlock, AssessmentBrick, ConditionalBlock, CMI5Block
+  KeywordMessageBlock, EndStoryAnchorBlock, EventBlock, AssessmentBrick, ConditionalBlock
 } from '@app/model/convs-mgr/stories/blocks/messaging';
+
+import { ICONS_AND_TITLES, IconAndTitle } from '@app/features/convs-mgr/stories/blocks/library/main';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { DragDropService } from '../../providers/drag-drop.service';
-import { ICONS_AND_TITLES, IconAndTitle } from '@app/features/convs-mgr/stories/blocks/library/main';
 import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
 
 /**
