@@ -18,7 +18,7 @@ export class Intercom {
 
   constructor(
     @Inject(IntercomConfig) private config: IntercomConfig,
-    @Inject(PLATFORM_ID) protected platformId: Object,
+    @Inject(PLATFORM_ID) protected platformId: object,
     @Optional() @Inject(Router) private router: Router,
     private rendererFactory: RendererFactory2,
     @Optional() @Inject(DOCUMENT) private document: any // Document
@@ -59,7 +59,7 @@ export class Intercom {
     if (!isPlatformBrowser(this.platformId)) {
       return
     }
-    const app_id = intercomData.app_id ? intercomData.app_id : this.config.appId
+    const app_id = intercomData?.app_id ? intercomData.app_id : this.config.appId
     // Run load and attach to window
     this.loadIntercom(this.config, (event?: Event) => {
       // then boot the intercom js
@@ -201,7 +201,7 @@ export class Intercom {
   /**
    * Private handler to run Intercom methods safely
    */
-  private _callIntercom(fn: string, ...args) {
+  private _callIntercom(fn: string, ...args: any[]) {
     if (!isPlatformBrowser(this.platformId)) {
       return
     }
@@ -252,20 +252,21 @@ export class Intercom {
     w.intercomSettings = config
 
     if (typeof ic === 'function') {
-      ic('reattach_activator')
-      ic('update', config)
-      afterLoadCallback()
+      ic('reattach_activator');
+      ic('update', config);
+      afterLoadCallback();
     } else {
-      const i: any = function () {
-        i.c(arguments)
-      }
-      i.q = []
-      i.c = function (args: any) {
-        i.q.push(args)
-      }
-      w.Intercom = i
-      this.injectIntercomScript(config, afterLoadCallback)
+      const i: any = function (...args: any[]) {
+        i.c(...args);
+      };
+      i.q = [];
+      i.c = function (...args: any[]) {
+        i.q.push(args);
+      };
+      (w as any).Intercom = i;
+      this.injectIntercomScript(config, afterLoadCallback);
     }
+    
 
   }
 }

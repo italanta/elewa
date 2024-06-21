@@ -37,14 +37,15 @@ import { IntercomConfig } from './shared/intercom-config'
     IntercomConfig
   ]
 })
+
 export class IntercomModule {
-  static forRoot(config: IntercomConfig): ModuleWithProviders {
+  static forRoot(config: IntercomConfig): ModuleWithProviders<IntercomModule> {
     return {
       ngModule: IntercomModule,
       providers: [
         Intercom,
         { provide: IntercomConfig, useValue: config },
       ]
-    }
+    };
   }
 }
