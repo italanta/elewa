@@ -49,7 +49,7 @@ export class GCFunction<T, R> {
     const funcWithScope = <(data: T, context: HandlerContext, tools: HandlerTools) => Promise<R>> this._handler.execute.bind(this._handler);
 
     // 2) Bind function context.
-    const funcWithContext = (data: any, context: HandlerContext) => funcWithScope(data, createContext(context, this._environment), this._tools);
+    const funcWithContext = (data: any, context: HandlerContext) => funcWithScope(data, createContext(context, process.env as Environment), this._tools);
 
     // 3) Wrap the guard around the handler. If the guard fails halt execution and throw an error.
     const gaurdedFunc = wrapGaurd(funcWithContext, this._guards, this._name, this._logger);
