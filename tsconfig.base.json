@@ -478,7 +478,8 @@
       "@ngfi/functions/v2": ["libs/util/ngfi/functions-v2/src/index.ts"],
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
-      "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"]
+      "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
+      "intercom": ["libs/util/ngfi/intercom/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
