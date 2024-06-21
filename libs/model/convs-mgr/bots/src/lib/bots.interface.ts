@@ -37,6 +37,8 @@ export interface Bot extends IObject {
 
   /** Whether AI fallback is enabled for this bot or not */
   aiFallBackRouting?: boolean;
+
+  language?: 'en';
 }
 
 /** botmutation enum - has the different bot mutations you can perfom on a bot */

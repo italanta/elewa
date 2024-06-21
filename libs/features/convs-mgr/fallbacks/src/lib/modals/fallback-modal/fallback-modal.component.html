@@ -82,6 +82,13 @@
   </div>
 
   <div class="update-div">
-    <div class="update-btn"> <span class="btn" (click)="handleSubmit()"> Update </span> </div>
+    <div class="update-btn" *ngIf="!isUpdating"> <span class="btn" (click)="handleSubmit()"> Update </span> </div>
+    <div class="spinner-wrapper" *ngIf="isUpdating">
+      <span class="spinner">
+        <span></span>
+        <span></span>
+    
+      </span>
+    </div>
   </div>
 </form>

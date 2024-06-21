@@ -11,6 +11,7 @@ import { Message, QuestionMessage, TextMessage } from "@app/model/convs-mgr/conv
 import { DialogflowCXIntent, FallBackActionTypes, RouteAction } from "@app/model/convs-mgr/fallbacks";
 import { IntentFallbackService } from "@app/private/functions/intent-fallback-handler";
 import { Story } from "@app/model/convs-mgr/stories/main";
+import { Bot } from "@app/model/convs-mgr/bots";
  
 import { BlockDataService } from "../../data-services/blocks.service";
 // import { DialogflowCXIntent } from "libs/functions/intent/src/lib/models/dialogflow-cx-Intent.model";
@@ -19,6 +20,7 @@ export class FallBackBlockService
 {
   intentFallbackService: IntentFallbackService;
   _handlerTools: HandlerTools;
+
   constructor(tools: HandlerTools) {
     this.intentFallbackService = new IntentFallbackService();
     this._handlerTools = tools;
@@ -127,19 +129,21 @@ export class FallBackBlockService
     // Get the parent module
     const parentModule = await this._getModuleByStory(orgId, storyId, this._handlerTools);
 
+    
     if(!parentModule) {
       throw `FallBackBlockService - Parent module for ${storyId} not found`
     }
-
+    
     // Get intents linked to that module
     const savedFallbacks = await intentRepo.getDocuments(new Query().where('moduleId', '==', parentModule));
-
+    
     const userInputsArr = savedFallbacks.filter((fb)=> fb.active).map((fb)=> fb.userInput);
-
+    
     const userInputs = _.flatten(userInputsArr);
-
+    
     const intentFallBackService = new IntentFallbackService();
 
+    await intentFallBackService.init(orgId, parentModule, this._handlerTools);
     const intent = await intentFallBackService.detectIntentAndRespond((message as TextMessage).text, userInputs, endUserId);
 
     this._handlerTools.Logger.log(()=> `Detected Intent :: ${JSON.stringify(intent)}`);

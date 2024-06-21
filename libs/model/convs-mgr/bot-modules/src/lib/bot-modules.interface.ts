@@ -20,4 +20,9 @@ export interface BotModule extends IObject {
   stories: string[];
 
   type: "BotModule";
+
+  /** Dialogflow Config */
+  agent?: string;
+  flow?: string;
+  page?: string;
 }

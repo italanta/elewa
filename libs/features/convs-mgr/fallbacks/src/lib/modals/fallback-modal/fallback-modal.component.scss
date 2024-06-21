@@ -150,3 +150,44 @@ select {
     border-radius: 20px;
   }
 }
+
+@keyframes top-cricle {
+  from {
+    transform: rotate(-25deg);
+  }
+  to {
+    transform: rotate(335deg);
+  }
+}
+@keyframes bottom-cricle {
+  from {
+    transform: rotate(-15deg);
+  }
+  to {
+    transform: rotate(345deg);
+  }
+}
+html {
+  background-color: white;
+}
+.spinner-wrapper {
+  .spinner {
+    padding-right: 35px;
+    & > span {
+      display: inline-block;
+      position: absolute;
+      border-radius: 100px;
+      padding: 8px;
+      border: 5px solid transparent;
+      
+      animation: top-cricle 0.7s ease-in-out infinite;
+      border-top: 4px solid var(--convs-mgr-color-3E788A);
+      
+      &:nth-child(1) {
+        animation-delay: -0.15s;
+      }
+
+      
+    }
+  }
+}

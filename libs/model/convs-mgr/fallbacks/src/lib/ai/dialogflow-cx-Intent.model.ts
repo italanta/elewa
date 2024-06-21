@@ -15,4 +15,7 @@ export interface DialogflowCXIntent extends Fallback {
   // Entity extraction
   parameters?: IntentParameter[]; // List of entities to extract from user input
   events?: string[]; // Events triggered by extracted entities
+  agentName?: string;
+  flowName?: string;
+  pageName?: string;
 }
