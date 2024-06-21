@@ -1,0 +1,21 @@
+{
+  "name": "model-convs-mgr-fallbacks",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/model/convs-mgr/fallbacks/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/model/convs-mgr/fallbacks"],
+      "options": {
+        "tsConfig": "libs/model/convs-mgr/fallbacks/tsconfig.json",
+        "jestConfig": "libs/model/convs-mgr/fallbacks/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

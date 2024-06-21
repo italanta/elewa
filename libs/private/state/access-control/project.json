@@ -1,0 +1,21 @@
+{
+  "name": "private-state-access-control",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/private/state/access-control/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/private/state/access-control"],
+      "options": {
+        "tsConfig": "libs/private/state/access-control/tsconfig.json",
+        "jestConfig": "libs/private/state/access-control/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

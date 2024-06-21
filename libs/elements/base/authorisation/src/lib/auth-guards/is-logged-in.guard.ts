@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Route, UrlSegment } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, Route, UrlSegment } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -7,7 +7,7 @@ import { map, tap } from 'rxjs/operators';
 import { UserStore } from '@app/state/user';
 
 @Injectable()
-export class IsLoggedInGuard implements CanActivate, CanLoad
+export class IsLoggedInGuard 
 {
   constructor(private authService: UserStore, private router: Router) {}
 

@@ -1,10 +1,8 @@
 {
   "name": "@ngfi/functions",
   "version": "2.0.0",
-
   "description": "Library which packages @iote/cqrs compliant handlers into Google Cloud functions for deployment. Adds context and environment.",
-  
-  "author": { 
+  "author": {
     "name": "jrosseel",
     "email": "rosseeljente@gmail.com",
     "url": "https://italanta.net"
@@ -12,7 +10,6 @@
   "peerDependencies": {
     "@iote/bricks": "^2.0.0",
     "@iote/cqrs": "^2.0.0",
-
     "@ngfi/admin-data": "^2.0.0",
     "@ngfi/firestore-qbuilder": "^2.0.0",
     "@firebase/firestore-types": "^2.5.0",

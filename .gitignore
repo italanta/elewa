@@ -50,7 +50,9 @@ apps/conv-lm-backend/src/environments/environment.prod.ts
 
 # Nx
 .nx
+.nx/*
 
 *.icloud
 
 /emulator-data
+

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {  HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import {
   FlexLayoutModule,
@@ -16,26 +16,13 @@ import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/bloc
 
 import { ImageBlockComponent } from './components/image-block/image-block.component';
 
-@NgModule({
-  imports: [
-    CommonModule,
-    MultiLangModule,
-    MaterialDesignModule,
-    FlexLayoutModule,
-    MaterialBricksModule,
-
-    FormsModule,
-    ReactiveFormsModule,
-
-    HttpClientModule,
-
-    ConvsMgrBlockOptionsModule
-  ],
-
-  declarations: [ImageBlockComponent],
-
-  providers: [],
-
-  exports: [ImageBlockComponent],
-})
+@NgModule({ declarations: [ImageBlockComponent],
+    exports: [ImageBlockComponent], imports: [CommonModule,
+        MultiLangModule,
+        MaterialDesignModule,
+        FlexLayoutModule,
+        MaterialBricksModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ConvsMgrBlockOptionsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class ConvsMgrImageMessageBlockModule {}

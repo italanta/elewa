@@ -5,7 +5,7 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/admin/config/environment-config",
@@ -16,18 +16,16 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/admin/config/environment-config/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/admin/config/environment-config"],
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/admin/config/environment-config"
+      ],
       "options": {
-        "jestConfig": "libs/admin/config/environment-config/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/admin/config/environment-config/jest.config.ts"
       }
     }
   },

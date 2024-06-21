@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MultiLangModule } from '@ngfi/multi-lang';
@@ -14,25 +14,15 @@ import { Cmi5BlockComponent } from './components/cmi5-block/cmi5-block.component
 
 
 
-@NgModule({
-  imports: [
-        CommonModule,
-    MultiLangModule,
-    MaterialDesignModule,
-    FlexLayoutModule,
-    MaterialBricksModule,
-
-    FormsModule,
-    ReactiveFormsModule,
-
-    HttpClientModule,
-
-    ConvsMgrBlockOptionsModule
-  ],
-  declarations: [Cmi5BlockComponent],
-
-  exports :[Cmi5BlockComponent]
-})
+@NgModule({ declarations: [Cmi5BlockComponent],
+    exports: [Cmi5BlockComponent], imports: [CommonModule,
+        MultiLangModule,
+        MaterialDesignModule,
+        FlexLayoutModule,
+        MaterialBricksModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ConvsMgrBlockOptionsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class ConvsMgrCMI5BlockModule {}
 
 

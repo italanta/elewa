@@ -15,7 +15,7 @@
       <mat-optgroup *ngFor="let group of groupsDisplay$ | async" [label]="groupName(group)">
 
         <mat-option *ngFor="let item of groupItemsInner(group)" [value]="item">
-          <span fxFlex="100" [class.highlight]="highlightFn && highlightFn(item)">{{ itemFieldDisplayFn(item) }}</span> <span *ngIf="highlightFn && highlightFn(item)">IND</span>
+          <span fxFlex="100" [class.highlight]="highlightFn(item)">{{ itemFieldDisplayFn(item) }}</span> <span *ngIf="highlightFn && highlightFn(item)">IND</span>
         </mat-option>
 
       </mat-optgroup>

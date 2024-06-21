@@ -1,0 +1,21 @@
+{
+  "name": "state-convs-mgr-learners",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/state/convs-mgr/learners/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/state/convs-mgr/learners"],
+      "options": {
+        "tsConfig": "libs/state/convs-mgr/learners/tsconfig.json",
+        "jestConfig": "libs/state/convs-mgr/learners/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

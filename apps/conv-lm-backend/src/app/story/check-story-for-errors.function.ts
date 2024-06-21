@@ -12,7 +12,7 @@ const checkStoryForErrorsHandler = new FindStoryErrorHandler();
  * 
  */
 export const checkStoryErrors = new ConvLearnFunction( 'checkStoryErrors',
-                                                    new RestRegistrar(),
+                                                    new RestRegistrar('asia-south1'),
                                                     [],
                                                     checkStoryForErrorsHandler)
                                                     .build()

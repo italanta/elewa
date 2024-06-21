@@ -1,25 +1,20 @@
 {
   "name": "elements-base-authorisation",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/elements/base/authorisation/src",
   "prefix": "app",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/elements/base/authorisation"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/elements/base/authorisation"],
       "options": {
-        "jestConfig": "libs/elements/base/authorisation/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/elements/base/authorisation/tsconfig.json",
+        "jestConfig": "libs/elements/base/authorisation/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/elements/base/authorisation/**/*.ts",
-          "libs/elements/base/authorisation/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

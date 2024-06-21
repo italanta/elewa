@@ -1,0 +1,21 @@
+{
+  "name": "state-file-whatsapp",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/state/file/whatsapp/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/state/file/whatsapp"],
+      "options": {
+        "tsConfig": "libs/state/file/whatsapp/tsconfig.json",
+        "jestConfig": "libs/state/file/whatsapp/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

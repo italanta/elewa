@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router} from '@angular/router';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
 
 import { map, tap } from 'rxjs/operators';
 
@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class CanAccessFFlagGuard implements CanActivate {
+export class CanAccessFFlagGuard  {
   constructor(private featureFlagsService: FeatureFlagsService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot) : Observable<boolean> {

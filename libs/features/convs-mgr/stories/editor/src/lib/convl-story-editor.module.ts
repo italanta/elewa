@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PortalModule } from '@angular/cdk/portal';
-import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { MatStepperModule } from '@angular/material/stepper';
 
 import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule, MaterialFormBricksModule } from '@iote/bricks-angular';
@@ -37,7 +36,7 @@ import { SaveStoryService } from './providers/save-story.service';
 
 @NgModule({
   imports: [
-    CommonModule, MultiLangModule, PortalModule, InfiniteScrollModule,
+    CommonModule, MultiLangModule, PortalModule,
     MaterialDesignModule, FlexLayoutModule, MaterialBricksModule,
     MaterialFormBricksModule, FormsModule, ReactiveFormsModule,
     ConvlPageModule, ConvsMgrAnchorBlockModule,

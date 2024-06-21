@@ -1,0 +1,21 @@
+{
+  "name": "state-convs-mgr-monitoring",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/state/convs-mgr/monitoring/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/state/convs-mgr/monitoring"],
+      "options": {
+        "tsConfig": "libs/state/convs-mgr/monitoring/tsconfig.json",
+        "jestConfig": "libs/state/convs-mgr/monitoring/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

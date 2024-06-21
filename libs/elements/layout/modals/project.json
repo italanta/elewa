@@ -1,0 +1,21 @@
+{
+  "name": "elements-layout-modals",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/elements/layout/modals/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/elements/layout/modals"],
+      "options": {
+        "tsConfig": "libs/elements/layout/modals/tsconfig.json",
+        "jestConfig": "libs/elements/layout/modals/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

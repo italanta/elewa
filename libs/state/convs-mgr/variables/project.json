@@ -1,0 +1,21 @@
+{
+  "name": "state-convs-mgr-variables",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/state/convs-mgr/variables/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/state/convs-mgr/variables"],
+      "options": {
+        "tsConfig": "libs/state/convs-mgr/variables/tsconfig.json",
+        "jestConfig": "libs/state/convs-mgr/variables/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

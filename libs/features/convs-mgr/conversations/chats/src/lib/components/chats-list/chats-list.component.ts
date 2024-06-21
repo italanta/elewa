@@ -152,7 +152,7 @@ export class ChatsListComponent implements AfterViewInit, OnDestroy
 
   _searchChat(chat: Chat, searchTerm: string): boolean {
     const combinedProperties = Object.keys(chat)
-      .map(key => chat[key])
+      .map(key => (chat as any as ({[k: string]: string}))[key] as string)
       .join(' ')
       .toLowerCase();
 

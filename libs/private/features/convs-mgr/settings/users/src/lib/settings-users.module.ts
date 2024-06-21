@@ -5,8 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, MaterialFormBricksModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-// import { MatSelectFilterModule } from 'mat-select-filter';
-
 import { AccessControlModule } from '@app/private/elements/convs-mgr/access-control';
 
 import { UsersComponent } from './components/users/users.component';
@@ -18,8 +16,6 @@ import { UpdateUserModalComponent } from './modals/update-user-modal/update-user
   imports: [
     CommonModule,
     MultiLangModule,
-
-    // MatSelectFilterModule,
 
     MaterialDesignModule,
     FlexLayoutModule,

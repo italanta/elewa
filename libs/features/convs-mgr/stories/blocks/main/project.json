@@ -1,25 +1,22 @@
 {
   "name": "features-convs-mgr-stories-blocks-main",
+  "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/features/convs-mgr/stories/blocks/main/src",
   "prefix": "app",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/features/convs-mgr/stories/blocks/main"],
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/features/convs-mgr/stories/blocks/main"
+      ],
       "options": {
-        "jestConfig": "libs/features/convs-mgr/stories/blocks/main/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/features/convs-mgr/stories/blocks/main/tsconfig.json",
+        "jestConfig": "libs/features/convs-mgr/stories/blocks/main/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/features/convs-mgr/stories/blocks/main/**/*.ts",
-          "libs/features/convs-mgr/stories/blocks/main/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

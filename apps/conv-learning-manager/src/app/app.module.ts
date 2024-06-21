@@ -6,19 +6,16 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireFunctionsModule } from '@angular/fire/compat/functions';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { IntercomModule } from 'ng-intercom';
-
 import { MaterialBricksRootModule } from '@iote/bricks-angular';
 import { NgFireModule } from '@ngfi/angular';
-import { MultiLangModule } from '@ngfi/multi-lang';
+import { MultiLangModule, TranslocoHttpLoader } from '@ngfi/multi-lang';
 
-import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+// import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 import { AuthorisationModule } from '@app/elements/base/authorisation';
 import { AppConfigurationModule } from '@app/elements/base/configuration';
@@ -52,72 +49,74 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 
 import { environment } from '../environments/environment';
+import { provideTransloco } from '@jsverse/transloco';
+import { IntercomModule } from 'intercom';
 
 
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule, BrowserAnimationsModule,
-    GooglePlaceModule,
-    
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule, AngularFirestoreModule, AngularFireFunctionsModule, NgFireModule,
-    AngularFireAnalyticsModule,
-    HttpClientModule,
-
-
-    MaterialBricksRootModule.forRoot(),
-
-    UserStateModule.forRoot(),
-    AuthorisationModule.forRoot(environment, environment.production),
-    EnvironmentConfigModule.forRoot(environment),
-
-    AppConfigurationModule.forRoot(environment, environment.production),
-    DateConfigurationModule.forRoot(),
-    FirebaseConfigurationModule.forRoot(!environment.production, environment.useEmulators),
-    MultiLangModule.forRoot(true),
-    // UserNavModule,
-
-    MatProgressBarModule,
-
-    // AppConfigModule.forRoot(),
-
-    // DataModule.forRoot(),
-    StoriesStateModule.forRoot(),
-    ClassroomStateModule.forRoot(),
-    StoryBlocksStateModule.forRoot(),
-    StoryBlockConnectionsStateModule.forRoot(),
-    VariablesConfigStateModule.forRoot(),
-    ProgressMonitoringStateModule.forRoot(),
-    EndUsersStateModule.forRoot(),
-    LearnersStateModule.forRoot(),
-    BotsStateModule.forRoot(),
-    BotModulesStateModule.forRoot(),
-    StateAssessmentsModule.forRoot(),
-    ChannelsStateModule.forRoot(),
-    StateSurveysModule.forRoot(),
-    MessageTemplatesModule.forRoot(),
-    VariablesModule.forRoot(),
-    FallbackStateModule.forRoot(),
-   
-
-    MtOrgStateModule.forRoot(),
-
-    AccessControlStateModule.forRoot(),
-
-    AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
-    IntercomModule.forRoot({
-      appId: 'jvwszj2k', 
-      updateOnRouterChange: true // will automatically run `update` on router event changes. Default: `false`
-    })
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
-})
+@NgModule({ 
+    declarations: [AppComponent],
+    bootstrap: [AppComponent], 
+    imports: [
+        BrowserModule, BrowserAnimationsModule,
+        // GooglePlaceModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireAuthModule, AngularFirestoreModule, AngularFireFunctionsModule, NgFireModule,
+        AngularFireAnalyticsModule,
+        MaterialBricksRootModule.forRoot(),
+        UserStateModule.forRoot(),
+        AuthorisationModule.forRoot(environment, environment.production),
+        EnvironmentConfigModule.forRoot(environment),
+        AppConfigurationModule.forRoot(environment, environment.production),
+        DateConfigurationModule.forRoot(),
+        FirebaseConfigurationModule.forRoot(!environment.production, environment.useEmulators),
+        MultiLangModule.forRoot(true),
+        // UserNavModule,
+        MatProgressBarModule,
+        // AppConfigModule.forRoot(),
+        // DataModule.forRoot(),
+        StoriesStateModule.forRoot(),
+        ClassroomStateModule.forRoot(),
+        StoryBlocksStateModule.forRoot(),
+        StoryBlockConnectionsStateModule.forRoot(),
+        VariablesConfigStateModule.forRoot(),
+        ProgressMonitoringStateModule.forRoot(),
+        EndUsersStateModule.forRoot(),
+        LearnersStateModule.forRoot(),
+        BotsStateModule.forRoot(),
+        BotModulesStateModule.forRoot(),
+        StateAssessmentsModule.forRoot(),
+        ChannelsStateModule.forRoot(),
+        StateSurveysModule.forRoot(),
+        MessageTemplatesModule.forRoot(),
+        VariablesModule.forRoot(),
+        FallbackStateModule.forRoot(),
+        MtOrgStateModule.forRoot(),
+        AccessControlStateModule.forRoot(),
+        AppRoutingModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        }),
+        // TODO @Beulah
+        IntercomModule.forRoot({
+            appId: 'jvwszj2k',
+            updateOnRouterChange: true // will automatically run `update` on router event changes. Default: `false`
+        })
+    ], 
+    providers: 
+        [provideHttpClient(withInterceptorsFromDi()),
+         provideTransloco({
+            config: {
+                availableLangs: ['en', 'fr', 'nl'],
+                fallbackLang: 'en',
+                // Remove this option if your application doesn't support changing language in runtime.
+                reRenderOnLangChange: true,
+                prodMode: environment.production
+            },
+            loader: TranslocoHttpLoader
+        })] 
+    }
+)
 export class AppModule {}

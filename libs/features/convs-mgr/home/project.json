@@ -1,25 +1,20 @@
 {
   "name": "features-convs-mgr-home",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/features/convs-mgr/home/src",
   "prefix": "italanta-apps",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/features/convs-mgr/home"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/features/convs-mgr/home"],
       "options": {
-        "jestConfig": "libs/features/convs-mgr/home/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/features/convs-mgr/home/tsconfig.json",
+        "jestConfig": "libs/features/convs-mgr/home/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/features/convs-mgr/home/**/*.ts",
-          "libs/features/convs-mgr/home/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

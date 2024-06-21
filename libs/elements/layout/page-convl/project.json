@@ -1,25 +1,20 @@
 {
   "name": "elements-layout-page-convl",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/elements/layout/page-convl/src",
   "prefix": "app",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/elements/layout/page-convl"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/elements/layout/page-convl"],
       "options": {
-        "jestConfig": "libs/elements/layout/page-convl/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/elements/layout/page-convl/tsconfig.json",
+        "jestConfig": "libs/elements/layout/page-convl/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/elements/layout/page-convl/**/*.ts",
-          "libs/elements/layout/page-convl/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

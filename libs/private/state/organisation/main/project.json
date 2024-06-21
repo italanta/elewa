@@ -1,0 +1,23 @@
+{
+  "name": "private-state-organisation-main",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/private/state/organisation/main/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/private/state/organisation/main"
+      ],
+      "options": {
+        "tsConfig": "libs/private/state/organisation/main/tsconfig.json",
+        "jestConfig": "libs/private/state/organisation/main/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

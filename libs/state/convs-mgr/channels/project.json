@@ -1,0 +1,21 @@
+{
+  "name": "state-convs-mgr-channels",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/state/convs-mgr/channels/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/state/convs-mgr/channels"],
+      "options": {
+        "tsConfig": "libs/state/convs-mgr/channels/tsconfig.json",
+        "jestConfig": "libs/state/convs-mgr/channels/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}
