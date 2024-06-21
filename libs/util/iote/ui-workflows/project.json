@@ -1,12 +1,13 @@
 {
   "name": "util-iote-ui-workflows",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/util/iote/ui-workflows/src",
   "prefix": "italanta-apps",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/util/iote/ui-workflows"],
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/util/iote/ui-workflows"],
       "options": {
         "project": "libs/util/iote/ui-workflows/ng-package.json"
       },
@@ -21,21 +22,15 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/util/iote/ui-workflows"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/util/iote/ui-workflows"],
       "options": {
-        "jestConfig": "libs/util/iote/ui-workflows/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/util/iote/ui-workflows/tsconfig.json",
+        "jestConfig": "libs/util/iote/ui-workflows/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/util/iote/ui-workflows/**/*.ts",
-          "libs/util/iote/ui-workflows/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

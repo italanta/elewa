@@ -16,7 +16,7 @@ const handler = new DeleteJobHandler();
  * 
  */
 export const deleteJob = new ConvLearnFunction('deleteJob', 
-                                                  new RestRegistrar(), 
+                                                  new RestRegistrar('asia-south1'), 
                                                   [], 
                                                   handler)
                                .build();

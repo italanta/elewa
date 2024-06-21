@@ -10,8 +10,6 @@ import {
 } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-import { MatSelectFilterModule } from 'mat-select-filter';
-
 import { AccessControlModule } from '@app/private/elements/convs-mgr/access-control';
 import { ItalBreadCrumbModule } from '@app/elements/layout/ital-bread-crumb';
 
@@ -37,9 +35,6 @@ import { SwitchButtonComponent } from './modals/switch-button/switch-button.comp
   imports: [
     CommonModule,
     MultiLangModule,
-
-    MatSelectFilterModule,
-
     MaterialDesignModule,
     FlexLayoutModule,
     MaterialFormBricksModule,

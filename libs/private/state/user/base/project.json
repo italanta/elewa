@@ -1,0 +1,21 @@
+{
+  "name": "private-state-user-base",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/private/state/user/base/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/private/state/user/base"],
+      "options": {
+        "tsConfig": "libs/private/state/user/base/tsconfig.json",
+        "jestConfig": "libs/private/state/user/base/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

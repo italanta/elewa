@@ -173,7 +173,7 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getUserEngagement(models: GroupProgressModel[], usersType: string, courseId: string): number[] {
+  private getUserEngagement(models: GroupProgressModel[], usersType: 'activeUsers' | 'inactiveUsers', courseId: string): number[] {
 
     const userCountArray = [] as number[];
 

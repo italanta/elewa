@@ -42,7 +42,7 @@ export class SendModalComponent implements OnInit {
 
   messageTemplates: MessageTemplate[];
   messageTemplates$: Observable<MessageTemplate[]>;
-  templateStatus$: Observable<MessageStatusRes[]>;
+  templateStatus$: Observable<MessageStatusRes>;
 
   channelId: string;
 

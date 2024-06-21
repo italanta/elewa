@@ -1,12 +1,13 @@
 {
   "name": "util-iote-local-persistance",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/util/iote/local-persistance/src",
   "prefix": "italanta-apps",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/util/iote/local-persistance"],
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/util/iote/local-persistance"],
       "options": {
         "project": "libs/util/iote/local-persistance/ng-package.json"
       },
@@ -21,21 +22,15 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/util/iote/local-persistance"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/util/iote/local-persistance"],
       "options": {
-        "jestConfig": "libs/util/iote/local-persistance/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/util/iote/local-persistance/tsconfig.json",
+        "jestConfig": "libs/util/iote/local-persistance/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/util/iote/local-persistance/**/*.ts",
-          "libs/util/iote/local-persistance/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

@@ -1,25 +1,20 @@
 {
   "name": "elements-layout-user-menu",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/elements/layout/user-menu/src",
   "prefix": "app",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/elements/layout/user-menu"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/elements/layout/user-menu"],
       "options": {
-        "jestConfig": "libs/elements/layout/user-menu/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/elements/layout/user-menu/tsconfig.json",
+        "jestConfig": "libs/elements/layout/user-menu/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/elements/layout/user-menu/**/*.ts",
-          "libs/elements/layout/user-menu/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

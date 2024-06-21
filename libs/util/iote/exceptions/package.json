@@ -1,10 +1,8 @@
 {
   "name": "@iote/exceptions",
   "version": "2.0.0",
-
   "description": "Exception management through an abstract class which can define custom exception handling logic.",
-
-  "author": { 
+  "author": {
     "name": "jrosseel",
     "email": "rosseeljente@gmail.com",
     "url": "https://italanta.net"

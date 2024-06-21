@@ -8,13 +8,13 @@ import { FIREBASE_REGIONS } from '../regions.type';
 /**
  * PubSub registrar.
  */
-export class PubSubRegistrar<T> extends FunctionRegistrar<T, void>
+export class PubSubRegistrar<T, R> extends FunctionRegistrar<T, R>
 {
   constructor(private _topic: string,
               private _region: FIREBASE_REGIONS = 'europe-west1')
   { super(); }
 
-  register(func: (dataSnap: any, context: any) => Promise<void>): functions.CloudFunction<functions.pubsub.Message>
+  register(func: (dataSnap: any, context: any) => Promise<R>): functions.CloudFunction<functions.pubsub.Message>
   {
     return functions.region(this._region)
             .pubsub.topic(this._topic)
@@ -29,8 +29,8 @@ export class PubSubRegistrar<T> extends FunctionRegistrar<T, void>
     return { data, context };
   }
 
-  after(result: void, _: any): any {
-    return;
+  after(result: R, _: any): R {
+    return result;
   }
 
   onError(e: Error) {

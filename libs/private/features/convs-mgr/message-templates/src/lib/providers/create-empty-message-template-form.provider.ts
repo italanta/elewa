@@ -4,7 +4,8 @@ import { MessageTemplate, TextHeader, VariableExample } from '@app/model/convs-m
 
 import { customTextValidator } from '../utils/validator';
 
-export function createTemplateForm(fb: FormBuilder, template?: MessageTemplate): FormGroup {
+export function createTemplateForm(fb: FormBuilder, template?: MessageTemplate): FormGroup 
+{
   return fb.group({
     name: [template?.name ?? '', [Validators.required, Validators.pattern(/^[a-z0-9_-]{1,512}$/), customTextValidator]],
     category: [template?.category ?? '', Validators.required],
@@ -29,14 +30,21 @@ export function createTemplateForm(fb: FormBuilder, template?: MessageTemplate):
   });
 }
 
-function loadExamples(fb: FormBuilder, section: string, template?: MessageTemplate) {
+function loadExamples(fb: FormBuilder, section: 'bodyExamples' | 'headerExamples', template?: MessageTemplate) 
+{
   const examples = fb.array([]) as FormArray;
 
-  if(!template) return examples;
+  if(!template) 
+    return examples;
 
-  template[section]?.forEach((example: VariableExample) => {
-    examples.push(createExampleFB(example, fb));
-  })
+  const sections = template[section] as VariableExample[];
+
+  if(sections)
+  {
+    sections.forEach((example: VariableExample) => {
+      examples.push(createExampleFB(example, fb));
+    });
+  }
   return examples;
 }
 

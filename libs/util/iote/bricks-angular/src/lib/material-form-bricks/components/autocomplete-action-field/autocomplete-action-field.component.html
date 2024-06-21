@@ -12,7 +12,7 @@
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectItem($event)">
     <mat-option *ngFor="let item of displayItems"
                 [value]="item" [disabled]="selectedItemNow === itemFieldDisplayFn(item)">
-      <span fxFlex="100" [class.highlight]="highlightFn && highlightFn(item)">{{ itemFieldDisplayFn(item) }}</span> <span *ngIf="highlightFn && highlightFn(item)">IND</span>
+      <span fxFlex="100" [class.highlight]="highlightFn(item)">{{ itemFieldDisplayFn(item) }}</span> <span *ngIf="highlightFn && highlightFn(item)">IND</span>
     </mat-option>
   </mat-autocomplete>
 

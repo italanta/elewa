@@ -17,7 +17,7 @@ import {
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { DragDropService } from '../../providers/drag-drop.service';
-import { ICONS_AND_TITLES } from '@app/features/convs-mgr/stories/blocks/library/main';
+import { ICONS_AND_TITLES, IconAndTitle } from '@app/features/convs-mgr/stories/blocks/library/main';
 import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
 
 /**
@@ -87,7 +87,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
   }
 
   getBlockIcon(type: number) {
-    return ICONS_AND_TITLES[type].icon;
+    return (ICONS_AND_TITLES[type] as IconAndTitle).icon;
   }
 
 

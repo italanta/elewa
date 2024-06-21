@@ -7,7 +7,7 @@ import { ConvLearnFunction } from "../../conv-learn-func.class";
 const organisationAssignHandler = new OrganisationAssignUserHandler()
 
 export const assignUserToCreatedOrg = new ConvLearnFunction('assignUserToCreatedOrg',
-                                                  new RestRegistrar(),
+                                                  new RestRegistrar('asia-south1'),
                                                   [],
                                                   organisationAssignHandler)
                                                   .build()

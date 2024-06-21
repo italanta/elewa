@@ -1,10 +1,8 @@
 {
   "name": "@ngfi/admin-data",
   "version": "2.0.0",
-
   "description": "Data layer implementation for working with firestore within a @iote/cqrs context.",
-  
-  "author": { 
+  "author": {
     "name": "jrosseel",
     "email": "rosseeljente@gmail.com",
     "url": "https://italanta.net"

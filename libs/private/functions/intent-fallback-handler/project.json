@@ -1,0 +1,23 @@
+{
+  "name": "private-functions-intent-fallback-handler",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/private/functions/intent-fallback-handler/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/private/functions/intent-fallback-handler"
+      ],
+      "options": {
+        "tsConfig": "libs/private/functions/intent-fallback-handler/tsconfig.json",
+        "jestConfig": "libs/private/functions/intent-fallback-handler/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "strictPropertyInitialization": false,
-    "suppressImplicitAnyIndexErrors": true,
     "paths": {
       "@app/admin/config/environment-config": [
         "libs/admin/config/environment-config/src/index.ts"
@@ -235,8 +234,7 @@
       "@app/functions/bot-process-handler": [
         "libs/functions/bot-process-handler/src/index.ts"
       ],
-      "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
-      "@app/functions/convs-mgr/story-editor//check-story-for-errors": [
+      "@app/functions/convs-mgr/story-editor/check-story-for-errors": [
         "libs/functions/convs-mgr/story-editor/check-story-for-errors/src/index.ts"
       ],
       "@app/functions/intent": ["libs/functions/intent/src/index.ts"],
@@ -477,9 +475,11 @@
         "libs/util/ngfi/firestore-qbuilder/src/index.ts"
       ],
       "@ngfi/functions": ["libs/util/ngfi/functions/src/index.ts"],
+      "@ngfi/functions/v2": ["libs/util/ngfi/functions-v2/src/index.ts"],
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
-      "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"]
+      "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
+      "intercom": ["libs/util/ngfi/intercom/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

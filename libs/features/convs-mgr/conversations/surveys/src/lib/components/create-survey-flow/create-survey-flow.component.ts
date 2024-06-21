@@ -85,8 +85,8 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
       tap((questions) => { 
         this.questions = questions;
         if (this.survey?.questionsOrder) {
-          const questionOrdering = {},
-          sortOrder = this.survey.questionsOrder;
+          const questionOrdering = {} as any;
+          const sortOrder = this.survey.questionsOrder;
       
           for (let i=0; i< sortOrder.length; i++)
             questionOrdering[sortOrder[i]] = i;

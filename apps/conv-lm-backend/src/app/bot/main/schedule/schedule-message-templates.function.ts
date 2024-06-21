@@ -16,7 +16,7 @@ const handler = new ScheduleMessageTemplatesHandler();
  * 
  */
 export const scheduleMessageTemplates = new ConvLearnFunction('scheduleMessageTemplates', 
-                                                  new RestRegistrar(), 
+                                                  new RestRegistrar('asia-south1'), 
                                                   [], 
                                                   handler)
                                .build();

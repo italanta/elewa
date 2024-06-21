@@ -1,0 +1,21 @@
+{
+  "name": "features-monitoring",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/features/monitoring/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/features/monitoring"],
+      "options": {
+        "tsConfig": "libs/features/monitoring/tsconfig.json",
+        "jestConfig": "libs/features/monitoring/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

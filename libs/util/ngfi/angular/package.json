@@ -1,15 +1,12 @@
 {
   "name": "@ngfi/angular",
   "version": "2.0.0",
-
   "description": "Helpers for working with angular and firebase as a backend.",
-
-  "author": { 
+  "author": {
     "name": "jrosseel",
     "email": "rosseeljente@gmail.com",
     "url": "https://italanta.net"
   },
-
   "peerDependencies": {
     "rxjs": "^7.5.6",
     "@angular/common": "^14.0.0",

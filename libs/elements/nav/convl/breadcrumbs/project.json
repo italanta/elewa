@@ -5,18 +5,17 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/elements/nav/convl/breadcrumbs/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/elements/nav/convl/breadcrumbs"],
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/elements/nav/convl/breadcrumbs"
+      ],
       "options": {
-        "jestConfig": "libs/elements/nav/convl/breadcrumbs/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/elements/nav/convl/breadcrumbs/tsconfig.json",
+        "jestConfig": "libs/elements/nav/convl/breadcrumbs/jest.config.ts"
       }
     }
   },

@@ -11,8 +11,6 @@ import {
 import { MultiLangModule } from '@ngfi/multi-lang';
 // import { FileStorageService } from '@ngfi/files';
 
-import { MatSelectFilterModule } from 'mat-select-filter';
-
 import { AccessControlModule } from '@app/private/elements/convs-mgr/access-control';
 
 import { CompanyDataComponent } from './components/company-data/company-data.component';
@@ -25,8 +23,6 @@ import { MainChannelModalComponent } from './modals/main-channel-modal/main-chan
   imports: [
     CommonModule,
     MultiLangModule,
-
-    MatSelectFilterModule,
 
     MaterialDesignModule,
     FlexLayoutModule,

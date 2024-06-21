@@ -4,10 +4,11 @@
 
     <div class="switchOrg" style="max-width: 70%;">
       <mat-form-field appearance="outline" fxFlex>
-        <mat-select [disabled]="userOrgs.length == 1" [value]="organisation" (selectionChange)="switchOrg($event.value)"
+        <mat-select [disabled]="userOrgs.length === 1" [value]="organisation" (selectionChange)="switchOrg($event.value)"
           [compareWith]="compareFn">
-          <mat-select-filter [placeholder]="'Filter'" [displayMember]="'name'" [array]="userOrgs"
-            (filteredReturn)="filteredOrgs =$event"></mat-select-filter>
+          <!-- TODO: @beulah -->
+          <!-- <mat-select-filter [placeholder]="'Filter'" [displayMember]="'name'" [array]="userOrgs"
+            (filteredReturn)="filteredOrgs =$event"></mat-select-filter> -->
           <mat-option *ngFor="let org of filteredOrgs" [value]="org">
             {{org.name}}
           </mat-option>

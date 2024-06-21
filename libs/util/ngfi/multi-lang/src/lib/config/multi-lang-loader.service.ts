@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
-import { TranslocoLoader, Translation } from '@ngneat/transloco';
+import { TranslocoLoader, Translation } from '@jsverse/transloco';
 
 import { Observable } from 'rxjs';
 

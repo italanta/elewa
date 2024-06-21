@@ -1,4 +1,14 @@
-export const ICONS_AND_TITLES = {
+/**
+ * Tuple that defines and icon and title
+ */
+export interface IconAndTitle 
+{
+  title: string;
+  icon: string;
+  svgIcon: string;
+}
+
+export const ICONS_AND_TITLES: {[item: number]: IconAndTitle} = {
   1: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.MESSAGE',
     icon: 'fas fa-comment-alt',
@@ -7,15 +17,17 @@ export const ICONS_AND_TITLES = {
   2: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.INPUT',
     icon: 'fas fa-envelope',
+    svgIcon: '' // TODO
   },
   3: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.IO',
     icon: 'fas fa-envelope',
+    svgIcon: '' // TODO
   },
   4: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION',
     icon: 'fas fa-map-marker-alt',
-    
+    svgIcon: '' // TODO
   },
   5: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE',
@@ -40,6 +52,7 @@ export const ICONS_AND_TITLES = {
   9: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.STRUCTURAL',
     icon: 'fas fa-envelope',
+    svgIcon: '' // TODO
   },
   10: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.NAME',
@@ -74,6 +87,7 @@ export const ICONS_AND_TITLES = {
   17: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.REPLY',
     icon: 'fas fa-reply',
+    svgIcon: '' // TODO
   },
   18: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.JUMP',
@@ -83,6 +97,7 @@ export const ICONS_AND_TITLES = {
   19: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.MULTIPLE-INPUT',
     icon: 'fas fa-tasks',
+    svgIcon: '' // TODO
   },
   20: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.FAILBLOCK',
@@ -128,6 +143,7 @@ export const ICONS_AND_TITLES = {
   30: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.EVENT',
     icon: 'fas fa-flag',
+    svgIcon: '' // TODO
   },
   31: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.ASSESSMENT',
@@ -147,5 +163,6 @@ export const ICONS_AND_TITLES = {
   9999: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.END-BLOCK',
     icon: 'fas fa-stop',
+    svgIcon: '' // TODO
   },
 };

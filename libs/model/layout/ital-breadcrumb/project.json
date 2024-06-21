@@ -1,0 +1,21 @@
+{
+  "name": "model-layout-ital-breadcrumb",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/model/layout/ital-breadcrumb/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/model/layout/ital-breadcrumb"],
+      "options": {
+        "tsConfig": "libs/model/layout/ital-breadcrumb/tsconfig.json",
+        "jestConfig": "libs/model/layout/ital-breadcrumb/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

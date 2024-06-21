@@ -1,0 +1,23 @@
+{
+  "name": "private-features-convs-mgr-analytics",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/private/features/convs-mgr/analytics/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/private/features/convs-mgr/analytics"
+      ],
+      "options": {
+        "jestConfig": "libs/private/features/convs-mgr/analytics/jest.config.ts",
+        "tsConfig": "libs/private/features/convs-mgr/analytics/tsconfig.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

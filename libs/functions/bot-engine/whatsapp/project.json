@@ -1,0 +1,23 @@
+{
+  "name": "functions-bot-engine-whatsapp",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/functions/bot-engine/whatsapp/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/functions/bot-engine/whatsapp"
+      ],
+      "options": {
+        "tsConfig": "libs/functions/bot-engine/whatsapp/tsconfig.json",
+        "jestConfig": "libs/functions/bot-engine/whatsapp/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

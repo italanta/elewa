@@ -1,0 +1,21 @@
+{
+  "name": "elements-base-feature-flags",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/elements/base/feature-flags/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/elements/base/feature-flags"],
+      "options": {
+        "tsConfig": "libs/elements/base/feature-flags/tsconfig.json",
+        "jestConfig": "libs/elements/base/feature-flags/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

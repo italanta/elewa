@@ -1,0 +1,23 @@
+{
+  "name": "private-model-convs-mgr-micro-apps-surveys",
+  "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/private/model/convs-mgr/micro-apps/surveys/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/private/model/convs-mgr/micro-apps/surveys"
+      ],
+      "options": {
+        "tsConfig": "libs/private/model/convs-mgr/micro-apps/surveys/tsconfig.json",
+        "jestConfig": "libs/private/model/convs-mgr/micro-apps/surveys/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

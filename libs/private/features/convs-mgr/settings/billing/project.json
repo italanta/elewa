@@ -1,0 +1,23 @@
+{
+  "name": "private-features-convs-mgr-settings-billing",
+  "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/private/features/convs-mgr/settings/billing/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/private/features/convs-mgr/settings/billing"
+      ],
+      "options": {
+        "tsConfig": "libs/private/features/convs-mgr/settings/billing/tsconfig.json",
+        "jestConfig": "libs/private/features/convs-mgr/settings/billing/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

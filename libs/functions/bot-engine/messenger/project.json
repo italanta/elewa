@@ -1,0 +1,23 @@
+{
+  "name": "functions-bot-engine-messenger",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/functions/bot-engine/messenger/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/functions/bot-engine/messenger"
+      ],
+      "options": {
+        "tsConfig": "libs/functions/bot-engine/messenger/tsconfig.json",
+        "jestConfig": "libs/functions/bot-engine/messenger/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

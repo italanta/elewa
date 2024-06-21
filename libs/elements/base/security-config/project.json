@@ -1,0 +1,28 @@
+{
+  "name": "elements-base-security-config",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/elements/base/security-config/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/elements/base/security-config"
+      ],
+      "options": {
+        "tsConfig": "libs/elements/base/security-config/tsconfig.json",
+        "jestConfig": "libs/elements/base/security-config/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/elements/base/firesecurity-configbase/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

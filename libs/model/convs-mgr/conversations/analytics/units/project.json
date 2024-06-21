@@ -5,22 +5,17 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/model/convs-mgr/conversations/analytics/units/**/*.ts"
-        ]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": [
-        "coverage/libs/model/convs-mgr/conversations/analytics/units"
+        "{workspaceRoot}/coverage/libs/model/convs-mgr/conversations/analytics/units"
       ],
       "options": {
-        "jestConfig": "libs/model/convs-mgr/conversations/analytics/units/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/model/convs-mgr/conversations/analytics/units/tsconfig.json",
+        "jestConfig": "libs/model/convs-mgr/conversations/analytics/units/jest.config.ts"
       }
     }
   },

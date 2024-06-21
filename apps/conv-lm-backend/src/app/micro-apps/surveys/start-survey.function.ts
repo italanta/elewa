@@ -7,7 +7,7 @@ import { ConvLearnFunction } from "../../../conv-learn-func.class";
 const handler = new SendSurveyHandler();
 
 export const sendSurvey = new ConvLearnFunction('sendSurvey', 
-                                                  new RestRegistrar(), 
+                                                  new RestRegistrar('asia-south1'), 
                                                   [], 
                                                   handler)
                                .build();

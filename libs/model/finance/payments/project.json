@@ -1,0 +1,21 @@
+{
+  "name": "model-finance-payments",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/model/finance/payments/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/model/finance/payments"],
+      "options": {
+        "tsConfig": "libs/model/finance/payments/tsconfig.json",
+        "jestConfig": "libs/model/finance/payments/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

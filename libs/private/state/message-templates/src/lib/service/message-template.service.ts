@@ -114,7 +114,7 @@ export class MessageTemplatesService {
   }
 
   
-  getTemplateStatus(channelId: any): Observable<MessageStatusRes[]> {
+  getTemplateStatus(channelId: any): Observable<MessageStatusRes> {
     return this._channelsServ$.getSpecificChannel(channelId).pipe(
       first(),
       switchMap((channel) => {
