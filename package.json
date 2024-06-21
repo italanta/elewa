@@ -37,7 +37,7 @@
     "@jsplumb/connector-bezier": "^5.9.4",
     "@jsplumb/connector-flowchart": "^5.9.4",
     "@jsplumb/util": "^5.9.4",
-    "@jsverse/transloco": "^6.0.4",
+    "@jsverse/transloco": "^7.4.2",
     "@nx/angular": "19.3.0",
     "@popperjs/core": "^2.11.8",
     "@types/dom-to-image": "^2.6.6",
