@@ -1,4 +1,4 @@
-import  { IntentsClient } from "@google-cloud/dialogflow-cx";
+import  { AgentsClient, IntentsClient } from "@google-cloud/dialogflow-cx";
 
 import { PagesClient } from '@google-cloud/dialogflow-cx';
 
@@ -6,17 +6,29 @@ import { HandlerTools } from "@iote/cqrs";
 import { Query } from "@ngfi/firestore-qbuilder";
 
 import { DialogflowCXIntent } from '@app/model/convs-mgr/fallbacks';
+import { Bot } from "@app/model/convs-mgr/bots";
+import { BotModule } from "@app/model/convs-mgr/bot-modules";
+import { ValidateAndSanitize } from "../utils/sanitize-bot-name";
 
 export class IntentService {
   apiEndpoint = `${process.env.LOCATION}-dialogflow.googleapis.com`;
   private _client: IntentsClient = new IntentsClient({apiEndpoint: this.apiEndpoint});
   private _pagesClient: PagesClient = new PagesClient({apiEndpoint: this.apiEndpoint});
+  private _agentsClient: AgentsClient = new AgentsClient({apiEndpoint: this.apiEndpoint});
+
   agentPath: string;
-  constructor(){
-   this.agentPath = this._client.agentPath(process.env.PROJECT_ID, process.env.LOCATION, process.env.AGENT_ID);
+
+  async init(intent: DialogflowCXIntent, tools: HandlerTools) {
+    const botsRepo$ = tools.getRepository<Bot>(`orgs/${intent.orgId}/bots`);
+
+    const bot = await botsRepo$.getDocumentById(intent.botId);
+
+    const agentID = `${ValidateAndSanitize(bot.name)}_${bot.id}`;
+    this.agentPath = this._client.agentPath(process.env.PROJECT_ID, process.env.LOCATION, agentID);
   }
 
   async createIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<DialogflowCXIntent> {
+
     const intentRepo = tools.getRepository<DialogflowCXIntent>(`orgs/${intent.orgId}/fallbacks`);
     const createdIntent = {
       displayName: intent.actionDetails.description,
@@ -53,18 +65,29 @@ export class IntentService {
   }
 
   async updateIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<DialogflowCXIntent> {
+    let page;
     const intentRepo = tools.getRepository<DialogflowCXIntent>(`orgs/${intent.orgId}/fallbacks`);
+    const moduleRepo$ = tools.getRepository<BotModule>(`orgs/${intent.orgId}/modules`);
+
+    const module = await moduleRepo$.getDocumentById(intent.moduleId);
+
     // Id to the default Goomza flow & page. Should be created manually on dialogflow.cloud.google.com
     const flowId = process.env.FLOW_ID;
-    const pageId = process.env.PAGE_ID;
 
     const flowPath = this._pagesClient.flowPath(process.env.PROJECT_ID, process.env.LOCATION, process.env.AGENT_ID, flowId);
-    const pagePath = this._pagesClient.pagePath(process.env.PROJECT_ID, process.env.LOCATION, process.env.AGENT_ID, flowId, pageId);
-
-    const getPageRequest = {
-      name: pagePath
-    };
+    const pagePath = this._pagesClient.pagePath(process.env.PROJECT_ID, process.env.LOCATION, process.env.AGENT_ID, flowId, module.id);
     
+    // In our case, each page in dialogflowCX will represent a BOT
+    const [existingPage] = await this._pagesClient.getPage({name: pagePath});
+
+    if(!existingPage || Object.keys(existingPage).length === 0) {
+      // Create new page
+      const [newPage] = await this._createPage(module, flowPath);
+      page = newPage;
+    } else {
+      page = existingPage;
+    }
+
     const phrases = intent.userInput.map((input)=> {
       return {parts: [{text: input}], repeatCount: 2};
     });
@@ -79,9 +102,6 @@ export class IntentService {
       intent: updatedIntent
     });
 
-
-
-    const [page] = await this._pagesClient.getPage(getPageRequest);
     const transitions = page.transitionRoutes || [];
 
     // Only add the transition route(this is the only way of adding the intent to the flow) if it does not exist
@@ -115,6 +135,17 @@ export class IntentService {
     intent.trainingPhrases = updatedIntent.trainingPhrases;
 
     return intentRepo.update(intent);
+  }
+
+  private async _createPage(module: BotModule, flowPath: string) {
+    const req = {
+      parent: flowPath,
+      name: module.id,
+      ddisplayName: module.name,
+      languageCode: 'en-US'
+    }
+
+    return this._pagesClient.createPage(req);
   }
 
   async deleteIntent(intent: DialogflowCXIntent, tools: HandlerTools): Promise<boolean>{

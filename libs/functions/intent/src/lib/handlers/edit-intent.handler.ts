@@ -17,6 +17,7 @@ export class EditIntentHandler extends FunctionHandler<DialogflowCXIntent, RestR
     this._intentService = new IntentService();
     tools.Logger.log(() => `[EditIntentHandler] - Editing Intent: ${JSON.stringify(req)}`);
     try {
+      await this._intentService.init(req, tools);
       return await this._intentService.updateIntent(req, tools);
     } catch (e){
       tools.Logger.log(() => `[CreateIntentHandler] - Error Creating Intent: ${JSON.stringify(e)}`);

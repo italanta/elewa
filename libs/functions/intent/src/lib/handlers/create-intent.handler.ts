@@ -1,11 +1,10 @@
 import { HandlerTools } from '@iote/cqrs';
 
-import { FunctionHandler, RestResult, HttpsContext, RestResult200 } from '@ngfi/functions';
+import { FunctionHandler, RestResult, HttpsContext } from '@ngfi/functions';
 
 import { DialogflowCXIntent } from '@app/model/convs-mgr/fallbacks';
 
 import { IntentService } from '../services/intent.service';
-
 /**
  * @Description : Used to create module intents
  */
@@ -17,6 +16,8 @@ export class CreateIntentHandler extends FunctionHandler<DialogflowCXIntent, Res
     this._intentService = new IntentService();
     tools.Logger.log(() => `[CreateIntentHandler] - Creating Intent: ${JSON.stringify(req)}`);
     try {
+      await this._intentService.init(req, tools);
+
       return await this._intentService.createIntent(req, tools);
     } catch (e){
       tools.Logger.log(() => `[CreateIntentHandler] - Error Creating Intent: ${JSON.stringify(e)}`);
