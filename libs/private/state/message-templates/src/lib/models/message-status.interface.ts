@@ -1,8 +1,12 @@
 export interface MessageStatusRes {
-    name: string;
-    status: string;
+    templates: MessageTemplateStatus[];
 }
 
+export interface MessageTemplateStatus {
+    id: string;
+    name: string; 
+    status: string; 
+}
 
 export interface MessageStatusReq {
 fields: string[];

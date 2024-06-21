@@ -20,7 +20,7 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy {
   private _sBS = new SubSink();
 
   messageTemplates$: Observable<MessageTemplate[]>;
-  templateStatus$: Observable<MessageStatusRes[]>;
+  templateStatus$: Observable<MessageStatusRes>;
   scheduledMessages$: Observable<ScheduledMessage[]>;
 
   template:MessageTemplate;
