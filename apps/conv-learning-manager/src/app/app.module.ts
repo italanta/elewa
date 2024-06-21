@@ -50,6 +50,7 @@ import { AppRoutingModule } from './app.routing.module';
 
 import { environment } from '../environments/environment';
 import { provideTransloco } from '@jsverse/transloco';
+import { IntercomModule } from 'intercom';
 
 
 @NgModule({ 
@@ -99,10 +100,10 @@ import { provideTransloco } from '@jsverse/transloco';
             registrationStrategy: 'registerWhenStable:30000'
         }),
         // TODO @Beulah
-        // IntercomModule.forRoot({
-        //     appId: 'jvwszj2k',
-        //     updateOnRouterChange: true // will automatically run `update` on router event changes. Default: `false`
-        // })
+        IntercomModule.forRoot({
+            appId: 'jvwszj2k',
+            updateOnRouterChange: true // will automatically run `update` on router event changes. Default: `false`
+        })
     ], 
     providers: 
         [provideHttpClient(withInterceptorsFromDi()),
