@@ -20,6 +20,4 @@ export interface BotModule extends IObject {
   stories: string[];
 
   type: "BotModule";
-
-  intent?: string;
 }
