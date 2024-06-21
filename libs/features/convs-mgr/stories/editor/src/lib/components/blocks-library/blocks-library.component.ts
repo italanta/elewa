@@ -69,7 +69,8 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'assessment-brick', type:StoryBlockTypes.Assessment, message: 'Assessment', blockIcon:this.getBlockIcon(StoryBlockTypes.Assessment),  blockCategory: 'bricks' } as AssessmentBrick,
     { id: 'conditional-block', type:StoryBlockTypes.Conditional, message: 'Conditional', blockIcon:this.getBlockIcon(StoryBlockTypes.Conditional), blockCategory: 'operation-block' } as ConditionalBlock,
     // { id: 'end-anchor-block', type:StoryBlockTypes.EndStoryAnchorBlock, message: 'End Story', blockIcon:this.getBlockIcon(StoryBlockTypes.EndStoryAnchorBlock), blockCategory: 'end-block'} as EndStoryAnchorBlock
-    { id: 'CMI5-block', type:StoryBlockTypes.CMI5Block, message: 'CMI5 Block', blockIcon:this.getBlockIcon(StoryBlockTypes.CMI5Block), blockCategory: 'bricks' } as CMI5Block
+    // { id: 'CMI5-block', type:StoryBlockTypes.CMI5Block, message: 'CMI5 Block', blockIcon:this.getBlockIcon(StoryBlockTypes.CMI5Block), blockCategory: 'bricks' } as CMI5Block,
+    { id: 'webhook-block' , type: StoryBlockTypes.WebhookBlock, message: 'Webhook', blockIcon:this.getBlockIcon(StoryBlockTypes.WebhookBlock), blockCategory: 'operation-block' } as WebhookBlock,
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
 
