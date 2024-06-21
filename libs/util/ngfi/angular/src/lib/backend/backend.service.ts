@@ -6,10 +6,12 @@ import { AngularFireFunctions } from '@angular/fire/compat/functions';
  * Interface with the firebase backend.
  */
 @Injectable({ providedIn: 'root' })
-export class BackendService {
+export class BackendService 
+{
   constructor(
     private _fns: AngularFireFunctions,
-    @Inject('ENVIRONMENT') private _env: any) { }
+    @Inject('ENVIRONMENT') private _env: any) 
+  { }
 
   /**
    * Call Firebase Cloud Function

@@ -16,7 +16,7 @@ const handler = new RunScheduleHandler();
  * 
  */
 export const runSchedule = new ConvLearnFunction('runSchedule', 
-                                                  new EndpointRegistrar(), 
+                                                  new EndpointRegistrar('asia-south1'), 
                                                   [], 
                                                   handler)
                                .build();

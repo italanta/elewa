@@ -17,7 +17,7 @@ const handler = new MoveChatHandler();
  * 
  */
 export const moveChat = new ConvLearnFunction('moveChat', 
-                                                  new RestRegistrar(),  
+                                                  new RestRegistrar('asia-south1'),  
                                                   [], 
                                                   handler)
                                .build();

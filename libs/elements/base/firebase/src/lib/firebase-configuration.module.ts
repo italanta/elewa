@@ -5,6 +5,7 @@ import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/fun
 import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/compat/firestore';
 import { USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/compat/auth';
 import { UserTrackingService, ScreenTrackingService } from '@angular/fire/analytics';
+import { HttpBackendService } from './backend/http-backend.service';
 
 @NgModule({
   imports: [],
@@ -16,6 +17,7 @@ export class FirebaseConfigurationModule
     return {
       ngModule: FirebaseConfigurationModule,
       providers: [
+        { provide: HttpBackendService, useClass: HttpBackendService }, 
         { provide: REGION, useValue: 'europe-west1' },
         // https://github.com/angular/angularfire/blob/master/docs/emulators/emulators.md
         { provide: USE_FUNCTIONS_EMULATOR, useValue: (isDev && useEmulators) ? ['localhost', 5001] : undefined },
