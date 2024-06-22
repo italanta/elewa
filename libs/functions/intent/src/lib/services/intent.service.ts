@@ -124,9 +124,14 @@ export class IntentService
 
     const [flows] = await this._flowsClient.listFlows({ parent: this.agentPath });
 
-    const flowExists = flows.find((fl) => fl.displayName.split('-')[1] === bot.id);
+    const existingFlow = flows.find((fl) => {
+      // Remove white space
+      const flowID = fl.displayName.split('-')[1]?.replace(/\s/g, "");
+      const botID = bot.id.replace(/\s/g, "");
+      return flowID === botID;
+    });
 
-    if (!flowExists) {
+    if (!existingFlow) {
       // Create new page
       const createFlowReq = {
         parent: this.agentPath,
@@ -139,7 +144,7 @@ export class IntentService
       flow = newFLow;
 
     } else {
-      flow = flowExists;
+      flow = existingFlow;
     }
 
     const flowId = this._getID(flow.name);
@@ -149,7 +154,12 @@ export class IntentService
     // In our case, each page in dialogflowCX will represent a BOT
     const [pages] = await this._pagesClient.listPages({ parent: flowPath });
 
-    page = pages.find((p) => p.displayName.split('-')[1] == module.id);
+    page = pages.find((p) => {
+      // Remove white space
+      const pageID = p.displayName.split('-')[1]?.replace(/\s/g, "");
+      const moduleID = module.id.replace(/\s/g, ""); 
+      return pageID === moduleID;
+    });
 
     if (!page) {
       const [newPage] = await this._createPage(module, flowPath);
@@ -171,9 +181,11 @@ export class IntentService
       trainingPhrases: phrases
     };
 
-    await this._client.updateIntent({
+    const [updateResponse] = await this._client.updateIntent({
       intent: updatedIntent
     });
+
+    console.log("Intent updated successfully", updateResponse);
 
     const transitions = page.transitionRoutes || [];
 
