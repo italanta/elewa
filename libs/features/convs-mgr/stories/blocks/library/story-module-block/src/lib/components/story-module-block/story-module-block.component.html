@@ -1,0 +1,26 @@
+<!-- HTML template of the substory block based off question block design-->
+<div class="wide" [id]="id" *ngIf="storyModuleBlock">
+  <form [formGroup]="storyModuleBlock" fxLayout="column" fxLayoutALign="start center">
+
+    <div formArrayName="options" fxFlexFill>
+      <div *ngFor="let option of options.controls; let i = index">
+        <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="100">
+          <app-option-input-field #storyOutputs [jsPlumb]="jsPlumb" [blockFormGroup]="storyModuleBlock" [formGroupNameInput]="i"
+            class="input" [charMaxlength]="outputNameCharLimit" [isReadOnly]="true"></app-option-input-field>
+        </div>
+      </div>
+    </div>
+  </form>  
+</div>
+
+  <!-- 
+  -  Don't allow add for button.
+  -  Options are determined/configured at the child level.
+  -->
+
+  <!-- Line element that will appear above the button when options are visible -->
+  <!-- <div class="line" [class.active]="options.length > 0"></div> -->
+
+  <!-- <button (click)="addNewOption()" mat-flat-button class="add-button">
+    {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
+  </button> -->

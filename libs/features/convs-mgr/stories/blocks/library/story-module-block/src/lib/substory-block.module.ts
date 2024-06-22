@@ -8,9 +8,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { MaterialDesignModule, MaterialBricksModule } from '@iote/bricks-angular';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-
-import { SubstoryBlockComponent } from './components/substory-block/substory-block.component';
-
+import { StoryModuleBlockComponent } from './components/story-module-block/story-module-block.component';
 
 
 @NgModule({
@@ -27,8 +25,8 @@ import { SubstoryBlockComponent } from './components/substory-block/substory-blo
     ConvsMgrBlockOptionsModule
   ],
 
-  declarations: [SubstoryBlockComponent],
+  declarations: [StoryModuleBlockComponent],
 
-  exports: [SubstoryBlockComponent],
+  exports: [StoryModuleBlockComponent],
 })
 export class BrickBlockModule {}

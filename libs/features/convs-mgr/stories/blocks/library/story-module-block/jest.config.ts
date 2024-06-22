@@ -1,10 +1,10 @@
 /* eslint-disable */
 export default {
-  displayName: 'features-convs-mgr-stories-blocks-library-substory-block',
+  displayName: 'features-convs-mgr-stories-blocks-library-story-module-block',
   preset: '../../../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory:
-    '../../../../../../../coverage/libs/features/convs-mgr/stories/blocks/library/substory-block',
+    '../../../../../../../coverage/libs/features/convs-mgr/stories/blocks/library/story-module-block',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

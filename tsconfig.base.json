@@ -479,8 +479,8 @@
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
       "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
-      "features/convs-mgr/stories/blocks/library/substory-block": [
-        "libs/features/convs-mgr/stories/blocks/library/substory-block/src/index.ts"
+      "features/convs-mgr/stories/blocks/library/story-module-block": [
+        "libs/features/convs-mgr/stories/blocks/library/story-module-block/src/index.ts"
       ]
     }
   },
