@@ -7,7 +7,7 @@ const STORIES_ROUTES: Route[] = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   {
     path: ':id',
-    loadChildren: () => import('@app/features/convs-mgr/stories/editor').then(m => m.ConvlStoryEditorModule),
+    loadChildren: () => import('@app/features/convs-mgr/stories/classic/editor').then(m => m.ConvlStoryEditorModule),
     canActivate: [IsLoggedInGuard],
     canLoad: [IsLoggedInGuard]
   },

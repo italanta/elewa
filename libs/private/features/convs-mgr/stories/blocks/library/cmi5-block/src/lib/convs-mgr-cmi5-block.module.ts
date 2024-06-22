@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MultiLangModule } from '@ngfi/multi-lang';
 import { MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
 
-import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/classic/blocks/library/block-options';
 
 import { Cmi5BlockComponent } from './components/cmi5-block/cmi5-block.component';
 

@@ -1,0 +1,23 @@
+{
+  "name": "features-convs-mgr-stories-blocks-library-audio-input-block",
+  "$schema": "../../../../../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/features/convs-mgr/stories/classic/blocks/library/audio-input-block/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/features/convs-mgr/stories/classic/blocks/library/audio-input-block"
+      ],
+      "options": {
+        "tsConfig": "libs/features/convs-mgr/stories/classic/blocks/library/audio-input-block/tsconfig.json",
+        "jestConfig": "libs/features/convs-mgr/stories/classic/blocks/library/audio-input-block/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}
