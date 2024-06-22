@@ -29,4 +29,4 @@ import { StoryModuleBlockComponent } from './components/story-module-block/story
 
   exports: [StoryModuleBlockComponent],
 })
-export class BrickBlockModule {}
+export class StoryModuleBlockModule {}

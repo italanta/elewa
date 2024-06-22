@@ -1,1 +1,2 @@
-export * from './lib/features-convs-mgr-stories-blocks-library-story-module-block/features-convs-mgr-stories-blocks-library-story-module-block.component';
+export * from './lib/components/story-module-block/story-module-block.component';
+export * from './lib/substory-block.module';

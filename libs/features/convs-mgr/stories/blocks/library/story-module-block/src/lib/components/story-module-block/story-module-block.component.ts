@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 import { StoryModuleBlock, StoryModuleResult } from '@app/model/convs-mgr/stories/blocks/structural';
 
@@ -29,7 +29,7 @@ export class StoryModuleBlockComponent implements OnInit
   @ViewChildren('storyOutputs') storyOutputs: QueryList<OptionInputFieldComponent>;
 
   @Input() id: string;
-  @Input() block: StoryModuleBlock;
+  @Input() block: StoryBlock;
   @Input() storyModuleBlock: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
@@ -45,7 +45,8 @@ export class StoryModuleBlockComponent implements OnInit
 
   ngOnInit(): void 
   {
-    this.block.outputs?.forEach((option: StoryModuleResult) => 
+    const block = this.block as StoryModuleBlock;
+    block.outputs?.forEach((option: StoryModuleResult) => 
     {
       const btn = {
         id: option.id,

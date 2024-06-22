@@ -183,4 +183,5 @@ export class BlockComponent implements OnInit
   assessmentBrickType= StoryBlockTypes.Assessment;
   conditionalBlockType = StoryBlockTypes.Conditional;
   CMI5BlockType = StoryBlockTypes.CMI5Block;
+  structuralBlockType = StoryBlockTypes.Structural;
 }

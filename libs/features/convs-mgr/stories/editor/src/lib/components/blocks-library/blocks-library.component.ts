@@ -20,6 +20,7 @@ import { ICONS_AND_TITLES, IconAndTitle } from '@app/features/convs-mgr/stories/
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { DragDropService } from '../../providers/drag-drop.service';
 import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
+import { StoryModuleBlock } from '@app/model/convs-mgr/stories/blocks/structural';
 
 /**
  * Component which holds a library (list) of all blocks that can be created
@@ -30,7 +31,8 @@ import { SideScreenToggleService } from '../../providers/side-screen-toggle.serv
   templateUrl: './blocks-library.component.html',
   styleUrls: ['./blocks-library.component.scss']
 })
-export class BlocksLibraryComponent implements OnInit, OnDestroy {
+export class BlocksLibraryComponent implements OnInit, OnDestroy 
+{
   private _sbS = new SubSink();
 
   @Input() frame: StoryEditorFrame;
@@ -72,12 +74,14 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     // { id: 'end-anchor-block', type:StoryBlockTypes.EndStoryAnchorBlock, message: 'End Story', blockIcon:this.getBlockIcon(StoryBlockTypes.EndStoryAnchorBlock), blockCategory: 'end-block'} as EndStoryAnchorBlock
     // { id: 'CMI5-block', type:StoryBlockTypes.CMI5Block, message: 'CMI5 Block', blockIcon:this.getBlockIcon(StoryBlockTypes.CMI5Block), blockCategory: 'bricks' } as CMI5Block,
     { id: 'webhook-block' , type: StoryBlockTypes.WebhookBlock, message: 'Webhook', blockIcon:this.getBlockIcon(StoryBlockTypes.WebhookBlock), blockCategory: 'operation-block' } as WebhookBlock,
+    { id: 'module-block' , type: StoryBlockTypes.Structural, message: 'Module', blockIcon:this.getBlockIcon(StoryBlockTypes.Structural), blockCategory: 'bricks' } as StoryModuleBlock,
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
 
   constructor(private _logger: Logger, private dragService: DragDropService, private sideScreen: SideScreenToggleService,) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
     this._sbS.sink 
     = this.sideScreen.sideScreen$
         .subscribe((isOpen) => this.isSideScreenOpen = isOpen);

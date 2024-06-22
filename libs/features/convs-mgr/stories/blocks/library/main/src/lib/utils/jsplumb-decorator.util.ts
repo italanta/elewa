@@ -134,8 +134,8 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
     case StoryBlockTypes.Conditional:
       return _ConditionalBlockDecoratePlumb(block as ConditionalBlock, comp, jsPlumb);
 
-    case StoryBlockTypes.CMI5Block:
-      return _CMI5BlockDecoratePlumb(block as ConditionalBlock, comp, jsPlumb);
+    // case StoryBlockTypes.CMI5Block:
+    //   return _CMI5BlockDecoratePlumb(block as ConditionalBlock, comp, jsPlumb);
   }
 
   return comp;

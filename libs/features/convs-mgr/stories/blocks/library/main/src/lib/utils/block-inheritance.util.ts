@@ -30,6 +30,8 @@ import { _CreateEventBlockForm }            from "./model/event-block-form.model
 import { _CreateAssessmentBrickForm }       from "./model/assessment-brick-form.model";
 import { _CreateConditionalBlockForm }      from "./model/conditional-block.model";
 import { _CreateCmi5BlockForm }             from "./model/cmi5-block-form.model";
+import { _CreateStoryModuleBlockForm } from "./model/story-module-block-form.model";
+import { StoryModuleBlock } from "@app/model/convs-mgr/stories/blocks/structural";
 
 /**
  * This class controls the inheritance behaviour of blocks, adding polymorphic behaviour based on block type.
@@ -125,6 +127,9 @@ function _renderBlockByType(block: StoryBlock, type: StoryBlockTypes, _fb: FormB
 
     case StoryBlockTypes.Conditional:
       return _CreateConditionalBlockForm(_fb, block);
+
+    case StoryBlockTypes.Structural:
+      return _CreateStoryModuleBlockForm(_fb, block as StoryModuleBlock);
 
     // case StoryBlockTypes.CMI5Block:
     //   return _CreateCmi5BlockForm(_fb, block);
