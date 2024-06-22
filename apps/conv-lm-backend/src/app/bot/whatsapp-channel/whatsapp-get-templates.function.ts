@@ -18,7 +18,7 @@ const handler = new WhatsappGetTemplatesHandler();
  * 
  */
 export const channelWhatsappGetTemplates = new ConvLearnFunction('channelWhatsappGetTemplates', 
-                                                  new RestRegistrar({ region: 'asia-south1' }), 
+                                                  new RestRegistrar('asia-south1'), 
                                                   [], 
                                                   handler)
                                .build();

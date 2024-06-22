@@ -11,6 +11,6 @@ import { environment } from "./environments/environment";
 
 export class ConvLearnFunction<T, R> extends GCFunction<T,R>{
   constructor(name: string, registrar: FunctionRegistrar<T, R>, guards: Guard<T>[], handler: FunctionHandler<T, R>) {
-    super(name, registrar, guards, handler, environment);
+    super(name, registrar, guards, handler);
   }
 }
