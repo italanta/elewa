@@ -22,7 +22,7 @@ export class FallBackBlockService
   _handlerTools: HandlerTools;
 
   constructor(tools: HandlerTools) {
-    this.intentFallbackService = new IntentFallbackService();
+    this.intentFallbackService = new IntentFallbackService(tools);
     this._handlerTools = tools;
   }
   getBlock(failedBlockId: string)
@@ -141,7 +141,7 @@ export class FallBackBlockService
     
     const userInputs = _.flatten(userInputsArr);
     
-    const intentFallBackService = new IntentFallbackService();
+    const intentFallBackService = new IntentFallbackService(this._handlerTools);
 
     await intentFallBackService.init(orgId, parentModule, this._handlerTools);
     const intent = await intentFallBackService.detectIntentAndRespond((message as TextMessage).text, userInputs, endUserId);

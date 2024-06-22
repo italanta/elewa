@@ -25,7 +25,7 @@ export class IntentFallbackService {
   private _pageID: string;
   private _flowID: string;
 
-  constructor(){
+  constructor(private tools: HandlerTools){
     this.geminiAPIKey = process.env.GEMINI_API_KEY;
   }
 
@@ -49,7 +49,7 @@ export class IntentFallbackService {
   }
 
   async detectIntentAndRespond(userStatement: string, intents: string[], endUserId: string) {
-    console.log("[IntentFallbackService] - Detecting intent for statement:", userStatement);
+    this.tools.Logger.log(() => `[IntentFallbackService] - Detecting intent for statement: ${userStatement}`);
 
     const dialogflowClient = new SessionsClient({apiEndpoint: this.apiEndpoint});
     
@@ -74,24 +74,25 @@ export class IntentFallbackService {
 
       const detectedIntent = dialogflowResponse.queryResult.intent;
       
-      console.log(`Detection Response :: ${JSON.stringify(dialogflowResponse)}`);
-
       const confidence = dialogflowResponse.queryResult.intentDetectionConfidence;
+
+      this.tools.Logger.log(() => `[IntentFallbackService] - Result: ${JSON.stringify(dialogflowResponse.queryResult)}`);
+      
       const THRESHOLD = parseInt(LOW_CONFIDENCE_THRESHOLD as string);
-
-      console.log('Confidence ::', confidence);
-
+      
+      this.tools.Logger.log(() => `[IntentFallbackService] - Confidence: ${JSON.stringify(confidence)}`);
+      
       if (!detectedIntent || confidence < THRESHOLD) {
         return null;
         // TODO: Design a fallback strategy for Gemini
         // return this._geminiFallback(userStatement, intents);
       } else {
-        console.log('Using Dialogflow CX response with high confidence:', confidence);
+        this.tools.Logger.log(() => `[IntentFallbackService] - Using Dialogflow CX response with high confidence: ${JSON.stringify(confidence)}`);
         // Craft your response to the user based on Dialogflow's intent
         return detectedIntent;
       }
     } catch (error) {
-      console.error('Error:', error);
+      this.tools.Logger.log(() => `[IntentFallbackService] - Error: ${error}`);
     }
   }
 
