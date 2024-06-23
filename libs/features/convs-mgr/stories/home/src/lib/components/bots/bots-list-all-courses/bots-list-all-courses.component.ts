@@ -14,25 +14,19 @@ import { BehaviorSubject, Observable, combineLatest, map, of, switchMap, tap } f
 import { __DateFromStorage } from '@iote/time';
 
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
-import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 import { FileStorageService } from '@app/state/file';
-import { 
-  CreateBotModalComponent,
-  ActionSortingOptions,
-  DeleteElementsEnum,
-  ConfirmDeleteModalComponent
-} from '@app/elements/layout/convs-mgr/story-elements';
 
-import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
-import { ConfirmArchiveModalComponent } from '../../../modals/confirm-archive-modal/confirm-archive-modal.component';
-import { ConfirmPublishModalComponent } from '../../../modals/confirm-publish-modal/confirm-publish-modal.component';
+import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
+import { CreateBotModalComponent, ActionSortingOptions, DeleteElementsEnum, ConfirmDeleteModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
+import { ConfirmArchiveModalComponent, ConfirmPublishModalComponent, MainChannelModalComponent } from '@app/features/convs-mgr/stories/bot-actions';
 
 @Component({
   selector: 'italanta-apps-bots-list-all-courses',
   templateUrl: './bots-list-all-courses.component.html',
   styleUrls: ['./bots-list-all-courses.component.scss'],
 })
-export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDestroy {
+export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDestroy 
+{
 
   private _sbS = new SubSink();
 

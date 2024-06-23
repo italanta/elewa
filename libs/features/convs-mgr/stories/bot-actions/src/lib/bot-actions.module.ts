@@ -45,4 +45,4 @@ import { ConfirmArchiveModalComponent } from './modals/confirm-archive-modal/con
     ConfirmArchiveModalComponent,
   ]
 })
-export class ConvsMgrBotActionsModule {}
+export class BotActionsModule {}

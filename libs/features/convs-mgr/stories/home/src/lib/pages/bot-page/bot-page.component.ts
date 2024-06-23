@@ -52,6 +52,6 @@ export class BotPageComponent implements OnInit
         .subscribe
         // Bot type determines editor experience. We navigate to the correct editor experience based on the child type.
         (botType => 
-          this._router$$.navigate());
+          this._router$$.navigate(['']));
   }
 }

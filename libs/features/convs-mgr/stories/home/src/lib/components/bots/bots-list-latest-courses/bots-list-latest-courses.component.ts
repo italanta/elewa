@@ -14,9 +14,9 @@ import { Bot } from '@app/model/convs-mgr/bots';
 import { FileStorageService } from '@app/state/file';
 import { ConfirmDeleteModalComponent, DeleteElementsEnum } from '@app/elements/layout/convs-mgr/story-elements';
 
-import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
-import { ConfirmPublishModalComponent } from '../../../modals/confirm-publish-modal/confirm-publish-modal.component';
-import { ConfirmArchiveModalComponent } from '../../../modals/confirm-archive-modal/confirm-archive-modal.component';
+import { MainChannelModalComponent } from '@app/features/convs-mgr/stories/bot-actions';
+import { ConfirmPublishModalComponent } from '@app/features/convs-mgr/stories/bot-actions';
+import { ConfirmArchiveModalComponent } from '@app/features/convs-mgr/stories/bot-actions';
 
 @Component({
   selector: 'italanta-apps-bots-list-latest-courses',

@@ -5,22 +5,21 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SubSink } from 'subsink';
 import { Observable, of, switchMap, tap } from 'rxjs';
 
-import { ConfirmDeleteModalComponent, CreateLessonModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
-import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
+import { Bot, BotMutationEnum, Course } from '@app/model/convs-mgr/bots';
 import { FileStorageService } from '@app/state/file';
 
-import { Course } from '../../../model/courses.interface';
-import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
-import { ConfirmArchiveModalComponent } from '../../../modals/confirm-archive-modal/confirm-archive-modal.component';
-import { ConfirmPublishModalComponent } from '../../../modals/confirm-publish-modal/confirm-publish-modal.component';
+import { ConfirmDeleteModalComponent, CreateLessonModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
+import { ConfirmArchiveModalComponent, ConfirmPublishModalComponent, MainChannelModalComponent } from '@app/features/convs-mgr/stories/bot-actions';
+
 
 @Component({
   selector: 'italanta-apps-courses-list',
   templateUrl: './courses-list.component.html',
   styleUrls: ['./courses-list.component.scss'],
 })
-export class CoursesListComponent implements OnDestroy {
-  @Input() courses$: Observable<Course>;
+export class CoursesListComponent implements OnDestroy 
+{
+  @Input() courses$: Observable<Course[]>;
   @Input()
   set searchValue(value: string) {
     this.filterString$ = of(value);

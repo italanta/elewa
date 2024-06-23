@@ -18,9 +18,9 @@
       </div>
 
       <div class="stories-wrapper" *ngFor="let module of (course.modules$ | async); index as moduleIndex">
-        <ng-container *ngFor="let story of (module.stories$ | async); index as storyIndex">
+        <!-- <ng-container *ngFor="let story of (module.stories$ | async); index as storyIndex">
           <italanta-apps-course-module-item [botModule]="module.module" [story]="story"></italanta-apps-course-module-item>
-        </ng-container>
+        </ng-container> -->
 
         <!-- if module has a list of stories show add more btn -->
         <div *ngIf="module.module.stories.length" class="new-story-btn">

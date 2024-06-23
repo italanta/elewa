@@ -9,18 +9,20 @@ import { Bot } from '@app/model/convs-mgr/bots';
   templateUrl: './bot-create-flow-modal.component.html',
   styleUrls: ['./bot-create-flow-modal.component.scss'],
 })
-export class BotCreateFlowModalComponent {
+export class BotCreateFlowModalComponent 
+{
   @ViewChild('stepper') stepper: MatStepper;
   botFromStepper: Bot;
   botModFromStepper: BotModule
 
-  moveToNextStep(event: Bot | BotModule) {
+  moveToNextStep(event: Bot | BotModule) 
+  {
     this.stepper.next();
 
     if (event.type === 'Bot') {
-      this.botFromStepper = event
+      this.botFromStepper = event as Bot;
     } else {
-      this.botModFromStepper = event
+      this.botModFromStepper = event as BotModule;
     }
   }
 }

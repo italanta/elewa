@@ -8,6 +8,7 @@ import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { BotActionsModule } from '@app/features/convs-mgr/stories/bot-actions';
 import { ChatsRouterModule } from '@app/features/convs-mgr/conversations/chats';
 
 import { BotsListHeaderComponent } from './components/bots/bots-list-header/bots-list-header.component';
@@ -36,6 +37,7 @@ import { FilterCoursePipe } from './pipes/filter-course.pipe';
     MatStepperModule,
     FormsModule,
     ItalBreadCrumbModule,
+    BotActionsModule
   ],
   declarations: [
     StoriesDashboardComponent,
