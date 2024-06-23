@@ -8,11 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 
-import { 
-  DeleteElementsEnum, 
-  CreateModuleModalComponent,
-  ConfirmDeleteModalComponent
-} from '@app/elements/layout/convs-mgr/story-elements';
+import { DeleteElementsEnum, CreateModuleModalComponent, ConfirmDeleteModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
 
 @Component({
   selector: 'italanta-apps-bot-modules-grid-view',
@@ -28,7 +24,7 @@ export class BotModulesGridViewComponent {
   ) {}
 
   openBot(botId: string, id: string) {
-    this._router$$.navigate(['bots', botId, 'modules', id]);
+    this._router$$.navigate(['bots', botId, 'classic', botId, 'modules', id]);
   }
 
   editBot(botModule: BotModule) {

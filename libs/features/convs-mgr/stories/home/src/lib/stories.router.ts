@@ -29,6 +29,11 @@ const BOTS_ROUTES: Route[] = [
     resolve: { bot: BotResolverService },
     canActivate: [IsLoggedInGuard],
   },
+  {
+    path: ':id/classic',
+    loadChildren: () => import('@app/features/convs-mgr/stories/modules-based').then(m => m.ConvsMgrStoriesHomeModule),
+    canActivate: [IsLoggedInGuard, CanAccessBotsGuard],
+  }
 ];
 
 @NgModule({

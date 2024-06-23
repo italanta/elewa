@@ -27,7 +27,6 @@ import { ConfirmArchiveModalComponent, ConfirmPublishModalComponent, MainChannel
 })
 export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDestroy 
 {
-
   private _sbS = new SubSink();
 
   @Input() bots$: Observable<Bot[]>
@@ -53,15 +52,19 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
               private _snackBar: MatSnackBar,
               private _fileStorageService: FileStorageService) { }
 
-  ngOnInit(): void {
-    this._sbS.sink = combineLatest(([this.bots$, this.sorting$$.asObservable()]))
-    .pipe(map(([bots, sort]) => 
-            __orderBy(bots,(a) => __DateFromStorage(a.createdOn as Date).unix(),
-            sort === ActionSortingOptions.Newest ? 'desc' : 'asc')),
-          map((bots) =>
-            bots.map((b) => { 
-              return { ...b, lastEdited: TIME_AGO(this.parseDate(b.updatedOn ? b.updatedOn : b.createdOn as Date)) }})),
-          tap((bots) => this.dataSource.data = bots.slice(0, 3))).subscribe();
+  ngOnInit(): void 
+  {
+    this._sbS.sink 
+      = combineLatest(([this.bots$, this.sorting$$.asObservable()]))
+          .pipe(
+            map(([bots, sort]) => 
+              __orderBy(bots,(a) => __DateFromStorage(a.createdOn as Date).unix(),
+              sort === ActionSortingOptions.Newest ? 'desc' : 'asc')),
+            map((bots) =>
+              bots.map((b) => ({ ...b, lastEdited: TIME_AGO(this.parseDate(b.updatedOn ? b.updatedOn : b.createdOn as Date)) }))),
+          tap((bots) => 
+            this.dataSource.data = bots.slice(0, 3)))
+      .subscribe();
 
     this.configureFilter();
   }

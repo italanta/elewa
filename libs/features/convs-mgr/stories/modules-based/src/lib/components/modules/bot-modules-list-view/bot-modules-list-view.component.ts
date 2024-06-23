@@ -11,11 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 
-import { 
-  DeleteElementsEnum,
-  ConfirmDeleteModalComponent,
-  CreateModuleModalComponent
-} from '@app/elements/layout/convs-mgr/story-elements';
+import { DeleteElementsEnum, ConfirmDeleteModalComponent, CreateModuleModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
 
 @Component({
   selector: 'italanta-apps-bot-modules-list-view',

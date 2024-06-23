@@ -1,6 +1,5 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { MatDialog  } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
@@ -8,15 +7,13 @@ import { SubSink } from 'subsink';
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Story } from '@app/model/convs-mgr/stories/main';
+
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { FileStorageService } from '@app/state/file';
-import { 
-  DeleteElementsEnum,
-  CreateLessonModalComponent,
-  ConfirmDeleteModalComponent
-} from '@app/elements/layout/convs-mgr/story-elements';
 
-import { ConnectToChannelModalComponent } from '../../../modals/connect-to-channel-modal/connect-to-channel-modal.component';
+import { DeleteElementsEnum, CreateLessonModalComponent, ConfirmDeleteModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
+import { ConnectToChannelModalComponent } from '@app/features/convs-mgr/stories/bot-actions';
+
 
 @Component({
   selector: 'italanta-apps-course-module-item',

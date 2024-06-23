@@ -22,7 +22,6 @@ import { StoriesDashboardComponent } from './pages/stories-dashboard/stories-das
 import { CoursesViewAllPageComponent } from './pages/courses-view-all-page/courses-view-all-page.component';
 
 import { ConvsMgrStoriesRouterModule } from './stories.router';
-import { FilterCoursePipe } from './pipes/filter-course.pipe';
 
 @NgModule({
   imports: [
@@ -46,8 +45,7 @@ import { FilterCoursePipe } from './pipes/filter-course.pipe';
     BotsListAllCoursesComponent,
     BotPageComponent,
     CoursesViewAllPageComponent,
-    CoursesListComponent,
-    FilterCoursePipe
+    CoursesListComponent
   ]
 })
 export class ConvsMgrStoriesHomeModule {}

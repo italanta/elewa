@@ -16,6 +16,7 @@ import { ChannelComponent } from './modals/channel/channel.component';
 import { MainChannelModalComponent } from './modals/main-channel-modal/main-channel-modal.component';
 import { ConfirmPublishModalComponent } from './modals/confirm-publish-modal/confirm-publish-modal.component';
 import { ConfirmArchiveModalComponent } from './modals/confirm-archive-modal/confirm-archive-modal.component';
+import { FilterCoursePipe } from './pipes/filter-course.pipe';
 
 @NgModule({
   imports: [
@@ -35,6 +36,8 @@ import { ConfirmArchiveModalComponent } from './modals/confirm-archive-modal/con
     MainChannelModalComponent,
     ConfirmPublishModalComponent,
     ConfirmArchiveModalComponent,
+
+    FilterCoursePipe
   ],
   exports: [
     ConnectToChannelModalComponent,
@@ -43,6 +46,8 @@ import { ConfirmArchiveModalComponent } from './modals/confirm-archive-modal/con
     MainChannelModalComponent,
     ConfirmPublishModalComponent,
     ConfirmArchiveModalComponent,
+
+    FilterCoursePipe
   ]
 })
 export class BotActionsModule {}

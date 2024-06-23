@@ -8,28 +8,29 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { SubSink } from 'subsink';
 import { BehaviorSubject, Observable, combineLatest, map, of, switchMap, tap } from 'rxjs';
-
 import { __DateFromStorage } from '@iote/time';
 
-import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
-import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
-import { ActionSortingOptions, CreateModuleModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
 import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
+
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { FileStorageService } from '@app/state/file';
-
-import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
-import { ConfirmPublishModalComponent } from '../../../modals/confirm-publish-modal/confirm-publish-modal.component';
 import { FallbackService } from '@app/state/convs-mgr/fallback';
+
+import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb';
+import { ActionSortingOptions, CreateModuleModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
+
+import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
+import { ConfirmPublishModalComponent, MainChannelModalComponent } from '@app/features/convs-mgr/stories/bot-actions';
 
 @Component({
   selector: 'italanta-apps-modules-list-header',
   templateUrl: './modules-list-header.component.html',
   styleUrls: ['./modules-list-header.component.scss'],
 })
-export class BotModulesListHeaderComponent implements OnInit, OnDestroy {
+export class BotModulesListHeaderComponent implements OnInit, OnDestroy 
+{
   @Input() parentBot$: Observable<Bot>;
   @Input() botModules$: Observable<BotModule[]>
 

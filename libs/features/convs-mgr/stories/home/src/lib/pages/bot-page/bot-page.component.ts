@@ -1,16 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Observable, map, switchMap, take } from 'rxjs';
+import { Observable, switchMap, take } from 'rxjs';
 
 import { Breadcrumb } from '@iote/bricks-angular';
 
-import { BotModule } from '@app/model/convs-mgr/bot-modules';
-
-import { BotModulesStateService } from '@app/state/convs-mgr/modules';
-
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
-import { Bot } from '@app/model/convs-mgr/bots';
+import { Bot, BotVersions } from '@app/model/convs-mgr/bots';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { SubSink } from 'subsink';
 
@@ -47,11 +43,16 @@ export class BotPageComponent implements OnInit
             const id = params.get('id') as string;
             return this._botServ$$.getBotById(id) as Observable<Bot>;
           }),
-          map(bot => bot.type),
           take(1))
         .subscribe
         // Bot type determines editor experience. We navigate to the correct editor experience based on the child type.
-        (botType => 
-          this._router$$.navigate(['']));
+        (bot => 
+          this._router$$.navigate(['bots', bot.id, _botVersionToEditorRouteEl(bot.type), bot.id]));
   }
+}
+
+/** Loads the correct story editor route based on bot type. */
+function _botVersionToEditorRouteEl(type: BotVersions)
+{
+  return type === BotVersions.V1Modular ? 'classic' : 'editor';
 }
