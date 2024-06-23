@@ -45,6 +45,8 @@ import { StoryModuleBlockModule } from '@app/features/convs-mgr/stories/builder/
 import { FileStateModule } from '@app/state/file';
 
 import { BlockInjectorService } from './providers/block-injector.service';
+import { SaveStoryService } from './providers/save-story.service';
+import { StoryEditorInitialiserService } from './providers/story-editor-initialiser.service';
 
 @NgModule({
   imports: [
@@ -92,7 +94,9 @@ import { BlockInjectorService } from './providers/block-injector.service';
 
   // Injector which creates all block types within the editor context.
   providers: [
-    BlockInjectorService
+    BlockInjectorService,
+    SaveStoryService,
+    StoryEditorInitialiserService
   ],
 })
-export class BlocksLibraryModule {}
+export class StoryEditorBlocksManagementModule {}

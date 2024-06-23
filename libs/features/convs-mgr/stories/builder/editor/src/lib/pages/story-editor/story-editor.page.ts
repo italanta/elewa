@@ -16,15 +16,13 @@ import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 import { ToastMessageTypeEnum, ToastStatus } from '@app/model/layout/toast';
 import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb';
 import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
-import { StoryError } from '@app/model/convs-mgr/stories/main';
+import { Story, StoryError } from '@app/model/convs-mgr/stories/main';
 
 import { BlockPortalService } from '@app/features/convs-mgr/stories/builder/blocks/portal';
-
-import { StoryEditorFrame } from '../../model/story-editor-frame.model';
+import { StoryEditorFrame, SaveStoryService } from '@app/features/convs-mgr/stories/builder/editor-state';
 
 import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
-import { SaveStoryService } from '../../providers/save-story.service';
 
 import { StoryEditorFrameComponent } from '../../components/editor-frame/editor-frame.component';
 
@@ -171,7 +169,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     try {
       this._sb.sink =
         this._saveStory.saveStory(this.state, this.frame, !overrideValidators)
-          .subscribe((success) => 
+          .subscribe((success: Story) => 
           {
             if (success) 
             {

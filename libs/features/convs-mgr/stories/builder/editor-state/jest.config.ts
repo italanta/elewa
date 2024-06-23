@@ -4,7 +4,7 @@ export default {
   preset: '../../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory:
-    '../../../../../../coverage/libs/features/convs-mgr/stories/builder/block-injector',
+    '../../../../../../coverage/libs/features/convs-mgr/stories/builder/editor-state',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

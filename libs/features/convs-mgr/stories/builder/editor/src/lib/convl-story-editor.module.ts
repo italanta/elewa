@@ -23,7 +23,8 @@ import { BlocksLibraryComponent } from './components/blocks-library/blocks-libra
 import { StoryEditorPageComponent } from './pages/story-editor/story-editor.page';
 import { GroupedBlocksComponent } from './components/grouped-blocks/grouped-blocks.component';
 
-import { StoryEditorInitialiserService } from './providers/story-editor-initialiser.service';
+import { StoryEditorBlocksManagementModule } from '@app/features/convs-mgr/stories/builder/editor-state';
+
 import { ManageChannelStoryLinkService } from './providers/manage-channel-story-link.service';
 
 import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module';
@@ -32,7 +33,6 @@ import { TrackCursorDirective } from './directives/track-cursor.directive';
 
 import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
 import { StoryEditorMiniMapComponent } from './components/minimap/minimap.component';
-import { SaveStoryService } from './providers/save-story.service';
 
 @NgModule({
   imports: [
@@ -42,7 +42,8 @@ import { SaveStoryService } from './providers/save-story.service';
     ConvlPageModule, ConvsMgrAnchorBlockModule,
     BlocksLibraryModule, StoryEditorStateModule,
     ConvlStoryEditorRouterModule, MatStepperModule,
-    ToastModule, ItalBreadCrumbModule
+    ToastModule, ItalBreadCrumbModule,
+    StoryEditorBlocksManagementModule
   ],
 
   declarations: [
@@ -56,6 +57,8 @@ import { SaveStoryService } from './providers/save-story.service';
     StoryEditorMiniMapComponent
   ],
 
-  providers: [StoryEditorInitialiserService, SaveStoryService, ManageChannelStoryLinkService],
+  providers: [ 
+    ManageChannelStoryLinkService
+  ],
 })
 export class ConvlStoryEditorModule { }

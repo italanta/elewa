@@ -1,4 +1,5 @@
 export * from './lib/position.interface';
+export * from './lib/coordinates.interface';
 
 export * from './lib/story-block.interface';
 export * from './lib/story-block-types.enum';

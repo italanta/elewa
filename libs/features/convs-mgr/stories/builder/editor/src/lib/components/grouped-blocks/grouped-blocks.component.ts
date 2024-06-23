@@ -7,8 +7,9 @@ import {
   StoryBlockTypes,
 } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { Coordinate } from '../../model/coordinates.interface';
-import { StoryEditorFrame } from '../../model/story-editor-frame.model';
+import { Coordinate } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryEditorFrame } from '@app/features/convs-mgr/stories/builder/editor-state';
+
 import { DragDropService } from '../../providers/drag-drop.service';
 
 @Component({

@@ -17,7 +17,7 @@ import {
 import { StoryModuleBlock } from '@app/model/convs-mgr/stories/blocks/structural';
 import { ICONS_AND_TITLES, IconAndTitle } from '@app/features/convs-mgr/stories/builder/blocks/icons';
 
-import { StoryEditorFrame } from '../../model/story-editor-frame.model';
+import { StoryEditorFrame } from '@app/features/convs-mgr/stories/builder/editor-state';
 import { DragDropService } from '../../providers/drag-drop.service';
 import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
 

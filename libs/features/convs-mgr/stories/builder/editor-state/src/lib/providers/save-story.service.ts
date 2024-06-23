@@ -5,7 +5,7 @@ import { StoryBlock, StoryBlockConnection, isMediaBlock, isOptionBlock } from "@
 
 import { StoryEditorState, StoryEditorStateService } from "@app/state/convs-mgr/story-editor";
 
-import { StoryEditorFrame } from "../model/story-editor-frame.model";
+import { StoryEditorFrame } from "../state-frame/story-editor-frame.model";
 import { KeywordMessageBlock, ListMessageBlock, QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 
 @Injectable()

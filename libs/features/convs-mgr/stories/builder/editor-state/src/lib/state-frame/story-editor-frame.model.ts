@@ -7,15 +7,12 @@ import { FormArray, FormBuilder } from '@angular/forms';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
-import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { Coordinate, StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
-import { BlockInjectorService } from '@app/features/convs-mgr/stories/builder/block-injector';
 import { AnchorBlockComponent } from '@app/features/convs-mgr/stories/builder/blocks/library/anchor-block';
-
-import { Coordinate } from './coordinates.interface';
-
+import { BlockInjectorService } from '../providers/block-injector.service';
 
 /**
  * Model which holds the state of a story-editor.

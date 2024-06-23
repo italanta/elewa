@@ -1,7 +1,7 @@
 {
   "name": "features-convs-mgr-stories-builder-block-injector",
   "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/features/convs-mgr/stories/builder/block-injector/src",
+  "sourceRoot": "libs/features/convs-mgr/stories/builder/editor-state/src",
   "prefix": "lib",
   "projectType": "library",
   "tags": [],
@@ -10,7 +10,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/features/convs-mgr/stories/builder/block-injector/jest.config.ts"
+        "jestConfig": "libs/features/convs-mgr/stories/builder/editor-state/jest.config.ts"
       }
     },
     "lint": {

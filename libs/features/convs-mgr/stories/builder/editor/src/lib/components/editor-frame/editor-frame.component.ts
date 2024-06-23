@@ -1,11 +1,10 @@
 import { AfterViewInit, Component, ElementRef, Output, EventEmitter, ViewChild, ViewContainerRef, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, filter } from 'rxjs';
+import { SubSink } from 'subsink';
 
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
+import { StoryEditorFrame, StoryEditorInitialiserService } from '@app/features/convs-mgr/stories/builder/editor-state';
 
-import { StoryEditorFrame } from '../../model/story-editor-frame.model';  
-import { StoryEditorInitialiserService } from '../../providers/story-editor-initialiser.service';
-import { SubSink } from 'subsink';
 import { STORY_EDITOR_HEIGHT, STORY_EDITOR_WIDTH } from '../../utils/frame-size';
 
 @Component({

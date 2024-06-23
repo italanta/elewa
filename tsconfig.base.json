@@ -488,8 +488,8 @@
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
       "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
-      "@app/features/convs-mgr/stories/builder/block-injector": [
-        "libs/features/convs-mgr/stories/builder/block-injector/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/editor-state": [
+        "libs/features/convs-mgr/stories/builder/editor-state/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/builder/blocks/portal": [
         "libs/features/convs-mgr/stories/builder/blocks/portal/src/index.ts"
