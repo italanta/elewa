@@ -6,7 +6,8 @@ import { IObject } from '@iote/bricks';
 /**
  * Interface representing a bot.
  */
-export interface Bot extends IObject {
+export interface Bot extends IObject 
+{
   /* Foreign Key to Organisation holding the story. */
   orgId: string;
 
@@ -23,7 +24,7 @@ export interface Bot extends IObject {
   modules: string[];
 
   /** Type of the element */
-  type: 'Bot';
+  type: BotVersions;
 
   isPublished?: boolean;
 
@@ -43,4 +44,17 @@ export interface Bot extends IObject {
 export enum BotMutationEnum {
   EditMode = 'Edit Bot',
   CreateMode = 'Create Bot',
+}
+
+/** 
+ * The type field on the bot is used to determine bot version 
+ * 
+ *  The bot version determines the editor experience
+*/
+export enum BotVersions 
+{
+  /** V1 bots are organized in modules */
+  V1Modular='Bot',
+  /** V2 bots work with child-stories */
+  V2Iterator='V2'
 }

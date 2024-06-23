@@ -1,0 +1,25 @@
+.bots-page {
+  padding: 1.4rem;
+
+  .modules-title {
+    display: flex;
+    gap: 0.5rem;
+
+    .tooltip {
+      height: 100%;
+      width: 0.5rem;
+      background-color: var(--convs-mgr-color-primary-dark-blue);
+    }
+
+    .bots {
+      font-size: 3rem;
+      font-weight: 400;
+      text-transform: capitalize;
+    }
+  }
+
+  .modules-search {
+    display: flex;
+    justify-content: space-between;
+  }
+}
