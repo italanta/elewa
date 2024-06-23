@@ -1,0 +1,20 @@
+{
+  "name": "features-convs-mgr-stories-classic-blocks-library-icons",
+  "$schema": "../../../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/features/convs-mgr/stories/builder/blocks/library/icons/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/features/convs-mgr/stories/builder/blocks/library/icons/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

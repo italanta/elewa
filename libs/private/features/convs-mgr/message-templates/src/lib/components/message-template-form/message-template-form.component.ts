@@ -12,7 +12,7 @@ import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/s
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
-import { VariablesService } from '@app/features/convs-mgr/stories/classic/blocks/process-inputs';
+import { VariablesService } from '@app/features/convs-mgr/stories/builder/blocks/process-inputs';
 import { StoryBlockVariable } from '@app/model/convs-mgr/stories/blocks/main';
 import { Bot } from '@app/model/convs-mgr/bots';
 

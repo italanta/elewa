@@ -1,0 +1,23 @@
+{
+  "name": "features-convs-mgr-stories-blocks-library-anchor-block",
+  "$schema": "../../../../../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/features/convs-mgr/stories/builder/blocks/library/anchor-block/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/features/convs-mgr/stories/builder/blocks/library/anchor-block"
+      ],
+      "options": {
+        "tsConfig": "libs/features/convs-mgr/stories/builder/blocks/library/anchor-block/tsconfig.json",
+        "jestConfig": "libs/features/convs-mgr/stories/builder/blocks/library/anchor-block/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

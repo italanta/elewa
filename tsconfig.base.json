@@ -100,110 +100,110 @@
       "@app/features/convs-mgr/modules": [
         "libs/features/convs-mgr/modules/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/edit/blocks-edit": [
-        "libs/features/convs-mgr/stories/classic/blocks/edit/blocks-edit/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/edit/blocks-edit": [
+        "libs/features/convs-mgr/stories/builder/blocks/edit/blocks-edit/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/icons": [
-        "libs/features/convs-mgr/stories/classic/blocks/icons/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/icons": [
+        "libs/features/convs-mgr/stories/builder/blocks/icons/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/anchor-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/anchor-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/anchor-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/anchor-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/assessment-brick": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/assessment-brick/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/assessment-brick": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/assessment-brick/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/audio-input-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/audio-input-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/audio-input-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/audio-input-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/audio-message-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/audio-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/audio-message-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/audio-message-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/block-options": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/block-options/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/block-options": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/block-options/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/conditional-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/conditional-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/conditional-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/conditional-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/document-message-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/document-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/document-message-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/document-message-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/email-message-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/email-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/email-message-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/email-message-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/event-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/event-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/event-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/event-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/fail-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/fail-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/fail-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/fail-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/image-input-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/image-input-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/image-input-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/image-input-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/image-message-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/image-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/image-message-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/image-message-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/jump-story-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/jump-story-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/jump-story-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/jump-story-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/keyword-jump-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/keyword-jump-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/keyword-jump-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/keyword-jump-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/list-message-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/list-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/list-message-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/list-message-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/location-input-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/location-input-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/location-input-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/location-input-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/location-message-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/location-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/location-message-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/location-message-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/main": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/main/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/main": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/main/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/multiple-input-message-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/multiple-input-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/multiple-input-message-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/multiple-input-message-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/name-message-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/name-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/name-message-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/name-message-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/open-ended-question-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/open-ended-question-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/open-ended-question-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/open-ended-question-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/phone-message-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/phone-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/phone-message-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/phone-message-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/question-message-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/question-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/question-message-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/question-message-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/reply-message-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/reply-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/reply-message-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/reply-message-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/reusable-text-area": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/reusable-text-area/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/reusable-text-area": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/reusable-text-area/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/sticker-message-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/sticker-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/sticker-message-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/sticker-message-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/story-module-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/story-module-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/story-module-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/story-module-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/text-message-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/text-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/text-message-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/text-message-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/video-input-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/video-input-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/video-input-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/video-input-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/video-message-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/video-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/video-message-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/video-message-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/library/webhook-block": [
-        "libs/features/convs-mgr/stories/classic/blocks/library/webhook-block/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/library/webhook-block": [
+        "libs/features/convs-mgr/stories/builder/blocks/library/webhook-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/blocks/process-inputs": [
-        "libs/features/convs-mgr/stories/classic/blocks/process-inputs/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/blocks/process-inputs": [
+        "libs/features/convs-mgr/stories/builder/blocks/process-inputs/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/classic/editor": [
-        "libs/features/convs-mgr/stories/classic/editor/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/editor": [
+        "libs/features/convs-mgr/stories/builder/editor/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
@@ -242,8 +242,8 @@
       ],
       "@app/functions/intent": ["libs/functions/intent/src/index.ts"],
       "@app/functions/user": ["libs/functions/user/src/index.ts"],
-      "@app/libs/private/features/convs-mgr/stories/classic/blocks/library/cmi5-block": [
-        "libs/libs/private/features/convs-mgr/stories/classic/blocks/library/cmi5-block/src/index.ts"
+      "@app/libs/private/features/convs-mgr/stories/builder/blocks/library/cmi5-block": [
+        "libs/libs/private/features/convs-mgr/stories/builder/blocks/library/cmi5-block/src/index.ts"
       ],
       "@app/libs/private/functions/intent-fallback-handler": [
         "libs/libs/private/functions/intent-fallback-handler/src/index.ts"
@@ -345,8 +345,8 @@
       "@app/private/features/convs-mgr/settings/users": [
         "libs/private/features/convs-mgr/settings/users/src/index.ts"
       ],
-      "@app/private/features/convs-mgr/stories/classic/blocks/library/cmi5-block": [
-        "libs/private/features/convs-mgr/stories/classic/blocks/library/cmi5-block/src/index.ts"
+      "@app/private/features/convs-mgr/stories/builder/blocks/library/cmi5-block": [
+        "libs/private/features/convs-mgr/stories/builder/blocks/library/cmi5-block/src/index.ts"
       ],
       "@app/private/functions/analytics/progress/main": [
         "libs/private/functions/analytics/progress/main/src/index.ts"

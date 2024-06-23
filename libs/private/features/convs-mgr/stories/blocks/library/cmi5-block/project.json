@@ -2,17 +2,17 @@
   "name": "private-features-convs-mgr-stories-blocks-library-cmi5-block",
   "$schema": "../../../../../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/private/features/convs-mgr/stories/classic/blocks/library/cmi5-block/src",
+  "sourceRoot": "libs/private/features/convs-mgr/stories/builder/blocks/library/cmi5-block/src",
   "prefix": "app",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": [
-        "{workspaceRoot}/coverage/libs/private/features/convs-mgr/stories/classic/blocks/library/cmi5-block"
+        "{workspaceRoot}/coverage/libs/private/features/convs-mgr/stories/builder/blocks/library/cmi5-block"
       ],
       "options": {
-        "tsConfig": "libs/private/features/convs-mgr/stories/classic/blocks/library/cmi5-block/tsconfig.json",
-        "jestConfig": "libs/private/features/convs-mgr/stories/classic/blocks/library/cmi5-block/jest.config.ts"
+        "tsConfig": "libs/private/features/convs-mgr/stories/builder/blocks/library/cmi5-block/tsconfig.json",
+        "jestConfig": "libs/private/features/convs-mgr/stories/builder/blocks/library/cmi5-block/jest.config.ts"
       }
     },
     "lint": {

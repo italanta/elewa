@@ -1,0 +1,23 @@
+{
+  "name": "features-convs-mgr-stories-blocks-library-sticker-message-block",
+  "$schema": "../../../../../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/features/convs-mgr/stories/builder/blocks/library/sticker-message-block/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/features/convs-mgr/stories/builder/blocks/library/sticker-message-block"
+      ],
+      "options": {
+        "jestConfig": "libs/features/convs-mgr/stories/builder/blocks/library/sticker-message-block/jest.config.ts",
+        "tsConfig": "libs/features/convs-mgr/stories/builder/blocks/library/sticker-message-block/tsconfig.json"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}
