@@ -9,6 +9,8 @@ import {
 } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { FileStateModule } from '@app/state/file';
+
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/builder/blocks/library/block-options';
 import { ConvsMgrTextMessageBlockModule } from '@app/features/convs-mgr/stories/builder/blocks/library/text-message-block';
 import { ConvsMgrQuestionBlockModule } from '@app/features/convs-mgr/stories/builder/blocks/library/question-message-block';
@@ -42,9 +44,7 @@ import { ConvsMgrAssessmentBrickModule } from '@app/features/convs-mgr/stories/b
 import { ConvsMgrConditionalBlockModule } from '@app/features/convs-mgr/stories/builder/blocks/library/conditional-block';
 import { StoryModuleBlockModule } from '@app/features/convs-mgr/stories/builder/blocks/library/story-module-block';
 
-import { FileStateModule } from '@app/state/file';
 
-import { BlockInjectorService } from './block-injector.service';
 import { BlockComponent } from './components/block/block.component';
 
 @NgModule({
@@ -55,10 +55,11 @@ import { BlockComponent } from './components/block/block.component';
     FlexLayoutModule,
     MaterialBricksModule,
     PortalModule,
-
     ReactiveFormsModule,
 
     ConvlPageModule,
+    FileStateModule,
+
     ConvsMgrDocumentMessageBlockModule,
     ConvsMgrQuestionBlockModule,
     ConvsMgrReplyMessageBlockModule,
@@ -87,16 +88,11 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrEventBlockModule,
     ConvsMgrAssessmentBrickModule,
     ConvsMgrConditionalBlockModule,
-    StoryModuleBlockModule,
-
-    FileStateModule,
+    StoryModuleBlockModule
   ],
 
   declarations: [BlockComponent],
 
   exports: [BlockComponent],
-
-  // Injector which creates all block types within the editor context.
-  providers: [BlockInjectorService],
 })
 export class BlocksLibraryModule {}

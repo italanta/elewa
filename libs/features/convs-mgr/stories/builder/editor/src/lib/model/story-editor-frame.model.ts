@@ -11,7 +11,7 @@ import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/co
 
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
-import { BlockInjectorService } from '@app/features/convs-mgr/stories/builder/blocks/library/main';
+import { BlockInjectorService } from '@app/features/convs-mgr/stories/builder/block-injector';
 import { AnchorBlockComponent } from '@app/features/convs-mgr/stories/builder/blocks/library/anchor-block';
 
 import { Coordinate } from './coordinates.interface';

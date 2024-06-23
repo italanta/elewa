@@ -138,6 +138,7 @@
         "WEBHOOK": "Webhook",
         "FAILBLOCK": "Fail Block",
         "JUMP": "Jump",
+        "STRUCTURAL": "Module",
         "EVENT": "Event",
         "ASSESSMENT": "Assessment",
         "CONDITIONAL": "Conditional",

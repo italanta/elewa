@@ -9,16 +9,21 @@ import { MaterialDesignModule, MaterialBricksModule } from '@iote/bricks-angular
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/builder/blocks/library/block-options';
 
-import { LocationInputBlockComponent } from './location-input-block/location-input-block.component';
+import { LocationInputBlockComponent } from './components/location-input-block/location-input-block.component';
 
 
-@NgModule({ declarations: [LocationInputBlockComponent],
-    exports: [LocationInputBlockComponent], imports: [CommonModule,
+@NgModule({ 
+    declarations: [LocationInputBlockComponent],
+    exports: [LocationInputBlockComponent], 
+    imports: [
+        CommonModule,
         MultiLangModule,
         MaterialDesignModule,
         FlexLayoutModule,
         MaterialBricksModule,
         FormsModule,
         ReactiveFormsModule,
-        ConvsMgrBlockOptionsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        ConvsMgrBlockOptionsModule], 
+    providers: [provideHttpClient(withInterceptorsFromDi())] 
+})
 export class ConvsMgrLocationInputBlockModule {}

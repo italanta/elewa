@@ -18,10 +18,11 @@ import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb';
 import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
 import { StoryError } from '@app/model/convs-mgr/stories/main';
 
+import { BlockPortalService } from '@app/features/convs-mgr/stories/builder/blocks/portal';
+
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
 import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
-import { BlockPortalService } from '../../providers/block-portal.service';
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
 import { SaveStoryService } from '../../providers/save-story.service';
 

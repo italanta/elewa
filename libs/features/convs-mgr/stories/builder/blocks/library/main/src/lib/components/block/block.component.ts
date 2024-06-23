@@ -1,20 +1,18 @@
-import { Component, ElementRef, HostListener, ViewChild, Input, OnInit, ViewContainerRef, ChangeDetectorRef, ComponentRef, Renderer2, EventEmitter, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, ElementRef, HostListener, ViewChild, Input, OnInit, ViewContainerRef, ComponentRef, Renderer2, EventEmitter, Output } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
 import { CdkPortal } from '@angular/cdk/portal';
 import { MatDialog } from '@angular/material/dialog';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { BlockPortalService } from '@app/features/convs-mgr/stories/builder/editor';
+import { BlockPortalService } from '@app/features/convs-mgr/stories/builder/blocks/portal';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 import { SideScreenToggleService } from '@app/features/convs-mgr/stories/builder/editor';
-import { VideoUploadModalComponent } from '@app/features/convs-mgr/stories/builder/blocks/library/video-message-block'
+import { VideoUploadModalComponent } from '@app/features/convs-mgr/stories/builder/blocks/library/video-message-block';
 
 import { ICONS_AND_TITLES } from '@app/features/convs-mgr/stories/builder/blocks/icons';
-import { _DetermineBlockType } from '../../utils/block-inheritance.util';
-
 
 /**
  * Block which sends a message from bot to user.
@@ -29,6 +27,7 @@ export class BlockComponent implements OnInit
   @Input() id: string;
   @Input() block: StoryBlock;
   @Input() blocksGroup: FormArray;
+  @Input() blockFormGroup: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
   @Input() viewPort: ViewContainerRef;
 
@@ -36,7 +35,6 @@ export class BlockComponent implements OnInit
   @Output() copyBlock  : EventEmitter<StoryBlock> = new EventEmitter<StoryBlock>();
 
   type: StoryBlockTypes;
-  blockFormGroup: FormGroup;
 
   iconClass = ''
   blockTitle = ''
@@ -49,13 +47,12 @@ export class BlockComponent implements OnInit
   ref: ComponentRef<BlockComponent>;
 
   constructor(private _el: ElementRef,
-              private _fb: FormBuilder,
               private _blockPortalBridge: BlockPortalService,
               private sideMenu:SidemenuToggleService,
               private sideScreen:SideScreenToggleService,
               private matdialog: MatDialog,
-              private _renderer: Renderer2
-  ) { }
+              private _renderer: Renderer2) 
+  { }
 
   ngOnInit(): void {
     this.type = this.block.type;
@@ -63,8 +60,6 @@ export class BlockComponent implements OnInit
     this.iconClass = this.getBlockIconAndTitle(this.type).icon;
     this.blockTitle = this.getBlockIconAndTitle(this.type).title;
     this.svgIcon = this.getBlockIconAndTitle(this.type).svgIcon;
- 
-    this.blockFormGroup = _DetermineBlockType(this.block, this.type, this._fb) as FormGroup;
 
     if(this.blocksGroup && this.blockFormGroup)
       this.blocksGroup.push(this.blockFormGroup);

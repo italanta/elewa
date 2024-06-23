@@ -71,6 +71,7 @@
       },
       "BLOCK_ID": "ID de bloc",
       "TITLES": {
+        "STRUCTURAL": "Module",
         "IMAGE": "Image Bloquer",
         "LOCATION": "Emplacemant Bloquer",
         "NAME": "Nom Bloquer",

@@ -16,13 +16,19 @@ import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/buil
 import { DocumentBlockComponent } from './components/document-block/document-block.component';
 
 
-@NgModule({ declarations: [DocumentBlockComponent],
-    exports: [DocumentBlockComponent], imports: [CommonModule,
-        MultiLangModule,
-        MaterialDesignModule,
-        FlexLayoutModule,
-        MaterialBricksModule,
-        FormsModule,
-        ReactiveFormsModule,
-        ConvsMgrBlockOptionsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+@NgModule({ 
+  declarations: [DocumentBlockComponent],
+  exports: [DocumentBlockComponent], 
+  imports: [
+    CommonModule,
+    MultiLangModule,
+    MaterialDesignModule,
+    FlexLayoutModule,
+    MaterialBricksModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ConvsMgrBlockOptionsModule
+  ], 
+  providers: [provideHttpClient(withInterceptorsFromDi())] 
+})
 export class ConvsMgrDocumentMessageBlockModule {}
