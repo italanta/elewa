@@ -12,7 +12,7 @@ import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 import { SideScreenToggleService } from '@app/features/convs-mgr/stories/classic/editor';
 import { VideoUploadModalComponent } from '@app/features/convs-mgr/stories/classic/blocks/library/video-message-block'
 
-import { ICONS_AND_TITLES } from '../../assets/icons-and-titles';
+import { ICONS_AND_TITLES } from '@app/features/convs-mgr/stories/classic/blocks/icons';
 import { _DetermineBlockType } from '../../utils/block-inheritance.util';
 
 

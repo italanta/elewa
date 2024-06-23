@@ -15,7 +15,7 @@ import { SubSink } from 'subsink';
 import { take } from 'rxjs';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { ICONS_AND_TITLES } from '../../../../../main/src/lib/assets/icons-and-titles';
+import { ICONS_AND_TITLES } from '@app/features/convs-mgr/stories/classic/blocks/icons';
 
 import { FileStorageService } from '@app/state/file';
 import { VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';

@@ -14,13 +14,12 @@ import {
   ImageInputBlock, LocationInputBlock, AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock,
   KeywordMessageBlock, EndStoryAnchorBlock, EventBlock, AssessmentBrick, ConditionalBlock
 } from '@app/model/convs-mgr/stories/blocks/messaging';
-
-import { ICONS_AND_TITLES, IconAndTitle } from '@app/features/convs-mgr/stories/classic/blocks/library/main';
+import { StoryModuleBlock } from '@app/model/convs-mgr/stories/blocks/structural';
+import { ICONS_AND_TITLES, IconAndTitle } from '@app/features/convs-mgr/stories/classic/blocks/icons';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { DragDropService } from '../../providers/drag-drop.service';
 import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
-import { StoryModuleBlock } from '@app/model/convs-mgr/stories/blocks/structural';
 
 /**
  * Component which holds a library (list) of all blocks that can be created

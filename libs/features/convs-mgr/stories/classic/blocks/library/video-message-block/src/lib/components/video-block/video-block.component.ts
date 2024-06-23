@@ -8,7 +8,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { VideoUploadModalComponent } from '../../modals/video-upload-modal/video-upload-modal.component';
-import { ICONS_AND_TITLES } from '@app/features/convs-mgr/stories/classic/blocks/library/main';
+import { ICONS_AND_TITLES } from '@app/features/convs-mgr/stories/classic/blocks/icons';
 
 @Component({
   selector: 'app-video-block',

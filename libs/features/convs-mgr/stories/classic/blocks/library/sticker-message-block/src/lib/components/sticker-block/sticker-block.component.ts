@@ -6,7 +6,7 @@ import { SubSink } from 'subsink';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { FileStorageService } from '@app/state/file';
 import { StickerMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { ICONS_AND_TITLES } from '../../../../../main/src/lib/assets/icons-and-titles';
+import { ICONS_AND_TITLES } from '@app/features/convs-mgr/stories/classic/blocks/icons';
 
 @Component({
   selector: 'app-sticker-block',
