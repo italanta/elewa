@@ -1,4 +1,4 @@
-import { Bot } from '@app/model/convs-mgr/bots';
+import { Bot, BotVersions } from '@app/model/convs-mgr/bots';
 import { Classroom } from '@app/model/convs-mgr/classroom';
 
 // We use this to mock AllCourses and Allclassrooms options in our insights dashboard selection menu 
@@ -9,7 +9,7 @@ export const AllCourse: Bot = {
   name: 'All',
   orgId: '',
   modules: [],
-  type: 'Bot',
+  type: BotVersions.V1Modular,
 };
 
 export const AllClassroom: Classroom = {

@@ -15,7 +15,6 @@ import { BotsListAllCoursesComponent } from './components/bots/bots-list-all-cou
 import { BotsListLatestCoursesComponent } from './components/bots/bots-list-latest-courses/bots-list-latest-courses.component';
 
 import { CoursesListComponent } from './components/courses/courses-list/courses-list.component';
-import { CourseModuleItemComponent } from './components/courses/course-module-item/course-module-item.component';
 
 import { BotPageComponent } from './pages/bot-page/bot-page.component';
 import { StoriesDashboardComponent } from './pages/stories-dashboard/stories-dashboard.component';
@@ -46,7 +45,6 @@ import { FilterCoursePipe } from './pipes/filter-course.pipe';
     BotPageComponent,
     CoursesViewAllPageComponent,
     CoursesListComponent,
-    CourseModuleItemComponent,
     FilterCoursePipe
   ]
 })

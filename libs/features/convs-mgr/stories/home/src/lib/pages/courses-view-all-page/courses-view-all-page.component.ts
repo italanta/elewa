@@ -4,12 +4,12 @@ import { Router } from '@angular/router';
 import { SubSink } from 'subsink';
 import { Observable, map } from 'rxjs';
 
-import { ActionSortingOptions } from '@app/elements/layout/convs-mgr/story-elements';
+import { Course } from '@app/model/convs-mgr/bots';
 import { StoryStateService } from '@app/state/convs-mgr/stories';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 
-import { Course } from '../../model/courses.interface';
+import { ActionSortingOptions } from '@app/elements/layout/convs-mgr/story-elements';
 
 @Component({
   selector: 'italanta-apps-courses-view-all-page',
@@ -21,7 +21,7 @@ export class CoursesViewAllPageComponent implements OnInit {
 
   @Input() showAllCourses: boolean;
 
-  courses$: Observable<Course>;
+  courses$: Observable<Course[]>;
 
   sortCoursesBy = 'newest';
   searchValue = '';
