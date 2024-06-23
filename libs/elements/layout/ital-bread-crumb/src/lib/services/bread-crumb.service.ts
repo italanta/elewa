@@ -13,6 +13,7 @@ import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
 import { Story } from '@app/model/convs-mgr/stories/main';
+import { BotVersions } from '@app/model/convs-mgr/bots';
 
 @Injectable({
   providedIn: 'root',
@@ -100,7 +101,8 @@ export class BreadcrumbService {
                 },
                 {
                   label: botModule?.name ?? "",
-                  link: `/bots/${bot?.id}/modules/${botModule?.id}`
+                  link: bot?.type === BotVersions.V1Modular ? `/bots/${bot?.id}/classic/${bot?.id}/modules/${botModule?.id}`
+                                                            : `/stories/${botModule?.id}`
                 },
                 {
                   label: story?.name ?? "",
