@@ -3,8 +3,6 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { WebhookBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { BlockComponent } from "@app/features/convs-mgr/stories/builder/blocks/library/main";
-
 /**
  * Decorates MessageBlock with JS plumb connectors.
  * 
@@ -14,7 +12,7 @@ import { BlockComponent } from "@app/features/convs-mgr/stories/builder/blocks/l
  * block_endpoint
  * @see {_JsPlumbComponentDecorator} - Should be the only one calling the component
  */
-export function _CMI5BlockDecoratePlumb(block: WebhookBlock, comp: ComponentRef<BlockComponent>, jsPlumb: BrowserJsPlumbInstance) : ComponentRef<BlockComponent> 
+export function _CMI5BlockDecoratePlumb(block: WebhookBlock, comp: ComponentRef<any>, jsPlumb: BrowserJsPlumbInstance) : ComponentRef<any> 
 {
 
   jsPlumb.addEndpoint(comp.location.nativeElement, {
