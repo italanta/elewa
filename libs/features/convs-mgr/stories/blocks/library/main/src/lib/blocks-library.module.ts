@@ -46,6 +46,7 @@ import { FileStateModule } from '@app/state/file';
 
 import { BlockInjectorService } from './block-injector.service';
 import { BlockComponent } from './components/block/block.component';
+import { ConvsMgrAssessmentMicroAppModule } from '../../../assessment-micro-app/src';
 
 @NgModule({
   imports: [
@@ -88,6 +89,7 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrAssessmentBrickModule,
     ConvsMgrConditionalBlockModule,
     ConvsMgrCMI5BlockModule,
+    ConvsMgrAssessmentMicroAppModule,
 
     FileStateModule,
   ],

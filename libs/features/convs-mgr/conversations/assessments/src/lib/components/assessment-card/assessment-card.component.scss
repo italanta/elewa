@@ -1,0 +1,64 @@
+.question-card{
+  width: 100%;
+  color: #101010;
+  width: 80%;
+  background-color: #fff;
+
+  .question-header{
+    border-bottom: 1px solid #00000029;
+    padding-bottom: 8px;
+  }
+  .question-content{
+    padding-top: 8px;
+    .column-radios{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+.single-form{
+  padding-left: 5%;
+  min-width: 850px !important;
+
+  .single-question-fm{
+    width: 100%;
+  }
+}
+.stepper-buttons{
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-top: 1rem;
+  .btn-btns{
+    color: #fff;
+    background-color: #1F7A8C;
+    width: 200px !important;
+  }
+  .previous{
+    color: #1F7A8C;
+    background-color: #fff;
+    width: 200px !important;
+    border: 1px solid #1F7A8C;
+  }
+}
+
+.submit-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .btn-btns{
+    color: #fff;
+    background-color: #1F7A8C;
+    width: 200px !important;
+  }
+}
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+  border-color: #1F7A8C;
+}
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-conßtrol:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+  border-color: #1F7A8C;
+}
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle{
+  border-color: #1F7A8C;
+}

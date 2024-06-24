@@ -35,6 +35,8 @@ export abstract class OutgoingMessageParser
 
   // abstract getLocationBlockParserOut (storyBlock: StoryBlock, phone: string): Message
 
+  abstract getInteractiveUrlButtonParserOut (storyBlock: StoryBlock, phone: string): any
+
   /**
    * Our chatbot can send different types of messages, be it a text message, a location, an image, ...
    * 
@@ -51,20 +53,21 @@ export abstract class OutgoingMessageParser
     let parser!: (storyBlock: StoryBlock, phone: string) => OutgoingMessagePayload;
     
     switch (storyBlock.type) {
-      case StoryBlockTypes.TextMessage:                   parser = this.getTextBlockParserOut;     break;
-      case StoryBlockTypes.Name:                          parser = this.getTextBlockParserOut;     break;
-      case StoryBlockTypes.Email:                         parser = this.getTextBlockParserOut;     break;
-      case StoryBlockTypes.PhoneNumber:                   parser = this.getTextBlockParserOut;     break;   
-      case StoryBlockTypes.QuestionBlock:                 parser = this.getQuestionBlockParserOut; break;
-      case StoryBlockTypes.FallbackBlock:                 parser = this.getQuestionBlockParserOut; break;
-      case StoryBlockTypes.List:                          parser = this.getListBlockParserOut;     break;
-      case StoryBlockTypes.Image:                         parser = this.getImageBlockParserOut;    break;
-      case StoryBlockTypes.Video:                         parser = this.getVideoBlockParserOut;    break;
-      case StoryBlockTypes.Document:                      parser = this.getDocumentBlockParserOut; break;
-      case StoryBlockTypes.Audio:                         parser = this.getAudioBlockParserOut;    break;
-      case StoryBlockTypes.AssessmentQuestionBlock:       parser = this.getQuestionBlockParserOut;  break;
-      default:
-          parser = this.getTextBlockParserOut;
+    case StoryBlockTypes.TextMessage:                   parser = this.getTextBlockParserOut;                    break;
+    case StoryBlockTypes.Name:                          parser = this.getTextBlockParserOut;                    break;
+    case StoryBlockTypes.Email:                         parser = this.getTextBlockParserOut;                    break;
+    case StoryBlockTypes.PhoneNumber:                   parser = this.getTextBlockParserOut;                    break;   
+    case StoryBlockTypes.QuestionBlock:                 parser = this.getQuestionBlockParserOut;                break;
+    case StoryBlockTypes.FallbackBlock:                 parser = this.getQuestionBlockParserOut;                break;
+    case StoryBlockTypes.List:                          parser = this.getListBlockParserOut;                    break;
+    case StoryBlockTypes.Image:                         parser = this.getImageBlockParserOut;                   break;
+    case StoryBlockTypes.Video:                         parser = this.getVideoBlockParserOut;                   break;
+    case StoryBlockTypes.Document:                      parser = this.getDocumentBlockParserOut;                break;
+    case StoryBlockTypes.Audio:                         parser = this.getAudioBlockParserOut;                   break;
+    case StoryBlockTypes.AssessmentQuestionBlock:       parser = this.getQuestionBlockParserOut;                break;
+    case StoryBlockTypes.InteractiveUrlButtonBlock:     parser = this.getInteractiveUrlButtonParserOut;         break;
+    default:
+        parser = this.getTextBlockParserOut;
     }
 
     return parser(storyBlock, phone);

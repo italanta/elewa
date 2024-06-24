@@ -14,6 +14,7 @@ import { ConditionalBlockService } from "./block-type/conditional-block.service"
 import { EventBlockService } from "./block-type/event-block.service";
 import { AssessmentBlockService } from "./block-type/assessment-block.service";
 import { ActiveChannel } from "../../model/active-channel.service";
+import { MicroAppBlockService } from "./block-type/micro-app-block.service";
 
 
 export class OperationBlockFactory
@@ -37,6 +38,8 @@ export class OperationBlockFactory
         return new AssessmentBlockService(this._blockDataService, this._connDataService, this.tools);
       case StoryBlockTypes.Event:
         return new EventBlockService(this._blockDataService, this._connDataService, this.tools, this._activeChannel);
+      case StoryBlockTypes.MicroAppBlock:
+        return new MicroAppBlockService(this._blockDataService, this._connDataService, this.tools)  
       default:
         break;
     }

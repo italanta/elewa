@@ -109,6 +109,9 @@
       "@app/features/convs-mgr/stories/blocks/library/assessment-brick": [
         "libs/features/convs-mgr/stories/blocks/library/assessment-brick/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/assessment-micro-app": [
+        "libs/features/convs-mgr/stories/blocks/library/assessment-micro-app/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/audio-input-block": [
         "libs/features/convs-mgr/stories/blocks/library/audio-input-block/src/index.ts"
       ],
@@ -156,6 +159,9 @@
       ],
       "@app/features/convs-mgr/stories/blocks/library/main": [
         "libs/features/convs-mgr/stories/blocks/library/main/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/blocks/library/micro-apps-base": [
+        "libs/features/convs-mgr/stories/blocks/library/micro-apps-base/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/library/multiple-input-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/multiple-input-message-block/src/index.ts"
@@ -208,6 +214,7 @@
       "@app/features/convs-mgr/user-groups": [
         "libs/features/convs-mgr/user-groups/src/index.ts"
       ],
+      "@app/features/micro-app": ["libs/features/micro-app/src/index.ts"],
       "@app/features/monitoring": ["libs/features/monitoring/src/index.ts"],
       "@app/functions/analytics/metabase": [
         "libs/functions/analytics/metabase/src/index.ts"
@@ -239,11 +246,14 @@
       ],
       "@app/functions/intent": ["libs/functions/intent/src/index.ts"],
       "@app/functions/user": ["libs/functions/user/src/index.ts"],
+      "@app/libs/elements/layout/clm-micro-app": [
+        "libs/elements/layout/clm-micro-app/src/index.ts"
+      ],
       "@app/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block": [
         "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src/index.ts"
       ],
-      "@app/libs/private/functions/intent-fallback-handler": [
-        "libs/libs/private/functions/intent-fallback-handler/src/index.ts"
+      "@app/libs/state/convs-mgr/micro-app": [
+        "libs/state/convs-mgr/micro-app/src/index.ts"
       ],
       "@app/model/analytics/group-based/progress": [
         "libs/model/analytics/group-based/progress/src/index.ts"
@@ -285,6 +295,9 @@
       ],
       "@app/model/convs-mgr/learners": [
         "libs/model/convs-mgr/learners/src/index.ts"
+      ],
+      "@app/model/convs-mgr/micro-app/base": [
+        "libs/model/convs-mgr/micro-app/base/src/index.ts"
       ],
       "@app/model/convs-mgr/stories/blocks/main": [
         "libs/model/convs-mgr/stories/blocks/main/src/index.ts"

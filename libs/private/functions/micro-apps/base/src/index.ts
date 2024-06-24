@@ -1,3 +1,3 @@
-export * from './lib/lms-abstract.class';
-export * from './lib/session.service';
-export * from './lib/au-abstract.class';
+export * from './lib/cmi5/lms-abstract.class';
+export * from './lib/cmi5/session.service';
+export * from './lib/cmi5/au-abstract.class';

@@ -80,5 +80,7 @@ export enum ChatStatus
 
     Stashed               = 'stashed',
 
-    Disabled              = 'disabled'
+    Disabled              = 'disabled',
+
+    MicroApp              = 'microapp'
   }
