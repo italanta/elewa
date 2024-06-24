@@ -1,7 +1,7 @@
 // This file consists a set of consts to do with the story editor frame size.
 //
 // Adjustments made to this file will need to be reflected in CSS as well at the editor-frame
-// @see libs/features/convs-mgr/stories/builder/editor/src/lib/components/editor-frame/editor-frame.component.scss
+// @see libs/features/convs-mgr/stories/builder/story-editor/src/lib/components/editor-frame/editor-frame.component.scss
 //
 
 /** Max zoom out of the frame */

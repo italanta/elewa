@@ -5,7 +5,7 @@ export default {
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {},
   coverageDirectory:
-    '../../../../../../coverage/libs/features/convs-mgr/stories/builder/editor',
+    '../../../../../../coverage/libs/features/convs-mgr/stories/builder/story-editor',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

@@ -2,7 +2,7 @@
   "name": "features-convs-mgr-stories-editor",
   "$schema": "../../../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/features/convs-mgr/stories/builder/editor/src",
+  "sourceRoot": "libs/features/convs-mgr/stories/builder/story-editor/src",
   "prefix": "convl",
   "targets": {
     "test": {
@@ -11,8 +11,8 @@
         "{workspaceRoot}/coverage/libs/features/convs-mgr/stories/builder/editor"
       ],
       "options": {
-        "tsConfig": "libs/features/convs-mgr/stories/builder/editor/tsconfig.json",
-        "jestConfig": "libs/features/convs-mgr/stories/builder/editor/jest.config.ts"
+        "tsConfig": "libs/features/convs-mgr/stories/builder/story-editor/tsconfig.json",
+        "jestConfig": "libs/features/convs-mgr/stories/builder/story-editor/jest.config.ts"
       }
     },
     "lint": {

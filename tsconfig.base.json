@@ -205,8 +205,8 @@
       "@app/features/convs-mgr/stories/builder/blocks/process-inputs": [
         "libs/features/convs-mgr/stories/builder/blocks/process-inputs/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/builder/editor": [
-        "libs/features/convs-mgr/stories/builder/editor/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/story-editor": [
+        "libs/features/convs-mgr/stories/builder/story-editor/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
