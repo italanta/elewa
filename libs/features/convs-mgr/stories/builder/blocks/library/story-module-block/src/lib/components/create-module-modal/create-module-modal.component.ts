@@ -3,9 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
-import { tap } from 'rxjs';
 
-import { Bot } from '@app/model/convs-mgr/bots';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
