@@ -103,6 +103,9 @@
       "@app/features/convs-mgr/stories/bot-actions": [
         "libs/features/convs-mgr/stories/bot-actions/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/builder/app": [
+        "libs/features/convs-mgr/stories/builder/app/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/builder/blocks/edit/blocks-edit": [
         "libs/features/convs-mgr/stories/builder/blocks/edit/blocks-edit/src/index.ts"
       ],
@@ -494,8 +497,8 @@
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
       "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
-      "@app/features/convs-mgr/stories/builder/app": [
-        "libs/features/convs-mgr/stories/builder/app/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/nav": [
+        "libs/features/convs-mgr/stories/builder/nav/src/index.ts"
       ]
     }
   },

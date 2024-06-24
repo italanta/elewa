@@ -28,7 +28,8 @@ export class BotBuilderPageComponent implements OnInit, OnDestroy
   ngOnInit(): void 
   {
     this._sbS.sink = 
-      this._story$$.get().subscribe(s => 
+      this._story$$.get()
+          .subscribe(s => 
       {
         // If new story route, render correct editor by navigating to it (code-splitted editors)
         if(s.id !== this._activeRoute)

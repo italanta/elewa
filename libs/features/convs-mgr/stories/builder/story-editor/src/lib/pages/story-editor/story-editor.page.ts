@@ -64,19 +64,20 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
 
   zoomLevel: FormControl = new FormControl({ value: 100, disabled: true});
 
-  constructor(private _editorStateService: StoryEditorStateService,
-              private _blockPortalService: BlockPortalService,
-              private _saveStory: SaveStoryService,
-              private _breadCrumbServ$: BreadcrumbService,
-              private _sideMenu: SidemenuToggleService,
-              private sideScreen: SideScreenToggleService,
+  constructor(
+    private _editorStateService: StoryEditorStateService,
+    private _blockPortalService: BlockPortalService,
+    private _saveStory: SaveStoryService,
+    private _breadCrumbServ$: BreadcrumbService,
+    private _sideMenu: SidemenuToggleService,
+    private sideScreen: SideScreenToggleService,
 
-              private _dialog: MatDialog,
-              private _cd: ChangeDetectorRef,
-              private renderer: Renderer2,
-              _router: Router,
+    private _dialog: MatDialog,
+    private _cd: ChangeDetectorRef,
+    private renderer: Renderer2,
+    _router: Router,
 
-              private _logger: Logger) 
+    private _logger: Logger) 
   {
     // Make sure screen is always closed on loading editor
     this._sideMenu.toggleExpand(false);
