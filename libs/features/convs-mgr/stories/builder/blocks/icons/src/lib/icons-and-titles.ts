@@ -51,7 +51,7 @@ export const ICONS_AND_TITLES: {[item: number]: IconAndTitle} = {
   },
   9: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.STRUCTURAL',
-    icon: 'fas fa-envelope',
+    icon: 'fa-solid fa-cubes',
     svgIcon: '' // TODO
   },
   10: {

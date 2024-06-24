@@ -1,22 +1,3 @@
-mat-card {
-  min-width: 200px;
-}
-
-.add-button {
-  display: flex;
-  justify-content: flex-start; 
-  align-items: center; 
-  width: 100%;
-  background-color: var(--convs-mgr-placeholder-color);
-  color: var(--convs-mgr-input-color);
-  border-radius: 0.6rem;
-}
-
-.listgone {
-  cursor: pointer;
-  border: none;
-  background-color: transparent;
-}
 
 .input {
   margin: 0;
@@ -29,29 +10,15 @@ mat-card {
   align-items: center;
 }
 
-.fa-xmark {
-  color: #101010;
+.smb-frame {
+  height:40px;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding: 10px;
 }
-
-.option-input-container {
-  display: flex;
-  flex-direction: column;
-  margin-top: 0.625rem;
-  
-  .option-input {
-    margin-bottom: 0.625rem;
+  .smb-frame:hover {
+    cursor: pointer;
+    background-color: lightgray;
   }
-}
-
-.line {
-  height: 0.063rem;
-  background-color: transparent;
-  transition: background-color 0.3s ease-in-out;
-}
-/** style for the line element when options are visible */
-.line.active {
-  background-color: var(--convs-mgr-border-color);
-  margin-top: 0.313rem; 
-  margin-bottom: 0.938rem;
-}
-

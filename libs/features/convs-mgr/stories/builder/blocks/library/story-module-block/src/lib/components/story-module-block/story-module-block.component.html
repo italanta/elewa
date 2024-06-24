@@ -2,6 +2,10 @@
 <div class="wide" [id]="id" *ngIf="storyModuleBlock">
   <form [formGroup]="storyModuleBlock" fxLayout="column" fxLayoutALign="start center">
 
+    <div class="smb-frame">
+      Edit {{ block.blockTitle }}
+    </div>
+
     <div formArrayName="options" fxFlexFill>
       <div *ngFor="let option of options.controls; let i = index">
         <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="100">
