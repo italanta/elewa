@@ -14,8 +14,6 @@ import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/
 import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 
 import { ToastMessageTypeEnum, ToastStatus } from '@app/model/layout/toast';
-import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb';
-import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
 import { Story, StoryError } from '@app/model/convs-mgr/stories/main';
 
 import { BlockPortalService } from '@app/features/convs-mgr/stories/builder/blocks/portal';
@@ -51,7 +49,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   isSideScreenOpen:boolean;
 
   state: StoryEditorState;
-  breadcrumbs$:  Observable<iTalBreadcrumb[]>
 
   loading = new BehaviorSubject<boolean>(true);
   frame: StoryEditorFrame;
@@ -68,7 +65,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     private _editorStateService: StoryEditorStateService,
     private _blockPortalService: BlockPortalService,
     private _saveStory: SaveStoryService,
-    private _breadCrumbServ$: BreadcrumbService,
     private _sideMenu: SidemenuToggleService,
     private sideScreen: SideScreenToggleService,
 
@@ -93,8 +89,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
         this.pageName = `Story overview :: ${state.story.name}`;
 
         const story = state.story;
-        this.breadcrumbs$ = this._breadCrumbServ$.setStoryBreadcrumbs(story);
-
         this.loading.next(false);
       });
     }

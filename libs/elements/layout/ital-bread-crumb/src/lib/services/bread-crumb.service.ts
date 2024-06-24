@@ -1,19 +1,9 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Data,
-  NavigationEnd,
-  Router,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Data, NavigationEnd, Router } from '@angular/router';
 
-import { BehaviorSubject, filter, map, of, switchMap } from 'rxjs';
-
-import { BotModulesStateService } from '@app/state/convs-mgr/modules';
-import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { BehaviorSubject, filter, map } from 'rxjs';
 
 import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
-import { Story } from '@app/model/convs-mgr/stories/main';
-import { BotVersions } from '@app/model/convs-mgr/bots';
 
 @Injectable({
   providedIn: 'root',
@@ -25,15 +15,12 @@ export class BreadcrumbService {
   // Observable exposing the breadcrumb hierarchy
   readonly breadcrumbs$ = this._breadcrumbs$.asObservable();
 
-  constructor(
-    private router: Router,          
-    private _moduleStateServ$: BotModulesStateService,
-    private _botStateServ$: BotsStateService,
-  ) {
+  constructor(private router: Router) {
     this.initRouterEvents();
-  };
+  }
 
-  private initRouterEvents() {
+  private initRouterEvents() 
+  {
     this.router.events.pipe(
       // Filter the NavigationEnd events as the breadcrumb is updated only when the route reaches its end
       filter((event) => event instanceof NavigationEnd),
@@ -48,7 +35,7 @@ export class BreadcrumbService {
       })
     )
     .subscribe();
-  };
+  }
 
   private addBreadcrumb(route: ActivatedRouteSnapshot, parentUrl: string[], breadcrumbs: iTalBreadcrumb[]) {
     if (route) {
@@ -69,7 +56,7 @@ export class BreadcrumbService {
         };
 
         breadcrumbs.push(breadcrumb);
-      };
+      }
 
       // Add another element for the next route part
       this.addBreadcrumb(
@@ -77,49 +64,13 @@ export class BreadcrumbService {
         routeUrl,
         breadcrumbs
       );
-    };
-  };
-
-  // set story breadcrumbs
-  setStoryBreadcrumbs(story: Story) {
-    if (!story.parentModule) return of([])
-  
-    return this._moduleStateServ$
-      .getBotModuleById(story?.parentModule)
-      .pipe(
-        switchMap((botModule) => {
-          return this._botStateServ$.getBotById(botModule?.parentBot as string).pipe(
-            switchMap((bot) => {
-              const breadcrumbs: iTalBreadcrumb[] = [
-                {
-                  label: { src: 'assets/svgs/breadcrumbs/bots-stroked.svg' },
-                  link: `/bots/dashboard`
-                },
-                {
-                  label: bot?.name ?? "",
-                  link: `/bots/${bot?.id}`
-                },
-                {
-                  label: botModule?.name ?? "",
-                  link: bot?.type === BotVersions.V1Modular ? `/bots/${bot?.id}/classic/${bot?.id}/modules/${botModule?.id}`
-                                                            : `/stories/${botModule?.id}`
-                },
-                {
-                  label: story?.name ?? "",
-                  link : `/stories/${story?.id}`
-                }
-              ]
-
-              return of(breadcrumbs);
-            })
-          )
-        }
-      ))
+    }
   }
 
-  private getLabel(data: Data) {
+  private getLabel(data: Data) 
+  {
     const breadcrumbData = data['breadCrumb'];
     // The breadcrumb can be defined as a static string or as a function to construct the breadcrumb element out of the route data
     return typeof breadcrumbData === 'function' ? breadcrumbData(data) : breadcrumbData
-  };
+  }
 }

@@ -28,17 +28,12 @@
     <div class="story-index" fxFlex="80" fxLayout="column" fxLayoutAlign="start" fxFlex>
 
       <!-- Convl page subbar -->
-      <div class="sub-bar" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+      <convl-builder-nav-bar class="sub-bar" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
 
         <!-- Toggle block library button -->
         <button *ngIf="!isSideScreenOpen" class="toggle-btn" (click)="toggleSidenav()">
           <span><i class="fas fa-chevron-right"></i></span>
         </button>
-
-        <!-- Breadcrumbs -->
-        <div class="breadcrumb-wrapper">
-          <app-ital-breadcrumb [breadcrumbs$]="breadcrumbs$"></app-ital-breadcrumb>
-        </div>
 
         <!-- Zoom button -->
         <div class="zoom-section">
@@ -66,7 +61,7 @@
           </button>
 
         </div>
-      </div>
+      </convl-builder-nav-bar>
 
       <div class="error-count" *ngIf="errors.length>0" fxFlex fxLayout="row" fxLayoutAlign="end center">
         <div class="error-msg">{{'TOAST.ERROR-COUNT' | transloco}} <span class="error-count-length">{{errors.length}}</span> {{'TOAST.ERRORS' | transloco}}</div>

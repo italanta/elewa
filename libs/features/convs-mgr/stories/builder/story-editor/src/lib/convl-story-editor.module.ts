@@ -24,6 +24,7 @@ import { StoryEditorPageComponent } from './pages/story-editor/story-editor.page
 import { GroupedBlocksComponent } from './components/grouped-blocks/grouped-blocks.component';
 
 import { StoryEditorBlocksManagementModule } from '@app/features/convs-mgr/stories/builder/editor-state';
+import { BuilderNavbarModule } from '@app/features/convs-mgr/stories/builder/nav';
 
 import { ManageChannelStoryLinkService } from './providers/manage-channel-story-link.service';
 
@@ -34,6 +35,7 @@ import { TrackCursorDirective } from './directives/track-cursor.directive';
 import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
 import { StoryEditorMiniMapComponent } from './components/minimap/minimap.component';
 
+
 @NgModule({
   imports: [
     CommonModule, MultiLangModule, PortalModule,
@@ -42,8 +44,8 @@ import { StoryEditorMiniMapComponent } from './components/minimap/minimap.compon
     ConvlPageModule, ConvsMgrAnchorBlockModule,
     BlocksLibraryModule, StoryEditorStateModule,
     ConvlStoryEditorRouterModule, MatStepperModule,
-    ToastModule, ItalBreadCrumbModule,
-    StoryEditorBlocksManagementModule
+    ToastModule,
+    StoryEditorBlocksManagementModule, BuilderNavbarModule
   ],
 
   declarations: [
