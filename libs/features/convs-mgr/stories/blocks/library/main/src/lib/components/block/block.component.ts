@@ -14,6 +14,7 @@ import { VideoUploadModalComponent } from '@app/features/convs-mgr/stories/block
 
 import { ICONS_AND_TITLES } from '../../assets/icons-and-titles';
 import { _DetermineBlockType } from '../../utils/block-inheritance.util';
+import { it } from 'node:test';
 
 
 /**
@@ -149,7 +150,52 @@ export class BlockComponent implements OnInit
   deleteMe() 
   {
     this.deleteBlock.emit(this.block);
+    console.log("nit nit")
   }
+
+  copyButtonVisible = false;
+
+  copyMenu(e :MouseEvent){
+    // prevent default action
+    e.preventDefault();
+
+    // checks if the copy button is already rendered
+    // if not it renders it
+    // if rendered it hides it
+    if (this.copyButtonVisible) {
+      this.copyButtonVisible = false;
+      return;
+    }
+
+    // render a button on the title container with a label of copy reference
+    this.copyButtonVisible = true;
+  }
+
+  copyBlockIdToClipboard(): void {
+    // initialises a variable with the current block's id
+    const blockId = this.id;
+  
+    if (blockId){
+      // attempts to copy the block id to the clipboard
+      navigator.clipboard.writeText(blockId).then(
+        // if successfull it renders a success message
+        ()=>this.handleCopySuccess(),
+        // if not succesfull it renders an error message
+        (err)=>this.handleCopyError(err)
+      )
+    }
+  }
+
+  private handleCopySuccess(): void{
+    console.log('Block ID copied to clipboard');
+    // closes the button on successfull copy
+    this.copyButtonVisible = false;
+  }
+
+  private handleCopyError(err: Error): void{
+    console.error('Unable to copy block ID to clipboard', err);
+  }
+  
 
   //
   // SECTION BOILERPLATE
