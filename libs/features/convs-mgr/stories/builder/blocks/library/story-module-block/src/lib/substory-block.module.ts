@@ -9,6 +9,7 @@ import { MaterialDesignModule, MaterialBricksModule } from '@iote/bricks-angular
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/builder/blocks/library/block-options';
 import { StoryModuleBlockComponent } from './components/story-module-block/story-module-block.component';
+import { CreateModuleModalComponent } from './components/create-module-modal/create-module-modal.component';
 
 
 @NgModule({
@@ -22,11 +23,10 @@ import { StoryModuleBlockComponent } from './components/story-module-block/story
     FormsModule,
     ReactiveFormsModule,
 
-    ConvsMgrBlockOptionsModule
+    ConvsMgrBlockOptionsModule,
   ],
 
-  declarations: [StoryModuleBlockComponent],
-
+  declarations: [StoryModuleBlockComponent, CreateModuleModalComponent],
   exports: [StoryModuleBlockComponent],
 })
 export class StoryModuleBlockModule {}
