@@ -160,11 +160,6 @@ export const ICONS_AND_TITLES: {[item: number]: IconAndTitle} = {
     icon: 'fas fa-cube',
     svgIcon: 'assets/svgs/blocks/clarity_block-line.svg',
   },
-  35: {
-    title: 'PAGE-CONTENT.BLOCK.TITLES.ASSESSMENT-MICRO-APP',
-    icon: 'fas fa-chart-bar',
-    svgIcon: '/assets/icons/assessments.svg'
-  },
   37: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.MICRO-APP',
     icon: 'fas fa-bars',
@@ -173,6 +168,7 @@ export const ICONS_AND_TITLES: {[item: number]: IconAndTitle} = {
   39: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.ASSESSMENT-MICRO-APP',
     icon: 'fas fa-clipboard-list',
+    svgIcon: '/assets/icons/assessments-stroked.svg'
   },
   9999: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.END-BLOCK',
