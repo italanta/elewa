@@ -14,7 +14,6 @@ import { DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMes
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryModuleBlock } from '@app/model/convs-mgr/stories/blocks/structural';
-import { BlockComponent } from '@app/features/convs-mgr/stories/builder/blocks/library/main';
 
 import { _MessageBlockDecoratePlumb } from '@app/features/convs-mgr/stories/builder/blocks/library/text-message-block';
 import { _ImageBlockDecoratePlumb } from '@app/features/convs-mgr/stories/builder/blocks/library/image-message-block';
@@ -49,10 +48,10 @@ import { _StoryModuleBlockDecoratePlumb } from '@app/features/convs-mgr/stories/
  *  The rendering location will depend on the type and configuration of the block.
  * 
  * @param block   - Block data structure. Used by some components to determine location and configuration of the endpoints, anchors, etc.
- * @param comp    - Angular component rendered in the viewport 
+ * @param comp    - Angular component rendered in the viewport (Type ComponentRef<BlockComponent>) - @note BlockComponent was replaced with any to avoid circular dep
  * @param jsPlumb - Active jsPlumb instance
  */
-export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef<BlockComponent>, jsPlumb: BrowserJsPlumbInstance) {
+export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef<any>, jsPlumb: BrowserJsPlumbInstance) {
   /** Lift component into jsPlumb world. */
   jsPlumb.manage(comp.location.nativeElement, block.id);
   

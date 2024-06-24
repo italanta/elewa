@@ -9,7 +9,7 @@ import { BlockPortalService } from '@app/features/convs-mgr/stories/builder/bloc
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { SidemenuToggleService } from '@app/elements/layout/page-convl';
-import { SideScreenToggleService } from '@app/features/convs-mgr/stories/builder/editor';
+import { SideScreenToggleService } from '@app/features/convs-mgr/stories/builder/editor-state';
 import { VideoUploadModalComponent } from '@app/features/convs-mgr/stories/builder/blocks/library/video-message-block';
 
 import { ICONS_AND_TITLES } from '@app/features/convs-mgr/stories/builder/blocks/icons';

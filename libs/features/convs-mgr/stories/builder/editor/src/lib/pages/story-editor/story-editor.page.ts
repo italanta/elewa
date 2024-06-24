@@ -19,9 +19,8 @@ import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
 import { Story, StoryError } from '@app/model/convs-mgr/stories/main';
 
 import { BlockPortalService } from '@app/features/convs-mgr/stories/builder/blocks/portal';
-import { StoryEditorFrame, SaveStoryService } from '@app/features/convs-mgr/stories/builder/editor-state';
+import { StoryEditorFrame, SaveStoryService, SideScreenToggleService } from '@app/features/convs-mgr/stories/builder/editor-state';
 
-import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
 
 import { StoryEditorFrameComponent } from '../../components/editor-frame/editor-frame.component';

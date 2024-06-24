@@ -47,6 +47,7 @@ import { FileStateModule } from '@app/state/file';
 import { BlockInjectorService } from './providers/block-injector.service';
 import { SaveStoryService } from './providers/save-story.service';
 import { StoryEditorInitialiserService } from './providers/story-editor-initialiser.service';
+import { SideScreenToggleService } from './providers/side-screen-toggle.service';
 
 @NgModule({
   imports: [
@@ -96,7 +97,8 @@ import { StoryEditorInitialiserService } from './providers/story-editor-initiali
   providers: [
     BlockInjectorService,
     SaveStoryService,
-    StoryEditorInitialiserService
+    StoryEditorInitialiserService,
+    SideScreenToggleService
   ],
 })
 export class StoryEditorBlocksManagementModule {}
