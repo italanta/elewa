@@ -202,8 +202,14 @@
       "@app/features/convs-mgr/stories/builder/blocks/library/webhook-block": [
         "libs/features/convs-mgr/stories/builder/blocks/library/webhook-block/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/builder/blocks/portal": [
+        "libs/features/convs-mgr/stories/builder/blocks/portal/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/builder/blocks/process-inputs": [
         "libs/features/convs-mgr/stories/builder/blocks/process-inputs/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/builder/editor-state": [
+        "libs/features/convs-mgr/stories/builder/editor-state/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/builder/story-editor": [
         "libs/features/convs-mgr/stories/builder/story-editor/src/index.ts"
@@ -488,11 +494,8 @@
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
       "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
-      "@app/features/convs-mgr/stories/builder/editor-state": [
-        "libs/features/convs-mgr/stories/builder/editor-state/src/index.ts"
-      ],
-      "@app/features/convs-mgr/stories/builder/blocks/portal": [
-        "libs/features/convs-mgr/stories/builder/blocks/portal/src/index.ts"
+      "@app/features/convs-mgr/stories/builder/app": [
+        "libs/features/convs-mgr/stories/builder/app/src/index.ts"
       ]
     }
   },

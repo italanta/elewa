@@ -39,18 +39,21 @@ export interface StoryModuleResult
  */
 export enum StoryModuleTypes
 {
+  /** The story module is the root parent/bot parent */
+  Story = 1,
+
   /** The story module represents a child story */
-  SubStory = 1,
+  SubStory = 2,
 
   /** The story module represents a flow */
-  Flow = 2,
+  Flow = 3,
 
   /** The story module represents an assessment */
-  Assessment = 3,
+  Assessment = 4,
 
   /** The story module represents a micro-app */
-  MicroApp = 4,
+  MicroApp = 5,
 
   /** Future feature to experiment with @Jente */
-  CoachingModule = 5
+  CoachingModule = 6
 }

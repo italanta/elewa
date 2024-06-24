@@ -47,7 +47,7 @@ export const APP_ROUTES: Route[] = [
 
   {
     path: 'stories',
-    loadChildren: () => import('@app/features/convs-mgr/lessons').then(m => m.ConvsMgrLessonsModule),
+    loadChildren: () => import('@app/features/convs-mgr/stories/builder/app').then(m => m.BotBuilderBaseModule),
     data: { breadCrumb: 'Lessons' },
     canActivate: [IsLoggedInGuard, CanAccessBotsGuard],
   },

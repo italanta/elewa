@@ -1,3 +1,5 @@
+import { BotVersions } from "@app/model/convs-mgr/bots";
+import { StoryModuleTypes } from "@app/model/convs-mgr/stories/blocks/structural";
 import { IObject } from "@iote/bricks";
 
 /**
@@ -43,4 +45,8 @@ export interface Story extends IObject
 
   /** total number of blocks in the story */
   blocksCount?: number;
+
+  version?: BotVersions;
+
+  type?: StoryModuleTypes;
 }

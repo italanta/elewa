@@ -6,7 +6,7 @@ import { IsLoggedInGuard } from '@app/elements/base/authorisation';
 import { StoryEditorPageComponent } from './pages/story-editor/story-editor.page';
 
 const STORY_EDITOR_ROUTES: Route[] = [
-  // Main story detail - stories/:id
+  // Main story detail - stories/:story-id/story-editor
   { path: '', component: StoryEditorPageComponent, canActivate: [IsLoggedInGuard] },
 ];
 
