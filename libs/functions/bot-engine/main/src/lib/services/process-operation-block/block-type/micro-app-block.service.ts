@@ -1,3 +1,4 @@
+import { v4 as ___guid } from 'uuid'
 import { Logger } from "@iote/bricks-angular";
 import { HandlerTools } from "@iote/cqrs";
 
@@ -53,31 +54,6 @@ export class MicroAppBlockService implements IProcessOperationBlock
       blockSuccess: nextBlockId
     };
 
-    // TODO: Move updating of cursor to separate function
-    const microappInitStatus: MicroAppStatus = {
-      appId: storyBlock.appId,
-      timestamp: Date.now(),
-      startedOn: new Date(),
-      status: MicroAppStatusTypes.Initialized,
-      config: storyBlock.configs,
-      endUserId: endUser.id
-    }
-
-    if (!updatedCursor.parentStack) {
-      const parentStack = [];
-      parentStack.unshift(routedCursor);
-
-      updatedCursor.parentStack = parentStack;
-    } else {
-      updatedCursor.parentStack.unshift(routedCursor);
-    }
-
-    if (!updatedCursor.microappStack) {
-      updatedCursor.microappStack = [microappInitStatus];
-    } else {
-      updatedCursor.microappStack.unshift(microappInitStatus);
-    }
-
     const newPosition: EndUserPosition = {
       // Id of the micro-app as the story id
       storyId: storyBlock.appId,
@@ -85,28 +61,39 @@ export class MicroAppBlockService implements IProcessOperationBlock
       // Id of the micro-app block
       blockId: storyBlock.id
     };
-
     // Update the cursor to show that we are on the micro app block
     updatedCursor.position = newPosition;
-
     const nextCursor = updatedCursor;
-
     this.tools.Logger.log(() => `👉🏾 The next cursor's value is ${nextCursor}`);
 
-    // Generate link for the end user to click
-    const microAppLink = this._getMicroAppLink(storyBlock.id, endUser.id, storyBlock.configs);
+    // Register the app onto firestore
+    const appRegistration: MicroAppStatus = {
+      id: ___guid(),
+      appId: storyBlock.appId,
+      
+      status: MicroAppStatusTypes.Initialized,
+
+      config: storyBlock.configs,
+      endUserId: endUser.id
+    };
+
+    const appRepo$ = this.tools.getRepository<MicroAppStatus>(`appExecs`);
+    appRepo$.create(appRegistration, appRegistration.id);
+
+    // Generate URL for micro-app
+    const baseUrl = process.env.MICRO_APP_URL;
+    const microAppLink = `${baseUrl}/${appRegistration.id}`;
 
     // Create the url button to be sent to the user.
-    const btnBlock = this._createInteractiveButtonBlock(microAppLink, storyBlock.message, storyBlock.appName);
+    const ctaBlock = this._createInteractiveButtonBlock(microAppLink, storyBlock.message, storyBlock.appName);
 
     // Update bot engine status to Micro-app
     await this._updateBotStatus(orgId, endUser);
 
     return {
-      storyBlock: btnBlock,
+      storyBlock: ctaBlock,
       nextCursor
     };
-
   }
 
   /** Generating a URL button link that will be passed to the MicroApp block */
@@ -116,7 +103,7 @@ export class MicroAppBlockService implements IProcessOperationBlock
     const callToActionURL: InteractiveURLButtonBlock = {
       url: link,
 
-      // TODO: Move this to front-end for custom display text
+      // TODO: Move this to front-end for custom display text 
       urlDisplayText: 'Click to Start',
       bodyText: message,
 
@@ -130,24 +117,6 @@ export class MicroAppBlockService implements IProcessOperationBlock
     };
 
     return callToActionURL;
-  }
-
-  /** Link param that will be passed to __createInteractiveButtonBlock */
-  private _getMicroAppLink(microAppId: string, endUserId: string, config: MicroAppConfig): string
-  {
-    // Base URL for the micro-app
-    const baseUrl = process.env.MICRO_APP_URL;
-
-    // Construct query parameters
-    const params = new URLSearchParams();
-    params.append('appId', microAppId);
-    params.append('endUserId', endUserId);
-    params.append('type', config.type.toString());
-    params.append('orgId', config.orgId);
-    if (config.progressUrl) params.append('progressUrl', config.progressUrl);
-    if (config.callBackUrl) params.append('callBackUrl', config.callBackUrl);
-
-    return `${baseUrl}/start?${params.toString()}`;
   }
 
   private _updateBotStatus(orgId: string, endUser: EndUser)

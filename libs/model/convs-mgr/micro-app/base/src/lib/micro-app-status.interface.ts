@@ -21,10 +21,7 @@ export interface MicroAppStatus extends IObject
   /** The current progress of the app */
   status: MicroAppStatusTypes;
   /** Execution of the micro-app started on */
-  startedOn: Date;
+  startedOn?: Date;
   /** Micro-app finished on */
   finishedOn?: Date;
-
-  // Timestamp of creation miliseconds
-  timestamp: number;
 }
