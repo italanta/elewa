@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { MicroAppTypes, MicroAppSectionTypes, MicroAppConfig, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
+import { MicroAppTypes, MicroAppConfig, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
 
 import { MicroAppStatusService } from '../../services/micro-app-status.service';
 import { MicroAppManagementService } from '@app/libs/state/convs-mgr/micro-app';
@@ -11,7 +11,8 @@ import { MicroAppManagementService } from '@app/libs/state/convs-mgr/micro-app';
   templateUrl: './micro-app-start-page.component.html',
   styleUrls: ['./micro-app-start-page.component.scss']
 })
-export class MicroAppStartPageComponent implements OnInit {
+export class MicroAppStartPageComponent implements OnInit 
+{
   //The microApp being launched
   appType: MicroAppTypes;
   appId: string;
@@ -20,16 +21,21 @@ export class MicroAppStartPageComponent implements OnInit {
 
   isInitializing = true;
 
-  appSection: MicroAppSectionTypes
+  constructor(private _microAppStatusServ: MicroAppStatusService,
+              private _microAppService: MicroAppManagementService,
+              private _router: Router,
+              private _route: ActivatedRoute)
+  {}
 
-  constructor( private _microAppStatusServ: MicroAppStatusService,
-    private _microAppService: MicroAppManagementService,
-    private _router: Router,
-    private _route: ActivatedRoute
-  ){}
+  ngOnInit()
+  {
+    // STEP 1. Get app ID
+    this.appId = this._route.snapshot.params['id'] as string;
 
-  ngOnInit(){
-    this.initData();
+    if(!this.appId)
+      throw new Error('Cannot load micro-app. ID not set');
+
+    // ..
 
     this._microAppService.initMicroApp(this.appId, this.endUserId, this.config)
       .subscribe((result)=> {
@@ -44,25 +50,6 @@ export class MicroAppStartPageComponent implements OnInit {
           }
         }
     })
-  }
-
-  /**
-  * Checks the data in the query params and renders the micro app depending on available data
-  */
-  initData(){
-    this.config = this.getConfigs();
-    this.appType = this.config.type;
-    this.endUserId = this._route.snapshot.queryParams['endUserId'];
-    this.appId = this._route.snapshot.queryParams['appId'];
-  }
-
-  getConfigs() {
-    return {
-      type: this._route.snapshot.queryParams['type'],
-      orgId: this._route.snapshot.queryParams['orgId'],
-      progressUrl: this._route.snapshot.queryParams['progressUrl'],
-      callBackUrl: this._route.snapshot.queryParams['callBackUrl']
-    } as MicroAppConfig;
   }
 
   /**

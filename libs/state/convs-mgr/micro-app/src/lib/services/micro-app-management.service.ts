@@ -1,22 +1,30 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
+import { FrontendEnvironment } from '@app/elements/base/frontend-env';
 import { InitMicroAppCmd, InitMicroAppResponse, MicroAppConfig } from '@app/model/convs-mgr/micro-app/base';
-import { AngularFireFunctions } from '@angular/fire/compat/functions';
+
+
+const INIT_MICROAPP_ENDPOINT = 'initMicroApp';
+const PROGRESS_MICROAPP_ENDPOINT = 'microAppProgress';
 
 
 @Injectable({
   providedIn: 'root'
 })
 //micro-app management service
-export class MicroAppManagementService {
+export class MicroAppManagementService 
+{
 
-  constructor(private aff: AngularFireFunctions, private http: HttpClient) { }
+  constructor(private _http$: HttpClient,
+              @Inject('ENVIRONMENT') private _env: FrontendEnvironment) 
+  { }
+
   // Initializes and returns new status
-  private initMicroAppEndPoint = 'initMicroApp';
-  private progressEndpoint = 'microAppProgress';
+  private initMicroAppEndPoint = '';
+  private progressEndpoint = '';
   private callBackHandler = 'callBack';
 
   /** Building the required parameters of launching an app 
@@ -25,14 +33,18 @@ export class MicroAppManagementService {
   */
 
   // Init micro-app
-  initMicroApp(appId: string, userId: string, configs: MicroAppConfig): Observable<InitMicroAppResponse>{
+  initMicroApp(appId: string): Observable<InitMicroAppResponse>
+  {
+    const initUrl = `${this._env.microAppUrl}/${INIT_MICROAPP_ENDPOINT}`
+
     const payload: InitMicroAppCmd = {
-      appId,
-      endUserId: userId,
-      orgId: configs.orgId
+      appId
+      // endUserId: userId,
+      // orgId: configs.orgId
     }
 
-    return this.aff.httpsCallable(this.initMicroAppEndPoint)(payload);
+    return this._http$.post<InitMicroAppResponse>(initUrl, payload);
+              // .pipe(map(r => r.));
   }
 
     // Send progress

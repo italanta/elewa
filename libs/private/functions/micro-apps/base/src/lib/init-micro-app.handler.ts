@@ -1,89 +1,48 @@
+import { isString as ___isString } from 'lodash';
+
 import { HandlerTools } from '@iote/cqrs';
-import { Query } from '@ngfi/firestore-qbuilder';
 import { FunctionHandler, FunctionContext } from '@ngfi/functions';
 
-import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
-import { InitMicroAppCmd, InitMicroAppResponse, MicroAppSectionTypes, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
+import { InitMicroAppCmd, InitMicroAppResponse, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
 
+/**
+ * Handler responsible for initiation micro-apps based on the passed micro-app ID.
+ */
 export class InitMicroAppHandler extends FunctionHandler<InitMicroAppCmd, InitMicroAppResponse>
 {
-  private responseMessage: string;
-
   public async execute(req: InitMicroAppCmd, context: FunctionContext, tools: HandlerTools): Promise<InitMicroAppResponse>
   {
+    tools.Logger.log(() => `Initiation micro-app with ID ${req.appId}`)
+    req = ___isString(req) ? JSON.parse(req) : req;
 
-    try {
-      const cursorRepo$ = tools.getRepository<Cursor>(`orgs/${req.orgId}/end-users/${req.endUserId}/cursor`);
+    try 
+    {
+      const appRegistrationRepo$ =  tools.getRepository<MicroAppStatus>(`appExecs`);
+      const app = await appRegistrationRepo$.getDocumentById(req.appId);
 
-      // Get latest cursor
-      const result = await cursorRepo$.getDocuments(new Query().orderBy('createdOn', 'desc').limit(1));
+      // Case - App does not exists
+      if(!app)
+        throw (`Cannot find a running app for ID ${req.appId}`);
 
-      if (!result || result.length == 0) {
-        this.responseMessage = 'User cursor empty';
-        throw this.responseMessage;
-      }
+      // Case - App was already completed
+      if(app.status === MicroAppStatusTypes.Completed)
+        return { success: false, app };
 
-      const latestCursor = result[0];
+      // Normal case - Initialise app
+      // Start the micro-app
+      app.startedOn = Date.now();
+      app.status = MicroAppStatusTypes.Started;
+      await appRegistrationRepo$.update(app);
 
-      if (!latestCursor.microappStack || latestCursor.microappStack.length === 0) {
-        this.responseMessage = `Micro app '${req.appId}' not initialized for user: ${req.endUserId}`;
-        throw this.responseMessage;
-      }
-
-      // Find and update the current micro-app status
-      const microappStack = latestCursor.microappStack;
-
-      const currentMicroAppArr = microappStack.filter((status) => status.appId == req.appId);
-      let currentStatus: MicroAppStatus;
-
-      if (!currentMicroAppArr || currentMicroAppArr.length == 0) {
-        this.responseMessage = `Micro app '${req.appId}' not initialized for user: ${req.endUserId}`;
-        throw this.responseMessage;
-      }
-
-
-      if (currentMicroAppArr.length > 1) {
-        const sortedMicroAppStatuses = currentMicroAppArr.sort((a, b) => b.timestamp - a.timestamp);
-        currentStatus = sortedMicroAppStatuses[0];
-      } else {
-        currentStatus = currentMicroAppArr[0];
-      }
-
-      const newStatus: MicroAppStatus = {
-        ...currentStatus,
-      };
-
-      const timestamp = Date.now();
-
-      if (currentStatus.status === MicroAppStatusTypes.Initialized) {
-        newStatus.currentSection = MicroAppSectionTypes.Start;
-        newStatus.status = MicroAppStatusTypes.Launched;
-        newStatus.timestamp = timestamp;
-        newStatus.endUserId = req.endUserId;
-      } else {
-        tools.Logger.log(() => `[InitMicroAppHandler].execute - Micro app already initialized. Returning the current user position`);
-        // Incase the status is already initialized, then we resume the users progress
-        newStatus.currentSection = MicroAppSectionTypes.Main;
-        newStatus.timestamp = timestamp;
-      }
-
-      latestCursor.microappStack.unshift(newStatus);
-
-      await cursorRepo$.create(latestCursor, timestamp.toString());
-
-      return {
-        success: true,
-        message: `Micro app '${req.appId}' initialized for user: ${req.endUserId}`,
-        status: newStatus
-      };
-
-    } catch (error) {
-
+      return { success: true, app };
+      
+    } 
+    catch (error) {
       tools.Logger.error(() => `[InitMicroAppHandler].execute - Encountered error :: ${JSON.stringify(error)}`);
       return {
         success: false,
-        message: JSON.stringify(error)
-      };
+        error: JSON.stringify(error)
+      } as InitMicroAppResponse;
     }
   }
 
