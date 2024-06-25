@@ -60,8 +60,8 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     return generatedMessage;
   }
 
-  getInteractiveUrlButtonParserOut(urlBlock: InteractiveURLButtonBlock, phone: string) {
-
+  getInteractiveUrlButtonParserOut(urlBlock: InteractiveURLButtonBlock, phone: string) 
+  {
     const interactiveMessage = {
       type: 'cta_url',
       body: {

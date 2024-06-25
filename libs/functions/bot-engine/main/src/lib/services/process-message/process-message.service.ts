@@ -80,6 +80,7 @@ export class ProcessMessageService
                 .handleBlock(null, currentCursor, orgId, endUser, msg);
     }
 
+    // TODO: Clarify better @Reagan
     if(isFallBack(lastBlockId)) {
       // Return cursor and block fallbacks
       return this.fallBackService.legacyFallback(this.channel, currentCursor, this._blockService$, msg);
@@ -90,15 +91,13 @@ export class ProcessMessageService
     this._tools.Logger.log(()=> `Processing block: Last block: ${JSON.stringify(lastBlock)}}`);
 
     // Handle input: validates and saves the input to variable
+    // Saves variables based on last input
     if(msg) {
       const inputPromise = this.processInput(msg, lastBlock, orgId, endUser);
-
       this.sideOperations.push(inputPromise);
     }
-
-    // upodate leaner progrress
+    // upodate leaner progress
     const updateLearnersProgressPromise = updateLearnerProgress(currentStory, lastBlock, endUser, tools, orgId);
-
     this.sideOperations.push(updateLearnersProgressPromise);
 
     // Return the cursor updated with the next block in the story
@@ -186,13 +185,12 @@ export class ProcessMessageService
 
   private async processInput(msg: Message, lastBlock: StoryBlock, orgId: string, endUser: EndUser)
   {
-
-    if (!isOutputBlock(lastBlock.type)) {
-
+    if (!isOutputBlock(lastBlock.type)) 
+    {
+      // Read and set any variables produced from previous output
       const processInputFactory = new ProcessInputFactory(this._tools, this._activeChannel, this._processMediaService$);
 
       return processInputFactory.processInput(msg, lastBlock, orgId, endUser);
-
     }
   }
 
