@@ -9,38 +9,35 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireFunctionsModule } from '@angular/fire/compat/functions';
 
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
 import { MaterialBricksRootModule } from '@iote/bricks-angular';
 import { NgFireModule } from '@ngfi/angular';
-import { MultiLangModule } from '@ngfi/multi-lang';
+import { MultiLangModule, TranslocoHttpLoader } from '@ngfi/multi-lang';
 
-import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { MicroAppStateModule } from '@app/state/convs-mgr/micro-app';
 
 import { AuthorisationModule } from '@app/elements/base/authorisation';
+import { ClmMicroAppLayoutModule } from '@app/elements/layout/clm-micro-app';
+
 import { AppConfigurationModule } from '@app/elements/base/configuration';
 import { DateConfigurationModule } from '@app/elements/base/date-time';
 import { FirebaseConfigurationModule } from '@app/elements/base/firebase';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { EnvironmentConfigModule } from '@app/admin/config/environment-config';
 import { AppRoutingModule } from './app.routing.module';
 
 import { environment } from '../environments/environment';
-import { ClmMicroAppLayoutModule } from '@app/libs/elements/layout/clm-micro-app';
+import { provideTransloco } from '@jsverse/transloco';
+
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule, BrowserAnimationsModule,
-    GooglePlaceModule,
     
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule, AngularFirestoreModule, AngularFireFunctionsModule, NgFireModule,
     AngularFireAnalyticsModule,
-    HttpClientModule,
-
 
     MaterialBricksRootModule.forRoot(),
 
@@ -53,13 +50,25 @@ import { ClmMicroAppLayoutModule } from '@app/libs/elements/layout/clm-micro-app
     MultiLangModule.forRoot(true),
     // UserNavModule,
 
-    MatProgressBarModule,
     AppRoutingModule,
     RouterModule,
     ClmMicroAppLayoutModule,
     MaterialBricksRootModule.forRoot(),
+
+    MicroAppStateModule.forRoot()
   ],
-  providers: [],
+  providers:  
+  [provideHttpClient(withInterceptorsFromDi()),
+   provideTransloco({
+       config: {
+           availableLangs: ['en', 'fr', 'nl'],
+           fallbackLang: 'en',
+           // Remove this option if your application doesn't support changing language in runtime.
+           reRenderOnLangChange: true,
+           prodMode: environment.production
+       },
+       loader: TranslocoHttpLoader
+   })] ,
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -2,17 +2,20 @@ import { Injectable } from "@angular/core";
 
 import { BehaviorSubject, Observable } from "rxjs";
 
-import { MicroAppTypes, MicroAppStatusTypes, MicroAppSectionTypes } from "@app/model/convs-mgr/micro-app/base";
+import { MicroAppTypes, MicroAppStatusTypes } from "@app/model/convs-mgr/micro-app/base";
 @Injectable({
   providedIn: 'root'
 })
 
-/** A service that sets the different statuses of a micro app as a user interacts with the app
+/** 
+ * A service that sets the different statuses of a micro app as a user interacts with the app
+ * 
  *  @type: A microApp can be an Assessment, A course or A game 
  *  @status : How is the user interacting with the app? 
  *  @section Which view should the user be seeing in the app? 
  */
-export class MicroAppStatusService {
+export class MicroAppStatusService 
+{
   microAppType: MicroAppTypes = MicroAppTypes.Assessment;
 
   /** 

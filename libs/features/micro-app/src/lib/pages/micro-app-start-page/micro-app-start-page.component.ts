@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs';
+import { SubSink } from 'subsink';
 
-import { MicroAppTypes, MicroAppConfig, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { MicroAppStatusService } from '../../services/micro-app-status.service';
-import { MicroAppManagementService } from '@app/libs/state/convs-mgr/micro-app';
+import { MicroAppTypes, MicroAppConfig, MicroAppStatusTypes, MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
+import { MicroAppStore } from '@app/state/convs-mgr/micro-app';
 
 @Component({
   selector: 'app-micro-app-start-page',
   templateUrl: './micro-app-start-page.component.html',
   styleUrls: ['./micro-app-start-page.component.scss']
 })
-export class MicroAppStartPageComponent implements OnInit 
+export class MicroAppStartPageComponent implements OnInit, OnDestroy
 {
+  private _sbS = new SubSink();
+
+  app: MicroAppStatus;
+
   //The microApp being launched
   appType: MicroAppTypes;
   appId: string;
@@ -21,35 +25,23 @@ export class MicroAppStartPageComponent implements OnInit
 
   isInitializing = true;
 
-  constructor(private _microAppStatusServ: MicroAppStatusService,
-              private _microAppService: MicroAppManagementService,
-              private _router: Router,
-              private _route: ActivatedRoute)
+  constructor(private _microApp$$: MicroAppStore)
+              // private _microAppService: MicroAppManagementService)
   {}
 
   ngOnInit()
   {
     // STEP 1. Get app ID
-    this.appId = this._route.snapshot.params['id'] as string;
+    const app$ = this._microApp$$.get();
 
-    if(!this.appId)
-      throw new Error('Cannot load micro-app. ID not set');
+    this._sbS.sink = 
+      app$.pipe(take(1)).subscribe(a => 
+      {
+        this.app = a;
+        this.isInitializing = false;
 
-    // ..
-
-    this._microAppService.initMicroApp(this.appId, this.endUserId, this.config)
-      .subscribe((result)=> {
-        if(result) {
-          this.isInitializing = false;
-          if(result.success) {
-            // Set the current status so that the main section can resume
-            localStorage.setItem('status', JSON.stringify(result.status));
-          } else {
-            // Something has gone wrong
-            console.log(result.message);
-          }
-        }
-    })
+        // TODO: If app state is alreadyin completed here, what should we do?
+      });
   }
 
   /**
@@ -57,11 +49,21 @@ export class MicroAppStartPageComponent implements OnInit
    * Sets the microApp status to started and the section types to main section
    * Redirects the user to the main section route
   */
-  handleStart(){
-    const mainSection = MicroAppSectionTypes.Main
-    const appStarted = MicroAppStatusTypes.Started
+  handleStart()
+  {
+    const appStarted = MicroAppStatusTypes.Started;
+
+    this._sbS.sink =
+      this._microApp$$.next(MicroAppStatusTypes.Started);
+
     this._microAppStatusServ.setMicroAppSections(mainSection)
     this._microAppStatusServ.setMicroAppStatus(appStarted)
-    this._router.navigate(['main'])
+
+    this._router.navigate(['main', ])
+  }
+
+  ngOnDestroy()
+  {
+    this.sub.unsubscribe();
   }
 }

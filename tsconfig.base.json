@@ -246,13 +246,13 @@
       ],
       "@app/functions/intent": ["libs/functions/intent/src/index.ts"],
       "@app/functions/user": ["libs/functions/user/src/index.ts"],
-      "@app/libs/elements/layout/clm-micro-app": [
+      "@app/elements/layout/clm-micro-app": [
         "libs/elements/layout/clm-micro-app/src/index.ts"
       ],
       "@app/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block": [
         "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src/index.ts"
       ],
-      "@app/libs/state/convs-mgr/micro-app": [
+      "@app/state/convs-mgr/micro-app": [
         "libs/state/convs-mgr/micro-app/src/index.ts"
       ],
       "@app/model/analytics/group-based/progress": [
