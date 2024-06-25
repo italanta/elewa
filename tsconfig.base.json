@@ -492,6 +492,9 @@
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
       "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
+      "@app/elements/base/frontend-env": [
+        "libs/elements/base/frontend-env/src/index.ts"
+      ],
       "intercom": ["libs/util/ngfi/intercom/src/index.ts"]
     }
   },
