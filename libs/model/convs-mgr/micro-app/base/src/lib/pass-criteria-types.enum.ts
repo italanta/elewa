@@ -1,4 +1,5 @@
-/** Provides the criteria that should be met by the learner upon 
+/** 
+ * Provides the criteria that should be met by the learner upon 
  *    finishing the micro-app.
  */
 export enum PassCriteriaTypes

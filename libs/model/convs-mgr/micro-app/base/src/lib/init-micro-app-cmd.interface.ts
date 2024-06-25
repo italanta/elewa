@@ -1,11 +1,18 @@
 import { MicroAppStatus } from "./micro-app-status.interface";
 
-export interface InitMicroAppCmd {
+/**
+ * Command to start a micro-app
+ */
+export interface InitMicroAppCmd 
+{
   appId: string;
   endUserId: string;
   orgId: string;
 }
 
+/** 
+ * Response after creating a micro-app
+ */
 export interface InitMicroAppResponse {
   success: boolean;
   message: string;

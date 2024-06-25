@@ -1,5 +1,7 @@
+import { Cursor, EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
 import { MicroAppConfig } from "./micro-app-config.interface";
 import { MicroAppStatusTypes } from "./micro-app-status-types.interface";
+import { IObject } from "@iote/bricks";
 
 /** 
  * Tracks the status of a Micro app through out a learner's engagement with it
@@ -7,28 +9,22 @@ import { MicroAppStatusTypes } from "./micro-app-status-types.interface";
  * @config
  * @status
  * Assessment status will extend this interface */
-export interface MicroAppStatus
+export interface MicroAppStatus extends IObject
 {
   /** The unique Id of the microapp */
   appId: string;
+  /** The end user inititation the app */
   endUserId: string;
-  currentSection?: MicroAppSectionTypes;
+  /** App config and interesting details such as organisation ID and callbacks */
   config: MicroAppConfig;
+  
+  /** The current progress of the app */
   status: MicroAppStatusTypes;
+  /** Execution of the micro-app started on */
   startedOn: Date;
+  /** Micro-app finished on */
   finishedOn?: Date;
 
-  // In miliseconds
+  // Timestamp of creation miliseconds
   timestamp: number;
-}
-
-/** Parts of a a Micro-app screen */
-export enum MicroAppSectionTypes
-{
-  /** Start page / landing page */
-  Start = 0,
-  /** Main content consumption section */
-  Main = 1,
-  /** A user has finished their course and is being redirected back to  the messaging platform */
-  Redirect = 2
 }
