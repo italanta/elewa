@@ -5,9 +5,12 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
-import { StoryModuleBlock, StoryModuleResult } from '@app/model/convs-mgr/stories/blocks/structural';
+import { StoryModuleBlock, StoryModuleResult, StoryModuleTypes } from '@app/model/convs-mgr/stories/blocks/structural';
 
 import { OptionInputFieldComponent } from '@app/features/convs-mgr/stories/builder/blocks/library/block-options';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateModuleModalComponent } from '../create-module-modal/create-module-modal.component';
+import { SubSink } from 'subsink';
 
 const OUTPUT_NAME_CHAR_LIMIT = 20;
 
@@ -26,6 +29,8 @@ const OUTPUT_NAME_CHAR_LIMIT = 20;
 })
 export class StoryModuleBlockComponent implements OnInit 
 {
+  private _sbS = new SubSink();
+  
   @ViewChildren('storyOutputs') storyOutputs: QueryList<OptionInputFieldComponent>;
 
   @Input() id: string;
@@ -41,20 +46,50 @@ export class StoryModuleBlockComponent implements OnInit
 
   readonly outputNameCharLimit = OUTPUT_NAME_CHAR_LIMIT;
 
-  constructor(private _fb: FormBuilder) { }
+  constructor(private _fb: FormBuilder,
+              private _dialog: MatDialog) 
+  { }
 
   ngOnInit(): void 
   {
     const block = this.block as StoryModuleBlock;
-    block.outputs?.forEach((option: StoryModuleResult) => 
-    {
-      const btn = {
-        id: option.id,
-        message: option.label,
-      } as ButtonsBlockButton<StoryModuleResult>
+    
+    if(block.storyType == null)
+      this._loadInCreateMode();
+    else
+      this._loadInExistsMode();
 
-      this.options.push(this.loadOutputs(btn));
-    })
+    // block.outputs?.forEach((option: StoryModuleResult) => 
+    // {
+    //     const btn = {
+    //       id: option.id,
+    //       message: option.label,
+    //     } as ButtonsBlockButton<StoryModuleResult>
+  
+    //     this.options.push(this.loadOutputs(btn));
+    // })
+  }
+
+  /**
+   * Case I. The Story does not yet
+   */
+  private _loadInCreateMode()
+  {
+    const dialog = this._dialog.open(CreateModuleModalComponent);
+
+    this._sbS.sink =
+    dialog.afterClosed()
+      .subscribe(
+        res
+    )
+  }
+
+  /**
+   * Case II. The Story already exists
+   */
+  private _loadInExistsMode()
+  {
+
   }
 
   get options(): FormArray {
