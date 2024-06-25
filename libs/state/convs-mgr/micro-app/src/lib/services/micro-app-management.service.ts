@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
 import { FrontendEnvironment } from '@app/elements/base/frontend-env';
-import { InitMicroAppCmd, InitMicroAppResponse, MicroAppConfig } from '@app/model/convs-mgr/micro-app/base';
+import { InitMicroAppCmd, InitMicroAppResponse, MicroApp } from '@app/model/convs-mgr/micro-app/base';
 
 
 const INIT_MICROAPP_ENDPOINT = 'initMicroApp';
@@ -61,7 +61,7 @@ export class MicroAppManagementService
       return this.aff.httpsCallable(this.progressEndpoint)(data);
     }
 
-    callBack(appId: string, userId: string, config: MicroAppConfig) {
+    callBack(appId: string, userId: string, config: MicroApp) {
       // TODO: Implement a callback handler, that collects the data,
       //  depending on the app type and sends this data to the provided callbackUrl
       if(!config.callBackUrl) return;

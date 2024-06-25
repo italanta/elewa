@@ -6,30 +6,28 @@ import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks
 import { Cursor, EndUserPosition, RoutedCursor } from "@app/model/convs-mgr/conversations/admin/system";
 import { ChatStatus, EndUser } from "@app/model/convs-mgr/conversations/chats";
 import { InteractiveURLButtonBlock, MicroAppBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
-import { MicroAppConfig, MicroAppStatus, MicroAppStatusTypes } from "@app/model/convs-mgr/micro-app/base";
+import { MicroApp, MicroAppStatus, MicroAppStatusTypes } from "@app/model/convs-mgr/micro-app/base";
 
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 import { EndUserDataService } from "../../data-services/end-user.service";
+import { ActiveChannel } from '../../../model/active-channel.service';
 
 export class MicroAppBlockService implements IProcessOperationBlock
 {
   sideOperations: Promise<any>[] = [];
   userInput: string;
   _logger: Logger;
-  blockDataService: BlockDataService;
-  connDataService: ConnectionsDataService;
-  tools: HandlerTools;
-
-  constructor(blockDataService: BlockDataService, connDataService: ConnectionsDataService, tools: HandlerTools,
+ 
+  constructor(
+    private blockDataService: BlockDataService, 
+    private connDataService: ConnectionsDataService, 
+    private tools: HandlerTools,
+    private _activeChannel: ActiveChannel
   )
-  {
-    this.connDataService = connDataService;
-    this.tools = tools;
-    this.blockDataService = blockDataService;
-  }
+  { }
 
   public async handleBlock(storyBlock: MicroAppBlock, updatedCursor: Cursor, orgId: string, endUser: EndUser)
   {
@@ -66,6 +64,13 @@ export class MicroAppBlockService implements IProcessOperationBlock
     const nextCursor = updatedCursor;
     this.tools.Logger.log(() => `👉🏾 The next cursor's value is ${nextCursor}`);
 
+    const config: MicroApp = {
+      callBackUrl: storyBlock.configs.callbackUrl,
+      type: storyBlock.configs.type,
+      channelId: this._activeChannel.channel.id,
+      orgId, pos: newPosition
+    } 
+
     // Register the app onto firestore
     const appRegistration: MicroAppStatus = {
       id: ___guid(),
@@ -73,9 +78,10 @@ export class MicroAppBlockService implements IProcessOperationBlock
       
       status: MicroAppStatusTypes.Initialized,
 
-      config: storyBlock.configs,
+      config: config,
       endUserId: endUser.id
     };
+    
 
     const appRepo$ = this.tools.getRepository<MicroAppStatus>(`appExecs`);
     appRepo$.create(appRegistration, appRegistration.id);

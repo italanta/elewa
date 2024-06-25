@@ -3,7 +3,7 @@ import { SubSink } from 'subsink';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { MicroAppTypes, MicroAppConfig, MicroAppStatusTypes, MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
+import { MicroAppTypes, MicroApp, MicroAppStatusTypes, MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
 import { MicroAppStore } from '@app/state/convs-mgr/micro-app';
 
 @Component({
@@ -21,7 +21,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
   appType: MicroAppTypes;
   appId: string;
   endUserId: string;
-  config: MicroAppConfig;
+  config: MicroApp;
 
   isInitializing = true;
 

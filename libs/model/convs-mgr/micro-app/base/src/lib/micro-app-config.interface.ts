@@ -2,7 +2,7 @@ import { EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system
 import { MicroAppTypes } from "./micro-app-types.enum";
 import { PassCriteriaTypes } from "./pass-criteria-types.enum";
 
-export interface MicroAppConfig
+export interface MicroApp
 {
   /** Type of micro-app */
   type: MicroAppTypes;
@@ -13,6 +13,9 @@ export interface MicroAppConfig
   /** Organisation ID in which the micro-app lives */
   orgId: string;
 
+  /** Channel over which the systems are communicating */
+  channelId: string;
+
   /** Position of where the micro-app was initiated */
   pos: EndUserPosition;
 }
@@ -20,7 +23,7 @@ export interface MicroAppConfig
 /**
  * Specifications for assessment-specific micro-apps
  */
-export interface AssessmentMicroAppConfig extends MicroAppConfig
+export interface AssessmentMicroApp extends MicroApp
 { 
   /** Pass criteria for the assessment */
   passCriteria: PassCriteriaTypes;

@@ -34,11 +34,17 @@
       "@app/elements/base/firebase": [
         "libs/elements/base/firebase/src/index.ts"
       ],
+      "@app/elements/base/frontend-env": [
+        "libs/elements/base/frontend-env/src/index.ts"
+      ],
       "@app/elements/base/security-config": [
         "libs/elements/base/security-config/src/index.ts"
       ],
       "@app/elements/convs-mgr/controls/input-fields": [
         "libs/elements/convs-mgr/controls/input-fields/src/index.ts"
+      ],
+      "@app/elements/layout/clm-micro-app": [
+        "libs/elements/layout/clm-micro-app/src/index.ts"
       ],
       "@app/elements/layout/convs-mgr/custom-components": [
         "libs/elements/layout/convs-mgr/custom-components/src/index.ts"
@@ -246,14 +252,8 @@
       ],
       "@app/functions/intent": ["libs/functions/intent/src/index.ts"],
       "@app/functions/user": ["libs/functions/user/src/index.ts"],
-      "@app/elements/layout/clm-micro-app": [
-        "libs/elements/layout/clm-micro-app/src/index.ts"
-      ],
       "@app/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block": [
         "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src/index.ts"
-      ],
-      "@app/state/convs-mgr/micro-app": [
-        "libs/state/convs-mgr/micro-app/src/index.ts"
       ],
       "@app/model/analytics/group-based/progress": [
         "libs/model/analytics/group-based/progress/src/index.ts"
@@ -444,6 +444,9 @@
       "@app/state/convs-mgr/learners": [
         "libs/state/convs-mgr/learners/src/index.ts"
       ],
+      "@app/state/convs-mgr/micro-app": [
+        "libs/state/convs-mgr/micro-app/src/index.ts"
+      ],
       "@app/state/convs-mgr/modules": [
         "libs/state/convs-mgr/modules/src/index.ts"
       ],
@@ -492,8 +495,8 @@
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
       "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
-      "@app/elements/base/frontend-env": [
-        "libs/elements/base/frontend-env/src/index.ts"
+      "@app/functions/bot-engine/channels": [
+        "libs/functions/bot-engine/channels/src/index.ts"
       ],
       "intercom": ["libs/util/ngfi/intercom/src/index.ts"]
     }

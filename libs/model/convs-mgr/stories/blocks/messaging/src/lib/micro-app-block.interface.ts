@@ -1,5 +1,5 @@
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
-import { MicroAppTypes, MicroAppConfig, MicroAppStatus } from "@app/model/convs-mgr/micro-app/base";
+import { MicroAppTypes, MicroAppStatus, PassCriteriaTypes } from "@app/model/convs-mgr/micro-app/base";
 
 /** High level MicroApp definition */
 export interface MicroAppBlock extends StoryBlock 
@@ -16,4 +16,18 @@ export interface MicroAppBlock extends StoryBlock
   configs: MicroAppConfig;
   /** Comprehensive micro-app data  */
   appStatus?: MicroAppStatus;
+}
+
+export interface MicroAppConfig 
+{
+  /** URL to be called after the micro-app is done. The payload will include the user id and their data from the micro app e.g. Assessment results  */
+  callbackUrl: string;
+  
+  /** Type of micro-app */
+  type: MicroAppTypes;
+
+  /** Pass criteria for the assessment */
+  passCriteria: PassCriteriaTypes;
+  /** Progress URL for the assessment */
+  progressUrl: string;
 }

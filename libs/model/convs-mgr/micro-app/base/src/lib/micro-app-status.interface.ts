@@ -1,5 +1,5 @@
 import { Cursor, EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
-import { MicroAppConfig } from "./micro-app-config.interface";
+import { MicroApp } from "./micro-app-config.interface";
 import { MicroAppStatusTypes } from "./micro-app-status-types.interface";
 import { IObject } from "@iote/bricks";
 
@@ -16,7 +16,7 @@ export interface MicroAppStatus extends IObject
   /** The end user inititation the app */
   endUserId: string;
   /** App config and interesting details such as organisation ID and callbacks */
-  config: MicroAppConfig;
+  config: MicroApp;
   
   /** The current progress of the app */
   status: MicroAppStatusTypes;

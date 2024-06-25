@@ -1,4 +1,4 @@
-import { MicroAppConfig } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { MicroApp } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { IObject } from "@iote/bricks";
 
 /** The object we send to our micro-app base handler to get permission to interact with 
@@ -9,5 +9,5 @@ export interface MicroAppBaseRequest extends IObject{
   orgId: string;
   userId: string;
   appId: string;
-  configs: MicroAppConfig
+  configs: MicroApp
 }

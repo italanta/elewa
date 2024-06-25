@@ -19,13 +19,13 @@ import { MicroAppBlockService } from "./block-type/micro-app-block.service";
 
 export class OperationBlockFactory
 {
-  constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, private tools: HandlerTools, private _activeChannel?: ActiveChannel) {}
+  constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, private tools: HandlerTools, private _activeChannel: ActiveChannel) {}
 
   resolve(storyBlockType: StoryBlockTypes): IProcessOperationBlock
   {
     switch (storyBlockType) {
       case StoryBlockTypes.JumpBlock:
-        return new JumpStoryBlockService(this._blockDataService, this._connDataService, this.tools);
+        return new JumpStoryBlockService(this._blockDataService, this._connDataService, this.tools, this._activeChannel);
       case StoryBlockTypes.WebhookBlock:
         return new WebhookBlockService(this._blockDataService, this._connDataService, this.tools, this._activeChannel);
       case StoryBlockTypes.EndStoryAnchorBlock:
@@ -39,7 +39,7 @@ export class OperationBlockFactory
       case StoryBlockTypes.Event:
         return new EventBlockService(this._blockDataService, this._connDataService, this.tools, this._activeChannel);
       case StoryBlockTypes.MicroAppBlock:
-        return new MicroAppBlockService(this._blockDataService, this._connDataService, this.tools)  
+        return new MicroAppBlockService(this._blockDataService, this._connDataService, this.tools, this._activeChannel)  
       default:
         break;
     }
