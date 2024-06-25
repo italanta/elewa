@@ -60,7 +60,7 @@ export interface Cursor extends IObject
    */
   parentStack?: RoutedCursor[];
 
-  microappStack: MicroAppStatus[];
+  microappStack?: MicroAppStatus[];
 
   /** When a learner is doing the assessments, we track the assessment details here */
   assessmentStack?: AssessmentCursor[];
@@ -68,7 +68,7 @@ export interface Cursor extends IObject
   /** Used to track surveys, the learner has done */
   surveyStack?: SurveyCursor[];
   /**
-   * Events, Milestones and Objectives achieved by the user.
+   * Events, Milestones and Objectives achieved by the user.s
    */
   eventsStack?: EventsStack[];
 }
