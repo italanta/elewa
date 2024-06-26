@@ -10,7 +10,7 @@ import { MicroAppStartPageComponent } from './pages/micro-app-start-page/micro-a
 
 import { MicroAppContentPageComponent } from './pages/micro-app-content-page/micro-app-content-page.component';
 import { PlatformRedirectPageComponent } from './pages/platform-redirect-page/platform-redirect-page.component';
-import { ClmMicroAppLayoutModule } from '@app/libs/elements/layout/clm-micro-app';
+import { ClmMicroAppLayoutModule } from '@app/elements/layout/clm-micro-app';
 
 
 @NgModule({
