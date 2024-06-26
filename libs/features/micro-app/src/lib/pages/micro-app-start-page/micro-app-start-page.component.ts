@@ -72,7 +72,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
     this._router.navigate(['main']);
   }
 
-  /** Unsubscribe from all subscriptions to prevent memory links */
+  /** Unsubscribe from all subscriptions to prevent memory  */
   ngOnDestroy()
   {
     this._sbS.unsubscribe();

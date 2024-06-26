@@ -56,8 +56,8 @@ export class MicroAppStore
   get = () => this._app$$.pipe(filter(app => !!app));
 
   /** Set the next status of the micro-app */
-  next(status: MicroAppStatus) {
-    this._app = status;
+  next(status: MicroAppStatusTypes) {
+    this._app = {...this._app, status: status} as MicroAppStatus;
     this._app$$.next(this._app);
   }
 
