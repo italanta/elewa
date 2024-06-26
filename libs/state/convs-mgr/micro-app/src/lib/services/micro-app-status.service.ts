@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 
 import { BehaviorSubject, Observable } from "rxjs";
 
-import { MicroAppTypes, MicroAppStatusTypes } from "@app/model/convs-mgr/micro-app/base";
+import { MicroAppTypes, MicroAppStatusTypes, MicroAppSectionTypes } from "@app/model/convs-mgr/micro-app/base";
 @Injectable({
   providedIn: 'root'
 })

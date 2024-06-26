@@ -63,8 +63,6 @@ import { provideTransloco } from '@jsverse/transloco';
        config: {
            availableLangs: ['en', 'fr', 'nl'],
            fallbackLang: 'en',
-           // Remove this option if your application doesn't support changing language in runtime.
-           reRenderOnLangChange: true,
            prodMode: environment.production
        },
        loader: TranslocoHttpLoader

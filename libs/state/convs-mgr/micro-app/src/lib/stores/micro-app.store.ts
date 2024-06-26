@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable, catchError, filter, map, of, switchMap, take } from 'rxjs';
 
 import { FrontendEnvironment } from '@app/elements/base/frontend-env';
-import { InitMicroAppCmd, InitMicroAppResponse, MicroApp, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
+import { InitMicroAppCmd, InitMicroAppResponse, MicroApp, MicroAppProgrress, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
 
 
 const INIT_MICROAPP_ENDPOINT = 'initMicroApp';
@@ -55,6 +55,12 @@ export class MicroAppStore
   /** Get the active app */
   get = () => this._app$$.pipe(filter(app => !!app));
 
+  /** Set the next status of the micro-app */
+  next(status: MicroAppStatus) {
+    this._app = status;
+    this._app$$.next(this._app);
+  }
+
   /**
    * Starts the micro-app execution.
    * 
@@ -66,7 +72,7 @@ export class MicroAppStore
 
     // Send progress
     progress(appId: string, userId: string, orgId: string): Observable<any>{
-      const data = {
+      const data: MicroAppProgrress = {
         appId,
         endUserId: userId,
         orgId: orgId,
@@ -75,7 +81,7 @@ export class MicroAppStore
         payload: null,
       }
   
-      return this.aff.httpsCallable(this.progressEndpoint)(data);
+      return this._http$.post<MicroAppProgrress>(PROGRESS_MICROAPP_ENDPOINT, data);
     }
 
     callBack(appId: string, userId: string, config: MicroApp) {

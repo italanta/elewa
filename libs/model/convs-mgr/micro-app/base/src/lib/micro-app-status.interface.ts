@@ -2,6 +2,7 @@ import { Cursor, EndUserPosition } from "@app/model/convs-mgr/conversations/admi
 import { MicroApp } from "./micro-app-config.interface";
 import { MicroAppStatusTypes } from "./micro-app-status-types.interface";
 import { IObject } from "@iote/bricks";
+import { MicroAppSectionTypes } from "./microapp-section-types.enum";
 
 /** 
  * Tracks the status of a Micro app through out a learner's engagement with it
@@ -24,4 +25,6 @@ export interface MicroAppStatus extends IObject
   startedOn?: number;
   /** Micro-app finished on (in ms) */
   finishedOn?: number;
+  /** Section a user is on in a Microapp, esp for assessments */
+  microAppSection?: MicroAppSectionTypes
 }

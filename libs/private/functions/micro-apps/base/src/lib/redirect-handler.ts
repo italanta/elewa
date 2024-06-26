@@ -23,10 +23,12 @@ export class MicroAppRedirectHandler extends FunctionHandler<InitMicroAppCmd, Re
   {
 
     try {
-      const cursorRepo$ = tools.getRepository<Cursor>(`orgs/${req.orgId}/end-users/${req.endUserId}/cursor`);
-      const endUserRepo$ = tools.getRepository<EndUser>(`orgs/${req.orgId}/end-users`);
+      const appRegistrationRepo$ =  tools.getRepository<MicroAppStatus>(`appExecs`);
+      const app = await appRegistrationRepo$.getDocumentById(req.appId);
+      const cursorRepo$ = tools.getRepository<Cursor>(`orgs/${app.appId}/end-users/${app.endUserId}/cursor`);
+      const endUserRepo$ = tools.getRepository<EndUser>(`orgs/${app.config.orgId}/end-users`);
       const channelRepo$ = tools.getRepository<CommunicationChannel>(`channels`);
-      const idArr = req.endUserId.split('_');
+      const idArr = app.endUserId.split('_');
 
       const n = parseInt(idArr[1]);
 
@@ -41,10 +43,10 @@ export class MicroAppRedirectHandler extends FunctionHandler<InitMicroAppCmd, Re
 
       const activeChannel = new ActiveChannelFactory().getActiveChannel(channel, tools);
 
-      const endUser = await endUserRepo$.getDocumentById(req.endUserId);
+      const endUser = await endUserRepo$.getDocumentById(app.endUserId);
 
       if (!endUser) {
-        this.responseMessage = `User does not exist :: ${req.endUserId}`;
+        this.responseMessage = `User does not exist :: ${app.endUserId}`;
         throw this.responseMessage;
       }
 
@@ -61,7 +63,7 @@ export class MicroAppRedirectHandler extends FunctionHandler<InitMicroAppCmd, Re
       const latestCursor = result[0];
 
       if (!latestCursor.microappStack || latestCursor.microappStack.length === 0) {
-        this.responseMessage = `Micro app '${req.appId}' not initialized for user: ${req.endUserId}`;
+        this.responseMessage = `Micro app '${req.appId}' not initialized for user: ${app.endUserId}`;
         throw this.responseMessage;
       }
 
@@ -72,13 +74,13 @@ export class MicroAppRedirectHandler extends FunctionHandler<InitMicroAppCmd, Re
       let currentStatus: MicroAppStatus;
 
       if (!currentMicroAppArr || currentMicroAppArr.length == 0) {
-        this.responseMessage = `Micro app '${req.appId}' not initialized for user: ${req.endUserId}`;
+        this.responseMessage = `Micro app '${req.appId}' not initialized for user: ${app.endUserId}`;
         throw this.responseMessage;
       }
 
 
       if (currentMicroAppArr.length > 1) {
-        const sortedMicroAppStatuses = currentMicroAppArr.sort((a, b) => b.timestamp - a.timestamp);
+        const sortedMicroAppStatuses = currentMicroAppArr.sort((a, b) => b.createdOn.getTime()- a.createdOn.getTime());
         currentStatus = sortedMicroAppStatuses[0];
       } else {
         currentStatus = currentMicroAppArr[0];
@@ -102,9 +104,9 @@ export class MicroAppRedirectHandler extends FunctionHandler<InitMicroAppCmd, Re
         throw this.responseMessage;
       }
 
-      newStatus.currentSection = MicroAppSectionTypes.Redirect;
+      newStatus.microAppSection = MicroAppSectionTypes.Redirect;
       newStatus.status = MicroAppStatusTypes.Completed;
-      newStatus.timestamp = timestamp;
+      newStatus.finishedOn= timestamp;
 
       latestCursor.microappStack.unshift(newStatus);
 
