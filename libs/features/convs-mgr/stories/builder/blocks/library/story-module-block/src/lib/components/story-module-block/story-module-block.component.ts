@@ -11,6 +11,7 @@ import { OptionInputFieldComponent } from '@app/features/convs-mgr/stories/build
 import { MatDialog } from '@angular/material/dialog';
 import { CreateModuleModalComponent } from '../create-module-modal/create-module-modal.component';
 import { SubSink } from 'subsink';
+import { CreateStoryModuleForm } from '../create-module-modal/create-module-form';
 
 const OUTPUT_NAME_CHAR_LIMIT = 20;
 
@@ -51,10 +52,9 @@ export class StoryModuleBlockComponent implements OnInit
   { }
 
   ngOnInit(): void 
-  {
+  { 
     const block = this.block as StoryModuleBlock;
-    
-    if(block.storyType == null)
+    if(block?.storyType == null)
       this._loadInCreateMode();
     else
       this._loadInExistsMode();
@@ -78,10 +78,20 @@ export class StoryModuleBlockComponent implements OnInit
     const dialog = this._dialog.open(CreateModuleModalComponent);
 
     this._sbS.sink =
-    dialog.afterClosed()
-      .subscribe(
-        res
-    )
+      dialog.afterClosed()
+        .subscribe(
+          (res: CreateStoryModuleForm | false) =>
+          {
+            if(res)
+            {
+              const block = this.block as StoryModuleBlock;
+              block.blockTitle = `Module: ${res.name}`;
+              this.blockFormGroup.get('type')?.setValue(res.type);
+              block.storyType = res.type;
+              this.blockFormGroup.get('name')?.setValue(res.name);
+            }
+          }
+      );
   }
 
   /**

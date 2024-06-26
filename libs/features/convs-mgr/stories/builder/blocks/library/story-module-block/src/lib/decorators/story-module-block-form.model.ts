@@ -14,6 +14,7 @@ export function _CreateStoryModuleBlockForm(_fb: FormBuilder, blockData: StoryMo
 {
   return _fb.group({
     id: [blockData?.id! ?? ''],
+    title: [blockData?.blockTitle ?? ''],
     options : _fb.array(blockData?.outputs?.map(o => _fb.group({ id: o.id, label: o.label})) ?? []),
     
     type: [blockData?.type ?? StoryBlockTypes.Structural],
