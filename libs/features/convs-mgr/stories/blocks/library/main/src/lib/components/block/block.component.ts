@@ -141,7 +141,47 @@ export class BlockComponent implements OnInit
 
   copyMe() {
     this.copyBlock.emit(this.block);
+    
   }
+
+  //Right click to bring the button
+  onRightClick(event: any) {
+    event.preventDefault();
+    this.hasRightClick = !this.hasRightClick;
+  }
+
+  // Copy block id after click
+  copyBlockId() {
+    const textToCopy = this.id;
+  
+    // Create a temporary element to hold the text
+    const tempElement = document.createElement('textarea');
+    tempElement.value = textToCopy;
+  
+    // Append the element to the DOM
+    document.body.appendChild(tempElement);
+  
+    // Select the text in the element
+    tempElement.select();
+    tempElement.setSelectionRange(0, textToCopy.length);
+
+    // Use the Clipboard API to copy the text
+    try {
+      navigator.clipboard.writeText(tempElement.value)  
+    } catch (err) {
+      console.error('Unable to copy to clipboard', err);
+    } finally {
+      // Remove the temporary element
+      this.hasRightClick=false
+      document.body.removeChild(tempElement);   
+    }
+  }
+  
+
+  hasRightClick:boolean=false;
+
+  
+  
   handleDeleteEndStoryAnchor(event:any){
     this.deleteMe();
   }
