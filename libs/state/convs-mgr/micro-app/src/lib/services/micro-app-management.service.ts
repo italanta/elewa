@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 
 import { FrontendEnvironment } from '@app/elements/base/frontend-env';
-import { InitMicroAppCmd, InitMicroAppResponse, MicroApp } from '@app/model/convs-mgr/micro-app/base';
+import { InitMicroAppCmd, InitMicroAppResponse, MicroApp, MicroAppProgrress } from '@app/model/convs-mgr/micro-app/base';
 
 
 const INIT_MICROAPP_ENDPOINT = 'initMicroApp';
@@ -49,7 +49,7 @@ export class MicroAppManagementService
 
     // Send progress
     progress(appId: string, userId: string, orgId: string): Observable<any>{
-      const data = {
+      const data: MicroAppProgrress  = {
         appId,
         endUserId: userId,
         orgId: orgId,
@@ -58,7 +58,7 @@ export class MicroAppManagementService
         payload: null,
       }
   
-      return this.aff.httpsCallable(this.progressEndpoint)(data);
+      return this._http$.post<any>(this.progressEndpoint, data);
     }
 
     callBack(appId: string, userId: string, config: MicroApp) {
@@ -77,6 +77,6 @@ export class MicroAppManagementService
         payload: null,
       }
   
-      return this.http.post(URL, {data: payload});
+      return this._http$.post(URL, {data: payload});
     }
 }
