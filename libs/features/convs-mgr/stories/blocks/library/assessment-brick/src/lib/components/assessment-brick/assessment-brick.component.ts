@@ -10,6 +10,7 @@ import { AssessmentService } from '@app/state/convs-mgr/conversations/assessment
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
 import { _JsPlumbComponentDecorator } from '../../providers/decorate-jsplumb.provider';
+import { _JsPlumbInputOptionDecorator } from '../../../../../block-options/src/lib/providers/jsplumb-decorator.function';
 
 
 @Component({
@@ -66,7 +67,7 @@ export class AssessmentBrickComponent implements OnInit, AfterViewInit, OnDestro
     if (this.jsPlumb) {
       for (let i = 0; i < inputs.length; i++) {
         let input = inputs[i];
-        input = _JsPlumbComponentDecorator(input, this.jsPlumb);
+        input = _JsPlumbInputOptionDecorator(input, this.jsPlumb);
       }
     }
   }
