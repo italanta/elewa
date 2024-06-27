@@ -10,7 +10,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
-import { StoryModuleBlock, StoryModuleTypes } from '@app/model/convs-mgr/stories/blocks/structural';
+import { StoryModuleBlock, StoryModuleResult, StoryModuleTypes } from '@app/model/convs-mgr/stories/blocks/structural';
 
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { OptionInputFieldComponent } from '@app/features/convs-mgr/stories/builder/blocks/library/block-options';
@@ -57,22 +57,10 @@ export class StoryModuleBlockComponent implements OnInit
   { }
 
   ngOnInit(): void 
-  { 
+  {
     const block = this.block as StoryModuleBlock;
     if(block?.storyType == null)
       this._loadInCreateMode();
-    else
-      this._loadInExistsMode();
-
-    // block.outputs?.forEach((option: StoryModuleResult) => 
-    // {
-    //     const btn = {
-    //       id: option.id,
-    //       message: option.label,
-    //     } as ButtonsBlockButton<StoryModuleResult>
-  
-    //     this.options.push(this.loadOutputs(btn));
-    // })
   }
 
   /**
@@ -95,6 +83,7 @@ export class StoryModuleBlockComponent implements OnInit
               this.storyModuleBlock.get('type')?.setValue(res.type);
               block.storyType = res.type as StoryModuleTypes;
               this.storyModuleBlock.get('name')?.setValue(res.name);
+              block.outputs = [ { id: `${block.id}_0`, label: 'BOTS.SUBSTORY-BLOCK.DEF-OUTPUT' }];
             }
             return res;
           }
@@ -103,15 +92,9 @@ export class StoryModuleBlockComponent implements OnInit
         //    UX research has shown that a common pattern is to immediately navigate to the child upon creation.
         //    This is therefore an exception that slightly breaks the save architecture
         switchMap((res) => res ? this._blocks$$.add(this.block, this.block.id) : of(false)))
-    .subscribe();
-  }
-
-  /**
-   * Case II. The Story already exists
-   */
-  private _loadInExistsMode()
-  {
-   
+    .subscribe((bl) =>
+    {  if(bl)
+        this.options.push(this._loadOutput((bl as StoryModuleBlock).outputs[0])) });
   }
 
   /**
@@ -126,14 +109,21 @@ export class StoryModuleBlockComponent implements OnInit
     return this.storyModuleBlock.controls['options'] as FormArray;
   }
 
-  loadOutputs(option?: ButtonsBlockButton<any>)
+  /** Load a block output record */
+  private _loadOutput(option: StoryModuleResult)
   {
+    const btn = {
+      id: option.id,
+      message: option.label,
+      value: option.id,
+    } as ButtonsBlockButton<StoryModuleResult>
+
     const outputId = this.options.length + 1;
 
     return this._fb.group({
-      id: [option?.id ?? `${this.id}-${outputId}`],
-      message: [option?.message ?? `Output ${outputId}`],
-      value: [option?.value ?? '']
+      id: [btn?.id ?? `${this.id}-${outputId}`],
+      message: [btn?.message ?? `Output ${outputId}`],
+      value: [btn?.value ?? '']
     })
   }
 }
