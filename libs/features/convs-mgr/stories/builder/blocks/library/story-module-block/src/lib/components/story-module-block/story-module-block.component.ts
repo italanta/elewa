@@ -1,20 +1,21 @@
 import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
+import { of, switchMap, take, tap } from 'rxjs';
 import { SubSink } from 'subsink';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
+import { Story } from '@app/model/convs-mgr/stories/main';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 import { StoryModuleBlock, StoryModuleTypes } from '@app/model/convs-mgr/stories/blocks/structural';
 
+import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { OptionInputFieldComponent } from '@app/features/convs-mgr/stories/builder/blocks/library/block-options';
 
 import { CreateModuleModalComponent } from '../create-module-modal/create-module-modal.component';
-import { CreateStoryModuleForm } from '../create-module-modal/create-module-form';
-import { Story } from '@app/model/convs-mgr/stories/main';
-import { Router } from '@angular/router';
 
 const OUTPUT_NAME_CHAR_LIMIT = 20;
 
@@ -51,6 +52,7 @@ export class StoryModuleBlockComponent implements OnInit
 
   constructor(private _fb: FormBuilder,
               private _dialog: MatDialog,
+              private _blocks$$: StoryBlocksStore,
               private _router: Router) 
   { }
 
@@ -82,7 +84,8 @@ export class StoryModuleBlockComponent implements OnInit
                                      { data: { blockId: this.block.id }});
     this._sbS.sink =
       dialog.afterClosed()
-        .subscribe(
+        .pipe(take(1),
+              tap(
           (res: Story | false) =>
           {
             if(res)
@@ -93,8 +96,14 @@ export class StoryModuleBlockComponent implements OnInit
               block.storyType = res.type as StoryModuleTypes;
               this.storyModuleBlock.get('name')?.setValue(res.name);
             }
+            return res;
           }
-      );
+        ),
+        // WARN! We always immediately persist the block here.
+        //    UX research has shown that a common pattern is to immediately navigate to the child upon creation.
+        //    This is therefore an exception that slightly breaks the save architecture
+        switchMap((res) => res ? this._blocks$$.add(this.block, this.block.id) : of(false)))
+    .subscribe();
   }
 
   /**
@@ -106,11 +115,14 @@ export class StoryModuleBlockComponent implements OnInit
   }
 
   /**
-   * Navigate to the child story
+   * Navigate to the child story.
    */
   navigateToStory()
   {
-    this._router.navigate(['stories', this.block.id]);
+    this._sbS.sink = 
+     
+          .subscribe(b => this._router.navigate(['stories', this.block.id]);)
+   
   }
 
   get options(): FormArray {

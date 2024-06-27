@@ -32,7 +32,8 @@ export class NewStoryService implements OnDestroy {
   ) {}
 
   /** Save story for the first time */
-  saveStory(story: Story, parentModule: BotModule) {
+  saveStory(story: Story, parentModule: BotModule) 
+  {
     return this._org$$.get().pipe(take(1), switchMap((org) => {
       if (!org) return of(null);
   
