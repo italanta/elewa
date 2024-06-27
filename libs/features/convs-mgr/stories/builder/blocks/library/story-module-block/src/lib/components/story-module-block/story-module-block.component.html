@@ -2,7 +2,7 @@
 <div class="wide" [id]="id" *ngIf="storyModuleBlock">
   <form [formGroup]="storyModuleBlock" fxLayout="column" fxLayoutALign="start center">
 
-    <div class="smb-frame">
+    <div class="smb-frame" (click)="navigateToStory()">
       Edit {{ block.blockTitle }}
     </div>
 

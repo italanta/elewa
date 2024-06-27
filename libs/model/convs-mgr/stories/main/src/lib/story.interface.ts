@@ -31,11 +31,11 @@ export interface Story extends IObject
   /** id of the parent module */
   parentModule?: string;
 
-  /** Id of the parent bot
-   * 
-   * TODO: Update story creation to implement this.
-   */
+  /** Id of the parent bot */
   parentBot?: string
+
+  /** NEW INHERITANCE - ID of the parent Story */
+  parent?: string;
 
   /* type of the story */
   isAssessment?: boolean

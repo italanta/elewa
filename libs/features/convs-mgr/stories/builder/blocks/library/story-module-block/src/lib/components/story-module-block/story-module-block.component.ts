@@ -1,17 +1,20 @@
 import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
+import { SubSink } from 'subsink';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
-import { StoryModuleBlock, StoryModuleResult, StoryModuleTypes } from '@app/model/convs-mgr/stories/blocks/structural';
+import { StoryModuleBlock, StoryModuleTypes } from '@app/model/convs-mgr/stories/blocks/structural';
 
 import { OptionInputFieldComponent } from '@app/features/convs-mgr/stories/builder/blocks/library/block-options';
-import { MatDialog } from '@angular/material/dialog';
+
 import { CreateModuleModalComponent } from '../create-module-modal/create-module-modal.component';
-import { SubSink } from 'subsink';
 import { CreateStoryModuleForm } from '../create-module-modal/create-module-form';
+import { Story } from '@app/model/convs-mgr/stories/main';
+import { Router } from '@angular/router';
 
 const OUTPUT_NAME_CHAR_LIMIT = 20;
 
@@ -43,12 +46,12 @@ export class StoryModuleBlockComponent implements OnInit
 
   type: StoryBlockTypes;
   questiontype = StoryBlockTypes.QuestionBlock;
-  blockFormGroup: FormGroup;
 
   readonly outputNameCharLimit = OUTPUT_NAME_CHAR_LIMIT;
 
   constructor(private _fb: FormBuilder,
-              private _dialog: MatDialog) 
+              private _dialog: MatDialog,
+              private _router: Router) 
   { }
 
   ngOnInit(): void 
@@ -75,20 +78,20 @@ export class StoryModuleBlockComponent implements OnInit
    */
   private _loadInCreateMode()
   {
-    const dialog = this._dialog.open(CreateModuleModalComponent);
-
+    const dialog = this._dialog.open(CreateModuleModalComponent, 
+                                     { data: { blockId: this.block.id }});
     this._sbS.sink =
       dialog.afterClosed()
         .subscribe(
-          (res: CreateStoryModuleForm | false) =>
+          (res: Story | false) =>
           {
             if(res)
             {
               const block = this.block as StoryModuleBlock;
               block.blockTitle = `Module: ${res.name}`;
-              this.blockFormGroup.get('type')?.setValue(res.type);
-              block.storyType = res.type;
-              this.blockFormGroup.get('name')?.setValue(res.name);
+              this.storyModuleBlock.get('type')?.setValue(res.type);
+              block.storyType = res.type as StoryModuleTypes;
+              this.storyModuleBlock.get('name')?.setValue(res.name);
             }
           }
       );
@@ -99,7 +102,15 @@ export class StoryModuleBlockComponent implements OnInit
    */
   private _loadInExistsMode()
   {
+   
+  }
 
+  /**
+   * Navigate to the child story
+   */
+  navigateToStory()
+  {
+    this._router.navigate(['stories', this.block.id]);
   }
 
   get options(): FormArray {

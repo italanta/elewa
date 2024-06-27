@@ -48,8 +48,8 @@ export class StoryBuilderNavBarComponent implements OnInit, OnDestroy
 
     const trail = trailChain.map(story => 
       (story.version === BotVersions.V1Modular ? 
-          ({ label: story?.name ?? "", link: `/bots/${story?.id}` })
-        : ({ label: story?.name ?? "", link: `/bots/${story?.id}` })) as iTalBreadcrumb);
+          ({ label: story?.name ?? "", link: `/stories/${story?.id}` })
+        : ({ label: story?.name ?? "", link: `/stories/${story?.id}` })) as iTalBreadcrumb);
 
     // Insert dashboard link in front of chain
     return [{
@@ -67,10 +67,10 @@ export class StoryBuilderNavBarComponent implements OnInit, OnDestroy
   private _unwrapStoryChain(activeChild: Story, allStories: Story[], chain: Story[] = []) : Story[]
   {
     // Step 1. Check if current story is top parent.
-    if(!activeChild.parentBot || !activeChild.type || activeChild.type === StoryModuleTypes.Story)
+    if(!activeChild.parent || !activeChild.type || activeChild.type === StoryModuleTypes.Story)
       return [activeChild];
 
-    const parentId = activeChild.parentBot;
+    const parentId = activeChild.parent;
     const parent = allStories.find(s => s.id === parentId);
 
     if(!parent)

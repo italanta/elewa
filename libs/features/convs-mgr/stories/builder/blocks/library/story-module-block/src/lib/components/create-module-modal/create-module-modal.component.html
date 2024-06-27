@@ -41,10 +41,11 @@
       </div>
   
       <div fxLayout="row" fxLayoutAlign="end">
-        <button [disabled]="_form.invalid" mat-raised-button class="add-btn" color="primary"
+        <button [disabled]="_form.invalid || isSaving" mat-raised-button class="add-btn" color="primary"
           (click)="submit()">
-            {{ 'BOTS.CREATE-SUBSTORY.SUBMUT' | transloco }}
+            {{ 'BOTS.CREATE-SUBSTORY.SUBMIT' | transloco }}
         </button>
+        <app-spinner *ngIf="isSaving" [diameter]="40" ></app-spinner>
       </div>
     </form>
   </div>
