@@ -119,10 +119,7 @@ export class StoryModuleBlockComponent implements OnInit
    */
   navigateToStory()
   {
-    this._sbS.sink = 
-     
-          .subscribe(b => this._router.navigate(['stories', this.block.id]);)
-   
+    this._router.navigate(['stories', this.block.id]);
   }
 
   get options(): FormArray {
