@@ -12,7 +12,7 @@ const STORY_EDITOR_ROUTES: Route[] = [
     path: ':story-id', component: BotBuilderPageComponent, canActivate: [IsLoggedInGuard],
     children: [
      { path: 'story-editor', loadChildren: () => import('@app/features/convs-mgr/stories/builder/story-editor').then(m => m.ConvlStoryEditorModule) },
-    //  { path: 'flow-editor', loadChildren: () => import('@app/features/convs-mgr/stories/builder/flow-editor').then(m => m.ConvlStoryEditorModule) }
+     { path: 'flow-editor', loadChildren: () => import('@app/features/convs-mgr/stories/flow-builder/app').then(m => m.FLowBuilderModule) }
     ]
    },
 ];

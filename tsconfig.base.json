@@ -214,6 +214,9 @@
       "@app/features/convs-mgr/stories/builder/editor-state": [
         "libs/features/convs-mgr/stories/builder/editor-state/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/builder/nav": [
+        "libs/features/convs-mgr/stories/builder/nav/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/builder/story-editor": [
         "libs/features/convs-mgr/stories/builder/story-editor/src/index.ts"
       ],
@@ -497,8 +500,8 @@
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
       "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
-      "@app/features/convs-mgr/stories/builder/nav": [
-        "libs/features/convs-mgr/stories/builder/nav/src/index.ts"
+      "features/convs-mgr/stories/flow-builder/app": [
+        "libs/features/convs-mgr/stories/flow-builder/app/src/index.ts"
       ]
     }
   },
