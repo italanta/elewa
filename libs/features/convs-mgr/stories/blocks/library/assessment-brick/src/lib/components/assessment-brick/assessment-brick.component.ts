@@ -8,7 +8,7 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { AssessmentBrick } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
-import { _JsPlumbComponentDecorator, _JsPlumbInputOptionDecorator } from '../../providers/decorate-jsplumb.provider';
+import { _JsPlumbInputOptionDecorator } from '../../providers/decorate-jsplumb.provider';
 
 
 @Component({
