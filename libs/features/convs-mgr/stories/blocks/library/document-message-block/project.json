@@ -1,24 +1,24 @@
 {
   "name": "features-convs-mgr-stories-blocks-library-document-message-block",
+  "$schema": "../../../../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/document-message-block/src",
   "prefix": "app",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": [
-        "coverage/libs/features/convs-mgr/stories/blocks/library/document-message-block"
+        "{workspaceRoot}/coverage/libs/features/convs-mgr/stories/blocks/library/document-message-block"
       ],
       "options": {
-        "jestConfig": "libs/features/convs-mgr/stories/blocks/library/document-message-block/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/features/convs-mgr/stories/blocks/library/document-message-block/tsconfig.json",
+        "jestConfig": "libs/features/convs-mgr/stories/blocks/library/document-message-block/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": [
-          "libs/features/convs-mgr/stories/blocks/library/document-message-block/**/*.ts",
           "libs/features/convs-mgr/stories/blocks/library/documentx-message-block/**/*.html"
         ]
       }

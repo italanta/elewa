@@ -17,8 +17,8 @@ export abstract class FunctionRegistrar<T, R>
 {
   protected _logger: Logger;
 
-  constructor() {           // Temporary Hack - Always do production logger on function registrar
-    this._logger = getLogger({ production: true });
+  constructor() {           
+    this._logger = getLogger(process.env.PRODUCTION === 'TRUE');
   }
 
   /**

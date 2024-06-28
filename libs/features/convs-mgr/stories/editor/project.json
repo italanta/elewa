@@ -1,25 +1,22 @@
 {
   "name": "features-convs-mgr-stories-editor",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/features/convs-mgr/stories/editor/src",
   "prefix": "convl",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/features/convs-mgr/stories/editor"],
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/features/convs-mgr/stories/editor"
+      ],
       "options": {
-        "jestConfig": "libs/features/convs-mgr/stories/editor/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/features/convs-mgr/stories/editor/tsconfig.json",
+        "jestConfig": "libs/features/convs-mgr/stories/editor/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/features/convs-mgr/stories/editor/**/*.ts",
-          "libs/features/convs-mgr/stories/editor/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

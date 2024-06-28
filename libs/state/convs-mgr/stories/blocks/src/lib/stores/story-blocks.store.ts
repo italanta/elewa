@@ -87,7 +87,7 @@ export class StoryBlocksStore extends DataStore<StoryBlock>
     orgId = this._activeStory? this._activeStory.orgId : orgId;
 
     const repo = this._repoFac.getRepo<StoryBlock>(`orgs/${orgId}/stories/${storyId}/blocks`);
-    return repo.getDocuments();
+    return repo.getDocuments().pipe(map((blocks)=> blocks.filter((bl)=>  bl.id !== 'story-end-anchor' && !bl.deleted)));
   }
 
   createEndBlock(orgId: string, storyId: string, block: EndStoryAnchorBlock) {

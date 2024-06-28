@@ -5,18 +5,15 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/model/organisation/main/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/model/organisation/main"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/model/organisation/main"],
       "options": {
-        "jestConfig": "libs/model/organisation/main/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/model/organisation/main/tsconfig.json",
+        "jestConfig": "libs/model/organisation/main/jest.config.ts"
       }
     }
   },

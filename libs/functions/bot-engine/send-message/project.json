@@ -1,0 +1,23 @@
+{
+  "name": "functions-bot-engine-send-message",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/functions/bot-engine/send-message/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/functions/bot-engine/send-message"
+      ],
+      "options": {
+        "tsConfig": "libs/functions/bot-engine/send-message/tsconfig.json",
+        "jestConfig": "libs/functions/bot-engine/send-message/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

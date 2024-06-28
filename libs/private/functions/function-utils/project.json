@@ -1,0 +1,23 @@
+{
+  "name": "private-functions-function-utils",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/private/functions/function-utils/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/private/functions/function-utils"
+      ],
+      "options": {
+        "tsConfig": "libs/private/functions/function-utils/tsconfig.json",
+        "jestConfig": "libs/private/functions/function-utils/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

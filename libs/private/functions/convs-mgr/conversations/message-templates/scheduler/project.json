@@ -1,0 +1,23 @@
+{
+  "name": "private-functions-convs-mgr-conversations-message-templates-scheduler",
+  "$schema": "../../../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/private/functions/convs-mgr/conversations/message-templates/scheduler"
+      ],
+      "options": {
+        "tsConfig": "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/tsconfig.json",
+        "jestConfig": "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

@@ -103,6 +103,13 @@ export const APP_ROUTES: Route[] = [
   },
 
   {
+    path: 'ai-fallbacks',
+    loadChildren: () => import('@app/features/convs-mgr/fallbacks').then(m => m.FallbacksModule),
+    data: { feature: 'fallbacks', breadCrumb: 'Fallbacks' },
+    canActivate: [IsLoggedInGuard],
+  },
+
+  {
     path: 'settings',
     loadChildren: () => import('@app/private/features/convs-mgr/settings/main').then(m => m.SettingsModule),
     data: { breadCrumb: 'Settings' },

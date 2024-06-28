@@ -1,12 +1,13 @@
 {
   "name": "util-iote-bricks-angular",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/util/iote/bricks-angular/src",
   "prefix": "iote",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/util/iote/bricks-angular"],
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/util/iote/bricks-angular"],
       "options": {
         "project": "libs/util/iote/bricks-angular/ng-package.json"
       },
@@ -21,21 +22,15 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/util/iote/bricks-angular"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/util/iote/bricks-angular"],
       "options": {
-        "jestConfig": "libs/util/iote/bricks-angular/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/util/iote/bricks-angular/tsconfig.json",
+        "jestConfig": "libs/util/iote/bricks-angular/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/util/iote/bricks-angular/**/*.ts",
-          "libs/util/iote/bricks-angular/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

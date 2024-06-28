@@ -1,25 +1,22 @@
 {
   "name": "state-convs-mgr-stories-block-connections",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/state/convs-mgr/stories/block-connections/src",
   "prefix": "app",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/state/convs-mgr/stories/block-connections"],
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/state/convs-mgr/stories/block-connections"
+      ],
       "options": {
-        "jestConfig": "libs/state/convs-mgr/stories/block-connections/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/state/convs-mgr/stories/block-connections/tsconfig.json",
+        "jestConfig": "libs/state/convs-mgr/stories/block-connections/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/state/convs-mgr/stories/block-connections/**/*.ts",
-          "libs/state/convs-mgr/stories/block-connections/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

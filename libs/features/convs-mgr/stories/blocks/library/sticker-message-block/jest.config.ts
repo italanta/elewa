@@ -1,18 +1,20 @@
 /* eslint-disable */
 export default {
-  displayName: 'features-convs-mgr-stories-blocks-library-sticker-message-block',
+  displayName:
+    'features-convs-mgr-stories-blocks-library-sticker-message-block',
   preset: '../../../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.(html|svg)$',
-    },
-  },
+  globals: {},
   coverageDirectory:
     '../../../../../../../coverage/libs/features/convs-mgr/stories/blocks/library/sticker-message-block',
   transform: {
-    '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
+    '^.+\\.(ts|mjs|js|html)$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.(html|svg)$',
+      },
+    ],
   },
   transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
   snapshotSerializers: [
@@ -21,4 +23,3 @@ export default {
     'jest-preset-angular/build/serializers/html-comment',
   ],
 };
-

@@ -1,11 +1,9 @@
 {
   "name": "@iote/bricks",
   "version": "2.0.0",
-
   "description": "Base package of the iote and ngfi libraries. Contains a set of base types which are required throughout the libs.",
   "license": "MIT",
-
-  "author": { 
+  "author": {
     "name": "jrosseel",
     "email": "rosseeljente@gmail.com",
     "url": "https://italanta.net"

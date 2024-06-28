@@ -3,7 +3,7 @@ import { NgModule, ModuleWithProviders, PLATFORM_ID, NgZone } from '@angular/cor
 import { TranslateService } from './services/translate.service';
 import { LocalPersistanceModule } from '@iote/local-persistance';
 
-import { TRANSLOCO_LOADER, TRANSLOCO_CONFIG, translocoConfig, TranslocoModule } from '@ngneat/transloco';
+import { TRANSLOCO_LOADER, TRANSLOCO_CONFIG, translocoConfig, TranslocoModule } from '@jsverse/transloco';
 
 import { TranslocoHttpLoader } from './config/http-loader.service';
 import { CustomLanguageLoader } from './config/multi-lang-loader.service';
@@ -32,17 +32,18 @@ export class MultiLangModule {
       ngModule: MultiLangModule,
       providers: [
         TranslateService,
-        {
-          provide: TRANSLOCO_CONFIG,
-          useValue: translocoConfig({
-            availableLangs: langs ?? ['en', 'fr', 'nl'],
-            defaultLang: langs ? langs[0] : 'en',
-            fallbackLang: langs ? langs[0] : 'en',
-            reRenderOnLangChange: true,
-            prodMode: true
-          })
-        },
-        (loadCustomProviders(loadHttp))
+        // {
+        //   provide: TRANSLOCO_CONFIG,
+        //   useValue: translocoConfig({
+        //     availableLangs: langs ?? ['en', 'fr', 'nl'],
+        //     defaultLang: langs ? langs[0] : 'en',
+        //     fallbackLang: langs ? langs[0] : 'en',
+        //     reRenderOnLangChange: true,
+        //     prodMode: true
+        //   })
+        // },
+        
+        // (loadCustomProviders(loadHttp))
       ].filter(a => a != null)
     };
   }

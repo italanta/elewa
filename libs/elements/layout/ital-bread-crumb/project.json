@@ -1,0 +1,23 @@
+{
+  "name": "elements-layout-ital-bread-crumb",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/elements/layout/ital-bread-crumb/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/elements/layout/ital-bread-crumb"
+      ],
+      "options": {
+        "tsConfig": "libs/elements/layout/ital-bread-crumb/tsconfig.json",
+        "jestConfig": "libs/elements/layout/ital-bread-crumb/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

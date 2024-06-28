@@ -1,7 +1,5 @@
 import { Component, Input, ViewChild, ElementRef, OnInit } from '@angular/core';
 
-import { Intercom } from 'ng-intercom';
-
 import { Breadcrumb } from '@iote/bricks-angular';
 
 import { ConlvSideNavContainerComponent } from '../convl-sidenav-container/nav-wrapper.component';
@@ -11,7 +9,7 @@ import { ConlvSideNavContainerComponent } from '../convl-sidenav-container/nav-w
   templateUrl: './convl-page.component.html',
   styleUrls: [ './convl-page.component.scss' ]
 })
-export class ConvlPageComponent implements OnInit
+export class ConvlPageComponent// implements OnInit
 {
   @Input() loading = false;
   @Input() backButton = false;
@@ -25,17 +23,18 @@ export class ConvlPageComponent implements OnInit
 
   @ViewChild(ConlvSideNavContainerComponent) sidnav: ConlvSideNavContainerComponent;
 
-  constructor(public intercom: Intercom) {}
+  // constructor(public intercom: Intercom) {}
 
-  ngOnInit() {
-    this.intercom.boot({
-      app_id: 'jvwszj2k',
-      // Supports all optional configuration.
-      widget: {
-        "activator": "#intercom" 
-      }
-    });
-  }
+  // ngOnInit() {
+    // @TODO: Beulah
+    // this.intercom.boot({
+    //   app_id: 'jvwszj2k',
+    //   // Supports all optional configuration.
+    //   widget: {
+    //     "activator": "#intercom" 
+    //   }
+    // });
+  // }
   
   setMenuStatus($event: boolean) {
     this.isMenuOpen = $event

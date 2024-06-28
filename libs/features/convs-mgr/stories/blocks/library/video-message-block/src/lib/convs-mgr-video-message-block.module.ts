@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {  HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
@@ -16,23 +16,13 @@ import {MultiLangModule}from '@ngfi/multi-lang';
 import { VideoBlockComponent } from './components/video-block/video-block.component';
 import { VideoUploadModalComponent } from './modals/video-upload-modal/video-upload-modal.component';
 
-@NgModule({
-  imports: [
-    CommonModule,
-    MultiLangModule,
-    MaterialDesignModule,
-    FlexLayoutModule,
-    MaterialBricksModule,
-
-    FormsModule,
-    ReactiveFormsModule,
-
-    HttpClientModule,
-    ConvsMgrBlockOptionsModule,
-  ],
-
-  declarations: [VideoBlockComponent, VideoUploadModalComponent],
-
-  exports: [VideoBlockComponent]
-})
+@NgModule({ declarations: [VideoBlockComponent, VideoUploadModalComponent],
+    exports: [VideoBlockComponent], imports: [CommonModule,
+        MultiLangModule,
+        MaterialDesignModule,
+        FlexLayoutModule,
+        MaterialBricksModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ConvsMgrBlockOptionsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class ConvsMgrVideoMessageBlockModule {}

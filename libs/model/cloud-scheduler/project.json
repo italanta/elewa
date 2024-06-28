@@ -1,0 +1,21 @@
+{
+  "name": "model-cloud-scheduler",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/model/cloud-scheduler/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/model/cloud-scheduler"],
+      "options": {
+        "tsConfig": "libs/model/cloud-scheduler/tsconfig.json",
+        "jestConfig": "libs/model/cloud-scheduler/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

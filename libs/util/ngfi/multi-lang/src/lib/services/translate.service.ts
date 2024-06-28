@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
-import { TranslocoService, HashMap } from '@ngneat/transloco';
-// import { Intercom } from 'ng-intercom';
+import { TranslocoService, HashMap } from '@jsverse/transloco';
 
 import { LocalPersistanceService } from '@iote/local-persistance';
 
@@ -82,6 +81,7 @@ export class TranslateService
       this._lang$.next(lang);
     }
 
+    // @TODO: Beulah
     // Update language on intercom
     // this._intercom.update({ language_override: lang });
 

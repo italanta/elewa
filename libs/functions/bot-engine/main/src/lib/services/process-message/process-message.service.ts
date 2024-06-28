@@ -28,7 +28,7 @@ export class ProcessMessageService
 {
   isInputValid = true;
   sideOperations: Promise<unknown>[] = [];
-  private fallBackService = new FallBackBlockService();
+  private fallBackService: FallBackBlockService;
   private channel: CommunicationChannel;
 
   constructor(
@@ -39,6 +39,7 @@ export class ProcessMessageService
     private _activeChannel: ActiveChannel,
     private _processMediaService$: BotMediaProcessService,
   ) { 
+    this.fallBackService = new FallBackBlockService(_tools);
     this.channel = _activeChannel.channel;
   }
 
@@ -81,7 +82,7 @@ export class ProcessMessageService
 
     if(isFallBack(lastBlockId)) {
       // Return cursor and block fallbacks
-      return this.fallBackService.fallBack(this.channel, currentCursor, this._blockService$, msg);
+      return this.fallBackService.legacyFallback(this.channel, currentCursor, this._blockService$, msg);
     }
 
     const lastBlock = await this._blockService$.getBlockById(lastBlockId, orgId, currentStory);
@@ -159,10 +160,11 @@ export class ProcessMessageService
     }
     
     if(updatePosition && !updatePosition.lastBlock) {
-      const nextBlock = this.fallBackService.getBlock(currentBlock.id);
-      currentCursor.position.blockId = nextBlock.id;
+      return this.fallBackService.fallBack(this.channel, currentCursor, currentBlock, endUserId, this._blockService$, msg);
+      // const nextBlock = this.fallBackService.getBlock(currentBlock.id);
+      // currentCursor.position.blockId = nextBlock.id;s
 
-      return {newCursor: currentCursor, nextBlock};
+      // return {newCursor: currentCursor, nextBlock};
     }
 
     const newCursor = await nextBlockService.getNextBlock(msg, currentCursor, currentBlock, orgId, currentStory, endUserId);
@@ -174,8 +176,9 @@ export class ProcessMessageService
       nextBlock = await this._blockService$.getBlockById(newCursor.position.blockId, orgId, currentStory);
     } else {
       // Gets the fallback block if the engine failed to get the next block
-      nextBlock = this.fallBackService.getBlock(currentBlock.id);
-      newCursor.position.blockId = nextBlock.id;
+      // nextBlock = this.fallBackService.getBlock(currentBlock.id);
+      // newCursor.position.blockId = nextBlock.id;
+      return this.fallBackService.fallBack(this.channel, currentCursor, currentBlock, endUserId, this._blockService$, msg);
     }
 
     return {newCursor, nextBlock};

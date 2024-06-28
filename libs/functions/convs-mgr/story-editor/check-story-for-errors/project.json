@@ -1,0 +1,23 @@
+{
+  "name": "functions-convs-mgr-story-editor--check-story-for-errors",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/functions/convs-mgr/story-editor/check-story-for-errors/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/functions/convs-mgr/story-editor/check-story-for-errors"
+      ],
+      "options": {
+        "tsConfig": "libs/functions/convs-mgr/story-editor/check-story-for-errors/tsconfig.json",
+        "jestConfig": "libs/functions/convs-mgr/story-editor/check-story-for-errors/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,23 @@
+{
+  "name": "private-functions-organisation",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/private/functions/organisation/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/private/functions/organisation"
+      ],
+      "options": {
+        "tsConfig": "libs/private/functions/organisation/tsconfig.json",
+        "jestConfig": "libs/private/functions/organisation/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

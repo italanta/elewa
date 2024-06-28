@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -12,26 +12,14 @@ import { AssessmentBrickComponent } from './components/assessment-brick/assessme
 import { ConvsMgrBlockOptionsModule } from '../../../block-options/src';
 import { AssessmentService, StateAssessmentsModule } from '@app/state/convs-mgr/conversations/assessments';
 
-@NgModule({
-  imports: [
-    CommonModule,
-    MultiLangModule,
-    MaterialDesignModule,
-    FlexLayoutModule,
-    MaterialBricksModule,
-
-    FormsModule,
-    ReactiveFormsModule,
-
-    HttpClientModule,
-
-    ConvsMgrBlockOptionsModule,
-    StateAssessmentsModule
-  ],
-  declarations: [AssessmentBrickComponent],
-
-  exports: [AssessmentBrickComponent],
-  providers: [AssessmentService]
-
-})
+@NgModule({ declarations: [AssessmentBrickComponent],
+    exports: [AssessmentBrickComponent], imports: [CommonModule,
+        MultiLangModule,
+        MaterialDesignModule,
+        FlexLayoutModule,
+        MaterialBricksModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ConvsMgrBlockOptionsModule,
+        StateAssessmentsModule], providers: [AssessmentService, provideHttpClient(withInterceptorsFromDi())] })
 export class ConvsMgrAssessmentBrickModule {}

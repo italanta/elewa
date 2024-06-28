@@ -1,0 +1,21 @@
+{
+  "name": "private-state-analytics",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/private/state/analytics/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/private/state/analytics"],
+      "options": {
+        "tsConfig": "libs/private/state/analytics/tsconfig.json",
+        "jestConfig": "libs/private/state/analytics/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

@@ -5,22 +5,19 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/util/iote/bricks/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/util/iote/bricks"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/util/iote/bricks"],
       "options": {
-        "jestConfig": "libs/util/iote/bricks/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/util/iote/bricks/tsconfig.json",
+        "jestConfig": "libs/util/iote/bricks/jest.config.ts"
       }
     },
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/util/iote/bricks",

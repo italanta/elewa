@@ -148,6 +148,7 @@
       "ACTIVE-BOTS": "Active Bots",
       "LOG-OUT": "Se déconnecter",
       "MAIN-TITLE": "Principal",
+      "FALLBACK": "AI fallback",
       "MENU-ITEMS": {
         "CHATS": {
           "ITEM-NAME": "Chats",

@@ -34,6 +34,11 @@ export interface Bot extends IObject {
 
   /** The id channel this bot is connected to */
   linkedChannel?: string;
+
+  /** Whether AI fallback is enabled for this bot or not */
+  aiFallBackRouting?: boolean;
+
+  language?: 'en';
 }
 
 /** botmutation enum - has the different bot mutations you can perfom on a bot */

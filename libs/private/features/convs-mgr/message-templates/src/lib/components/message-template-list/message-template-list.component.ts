@@ -20,7 +20,7 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy {
   private _sBS = new SubSink();
 
   messageTemplates$: Observable<MessageTemplate[]>;
-  templateStatus$: Observable<MessageStatusRes[]>;
+  templateStatus$: Observable<MessageStatusRes>;
   scheduledMessages$: Observable<ScheduledMessage[]>;
 
   template:MessageTemplate;
@@ -78,7 +78,9 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy {
 
     this._sBS.sink = combineLatest([of(templates), this.templateStatus$])
       .pipe(
-        map(([templates, statusData]) => {
+        map(([templates, statusData]) => 
+        {
+          // @Reagan, please clarify the 'templates' vall
           const mergedData = templates.map((template) => {
             const status = (statusData['templates'].find((status: any) => template.name === status.name) || {}).status || 'N/A';
             return {...template, status};

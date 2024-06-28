@@ -1,0 +1,21 @@
+{
+  "name": "model-finance-sales",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/model/finance/sales/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/model/finance/sales"],
+      "options": {
+        "tsConfig": "libs/model/finance/sales/tsconfig.json",
+        "jestConfig": "libs/model/finance/sales/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

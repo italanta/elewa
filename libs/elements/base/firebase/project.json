@@ -1,25 +1,20 @@
 {
   "name": "elements-base-firebase",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/elements/base/firebase/src",
   "prefix": "app",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/elements/base/firebase"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/elements/base/firebase"],
       "options": {
-        "jestConfig": "libs/elements/base/firebase/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/elements/base/firebase/tsconfig.json",
+        "jestConfig": "libs/elements/base/firebase/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/elements/base/firebase/**/*.ts",
-          "libs/elements/base/firebase/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

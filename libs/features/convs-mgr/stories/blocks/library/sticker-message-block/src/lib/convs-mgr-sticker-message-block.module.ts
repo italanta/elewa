@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import {
   FlexLayoutModule,
@@ -15,24 +15,14 @@ import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/bloc
 
 import { StickerBlockComponent } from './components/sticker-block/sticker-block.component';
 
-@NgModule({
-  imports: [
-    CommonModule,
-    MultiLangModule,
-    MaterialDesignModule,
-    FlexLayoutModule,
-    MaterialBricksModule,
-
-    FormsModule,
-    ReactiveFormsModule,
-
-    ConvsMgrBlockOptionsModule,
-    HttpClientModule
-  ],
-
-  declarations: [StickerBlockComponent],
-
-  exports: [StickerBlockComponent],
-})
+@NgModule({ declarations: [StickerBlockComponent],
+    exports: [StickerBlockComponent], imports: [CommonModule,
+        MultiLangModule,
+        MaterialDesignModule,
+        FlexLayoutModule,
+        MaterialBricksModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ConvsMgrBlockOptionsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 
 export class ConvsMgrStickerMessageBlockModule { }

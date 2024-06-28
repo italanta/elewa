@@ -1,0 +1,21 @@
+{
+  "name": "functions-bot-engine-utils",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/functions/bot-engine/utils/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/functions/bot-engine/utils"],
+      "options": {
+        "tsConfig": "libs/functions/bot-engine/utils/tsconfig.json",
+        "jestConfig": "libs/functions/bot-engine/utils/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

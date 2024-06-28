@@ -1,27 +1,22 @@
 {
   "name": "features-convs-mgr-stories-blocks-library-question-message-block",
+  "$schema": "../../../../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/question-message-block/src",
   "prefix": "app",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": [
-        "coverage/libs/features/convs-mgr/stories/blocks/library/question-message-block"
+        "{workspaceRoot}/coverage/libs/features/convs-mgr/stories/blocks/library/question-message-block"
       ],
       "options": {
-        "jestConfig": "libs/features/convs-mgr/stories/blocks/library/question-message-block/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/features/convs-mgr/stories/blocks/library/question-message-block/tsconfig.json",
+        "jestConfig": "libs/features/convs-mgr/stories/blocks/library/question-message-block/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/features/convs-mgr/stories/blocks/library/question-message-block/**/*.ts",
-          "libs/features/convs-mgr/stories/blocks/library/question-message-block/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

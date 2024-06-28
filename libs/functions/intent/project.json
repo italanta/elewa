@@ -1,0 +1,25 @@
+{
+  "name": "functions-intent",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/functions/intent/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{workspaceRoot}/coverage/libs/functions/intent"],
+      "options": {
+        "tsConfig": "libs/functions/intent/tsconfig.json",
+        "jestConfig": "libs/functions/intent/jest.config.ts"
+      },
+      "passWithNoTests": true
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/functions/intent"],
+      "options": {
+        "tsConfig": "libs/functions/intent/tsconfig.json",
+        "jestConfig": "libs/functions/intent/jest.config.ts"
+      }
+    }
+  }
+}

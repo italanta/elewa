@@ -1,0 +1,21 @@
+{
+  "name": "model-convs-mgr-classroom",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/model/convs-mgr/classroom/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/model/convs-mgr/classroom"],
+      "options": {
+        "tsConfig": "libs/model/convs-mgr/classroom/tsconfig.json",
+        "jestConfig": "libs/model/convs-mgr/classroom/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

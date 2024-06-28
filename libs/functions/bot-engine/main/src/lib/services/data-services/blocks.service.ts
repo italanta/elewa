@@ -136,4 +136,6 @@ export class BlockDataService extends BotDataService<StoryBlock> {
   private __filterJumpBlocks(block: StoryBlock, processedJumpBlocks: string[]): boolean {
     return block.type === StoryBlockTypes.JumpBlock && block.deleted !== true && !processedJumpBlocks.includes(block.id);
   }
+
+  
 }

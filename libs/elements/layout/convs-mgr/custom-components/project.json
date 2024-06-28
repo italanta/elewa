@@ -1,0 +1,23 @@
+{
+  "name": "elements-layout-convs-mgr-custom-components",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/elements/layout/convs-mgr/custom-components/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/elements/layout/convs-mgr/custom-components"
+      ],
+      "options": {
+        "tsConfig": "libs/elements/layout/convs-mgr/custom-components/tsconfig.json",
+        "jestConfig": "libs/elements/layout/convs-mgr/custom-components/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

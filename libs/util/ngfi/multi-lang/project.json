@@ -1,12 +1,13 @@
 {
   "name": "util-ngfi-multi-lang",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/util/ngfi/multi-lang/src",
   "prefix": "italanta-apps",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/util/ngfi/multi-lang"],
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/libs/util/ngfi/multi-lang"],
       "options": {
         "project": "libs/util/ngfi/multi-lang/ng-package.json"
       },
@@ -21,21 +22,15 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/util/ngfi/multi-lang"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/util/ngfi/multi-lang"],
       "options": {
-        "jestConfig": "libs/util/ngfi/multi-lang/jest.config.ts",
-        "passWithNoTests": true
+        "tsConfig": "libs/util/ngfi/multi-lang/tsconfig.json",
+        "jestConfig": "libs/util/ngfi/multi-lang/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/util/ngfi/multi-lang/**/*.ts",
-          "libs/util/ngfi/multi-lang/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   },
   "tags": []

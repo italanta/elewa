@@ -3,7 +3,7 @@ import { orderBy as __orderBy } from 'lodash';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { SubSink } from 'subsink';
@@ -22,6 +22,7 @@ import { FileStorageService } from '@app/state/file';
 
 import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
 import { ConfirmPublishModalComponent } from '../../../modals/confirm-publish-modal/confirm-publish-modal.component';
+import { FallbackService } from '@app/state/convs-mgr/fallback';
 
 @Component({
   selector: 'italanta-apps-modules-list-header',
@@ -58,8 +59,10 @@ export class BotModulesListHeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private _dialog: MatDialog, 
+    private _router$: Router,
     private _route: ActivatedRoute,
     private _breadCrumbServ: BreadcrumbService,
+    private _fallbackService: FallbackService,
     private _botsService$: BotsStateService,
     private _snackBar: MatSnackBar,
     private _fileStorageService: FileStorageService
@@ -120,6 +123,12 @@ export class BotModulesListHeaderComponent implements OnInit, OnDestroy {
     this._dialog.open(MainChannelModalComponent, {
       data: { bot }
     });
+  }
+
+  goToFallBacks(bot: Bot) {
+    this._fallbackService.setBot(bot);
+
+    this._router$.navigate(['/ai-fallbacks', bot.id])
   }
   
   publishBot(bot:Bot){
