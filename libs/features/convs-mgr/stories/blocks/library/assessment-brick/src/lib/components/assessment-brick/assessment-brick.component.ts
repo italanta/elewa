@@ -8,9 +8,7 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { AssessmentBrick } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
-
-import { _JsPlumbComponentDecorator } from '../../providers/decorate-jsplumb.provider';
-import { _JsPlumbInputOptionDecorator } from '../../../../../block-options/src/lib/providers/jsplumb-decorator.function';
+import { _JsPlumbComponentDecorator, _JsPlumbInputOptionDecorator } from '../../providers/decorate-jsplumb.provider';
 
 
 @Component({
@@ -30,7 +28,7 @@ export class AssessmentBrickComponent implements OnInit, AfterViewInit, OnDestro
   @Input() assessmentBrickForm: FormGroup;
 
   @Input() blocksGroup: FormArray;
-
+  
   private _sBs = new SubSink();
 
   type: StoryBlockTypes;
@@ -60,17 +58,15 @@ export class AssessmentBrickComponent implements OnInit, AfterViewInit, OnDestro
     );
   }
 
-  /** Add JsPlumb connector to max score input */
-  private _decorateInput()
-  {
-    const inputs = document.getElementsByClassName('option');
-    if (this.jsPlumb) {
-      for (let i = 0; i < inputs.length; i++) {
-        let input = inputs[i];
-        input = _JsPlumbInputOptionDecorator(input, this.jsPlumb);
-      }
+ /** Add JsPlumb connector to max score input */
+ private _decorateInput() {
+  const optionElements = document.querySelectorAll('.input-score-max'); 
+  if (this.jsPlumb) {
+    for (const element of Array.from(optionElements)) {
+      _JsPlumbComponentDecorator(element, this.jsPlumb);
     }
   }
+}
 
   get scores(): FormArray
   {
