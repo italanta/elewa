@@ -640,6 +640,29 @@
         "WRONG": "Wrong",
         "50-50": "50/50"
       }
+    },
+    "ASSESSMENT-CONFIGS": {
+      "QUES-PER-PAGE": "Questions per page",
+      "PER-PAGE-DESC": "Select the number of questions you'd like to display for the user's view",
+      "DISPLAY-OPTIONS": {
+        "SINGLE":"One question per page",
+        "MULTIPLE": "All questions on one page"
+      },
+      "RETRIAL": {
+        "ENABLE-RETRIAL": "Enable retrial",
+        "RETRIAL-TEXT": "Allow user to attempt the assesment more than once",
+        "RETRIAL-PROVISIONS": {
+          "DEFAULT": {
+            "DEFAULT-TEXT": "Retry anyway",
+            "TRIAL-NOS": "Maximum number of trials"
+          },
+          "ON-SCORE": {
+            "SCORE-TEXT": "Retry on score",
+            "MINIMUM-SCORE": "Minimum score",
+            "TRIAL-NOS": "Number of trials"
+          }
+        }
+      }
     }
   },
   "SURVEYS": {

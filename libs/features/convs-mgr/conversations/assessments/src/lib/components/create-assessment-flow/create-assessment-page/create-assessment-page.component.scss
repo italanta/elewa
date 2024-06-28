@@ -63,6 +63,9 @@
 :host ::ng-deep .mat-mdc-tab.mdc-tab:last-child {
   border-radius: 0px 30px 30px 0px;
 }
+:host ::ng-deep .mat-mdc-tab.mdc-tab.mdc-tab--active {
+  border-radius: 30px;
+}
 
 :host ::ng-deep .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label,
 .mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {

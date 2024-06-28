@@ -2,6 +2,7 @@ import { Story } from "@app/model/convs-mgr/stories/main";
 
 export interface Assessment extends Story {
     title: string,
+    instructions: string[],
     description: string,
     orgId: string,
     configs?: AssessmentConfiguration,
@@ -20,7 +21,13 @@ export interface AssessmentMetrics {
 
 export interface AssessmentConfiguration{
     feedback: FeedbackType,
-    userAttempts?: number
+    userAttempts?: number,
+    /** Is a user allowed to retake an assessment */
+    canRetry: boolean
+    retryType?: RetryType,
+    questionsDisplay: QuestionDisplayed,
+    /** User attempts based on scores */
+    scoreAttempts?: ScoreAttempType,
 }
 
 export interface ScoreCategory{
@@ -40,4 +47,21 @@ export enum CategoryType{
     Fail = 1,
     Pass = 2,
     Exceptional = 3
+}
+
+/** Mode of retry allowed, if any */
+export enum RetryType {
+    Default = 1,
+    OnScore = 2
+}
+
+/** How may questions to display per page */
+export enum QuestionDisplayed {
+    Single = 1,
+    Multiple = 2
+}
+
+export interface ScoreAttempType {
+    minScore: number, 
+    userAttempts: number,
 }
