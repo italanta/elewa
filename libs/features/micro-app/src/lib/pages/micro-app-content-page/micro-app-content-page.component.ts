@@ -1,9 +1,13 @@
+import { take } from 'rxjs';
+import { SubSink } from 'subsink';
+
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
-import { MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
+import { MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
 
-import { MicroAppStatusService } from '@app/state/convs-mgr/micro-app';
+import {  MicroAppStore } from '@app/state/convs-mgr/micro-app';
+
 
 @Component({
   selector: 'app-micro-app-content-page',
@@ -12,19 +16,35 @@ import { MicroAppStatusService } from '@app/state/convs-mgr/micro-app';
 })
 export class MicroAppContentPageComponent implements OnInit 
 {
-    status: MicroAppStatus;
+  /** Object with comprehensive information on the microapp in progress */  
+  status: MicroAppStatus;
+  app: MicroAppStatus;
 
-    constructor( private _microAppStatusServ: MicroAppStatusService,
-      private _router: Router,
-      private _route: ActivatedRoute
+  private _sbS = new SubSink();
+
+  constructor( private _microApp$$: MicroAppStore,
+                private _router: Router 
   ){}
 
   ngOnInit(): void {
-    this.getAppStatus();
+    // this.getAppStatus();
 
+     // TODO: Use app status to resume the user's position if it's something
+      // other than launched.
+    //  STEP 1. Get app ID
+    const app$ = this._microApp$$.get();
 
-      // TODO: Use app status to resume the user's position if it's something
-      //  other than launched.
+    this._sbS.sink = 
+      app$.pipe(take(1)).subscribe(a => 
+      {
+         this.app = a;
+        // this.isInitializing = false;
+
+        if (a.status == MicroAppStatusTypes.Started){
+          this._router.navigate(['main']);
+        }
+
+      });
   }
   
   /**

@@ -4,7 +4,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
-import { calculateProgress } from '../../utils/calculate-progress.util';
+import { __CalculateProgress } from '../../utils/calculate-progress.util';
 import { PageViewMode } from '../../model/view-mode.enum';
 
 import { MicroAppAssessmentQuestionFormService } from '../../services/microapp-assessment-questions-form.service';
@@ -16,20 +16,21 @@ import { AppViewService } from '../../services/content-view-mode.service';
   templateUrl: './content-section.component.html',
   styleUrls: ['./content-section.component.scss']
 })
-export class ContentSectionComponent implements OnInit {
-  //Whether a user is viewing assessment content or general page content
-  pageView: Observable<PageViewMode>
-  pageViewMode = PageViewMode
+export class ContentSectionComponent implements OnInit 
+{
+  /** Whether a user is viewing assessment content or general page content */
+  pageView: Observable<PageViewMode>;
+  pageViewMode = PageViewMode;
 
   assessmentQuestions = []
-  //Form declarations
+  /** Form declarations */
   assessmentFormArray: FormArray;
   assessmentForm: FormGroup;
 
-  //Grading scores
+  /** Grading scores */
   passCriteria: any;
 
-  //How far a learner is in answering questions
+  /* How far a learner is in answering questions */
   progressPercentage = 0;
 
   constructor ( private _assessFormService: MicroAppAssessmentQuestionFormService,
@@ -53,9 +54,9 @@ export class ContentSectionComponent implements OnInit {
 
   /** Tracking how far a learner is in their assignment  */
   getProgress(){
-    this.progressPercentage = calculateProgress(this.assessmentFormArray);
-    console.log(this.progressPercentage)
+    this.progressPercentage = __CalculateProgress(this.assessmentFormArray);
   }
+  
   /** Get the color for the progress bar */
   getProgressColor(progress: number): string {
     // Calculate the gradient stop position based on the progress percentage

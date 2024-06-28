@@ -1,16 +1,19 @@
 <app-clm-micro-app-page>
-  <ng-container *ngIf="appStatusObs$ | async as microAppStatus">
-    <ng-container [ngSwitch]="microAppStatus">
+  <!-- This part is commented out awaiting implementation of assessment MicroApp-->
+
+  <!-- <ng-container *ngIf="appStatusObs$ | async as microAppStatus">
+    <ng-container [ngSwitch]="microAppStatus"> -->
       <!-- Learner has clicked the start button -->
-      <ng-container *ngSwitchCase="'started'">
+      <!-- <ng-container *ngSwitchCase="'started'">
         <app-content-section></app-content-section>
-      </ng-container>
+      </ng-container> -->
       <!-- Learner has fininished the assessment -->
-      <ng-container *ngSwitchCase="'completed'">
+      <!-- <ng-container *ngSwitchCase="'completed'">
         <app-content-section></app-content-section>
       </ng-container>
     </ng-container>
-  </ng-container>
+  </ng-container> -->
+  
   <app-content-section></app-content-section>
 </app-clm-micro-app-page>
 

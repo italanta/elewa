@@ -5,21 +5,22 @@ import { FormArray } from "@angular/forms";
  * @param controls form array controls
  * @returns a percentage tracker
  */
-export function calculateProgress(formArray: FormArray): number {
+export function __CalculateProgress(formArray: FormArray): number
+ {
   // Using a Set to track question ids since Set objects are collections of values. 
   // A value in the set may only occur once; 
   const answeredQuestions = new Set<number>();
 
   const controls = formArray.controls
   
-  controls.forEach(control => {
+  for (const control of controls) {
     const id = control.value.id;
     const selectedOption = control.value.selectedOption;
 
     if (selectedOption) {
       answeredQuestions.add(id);
     }
-  });
+  }
 
   const totalQuestions = controls.length;
   const answeredCount = answeredQuestions.size;

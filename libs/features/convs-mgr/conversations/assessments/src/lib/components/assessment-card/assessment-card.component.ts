@@ -8,10 +8,13 @@ import { AssessmentQuestion } from '../../model/assessment-question.interface';
   templateUrl: './assessment-card.component.html',
   styleUrls: ['./assessment-card.component.scss']
 })
-export class AssessmentCardComponent implements OnInit {
+export class AssessmentCardComponent implements OnInit 
+{
   @Input() assessmentQuestions: AssessmentQuestion[];
   @Input() assessmentFormArray: FormArray;
   @Input() assessmentForm: FormGroup;
+
+  /** Method called to track progress */
   @Input() progressCallback: () => void;
 
   stepperForm = true
@@ -22,12 +25,13 @@ export class AssessmentCardComponent implements OnInit {
 
   constructor(){}
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
     this.totalSteps = this.assessmentFormArray.controls.length
+    console.log(this.assessmentQuestions, 'logged from a card')
     // Subscribe to value changes to update progress
     this.assessmentForm.valueChanges.subscribe(() => {
       this.progressCallback();
-      console.log(this.assessmentForm)
     });
   }
 
