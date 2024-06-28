@@ -45,7 +45,7 @@ export class AssessmentPublishService
       isPublished: true,
       isAssessment: true,
     };
-
+    console.log(assessmentStory, 'Value of an assessment story')
     const orgId = assessmentStory.orgId as string;
     const storyId = assessmentStory.id as string;
 

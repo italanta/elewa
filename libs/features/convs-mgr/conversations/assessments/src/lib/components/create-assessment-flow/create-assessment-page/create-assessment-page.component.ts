@@ -124,6 +124,7 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap(() => {
           this.assessment.isPublished = true;
+          console.log(`this is the assessment to be published ${JSON.stringify(this.assessment)}`)
           return this._assessmentService.updateAssessment$(this.assessment);
         })
       )

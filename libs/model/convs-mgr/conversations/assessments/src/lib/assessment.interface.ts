@@ -1,6 +1,6 @@
-import { Story } from "@app/model/convs-mgr/stories/main";
+import { MicroApp } from "@app/model/convs-mgr/micro-app/base";
 
-export interface Assessment extends Story {
+export interface Assessment extends MicroApp {
     title: string,
     description: string,
     orgId: string,

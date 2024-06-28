@@ -1,3 +1,4 @@
+import { IObject } from "@iote/bricks";
 import { EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
 import { MicroAppTypes } from "./micro-app-types.enum";
 import { PassCriteriaTypes } from "./pass-criteria-types.enum";
@@ -6,7 +7,7 @@ import { PassCriteriaTypes } from "./pass-criteria-types.enum";
  * Descriptive class of a micro app. 
  * Contains configurations on how data in a microapp is handled
  */
-export interface MicroApp
+export interface MicroApp extends IObject
 {
   /** Type of micro-app */
   type: MicroAppTypes;
