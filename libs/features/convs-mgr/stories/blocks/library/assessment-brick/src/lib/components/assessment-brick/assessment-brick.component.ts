@@ -63,7 +63,7 @@ export class AssessmentBrickComponent implements OnInit, AfterViewInit, OnDestro
   const optionElements = document.querySelectorAll('.input-score-max'); 
   if (this.jsPlumb) {
     for (const element of Array.from(optionElements)) {
-      _JsPlumbComponentDecorator(element, this.jsPlumb);
+      _JsPlumbInputOptionDecorator(element, this.jsPlumb);
     }
   }
 }
