@@ -9,9 +9,8 @@
           <div class="btn-wrapper" (click)="onClose()">
             <i class="fas fa-chevron-left"></i>
           </div>
-
+          <ng-template (attached)="onBlockComponentRendering($event)" [cdkPortalOutlet]='activeComponent'></ng-template>
         </div>
-        <ng-template (attached)="onBlockComponentRendering($event)" [cdkPortalOutlet]='activeComponent'></ng-template>
       </div>
     </div>
 
@@ -20,6 +19,11 @@
       </convl-blocks-library>
     </ng-template>
   </div>
+
+  <!-- Toggle block library button (to reopen when lib is closed) -->
+  <button *ngIf="!isSideScreenOpen" class="toggle-btn" (click)="toggleSidenav()">
+    <span><i class="fas fa-chevron-right"></i></span>
+  </button>
 
   <!-- Main story body (top-menu bar + story editor)-->
   <div class="story-index" fxFlex="80" fxLayout="column" fxLayoutAlign="start" fxFlex>
@@ -38,11 +42,6 @@
   - NAVIGATION BAR ELEMENTS
   -->
  <ng-template #navbar>
-  <!-- Toggle block library button -->
-  <button *ngIf="!isSideScreenOpen" class="toggle-btn" (click)="toggleSidenav()">
-    <span><i class="fas fa-chevron-right"></i></span>
-  </button>
-
   <!-- Save button -->
   <button [disabled]="hasEmptyFields || !stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
     <span *ngIf="stateSaved; else saving"> {{'PAGE-CONTENT.TOP-BAR.SAVE-STORY' | transloco }} </span>

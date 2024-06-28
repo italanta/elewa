@@ -6,6 +6,8 @@
   height: -webkit-calc(100% - 40px);
   height: calc(100% - 40px);
   width: 100%;
+
+  margin-top: 1.5px;
 }
 
 app-blocks-library {
@@ -81,18 +83,21 @@ mat-sidenav {
 
 .toggle-btn { 
   position: fixed;
-  background-color: white;
   border: none;
   transition: transform 0.3s ease;
   cursor: pointer;
   color: black;
-  margin-left: -1rem;
-  padding: 0.2rem 0.3rem 0.2rem 0.6rem;
+  padding: 10px;
+  background: none;
 
+  z-index: 1000000;
   .tooltip {
     font-size: 1.2rem;
   }
 }
+  .toggle-btn:hover {
+    cursor: pointer;
+  }
 
 .zoom-section {
   display: flex;
