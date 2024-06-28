@@ -1,12 +1,30 @@
 <div [id]="id" class="anchor"> {{'PAGE-CONTENT.BLOCK.PLACEHOLDER.END-ANCHOR' | transloco}}
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="deleteMe()">
-            <i class="far fa-trash-alt"></i>
-            <span class="icon-with-text"> Delete</span>
-        </button>
-    </mat-menu>
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button">
-        <i class="fas fa-ellipsis-v ic"></i>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="deleteMe()">
+      <i class="fa fa-plus"></i>
+      <span class="icon-with-text"> Add output</span>
     </button>
+    <button mat-menu-item (click)="deleteMe()">
+      <i class="far fa-trash-alt"></i>
+      <span class="icon-with-text"> Delete</span>
+    </button>
+  </mat-menu>
+  <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button">
+    <i class="fas fa-ellipsis-v ic"></i>
+  </button>
 </div>
-   
+
+<!-- <form class="alternative-option" [formGroup]="alternativeOutputsF" fxLayout="column" fxLayoutALign="center center">
+  <div formArrayName="options" fxFlexFill>
+    <div *ngFor="let output of outputs.controls; let i = index">
+
+      <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="100" [class.option-edit]="isEditSection">
+        <input [id]="inputUniqueId" [class]="optionClass" [class.input-edit]="isEditSection" [readOnly]="isReadOnly"
+                [ngClass]="isReadOnly ? 'readonly' : ''" formControlName="message"
+                type="text" placeholder="Option {{formGroupNameInput + 1}}" [maxlength]="charMaxlength" fxFlexFill/>
+        
+        <button *ngIf="isEditSection"><img src="/assets/icons/x-icon.svg" alt="clear" /></button>
+      </div>
+    </div>
+  </div>
+</form>x -->

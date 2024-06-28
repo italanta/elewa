@@ -7,14 +7,12 @@ import { Observable, BehaviorSubject, map, combineLatest, of } from 'rxjs';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import {
-  ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock,
-  TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, 
-  VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, 
-  ImageInputBlock, LocationInputBlock, AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock,
-  KeywordMessageBlock, EndStoryAnchorBlock, EventBlock, AssessmentBrick, ConditionalBlock
-} from '@app/model/convs-mgr/stories/blocks/messaging';
-import { StoryModuleBlock } from '@app/model/convs-mgr/stories/blocks/structural';
+import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock,
+         TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, 
+         VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, 
+         ImageInputBlock, LocationInputBlock, AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock,
+         KeywordMessageBlock, EventBlock, AssessmentBrick, ConditionalBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { EndStoryAnchorBlock, StoryModuleBlock } from '@app/model/convs-mgr/stories/blocks/structural';
 import { ICONS_AND_TITLES, IconAndTitle } from '@app/features/convs-mgr/stories/builder/blocks/icons';
 
 import { StoryEditorFrame, SideScreenToggleService } from '@app/features/convs-mgr/stories/builder/editor-state';

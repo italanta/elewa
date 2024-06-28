@@ -18,7 +18,6 @@ export * from './lib/audio-input-block.interface';
 export * from './lib/video-input-block.interface';
 export * from './lib/webhook-block.interface';
 export * from './lib/open-ended-question-block.interface';
-export * from './lib/end-story-anchor.interface';
 export * from './lib/keyword-message-block.interface';
 export * from './lib/event-block.interface';
 export * from './lib/assessment-brick.interface';

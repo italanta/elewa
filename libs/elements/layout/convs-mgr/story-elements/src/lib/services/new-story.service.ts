@@ -8,7 +8,7 @@ import { switchMap, take, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
-import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/structural';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
@@ -146,7 +146,8 @@ export class NewStoryService implements OnDestroy {
       deleted: false,
       blockTitle: 'End here',
       blockIcon: '',
-      blockCategory:''
+      blockCategory:'',
+      outputs: []
     }
 
     this._sbS.sink = this._blocksStore$$.createEndBlock(orgId, storyId, endBlock).subscribe();

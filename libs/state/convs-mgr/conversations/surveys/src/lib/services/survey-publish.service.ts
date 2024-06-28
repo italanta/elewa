@@ -6,7 +6,8 @@ import { Logger } from '@iote/bricks-angular';
 
 import { Survey, SurveyQuestionOptions } from '@app/model/convs-mgr/conversations/surveys';
 import { StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { SurveyQuestionBlock, Button, EndStoryAnchorBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/structural';
+import { SurveyQuestionBlock, Button, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
 import { StoriesStore } from '@app/state/convs-mgr/stories';

@@ -3,8 +3,6 @@
 import { FormBuilder } from "@angular/forms";
 import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
-import { _CreateEndStoryAnchorBlockForm }   from "./model/end-story-anchor-block-form.model";
-
 import { StoryModuleBlock } from "@app/model/convs-mgr/stories/blocks/structural";
 
 import { _CreateTextMessageBlockForm } from "@app/features/convs-mgr/stories/builder/blocks/library/text-message-block";
@@ -16,6 +14,7 @@ import { _CreateLocationBlockForm } from "@app/features/convs-mgr/stories/builde
 import { _CreateListBlockMessageForm } from "@app/features/convs-mgr/stories/builder/blocks/library/list-message-block";
 import { _CreateDocumentMessageBlockForm } from "@app/features/convs-mgr/stories/builder/blocks/library/document-message-block";
 import { _CreateVideoMessageBlockForm } from "@app/features/convs-mgr/stories/builder/blocks/library/video-message-block";
+import { _CreateEndStoryAnchorBlockForm } from "@app/features/convs-mgr/stories/builder/blocks/library/anchor-block";
 import { _CreateStickerBlockForm } from "@app/features/convs-mgr/stories/builder/blocks/library/sticker-message-block";
 import { _CreateReplyBlockForm } from "@app/features/convs-mgr/stories/builder/blocks/library/reply-message-block";
 import { _CreateJumpBlockForm } from "@app/features/convs-mgr/stories/builder/blocks/library/jump-story-block";

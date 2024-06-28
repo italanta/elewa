@@ -4,15 +4,17 @@ import { combineLatest, map, switchMap, tap } from 'rxjs';
 
 import { Logger } from '@iote/bricks-angular';
 
-import { Assessment, AssessmentQuestionOptions } from '@app/model/convs-mgr/conversations/assessments';
-
-import { AssessmentQuestionService } from './assessment-question.service';
 import { StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { AssessmentQuestionBlock, Button, EndStoryAnchorBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { Assessment, AssessmentQuestionOptions } from '@app/model/convs-mgr/conversations/assessments';
+import { AssessmentQuestionBlock, Button, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
+import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/structural';
+
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { StoryConnectionsStore } from '@app/state/convs-mgr/stories/block-connections';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
+
+import { AssessmentQuestionService } from './assessment-question.service';
 
 @Injectable({
   providedIn: 'root'

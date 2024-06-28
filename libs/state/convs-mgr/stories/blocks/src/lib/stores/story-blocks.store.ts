@@ -11,9 +11,9 @@ import { Logger } from '@iote/bricks-angular';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/structural';
 
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
-import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 @Injectable()
