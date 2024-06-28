@@ -133,7 +133,7 @@
 
             <!-- Learners sections -->
             <li *hasViewAccess="CAN_ACCESS_LEARNERS" class="menu-item" (click)="toggleDropdown('manage-users')">
-              <a matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MANAGE-USERS'| transloco }}" [matTooltipDisabled]="isManageUsersDropdownOpen">
+              <a matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MANAGE-USERS'| transloco }}" [matTooltipDisabled]="isManageUsersDropdownOpen && isExpanded">
                 <span class="menu-icon">
                   <img *ngIf="isExpanded" src="assets/icons/learners-stroked.svg" class="img" alt="">
                   <img *ngIf="!isExpanded"  src="assets/icons/learners-stroked.svg" class="img" alt="">
@@ -148,7 +148,7 @@
 
               <div *ngIf="isManageUsersDropdownOpen">
                 <ul class="sub-side-menu">
-                  <li matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.USERS'| transloco }}">
+                  <li matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.USERS'| transloco }}" [matTooltipDisabled]="isManageUsersDropdownOpen && isExpanded">
                     <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/users" routerLinkActive="active" (click)="$event.stopPropagation()">
                       <span class="menu-icon">
                         <img src="assets/icons/message-chat.svg" class="img" alt="">
@@ -158,7 +158,7 @@
                       </span>
                     </a>
                   </li>
-                  <li matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.USER-GROUPS'| transloco }}">
+                  <li matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.USER-GROUPS'| transloco }}" [matTooltipDisabled]="isManageUsersDropdownOpen && isExpanded">
                     <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/user-groups" routerLinkActive="active" (click)="$event.stopPropagation()">
                       <span class="menu-icon">
                         <img src="assets/icons/message-template.svg" class="img" alt="">
