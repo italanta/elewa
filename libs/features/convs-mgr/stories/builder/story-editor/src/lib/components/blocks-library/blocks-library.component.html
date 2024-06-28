@@ -1,12 +1,13 @@
 <div class="nav">
-  <div class="block-library-top-section">
-    <div *ngIf="isSideScreenOpen" class="btn-wrapper" (click)="toggleSidenav()">
-      <i class="fas fa-chevron-left"></i>
-    </div>
-  </div>
 
-  <div class="blocks-header">
-    <span class="header-title"> Choose Element</span>
+  <div class="blocks-header" fxLayout="row">
+    <div><span class="header-title"> Choose Element</span></div>
+
+    <div class="block-library-top-section">
+      <div *ngIf="isSideScreenOpen" class="btn-wrapper" (click)="toggleSidenav()">
+        <i class="fas fa-chevron-left"></i>
+      </div>
+    </div>
   </div>
 
   <div class="block-filters">

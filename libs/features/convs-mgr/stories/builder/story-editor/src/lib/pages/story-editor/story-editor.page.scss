@@ -97,7 +97,7 @@ mat-sidenav {
 .zoom-section {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 
   z-index: 2147483003;
   padding: 0 !important;
@@ -111,7 +111,7 @@ mat-sidenav {
   cursor: pointer;
 
   position: fixed;
-  bottom: 75px;
+  bottom: 50px;
   right: 20px;
 }
   .zoom-btn {
