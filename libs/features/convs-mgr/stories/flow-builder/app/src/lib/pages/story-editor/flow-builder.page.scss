@@ -8,14 +8,6 @@
   width: 100%;
 }
 
-app-blocks-library {
-  width: 200px;
-}
-mat-sidenav {
-  width: 400px;
-  height: 400px;
-}
-
 .error-toast{
   display: flex;
   flex-direction: column;
@@ -74,8 +66,8 @@ mat-sidenav {
   color: white !important;
   min-width: 100px;
   width: 7rem;
-  height: 30px;
-  margin: 5px;
+  height: 3rem;
+
 }
 
 
@@ -94,37 +86,35 @@ mat-sidenav {
   }
 }
 
+.zoom-btn {
+  background-color: white;
+  color: black;
+  width: 3.2rem;
+  height: 3.2rem;
+}
+
+.zoom-btn:disabled {
+  color: grey;
+}
+
 .zoom-section {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.9rem;
 
+  position: fixed;
   z-index: 2147483003;
   padding: 0 !important;
   margin: 0 !important;
   border: none;
-
-  max-width: 30px;
-  width: 30px;
-  max-height: 30px;
-  height: 30px;
-  cursor: pointer;
-
-  position: fixed;
-  bottom: 75px;
+  bottom: 150px;
   right: 20px;
+  max-width: 48px;
+  width: 48px;
+  max-height: 48px;
+  height: 48px;
+  cursor: pointer;
 }
-  .zoom-btn {
-    background-color: white;
-    color: black;
-    width:  30px;
-    height: 30px;
-  }
-
-  .zoom-btn:disabled {
-    color: grey;
-  }
-
 
 .wrapper-edit {
   display: flex;
@@ -190,4 +180,3 @@ convl-story-editor-frame {
       a.save-anyway:hover {
         cursor: pointer;
       }
-

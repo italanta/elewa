@@ -1,83 +1,80 @@
-<convl-page class="conv" [title]="pageName" [nomarg]="true">
-  
-  <!-- Main body page -->
-  <div class="story-editor" fxFlexFill>
-
-    <!-- Side screen wiht block selectors and editor -->
-    <div [ngClass]="isSideScreenOpen ? 'open' : 'close'" class="nav">
-      <div *ngIf="opened; else library">
-        <div class="wrapper-edit">
-          <div class="top-section-edit">
-            <input type="button" class="goToBlocks" (click)="onClose()"/>
-            <div class="btn-wrapper" (click)="onClose()">
-              <i class="fas fa-chevron-left"></i>
-            </div>
-
+<!-- Main body page -->
+<div class="page-inner" fxLayout="row">
+  <!-- Side screen wiht block selectors and editor -->
+  <div [ngClass]="isSideScreenOpen ? 'open' : 'close'" class="nav">
+    <div *ngIf="opened; else library">
+      <div class="wrapper-edit">
+        <div class="top-section-edit">
+          <input type="button" class="goToBlocks" (click)="onClose()"/>
+          <div class="btn-wrapper" (click)="onClose()">
+            <i class="fas fa-chevron-left"></i>
           </div>
-          <ng-template (attached)="onBlockComponentRendering($event)" [cdkPortalOutlet]='activeComponent'></ng-template>
-        </div>
-      </div>
 
-      <ng-template #library>
-        <convl-blocks-library *ngIf="frame" [frame]="frame">
-        </convl-blocks-library>
-      </ng-template>
+        </div>
+        <ng-template (attached)="onBlockComponentRendering($event)" [cdkPortalOutlet]='activeComponent'></ng-template>
+      </div>
     </div>
 
-    <!-- Main story body (top-menu bar + story editor)-->
-    <div class="story-index" fxFlex="80" fxLayout="column" fxLayoutAlign="start" fxFlex>
-
-      <!-- Convl page subbar -->
-      <convl-builder-nav-bar class="sub-bar" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
-
-        <!-- Toggle block library button -->
-        <button *ngIf="!isSideScreenOpen" class="toggle-btn" (click)="toggleSidenav()">
-          <span><i class="fas fa-chevron-right"></i></span>
-        </button>
-
-        <!-- Zoom button -->
-        <div class="zoom-section">
-          <button class="zoom-btn" [disabled]="zoomLevel.value >= 100" mat-mini-fab (click)="increaseZoom()">
-            <i class="fas fa-plus"></i>
-          </button>
-
-          <button class="zoom-btn" [disabled]="zoomLevel.value <= 25" mat-mini-fab (click)="decreaseZoom()">
-            <i class="fas fa-minus"></i>
-          </button>
-        </div>
-
-        <div class="flex-spacer"></div>
-        
-        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-          <!-- Save button -->
-          <button [disabled]="hasEmptyFields || !stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
-            <span *ngIf="stateSaved; else saving"> {{'PAGE-CONTENT.TOP-BAR.SAVE-STORY' | transloco }} </span>
-            <ng-template #saving>
-              <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-                <span> {{'PAGE-CONTENT.TOP-BAR.SAVE-STORY' | transloco }} </span>
-                <mat-spinner diameter="20"></mat-spinner>
-              </span>
-            </ng-template>
-          </button>
-
-        </div>
-      </convl-builder-nav-bar>
-
-      <div class="error-count" *ngIf="errors.length>0" fxFlex fxLayout="row" fxLayoutAlign="end center">
-        <div class="error-msg">{{'TOAST.ERROR-COUNT' | transloco}} <span class="error-count-length">{{errors.length}}</span> {{'TOAST.ERRORS' | transloco}}</div>
-        <div class="save-msg"><a class="save-anyway" (click)="saveWithErrors()">{{'PAGE-CONTENT.TOP-BAR.SAVE-WITH-ERRORS' | transloco }}</a></div>
-      </div>
-
-      <convl-story-editor-frame fxFlex="100"
-              (frameLoaded)="onFrameViewLoaded($event)"
-              (zoomed)="setZoom($event * 100, true)"
-        
-          #storyEditorFrame> 
-      </convl-story-editor-frame>
-      
-    </div>
+    <ng-template #library>
+      <convl-blocks-library *ngIf="frame" [frame]="frame">
+      </convl-blocks-library>
+    </ng-template>
   </div>
-</convl-page>
+
+  <!-- Main story body (top-menu bar + story editor)-->
+  <div class="story-index" fxFlex="80" fxLayout="column" fxLayoutAlign="start" fxFlex>
+    <convl-story-editor-frame fxFlex="100"
+            (frameLoaded)="onFrameViewLoaded($event)"
+            (zoomed)="setZoom($event * 100, true)"
+      
+        #storyEditorFrame> 
+    </convl-story-editor-frame>
+    
+  </div>
+</div>
+
+
+ <!-- 
+  - NAVIGATION BAR ELEMENTS
+  -->
+ <ng-template #navbar>
+  <!-- Toggle block library button -->
+  <button *ngIf="!isSideScreenOpen" class="toggle-btn" (click)="toggleSidenav()">
+    <span><i class="fas fa-chevron-right"></i></span>
+  </button>
+
+  <!-- Save button -->
+  <button [disabled]="hasEmptyFields || !stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
+    <span *ngIf="stateSaved; else saving"> {{'PAGE-CONTENT.TOP-BAR.SAVE-STORY' | transloco }} </span>
+    <ng-template #saving>
+      <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+        <span> {{'PAGE-CONTENT.TOP-BAR.SAVE-STORY' | transloco }} </span>
+        <mat-spinner diameter="20"></mat-spinner>
+      </span>
+    </ng-template>
+  </button>
+</ng-template>
+
+<!-- 
+  - STATIC ELEMENTS :: ZOOM BUTTONS
+  -->
+<div class="zoom-section">
+  <button class="zoom-btn" [disabled]="zoomLevel.value >= 100" mat-mini-fab (click)="increaseZoom()">
+    <i class="fas fa-plus"></i>
+  </button>
+
+  <button class="zoom-btn" [disabled]="zoomLevel.value <= 25" mat-mini-fab (click)="decreaseZoom()">
+    <i class="fas fa-minus"></i>
+  </button>
+</div>
+
+<!-- 
+  - STATIC ELEMENTS :: ERROR MESSAGES
+  -->
+<div class="error-count" *ngIf="errors.length>0" fxFlex fxLayout="row" fxLayoutAlign="end center">
+  <div class="error-msg">{{'TOAST.ERROR-COUNT' | transloco}} <span class="error-count-length">{{errors.length}}</span> {{'TOAST.ERRORS' | transloco}}</div>
+  <div class="save-msg"><a class="save-anyway" (click)="saveWithErrors()">{{'PAGE-CONTENT.TOP-BAR.SAVE-WITH-ERRORS' | transloco }}</a></div>
+</div>
 
 <!-- Error handler messages (fixed overlay) -->
 <div *ngIf="errors.length>0" class="error-toast">

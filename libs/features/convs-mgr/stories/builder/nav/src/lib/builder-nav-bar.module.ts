@@ -5,7 +5,8 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ItalBreadCrumbModule } from '@app/elements/layout/ital-bread-crumb';
 
-import { StoryBuilderNavBarComponent } from './builder-nav-bar/builder-nav-bar.component';
+import { StoryBuilderNavBarComponent } from './components/builder-nav-bar/builder-nav-bar.component';
+import { BuilderNavBarElementsProvider } from './providers/builder-nav-bar-els.provider';
 
 @NgModule({
   imports: [

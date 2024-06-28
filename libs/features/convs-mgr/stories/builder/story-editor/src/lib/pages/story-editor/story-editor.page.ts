@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, OnDestroy, ComponentRef, Renderer2, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy, ComponentRef, Renderer2, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
@@ -17,6 +17,7 @@ import { ToastMessageTypeEnum, ToastStatus } from '@app/model/layout/toast';
 import { Story, StoryError } from '@app/model/convs-mgr/stories/main';
 
 import { BlockPortalService } from '@app/features/convs-mgr/stories/builder/blocks/portal';
+import { BuilderNavBarElementsProvider } from '@app/features/convs-mgr/stories/builder/nav';
 import { StoryEditorFrame, SaveStoryService, SideScreenToggleService } from '@app/features/convs-mgr/stories/builder/editor-state';
 
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
@@ -28,7 +29,7 @@ import { StoryEditorFrameComponent } from '../../components/editor-frame/editor-
   templateUrl: './story-editor.page.html',
   styleUrls: ['./story-editor.page.scss']
 })
-export class StoryEditorPageComponent implements OnInit, OnDestroy 
+export class StoryEditorPageComponent implements OnInit, AfterViewInit, OnDestroy 
 {
   private _sb = new SubSink();
   portal$: Observable<TemplatePortal>;
@@ -41,6 +42,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   shownErrors: StoryError[] = [];
   toastType: ToastStatus = {type: ToastMessageTypeEnum.Error};
 
+  @ViewChild('navbar') navbar: TemplateRef<Element>;
   @ViewChild('storyEditorFrame') storyEditorFrame: StoryEditorFrameComponent;
 
   opened: boolean;
@@ -67,6 +69,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     private _saveStory: SaveStoryService,
     private _sideMenu: SidemenuToggleService,
     private sideScreen: SideScreenToggleService,
+    private _navbar: BuilderNavBarElementsProvider,
 
     private _dialog: MatDialog,
     private _cd: ChangeDetectorRef,
@@ -91,27 +94,34 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
         const story = state.story;
         this.loading.next(false);
       });
-    }
+  }
 
-    ngOnInit()
+  ngOnInit()
+  {
+    this._sb.sink 
+      = this.sideScreen.sideScreen$
+          .subscribe((isOpen) => this.isSideScreenOpen = isOpen);
+
+    this._sb.sink 
+      = this._blockPortalService.portal$.subscribe((blockDetails) => 
     {
-      this._sb.sink 
-        = this.sideScreen.sideScreen$
-            .subscribe((isOpen) => this.isSideScreenOpen = isOpen);
+      if (blockDetails.form) {
+        const comp = getActiveBlock(blockDetails.form.value.type);
+        this.activeBlockForm = blockDetails.form
+        this.activeBlockTitle = blockDetails.title
+        this.activeBlockIcon = blockDetails.icon
+        this.activeComponent = new ComponentPortal(comp);
+        this.opened = true;
+      }
+    });
+  }
 
-      this._sb.sink 
-        = this._blockPortalService.portal$.subscribe((blockDetails) => 
-      {
-        if (blockDetails.form) {
-          const comp = getActiveBlock(blockDetails.form.value.type);
-          this.activeBlockForm = blockDetails.form
-          this.activeBlockTitle = blockDetails.title
-          this.activeBlockIcon = blockDetails.icon
-          this.activeComponent = new ComponentPortal(comp);
-          this.opened = true;
-        }
-      });
-    }
+  ngAfterViewInit() {
+    console.log('Loading navbar onto parent');
+    console.log(this.navbar);
+    // Set navbar onto parent
+    this._navbar.setBuilderNavElements(this.navbar, this)
+  }
 
   /**
   * Called when the portal component is rendered. Passes formGroup as an input to newly rendered Block Component

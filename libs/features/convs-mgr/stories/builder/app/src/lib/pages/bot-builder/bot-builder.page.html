@@ -1,1 +1,12 @@
-<router-outlet></router-outlet>
+<convl-page class="conv" title="Bot Builder" [nomarg]="true">
+
+  <div class="page" fxFlexfill>
+
+    <!-- Convl page subbar -->
+    <convl-builder-nav-bar class="sub-bar mat-elevation-z1" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center"></convl-builder-nav-bar>
+    <!-- Page content -->
+    <router-outlet></router-outlet>
+
+  </div>
+
+</convl-page>

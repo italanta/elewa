@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef} from '@angular/core';
 
 import { SubSink } from 'subsink';
 import { combineLatest, map, Observable, take } from 'rxjs';
@@ -9,8 +9,10 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
 import { StoryModuleTypes } from '@app/model/convs-mgr/stories/blocks/structural';
 
-import { ActiveStoryStore, StoriesStore } from '@app/state/convs-mgr/stories';
 import { BotVersions } from '@app/model/convs-mgr/bots';
+import { ActiveStoryStore, StoriesStore } from '@app/state/convs-mgr/stories';
+
+import { BuilderNavBarElementsProvider } from '../../providers/builder-nav-bar-els.provider';
 
 @Component({
   selector: 'convl-builder-nav-bar',
@@ -23,9 +25,13 @@ export class StoryBuilderNavBarComponent implements OnInit, OnDestroy
 
   breadcrumbs$: Observable<iTalBreadcrumb[]>;
 
+  template: TemplateRef<any>;
+  templateContext: any;
+
   constructor(
     private _story$$: ActiveStoryStore,
     private _stories$$: StoriesStore,
+    private _navEls: BuilderNavBarElementsProvider,
     private _logger: Logger) 
   { }
 
@@ -37,6 +43,16 @@ export class StoryBuilderNavBarComponent implements OnInit, OnDestroy
       = combineLatest([this._story$$.get(), allStoriesOnLoad$])
             .pipe(map(([activeStory, stories]) => 
               this._initStoryBreadcrumbs(activeStory, stories)));
+  
+    
+    // Dyn load components
+    this._sbS.sink =
+      this._navEls.getBuilderNavElements$()
+          .subscribe((navbar) => {
+            console.log(`Set navbar bridge to `, navbar?.context);
+            this.template = navbar?.template;
+            this.templateContext = navbar?.context;
+          });
   }
 
   /**
