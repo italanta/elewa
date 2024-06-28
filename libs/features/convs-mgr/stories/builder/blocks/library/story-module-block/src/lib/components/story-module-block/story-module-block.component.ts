@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -42,6 +42,9 @@ export class StoryModuleBlockComponent implements OnInit
   @Input() block: StoryBlock;
   @Input() storyModuleBlock: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+
+  // Case - Create modal fails. Cleanup self
+  @Output() undoCreate: EventEmitter<boolean> = new EventEmitter();
 
   questionOptions: FormGroup;
 
@@ -87,14 +90,18 @@ export class StoryModuleBlockComponent implements OnInit
             }
             return res;
           }
-        ),
+        ), 
         // WARN! We always immediately persist the block here.
         //    UX research has shown that a common pattern is to immediately navigate to the child upon creation.
         //    This is therefore an exception that slightly breaks the save architecture
         switchMap((res) => res ? this._blocks$$.add(this.block, this.block.id) : of(false)))
     .subscribe((bl) =>
-    {  if(bl)
-        this.options.push(this._loadOutput((bl as StoryModuleBlock).outputs[0])) });
+    {   
+      if(bl)
+        this.options.push(this._loadOutput((bl as StoryModuleBlock).outputs[0])) 
+      else
+        this.undoCreate.emit(true);
+    });
   }
 
   /**

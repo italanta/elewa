@@ -142,7 +142,10 @@
         </div>
 
         <div *ngSwitchCase="structuralBlockType">
-            <app-story-module-block [id]="id" [block]="block" [storyModuleBlock]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-story-module-block>
+            <app-story-module-block 
+                [id]="id" [block]="block" [storyModuleBlock]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"
+                (undoCreate)="deleteMe()">
+            </app-story-module-block>
         </div>
     </div>
 </mat-card>
