@@ -16,25 +16,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
 {
   private _sbS = new SubSink();
 
-   app: MicroAppStatus = {
-    appId: '12345',
-    endUserId: 'user789',
-    config: {
-      type: MicroAppTypes.Assessment,
-      callBackUrl: 'https://example.com/callback',
-      orgId: 'org001',
-      channelId: 'channel123',
-      pos: {
-        storyId: '1',
-        blockId: '2'
-      }
-    },
-    status: MicroAppStatusTypes.Started,
-    startedOn: Date.now(),
-    finishedOn: Date.now(),
-    microAppSection: MicroAppSectionTypes.Main
-  };
-  // app: MicroAppStatus;
+  app: MicroAppStatus;
 
   //The microApp being launched
   appType: MicroAppTypes;
@@ -73,7 +55,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
    * Redirects the user to the main section route
   */
   handleStart() {
-    // const appStarted = MicroAppStatusTypes.Started;
+    const appStarted = MicroAppStatusTypes.Started;
     const mainSection = MicroAppSectionTypes.Main;
   
     this._microApp$$.next({
@@ -85,7 +67,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
     } as unknown as MicroAppStatusTypes);
   
     this._microAppStatusServ.setMicroAppSections(mainSection);
-    // this._microAppStatusServ.setMicroAppStatus(appStarted);
+    this._microAppStatusServ.setMicroAppStatus(appStarted);
   
     this._router.navigate(['main']);
   }
