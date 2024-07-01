@@ -5,6 +5,7 @@ export function CREATE_EMPTY_ASSESSMENT_FORM(_fb: FormBuilder) {
   return _fb.group({
     // main part of form
     title: [''],
+    instructions: [[]],
     description: [''],
 
     questionsOrder: [[]],
@@ -12,7 +13,13 @@ export function CREATE_EMPTY_ASSESSMENT_FORM(_fb: FormBuilder) {
     // configs
     configs: _fb.group({
       feedback: [''],
-      userAttempts: ['']
+      userAttempts: [''],
+      retryType: [''],
+      questionsDisplay: [''],
+      scoreAttempts: _fb.group({
+        minScore: [''],
+        userAttempts: [''],
+      }),
     }),
 
     // quizzes
@@ -23,11 +30,19 @@ export function CREATE_EMPTY_ASSESSMENT_FORM(_fb: FormBuilder) {
 export function DEFAULT_ASSESSMENT(): Assessment {
   return {
     title: '',
+    instructions: [],
     orgId: '',
     description: '',
     configs: {
       feedback: 1,
-      userAttempts: 1
+      userAttempts: 1,
+      retryType: 1,
+      canRetry: false,
+      questionsDisplay: 1,
+      scoreAttempts: {
+        minScore: 1,
+        userAttempts: 1
+      }
     },
   }
 }

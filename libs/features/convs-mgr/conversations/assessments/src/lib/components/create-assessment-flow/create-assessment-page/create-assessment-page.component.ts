@@ -150,7 +150,10 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
   {
     this.assessment['configs'] = {
       feedback: this.assessmentFormModel.assessmentsFormGroup.value.configs.feedback,
-      userAttempts: this.assessmentFormModel.assessmentsFormGroup.value.configs.userAttempts
+      canRetry: this.assessmentFormModel.assessmentsFormGroup.value.configs.canRetry,
+      userAttempts: this.assessmentFormModel.assessmentsFormGroup.value.configs.userAttempts,
+      retryType: this.assessmentFormModel.assessmentsFormGroup.value.configs.retryType,
+      questionsDisplay: this.assessmentFormModel.assessmentsFormGroup.value.configs.questionsDisplay
     };
 
     let questionsOrder = this.assessmentFormModel.assessmentsFormGroup.value.questionsOrder;
