@@ -8,6 +8,7 @@ import { MicroAppManagementService, MicroAppStatusService, MicroAppStore } from 
 import { Router } from '@angular/router';
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
+import { MicroAppAssessmentService } from '../../services/handle-assessment.service';
 
 @Component({
   selector: 'app-micro-app-start-page',
@@ -34,6 +35,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
               private _microAppService: MicroAppManagementService,
               private _microAppStatusServ: MicroAppStatusService,
               private _assessmentService$: AssessmentService,
+              private _microAppAssessServ: MicroAppAssessmentService,
               private _router: Router 
   )
                
@@ -72,7 +74,8 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
           channelId: this.app.config.channelId,
           pos: this.app.config.pos
         }
-        this.assessment = appAssessment
+        this.assessment = appAssessment;
+        this._microAppAssessServ.setAssessment(appAssessment)
       }
     })
   }
@@ -91,7 +94,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
       endUserId: this.app.endUserId,
       config: this.app.config,
       startedOn: Date.now(),
-      finishedOn: Date.now(),
+      finishedOn: 0,
     } as unknown as MicroAppStatusTypes);
   
     this._microAppStatusServ.setMicroAppSections(mainSection);

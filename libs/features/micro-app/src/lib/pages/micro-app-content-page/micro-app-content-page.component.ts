@@ -1,12 +1,14 @@
 import { take } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
+import { MicroAppSectionTypes, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
 
 import {  MicroAppStore } from '@app/state/convs-mgr/micro-app';
+import { Assessment, QuestionDisplayed } from '@app/model/convs-mgr/conversations/assessments';
+import { MicroAppAssessmentService } from '../../services/handle-assessment.service';
 
 
 @Component({
@@ -17,34 +19,25 @@ import {  MicroAppStore } from '@app/state/convs-mgr/micro-app';
 export class MicroAppContentPageComponent implements OnInit 
 {
   /** Object with comprehensive information on the microapp in progress */  
-  status: MicroAppStatus;
   app: MicroAppStatus;
+  /** An assessment updated by the start page */
+  assessment: Assessment;
 
   private _sbS = new SubSink();
 
   constructor( private _microApp$$: MicroAppStore,
-                private _router: Router 
+               private _microAppAssessServ: MicroAppAssessmentService,
+               private _router: Router
   ){}
 
   ngOnInit(): void {
-    // this.getAppStatus();
+    // TODO: Use app status to resume the user's position if it's something
+    // other than launched.
 
-     // TODO: Use app status to resume the user's position if it's something
-      // other than launched.
-    //  STEP 1. Get app ID
-    const app$ = this._microApp$$.get();
-
-    this._sbS.sink = 
-      app$.pipe(take(1)).subscribe(a => 
-      {
-         this.app = a;
-        // this.isInitializing = false;
-
-        if (a.status == MicroAppStatusTypes.Started){
-          this._router.navigate(['main']);
-        }
-
-      });
+    this.getAppStatus();
+    this._sbS.sink = this._microAppAssessServ.getAssessment().subscribe((assess) => {
+      if (assess) this.assessment = assess;
+     })
   }
   
   /**
@@ -52,12 +45,14 @@ export class MicroAppContentPageComponent implements OnInit
    *  @returns A comprehensive object defining the app state and details 
    */
   getAppStatus(){
-    const storedStatus = localStorage.getItem('status');
+    console.log('assessment started')
+    const app$ = this._microApp$$.get();
 
-    if(storedStatus) {
-      this.status = JSON.parse(storedStatus) as MicroAppStatus;
-    }else {
-      console.log("No status set");
-    }
+     this._sbS.sink = 
+      app$.pipe(take(1)).subscribe(a => 
+       {
+        this.app = a;
+        // TODO: If app state is already in completed here, what should we do?
+       });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
@@ -22,7 +22,7 @@ export class ContentSectionComponent implements OnInit
   pageView: Observable<PageViewMode>;
   pageViewMode = PageViewMode;
 
-  assessmentQuestions = []
+  @Input() assessmentQuestions = []
   /** Form declarations */
   assessmentFormArray: FormArray;
   assessmentForm: FormGroup;
