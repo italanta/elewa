@@ -1,10 +1,10 @@
 /* eslint-disable */
 export default {
   displayName: 'features-convs-mgr-stories-flow-builder-app',
-  preset: '../../../../../../jest.preset.js',
+  preset: '../../../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory:
-    '../../../../../../coverage/libs/features/convs-mgr/stories/flow-builder/app',
+    '../../../../../../../coverage/libs/features/convs-mgr/stories/builder/flow-builder/app',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
