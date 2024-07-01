@@ -1,0 +1,38 @@
+<ng-container *ngIf="passCriteria$ | async as passScores">
+  <ng-container *ngIf="passScores === 'passed' ">
+    <div class="content-wrapper">
+      <div class="img-text">
+        <div class="image">
+          <img  src="/assets/icons/happy_news.svg"/>
+        </div>
+    
+        <div class="pass-text">
+          <p>{{"ASSESSMENT-PAGE.GRADE-DISPLAY.PASS-MESSAGE.PASS-TEXT" | transloco}} </p>
+        </div>
+      </div>
+  
+      <div class="marks-text">
+        <span>{{"ASSESSMENT-PAGE.GRADE-DISPLAY.PASS-MESSAGE.GRADE-TEXT" | transloco}}: </span>
+        <span>{{"ASSESSMENT-PAGE.GRADE-DISPLAY.PASS-MESSAGE.SCORE-TEXT" | transloco}}: </span>
+      </div>
+    </div>
+  </ng-container>
+  
+  <ng-container *ngIf="passScores === 'failed'">
+    <div class="fail-content-wrapper">
+      <div class="img-text">
+        <div class="image">
+          <img  src="/assets/icons/assessment-failed-feedback-img.svg"/>
+        </div>
+    
+        <div class="pass-text">
+          <p>{{"ASSESSMENT-PAGE.GRADE-DISPLAY.FAIL-MESSAGE.FAIL-TEXT" | transloco}} </p>
+        </div>
+      </div>
+  
+      <div class="marks-text">
+        <span>{{"ASSESSMENT-PAGE.GRADE-DISPLAY.PASS-MESSAGE.GRADE-TEXT" | transloco}}: </span>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

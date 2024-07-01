@@ -38,7 +38,10 @@ export interface CLMPermissions extends IObject
   AnalyticsSettings: {
     CanViewAnalytics: CLMFeaturePermission,
     CanManageAnalytics: CLMFeaturePermission
-  }
+  },
+  MicroAppSettings: {
+    CanAccessMicroApp: CLMFeaturePermission
+  },
 }
 
 /** Permission setting on a single feature/claim/.. */

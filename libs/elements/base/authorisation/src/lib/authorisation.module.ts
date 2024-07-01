@@ -9,6 +9,7 @@ import { CanAccessAssessmentsGuard } from './route-guards/assessments/can-view-a
 import { CanAccessAnalyticsGuard } from './route-guards/analytics/can-view-analytics.guard';
 import { CanAccessChatsGuard } from './route-guards/chats/can-view-chats.guard';
 import { CanAccessLearnersGuard } from './route-guards/learners/can-view-learners.guard';
+import { CanAccessMicroAppGuard } from './route-guards/micro-apps/can-access-microapp.guard';
 
 /**
  * Authorisation module. Contains Auth Guards & Access Control Directives
@@ -34,7 +35,8 @@ export class AuthorisationModule
         CanAccessAssessmentsGuard,
         CanAccessAnalyticsGuard,
         CanAccessChatsGuard,
-        CanAccessLearnersGuard
+        CanAccessLearnersGuard,
+        CanAccessMicroAppGuard
       ]
     };
   }

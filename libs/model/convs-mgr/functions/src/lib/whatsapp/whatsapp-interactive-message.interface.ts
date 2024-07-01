@@ -15,6 +15,20 @@ interface InteractiveInfo {
   body:{ text: string },
 }
 
+export interface InteractiveURLMessage extends InteractiveInfo {
+  type: 'cta_url',
+  header: { type: WhatsAppMessageType.TEXT, text: string },
+  footer:{ text: string },
+  action: {
+    name: 'cta_url',
+    parameters: {
+      display_text: string,
+      url: string;
+
+    }
+  }
+}
+
 export interface InteractiveListMessage extends InteractiveInfo {
   type: 'list',
   header: { type: WhatsAppMessageType.TEXT, text: string },

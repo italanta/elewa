@@ -2,7 +2,7 @@ import { OutgoingMessageParser } from '@app/functions/bot-engine';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { FileMessageBlock, ListMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { FileMessageBlock, InteractiveURLButtonBlock, ListMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { Message, MessageTemplateConfig, TemplateMessageParams } from '@app/model/convs-mgr/conversations/messages';
 import { MessengerAttachmentType, MessengerMessagingTypes, MessengerOutgoingAttachmentMessage, MessengerOutgoingButtonMessage, MessengerOutgoingListMessage, MessengerOutgoingListMessageElement, MessengerOutgoingTextMessage, MessengerTemplateType } from '@app/model/convs-mgr/functions';
 
@@ -131,6 +131,23 @@ export class MessengerOutgoingMessageParser extends OutgoingMessageParser
   {
     throw new Error('Method not implemented.');
   }
+
+  getInteractiveUrlButtonParserOut(buttonBlockBlock: InteractiveURLButtonBlock , recepientId: string): any
+  {
+    // Create the text payload which will be sent to api
+    const generatedMessage: MessengerOutgoingTextMessage = {
+      recipient: {
+        id: recepientId,
+      },
+      messaging_type: MessengerMessagingTypes.RESPONSE,
+      message: {
+        text: buttonBlockBlock.message || "",
+      }
+    };
+
+    return generatedMessage;
+  }
+
 }
 
 function __getMediaBlockParserOut(mediaBlock: FileMessageBlock, recepientId: string, type: MessengerAttachmentType)

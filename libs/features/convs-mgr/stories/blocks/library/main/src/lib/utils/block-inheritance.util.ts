@@ -30,6 +30,7 @@ import { _CreateEventBlockForm }            from "./model/event-block-form.model
 import { _CreateAssessmentBrickForm }       from "./model/assessment-brick-form.model";
 import { _CreateConditionalBlockForm }      from "./model/conditional-block.model";
 import { _CreateCmi5BlockForm }             from "./model/cmi5-block-form.model";
+import { _CreateAssessmentBlockForm } from "./model/assessment-microapp-form.model";
 
 /**
  * This class controls the inheritance behaviour of blocks, adding polymorphic behaviour based on block type.
@@ -128,6 +129,9 @@ function _renderBlockByType(block: StoryBlock, type: StoryBlockTypes, _fb: FormB
 
     case StoryBlockTypes.CMI5Block:
       return _CreateCmi5BlockForm(_fb, block);
+      
+    case StoryBlockTypes.AssessmentMicroAppBlock:
+      return _CreateAssessmentBlockForm(_fb, block);  
   }
   // Default return null
   return null;
