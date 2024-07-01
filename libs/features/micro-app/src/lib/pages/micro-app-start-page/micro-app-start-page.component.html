@@ -8,7 +8,7 @@
 </div> -->
 <app-clm-micro-app-page >
   <div class="container">
-    <div class="main-content">
+    <div class="main-content" *ngIf="assessment">
       <!-- Image Logo -->
       <div class="img-section">
         <img src="/assets/icons/content-image.png"/>
@@ -19,16 +19,15 @@
         <div class="p-text">
           <div class="intro">
             <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.INTRODUCTION-TAG" | transloco}} 
-              <span class="teal-text"> Financial Literacy!</span>
+              <span class="teal-text">{{assessment.title}} </span>
             </p>
           </div>
           <div class="intro">
             <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.DESCRIPTION-TEXT" | transloco}} 
-              <span class="teal-text"> Personal Finance, budgeting and investment basics.</span>
+              <span class="teal-text"> {{assessment.description}}</span>
             </p>
           </div>
-            <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.CLOSING-TEXT" | transloco}} finances effectively
-            </p>
+            <p class="main-text">{{assessment.instructions}}</p>
         </div>
     
         <div class="btn-section">

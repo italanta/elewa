@@ -6,6 +6,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MicroAppTypes, MicroApp, MicroAppStatusTypes, MicroAppStatus, MicroAppSectionTypes } from '@app/model/convs-mgr/micro-app/base';
 import { MicroAppManagementService, MicroAppStatusService, MicroAppStore } from '@app/state/convs-mgr/micro-app';
 import { Router } from '@angular/router';
+import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
+import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
 @Component({
   selector: 'app-micro-app-start-page',
@@ -16,25 +18,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
 {
   private _sbS = new SubSink();
 
-   app: MicroAppStatus = {
-    appId: '12345',
-    endUserId: 'user789',
-    config: {
-      type: MicroAppTypes.Assessment,
-      callBackUrl: 'https://example.com/callback',
-      orgId: 'org001',
-      channelId: 'channel123',
-      pos: {
-        storyId: '1',
-        blockId: '2'
-      }
-    },
-    status: MicroAppStatusTypes.Started,
-    startedOn: Date.now(),
-    finishedOn: Date.now(),
-    microAppSection: MicroAppSectionTypes.Main
-  };
-  // app: MicroAppStatus;
+  app: MicroAppStatus;
 
   //The microApp being launched
   appType: MicroAppTypes;
@@ -42,14 +26,17 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
   endUserId: string;
   config: MicroApp;
 
+  assessment: Assessment;
+
   isInitializing = true;
 
   constructor(private _microApp$$: MicroAppStore,
               private _microAppService: MicroAppManagementService,
               private _microAppStatusServ: MicroAppStatusService,
+              private _assessmentService$: AssessmentService,
               private _router: Router 
   )
-              
+               
   {}
 
   ngOnInit()
@@ -65,6 +52,29 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
 
         // TODO: If app state is already in completed here, what should we do?
        });
+     this.getAppAssessment();   
+  }
+
+  /** Function to get the assessment to display 
+   *  Fetches an assessment and checks if the block id matches the micro-app id
+   *  Returns an assessment to be loaded
+   */
+
+  getAppAssessment(){
+      //Question: Where is block data saved? we can get the assessment from the block data instead of fetching all assessments
+    this._sbS.sink = this._assessmentService$.getAssessments$().subscribe((assessments) => {
+      const publishedAssessments = assessments.filter((assessment) => assessment.isPublished);
+      const renderedAssessment = publishedAssessments.find((appAssess)=> appAssess.id === this.app.id)
+
+      if(renderedAssessment){
+        const appAssessment: Assessment = {
+          ...renderedAssessment, 
+          channelId: this.app.config.channelId,
+          pos: this.app.config.pos
+        }
+        this.assessment = appAssessment
+      }
+    })
   }
 
   /**
@@ -73,7 +83,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
    * Redirects the user to the main section route
   */
   handleStart() {
-    // const appStarted = MicroAppStatusTypes.Started;
+    const appStarted = MicroAppStatusTypes.Started;
     const mainSection = MicroAppSectionTypes.Main;
   
     this._microApp$$.next({
@@ -85,7 +95,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
     } as unknown as MicroAppStatusTypes);
   
     this._microAppStatusServ.setMicroAppSections(mainSection);
-    // this._microAppStatusServ.setMicroAppStatus(appStarted);
+    this._microAppStatusServ.setMicroAppStatus(appStarted);
   
     this._router.navigate(['main']);
   }
