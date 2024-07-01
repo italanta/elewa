@@ -19,12 +19,15 @@ export interface AssessmentMetrics {
     completedRes?: number
 }
 
+/** Additional settings of an assessment, set up on the assessment settings page */
 export interface AssessmentConfiguration{
     feedback: FeedbackType,
     userAttempts?: number,
     /** Is a user allowed to retake an assessment */
     canRetry: boolean
+    /** Is the retry based on attempts only, or on scores as well */
     retryType?: RetryType,
+    /** On an assessment page, how many questions should a learner see? */
     questionsDisplay: QuestionDisplayed,
     /** User attempts based on scores */
     scoreAttempts?: ScoreAttempType,
@@ -61,6 +64,7 @@ export enum QuestionDisplayed {
     Multiple = 2
 }
 
+/** Congiguration for assessment retrial when baseed on score */
 export interface ScoreAttempType {
     minScore: number, 
     userAttempts: number,

@@ -15,6 +15,7 @@ export function CREATE_EMPTY_ASSESSMENT_FORM(_fb: FormBuilder) {
     configs: _fb.group({
       feedback: [''],
       userAttempts: [''],
+      canRetry: [''],
       retryType: [''],
       questionsDisplay: [''],
       scoreAttempts: _fb.group({
@@ -23,6 +24,14 @@ export function CREATE_EMPTY_ASSESSMENT_FORM(_fb: FormBuilder) {
       }),
     }),
 
+    /** Micro-app relevant configs */
+    type: MicroAppTypes.Assessment,
+    callBackUrl: [''], 
+    channelId: [''], 
+    pos: _fb.group({ 
+      storyId: [''],
+      blockId: ['']
+    }),
     // quizzes
     questions: _fb.array([])
   })
