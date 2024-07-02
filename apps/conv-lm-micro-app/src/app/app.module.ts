@@ -28,6 +28,8 @@ import { AppRoutingModule } from './app.routing.module';
 
 import { environment } from '../environments/environment';
 import { provideTransloco } from '@jsverse/transloco';
+import { ActiveAssessmentStore, AssessmentQuestionStore, AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
+import { ActiveOrgStore, OrgStore } from '@app/private/state/organisation/main';
 
 
 @NgModule({
@@ -66,7 +68,13 @@ import { provideTransloco } from '@jsverse/transloco';
            prodMode: environment.production
        },
        loader: TranslocoHttpLoader
-   })] ,
+   }),
+   AssessmentsStore,
+   ActiveOrgStore,
+   OrgStore,
+   ActiveAssessmentStore,
+   AssessmentQuestionStore,
+  ] ,
   bootstrap: [AppComponent],
 })
 export class AppModule {}
