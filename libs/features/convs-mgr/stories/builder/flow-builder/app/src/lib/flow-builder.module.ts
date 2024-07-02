@@ -16,6 +16,8 @@ import { BlocksLibraryModule } from '@app/features/convs-mgr/stories/builder/blo
 import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/builder/blocks/library/anchor-block';
 import { BuilderNavbarModule } from '@app/features/convs-mgr/stories/builder/nav';
 
+import { FlowBuilderStateModule } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
+
 import { FlowBuilderPageComponent } from './pages/story-editor/flow-builder.page';
 import { FlowBuilderRouterModule } from './flow-builder.router.module';
 
@@ -31,6 +33,7 @@ import { FlowBuilderRouterModule } from './flow-builder.router.module';
     ToastModule,
 
     BuilderNavbarModule,
+    FlowBuilderStateModule,
 
     FlowBuilderRouterModule
   ],

@@ -503,10 +503,10 @@
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
       "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
-      "features/convs-mgr/stories/builder/flow-builder/state": [
+      "@app/features/convs-mgr/stories/builder/flow-builder/state": [
         "libs/features/convs-mgr/stories/builder/flow-builder/state/src/index.ts"
       ],
-      "model/convs-mgr/stories/flows": [
+      "@app/model/convs-mgr/stories/flows": [
         "libs/model/convs-mgr/stories/flows/src/index.ts"
       ]
     }

@@ -1,1 +1,3 @@
-export * from './lib/features-convs-mgr-stories-builder-flow-builder-state/features-convs-mgr-stories-builder-flow-builder-state.component';
+export * from './lib/model/flow-builder-state.model';
+export * from './lib/state/flow-builder-state.provider';
+export * from './flow-builder.module';
