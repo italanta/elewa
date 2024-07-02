@@ -34,10 +34,16 @@ export enum FlowPageLayoutElementTypesV31
   */
   TEXT = '__text__',
 
+  /** Image */
   IMAGE= 'Image',
+
+  /** Anchor link */
+  LINK = 'EmbeddedLink',
 
   //
   // Input elements
+  /** Opt-in window */
+  OPT_IN = 'OptIn',
 
   /** Text input field */
   TEXT_INPUT = 'TextInput',

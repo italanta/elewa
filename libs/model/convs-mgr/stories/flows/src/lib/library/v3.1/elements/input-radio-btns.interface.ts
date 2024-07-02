@@ -7,7 +7,7 @@ import { FlowInlineOptionV31 } from "./flow-option.interface";
  * 
  * @see https://developers.facebook.com/docs/whatsapp/flows/reference/flowjson/components#radio
  */
-export interface FlowInlineCheckboxInputV31 extends FlowPageLayoutElementV31
+export interface FlowInlineRadioButtonsInputV31 extends FlowPageLayoutElementV31
 {
   /** The input variable name */
   name: string;
