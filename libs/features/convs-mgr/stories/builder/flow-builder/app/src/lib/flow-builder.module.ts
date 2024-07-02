@@ -19,8 +19,11 @@ import { BuilderNavbarModule } from '@app/features/convs-mgr/stories/builder/nav
 import { FlowBuilderStateModule } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 
 import { FlowBuilderPageComponent } from './pages/story-editor/flow-builder.page';
-import { FlowBuilderRouterModule } from './flow-builder.router.module';
+import { FlowEditorComponent } from './components/flow-editor/flow-editor.component';
 
+import { FlowBuilderRouterModule } from './flow-builder.router.module';
+import { FlowLibraryComponent } from './components/flow-library/flow-library.component';
+import { FlowPreviewComponent } from './components/flow-preview/flow-preview.component';
 
 @NgModule({
   imports: [
@@ -39,6 +42,10 @@ import { FlowBuilderRouterModule } from './flow-builder.router.module';
   ],
 
   declarations: [
+    FlowEditorComponent,
+    FlowLibraryComponent,
+    FlowPreviewComponent,
+
     FlowBuilderPageComponent
   ],
 

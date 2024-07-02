@@ -1,182 +1,34 @@
 .page-inner {
-  overflow-y: hidden;
-  display: flex;
+  margin-top: 1.5px;
 
-  height: -moz-calc(100% - 40px);
-  height: -webkit-calc(100% - 40px);
-  height: calc(100% - 40px);
+  height: -moz-calc(100% - 41.5px);
+  height: -webkit-calc(100% - 41.5px);
+  height: calc(100% - 41.5px);
   width: 100%;
-}
 
-.error-toast{
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 6.3em;
-  z-index: 2000;
-  right: 1em;
-}
-
-.nav {
-  border-right: solid black 1px;
-  background-color: #F6F6F6;
-  width: 20%;
-  height: 100%;
-  top: 0;
-  transition: 0.2s ease;
-
-  &.open {
-    width: 20%;
-  }
-
-  &.close {
-    width: 0%;
-  }
-}
-
-.top-section-edit {
-  display: flex;
-  justify-content: space-between;
-  padding-left: 0.5rem;
-}
-
-
-.goToBlocks {
-  cursor: pointer;
-  border: none;
-  background-image: url('/assets/icons/blocks-icon.svg');
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 1.5rem;
-  background-color: transparent;
-}
-
-.story-index {
-  overflow-y: hidden;
-  width: 80%;
-  position: relative;
 
 }
 
-
-.subbar-btn {
-  background-color: #00112B !important;
-  border-radius: 2rem;
-  font-weight: 400;
-  color: white !important;
-  min-width: 100px;
-  width: 7rem;
-  height: 3rem;
-
-}
-
-
-.toggle-btn { 
+#preview-toggle {
   position: fixed;
-  background-color: white;
-  border: none;
-  transition: transform 0.3s ease;
-  cursor: pointer;
-  color: black;
-  margin-left: -1rem;
-  padding: 0.2rem 0.3rem 0.2rem 0.6rem;
+  top: 100px;
+  right: 0;  
 
-  .tooltip {
-    font-size: 1.2rem;
-  }
+  border: 1px solid #eee;
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 100;
+
+  border-radius: 10px 0 0 10px;
+  padding: 20px 10px;
+
+  z-index: 20;
 }
-
-.zoom-btn {
-  background-color: white;
-  color: black;
-  width: 3.2rem;
-  height: 3.2rem;
-}
-
-.zoom-btn:disabled {
-  color: grey;
-}
-
-.zoom-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-
-  position: fixed;
-  z-index: 2147483003;
-  padding: 0 !important;
-  margin: 0 !important;
-  border: none;
-  bottom: 150px;
-  right: 20px;
-  max-width: 48px;
-  width: 48px;
-  max-height: 48px;
-  height: 48px;
-  cursor: pointer;
-}
-
-.wrapper-edit {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  width: auto;
-  position: relative;
-  padding: 1rem 0.5rem;
-  min-height: calc(100vh - 4rem);
-  padding-top: 2rem;
-
-  .btn-wrapper {
-    padding: 0.2rem;
+  #preview-toggle:hover {
     cursor: pointer;
-    right: 5px;
-    top: 5px;
-
-    .close-btn {
-      font-size: 1.2rem;
-      color: black;
-    }
-  }
-}
-
-::ng-deep .mat-mini-fab .mat-button-wrapper {
-  bottom: 0px;
-}
-
-// 30/10/23 - Fix bug where sub-bar is being pushed out of view by story editor load
-convl-story-editor-frame {
-  overflow: hidden;
-}
-
-// Error message handling
-
-.error-count{
-  color: #707070;
-  background-color: #F6F6F6;
-  padding-right: 17em;
-  /* Reg 14 */
-  font-family: Roboto;
-  font-size: 0.875rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-
-  padding: 3px;
-
-}
-
-  .error-count-length{
-    color: #E25C5C;
+    background-color: #ddd;
   }
 
-  .save-msg {
-    margin: 0 5px;
-  }
-
-    a.save-anyway {
-      color: lightblue;
-      text-decoration: underline;
-    }
-      a.save-anyway:hover {
-        cursor: pointer;
-      }
+app-flow-preview {
+  min-width: 400px;
+}

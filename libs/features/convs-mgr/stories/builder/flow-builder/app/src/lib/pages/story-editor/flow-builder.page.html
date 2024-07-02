@@ -1,15 +1,36 @@
+<!-- Navbar elements -->
+<ng-template #navbar>
+  Test <button mat-raised-button>Test 2</button>
+</ng-template>
+
+test
+
+<!-- Preview Sidenav toggle -->
+<button type="button" id="preview-toggle" (click)="preview.toggle()">
+  <span *ngIf="preview.opened">&gt;</span>
+  <span *ngIf="!preview.opened">&lt;</span>
+</button>
+
 <!-- Main body page -->
 <div class="page-inner" fxFlexFill>
 
   <!-- Main story body (top-menu bar + story editor)-->
-  <div class="story-index" fxFlex="80" fxLayout="column" fxLayoutAlign="start" fxFlex>
+  <mat-sidenav-container class="story-index" fxFlex="80" fxLayout="column" fxLayoutAlign="start" fxFlex>
 
+    <!-- Left sidenav - Editor window -->
+    <mat-sidenav position="start" mode="side" [opened]="true"><app-flow-library></app-flow-library></mat-sidenav>
+
+    <!-- Right sidenav. Can be opened -->
+    <mat-sidenav position="end" mode="over" #preview>
+      <app-flow-preview></app-flow-preview>
+    </mat-sidenav>
+
+    <!-- Main body content -->
     
-      
-  </div>
+    <mat-sidenav-content>
+      <app-flow-editor></app-flow-editor>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
 </div>
-
-
-<ng-template #navbar>
-  TEST
-</ng-template>

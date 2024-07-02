@@ -15,6 +15,8 @@ export class FlowBuilderPageComponent implements OnInit, AfterViewInit, OnDestro
 
   @ViewChild('navbar') navbar: TemplateRef<Element>;
 
+  showPreview = true;
+
   constructor(private _navbar: BuilderNavBarElementsProvider) 
   { }
 
