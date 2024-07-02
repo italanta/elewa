@@ -1,13 +1,12 @@
 import { take } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
-import { MicroAppSectionTypes, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
+import { MicroAppAssessmentQuestion, MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
 
 import {  MicroAppStore } from '@app/state/convs-mgr/micro-app';
-import { Assessment, QuestionDisplayed } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 import { MicroAppAssessmentService } from '../../services/handle-assessment.service';
 
 
@@ -22,12 +21,12 @@ export class MicroAppContentPageComponent implements OnInit
   app: MicroAppStatus;
   /** An assessment updated by the start page */
   assessment: Assessment;
+  assessmentQues: MicroAppAssessmentQuestion[]
 
   private _sbS = new SubSink();
 
   constructor( private _microApp$$: MicroAppStore,
                private _microAppAssessServ: MicroAppAssessmentService,
-               private _router: Router
   ){}
 
   ngOnInit(): void {
@@ -37,6 +36,7 @@ export class MicroAppContentPageComponent implements OnInit
     this.getAppStatus();
     this._sbS.sink = this._microAppAssessServ.getAssessment().subscribe((assess) => {
       if (assess) this.assessment = assess;
+      console.log(this.assessment)
      })
   }
   

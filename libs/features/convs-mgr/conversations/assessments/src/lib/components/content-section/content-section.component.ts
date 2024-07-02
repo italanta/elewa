@@ -1,12 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+
+import { Assessment, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+import { AssessmentQuestionService } from '@app/state/convs-mgr/conversations/assessments';
+import { MicroAppAssessmentQuestion } from '@app/model/convs-mgr/micro-app/base';
 
 import { __CalculateProgress } from '../../utils/calculate-progress.util';
 import { PageViewMode } from '../../model/view-mode.enum';
-
 import { MicroAppAssessmentQuestionFormService } from '../../services/microapp-assessment-questions-form.service';
 import { AppViewService } from '../../services/content-view-mode.service';
 
@@ -22,7 +24,10 @@ export class ContentSectionComponent implements OnInit
   pageView: Observable<PageViewMode>;
   pageViewMode = PageViewMode;
 
-  @Input() assessmentQuestions = []
+  @Input() assessmentQuestions: MicroAppAssessmentQuestion[];
+  @Input() assessment: Assessment 
+
+  questions$: Observable<AssessmentQuestion[]>;
   /** Form declarations */
   assessmentFormArray: FormArray;
   assessmentForm: FormGroup;
@@ -36,19 +41,47 @@ export class ContentSectionComponent implements OnInit
   constructor ( private _assessFormService: MicroAppAssessmentQuestionFormService,
                 private _pageViewservice: AppViewService,
                 private _fb: FormBuilder,
+                private _assessmentQuestion: AssessmentQuestionService
   ){}
 
   ngOnInit() {
     this.pageView = this._pageViewservice.getPageViewMode();
+
     this.buildForms();
     this.getProgress();
   }
 
+  getAssessmentQuestions() {
+    if (this.assessment) {
+      this.questions$ = this._assessmentQuestion.getQuestionsByAssessmentId$(this.assessment.id);
+    } else {
+      this.questions$ = of([]); // Return an empty observable
+    }
+  }
+  
   /**Building assessment forms */
-  buildForms(){
-    this.assessmentFormArray = this._assessFormService.createMicroAppAssessment(this.assessmentQuestions);
-    this.assessmentForm = this._fb.group({
-      assessmentFormArray: this.assessmentFormArray
+  buildForms(): void {
+    this.questions$.subscribe(questions => {
+      const microAppQuestions: MicroAppAssessmentQuestion[] = questions.map(question => ({
+        id: question.id,
+        message: question.message,
+        questionType: question.questionType,
+        marks: question.marks,
+        feedback: question.feedback,
+        options: question.options?.map(option => ({
+          id: option.id,
+          text: option.text,
+          accuracy: option.accuracy,
+          feedback: option.feedback
+      })),
+        prevQuestionId: question.prevQuestionId,
+        nextQuestionId: question.nextQuestionId
+      }) as MicroAppAssessmentQuestion);
+
+      this.assessmentFormArray = this._assessFormService.createMicroAppAssessment(microAppQuestions);
+      this.assessmentForm = this._fb.group({
+        assessmentFormArray: this.assessmentFormArray
+      });
     });
   }
 

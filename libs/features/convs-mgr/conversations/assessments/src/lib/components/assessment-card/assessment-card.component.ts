@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-
-import { AssessmentQuestion } from '../../model/assessment-question.interface';
+import { MicroAppAssessmentQuestion } from '@app/model/convs-mgr/micro-app/base';
 
 @Component({
   selector: 'app-assessment-card',
@@ -10,7 +9,9 @@ import { AssessmentQuestion } from '../../model/assessment-question.interface';
 })
 export class AssessmentCardComponent implements OnInit 
 {
-  @Input() assessmentQuestions: AssessmentQuestion[];
+  /** List of questions passed down by content page */
+  @Input() assessmentQuestions: MicroAppAssessmentQuestion[];
+  /** Form array when view mode is single question */
   @Input() assessmentFormArray: FormArray;
   @Input() assessmentForm: FormGroup;
 

@@ -21,7 +21,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
 
   app: MicroAppStatus;
 
-  //The microApp being launched
+  /** The microApp being launched */
   appType: MicroAppTypes;
   appId: string;
   endUserId: string;
@@ -37,9 +37,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
               private _assessmentService$: AssessmentService,
               private _microAppAssessServ: MicroAppAssessmentService,
               private _router: Router 
-  )
-               
-  {}
+  ){}
 
   ngOnInit()
   {
@@ -62,7 +60,8 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
    *  Returns an assessment to be loaded
    */
 
-  getAppAssessment(){
+  getAppAssessment()
+  {
       //Question: Where is block data saved? we can get the assessment from the block data instead of fetching all assessments
     this._sbS.sink = this._assessmentService$.getAssessments$().subscribe((assessments) => {
       const publishedAssessments = assessments.filter((assessment) => assessment.isPublished);
@@ -85,7 +84,8 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
    * Sets the microApp status to started and the section types to main section
    * Redirects the user to the main section route
   */
-  handleStart() {
+  handleStart() 
+  {
     const appStarted = MicroAppStatusTypes.Started;
     const mainSection = MicroAppSectionTypes.Main;
   
