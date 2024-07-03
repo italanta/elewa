@@ -41,3 +41,7 @@ export * from './app/ai-agent/intent/create-intent.function';
 export * from './app/ai-agent/intent/delete-intent.function';
 export * from './app/ai-agent/intent/edit-intent.function';
 export * from './app/ai-agent/intent/get-intent.function';
+
+
+//  Micro Apps Base
+export * from './app/micro-apps/base/init-microapp.function'

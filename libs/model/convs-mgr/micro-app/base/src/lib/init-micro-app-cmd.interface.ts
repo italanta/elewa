@@ -6,8 +6,6 @@ import { MicroAppStatus } from "./micro-app-status.interface";
 export interface InitMicroAppCmd 
 {
   appId: string;
-  // endUserId: string;
-  // orgId: string;
 }
 
 /** 
