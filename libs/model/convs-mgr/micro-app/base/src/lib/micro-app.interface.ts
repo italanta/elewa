@@ -4,7 +4,7 @@ import { PassCriteriaTypes } from "./pass-criteria-types.enum";
 
 /**
  * Descriptive class of a micro app. 
- * Contains configurations on how data in a microapp is handled
+ * Contains configurations of what constitutes a micro-app
  */
 export interface MicroApp
 {

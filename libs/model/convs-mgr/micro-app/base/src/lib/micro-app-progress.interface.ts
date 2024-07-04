@@ -1,17 +1,21 @@
+import { IObject } from "@iote/bricks";
 /** Interface representing a progress object, details Gomza is recording as a
  *  user engages with a microap
  *  Useful when routing them back to where they were, and tracking completion 
  * */
 
-export interface MicroAppProgrress 
+export interface MicroAppProgress extends IObject
 {
   /** Microapp id */
-  appId: string,
+  appId: string;
   /** Id of the user engaging with the app */
-  endUserId: string,
+  endUserId: string;
   /** ID of an organization */
-  orgId: string,
-
+  orgId: string;
+  /** Current question ID */
+  questionId?: string;
+  /** Time spent in the app (in milliseconds) */
+  timeSpent?: number;
   // The payload to be sent to save current progress
-  payload: object | null,
+  payload: {questionId: string, timeSpent: number} | null;
 }

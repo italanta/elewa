@@ -1,5 +1,5 @@
 import { Cursor, EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
-import { MicroApp } from "./micro-app-config.interface";
+import { MicroApp } from "./micro-app.interface";
 import { MicroAppStatusTypes } from "./micro-app-status-types.interface";
 import { IObject } from "@iote/bricks";
 import { MicroAppSectionTypes } from "./microapp-section-types.enum";
