@@ -35,6 +35,9 @@
       "hosting": {
         "convl-manager": [
           "elewa-clm-test"
+        ],
+        "goomza-microapp": [
+          "goomza-micro-app"
         ]
       }
     },
