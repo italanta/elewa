@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
+import { SubSink } from 'subsink';
+import { take } from 'rxjs';
+
 import { MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
-import { MicroAppManagementService } from '@app/state/convs-mgr/micro-app';
+import { MicroAppManagementService, MicroAppStore } from '@app/state/convs-mgr/micro-app';
 
 import { getPlatformURL } from '../../utils/create-platform-url.util';
 
@@ -14,11 +17,16 @@ export class PlatformRedirectPageComponent implements OnInit
 {
   status: MicroAppStatus;
 
+  /** Phone number of a user */
   endUserId: string;
-
+  /** countdown timer to redirect to platform*/
   COUNTDOWN = 10;
 
-  constructor(private microAppService: MicroAppManagementService) {}
+  private _sbS = new SubSink()
+
+  constructor(private microAppService: MicroAppManagementService,
+              private _microApp$$: MicroAppStore,
+  ) {}
 
   ngOnInit(): void
   {
@@ -45,20 +53,22 @@ export class PlatformRedirectPageComponent implements OnInit
     }, 1000);
   }
 
-  redirect(): void {
-    // Redirect to the external URL
+  /** Redirect to the external URL */
+  redirect(): void { 
     // TODO: Add support for other platforms
     window.location.href = getPlatformURL(this.endUserId);
   }
 
+  /** Get an app's Status Object */
   getAppStatus()
   {
-    const storedStatus = localStorage.getItem('status');
+    // STEP 1. Get app 
+    const app$ = this._microApp$$.get();
 
-    if (storedStatus) {
-      this.status = JSON.parse(storedStatus) as MicroAppStatus;
-    } else {
-      console.log("No status set");
-    }
+    this._sbS.sink = 
+     app$.pipe(take(1)).subscribe(stat => 
+      {
+       this.status = stat;
+      });
   }
 }

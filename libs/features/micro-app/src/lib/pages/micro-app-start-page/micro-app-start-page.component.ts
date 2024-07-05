@@ -63,7 +63,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
       endUserId: this.app.endUserId,
       config: this.app.config,
       startedOn: Date.now(),
-      finishedOn: Date.now(),
+      finishedOn: '',
     } as unknown as MicroAppStatusTypes);
   
     this._microAppStatusServ.setMicroAppSections(mainSection);
