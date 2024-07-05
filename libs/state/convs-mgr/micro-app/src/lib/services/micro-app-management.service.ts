@@ -18,15 +18,11 @@ const COMPLETE_MICROAPP_ENDPOINT = 'completeMicroApp';
 /** State service to communicate with CLM Microapps */
 export class MicroAppManagementService 
 {
-
+  private progressEndpoint = PROGRESS_MICROAPP_ENDPOINT;
+  
   constructor(private _http$: HttpClient,
               @Inject('ENVIRONMENT') private _env: FrontendEnvironment) 
   { }
-
-  // Initializes and returns new status
-  private initMicroAppEndPoint = "initMicroApp";
-  private progressEndpoint = PROGRESS_MICROAPP_ENDPOINT;
-  private callBackHandler = 'appCallBack';
 
   /** Building the required parameters of launching an app 
    *  On hitting the microapp block service, the app url will be appended to the configs
@@ -35,7 +31,6 @@ export class MicroAppManagementService
   initMicroApp(appId: string): Observable<InitMicroAppResponse>
   {
     const initUrl = `${this._env.microAppUrl}/${INIT_MICROAPP_ENDPOINT}`
-
     const payload: InitMicroAppCmd = {
       appId
     }

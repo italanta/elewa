@@ -4,7 +4,7 @@ import { SubSink } from 'subsink';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { MicroAppTypes, MicroApp, MicroAppStatusTypes, MicroAppStatus, MicroAppSectionTypes } from '@app/model/convs-mgr/micro-app/base';
-import { MicroAppManagementService, MicroAppStatusService, MicroAppStore } from '@app/state/convs-mgr/micro-app';
+import { MicroAppStatusService, MicroAppStore } from '@app/state/convs-mgr/micro-app';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,37 +14,35 @@ import { Router } from '@angular/router';
 })
 export class MicroAppStartPageComponent implements OnInit, OnDestroy
 {
-  private _sbS = new SubSink();
-
+  /** Comprehensive app data */
   app: MicroAppStatus;
-
-  //The microApp being launched
+  /** The microApp being launched */
   appType: MicroAppTypes;
+  /** ID of the app */
   appId: string;
+  /** Id of the end user interacting with the app */
   endUserId: string;
+  /** Configuratins of a MicroApp */
   config: MicroApp;
-
+  /** Tracking initialization (loading) */
   isInitializing = true;
 
+  private _sbS = new SubSink();
+
   constructor(private _microApp$$: MicroAppStore,
-              private _microAppService: MicroAppManagementService,
               private _microAppStatusServ: MicroAppStatusService,
-              private _router: Router 
-  )
-              
-  {}
+              private _router: Router,
+  ) {}
 
   ngOnInit()
   {
     // STEP 1. Get app ID
      const app$ = this._microApp$$.get();
-
      this._sbS.sink = 
       app$.pipe(take(1)).subscribe(a => 
        {
         this.app = a;
         this.isInitializing = false;
-
         // TODO: If app state is already in completed here, what should we do?
        });
   }
@@ -54,7 +52,8 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
    * Sets the microApp status to started and the section types to main section
    * Redirects the user to the main section route
   */
-  handleStart() {
+  handleStart() 
+  {
     const appStarted = MicroAppStatusTypes.Started;
     const mainSection = MicroAppSectionTypes.Main;
   

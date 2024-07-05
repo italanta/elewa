@@ -22,7 +22,7 @@ export class PlatformRedirectPageComponent implements OnInit
   /** countdown timer to redirect to platform*/
   COUNTDOWN = 10;
 
-  private _sbS = new SubSink()
+  private _sbS = new SubSink();
 
   constructor(private microAppService: MicroAppManagementService,
               private _microApp$$: MicroAppStore,
@@ -42,7 +42,11 @@ export class PlatformRedirectPageComponent implements OnInit
                           ?.subscribe();
   }
 
-  startCountdown(): void {
+  /** Simulate a contdown before redirect
+   *  Design specs
+   */
+  startCountdown(): void 
+  {
     const interval = setInterval(() => {
       this.COUNTDOWN--;
 
@@ -54,7 +58,8 @@ export class PlatformRedirectPageComponent implements OnInit
   }
 
   /** Redirect to the external URL */
-  redirect(): void { 
+  redirect(): void 
+  { 
     // TODO: Add support for other platforms
     window.location.href = getPlatformURL(this.endUserId);
   }

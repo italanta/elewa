@@ -17,34 +17,17 @@ import {  MicroAppStore } from '@app/state/convs-mgr/micro-app';
 export class MicroAppContentPageComponent implements OnInit 
 {
   /** Object with comprehensive information on the microapp in progress */  
-  status: MicroAppStatus;
   app: MicroAppStatus;
 
   private _sbS = new SubSink();
 
   constructor( private _microApp$$: MicroAppStore,
-                private _router: Router 
+               private _router: Router, 
   ){}
 
-  ngOnInit(): void {
-    // this.getAppStatus();
-
-     // TODO: Use app status to resume the user's position if it's something
-      // other than launched.
-    //  STEP 1. Get app ID
-    const app$ = this._microApp$$.get();
-
-    this._sbS.sink = 
-      app$.pipe(take(1)).subscribe(a => 
-      {
-         this.app = a;
-        // this.isInitializing = false;
-
-        if (a.status == MicroAppStatusTypes.Started){
-          this._router.navigate(['main']);
-        }
-
-      });
+  ngOnInit(): void 
+  {
+    this.getAppStatus();
   }
   
   /**
@@ -52,12 +35,16 @@ export class MicroAppContentPageComponent implements OnInit
    *  @returns A comprehensive object defining the app state and details 
    */
   getAppStatus(){
-    const storedStatus = localStorage.getItem('status');
+    const app$ = this._microApp$$.get();
 
-    if(storedStatus) {
-      this.status = JSON.parse(storedStatus) as MicroAppStatus;
-    }else {
-      console.log("No status set");
-    }
+    this._sbS.sink = 
+      app$.pipe(take(1)).subscribe(a => 
+      {
+         this.app = a;
+
+        if (a.status == MicroAppStatusTypes.Started){
+          this._router.navigate(['main']);
+        }
+      });
   }
 }
