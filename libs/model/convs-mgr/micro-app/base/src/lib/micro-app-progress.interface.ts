@@ -12,10 +12,14 @@ export interface MicroAppProgress extends IObject
   endUserId: string;
   /** ID of an organization */
   orgId: string;
-  /** Current question ID */
+  /** Current question a user is in */
+  milestones?: ProgressMilestones
+}
+
+export interface ProgressMilestones 
+{
+   /** Current question ID */
   questionId?: string;
   /** Time spent in the app (in milliseconds) */
   timeSpent?: number;
-  // The payload to be sent to save current progress
-  payload: {questionId: string, timeSpent: number} | null;
 }

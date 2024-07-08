@@ -38,7 +38,7 @@ export class PlatformRedirectPageComponent implements OnInit
 
   /** Send data to a callback url */
   callBack() {
-    this.microAppService.callBack(this.status.appId, this.status.endUserId, this.status.config)
+    this.microAppService.progressCallBack(this.status.appId, this.status.endUserId, this.status.config)
                           ?.subscribe();
   }
 
