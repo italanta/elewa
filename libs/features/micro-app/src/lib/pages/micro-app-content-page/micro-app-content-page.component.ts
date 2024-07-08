@@ -27,14 +27,8 @@ export class MicroAppContentPageComponent implements OnInit
 
   ngOnInit(): void 
   {
-    this.getAppStatus();
-  }
-  
-  /**
-   *  Methd to fetch relevant data from app url
-   *  @returns A comprehensive object defining the app state and details 
-   */
-  getAppStatus(){
+    // Methd to fetch relevant data from app url
+    // returns A comprehensive object defining the app state and details 
     const app$ = this._microApp$$.get();
 
     this._sbS.sink = 
@@ -46,5 +40,5 @@ export class MicroAppContentPageComponent implements OnInit
           this._router.navigate(['main']);
         }
       });
-  }
+    }
 }

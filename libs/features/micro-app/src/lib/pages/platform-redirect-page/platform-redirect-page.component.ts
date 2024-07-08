@@ -31,13 +31,27 @@ export class PlatformRedirectPageComponent implements OnInit
   ngOnInit(): void
   {
     this.getAppStatus();
-    this.endUserId = this.status.endUserId;
     this.callBack();
     this.startCountdown();
   }
 
+  /** Get an app's Status Object */
+  getAppStatus()
+  {
+    // STEP 1. Get app 
+    const app$ = this._microApp$$.get();
+
+    this._sbS.sink = 
+     app$.pipe(take(1)).subscribe(stat => 
+      {
+       this.status = stat;
+       this.endUserId = this.status.endUserId;
+      });
+  }
+
   /** Send data to a callback url */
-  callBack() {
+  callBack() 
+  {
     this.microAppService.progressCallBack(this.status.appId, this.status.endUserId, this.status.config)
                           ?.subscribe();
   }
@@ -62,18 +76,5 @@ export class PlatformRedirectPageComponent implements OnInit
   { 
     // TODO: Add support for other platforms
     window.location.href = getPlatformURL(this.endUserId);
-  }
-
-  /** Get an app's Status Object */
-  getAppStatus()
-  {
-    // STEP 1. Get app 
-    const app$ = this._microApp$$.get();
-
-    this._sbS.sink = 
-     app$.pipe(take(1)).subscribe(stat => 
-      {
-       this.status = stat;
-      });
   }
 }
