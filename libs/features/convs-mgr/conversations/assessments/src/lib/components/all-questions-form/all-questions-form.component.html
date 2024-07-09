@@ -1,0 +1,22 @@
+<div>
+  <form [formGroup]="assessmentForm">
+    <div formArrayName="assessmentFormArray">
+      <mat-card class="question-card" *ngFor="let question of assessmentFormArray.controls; let i = index" [formGroupName]="i">
+        <mat-card-header class="question-header">
+          {{ "ASSESSMENT-PAGE.QUESTION" | transloco }}  {{i + 1}} 
+        </mat-card-header>
+        <mat-card-content class="question-content">
+          <p>{{ question?.get('question')?.value }}</p>
+          <mat-radio-group aria-label="Select an option" class="column-radios" formControlName="selectedOption">
+            <mat-radio-button *ngFor="let option of question.get('options')?.value" [value]="option">{{option}}</mat-radio-button>
+          </mat-radio-group>    
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </form>
+
+  <!-- submit button -->
+  <div class="submit-btn">
+    <button class="btn-btns" mat-raised-button >{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.SUBMIT-TEXT" | transloco }}</button>
+  </div>
+</div>

@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
+import { SubSink } from 'subsink';
 
 import { AssessmentQuestion } from '../../model/assessment-question.interface';
 
@@ -8,43 +9,34 @@ import { AssessmentQuestion } from '../../model/assessment-question.interface';
   templateUrl: './assessment-card.component.html',
   styleUrls: ['./assessment-card.component.scss']
 })
-export class AssessmentCardComponent implements OnInit 
+export class AssessmentCardComponent implements OnInit, OnDestroy
 {
+  /** Array of all questions in an assessment */
   @Input() assessmentQuestions: AssessmentQuestion[];
-  @Input() assessmentFormArray: FormArray;
+  /** Asssessments form group */
   @Input() assessmentForm: FormGroup;
-
+  /** Form array for when form view is single question */
+  @Input() assessmentFormArray: FormArray;
   /** Method called to track progress */
   @Input() progressCallback: () => void;
-
+  /** Toggle between all questions view or single question view */
   stepperForm = true
-
-  /** Tracking questions using stepper */
-  currentStep = 0;
-  totalSteps  = 0;
+  
+  private _sBS = new SubSink();
 
   constructor(){}
 
   ngOnInit(): void 
   {
-    this.totalSteps = this.assessmentFormArray.controls.length
-    console.log(this.assessmentQuestions, 'logged from a card')
     // Subscribe to value changes to update progress
-    this.assessmentForm.valueChanges.subscribe(() => {
+    this._sBS.sink =  this.assessmentForm.valueChanges.subscribe(() => {
+      //Communicate progress to parent component and update progress UI
       this.progressCallback();
     });
   }
 
-  prevStep() {
-    if (this.currentStep > 0) {
-      this.currentStep--;
-    }
+  /** Unsubscribe from all observables */
+  ngOnDestroy(): void {
+      this._sBS.unsubscribe()
   }
-  
-  nextStep() {
-    if (this.currentStep < this.totalSteps - 1) {
-      this.currentStep++;
-    }
-  }
-  
 }

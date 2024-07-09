@@ -51,6 +51,8 @@ import { AssessmentFailedSectionComponent } from './components/assessment-failed
 import { AssessmentHeaderComponent } from './components/assessment-header/assessment-header.component';
 import { AssessmentResultBannerComponent } from './components/assessment-result-banner/assessment-result-banner.component';
 import { ContentSectionComponent } from './components/content-section/content-section.component';
+import { SingleQuestionFormComponent } from './components/single-question-form/single-question-form.component';
+import { AllQuestionsFormComponent } from './components/all-questions-form/all-questions-form.component';
 
 @NgModule({
   imports: [
@@ -93,7 +95,9 @@ import { ContentSectionComponent } from './components/content-section/content-se
     AssessmentResultBannerComponent,
     ContentSectionComponent,
 
-    CreateAssessmentPageComponent
+    CreateAssessmentPageComponent,
+     SingleQuestionFormComponent,
+     AllQuestionsFormComponent
   ],
   exports: [
     ContentSectionComponent,
