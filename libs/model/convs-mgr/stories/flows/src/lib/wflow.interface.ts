@@ -28,7 +28,7 @@ export interface WFlow extends IObject
   /**
    * Channel to preview this version of the flow.
    */
-  preview: {
+  preview?: {
     /** URL on which to preview the flow. */
     preview_url: string,
     /** Date time the flow will become deprecated. (ISO date string e.g. "2023-05-21T11:18:09+0000") */
