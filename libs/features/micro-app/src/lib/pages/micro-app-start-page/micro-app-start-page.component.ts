@@ -53,21 +53,12 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
    * Redirects the user to the main section route
   */
   handleStart() 
-  {
-    const appStarted = MicroAppStatusTypes.Started;
-    const mainSection = MicroAppSectionTypes.Main;
-  
-    this._microApp$$.next({
-      appId: this.app.appId,
-      endUserId: this.app.endUserId,
-      config: this.app.config,
-      startedOn: Date.now(),
-      finishedOn: '',
-    } as unknown as MicroAppStatusTypes);
-  
-    this._microAppStatusServ.setMicroAppSections(mainSection);
-    this._microAppStatusServ.setMicroAppStatus(appStarted);
-  
+  {  
+    // Update the micro-app content section prop
+    //TODO: Check if this is necessary, can we only use the Launched, Started, Completed props?
+    const updatedApp = { ...this.app, microAppSection: MicroAppSectionTypes.Main };
+    this._microApp$$.next(updatedApp);
+
     this._router.navigate(['main']);
   }
 

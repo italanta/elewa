@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./assessment-failed-section.component.scss'],
 })
 export class AssessmentFailedSectionComponent {
+  /** Placeholder for trials
+   *  TODO: Fetch actual trials from published assessment
+   */
   trials = 2
 }

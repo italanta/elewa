@@ -4,7 +4,7 @@
   justify-content: space-around;
   align-self: center;
   height: 123px;
-  $color: #1F7A8C;
+  $color: var(--micro-apps-teal-primary);
   $opacity: 0.35;
   padding: 0.5rem 0;
   background-color: rgba($color, $opacity);
@@ -22,7 +22,7 @@
   justify-content: space-around;
   align-self: center;
   height: 123px;
-  $color: #E02222;
+  $color: var(--micro-apps-warning-red);
   $opacity: 0.1;
   padding: 0.5rem 0;
   background-color: rgba($color, $opacity);

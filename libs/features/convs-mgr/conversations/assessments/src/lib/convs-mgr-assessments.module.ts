@@ -94,10 +94,10 @@ import { AllQuestionsFormComponent } from './components/all-questions-form/all-q
     AssessmentHeaderComponent,
     AssessmentResultBannerComponent,
     ContentSectionComponent,
+    SingleQuestionFormComponent,
+    AllQuestionsFormComponent,
 
     CreateAssessmentPageComponent,
-     SingleQuestionFormComponent,
-     AllQuestionsFormComponent
   ],
   exports: [
     ContentSectionComponent,

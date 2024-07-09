@@ -1,3 +1,6 @@
+/** 
+ * Whether to display all questions in one page or a single question per view 
+ */
 export enum FormViewMode {
   /**A question per page view */
   SingleQuestionView = 1,
@@ -5,6 +8,10 @@ export enum FormViewMode {
   MultipleQuestionView = 2,
 }
 
+/**
+ *  Enum to switch between different views depending on where a learner is on an assessment
+ *  Toggle between Landing page, assessment content, feedback page and redirect page
+ */
 export enum PageViewMode {
   /** Show the landing page */
   HomePageView = 1,

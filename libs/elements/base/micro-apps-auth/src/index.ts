@@ -1,1 +1,1 @@
-export * from './lib/micro-apps-auth';
+export * from './lib/micro-apps/can-access-microapp.guard'

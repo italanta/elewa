@@ -5,8 +5,11 @@ import { FormViewMode, PageViewMode } from '../model/view-mode.enum';
 @Injectable({
   providedIn: 'root'
 })
-export class AppViewService {
+export class AppViewService 
+{
+  /** Single question form or multiple question forms */
   private formViewModeSource = new BehaviorSubject<FormViewMode >(FormViewMode .MultipleQuestionView);
+  /** Different page view navigation */
   private pageViewModeSource = new BehaviorSubject<PageViewMode>(PageViewMode.HomePageView)
 
   formViewMode$ = this.formViewModeSource.asObservable();

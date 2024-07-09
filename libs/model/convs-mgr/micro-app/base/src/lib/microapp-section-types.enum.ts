@@ -4,7 +4,10 @@
  */
 export enum MicroAppSectionTypes
 {
+  /** Landing page */
   Start = 1,
+  /** Within an assessment */
   Main = 2,
+  /** On the last page, being redirected to platform */
   Redirect = 3
 }

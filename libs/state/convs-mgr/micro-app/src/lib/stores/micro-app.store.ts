@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { BehaviorSubject, Observable, catchError, filter, map, switchMap, take,} from 'rxjs';
 
-import { InitMicroAppResponse, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
+import { InitMicroAppResponse, MicroAppSectionTypes, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
 
 import { MicroAppManagementService } from '../services/micro-app-management.service';
 
@@ -60,8 +60,8 @@ export class MicroAppStore
   /** 
    *  Starts the micro-app execution.
    *  Set the next status of the micro-app */
-  next(status: MicroAppStatusTypes) {
-    this._app = { ...this._app, status: status } as MicroAppStatus;
+  next(status: MicroAppStatus) {
+    this._app = { ...this._app, microAppSection: status.microAppSection };
     this._app$$.next(this._app);
   }
 

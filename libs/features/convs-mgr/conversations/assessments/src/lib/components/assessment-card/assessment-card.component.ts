@@ -1,8 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
+
+import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+
 import { SubSink } from 'subsink';
 
-import { AssessmentQuestion } from '../../model/assessment-question.interface';
 
 @Component({
   selector: 'app-assessment-card',

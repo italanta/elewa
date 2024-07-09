@@ -4,11 +4,12 @@ import { Subject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class SetAssessmentScoreService {
-  // A Subject to hold the assessment score without an initial value.
+export class SetAssessmentScoreService 
+{
+  /** A Subject to hold the assessment score without an initial value.*/ 
   private assessmentScore = new Subject<any>();
 
-  // Observable that can be subscribed to in order to receive updates on the assessment score.
+  /** Observable that can be subscribed to in order to receive updates on the assessment score. */
   assessmentScore$ = this.assessmentScore.asObservable();
 
   constructor() { }

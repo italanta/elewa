@@ -66,6 +66,9 @@ export class ContentSectionComponent implements OnInit
     return `linear-gradient(to right, white ${gradientStopPosition}%, #1F7A8C ${gradientStopPosition}%)`;
   }
 
+  /** Changes the page view from home page to assessment mode
+   *  TODO: Integrate timer and micro-app status setting
+   */
   startAssignment(){
     this._pageViewservice.setPageViewMode(PageViewMode.AssessmentMode)
   }
