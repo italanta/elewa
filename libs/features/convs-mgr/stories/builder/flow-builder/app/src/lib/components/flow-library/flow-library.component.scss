@@ -1,0 +1,34 @@
+.nav {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  gap: 1.5rem;
+
+  min-width: 250px;
+  height: -moz-calc(100% - 41.5px);
+  height: -webkit-calc(100% - 41.5px);
+  height: calc(100% - 41.5px);
+  padding: 10px;
+
+  overflow-y: hidden;
+  // scrollbar-gutter: stable both-edges;
+  background-color: #F6F6F6;
+  color: #101010;
+}
+
+.block-list {
+  h6 {
+    margin-bottom: 0.4rem;
+    font-size: 0.8rem;
+    margin-top: 0px;
+    font-weight: 400;
+
+    &:not(.first-title) {
+      margin-top: 1rem;
+    }
+  }
+}
+
+app-flow-library-item {
+  width: 100%;
+}

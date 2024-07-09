@@ -1,2 +1,52 @@
+<div class="nav">
 
-TEST FLOW LIBRARY
+  <div class="blocks-header" fxLayout="row">
+    <div><span class="header-title">Choose Element</span></div>
+
+    <div class="flex-spacer"></div>
+  </div>
+
+  <!-- <div class="block-filters">
+    <div class="search">
+      <i class="fas fa-search search_tooltip"></i>
+      <input class="search_input" type="text" name="search table"
+        placeholder="Search element" id=""
+        (keyup)="filterBlocks($event)">
+        </div>
+  </div> -->
+
+  <mat-divider></mat-divider>
+
+  <div fxLayout="column" fxFlex>
+    <!-- Text fields -->
+    <div class="block-list" fxLayout="column">
+      <h6 class="first-title">{{ 'FLOW-CATEGORY.TEXT-ELS' | transloco }}</h6>
+
+      <app-flow-library-item label="Header"       value="h1"      icon="fa-solid fa-heading"  ></app-flow-library-item>
+      <app-flow-library-item label="Light Header" value="h2"      icon="fa-solid fa-bold"     ></app-flow-library-item>
+      <app-flow-library-item label="Text"         value="text"    icon="fa-solid fa-font"     ></app-flow-library-item>
+      <app-flow-library-item label="Small text"   value="caption" icon="fa-solid fa-subscript"></app-flow-library-item>
+    </div>
+
+    <!-- Design -->
+    <div class="block-list" fxLayout="column">
+      <h6>{{ 'FLOW-CATEGORY.DESIGN-ELS' | transloco }}</h6>
+      
+      <app-flow-library-item label="Image"        value="image"   icon="fa-regular fa-image"  ></app-flow-library-item>
+      <app-flow-library-item label="Link"         value="link"    icon="fa-solid fa-link"     ></app-flow-library-item>
+      <app-flow-library-item label="Footer"       value="footer"  icon="fa-solid fa-window-minimize"></app-flow-library-item>
+    </div>
+
+    <!-- Basic controls -->
+    <div class="block-list" fxLayout="column">
+      <h6>{{ 'FLOW-CATEGORY.INPUTS-ELS' | transloco }}</h6>
+      
+      <app-flow-library-item label="Single line text" value="textInput" icon="fa-solid fa-font"></app-flow-library-item>
+      <app-flow-library-item label="Text area"        value="textArea"  icon="fa-solid fa-pen-fancy"></app-flow-library-item>
+      <app-flow-library-item label="List selection"   value="select"    icon="fa-solid fa-list-check"></app-flow-library-item>
+      <app-flow-library-item label="Checkboxes"       value="checkbox"  icon="fa-regular fa-square"></app-flow-library-item>
+      <app-flow-library-item label="Radio buttons"    value="radio"     icon="fa-solid fa-circle-dot"></app-flow-library-item>
+      <app-flow-library-item label="Date picker"      value="datepick"  icon="fa-solid fa-calendar-days"></app-flow-library-item>
+      <app-flow-library-item label="Opt in"           value="optIn"     icon="fa-solid fa-square-check"></app-flow-library-item>
+    </div>
+</div>

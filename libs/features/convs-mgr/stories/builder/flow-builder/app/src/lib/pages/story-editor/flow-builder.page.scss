@@ -5,9 +5,12 @@
   height: -webkit-calc(100% - 41.5px);
   height: calc(100% - 41.5px);
   width: 100%;
-
-
 }
+
+mat-sidenav, app-flow-library {
+  overflow-y: hidden;
+}
+
 
 #preview-toggle {
   position: fixed;

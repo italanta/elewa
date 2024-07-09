@@ -1,0 +1,17 @@
+.flow-lib-button {
+  width: 80%;
+
+  border: 1px solid gray;
+  border-radius: 5px;
+  
+  padding: 10px;
+  margin-bottom: 5px;
+}
+  .flow-lib-button:hover {
+    background-color: lightgray;
+    cursor: pointer;
+  }
+
+.icon {
+  margin-right: 5px;
+}
