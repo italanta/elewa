@@ -6,8 +6,8 @@ import {  Logger } from '@iote/bricks-angular';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { BotVersions } from '@app/model/convs-mgr/bots';
+import { StoryModuleTypes } from '@app/model/convs-mgr/stories/main';
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
-import { StoryModuleTypes } from '@app/model/convs-mgr/stories/blocks/structural';
 
 @Component({
   selector: 'lib-bot-builder-page',

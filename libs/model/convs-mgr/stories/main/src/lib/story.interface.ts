@@ -1,6 +1,7 @@
 import { BotVersions } from "@app/model/convs-mgr/bots";
-import { StoryModuleTypes } from "@app/model/convs-mgr/stories/blocks/structural";
+
 import { IObject } from "@iote/bricks";
+import { StoryModuleTypes } from "./story-module-types.enum";
 
 /**
  * A story is a conversational flow that models the 

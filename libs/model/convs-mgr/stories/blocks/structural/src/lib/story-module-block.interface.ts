@@ -1,4 +1,5 @@
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { StoryModuleTypes } from "@app/model/convs-mgr/stories/main";
 
 /**
  * Block which represents a story module.
@@ -32,28 +33,4 @@ export interface StoryModuleResult
   id: string;
   /** Label/name of the result */
   label: string;
-}
-
-/**
- * Different possible types of a story module
- */
-export enum StoryModuleTypes
-{
-  /** The story module is the root parent/bot parent */
-  Story = 1,
-
-  /** The story module represents a child story */
-  SubStory = 2,
-
-  /** The story module represents a flow */
-  Flow = 3,
-
-  /** The story module represents an assessment */
-  Assessment = 4,
-
-  /** The story module represents a micro-app */
-  MicroApp = 5,
-
-  /** Future feature to experiment with @Jente */
-  CoachingModule = 6
 }

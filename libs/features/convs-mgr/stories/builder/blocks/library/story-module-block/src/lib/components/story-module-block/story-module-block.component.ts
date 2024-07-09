@@ -7,10 +7,10 @@ import { of, switchMap, take, tap } from 'rxjs';
 import { SubSink } from 'subsink';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { Story } from '@app/model/convs-mgr/stories/main';
+import { Story ,StoryModuleTypes } from '@app/model/convs-mgr/stories/main';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
-import { StoryModuleBlock, StoryModuleResult, StoryModuleTypes } from '@app/model/convs-mgr/stories/blocks/structural';
+import { StoryModuleBlock, StoryModuleResult,  } from '@app/model/convs-mgr/stories/blocks/structural';
 
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { OptionInputFieldComponent } from '@app/features/convs-mgr/stories/builder/blocks/library/block-options';

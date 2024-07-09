@@ -1,5 +1,5 @@
 import { FormBuilder, Validators } from '@angular/forms';
-import { StoryModuleTypes } from '@app/model/convs-mgr/stories/blocks/structural';
+import { StoryModuleTypes } from '@app/model/convs-mgr/stories/main';
 
 /**
  * Defintion of the bot module creation form.

@@ -5,9 +5,8 @@ import { combineLatest, map, Observable, take } from 'rxjs';
 
 import {  Logger } from '@iote/bricks-angular';
 
-import { Story } from '@app/model/convs-mgr/stories/main';
+import { Story, StoryModuleTypes } from '@app/model/convs-mgr/stories/main';
 import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
-import { StoryModuleTypes } from '@app/model/convs-mgr/stories/blocks/structural';
 
 import { BotVersions } from '@app/model/convs-mgr/bots';
 import { ActiveStoryStore, StoriesStore } from '@app/state/convs-mgr/stories';
