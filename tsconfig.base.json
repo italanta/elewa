@@ -232,6 +232,9 @@
       "@app/functions/bot-engine": [
         "libs/functions/bot-engine/main/src/index.ts"
       ],
+      "@app/functions/bot-engine/channels": [
+        "libs/functions/bot-engine/channels/src/index.ts"
+      ],
       "@app/functions/bot-engine/messenger": [
         "libs/functions/bot-engine/messenger/src/index.ts"
       ],
@@ -495,10 +498,8 @@
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
       "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
-      "@app/functions/bot-engine/channels": [
-        "libs/functions/bot-engine/channels/src/index.ts"
-      ],
-      "intercom": ["libs/util/ngfi/intercom/src/index.ts"]
+      "intercom": ["libs/util/ngfi/intercom/src/index.ts"],
+      "micro-apps-auth": ["libs/elements/base/micro-apps-auth/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
