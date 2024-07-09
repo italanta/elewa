@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { FlowControl } from '../../providers/flow-controls.const';
 
 @Component({
   selector: 'app-flow-library-item',
@@ -7,7 +8,5 @@ import { Component, Input } from '@angular/core';
 })
 export class FlowLibraryItemComponent
 {
-  @Input() label: string;
-  @Input() icon: string;
-  @Input() value: string;
+  @Input() control: FlowControl;
 }
