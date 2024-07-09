@@ -1,4 +1,9 @@
-export * from './lib/flow.interface';
+export * from './lib/flow-cats.enum';
+export * from './lib/flow-status.enum';
+export * from './lib/flow-story.interface';
+export * from './lib/wflow.interface';
+
+// -- WhatsApp typings (relevant for the backend)
 export * from './lib/library/v3.1/actions/flow-actions.interface';
 
 export * from './lib/library/v3.1/dynamic-vals/dynamic-value.interface';
@@ -23,5 +28,3 @@ export * from './lib/library/v3.1/elements/input-text-area.interface';
 export * from './lib/library/v3.1/elements/input-text.interface';
 
 export * from './lib/library/v3.1/flow-json.interface';
-
-export * from './lib/flow.interface';
