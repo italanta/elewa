@@ -1,0 +1,29 @@
+.editor-container 
+{
+  min-width: 800px;
+  height: 650px;
+
+  background: #F6F6F6;
+  color: #101010;
+  
+  padding: 20px;
+  border: 1px solid #101010;
+}
+
+  #phone-container {
+    width: 280px;
+    height: 585px;
+    background-image: url(/assets/images/phone.png);
+    background-size: cover;
+    background-color: white;
+    border-radius:40px;
+  }
+  // Acts as an inner container into the phone image.
+  //  Allowing us to move things inside.
+  .phone-inner {
+    width: 260px;
+    height: 520px;
+    background-color: red;
+  }
+
+

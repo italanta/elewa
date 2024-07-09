@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PortalModule } from '@angular/cdk/portal';
-import { MatStepperModule } from '@angular/material/stepper';
+import {DragDropModule} from '@angular/cdk/drag-drop'
 
 import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule, MaterialFormBricksModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
@@ -31,12 +30,12 @@ import { FlowBuilderRouterModule } from './flow-builder.router.module';
 
 @NgModule({
   imports: [
-    CommonModule, MultiLangModule, PortalModule,
+    CommonModule, MultiLangModule,
     MaterialDesignModule, FlexLayoutModule, MaterialBricksModule,
     MaterialFormBricksModule, FormsModule, ReactiveFormsModule,
     ConvlPageModule, ConvsMgrAnchorBlockModule,
+    DragDropModule,
     BlocksLibraryModule, StoryEditorStateModule,
-    MatStepperModule,
     ToastModule,
 
     BuilderNavbarModule,

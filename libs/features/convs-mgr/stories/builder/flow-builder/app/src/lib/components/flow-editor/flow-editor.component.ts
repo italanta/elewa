@@ -11,6 +11,8 @@ export class FlowEditorComponent implements OnInit, OnDestroy
 {
   private _sbS = new SubSink();
 
+  flowEls = [];
+
   constructor() 
   { }
 
@@ -19,5 +21,11 @@ export class FlowEditorComponent implements OnInit, OnDestroy
 
   ngOnDestroy(): void {
       
+  }
+
+  drop(evt: any)
+  {
+    console.log(evt);
+    debugger;
   }
 }

@@ -1,12 +1,29 @@
-<div fxFlexFill fxLayout="row" fxLayoutAlign="center start">
+<div fxFlexFill fxLayout="row" fxLayoutAlign="center center">
 
-  <div class="editor-container">
+  <div class="editor-container mat-elevation-z1" >
+    <!-- Image of the phone -->
+    <div id="phone-container" fxLayoutAlign="center center">
+       <!-- Inner area inside the phone container. Smaller box centered into the phone, 
+        making it look it's "behind" the phone image when in fact, it's in front. -->
+      <div class="phone-inner">
+        <!-- Fixed elements such as page title -->
+
+        <!-- Target for custom elements-->
+        <div id="phone-container-drop" cdkDropList [cdkDropListData]="flowEls"
+                                       (cdkDropListDropped)="drop($event)">
+
+        </div>
+        <!-- Fixed elements such as footer -->
+
+      </div>
+    </div>
+
 
   </div>
 
 
   <div class="screen-config">
-    
+
   </div>
 
 </div>
