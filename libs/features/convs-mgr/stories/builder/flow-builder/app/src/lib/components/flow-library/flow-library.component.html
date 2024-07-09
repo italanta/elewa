@@ -24,10 +24,10 @@
 
         <h6 [class.first-title]="i === 0">{{ group.group| transloco }}</h6>
 
-        <app-flow-library-item *ngFor="let control of group.controls" 
-                              [control]="control">
-        </app-flow-library-item>
-
+        @for (control of group.controls; track control)
+        {
+          <app-flow-library-item [control]="control">  </app-flow-library-item>
+        }
       </div>
     }
 </div>
