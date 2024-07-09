@@ -35,3 +35,9 @@ mat-sidenav, app-flow-library {
 app-flow-preview {
   min-width: 400px;
 }
+
+app-flow-page-selector {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}

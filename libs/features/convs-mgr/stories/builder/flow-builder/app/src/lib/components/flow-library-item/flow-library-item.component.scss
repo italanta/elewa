@@ -1,5 +1,7 @@
 .flow-lib-button {
-  width: 80%;
+  width: -moz-calc(100% - 24px);
+  width: -webkit-calc(100% - 24px);
+  width: calc(100% - 24px);
 
   border: 1px solid gray;
   border-radius: 5px;

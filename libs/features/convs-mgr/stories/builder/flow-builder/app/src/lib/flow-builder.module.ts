@@ -22,8 +22,10 @@ import { FlowBuilderPageComponent } from './pages/story-editor/flow-builder.page
 
 import { FlowEditorComponent } from './components/flow-editor/flow-editor.component';
 import { FlowLibraryComponent } from './components/flow-library/flow-library.component';
-import { FlowPreviewComponent } from './components/flow-preview/flow-preview.component';
 import { FlowLibraryItemComponent } from './components/flow-library-item/flow-library-item.component';
+import { FlowPageSelectorComponent } from './components/page-selector/page-selector.component';
+
+import { FlowPreviewComponent } from './components/flow-preview/flow-preview.component';
 
 import { FlowBuilderRouterModule } from './flow-builder.router.module';
 
@@ -48,6 +50,7 @@ import { FlowBuilderRouterModule } from './flow-builder.router.module';
     FlowLibraryComponent,
     FlowPreviewComponent,
     FlowLibraryItemComponent,
+    FlowPageSelectorComponent,
 
     FlowBuilderPageComponent
   ],
