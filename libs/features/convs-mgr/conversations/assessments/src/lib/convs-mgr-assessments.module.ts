@@ -99,9 +99,7 @@ import { AllQuestionsFormComponent } from './components/all-questions-form/all-q
 
     CreateAssessmentPageComponent,
   ],
-  exports: [
-    ContentSectionComponent,
-  ],
+  
   providers: [
     AssessmentService,
     AssessmentFormService,

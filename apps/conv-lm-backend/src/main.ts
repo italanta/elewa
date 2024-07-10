@@ -45,3 +45,5 @@ export * from './app/ai-agent/intent/get-intent.function';
 
 //  Micro Apps Base
 export * from './app/micro-apps/base/init-microapp.function'
+export * from './app/micro-apps/base/get-app-progress.function'
+export * from './app/micro-apps/base/complete-micro-app.function'
