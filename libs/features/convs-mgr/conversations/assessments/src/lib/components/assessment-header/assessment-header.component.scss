@@ -1,15 +1,15 @@
-.wrapper{
+.heading-wrapper{
   padding: 36px 4rem;
-  display: grid;
-  grid-template-columns: 5% 90% 5%;
-  background-color: #fff;
-  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  background-color: var(--micro-apps-colour-white);
+  margin-bottom: 1rem;
 
   .logo{
     width: 61px;
     height: 59px;
-    border: 1px solid black;
+    border: 1px solid var(--micro-apps-cards-border);
     border-radius: 4px;
   }
   .heading{
@@ -21,8 +21,8 @@
     .countDown{
       padding: 0.5rem;
       border-radius: 2.5rem;
-      background-color: #1F7A8C;
-      color: #fff;
+      background-color: var(--micro-apps-teal-primary);
+      color: var(--micro-apps-colour-white);
       display: flex;
       justify-content: center;
       align-items: center;
