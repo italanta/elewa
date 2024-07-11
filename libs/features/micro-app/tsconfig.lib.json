@@ -13,5 +13,5 @@
     "jest.config.ts",
     "**/*.test.ts"
   ],
-  "include": ["**/*.ts", "../convs-mgr/conversations/assessments/src/lib/model/assessment-question.interface.ts", "../convs-mgr/conversations/assessments/src/lib/model/view-mode.enum.ts", "../convs-mgr/conversations/assessments/src/lib/services/content-view-mode.service.ts", "../convs-mgr/conversations/assessments/src/lib/services/microapp-assessment-questions-form.service.ts", "../convs-mgr/conversations/assessments/src/lib/services/set-pass-status.service.ts", "../convs-mgr/conversations/assessments/src/lib/utils/test-data.ts"]
+  "include": ["**/*.ts"]
 }

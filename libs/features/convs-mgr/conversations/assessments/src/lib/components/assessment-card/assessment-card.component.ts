@@ -1,5 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
+
+import { SubSink } from 'subsink';
+
 import { MicroAppAssessmentQuestion } from '@app/model/convs-mgr/micro-app/base';
 
 @Component({
@@ -13,6 +16,7 @@ export class AssessmentCardComponent implements OnInit, OnDestroy
   @Input() assessmentQuestions: MicroAppAssessmentQuestion[];
   /** Form array when view mode is single question */
   @Input() assessmentFormArray: FormArray;
+  @Input() assessmentForm: FormGroup
   /** Method called to track progress */
   @Input() progressCallback: () => void;
   /** Toggle between all questions view or single question view */

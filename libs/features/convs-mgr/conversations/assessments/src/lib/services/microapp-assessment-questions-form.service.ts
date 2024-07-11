@@ -53,33 +53,11 @@ export class MicroAppAssessmentQuestionFormService
       );
   }
 
-  createFeedbackFormGroup(feedback?: AssessmentFeedBack): FormGroup {
-      return this._fb.group({
-          message: [feedback?.message ?? ""],
-          condition: [feedback?.condition ?? null]
-      });
-  }
-
-  createOptionsFormArray(options?: AssessmentQuestionOptions[]): AbstractControl[] {
-      if (!options || options.length === 0) {
-          return [];
-      }
-
-      return options.map(option =>
-          this._fb.group({
-              id: [option.id],
-              text: [option.text],
-              accuracy: [option.accuracy],
-              feedback: [option.feedback]
-          })
-      );
-  }
-
   /** Adding all the questions into a form array
    *  Needed for when a content creator chooses a single question mode
    *  We allow for configurations on how questions should appear
    */
-  createMicroAppAssessment(assessmentQuestions?: AssessmentQuestion[]): FormArray {
+  createMicroAppAssessment(assessmentQuestions?: MicroAppAssessmentQuestion[]): FormArray {
     const questionsArray = assessmentQuestions?.map(question => this.createAssessmentQuestionForm(question)) || [];
     return this._fb.array(questionsArray);
   }

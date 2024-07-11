@@ -53,6 +53,7 @@ import { AssessmentResultBannerComponent } from './components/assessment-result-
 import { ContentSectionComponent } from './components/content-section/content-section.component';
 import { SingleQuestionFormComponent } from './components/single-question-form/single-question-form.component';
 import { AllQuestionsFormComponent } from './components/all-questions-form/all-questions-form.component';
+import { ClmMicroAppLayoutModule } from '@app/elements/layout/clm-micro-app';
 
 @NgModule({
   imports: [
@@ -68,7 +69,8 @@ import { AllQuestionsFormComponent } from './components/all-questions-form/all-q
     FlexLayoutModule,
     MatSnackBarModule,
     DragDropModule,
-    ItalBreadCrumbModule
+    ItalBreadCrumbModule,
+    ClmMicroAppLayoutModule
   ],
   declarations: [
     AssessmentsHomeComponent,
