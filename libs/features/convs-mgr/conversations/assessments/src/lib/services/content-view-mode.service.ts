@@ -10,7 +10,7 @@ export class AppViewService
   /** Single question form or multiple question forms */
   private formViewModeSource = new BehaviorSubject<FormViewMode >(FormViewMode .MultipleQuestionView);
   /** Different page view navigation */
-  private pageViewModeSource = new BehaviorSubject<PageViewMode>(PageViewMode.HomePageView)
+  private pageViewModeSource = new BehaviorSubject<PageViewMode>(PageViewMode.AssessmentMode)
 
   formViewMode$ = this.formViewModeSource.asObservable();
   pageViewMode$ = this.pageViewModeSource.asObservable()

@@ -25,5 +25,5 @@
 
   <!-- submit button -->
   <div class="submit-btn">
-    <button class="btn-btns" mat-raised-button  [hidden]="currentStep < totalSteps - 1">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.SUBMIT-TEXT" | transloco }}</button>
+    <button class="btn-btns" mat-raised-button  [hidden]="currentStep < totalSteps - 1" (click)="handleSubmit()">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.SUBMIT-TEXT" | transloco }}</button>
   </div>
