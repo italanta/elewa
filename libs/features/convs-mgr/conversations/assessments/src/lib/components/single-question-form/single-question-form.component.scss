@@ -1,0 +1,66 @@
+.question-card{
+  width: 100%;
+  color: var(--micro-apps-cards-border);
+  width: 80%;
+  background-color: var(--micro-apps-colour-white);
+
+  .question-header{
+    border-bottom: 1px solid var(--micro-apps-border-bottom);
+    padding-bottom: 8px;
+  }
+  .question-content{
+    padding-top: 8px;
+    .column-radios{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+.single-form{
+  padding-left: 5%;
+  min-width: 850px !important;
+
+  .single-question-fm{
+    width: 100%;
+  }
+}
+.stepper-buttons{
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-top: 1rem;
+  .btn-btns{
+    color: var(--micro-apps-colour-white);
+    background-color: var(--micro-apps-teal-primary);
+    width: 200px !important;
+  }
+  .previous{
+    color: var(--micro-apps-teal-primary);
+    background-color: var(--micro-apps-colour-white);
+    width: 200px !important;
+    border: 1px solid var(--micro-apps-teal-primary);
+  }
+}
+
+.submit-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .btn-btns{
+    color: var(--micro-apps-colour-white);
+    background-color: var(--micro-apps-teal-primary);
+    width: 200px !important;
+  }
+}
+
+// Changing the default style of mat-radio-button to match Goomza colours
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+  border-color: var(--micro-apps-teal-primary);
+}
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-conßtrol:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+  border-color: var(--micro-apps-teal-primary);
+}
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle{
+  border-color: var(--micro-apps-teal-primary);
+}

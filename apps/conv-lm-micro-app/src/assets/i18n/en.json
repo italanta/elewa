@@ -16,6 +16,7 @@
       "WHATSAPP-BUTTON": "Go back to WhatsApp",
       "RETRY-BUTTON": "Retry assessment"
     },
+    "QUESTION": "Question",
     "GRADE-DISPLAY": {
       "PASS-MESSAGE": {
         "PASS-TEXT": "You passed!",

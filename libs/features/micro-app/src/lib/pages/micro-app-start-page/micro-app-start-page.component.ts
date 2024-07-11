@@ -3,8 +3,8 @@ import { SubSink } from 'subsink';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { MicroAppTypes, MicroApp, MicroAppStatusTypes, MicroAppStatus, MicroAppSectionTypes } from '@app/model/convs-mgr/micro-app/base';
-import { MicroAppManagementService, MicroAppStatusService, MicroAppStore } from '@app/state/convs-mgr/micro-app';
+import { MicroAppTypes, MicroApp, MicroAppStatus, MicroAppSectionTypes } from '@app/model/convs-mgr/micro-app/base';
+import { MicroAppStatusService, MicroAppStore } from '@app/state/convs-mgr/micro-app';
 import { Router } from '@angular/router';
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
@@ -17,22 +17,25 @@ import { MicroAppAssessmentService } from '../../services/handle-assessment.serv
 })
 export class MicroAppStartPageComponent implements OnInit, OnDestroy
 {
-  private _sbS = new SubSink();
-
+  /** Comprehensive app data */
   app: MicroAppStatus;
-
   /** The microApp being launched */
   appType: MicroAppTypes;
+  /** ID of the app */
   appId: string;
+  /** Id of the end user interacting with the app */
   endUserId: string;
+  /** Configuratins of a MicroApp */
   config: MicroApp;
 
   assessment: Assessment;
 
+  /** Tracking initialization (loading) */
   isInitializing = true;
 
+  private _sbS = new SubSink();
+
   constructor(private _microApp$$: MicroAppStore,
-              private _microAppService: MicroAppManagementService,
               private _microAppStatusServ: MicroAppStatusService,
               private _assessmentService$: AssessmentService,
               private _microAppAssessServ: MicroAppAssessmentService,
@@ -43,13 +46,11 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
   {
     // STEP 1. Get app ID
      const app$ = this._microApp$$.get();
-
      this._sbS.sink = 
       app$.pipe(take(1)).subscribe(a => 
        {
         this.app = a;
         this.isInitializing = false;
-
         // TODO: If app state is already in completed here, what should we do?
        });
      this.getAppAssessment();   
@@ -85,21 +86,12 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
    * Redirects the user to the main section route
   */
   handleStart() 
-  {
-    const appStarted = MicroAppStatusTypes.Started;
-    const mainSection = MicroAppSectionTypes.Main;
-  
-    this._microApp$$.next({
-      appId: this.app.appId,
-      endUserId: this.app.endUserId,
-      config: this.app.config,
-      startedOn: Date.now(),
-      finishedOn: 0,
-    } as unknown as MicroAppStatusTypes);
-  
-    this._microAppStatusServ.setMicroAppSections(mainSection);
-    this._microAppStatusServ.setMicroAppStatus(appStarted);
-  
+  {  
+    // Update the micro-app content section prop
+    //TODO: Check if this is necessary, can we only use the Launched, Started, Completed props?
+    const updatedApp = { ...this.app, microAppSection: MicroAppSectionTypes.Main };
+    this._microApp$$.next(updatedApp);
+
     this._router.navigate(['main']);
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { MicroAppAssessmentQuestion } from '@app/model/convs-mgr/micro-app/base';
 
@@ -7,45 +7,32 @@ import { MicroAppAssessmentQuestion } from '@app/model/convs-mgr/micro-app/base'
   templateUrl: './assessment-card.component.html',
   styleUrls: ['./assessment-card.component.scss']
 })
-export class AssessmentCardComponent implements OnInit 
+export class AssessmentCardComponent implements OnInit, OnDestroy
 {
   /** List of questions passed down by content page */
   @Input() assessmentQuestions: MicroAppAssessmentQuestion[];
   /** Form array when view mode is single question */
   @Input() assessmentFormArray: FormArray;
-  @Input() assessmentForm: FormGroup;
-
   /** Method called to track progress */
   @Input() progressCallback: () => void;
-
+  /** Toggle between all questions view or single question view */
   stepperForm = true
-
-  /** Tracking questions using stepper */
-  currentStep = 0;
-  totalSteps  = 0;
+  
+  private _sBS = new SubSink();
 
   constructor(){}
 
   ngOnInit(): void 
   {
-    this.totalSteps = this.assessmentFormArray.controls.length
-    console.log(this.assessmentQuestions, 'logged from a card')
     // Subscribe to value changes to update progress
-    this.assessmentForm.valueChanges.subscribe(() => {
+    this._sBS.sink =  this.assessmentForm.valueChanges.subscribe(() => {
+      //Communicate progress to parent component and update progress UI
       this.progressCallback();
     });
   }
 
-  prevStep() {
-    if (this.currentStep > 0) {
-      this.currentStep--;
-    }
+  /** Unsubscribe from all observables */
+  ngOnDestroy(): void {
+      this._sBS.unsubscribe()
   }
-  
-  nextStep() {
-    if (this.currentStep < this.totalSteps - 1) {
-      this.currentStep++;
-    }
-  }
-  
 }

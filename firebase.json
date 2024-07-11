@@ -7,24 +7,37 @@
       "node tools/scripts/build-gc-functions-package.js"
     ]
   },
-  "hosting": {
-    "target": "convl-manager",
-    "public": "dist/apps/conv-learning-manager",
-    "predeploy": [
-      "nx build conv-learning-manager --skip-nx-cache --prod"
-    ],
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  },
+  "hosting": [
+    {
+      "target": "convl-manager",
+      "public": "dist/apps/conv-learning-manager",
+      "predeploy": [
+        "nx build conv-learning-manager --skip-nx-cache --prod"
+      ],
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "target": "goomza-microapp",
+      "public": "dist/apps/goomza-microapp",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ],
   "emulators": {
     "functions": {
       "port": 5001

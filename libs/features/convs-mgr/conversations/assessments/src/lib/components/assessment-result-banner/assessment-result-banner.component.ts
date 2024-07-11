@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
+
 import { SetAssessmentScoreService } from '../../services/set-pass-status.service';
 @Component({
   selector: 'app-assessment-result-banner',

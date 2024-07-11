@@ -43,4 +43,10 @@ export class AssessmentService {
   getAssessment$(assessmentId: string) {
     return this._assessments$$.getOne(assessmentId);
   }
+
+  getPublishedAssessments$(){
+    return this._assessments$$.get().pipe(
+      map((assessments: Assessment[]) => assessments.filter(assessment => assessment.isPublished))
+    );
+  }
 }

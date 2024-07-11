@@ -6,3 +6,4 @@ export * from './lib/cmi5/au-abstract.class';
 export * from './lib/complete-micro-app.handler'
 export * from './lib/init-micro-app.handler'
 export * from './lib/redirect-handler'
+export * from './lib/get-micro-app-progress.handler'

@@ -26,33 +26,23 @@ export class MicroAppContentPageComponent implements OnInit
   private _sbS = new SubSink();
 
   constructor( private _microApp$$: MicroAppStore,
-               private _microAppAssessServ: MicroAppAssessmentService,
+               private _router: Router, 
   ){}
 
-  ngOnInit(): void {
-    // TODO: Use app status to resume the user's position if it's something
-    // other than launched.
-
-    this.getAppStatus();
-    this._sbS.sink = this._microAppAssessServ.getAssessment().subscribe((assess) => {
-      if (assess) this.assessment = assess;
-      console.log(this.assessment)
-     })
-  }
-  
-  /**
-   *  Methd to fetch relevant data from app url
-   *  @returns A comprehensive object defining the app state and details 
-   */
-  getAppStatus(){
-    console.log('assessment started')
+  ngOnInit(): void 
+  {
+    // Methd to fetch relevant data from app url
+    // returns A comprehensive object defining the app state and details 
     const app$ = this._microApp$$.get();
 
-     this._sbS.sink = 
+    this._sbS.sink = 
       app$.pipe(take(1)).subscribe(a => 
-       {
-        this.app = a;
-        // TODO: If app state is already in completed here, what should we do?
-       });
-  }
+      {
+         this.app = a;
+
+        if (a.status == MicroAppStatusTypes.Started){
+          this._router.navigate(['main']);
+        }
+      });
+    }
 }

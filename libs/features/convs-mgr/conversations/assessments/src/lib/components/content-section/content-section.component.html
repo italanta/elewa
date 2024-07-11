@@ -1,4 +1,4 @@
-<ng-container *ngIf="pageView | async as pageMode">
+<ng-container *ngIf="pageView | async as pageMode" class="micro-app-content">
   <ng-container *ngIf="pageMode === pageViewMode.AssessmentMode">
     <!-- Header with details about assessment -->
     <app-assessment-header></app-assessment-header>

@@ -12,6 +12,7 @@ import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
 import { _JsPlumbComponentDecorator } from '../../providers/decorate-jsplumb.provider';
 
+
 @Component({
   selector: 'app-assessment-micro-app-block',
   templateUrl: './assessment-micro-app-block.component.html',
@@ -50,12 +51,9 @@ export class AssessmentMicroAppBlockComponent implements OnInit, AfterViewInit {
   /** Get all assessments */
   getAssessments()
   {
-    this._sBs.sink = this._assessmentService$.getAssessments$().subscribe((assessments) =>
-    {
-      // Filter out assessments that have not been published
-      this.assessments = assessments.filter((assessment) => assessment.isPublished);
-    }
-    );
+    this._sBs.sink = this._assessmentService$.getPublishedAssessments$().subscribe((_assess) => {
+        this.assessments = _assess
+    });
   }
 
   /** Add JsPlumb connector to max score input */

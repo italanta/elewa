@@ -7,6 +7,5 @@ export * from './lib/route-guards/analytics/can-view-analytics.guard';
 export * from './lib/route-guards/chats/can-view-chats.guard';
 export * from './lib/route-guards/learners/can-view-learners.guard';
 export * from './lib/route-guards/feature-flags/feature-flag.guard';
-export * from './lib/route-guards/micro-apps/can-access-microapp.guard';
 
 export * from './lib/authorisation.module';

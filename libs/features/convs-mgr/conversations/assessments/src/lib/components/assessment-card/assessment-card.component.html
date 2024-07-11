@@ -1,50 +1,14 @@
 <div *ngIf="assessmentFormArray" >
-  <div *ngIf="!stepperForm">
-    <form [formGroup]="assessmentForm">
-      <div formArrayName="assessmentFormArray">
-        <mat-card class="question-card" *ngFor="let question of assessmentFormArray.controls; let i = index" [formGroupName]="i">
-          <mat-card-header class="question-header">
-            Question {{i + 1}}
-          </mat-card-header>
-          <mat-card-content class="question-content">
-            <p>{{ question?.get('question')?.value }}</p>
-            <mat-radio-group aria-label="Select an option" class="column-radios" formControlName="selectedOption">
-              <mat-radio-button *ngFor="let option of question.get('options')?.value" [value]="option">{{option}}</mat-radio-button>
-            </mat-radio-group>    
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </form>
-  </div>
-
-  <!-- Stepper Form -->
-  <div class="single-form">
-    <div *ngIf="stepperForm">
-      <form [formGroup]="assessmentForm" class="single-question-fm">
-        <div formArrayName="assessmentFormArray">
-          <div *ngFor="let question of assessmentFormArray.controls; let i = index" [formGroupName]="i">
-            <mat-card class="question-card" *ngIf="i === currentStep">
-              <mat-card-header class="question-header">
-                Question {{currentStep + 1}}
-              </mat-card-header>
-              <mat-card-content class="question-content">
-                <p>{{ question?.get('question')?.value }}</p>
-                <mat-radio-group aria-label="Select an option" class="column-radios" formControlName="selectedOption">
-                  <mat-radio-button *ngFor="let option of assessmentFormArray.at(currentStep).get('options')?.value" [value]="option">{{ option }}</mat-radio-button>
-                </mat-radio-group>
-              </mat-card-content>
-            </mat-card>
-          </div>
-        </div>
-      </form>
-      <div class="stepper-buttons">
-        <button class="previous" mat-raised-button (click)="prevStep()" [disabled]="currentStep === 0" [hidden]="currentStep === totalSteps - 1">Previous</button>
-        <button class="btn-btns" mat-raised-button (click)="nextStep()" [disabled]="currentStep === totalSteps - 1" [hidden]="currentStep === totalSteps - 1">Next</button>
-      </div>
+  <div [ngSwitch]="stepperForm">
+    <!-- Stepper Form Case -->
+    <app-single-question-form *ngSwitchCase="true" [assessmentFormArray]="assessmentFormArray" [assessmentForm]="assessmentForm"></app-single-question-form>
+    
+    <!-- Full Form Case -->
+    <app-all-questions-form *ngSwitchCase="false" [assessmentFormArray]="assessmentFormArray" [assessmentForm]="assessmentForm"></app-all-questions-form>
+    
+    <!-- Optional: Default Case -->
+    <div *ngSwitchDefault>
+      <app-all-questions-form *ngSwitchCase="false"></app-all-questions-form>
     </div>
-  </div>
-  <!-- submit button -->
-  <div class="submit-btn">
-    <button class="btn-btns" mat-raised-button  [hidden]="currentStep < totalSteps - 1">Submit assessment</button>
   </div>
 </div>
