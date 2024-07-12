@@ -6,10 +6,10 @@
           {{ "ASSESSMENT-PAGE.QUESTION" | transloco }}  {{i + 1}} 
         </mat-card-header>
         <mat-card-content class="question-content">
-          <p>{{ question?.get('question')?.value }}</p>
+          <p>{{ question?.get('messsage')?.value }}</p>
           <mat-radio-group aria-label="Select an option" class="column-radios" formControlName="selectedOption">
             <mat-radio-button *ngFor="let option of question.get('options')?.value" [value]="option">{{option.text}}</mat-radio-button>
-          </mat-radio-group>    
+          </mat-radio-group>
         </mat-card-content>
       </mat-card>
     </div>
