@@ -59,7 +59,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
     const updatedApp = { ...this.app, microAppSection: MicroAppSectionTypes.Main };
     this._microApp$$.next(updatedApp);
 
-    this._router.navigate(['main']);
+    this._router.navigate(['main', this.app.id]);
   }
 
   /** Unsubscribe from all subscriptions to prevent memory leaks */
