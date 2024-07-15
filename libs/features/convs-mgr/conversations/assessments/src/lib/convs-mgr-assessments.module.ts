@@ -23,6 +23,7 @@ import {
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { ItalBreadCrumbModule } from '@app/elements/layout/ital-bread-crumb';
+import { ClmMicroAppLayoutModule } from '@app/elements/layout/clm-micro-app';
 
 import { AssessmentsRouterModule } from './assessments.router.module';
 
@@ -68,7 +69,8 @@ import { AllQuestionsFormComponent } from './components/all-questions-form/all-q
     FlexLayoutModule,
     MatSnackBarModule,
     DragDropModule,
-    ItalBreadCrumbModule
+    ItalBreadCrumbModule,
+    ClmMicroAppLayoutModule
   ],
   declarations: [
     AssessmentsHomeComponent,
