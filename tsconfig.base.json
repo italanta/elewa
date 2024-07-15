@@ -499,7 +499,10 @@
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
       "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
       "intercom": ["libs/util/ngfi/intercom/src/index.ts"],
-      "micro-apps-auth": ["libs/elements/base/micro-apps-auth/src/index.ts"]
+      "micro-apps-auth": ["libs/elements/base/micro-apps-auth/src/index.ts"],
+      "model/convs-mgr/micro-app/assessments": [
+        "libs/model/convs-mgr/micro-app/assessments/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
