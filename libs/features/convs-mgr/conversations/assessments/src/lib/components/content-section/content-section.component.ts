@@ -29,7 +29,10 @@ export class ContentSectionComponent implements OnInit
 
   /** Grading scores */
   passCriteria: any;
-
+  /** Tracking questions using stepper */
+  currentStep = 0;
+  /** Total number of next clicks (question array length) */
+  totalSteps  = 0;
   /* How far a learner is in answering questions */
   progressPercentage = 0;
 
@@ -50,6 +53,7 @@ export class ContentSectionComponent implements OnInit
     this.assessmentForm = this._fb.group({
       assessmentFormArray: this.assessmentFormArray
     });
+    this.totalSteps = this.assessmentFormArray.controls.length;
   }
 
   /** Tracking how far a learner is in their assignment  */
@@ -71,5 +75,20 @@ export class ContentSectionComponent implements OnInit
    */
   startAssignment(){
     this._pageViewservice.setPageViewMode(PageViewMode.AssessmentMode)
+  }
+
+  /** Previous question click */
+  prevStep() 
+  {
+    if (this.currentStep > 0) {
+      this.currentStep--;
+    }
+  }
+  /** Next question click */
+  nextStep() 
+  {
+    if (this.currentStep < this.totalSteps - 1) {
+      this.currentStep++;
+    }
   }
 }
