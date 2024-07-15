@@ -8,11 +8,11 @@ import { MicroAppProgress } from '@app/model/convs-mgr/micro-app/base';
  */
 export class UpdateMicroAppProgressHandler extends FunctionHandler<MicroAppProgress, RestResult> 
 {
-  public async execute(req: any, context: FunctionContext, tools: HandlerTools): Promise<any> 
+  public async execute(req: MicroAppProgress, context: FunctionContext, tools: HandlerTools): Promise<any> 
   {
+    const payload = req;
+    
     tools.Logger.log(() => `Received progress update callback`);
-
-    const payload: MicroAppProgress = typeof req.body === 'string' ? JSON.parse(req.body) : req.body.data;
 
     tools.Logger.log(() => `Processing progress for app with ID ${payload.appId} for user ${payload.endUserId}`);
     

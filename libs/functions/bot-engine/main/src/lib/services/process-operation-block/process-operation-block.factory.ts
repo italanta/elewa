@@ -39,7 +39,7 @@ export class OperationBlockFactory
       case StoryBlockTypes.Event:
         return new EventBlockService(this._blockDataService, this._connDataService, this.tools, this._activeChannel);
       case StoryBlockTypes.MicroAppBlock:
-        return new MicroAppBlockService(this._blockDataService, this._connDataService, this.tools, this._activeChannel)  
+        return new MicroAppBlockService(this._blockDataService, this._connDataService, this.tools, this._activeChannel);  
       default:
         break;
     }
