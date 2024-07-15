@@ -86,21 +86,25 @@ export class ProcessMessageService
       return this.fallBackService.legacyFallback(this.channel, currentCursor, this._blockService$, msg);
     }
 
+    // Get the full object of last block
     const lastBlock = await this._blockService$.getBlockById(lastBlockId, orgId, currentStory);
 
     this._tools.Logger.log(()=> `Processing block: Last block: ${JSON.stringify(lastBlock)}}`);
 
-    // Handle input: validates and saves the input to variable
-    // Saves variables based on last input
+    // If we had requested for the user input. The user response is saved here.
+    //  Handle input: validates and saves the input to variable
+    //    Saves variables based on last input
     if(msg) {
       const inputPromise = this.processInput(msg, lastBlock, orgId, endUser);
       this.sideOperations.push(inputPromise);
     }
-    // upodate leaner progress
+
+    // Save the progress of the learner so far, for analytics purposes.
     const updateLearnersProgressPromise = updateLearnerProgress(currentStory, lastBlock, endUser, tools, orgId);
     this.sideOperations.push(updateLearnersProgressPromise);
 
-    // Return the cursor updated with the next block in the story
+    // Get the next block!
+    //  Return the cursor updated with the next block in the story
     let {newCursor, nextBlock} = await this.__nextBlockService(currentCursor, lastBlock, orgId, currentStory, msg, endUser.id);
 
     // Update the cursor with the user score in the assessment
@@ -113,7 +117,7 @@ export class ProcessMessageService
       this._tools.Logger.log(()=> `User score on question ${lastBlock.id}: ${userAnswerScore}`);
     }
 
-    // We check if the next block is a Structural Block so that we can handle it and find the next block
+    // We check if the next block is an Operational Block so that we can handle it and find the next block
     //  to send back to the end user. Because we cannot send these types of blocks to the user, we
     //   need to send the blocks they are pointing to
 
