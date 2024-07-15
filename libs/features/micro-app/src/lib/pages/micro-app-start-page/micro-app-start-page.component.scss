@@ -41,6 +41,10 @@
         border-radius: 4px;
         color: var(--micro-apps-white-button-text);
       }
+      &:disabled{
+        background-color: gray;
+        pointer-events: none;
+      }
     }
     
   }
