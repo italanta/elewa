@@ -1,6 +1,8 @@
 import { IObject } from "@iote/bricks";
 
-export interface AssessmentResult extends IObject {
+import { Attempt } from "./assessment-attempt.interface";
+
+export interface AssessmentProgress extends IObject {
   // Id of the assessment
   id: string;
   

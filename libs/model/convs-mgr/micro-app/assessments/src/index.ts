@@ -1,1 +1,4 @@
-export * from './lib/model-convs-mgr-micro-app-assessments';
+export * from './lib/assessment-progress.interface';
+export * from './lib/assessment-attempt.interface';
+export * from './lib/assessment-question-response.interface';
+export * from './lib/assessment-progress-update.interface';
