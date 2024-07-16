@@ -28,7 +28,7 @@
       <div class="buttons-section">
         <div class="stepper-buttons" *ngIf="stepperForm === true">
           <button class="previous" mat-raised-button (click)="prevStep()" [disabled]="currentStep === 0" [hidden]="currentStep === totalSteps - 1">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.PREVIOUS" | transloco }}</button>
-          <button class="btn-btns" mat-raised-button (click)="nextStep()" [disabled]="currentStep === totalSteps - 1" [hidden]="currentStep === totalSteps - 1">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.NEXT-BUTTON" | transloco }}</button>
+          <button class="btn-btns" mat-raised-button (click)="nextStep(currentStep)" [disabled]="currentStep === totalSteps - 1" [hidden]="currentStep === totalSteps - 1">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.NEXT-BUTTON" | transloco }}</button>
         </div>
   
         <!-- submit button -->
