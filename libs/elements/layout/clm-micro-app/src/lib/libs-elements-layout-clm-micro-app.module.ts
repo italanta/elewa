@@ -18,7 +18,7 @@ import { MicroAppsHeaderComponent } from './components/micro-apps-header/micro-a
                   MicroAppsFooterComponent,
                   MicroAppsHeaderComponent,
   ],
-  exports: [ClmMicroAppPageComponent,
+  exports: [ClmMicroAppPageComponent, MicroAppsFooterComponent
             
   ]
 })

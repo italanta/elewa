@@ -1,5 +1,6 @@
 import { FormBuilder } from "@angular/forms";
 import { Assessment } from "@app/model/convs-mgr/conversations/assessments";
+import { MicroAppTypes } from "@app/model/convs-mgr/micro-app/base";
 
 export function CREATE_EMPTY_ASSESSMENT_FORM(_fb: FormBuilder) {
   return _fb.group({
@@ -44,5 +45,12 @@ export function DEFAULT_ASSESSMENT(): Assessment {
         userAttempts: 1
       }
     },
+    type: MicroAppTypes.Assessment, 
+    callBackUrl: '', 
+    channelId: '', 
+    pos: {
+      storyId: '',
+      blockId: ''
+    } ,
   }
 }

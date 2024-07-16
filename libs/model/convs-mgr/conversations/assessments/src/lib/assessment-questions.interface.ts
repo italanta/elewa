@@ -1,8 +1,10 @@
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { IObject } from '@iote/bricks';
 
-export interface AssessmentQuestion extends StoryBlock {
+export interface AssessmentQuestion extends StoryBlock, IObject {
   questionType: AssessmentQuestionType;
   marks: number;
+  message: string;
   feedback?: AssessmentFeedBack;
   options?: AssessmentQuestionOptions[];
   prevQuestionId?: string;

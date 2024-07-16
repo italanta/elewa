@@ -1,9 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
+import { SubSink } from 'subsink';
+
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
-import { SubSink } from 'subsink';
+import { StepService } from '../../services/set-steps.service';
 
 
 @Component({
@@ -22,11 +24,11 @@ export class AssessmentCardComponent implements OnInit, OnDestroy
   /** Method called to track progress */
   @Input() progressCallback: () => void;
   /** Toggle between all questions view or single question view */
-  stepperForm = true
+  @Input() stepperForm: boolean;
   
   private _sBS = new SubSink();
 
-  constructor(){}
+  constructor( private stepServ: StepService){}
 
   ngOnInit(): void 
   {

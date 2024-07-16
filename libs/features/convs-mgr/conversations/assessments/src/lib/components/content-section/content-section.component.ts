@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs';
+import { SubSink } from 'subsink';
+
+import { Assessment, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
 import { __CalculateProgress } from '../../utils/calculate-progress.util';
 import { PageViewMode } from '../../model/view-mode.enum';
 
 import { MicroAppAssessmentQuestionFormService } from '../../services/microapp-assessment-questions-form.service';
 import { AppViewService } from '../../services/content-view-mode.service';
+import { StepService } from '../../services/set-steps.service';
 
 
 @Component({
@@ -16,34 +19,41 @@ import { AppViewService } from '../../services/content-view-mode.service';
   templateUrl: './content-section.component.html',
   styleUrls: ['./content-section.component.scss']
 })
-export class ContentSectionComponent implements OnInit 
+export class ContentSectionComponent implements OnInit, OnDestroy 
 {
   /** Whether a user is viewing assessment content or general page content */
   pageView: Observable<PageViewMode>;
   pageViewMode = PageViewMode;
 
-  assessmentQuestions = []
+  /** Questions in an assessment */
+  assessmentQuestions: AssessmentQuestion[];
+  /** Assessment in progress */
+  assessment: Assessment;
   /** Form declarations */
   assessmentFormArray: FormArray;
   assessmentForm: FormGroup;
 
-  /** Grading scores */
-  passCriteria: any;
   /** Tracking questions using stepper */
   currentStep = 0;
   /** Total number of next clicks (question array length) */
   totalSteps  = 0;
-  /* How far a learner is in answering questions */
+  /** How far a learner is in answering questions */
   progressPercentage = 0;
+  stepperForm = true;
 
+  private _sBS = new SubSink()
   constructor ( private _assessFormService: MicroAppAssessmentQuestionFormService,
                 private _pageViewservice: AppViewService,
                 private _fb: FormBuilder,
-  ){}
+                private stepService: StepService,
+  ){ }
 
   ngOnInit() {
     this.pageView = this._pageViewservice.getPageViewMode();
     this.buildForms();
+    this._sBS.sink = this.stepService.currentStep$.subscribe(step => {
+      this.currentStep = step;
+    });
     this.getProgress();
   }
 
@@ -54,6 +64,7 @@ export class ContentSectionComponent implements OnInit
       assessmentFormArray: this.assessmentFormArray
     });
     this.totalSteps = this.assessmentFormArray.controls.length;
+    this.stepService.setTotalSteps(this.totalSteps);
   }
 
   /** Tracking how far a learner is in their assignment  */
@@ -69,26 +80,19 @@ export class ContentSectionComponent implements OnInit
     // Generate the linear gradient string
     return `linear-gradient(to right, white ${gradientStopPosition}%, #1F7A8C ${gradientStopPosition}%)`;
   }
-
-  /** Changes the page view from home page to assessment mode
-   *  TODO: Integrate timer and micro-app status setting
-   */
-  startAssignment(){
-    this._pageViewservice.setPageViewMode(PageViewMode.AssessmentMode)
+  /** Navigate to previous question */
+  prevStep()
+  {
+    this.stepService.prevStep();
+  }
+  /** Navigate to the next question */
+  nextStep()
+  {
+    this.stepService.nextStep();
   }
 
-  /** Previous question click */
-  prevStep() 
-  {
-    if (this.currentStep > 0) {
-      this.currentStep--;
-    }
-  }
-  /** Next question click */
-  nextStep() 
-  {
-    if (this.currentStep < this.totalSteps - 1) {
-      this.currentStep++;
-    }
+  ngOnDestroy()
+   {
+    this._sBS.unsubscribe();
   }
 }
