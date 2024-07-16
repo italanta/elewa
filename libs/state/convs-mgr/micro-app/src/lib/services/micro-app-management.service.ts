@@ -36,25 +36,24 @@ export class MicroAppManagementService
     return this._http$.post<InitMicroAppResponse>(initUrl, payload);
   }
 
+  /** Updating a user's progress when they are done with an assessment, on the redirect page */
   progressCallBack(appId: string, userId: string, config: MicroApp, milestones?: ProgressMilestones) 
   {
-      // TODO: Implement a callback handler, that collects the data,
-      //  depending on the app type and sends this data to the provided callbackUrl
-      if(!config.callBackUrl) return;
+    if(!config.callBackUrl) return;
 
-      const URL = config.callBackUrl;
+    const URL = config.callBackUrl;
 
-      const payload: MicroAppProgress = {
-        appId,
-        endUserId: userId,
-        orgId: config.orgId,
+    const payload: MicroAppProgress = {
+      appId,
+      endUserId: userId,
+      orgId: config.orgId,
 
-        // The payload to be sent to the callback url provided
-        milestones: milestones,
-      }
-  
-      return this._http$.post(URL, {data: payload});
+      // The payload to be sent to the callback url provided
+      milestones: milestones,
     }
+
+    return this._http$.post(URL, {data: payload});
+  }
 
   /** Mark the micro app as completed and redirect user to platform */
   completeApp(appId: string): Observable<any> 

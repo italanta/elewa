@@ -60,9 +60,12 @@ export class MicroAppStore
   /** 
    *  Starts the micro-app execution.
    *  Set the next status of the micro-app */
-  next(status: MicroAppStatus) {
-    this._app = { ...this._app, microAppSection: status.microAppSection };
-    this._app$$.next(this._app);
+  next(currentStatus: MicroAppStatus) {
+    this._app = { ...this._app,
+                   microAppSection: currentStatus.microAppSection, 
+                   status: currentStatus.status 
+                };
+    return this._app$$.next(this._app);
   }
 
   /**
