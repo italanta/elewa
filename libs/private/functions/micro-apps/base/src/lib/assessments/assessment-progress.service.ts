@@ -8,7 +8,7 @@ export class AssessmentProgressService
 
   private _getCurrentProgress(progress: AssessmentProgressUpdate)
   {
-    const resultsPath = `orgs/${progress.orgId}/end-users/${progress.endUserId}/assessment-results`;
+    const resultsPath = `orgs/${progress.orgId}/end-users/${progress.endUserId}/assessment-progress`;
     const assessmentResultsRepo$ = this.tools.getRepository<AssessmentProgress>(resultsPath);
 
     return assessmentResultsRepo$.getDocumentById(progress.appId);
@@ -90,7 +90,7 @@ export class AssessmentProgressService
 
   private _updateProgress(newProgress: AssessmentProgress, progressUpdate: AssessmentProgressUpdate)
   {
-    const resultsPath = `orgs/${progressUpdate.orgId}/end-users/${progressUpdate.endUserId}/assessment-results`;
+    const resultsPath = `orgs/${progressUpdate.orgId}/end-users/${progressUpdate.endUserId}/assessment-progress`;
     const assessmentResultsRepo$ = this.tools.getRepository<AssessmentProgress>(resultsPath);
 
     return assessmentResultsRepo$.write(newProgress, progressUpdate.appId);
