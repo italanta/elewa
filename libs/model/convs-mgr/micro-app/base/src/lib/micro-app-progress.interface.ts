@@ -1,4 +1,5 @@
 import { IObject } from "@iote/bricks";
+import { MicroAppTypes } from "./micro-app-types.enum";
 /** Interface representing a progress object, details Gomza is recording as a
  *  user engages with a microap
  *  Useful when routing them back to where they were, and tracking completion 
@@ -13,7 +14,9 @@ export interface MicroAppProgress extends IObject
   /** ID of an organization */
   orgId: string;
   /** Current question a user is in */
-  milestones?: ProgressMilestones
+  milestones?: ProgressMilestones;
+
+  type: MicroAppTypes;
 }
 
 export interface ProgressMilestones 

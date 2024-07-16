@@ -1,6 +1,7 @@
 import { HandlerTools } from "@iote/cqrs";
 
 import { AssessmentProgress, AssessmentProgressUpdate, Attempt, QuestionResponse } from "@app/model/convs-mgr/micro-app/assessments";
+import { MicroAppProgress } from "@app/model/convs-mgr/micro-app/base";
 
 export class AssessmentProgressService
 {
@@ -50,8 +51,10 @@ export class AssessmentProgressService
     return score;
   }
 
-  async trackProgress(progressUpdate: AssessmentProgressUpdate)
+  async trackProgress(progress: MicroAppProgress)
   {
+    const progressUpdate = progress as AssessmentProgressUpdate;
+    
     const currentProgress = await this._getCurrentProgress(progressUpdate);
     let newProgress: AssessmentProgress;
     if (currentProgress) {
