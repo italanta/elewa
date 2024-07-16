@@ -9,6 +9,7 @@ export interface AssessmentQuestion extends StoryBlock, IObject {
   options?: AssessmentQuestionOptions[];
   prevQuestionId?: string;
   nextQuestionId?: string;
+  textAnswer?: AssessmentTextAnswer;
 }
 
 export interface AssessmentQuestionOptions {
@@ -18,6 +19,11 @@ export interface AssessmentQuestionOptions {
   feedback: string;
 }
 
+export interface AssessmentTextAnswer {
+  text: string,
+  accuracy: AssessmentOptionValue,
+  feedback?: string;
+}
 export interface AssessmentFeedBack {
   message: string;
   condition: FeedbackCondition;
