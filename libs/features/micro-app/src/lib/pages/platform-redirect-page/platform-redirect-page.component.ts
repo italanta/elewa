@@ -15,6 +15,7 @@ import { getPlatformURL } from '../../utils/create-platform-url.util';
 })
 export class PlatformRedirectPageComponent implements OnInit
 {
+  /** Current app status */
   status: MicroAppStatus;
 
   /** Phone number of a user */
@@ -56,7 +57,7 @@ export class PlatformRedirectPageComponent implements OnInit
       }),
       // Send data to a callback url
       switchMap(() => {
-        const callback$ = this.microAppService.progressCallBack(this.status.appId, this.status.endUserId, this.status.config);
+        const callback$ = this.microAppService.progressCallBack(this.status);
         return callback$ ? callback$ : of(null);
       })
     ).subscribe();

@@ -33,7 +33,7 @@
   
         <!-- submit button -->
         <div class="submit-btn" *ngIf="stepperForm === false || currentStep === totalSteps - 1  ">
-          <button class="btn-btns" mat-raised-button>{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.SUBMIT-TEXT" | transloco }}</button>
+          <button class="btn-btns" mat-raised-button (click)="saveProgress(currentStep)">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.SUBMIT-TEXT" | transloco }}</button>
         </div>
       </div>
 

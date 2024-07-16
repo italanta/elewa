@@ -4,7 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { FrontendEnvironment } from '@app/elements/base/frontend-env';
-import { InitMicroAppCmd, InitMicroAppResponse, MicroApp, MicroAppProgress, ProgressMilestones } from '@app/model/convs-mgr/micro-app/base';
+import { InitMicroAppCmd, InitMicroAppResponse, MicroAppProgress, MicroAppSectionTypes, 
+         MicroAppStatus, MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
+import { AssessmentProgressUpdate } from '@app/model/convs-mgr/micro-app/assessments';
 
 
 const INIT_MICROAPP_ENDPOINT = 'initMicroApp';
@@ -36,24 +38,40 @@ export class MicroAppManagementService
     return this._http$.post<InitMicroAppResponse>(initUrl, payload);
   }
 
-  /** Updating a user's progress when they are done with an assessment, on the redirect page */
-  progressCallBack(appId: string, userId: string, config: MicroApp, milestones?: ProgressMilestones) 
-  {
-    if(!config.callBackUrl) return;
+/** Updating a user's progress when they are done with an assessment, on the redirect page */
+progressCallBack(app?: MicroAppStatus, milestones?: AssessmentProgressUpdate) {
+  if (!app || !app.config || !app.config.callBackUrl) return;
 
-    const URL = config.callBackUrl;
+  const URL = app.config.callBackUrl;
 
-    const payload: MicroAppProgress = {
-      appId,
-      endUserId: userId,
-      orgId: config.orgId,
-
-      // The payload to be sent to the callback url provided
-      milestones: milestones,
+  if (app.config.type === MicroAppTypes.Assessment && milestones) {
+    const assessmentPayload: AssessmentProgressUpdate = {
+      appId: milestones.appId,
+      endUserId: milestones.endUserId,
+      orgId: milestones.orgId,
+      questionResponses: milestones.questionResponses,
+      assessmentDetails: {
+        maxScore: milestones.assessmentDetails.maxScore,
+        questionCount: milestones.assessmentDetails.questionCount
+      },
+      type: MicroAppTypes.Assessment,
+      timeSpent: milestones.timeSpent
+    };
+    return this._http$.post(URL, { data: assessmentPayload });
+  } else {
+      const appPayload: MicroAppProgress = {
+        appId: app.appId,
+        endUserId: app.endUserId,
+        orgId: app.config.orgId,
+        type: app.config.type,
+        appMilestones: {
+          appSection: app.microAppSection ? app.microAppSection : MicroAppSectionTypes.Start,
+          timeSpent: (app.finishedOn && app.startedOn) ? (app.finishedOn - app.startedOn) : undefined
+        }
+      };
+      return this._http$.post(URL, { data: appPayload });
     }
-
-    return this._http$.post(URL, {data: payload});
-  }
+}
 
   /** Mark the micro app as completed and redirect user to platform */
   completeApp(appId: string): Observable<any> 

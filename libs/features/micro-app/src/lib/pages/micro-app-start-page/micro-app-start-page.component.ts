@@ -1,11 +1,12 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { take } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
-
 import { MicroAppTypes, MicroApp, MicroAppStatusTypes, MicroAppStatus, MicroAppSectionTypes } from '@app/model/convs-mgr/micro-app/base';
 import { MicroAppStatusService, MicroAppStore } from '@app/state/convs-mgr/micro-app';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-micro-app-start-page',
@@ -56,7 +57,11 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
   {  
     // Update the micro-app content section prop
     //TODO: Check if this is necessary, can we only use the Launched, Started, Completed props?
-    const updatedApp = { ...this.app, microAppSection: MicroAppSectionTypes.Main };
+    const updatedApp = { ...this.app, 
+                        microAppSection: MicroAppSectionTypes.Main,
+                        status: MicroAppStatusTypes.Started,
+                        startedOn: new Date().getTime() 
+                      };
     this._microApp$$.next(updatedApp);
 
     this._router.navigate(['main', this.app.id]);
