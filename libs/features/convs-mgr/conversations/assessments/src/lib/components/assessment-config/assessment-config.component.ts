@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+
+import { SubSink } from 'subsink';
 
 import { Assessment, FeedbackType, QuestionDisplayed, RetryType } from '@app/model/convs-mgr/conversations/assessments';
 
@@ -8,9 +10,10 @@ import { Assessment, FeedbackType, QuestionDisplayed, RetryType } from '@app/mod
   templateUrl: './assessment-config.component.html',
   styleUrls: ['./assessment-config.component.scss'],
 })
-export class AssessmentConfigComponent implements OnInit{
+export class AssessmentConfigComponent implements OnInit, OnDestroy
+{
   @Input() assessment: Assessment;
-  @Input() assessmentMode: number
+  @Input() assessmentMode: number;
   @Input() assessmentFormGroup: FormGroup;
 
   @Input() previewMode: boolean;
@@ -21,19 +24,38 @@ export class AssessmentConfigComponent implements OnInit{
   immediateFeedback = FeedbackType.Immediately;
   onEndFeedback = FeedbackType.OnEnd;
   noFeedback = FeedbackType.Never;
-  defaultRetry = RetryType.Default
-  scoreRetry = RetryType.OnScore
-  singleDisplay = QuestionDisplayed.Single
-  multipleDisplay = QuestionDisplayed.Multiple
+  defaultRetry = RetryType.Default;
+  scoreRetry = RetryType.OnScore;
+  singleDisplay = QuestionDisplayed.Single;
+  multipleDisplay = QuestionDisplayed.Multiple;
+
+  private _sbS = new SubSink()
 
   ngOnInit(): void {
     this.retry = this.assessmentFormGroup?.get('configs.canRetry')?.value;
+    this._sbS.sink =  this.assessmentFormGroup?.get('configs.canRetry')?.valueChanges.subscribe((value) => {
+      this.retry = value;
+
+      if (!value) {
+        this.clearControls();
+      }
+    });
   }
   
-  toggleRetry(){
-    const canRetry = this.assessmentFormGroup?.get('configs.canRetry')?.value;
-    this.assessmentFormGroup.get('configs.canRetry')?.setValue(!canRetry);
-    this.retry = !canRetry;
+  /** Turn retry on or off.  */
+  toggleRetry(): void {
+    const canRetryControl = this.assessmentFormGroup.get('configs.canRetry');
+    if (canRetryControl) {
+     this.retry = canRetryControl.value;
+    }
+  }
+
+  /** If a user disables retry, clear out previous retry configurations */
+  clearControls(): void {
+    this.assessmentFormGroup.get('configs.retryType')?.setValue(null);
+    this.assessmentFormGroup.get('configs.userAttempts')?.setValue(null);
+    this.assessmentFormGroup.get('configs.scoreAttempts.minScore')?.setValue(null);
+    this.assessmentFormGroup.get('configs.scoreAttempts.userAttempts')?.setValue(null);
   }
 
   get isDefaultRetrySelected(): boolean {
@@ -44,4 +66,7 @@ export class AssessmentConfigComponent implements OnInit{
     return this.assessmentFormGroup?.get('configs.retryType')?.value === this.scoreRetry;
   }
 
+  ngOnDestroy(): void {
+      this._sbS.unsubscribe();
+  }
 }
