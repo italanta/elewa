@@ -8,7 +8,7 @@
               {{ "ASSESSMENT-PAGE.QUESTION" | transloco }} {{currentStep + 1}}
             </mat-card-header>
             <mat-card-content class="question-content">
-              <p>{{ question?.get('message')?.value }}</p>
+              <p>{{ question?.get('question')?.value }}</p>
               <mat-radio-group aria-label="Select an option" class="column-radios" formControlName="selectedOption">
                 <mat-radio-button *ngFor="let option of assessmentFormArray.at(currentStep).get('options')?.value" [value]="option">{{ option.text }}</mat-radio-button>
               </mat-radio-group>

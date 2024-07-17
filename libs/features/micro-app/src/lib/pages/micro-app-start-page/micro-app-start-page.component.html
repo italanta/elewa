@@ -1,6 +1,13 @@
+<!-- <div class="container" *ngIf="appTypes | async as microAppType">
+  <div [ngSwitch]="microAppType">
+    <ng-container *ngSwitchCase=" microAppType === appType.Assessment"> 
+      
+    </ng-container>
+  </div>
+</div> -->
 <app-clm-micro-app-page >
   <div class="container">
-    <div class="main-content">
+    <div class="main-content" *ngIf="assessment">
       <!-- Image Logo -->
       <div class="img-section">
         <img src="/assets/icons/content-image.png"/>

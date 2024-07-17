@@ -1,10 +1,8 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-import { MicroAppAssessmentQuestion } from '@app/model/convs-mgr/micro-app/base';
-
+import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { AppViewService } from '../../services/content-view-mode.service';
 import { PageViewMode } from '../../model/view-mode.enum';
-import { SetAssessmentScoreService } from '../../services/set-pass-status.service';
 
 @Component({
   selector: 'app-all-questions-form',
@@ -14,24 +12,19 @@ import { SetAssessmentScoreService } from '../../services/set-pass-status.servic
 export class AllQuestionsFormComponent
 {
   /** Array of all questions in an assessment */
-  @Input() assessmentQuestions: MicroAppAssessmentQuestion[];
+  @Input() assessmentQuestions: AssessmentQuestion[];
   /** Asssessments form group */
   @Input() assessmentForm: FormGroup;
   /** Form array for when form view is single question */
   @Input() assessmentFormArray: FormArray;
 
-  showFeedback = false
-
-  constructor( private _pageViewServ: AppViewService,
-               private _assessmentScoreServ: SetAssessmentScoreService
-  ){}
-
-  /** Logic to handle submitting an assessment
-   *  //TODO: Add logic to actually submit an assessment
-   */
+  constructor( private _pageViewServ: AppViewService){}
+  
+  /** Logic to handle submitting an assessment */
   handleSubmit()
   {
-   this._pageViewServ.setPageViewMode(PageViewMode.FailFeedbackMode)
+    this._pageViewServ.setPageViewMode(PageViewMode.FailFeedbackMode)
+
+    //TODO: Add logic to actually submit an assessment
   }
-  
 }
