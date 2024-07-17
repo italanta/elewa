@@ -53,7 +53,7 @@ export class ContentSectionComponent implements OnInit
 
   getAssessmentQuestions() {
     if (this.assessment) {
-      this.questions$ = this._assessmentQuestion.getQuestionsByAssessmentId$(this.assessment.id);
+      this.questions$ = this._assessmentQuestion.getQuestionsByAssessmentId$(this.assessment.id as string);
     } else {
       this.questions$ = of([]); // Return an empty observable
     }

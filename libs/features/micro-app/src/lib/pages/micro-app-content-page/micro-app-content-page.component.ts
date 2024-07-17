@@ -1,13 +1,13 @@
+
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { take } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { Component, OnInit } from '@angular/core';
-
-import { MicroAppAssessmentQuestion, MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
-
+import { MicroAppAssessmentQuestion, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
 import {  MicroAppStore } from '@app/state/convs-mgr/micro-app';
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
-import { MicroAppAssessmentService } from '../../services/handle-assessment.service';
 
 
 @Component({

@@ -1,14 +1,14 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { take } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
-
 import { MicroAppTypes, MicroApp, MicroAppStatus, MicroAppSectionTypes } from '@app/model/convs-mgr/micro-app/base';
-import { MicroAppStatusService, MicroAppStore } from '@app/state/convs-mgr/micro-app';
-import { Router } from '@angular/router';
+import { Assessment } from '@app/model/convs-mgr/conversations/assessments'
+import { MicroAppAssessmentService, MicroAppStatusService, MicroAppStore } from '@app/state/convs-mgr/micro-app';
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
-import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
-import { MicroAppAssessmentService } from '../../services/handle-assessment.service';
+
 
 @Component({
   selector: 'app-micro-app-start-page',
@@ -92,7 +92,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
     const updatedApp = { ...this.app, microAppSection: MicroAppSectionTypes.Main };
     this._microApp$$.next(updatedApp);
 
-    this._router.navigate(['main']);
+    this._router.navigate(['main', this.app.id]);
   }
 
   /** Unsubscribe from all subscriptions to prevent memory leaks */
