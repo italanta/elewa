@@ -1,1 +1,12 @@
-<p>assessment-media-upload works!</p>
+<mat-dialog-content>
+  <h2 mat-dialog-title>{{fileAccept === 'image/*'? 'Import Image' : 'Import video'}}</h2>
+  <div class="upload-container" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+    <p>Drag & Drop files here</p>
+    <input type="file" (change)="onFileSelected($event)" [accept]="fileAccept" hidden #fileInput>
+    <button mat-raised-button (click)="fileInput.click()">Choose File</button>
+    <p *ngIf="uploadProgress">Upload Progress: {{uploadProgress}}%</p>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+</mat-dialog-actions>

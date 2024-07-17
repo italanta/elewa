@@ -13,7 +13,7 @@
 							<div fxLayout="row" fxLayoutAlign="space-between center">
 								<div class="question-type-conf">
 									<div fxLayout="column" fxLayoutAlign="start start">
-										<div appearance="fill" fxFlex="60" *ngIf="uploadedFile">
+										<div appearance="fill" fxFlex="60" *ngIf="uploadedFile" class="media-display">
 											<img *ngIf="isImage(uploadedFile)" [src]="uploadedFile" alt="Uploaded Image">
 											<video *ngIf="!isImage(uploadedFile)" controls>
 												<source [src]="uploadedFile" type="video/mp4">

@@ -20,7 +20,6 @@
 		border: solid #B8AFDA 2px!important;
 	}
 }
-
 .btn-add {
 	background-color: white;
 	color: black!important;
@@ -37,7 +36,19 @@
 	flex-direction: column;
 	width: 100%;
 }
-
+.media-display{
+	width: 10rem;
+	height: 5rem;
+	border-radius: 8px;
+	img{
+		width: 10rem;
+		height: 5rem;
+	}
+	video{
+		width: 10rem;
+		height: 5rem;
+	}
+}
 :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: white !important;
 }
