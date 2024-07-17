@@ -1,6 +1,5 @@
 import { HandlerTools } from '@iote/cqrs';
-import { RestResult } from '@ngfi/functions/v2';
-import { FunctionHandler, FunctionContext } from '@ngfi/functions';
+import { FunctionHandler, FunctionContext, RestResult } from '@ngfi/functions';
 
 import { MicroAppProgress, MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
 
