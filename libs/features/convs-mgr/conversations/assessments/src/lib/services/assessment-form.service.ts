@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder } from '@angular/forms';
 
-import { Assessment, AssessmentConfiguration, AssessmentQuestion, AssessmentQuestionOptions, 
+import { Assessment, AssessmentQuestion, AssessmentQuestionOptions, 
   AssessmentQuestionType } from '@app/model/convs-mgr/conversations/assessments';
 
 @Injectable({
@@ -39,6 +39,7 @@ export class AssessmentFormService {
       questionType: AssessmentQuestionType.SingleSelectOptions,
       marks: [question?.marks ?? ''],
       message: [question?.message ?? ''],
+      mediaPath: [question?.mediaPath ?? ''],
       options: question?.options ? this._prefillOptions(question?.options) : this._formBuilder.array([
         this.createDefaultChoice()
       ]),

@@ -7,6 +7,7 @@ export interface AssessmentQuestion extends StoryBlock {
   options?: AssessmentQuestionOptions[];
   prevQuestionId?: string;
   nextQuestionId?: string;
+  mediaPath?: string;
 }
 
 export interface AssessmentQuestionOptions {

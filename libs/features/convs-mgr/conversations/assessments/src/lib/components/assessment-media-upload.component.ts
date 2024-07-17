@@ -1,32 +1,48 @@
-import { Component, EventEmitter, Inject, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
+import { SubSink } from 'subsink';
+
+import { FileStorageService } from '@app/state/file';
 
 @Component({
   selector: 'app-assessment-media-upload',
   templateUrl: './assessment-media-upload.component.html',
   styleUrl: './assessment-media-upload.component.scss',
 })
-export class AssessmentMediaUploadComponent 
+export class AssessmentMediaUploadComponent implements OnInit
 {
   @Output() fileUploaded = new EventEmitter<File>();
   fileAccept: string;
   uploadProgress = 0;
   selectedFile: File;
-  videoName: string;
+  assessmentFormGroup: FormGroup;
+  mediaSrc: File;
+  isUploading: boolean;
+  path: string;
+  private _sBS = new SubSink ();
+
+  @ViewChild('mediaUpload') input: ElementRef<HTMLInputElement>;
 
   constructor(public dialogRef: MatDialogRef<AssessmentMediaUploadComponent>,
-               @Inject(MAT_DIALOG_DATA) public data: { fileType: string },           
+               @Inject(MAT_DIALOG_DATA) public data: { fileType: string, assessmentFormGroup: FormGroup }, 
+               private _uploadService: FileStorageService,          
   ) {
+    this.assessmentFormGroup = this.data.assessmentFormGroup;
     this.fileAccept = data.fileType === 'image' ? 'image/*' : 'video/*';
   }
 
-  onFileSelected(event: Event): void 
+  ngOnInit()
   {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
-      this.videoName = this.selectedFile.name
-      this.uploadFile(this.selectedFile);
+    this.path = this.assessmentFormGroup.controls['mediaPath'].value 
+  }
+
+  onFileSelected(event: any): void 
+  {
+    this.selectedFile = event.target.files[0] as File;
+    if (this.selectedFile) {
+      this.handleFileSelection(this.selectedFile);
     }
   }
 
@@ -35,27 +51,53 @@ export class AssessmentMediaUploadComponent
     event.preventDefault();
     const files = event.dataTransfer?.files;
     if (files && files.length > 0) {
-      this.uploadFile(files[0]);
+      this.handleFileSelection(files[0]);
     }
   }
+
   onDragOver(event: DragEvent): void {
     event.preventDefault();
   }
 
-  uploadFile(file: File): void {
-    // Simulate upload progress
-    const interval = setInterval(() => {
-      if (this.uploadProgress < 100) {
-        this.uploadProgress += 10;
-      } else {
-        clearInterval(interval);
-        this.dialogRef.close(file);
+  handleFileSelection(file: File): void 
+  {
+    this.selectedFile = file;
+    const reader = new FileReader();
+    reader.readAsDataURL(this.selectedFile);
+    reader.onload = () => {
+      this.path = reader.result as string;
+      this.mediaSrc = this.selectedFile
+      this.assessmentFormGroup.patchValue({ mediaSrc: this.mediaSrc });
+      this.uploadFile(this.selectedFile)
+    };
+  }
+
+  async uploadFile(file: File): Promise<void> {
+    this.isUploading = true;
+    this.uploadProgress = 0;
+    const mediaName = this.assessmentFormGroup.controls['mediaPath'].value || this.selectedFile.name;
+
+    const result = await this._uploadService.uploadSingleFile(this.selectedFile, `assessmentMedia/${mediaName}`);
+    this. _sBS.sink = result.subscribe({
+      next: (progress: number) => {
+        this.uploadProgress = Math.round(progress);
+        if (this.uploadProgress === 100) {
+          this.isUploading = false;
+          this.dialogRef.close(file);
+        }
+      },
+      error: (error: any) => {
+        console.error('Upload failed', error);
+        this.isUploading = false;
       }
-    }, 300);
+    }); 
   }
 
   onCancel(): void 
   {
+    if (!this.path) {
+      this.assessmentFormGroup.controls['mediaPath'].setValue('');
+    }
     this.dialogRef.close();
   }
 }

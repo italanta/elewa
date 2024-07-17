@@ -13,12 +13,9 @@
 							<div fxLayout="row" fxLayoutAlign="space-between center">
 								<div class="question-type-conf">
 									<div fxLayout="column" fxLayoutAlign="start start">
-										<div appearance="fill" fxFlex="60" *ngIf="uploadedFile" class="media-display">
-											<img *ngIf="isImage(uploadedFile)" [src]="uploadedFile" alt="Uploaded Image">
-											<video *ngIf="!isImage(uploadedFile)" controls>
-												<source [src]="uploadedFile" type="video/mp4">
-												Your browser does not support the video tag.
-											</video>
+										<div appearance="fill" fxFlex="60" *ngIf="mediaSrc" class="media-display">
+											<img *ngIf="isImage" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media">
+  										<video *ngIf="!isImage" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
 										</div>
 										<mat-form-field appearance="fill" fxFlex="60">
 											<input type="text" matInput formControlName="message" placeholder="Type your question">

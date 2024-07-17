@@ -1,4 +1,4 @@
-<mat-dialog-content class="upload-modal">
+<mat-dialog-content class="upload-modal" [formGroup]="assessmentFormGroup">
   <div class="header-text">
     <h5 mat-dialog-title>{{fileAccept === 'image/*'? 'Import Image' : 'Import video'}}</h5>
     <mat-dialog-actions>
@@ -11,7 +11,7 @@
       <p>Drop files here</p>
       <p>or</p>
     </div>  
-    <input type="file" (change)="onFileSelected($event)" [accept]="fileAccept" hidden #fileInput>
+    <input type="file" id="mediaUpload" (change)="onFileSelected($event)" [accept]="fileAccept" hidden #fileInput formControlName="mediaPath">
     <button mat-raised-button (click)="fileInput.click()" class="media-btn">Choose File</button>
     <p *ngIf="uploadProgress">Upload Progress: {{uploadProgress}}%</p>
   </div>

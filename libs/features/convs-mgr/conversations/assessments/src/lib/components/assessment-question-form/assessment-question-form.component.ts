@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -37,9 +37,11 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   @Output() activeQuestionChanged = new EventEmitter();
   
   activeCard: number;
-  uploadedFile: string | null = null;
+  mediaSrc: string | ArrayBuffer = '';
   uploadType: 'image' | 'video';
   addMedia: true
+
+  @ViewChild('videoPlayer') video: ElementRef<HTMLVideoElement>;
 
   constructor(
     private _assessmentForm: AssessmentFormService,
@@ -97,13 +99,16 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   /** Uploading an image or video */
   openUploadModal(type: 'image' | 'video'): void {
     const dialogRef = this.dialog.open(AssessmentMediaUploadComponent, {
-      data: { fileType: type },
+      data: { 
+              fileType: type,
+              assessmentFormGroup: this.assessmentFormGroup
+            },
       panelClass: 'media-modal'
     });
 
     dialogRef.afterClosed().subscribe((file: File) => {
       if (file) {
-        this.uploadedFile = URL.createObjectURL(file);
+        this.mediaSrc = URL.createObjectURL(file);
         this.uploadType = type;
       }
     });
