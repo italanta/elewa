@@ -97,7 +97,8 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   /** Uploading an image or video */
   openUploadModal(type: 'image' | 'video'): void {
     const dialogRef = this.dialog.open(AssessmentMediaUploadComponent, {
-      data: { fileType: type }
+      data: { fileType: type },
+      panelClass: 'media-modal'
     });
 
     dialogRef.afterClosed().subscribe((file: File) => {

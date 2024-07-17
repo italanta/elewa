@@ -1,5 +1,12 @@
+::ng-deep  .media-modal{
+  width: 45%;
+  height: auto;
+  margin-left: 10%;
+}
+.upload-modal{
+  border-radius: 16px;
+}
 .upload-container {
-  border: 2px dashed #ccc;
   padding: 20px;
   text-align: center;
   cursor: pointer;
@@ -14,4 +21,18 @@
   left: 0;
   opacity: 0;
   cursor: pointer;
+}
+.header-text{
+  display: flex;
+  justify-content: space-between;
+
+  .cancel{
+    background-color: none;
+    border: none;
+    outline: none;
+  }
+}
+.media-btn{
+  background-color: var( --convs-mgr-color-button);
+  color: var(--convs-mgr-color-FFFFFF);
 }

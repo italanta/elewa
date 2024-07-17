@@ -11,30 +11,33 @@ export class AssessmentMediaUploadComponent
   @Output() fileUploaded = new EventEmitter<File>();
   fileAccept: string;
   uploadProgress = 0;
+  selectedFile: File;
+  videoName: string;
 
-  constructor(
-    public dialogRef: MatDialogRef<AssessmentMediaUploadComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { fileType: string }
+  constructor(public dialogRef: MatDialogRef<AssessmentMediaUploadComponent>,
+               @Inject(MAT_DIALOG_DATA) public data: { fileType: string },           
   ) {
     this.fileAccept = data.fileType === 'image' ? 'image/*' : 'video/*';
   }
 
-  onFileSelected(event: Event): void {
+  onFileSelected(event: Event): void 
+  {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      this.uploadFile(file);
+      this.selectedFile = input.files[0];
+      this.videoName = this.selectedFile.name
+      this.uploadFile(this.selectedFile);
     }
   }
 
-  onDrop(event: DragEvent): void {
+  onDrop(event: DragEvent): void 
+  {
     event.preventDefault();
     const files = event.dataTransfer?.files;
     if (files && files.length > 0) {
       this.uploadFile(files[0]);
     }
   }
-
   onDragOver(event: DragEvent): void {
     event.preventDefault();
   }
@@ -51,7 +54,8 @@ export class AssessmentMediaUploadComponent
     }, 300);
   }
 
-  onCancel(): void {
+  onCancel(): void 
+  {
     this.dialogRef.close();
   }
 }
