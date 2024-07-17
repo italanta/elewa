@@ -41,7 +41,7 @@ export class MicroAppContentPageComponent implements OnInit
          this.app = a;
 
         if (a.status == MicroAppStatusTypes.Started){
-          this._router.navigate(['main']);
+          this._router.navigate(['redirect', this.app.id]);
         }
       });
     }

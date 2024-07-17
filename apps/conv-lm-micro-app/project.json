@@ -7,12 +7,12 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:application",
+      "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/conv-lm-micro-app",
         "index": "apps/conv-lm-micro-app/src/index.html",
-        "browser": "apps/conv-lm-micro-app/src/main.ts",
+        "main": "apps/conv-lm-micro-app/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/conv-lm-micro-app/tsconfig.app.json",
         "inlineStyleLanguage": "scss",

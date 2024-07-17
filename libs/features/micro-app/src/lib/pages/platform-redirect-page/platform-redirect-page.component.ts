@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
-import { take } from 'rxjs';
+import { take, switchMap, of } from 'rxjs';
 
-import { MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
+import { MicroAppSectionTypes, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
 import { MicroAppManagementService, MicroAppStore } from '@app/state/convs-mgr/micro-app';
 
 import { getPlatformURL } from '../../utils/create-platform-url.util';
@@ -15,6 +15,7 @@ import { getPlatformURL } from '../../utils/create-platform-url.util';
 })
 export class PlatformRedirectPageComponent implements OnInit
 {
+  /** Current app status */
   status: MicroAppStatus;
 
   /** Phone number of a user */
@@ -30,30 +31,36 @@ export class PlatformRedirectPageComponent implements OnInit
 
   ngOnInit(): void
   {
-    this.getAppStatus();
-    this.callBack();
+    this.updateAppStatus();
     this.startCountdown();
   }
 
-  /** Get an app's Status Object */
-  getAppStatus()
-  {
+ /** Get and update an app's Status Object */
+  updateAppStatus() {
     // STEP 1. Get app 
     const app$ = this._microApp$$.get();
 
-    this._sbS.sink = 
-     app$.pipe(take(1)).subscribe(stat => 
-      {
-       this.status = stat;
-       this.endUserId = this.status.endUserId;
-      });
-  }
-
-  /** Send data to a callback url */
-  callBack() 
-  {
-    this.microAppService.progressCallBack(this.status.appId, this.status.endUserId, this.status.config)
-                          ?.subscribe();
+    this._sbS.sink = app$.pipe(
+      take(1),
+      switchMap(stat => {
+        this.status = stat;
+        this.endUserId = this.status.endUserId;
+        const currentStatus = {
+          ...this.status,
+          status: MicroAppStatusTypes.Completed,
+          microAppSection: MicroAppSectionTypes.Redirect,
+          finishedOn: new Date().getTime()
+        } as MicroAppStatus;
+        // Update the app status with completed status
+        this._microApp$$.next(currentStatus);
+        return of(currentStatus)
+      }),
+      // Send data to a callback url
+      switchMap(() => {
+        const callback$ = this.microAppService.progressCallBack(this.status);
+        return callback$ ? callback$ : of(null);
+      })
+    ).subscribe();
   }
 
   /** Simulate a contdown before redirect

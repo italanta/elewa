@@ -30,7 +30,7 @@
         </div>
     
         <div class="btn-section">
-          <button class="teal-btn" (click)="handleStart()">{{"MICROAPPS-SCREENS.BUTTON-TEXT" | transloco }}</button>
+          <button class="teal-btn" [disabled]="!isInitializing" (click)="handleStart()">{{"MICROAPPS-SCREENS.BUTTON-TEXT" | transloco }}</button>
         </div>
       </div>
     </div>

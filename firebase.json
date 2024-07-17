@@ -28,7 +28,10 @@
     },
     {
       "target": "goomza-microapp",
-      "public": "dist/apps/goomza-microapp",
+      "public": "dist/apps/conv-lm-micro-app",
+      "predeploy": [
+        "nx build conv-lm-micro-app --skip-nx-cache --prod"
+      ],
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {

@@ -1,5 +1,6 @@
-<ng-container *ngIf="pageView | async as pageMode" class="micro-app-content">
-  <ng-container *ngIf="pageMode === pageViewMode.AssessmentMode">
+<!-- <ng-container *ngIf="pageView | async as pageMode" class="micro-app-content"> -->
+  <ng-container class="micro-app-content">
+  <!-- <ng-container *ngIf="pageMode === pageViewMode.AssessmentMode"> -->
     <!-- Header with details about assessment -->
     <app-assessment-header></app-assessment-header>
 
@@ -20,11 +21,22 @@
         [assessmentForm]="assessmentForm" 
         [assessmentFormArray]="assessmentFormArray"
         [progressCallback]="getProgress.bind(this)"
+        [stepperForm]="stepperForm"
         >
       </app-assessment-card> 
+
+      <div class="buttons-section">
+        <div class="stepper-buttons" *ngIf="stepperForm === true">
+          <button class="previous" mat-raised-button (click)="prevStep()" [disabled]="currentStep === 0" [hidden]="currentStep === totalSteps - 1">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.PREVIOUS" | transloco }}</button>
+          <button class="btn-btns" mat-raised-button (click)="nextStep(currentStep)" [disabled]="currentStep === totalSteps - 1" [hidden]="currentStep === totalSteps - 1">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.NEXT-BUTTON" | transloco }}</button>
+        </div>
+  
+        <!-- submit button -->
+        <div class="submit-btn" *ngIf="stepperForm === false || currentStep === totalSteps - 1  ">
+          <button class="btn-btns" mat-raised-button (click)="saveProgress(currentStep)">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.SUBMIT-TEXT" | transloco }}</button>
+        </div>
+      </div>
+
     </div>
-  </ng-container>
-  <ng-container *ngIf=" pageMode ===  pageViewMode.FailFeedbackMode">
-    <app-assessment-failed-section></app-assessment-failed-section>
-  </ng-container>
+  <!-- </ng-container> -->
 </ng-container>

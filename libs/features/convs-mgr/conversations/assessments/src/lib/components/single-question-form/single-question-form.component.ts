@@ -1,6 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
+import { Observable, tap } from 'rxjs';
+import { SubSink } from 'subsink';
+
+import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+
+import { StepService } from '../../services/set-steps.service';
+
 @Component({
   selector: 'app-single-question-form',
   templateUrl: './single-question-form.component.html',
@@ -8,33 +15,31 @@ import { FormArray, FormGroup } from '@angular/forms';
 })
 export class SingleQuestionFormComponent implements OnInit
 {
+
+  private _sbS = new SubSink();
+
   /** Asssessments form group */
   @Input() assessmentForm: FormGroup;
   /** Form array for when form view is single question */
   @Input() assessmentFormArray: FormArray;
-  /** Tracking questions using stepper */
-  currentStep = 0;
-  /** Total number of next clicks (question array length) */
-  totalSteps  = 0;
+  /** Array of all questions in an assessment */
+  @Input() assessmentQuestions: AssessmentQuestion[];
+  /** Current question view clicked */
+  currStep$: Observable<number>;
+  /** Index / position of current question */
+  currentStep: number;
+  /** Trackiing state of data load */
+  stepDataLoaded = false;
 
-  ngOnInit(): void 
-  {
-    this.totalSteps = this.assessmentFormArray.controls.length;
-  }
+  constructor( private _stepServ: StepService){}
 
-  /** Previous question click */
-  prevStep() 
-  {
-    if (this.currentStep > 0) {
-      this.currentStep--;
-    }
+  ngOnInit(): void {
+    this._sbS.sink = this._stepServ.currentStep$
+                                      .pipe(
+                                          tap((s) => { 
+                                            this.currentStep = s;
+                                            this.stepDataLoaded = true;
+                                          })
+                            ).subscribe();
   }
-  /** Next question click */
-  nextStep() 
-  {
-    if (this.currentStep < this.totalSteps - 1) {
-      this.currentStep++;
-    }
-  }
-
 }

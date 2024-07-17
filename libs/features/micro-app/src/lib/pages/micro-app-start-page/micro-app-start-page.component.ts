@@ -4,11 +4,10 @@ import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { MicroAppTypes, MicroApp, MicroAppStatus, MicroAppSectionTypes } from '@app/model/convs-mgr/micro-app/base';
+import { MicroAppTypes, MicroApp, MicroAppStatus, MicroAppSectionTypes, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments'
 import { MicroAppAssessmentService, MicroAppStatusService, MicroAppStore } from '@app/state/convs-mgr/micro-app';
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
-
 
 @Component({
   selector: 'app-micro-app-start-page',
@@ -89,7 +88,11 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
   {  
     // Update the micro-app content section prop
     //TODO: Check if this is necessary, can we only use the Launched, Started, Completed props?
-    const updatedApp = { ...this.app, microAppSection: MicroAppSectionTypes.Main };
+    const updatedApp = { ...this.app, 
+                        microAppSection: MicroAppSectionTypes.Main,
+                        status: MicroAppStatusTypes.Started,
+                        startedOn: new Date().getTime() 
+                      };
     this._microApp$$.next(updatedApp);
 
     this._router.navigate(['main', this.app.id]);

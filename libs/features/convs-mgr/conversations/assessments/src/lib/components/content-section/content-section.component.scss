@@ -31,6 +31,38 @@
   }
 }
 
+.buttons-section{
+  .stepper-buttons{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    padding-left: 3%;
+    margin-top: 1rem;
+    .btn-btns{
+      color: var(--micro-apps-colour-white);
+      background-color: var(--micro-apps-teal-primary);
+      width: 200px !important;
+    }
+    .previous{
+      color: var(--micro-apps-teal-primary);
+      background-color: var(--micro-apps-colour-white);
+      width: 200px !important;
+      border: 1px solid var(--micro-apps-teal-primary);
+    }
+  }
+  
+  .submit-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 3%;
+    .btn-btns{
+      color: var(--micro-apps-colour-white);
+      background-color: var(--micro-apps-teal-primary);
+      width: 200px !important;
+    }
+  }
+}
 @media only screen and (max-width: 768px){
   .main-content{
     padding: 3rem 1rem;
