@@ -10,7 +10,7 @@ import {
   MaterialDesignModule,
 } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
-import { MatSnackBarModule } from '@angular/material/snack-bar'; 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import {
   ActiveAssessmentStore,
@@ -46,7 +46,7 @@ import { AssessmentsListViewComponent } from './components/assessments-list-view
 import { CreateAssessmentPageComponent } from './components/create-assessment-flow/create-assessment-page/create-assessment-page.component';
 
 import { AssessmentFormService } from './services/assessment-form.service';
-
+import { AssessmentMediaUploadComponent } from './components/assessment-media-upload.component';
 
 @NgModule({
   imports: [
@@ -62,7 +62,7 @@ import { AssessmentFormService } from './services/assessment-form.service';
     FlexLayoutModule,
     MatSnackBarModule,
     DragDropModule,
-    ItalBreadCrumbModule
+    ItalBreadCrumbModule,
   ],
   declarations: [
     AssessmentsHomeComponent,
@@ -82,7 +82,8 @@ import { AssessmentFormService } from './services/assessment-form.service';
     AssessmentsGridViewComponent,
     AssessmentsListViewComponent,
 
-    CreateAssessmentPageComponent
+    CreateAssessmentPageComponent,
+    AssessmentMediaUploadComponent,
   ],
   providers: [
     AssessmentService,
