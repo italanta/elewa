@@ -1,5 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+
+import { SubSink } from 'subsink';
 
 import { Assessment, FeedbackType, QuestionDisplayed, RetryType } from '@app/model/convs-mgr/conversations/assessments';
 import { SubSink } from 'subsink';
@@ -66,6 +69,6 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
   }
 
   ngOnDestroy(): void {
-      this._sbS.unsubscribe()
+      this._sbS.unsubscribe();
   }
 }
