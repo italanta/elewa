@@ -32,6 +32,12 @@
 	background-color: transparent!important;
 }
 
+.question-type-conf, .customInputs{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
 :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: white !important;
 }

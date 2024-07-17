@@ -11,10 +11,33 @@
 						<div [formGroup]="questionFormGroup">
 
 							<div fxLayout="row" fxLayoutAlign="space-between center">
-								<mat-form-field appearance="fill" fxFlex="60">
-									<input type="text" matInput formControlName="message" placeholder="Type your question">
-								</mat-form-field>
+								<div class="question-type-conf">
+									<div fxLayout="column" fxLayoutAlign="start start">
+										<div appearance="fill" fxFlex="60" *ngIf="uploadedFile">
+											<img *ngIf="isImage(uploadedFile)" [src]="uploadedFile" alt="Uploaded Image">
+											<video *ngIf="!isImage(uploadedFile)" controls>
+												<source [src]="uploadedFile" type="video/mp4">
+												Your browser does not support the video tag.
+											</video>
+										</div>
+										<mat-form-field appearance="fill" fxFlex="60">
+											<input type="text" matInput formControlName="message" placeholder="Type your question">
+										</mat-form-field>
+									</div>
 
+									<div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+										<button mat-flat-button>
+											<i class="fa-solid fa-a"></i>
+										</button>
+										<button mat-flat-button (click)="openUploadModal('image')">
+											<i class="fa-regular fa-image"></i>
+										</button>
+										<button mat-flat-button (click)="openUploadModal('video')">
+											<i class="fa-solid fa-video"></i>
+										</button>
+									</div>
+								</div>
+					
 								<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
 									<button mat-flat-button (click)="duplicateQuestion()">
 										<img src="assets/icons/duplicate-item.svg" alt="">

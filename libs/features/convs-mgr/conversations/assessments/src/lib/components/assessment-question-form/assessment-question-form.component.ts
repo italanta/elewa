@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 
@@ -9,6 +10,7 @@ import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessmen
 import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
+import { AssessmentMediaUploadComponent } from '../assessment-media-upload.component';
 
 @Component({
   selector: 'app-assessment-question-form',
@@ -35,9 +37,13 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   @Output() activeQuestionChanged = new EventEmitter();
   
   activeCard: number;
+  uploadedFile: string | null = null;
+  uploadType: 'image' | 'video';
+  addMedia: true
 
   constructor(
-    private _assessmentForm: AssessmentFormService
+    private _assessmentForm: AssessmentFormService,
+    private dialog: MatDialog
   ) {}
 
   feedBackConditions = [
@@ -86,6 +92,24 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     copiedQstn.patchValue({ nextQuestionId : null });
   
     this.addNewQuestion.emit(copiedQstn);
+  }
+
+  /** Uploading an image or video */
+  openUploadModal(type: 'image' | 'video'): void {
+    const dialogRef = this.dialog.open(AssessmentMediaUploadComponent, {
+      data: { fileType: type }
+    });
+
+    dialogRef.afterClosed().subscribe((file: File) => {
+      if (file) {
+        this.uploadedFile = URL.createObjectURL(file);
+        this.uploadType = type;
+      }
+    });
+  }
+  
+  isImage(fileUrl: string): boolean {
+    return (fileUrl && this.uploadType === 'image')as boolean;
   }
 
   ngOnDestroy() {
