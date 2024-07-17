@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-import { AppViewService } from '../../services/content-view-mode.service';
-import { PageViewMode } from '../../model/view-mode.enum';
 
 @Component({
   selector: 'app-single-question-form',
@@ -18,8 +16,6 @@ export class SingleQuestionFormComponent implements OnInit
   currentStep = 0;
   /** Total number of next clicks (question array length) */
   totalSteps  = 0;
-
-  constructor( private _pageViewServ: AppViewService){}
 
   ngOnInit(): void 
   {
@@ -41,11 +37,4 @@ export class SingleQuestionFormComponent implements OnInit
     }
   }
 
-  /** Logic to handle submitting an assessment */
-  handleSubmit()
-  {
-    this._pageViewServ.setPageViewMode(PageViewMode.FailFeedbackMode)
-
-    //TODO: Add logic to actually submit an assessment and navigate accordingly 
-  }  
 }
