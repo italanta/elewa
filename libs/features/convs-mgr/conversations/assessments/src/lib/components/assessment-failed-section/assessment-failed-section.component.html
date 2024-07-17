@@ -31,14 +31,12 @@
             <mat-radio-group aria-label="Select an option" class="column-radios" formControlName="selectedOption">
               <mat-radio-button *ngFor="let option of question.get('options')?.value" 
                                 [value]="question.get('selectedOption')?.value "
-                                [ngClass]="{'red-radio': isWrongAnswer(question, option), 'teal-radio': !isWrongAnswer(question, option)}">
+                                [class.wrong-answer]="isWrongAnswer(question, option)">
                                 {{option.text}}
               </mat-radio-button>
             </mat-radio-group>
             <div *ngIf="question.get('selectedOption')?.value && showFeedback">
-              <p [ngClass]="{'red-feedback': isSelectedOptionWrong(question), 'black-feedback': !isSelectedOptionWrong(question)}">
-                {{ getOptionFeedback(question) }}
-              </p>
+              <p>{{ getOptionFeedback(question) }}</p>
             </div>
           </mat-card-content>
         </mat-card>

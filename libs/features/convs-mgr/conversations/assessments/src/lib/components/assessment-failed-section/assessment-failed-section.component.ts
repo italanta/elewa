@@ -91,21 +91,11 @@ export class AssessmentFailedSectionComponent implements OnInit
     if(this.assessment?.configs?.userAttempts)
       (this.assessment?.configs?.userAttempts - 1);
     //TODO: Update actual assessment to reduce retries
-  }
+    }
   
-  isWrongAnswer(question: AbstractControl, option: AssessmentQuestionOptions): boolean 
-  {
-    const selectedOption = question.get('selectedOption')?.value;
-    if (!selectedOption) return false;
-    return selectedOption.id === option.id && !option.accuracy;
-  }
-    
-  isSelectedOptionWrong(question: AbstractControl): boolean 
-  {
-    const selectedOption = question.get('selectedOption')?.value;
-    if (!selectedOption) return false;
-    
-    const selectedOptionObject = question.get('options')?.value.find((option: AssessmentQuestionOptions) => option.id === selectedOption.id);
-    return selectedOptionObject ? !selectedOptionObject.accuracy : false;
-  }
+    isWrongAnswer(question: AbstractControl, option: AssessmentQuestionOptions): boolean {
+      const selectedOption = question.get('selectedOption')?.value;
+      if (!selectedOption) return false;
+      return selectedOption.id === option.id && !option.accuracy;
+    }
 }

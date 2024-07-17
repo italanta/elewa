@@ -69,36 +69,22 @@
     }
   }
 }
-.red-radio .mat-mdc-radio-button .mat-internal-form-field{
-  color: red;
-}
-/** Changing the default style of mat-radio-button to match Goomza colours */
-:host ::ng-deep .teal-radio.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+// Changing the default style of mat-radio-button to match Goomza colours
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
   border-color: var(--micro-apps-teal-primary);
 }
-:host ::ng-deep .teal-radio.mat-mdc-radio-button .mdc-radio .mdc-radio__native-conßtrol:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-conßtrol:enabled+.mdc-radio__background .mdc-radio__inner-circle {
   border-color: var(--micro-apps-teal-primary);
 }
-:host ::ng-deep .teal-radio.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle{
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle{
   border-color: var(--micro-apps-teal-primary);
 }
-
-:host ::ng-deep .red-radio .mat-mdc-radio-button .mdc-radio .mdc-radio__native-conßtrol:enabled+.mdc-radio__background .mdc-radio__inner-circle {
-  background-color: red !important;
+:host ::ng-deep .mat-mdc-radio-button.wrong-answer .mdc-radio__background .mdc-radio__outer-circle,
+:host ::ng-deep .mat-mdc-radio-button.wrong-answer .mdc-radio__background .mdc-radio__inner-circle {
   border-color: red;
 }
-:host ::ng-deep .red-radio .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle {
-  background-color: red !important;
-}
-:host ::ng-deep .red-radio.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked + .mdc-radio__background .mdc-radio__outer-circle{
-  border-color: red !important;
-}
 
-:host ::ng-deep .red-radio .mat-mdc-radio__inner-circle,
-:host ::ng-deep .red-radio .mat-mdc-radio__outer-circle {
-  background-color: red;
-}
-/* Media Querries for responsive designs */
+/** Media Querries for responsive designs */
 /* Extra Small Devices (XS) */
 @media (max-width: 575px) {
   .main-content{
