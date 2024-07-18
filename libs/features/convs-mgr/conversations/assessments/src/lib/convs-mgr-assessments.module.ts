@@ -111,5 +111,8 @@ import { AllQuestionsFormComponent } from './components/all-questions-form/all-q
     AssessmentQuestionStore,
     AssessmentPublishService,
   ],
+  exports: [
+    ContentSectionComponent
+  ]
 })
 export class ConvsMgrAssessmentsModule {}

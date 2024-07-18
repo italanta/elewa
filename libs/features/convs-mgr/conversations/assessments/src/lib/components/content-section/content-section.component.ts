@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs';
@@ -17,12 +17,14 @@ import { AppViewService } from '../../services/content-view-mode.service';
 import { StepService } from '../../services/set-steps.service';
 
 @Component({
-  selector: 'app-content-section',
+  selector: 'app-assessment-content-section',
   templateUrl: './content-section.component.html',
   styleUrls: ['./content-section.component.scss']
 })
 export class ContentSectionComponent implements OnInit, OnDestroy 
 {
+  @Input() app: MicroAppStatus;
+
   /** Whether a user is viewing assessment content or general page content */
   pageView: Observable<PageViewMode>;
   pageViewMode = PageViewMode;

@@ -1,11 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Route, PreloadAllModules }    from '@angular/router';
-import { ContentSectionComponent } from '@app/features/convs-mgr/conversations/assessments';
 
 import { MicroAppContentPageComponent, MicroAppStartPageComponent, PlatformRedirectPageComponent } from '@app/features/micro-app';
-
-
-
 
 export const APP_ROUTES: Route[] = [
 
@@ -19,7 +15,7 @@ export const APP_ROUTES: Route[] = [
   },
   {
     path: 'main/:id',
-    component: ContentSectionComponent,
+    component: MicroAppContentPageComponent,
     // canActivate: [() => inject(CanAccessMicroAppGuard)],
     // canLoad: [() => inject(CanAccessMicroAppGuard)]
   },
