@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
 import { take, switchMap, of } from 'rxjs';
@@ -13,10 +13,10 @@ import { getPlatformURL } from '../../utils/create-platform-url.util';
   templateUrl: './platform-redirect-page.component.html',
   styleUrls: ['./platform-redirect-page.component.scss'],
 })
-export class PlatformRedirectPageComponent implements OnInit
+export class PlatformRedirectPageComponent implements OnInit, OnDestroy
 {
   /** Current app status */
-  status: MicroAppStatus;
+  appStatus: MicroAppStatus;
 
   /** Phone number of a user */
   endUserId: string;
@@ -42,25 +42,13 @@ export class PlatformRedirectPageComponent implements OnInit
 
     this._sbS.sink = app$.pipe(
       take(1),
-      switchMap(stat => {
-        this.status = stat;
-        this.endUserId = this.status.endUserId;
-        const currentStatus = {
-          ...this.status,
-          status: MicroAppStatusTypes.Completed,
-          microAppSection: MicroAppSectionTypes.Redirect,
-          finishedOn: new Date().getTime()
-        } as MicroAppStatus;
-        // Update the app status with completed status
-        this._microApp$$.next(currentStatus);
-        return of(currentStatus)
-      }),
-      // Send data to a callback url
-      switchMap(() => {
-        const callback$ = this.microAppService.progressCallBack(this.status);
-        return callback$ ? callback$ : of(null);
+      switchMap((appStatus) => {
+        this.appStatus = appStatus;
+        this.endUserId = appStatus.endUserId;
+
+        return this.microAppService.completeApp(this.appStatus.id as string);
       })
-    ).subscribe();
+    ).subscribe(()=> this.redirect());
   }
 
   /** Simulate a contdown before redirect
@@ -76,6 +64,10 @@ export class PlatformRedirectPageComponent implements OnInit
         this.redirect();
       }
     }, 1000);
+  }
+
+  ngOnDestroy(): void {
+      this._sbS.unsubscribe();
   }
 
   /** Redirect to the external URL */
