@@ -4,7 +4,7 @@ import { SubSink } from 'subsink';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
+import { MicroAppStatus, MicroAppStatusTypes, MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
 
 import {  MicroAppStore } from '@app/state/convs-mgr/micro-app';
 
@@ -18,6 +18,7 @@ export class MicroAppContentPageComponent implements OnInit
 {
   /** Object with comprehensive information on the microapp in progress */  
   app: MicroAppStatus;
+  type: MicroAppTypes;
 
   private _sbS = new SubSink();
 
@@ -35,8 +36,8 @@ export class MicroAppContentPageComponent implements OnInit
       app$.pipe(take(1)).subscribe(a => 
       {
          this.app = a;
-
-        if (a.status == MicroAppStatusTypes.Started){
+         this.type = this.app.config.type;
+        if (a.status == MicroAppStatusTypes.Completed){
           this._router.navigate(['redirect', this.app.id]);
         }
       });
