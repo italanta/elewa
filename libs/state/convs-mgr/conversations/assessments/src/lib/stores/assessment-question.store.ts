@@ -40,9 +40,11 @@ export class AssessmentQuestionStore extends DataStore<AssessmentQuestion> {
     })
   }
 
-  getQuestionsByAssessment(assessmentId: string)
+  getQuestionsByAssessment(assessmentId: string, orgId?: string)
   {
-    const repo = this._repoFac.getRepo<AssessmentQuestion>(`orgs/${this._activeAssessment.orgId}/assessments/${assessmentId}/questions`);
+    const org = orgId ? orgId : this._activeAssessment.orgId;
+
+    const repo = this._repoFac.getRepo<AssessmentQuestion>(`orgs/${org}/assessments/${assessmentId}/questions`);
     return repo.getDocuments();
   }
 
