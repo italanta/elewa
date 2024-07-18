@@ -79,6 +79,6 @@ progressCallBack(app?: MicroAppStatus, milestones?: AssessmentProgressUpdate) {
     const url = `${this._env.microAppUrl}/${COMPLETE_MICROAPP_ENDPOINT}`;
     const payload: InitMicroAppCmd = { appId };
 
-    return this._http$.post<any>(url, payload);
+    return this._http$.post<any>(url, {data: payload});
   }
 }
