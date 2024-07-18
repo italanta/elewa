@@ -5,17 +5,17 @@ import { MicroAppTypes, MicroAppStatus, PassCriteriaTypes } from "@app/model/con
 export interface MicroAppBlock extends StoryBlock 
 {
   /** will be used to create the url */
-  appId: string;
+  appId?: string;
   /** The name of the micro app. Will be used as the link display text */
-  appName: string;
+  name?: string;
 
   /** The type of the micro-app e.g. assessment */
-  appType: MicroAppTypes;
+  appType?: MicroAppTypes;
 
   /** Additional data for the microApp to run */
-  configs: MicroAppConfig;
+  configs?: MicroAppConfig;
   /** Comprehensive micro-app data  */
-  appStatus?: MicroAppStatus;
+  status?: MicroAppStatus;
 }
 
 export interface MicroAppConfig 

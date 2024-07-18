@@ -29,6 +29,7 @@ export class AssessmentMicroAppBlockComponent implements OnInit, AfterViewInit {
 
   private _sBs = new SubSink();
 
+  name: string;
   type: StoryBlockTypes;
   assessmentMicroAppType = StoryBlockTypes.MicroAppBlock;
   blockFormGroup: FormGroup;
@@ -41,6 +42,7 @@ export class AssessmentMicroAppBlockComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getAssessments();
+    this.getAssessmentName();
   }
 
   ngAfterViewInit(): void
@@ -54,6 +56,14 @@ export class AssessmentMicroAppBlockComponent implements OnInit, AfterViewInit {
     this._sBs.sink = this._assessmentService$.getPublishedAssessments$().subscribe((_assess) => {
         this.assessments = _assess
     });
+  }
+
+  getAssessmentName() 
+  {
+    this.assessmentMicroAppForm.get('appId')?.valueChanges.subscribe((id)=> {
+      const name = this.assessments.filter((asmts)=> asmts.id == id)[0].title as string;
+      this.assessmentMicroAppForm.patchValue({name})
+    })
   }
 
   /** Add JsPlumb connector to max score input */

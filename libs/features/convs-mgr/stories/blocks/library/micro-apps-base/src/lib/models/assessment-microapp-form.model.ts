@@ -1,4 +1,5 @@
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { MicroAppTypes } from "@app/model/convs-mgr/micro-app/base";
 
 import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { AssessmentMicroAppBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
@@ -14,6 +15,8 @@ export function _CreateAssessmentBlockForm(_fb: FormBuilder, blockData: Assessme
     id: [blockData?.id ?? ''],
     message: [blockData?.message ?? ''],
     appId: [blockData?.appId ?? ''],
+    name: [blockData?.name ?? ''],
+    appType: MicroAppTypes.Assessment,
     defaultTarget: [blockData.defaultTarget ?? ''],
     type: [blockData.type ?? StoryBlockTypes.AssessmentMicroAppBlock],
     position: [blockData.position ?? { x: 200, y: 50 }]
