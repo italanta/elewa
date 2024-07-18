@@ -174,8 +174,6 @@ export function isOutputBlock(blockType: StoryBlockTypes): boolean {
       return true;
     case StoryBlockTypes.CMI5Block:
       return true;  
-    case StoryBlockTypes.InteractiveUrlButtonBlock:
-      return true;      
     default:
       return false;
   }
