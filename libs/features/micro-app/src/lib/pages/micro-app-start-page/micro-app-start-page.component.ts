@@ -58,6 +58,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
   /** Function to get the assessment to display 
    *  Fetches an assessment and checks if the block id matches the micro-app id
    *  Returns an assessment to be loaded
+   *  Updates assessment to micro-app compliant object
    */
 
   getAppAssessment()
@@ -75,6 +76,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
         }
         this.assessment = appAssessment;
         this._microAppAssessServ.setAssessment(appAssessment)
+        this._assessmentService$.updateAssessment$(renderedAssessment)
       }
     })
   }

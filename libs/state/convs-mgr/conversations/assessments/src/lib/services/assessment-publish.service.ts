@@ -46,7 +46,7 @@ export class AssessmentPublishService
         blockId: '',
         storyId: ''
       },
-      channelId: '1245example',
+      channelId: '',
       callBackUrl: '',
       type: MicroAppTypes.Assessment
     };
@@ -54,6 +54,9 @@ export class AssessmentPublishService
     this._logger.log(() => `Assessment published!`)
     return of(assessmentStory);
   }
+
+  // COMMENTED OUT WHILE GETTING ASSESSMENT DELIVERY FLOW FEEDBACK
+
   // private __publishAssessment(assessment: Assessment, isPublished: boolean) {
   //   const questions$ = this._assessmentQuestionService$$.getQuestions$();
 
