@@ -28,6 +28,8 @@ import { AppRoutingModule } from './app.routing.module';
 
 import { environment } from '../environments/environment';
 import { provideTransloco } from '@jsverse/transloco';
+import { MtOrgStateModule } from '@app/private/state/organisation/main';
+import { StateAssessmentsModule } from '@app/state/convs-mgr/conversations/assessments';
 
 
 @NgModule({
@@ -55,7 +57,9 @@ import { provideTransloco } from '@jsverse/transloco';
     ClmMicroAppLayoutModule,
     MaterialBricksRootModule.forRoot(),
 
-    MicroAppStateModule.forRoot()
+    MicroAppStateModule.forRoot(),
+    StateAssessmentsModule.forRoot(),
+    MtOrgStateModule.forRoot()
   ],
   providers:  
   [provideHttpClient(withInterceptorsFromDi()),

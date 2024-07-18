@@ -105,10 +105,7 @@ import { AllQuestionsFormComponent } from './components/all-questions-form/all-q
   providers: [
     AssessmentService,
     AssessmentFormService,
-    AssessmentQuestionService,
     AssessmentsStore,
-    ActiveAssessmentStore,
-    AssessmentQuestionStore,
     AssessmentPublishService,
   ],
   exports: [
