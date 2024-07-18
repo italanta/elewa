@@ -7,7 +7,8 @@ import { SubSink } from 'subsink';
 import { Assessment, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { MicroAppStatus, MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
 import { AssessmentProgressUpdate, QuestionResponse } from '@app/model/convs-mgr/micro-app/assessments';
-import { MicroAppManagementService, MicroAppStore } from '@app/state/convs-mgr/micro-app';
+import { MicroAppManagementService } from '@app/state/convs-mgr/micro-app';
+import { AssessmentQuestionStore, AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
 
 import { __CalculateProgress } from '../../utils/calculate-progress.util';
 import { PageViewMode } from '../../model/view-mode.enum';
@@ -43,12 +44,12 @@ export class ContentSectionComponent implements OnInit, OnDestroy
   totalSteps  = 0;
   /** How far a learner is in answering questions */
   progressPercentage = 0;
-  stepperForm = true;
+  stepperForm: boolean;
   /** Limit going back until progress is saved */
   canNavigate: boolean;
-  /** Current MicroApp status */
-  appStatus: MicroAppStatus
+
   questionResponses: QuestionResponse[]
+  isLoading = true
 
   private _sBS = new SubSink()
   constructor ( private _assessFormService: MicroAppAssessmentQuestionFormService,
@@ -56,19 +57,42 @@ export class ContentSectionComponent implements OnInit, OnDestroy
                 private _fb: FormBuilder,
                 private stepService: StepService,
                 private _microAppService: MicroAppManagementService,
-                private _microApp$$: MicroAppStore,
+                private _assessmentQuestionStore: AssessmentQuestionStore,
+                private _assessmentStore$: AssessmentsStore,
   ){ }
 
   ngOnInit() {
     this.pageView = this._pageViewservice.getPageViewMode();
     
-    this.buildForms();
+    if(this.app) {
+      this.getAssessment();
+      this.getAssessmentQuestions(this.app.config.orgId);
+    }    
     // Subscribe to changes when the navigation buttons are clicked for the stepper assessment form
     this._sBS.sink = this.stepService.currentStep$.subscribe(step => {
       this.currentStep = step;
     });
-    // Progress UI
-    this.getProgress();
+
+  }
+
+  /** Fetch micro-app assessment and use config object to render either stepper form or all questions form */
+  getAssessment(){
+    this._assessmentStore$.getAssessmentByOrg(this.app.appId, this.app.config.orgId).subscribe(_assessment => {
+      this.assessment = _assessment
+      console.log(this.assessment.configs?.questionsDisplay)
+       this.assessment.configs?.questionsDisplay === 1? this.stepperForm = true : this.stepperForm = false
+    })
+  }
+  /** Fetch assessment Questions */
+  getAssessmentQuestions (orgId: string)
+  {
+    this._sBS.sink = this._assessmentQuestionStore.getQuestionsByAssessment(this.app.appId, orgId).subscribe(questions => {
+      if(questions && questions.length !== 0) {
+        this.assessmentQuestions = questions;
+        this.buildForms()
+        this.isLoading = false
+      }
+    })
   }
 
   /**Building assessment forms */
@@ -77,12 +101,13 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     this.assessmentForm = this._fb.group({
       assessmentFormArray: this.assessmentFormArray
     });
+    this.getProgressBar()
     this.totalSteps = this.assessmentFormArray.controls.length;
     this.stepService.setTotalSteps(this.totalSteps);
   }
 
   /** Tracking how far a learner is in their assignment, for UI rendering  */
-  getProgress(){
+  getProgressBar(){
     this.progressPercentage = __CalculateProgress(this.assessmentFormArray);
   }
   
@@ -123,12 +148,12 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     questionResponses.push(questionResponse);
 
     const progressMilestones: AssessmentProgressUpdate = {
-      appId: this.appStatus.appId, 
-      endUserId: this.appStatus.endUserId,
-      orgId: this.appStatus.config.orgId,
+      appId: this.app.appId, 
+      endUserId: this.app.endUserId,
+      orgId: this.app.config.orgId,
       questionResponses: questionResponses,
       // Will need to be calculated
-      timeSpent: new Date().getTime() - this.appStatus.startedOn!,
+      timeSpent: new Date().getTime() - this.app.startedOn!,
       type: MicroAppTypes.Assessment,
       assessmentDetails: {
         maxScore: totalMarks += markScore ,
@@ -136,7 +161,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       }
 
     }
-    this._microAppService.progressCallBack(this.appStatus, progressMilestones);
+    this._microAppService.progressCallBack(this.app, progressMilestones);
   }
 
   ngOnDestroy()

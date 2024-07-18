@@ -40,6 +40,12 @@ export class AssessmentsStore extends DataStore<Assessment>
     });
   }
 
+  getAssessmentByOrg(id: string, orgId: string){
+    const assessmentRepo$ = this._repoFac.getRepo<Assessment>(`orgs/${orgId}/assessments`);
+
+    return assessmentRepo$.getDocumentById(id);
+  }
+
   createAssessment (assessment: Assessment) {
     return this._org$$.get().pipe(map((org) => {return {...assessment, orgId: org.id}}),
                             tap((assessment) => {this._activeRepo = this._repoFac.getRepo<Assessment>(`orgs/${assessment.orgId}/assessments`)}),
