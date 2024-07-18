@@ -40,9 +40,9 @@ export class MicroAppManagementService
 
 /** Updating a user's progress when they are done with an assessment, on the redirect page */
 progressCallBack(app?: MicroAppStatus, milestones?: AssessmentProgressUpdate) {
-  if (!app || !app.config || !app.config.callBackUrl) return;
+  if (!app || !app.config) return;
 
-  const URL = app.config.callBackUrl;
+  const URL = `${this._env.microAppUrl}/${PROGRESS_MICROAPP_ENDPOINT}`;
 
   if (app.config.type === MicroAppTypes.Assessment && milestones) {
     const assessmentPayload: AssessmentProgressUpdate = {
@@ -79,6 +79,6 @@ progressCallBack(app?: MicroAppStatus, milestones?: AssessmentProgressUpdate) {
     const url = `${this._env.microAppUrl}/${COMPLETE_MICROAPP_ENDPOINT}`;
     const payload: InitMicroAppCmd = { appId };
 
-    return this._http$.post<any>(url, payload);
+    return this._http$.post<any>(url, {data: payload});
   }
 }

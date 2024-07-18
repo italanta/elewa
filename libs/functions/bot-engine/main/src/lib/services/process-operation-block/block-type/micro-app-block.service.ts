@@ -62,11 +62,10 @@ export class MicroAppBlockService implements IProcessOperationBlock
     // Update the cursor to show that we are on the micro app block
     updatedCursor.position = newPosition;
     const nextCursor = updatedCursor;
-    this.tools.Logger.log(() => `👉🏾 The next cursor's value is ${nextCursor}`);
+    this.tools.Logger.log(() => `👉🏾 The next cursor's value is ${JSON.stringify(nextCursor)}`);
 
     const config: MicroApp = {
-      callBackUrl: storyBlock.configs.callbackUrl,
-      type: storyBlock.configs.type,
+      type: storyBlock.appType,
       channelId: this._activeChannel.channel.id,
       orgId, pos: newPosition
     } 
@@ -88,17 +87,17 @@ export class MicroAppBlockService implements IProcessOperationBlock
 
     // Generate URL for micro-app
     const baseUrl = process.env.MICRO_APP_URL;
-    const microAppLink = `${baseUrl}/${appRegistration.id}`;
+    const microAppLink = `${baseUrl}/start/${appRegistration.id}`;
 
     // Create the url button to be sent to the user.
-    const ctaBlock = this._createInteractiveButtonBlock(microAppLink, storyBlock.message, storyBlock.appName);
+    const ctaBlock = this._createInteractiveButtonBlock(microAppLink, storyBlock.message, storyBlock.name);
 
     // Update bot engine status to Micro-app
     await this._updateBotStatus(orgId, endUser);
 
     return {
       storyBlock: ctaBlock,
-      nextCursor
+      newCursor: nextCursor
     };
   }
 
@@ -111,7 +110,7 @@ export class MicroAppBlockService implements IProcessOperationBlock
 
       // TODO: Move this to front-end for custom display text 
       urlDisplayText: 'Click to Start',
-      bodyText: message,
+      message: message,
 
       // Name of the micro app as the footer text in this message
       footerText: name,

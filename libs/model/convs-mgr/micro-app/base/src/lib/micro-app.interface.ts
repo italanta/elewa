@@ -12,7 +12,7 @@ export interface MicroApp
   type: MicroAppTypes;
 
   /** URL to be called after the micro-app is done. The payload will include the user id and their data from the micro app e.g. Assessment results  */
-  callBackUrl: string;
+  callBackUrl?: string;
   
   /** Organisation ID in which the micro-app lives */
   orgId: string;

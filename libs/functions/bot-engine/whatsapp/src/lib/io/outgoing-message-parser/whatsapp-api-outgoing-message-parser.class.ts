@@ -67,6 +67,9 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
       body: {
         text: urlBlock.message || "",
       },
+      footer: { 
+        text: urlBlock.footerText || "", 
+      },
       action: {
         name: 'cta_url',
         parameters: {

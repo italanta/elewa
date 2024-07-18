@@ -84,18 +84,11 @@ export class MicroAppStore
     this._microAppManagementService.completeApp(appId).subscribe({
       next: (res) => {
         console.log('App completed successfully', res);
-        this.navigateToAppCallback();
       },
       error: (err) => {
         console.error('Error completing app', err);
       },
     });
-  }
-
-  /** After post is done and timeout screen completed, navigate back to Goomza via app callback. */
-  navigateToAppCallback() 
-  {
-    this._router.navigateByUrl(this._app.config.callBackUrl);
   }
 
   /** Intialise the micro-app on app-load */
