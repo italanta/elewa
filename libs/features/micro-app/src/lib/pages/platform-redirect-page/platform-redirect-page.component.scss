@@ -20,3 +20,12 @@
     min-height: 100%;
   }
 }
+@media (max-width: 992px) {
+  .page-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2rem;
+  }
+}
