@@ -97,7 +97,7 @@ export class MicroAppBlockService implements IProcessOperationBlock
 
     return {
       storyBlock: ctaBlock,
-      nextCursor
+      newCursor: nextCursor
     };
   }
 
