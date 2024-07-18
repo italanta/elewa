@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { FrontendEnvironment } from '@app/elements/base/frontend-env';
 import { InitMicroAppCmd, InitMicroAppResponse, MicroAppProgress, MicroAppSectionTypes, 
@@ -34,8 +34,8 @@ export class MicroAppManagementService
     const payload: InitMicroAppCmd = {
       appId
     }
-
-    return this._http$.post<InitMicroAppResponse>(initUrl, payload);
+    return this._http$.post<{result: InitMicroAppResponse}>(initUrl, {data: payload})
+              .pipe(map((resp)=> resp.result))
   }
 
 /** Updating a user's progress when they are done with an assessment, on the redirect page */
