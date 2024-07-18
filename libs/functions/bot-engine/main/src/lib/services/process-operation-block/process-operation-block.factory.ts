@@ -38,8 +38,8 @@ export class OperationBlockFactory
         return new AssessmentBlockService(this._blockDataService, this._connDataService, this.tools);
       case StoryBlockTypes.Event:
         return new EventBlockService(this._blockDataService, this._connDataService, this.tools, this._activeChannel);
-      case StoryBlockTypes.MicroAppBlock:
-        return new MicroAppBlockService(this._blockDataService, this._connDataService, this.tools, this._activeChannel);  
+      case StoryBlockTypes.AssessmentMicroAppBlock:
+        return new MicroAppBlockService(this._blockDataService, this._connDataService, this.tools, this._activeChannel); 
       default:
         break;
     }
