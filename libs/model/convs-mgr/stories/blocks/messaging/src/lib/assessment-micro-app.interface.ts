@@ -9,7 +9,9 @@ import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 export interface AssessmentMicroAppBlock extends StoryBlock {
   name?: string;
 
-  status?: MicroAppStatus
+  status?: MicroAppStatus;
+
+  appId?: string;
 
   defaultTarget?: string;
 }
