@@ -15,21 +15,19 @@ import { StepService } from '../../services/set-steps.service';
 })
 export class SingleQuestionFormComponent implements OnInit
 {
-
-  private _sbS = new SubSink();
-
   /** Asssessments form group */
   @Input() assessmentForm: FormGroup;
   /** Form array for when form view is single question */
   @Input() assessmentFormArray: FormArray;
-  /** Array of all questions in an assessment */
-  @Input() assessmentQuestions: AssessmentQuestion[];
+
   /** Current question view clicked */
   currStep$: Observable<number>;
   /** Index / position of current question */
   currentStep: number;
   /** Trackiing state of data load */
   stepDataLoaded = false;
+
+  private _sbS = new SubSink();
 
   constructor( private _stepServ: StepService){}
 

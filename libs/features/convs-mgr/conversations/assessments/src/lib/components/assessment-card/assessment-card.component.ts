@@ -1,11 +1,12 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
 import { StepService } from '../../services/set-steps.service';
+import { MicroAppAssessmentQuestionFormService } from '../../services/microapp-assessment-questions-form.service';
 
 
 @Component({
@@ -15,27 +16,24 @@ import { StepService } from '../../services/set-steps.service';
 })
 export class AssessmentCardComponent implements OnInit, OnDestroy
 {
-  /** Array of all questions in an assessment */
-  @Input() assessmentQuestions: AssessmentQuestion[];
-  /** Asssessments form group */
   @Input() assessmentForm: FormGroup;
   /** Form array for when form view is single question */
   @Input() assessmentFormArray: FormArray;
   /** Method called to track progress */
-  @Input() progressCallback: () => void;
+  @Input() progressBarCallback: () => void;
   /** Toggle between all questions view or single question view */
   @Input() stepperForm: boolean;
   
   private _sBS = new SubSink();
 
-  constructor( private stepServ: StepService){}
+  constructor( ){}
 
   ngOnInit(): void 
   {
     // Subscribe to value changes to update progress
-    this._sBS.sink =  this.assessmentForm.valueChanges.subscribe(() => {
+    this._sBS.sink =  this.assessmentFormArray.controls[0].get('selectedOption')?.valueChanges.subscribe(() => {
       //Communicate progress to parent component and update progress UI
-      this.progressCallback();
+      this.progressBarCallback();
     });
   }
 

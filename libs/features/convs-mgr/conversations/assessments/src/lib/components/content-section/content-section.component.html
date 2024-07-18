@@ -17,10 +17,10 @@
       </div>
     
       <app-assessment-card 
-        [assessmentQuestions]="assessmentQuestions" 
+        *ngIf="assessmentForm"
         [assessmentForm]="assessmentForm" 
         [assessmentFormArray]="assessmentFormArray"
-        [progressCallback]="getProgress.bind(this)"
+        [progressBarCallback]="getProgressBar.bind(this)"
         [stepperForm]="stepperForm"
         >
       </app-assessment-card> 
