@@ -28,6 +28,10 @@ export class InitMicroAppHandler extends FunctionHandler<InitMicroAppCmd, InitMi
       if(app.status === MicroAppStatusTypes.Completed)
         return { success: false, app };
 
+      // If the app was already initialized
+      if(app.status === MicroAppStatusTypes.Started)
+        return { success: true, app };
+
       // Normal case - Initialise app
       // Start the micro-app
       app.startedOn = Date.now();
