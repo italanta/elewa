@@ -3,7 +3,7 @@
     <div fxLayout="row">
       <div class="form-group">
         <div class="assess-select-wrapper">
-        <select class="assess-select" name="microAppId" required id="microAppId">
+        <select class="assess-select" name="microAppId" required id="microAppId" formControlName="appId">
           <option disabled selected>{{ 'ASSESSMENT-MICROAPP.PLACEHOLDER' | transloco }}</option>
           <option>--</option>
           <option *ngFor="let assessment of assessments" [value]="assessment.id">

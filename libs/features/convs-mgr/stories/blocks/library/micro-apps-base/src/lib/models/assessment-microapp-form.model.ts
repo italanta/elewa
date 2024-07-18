@@ -11,8 +11,9 @@ import { AssessmentMicroAppBlock } from "@app/model/convs-mgr/stories/blocks/mes
  */
 export function _CreateAssessmentBlockForm(_fb: FormBuilder, blockData: AssessmentMicroAppBlock): FormGroup {
   return _fb.group({
-    id: [blockData?.id! ?? ''],
-    message: [blockData?.message! ?? ''],
+    id: [blockData?.id ?? ''],
+    message: [blockData?.message ?? ''],
+    appId: [blockData?.appId ?? ''],
     defaultTarget: [blockData.defaultTarget ?? ''],
     type: [blockData.type ?? StoryBlockTypes.AssessmentMicroAppBlock],
     position: [blockData.position ?? { x: 200, y: 50 }]

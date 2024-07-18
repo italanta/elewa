@@ -32,7 +32,9 @@
 
     .btn-section{
       margin-top: 22%;
+      cursor: pointer;
       .teal-btn{
+        cursor: pointer;
         background-color: var(--micro-apps-teal-primary);
         width: 200px;
         height: 48px;
@@ -40,11 +42,13 @@
         outline: none;
         border-radius: 4px;
         color: var(--micro-apps-white-button-text);
+
+        &:disabled{
+          background-color: gray;
+          pointer-events: none;
+        }
       }
-      &:disabled{
-        background-color: gray;
-        pointer-events: none;
-      }
+
     }
     
   }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 
 import { BehaviorSubject, Observable, catchError, filter, map, switchMap, take,} from 'rxjs';
 
@@ -24,11 +24,15 @@ export class MicroAppStore
     private _microAppManagementService: MicroAppManagementService,
   ) {
     // Initialise subscription/listener
-    route.params
+    _router.events
       .pipe(
         // Get appId from route params
-        map((p) => p['id']),
-        filter((appId) => !!appId),
+        filter((ev) => !!(ev as any).snapshot),
+        map((ev) => {
+          const params = (ev as any).snapshot.params as Params;
+          return params['id'];
+        }),
+        
         take(1),
         // When appId param is available, load the micro-app
         switchMap((appId) => this._initMicroApp(appId)),
@@ -42,15 +46,16 @@ export class MicroAppStore
 
       // Loading success. Resolve app
       .subscribe((appHolder) => {
-        if (!appHolder.success)
+        if (appHolder.success) {
+          this._hasInit = true;
+          this._app = appHolder.app;
+  
+          this._app$$.next(this._app);
+        } else {
           console.error(
             `Critical error. Crash when loading app. App failed to load.`
           );
-
-        this._hasInit = true;
-        this._app = appHolder.app;
-
-        this._app$$.next(this._app);
+        }
       });
   }
 
