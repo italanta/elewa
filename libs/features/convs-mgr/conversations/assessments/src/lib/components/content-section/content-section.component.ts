@@ -161,7 +161,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       }
 
     }
-    this._microAppService.progressCallBack(this.app, progressMilestones);
+    this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe();
   }
 
   ngOnDestroy()
