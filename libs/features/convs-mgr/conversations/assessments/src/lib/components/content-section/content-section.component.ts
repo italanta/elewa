@@ -180,7 +180,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       },
       hasSubmitted: this.currentStep === this.totalSteps - 1
     }
-    this._microAppService.progressCallBack(this.app, progressMilestones);
+    this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe();
     if(this.currentStep === this.totalSteps - 1) {
       this._router.navigate(['redirect', this.app.id]);
     }
