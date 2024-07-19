@@ -1,11 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { take } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { MicroAppTypes, MicroApp, MicroAppStatusTypes, MicroAppStatus, MicroAppSectionTypes } from '@app/model/convs-mgr/micro-app/base';
-import { MicroAppStatusService, MicroAppStore } from '@app/state/convs-mgr/micro-app';
+import { MicroAppTypes, MicroApp, MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
+import { MicroAppStore } from '@app/state/convs-mgr/micro-app';
 
 
 @Component({
@@ -31,8 +30,6 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
   private _sbS = new SubSink();
 
   constructor(private _microApp$$: MicroAppStore,
-              private _microAppStatusServ: MicroAppStatusService,
-              private _router: Router,
   ) {}
 
   ngOnInit()
@@ -44,27 +41,9 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
        {
         this.app = a;
         this.isInitializing = false;
+        this.appType = a.config.type
         // TODO: If app state is already in completed here, what should we do?
        });
-  }
-
-  /**
-   * Function called when a user clicks the start button
-   * Sets the microApp status to started and the section types to main section
-   * Redirects the user to the main section route
-  */
-  handleStart() 
-  {  
-    // Update the micro-app content section prop
-    //TODO: Check if this is necessary, can we only use the Launched, Started, Completed props?
-    const updatedApp = { ...this.app, 
-                        microAppSection: MicroAppSectionTypes.Main,
-                        status: MicroAppStatusTypes.Started,
-                        startedOn: new Date().getTime() 
-                      };
-    this._microApp$$.next(updatedApp);
-
-    this._router.navigate(['main', this.app.id]);
   }
 
   /** Unsubscribe from all subscriptions to prevent memory leaks */

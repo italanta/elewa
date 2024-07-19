@@ -31,7 +31,7 @@ export class AssessmentCardComponent implements OnInit, OnDestroy
   ngOnInit(): void 
   {
     // Subscribe to value changes to update progress
-    this._sBS.sink =  this.assessmentFormArray.controls[0].get('selectedOption')?.valueChanges.subscribe(() => {
+    this._sBS.sink =  this.assessmentForm.valueChanges.subscribe(() => {
       //Communicate progress to parent component and update progress UI
       this.progressBarCallback();
     });
