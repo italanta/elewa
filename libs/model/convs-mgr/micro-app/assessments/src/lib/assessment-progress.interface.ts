@@ -13,8 +13,10 @@ export interface AssessmentProgress extends IObject {
   finalScore: number;
   
   // A map that represents the question response and score of each attempt. See example below: on how this is set
-  attempts: {[key: number]: Attempt};
+  attempts: AttemptsMap;
   
   /** Total score of the assessment */
   maxScore: number;
 }
+
+export type AttemptsMap = {[key: number]: Attempt};

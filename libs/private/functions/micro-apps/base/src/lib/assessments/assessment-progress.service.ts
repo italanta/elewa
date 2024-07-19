@@ -1,7 +1,9 @@
 import { HandlerTools } from "@iote/cqrs";
 
-import { AssessmentProgress, AssessmentProgressUpdate, Attempt, QuestionResponse } from "@app/model/convs-mgr/micro-app/assessments";
+import { AssessmentProgress, AssessmentProgressUpdate, Attempt, AttemptsMap, QuestionResponse } from "@app/model/convs-mgr/micro-app/assessments";
 import { MicroAppProgress } from "@app/model/convs-mgr/micro-app/base";
+
+import { mapResponses } from "../utils/assessment-responses-map.util";
 
 export class AssessmentProgressService
 {
@@ -19,7 +21,7 @@ export class AssessmentProgressService
   {
     const newAttempt = this._getNewAttempt(newProgress);
 
-    const attempts: {[key: number]: Attempt} = {
+    const attempts: AttemptsMap = {
       1: newAttempt
     }
 
@@ -57,18 +59,22 @@ export class AssessmentProgressService
     
     const currentProgress = await this._getCurrentProgress(progressUpdate);
     let newProgress: AssessmentProgress;
+
     if (currentProgress) {
 
       const currentAttempt = currentProgress.attempts[currentProgress.attemptCount];
 
-      if(currentAttempt.questionResponses.length === progressUpdate.assessmentDetails.questionCount) {
+      if(currentAttempt.finishedOn) {
         // The end of the attempt and start a new attempt
         const newAttempt = this._getNewAttempt(progressUpdate);
         currentProgress.attemptCount++;
         currentProgress.attempts[currentProgress.attemptCount] = newAttempt;
       } else {
         currentAttempt.score+= this._getScore(progressUpdate.questionResponses);
-        currentAttempt.questionResponses.push(...progressUpdate.questionResponses);
+
+        if(progressUpdate.hasSubmitted) currentAttempt.finishedOn = Date.now();
+
+        currentAttempt.questionResponses = mapResponses(progressUpdate.questionResponses, currentAttempt.questionResponses);
 
         currentProgress.attempts[currentProgress.attemptCount] = currentAttempt;
       }
@@ -83,8 +89,8 @@ export class AssessmentProgressService
   private _getNewAttempt(newProgress: AssessmentProgressUpdate) {
     const newAttempt: Attempt = {
       score: this._getScore(newProgress.questionResponses),
-      questionResponses: newProgress.questionResponses,
-      startedOn: new Date()
+      questionResponses: mapResponses(newProgress.questionResponses),
+      startedOn:  Date.now()
     };
 
     return newAttempt;
