@@ -1,39 +1,16 @@
-<!-- <div class="container" *ngIf="appTypes | async as microAppType">
-  <div [ngSwitch]="microAppType">
-    <ng-container *ngSwitchCase=" microAppType === appType.Assessment"> 
-      
-    </ng-container>
-  </div>
-</div> -->
-<app-clm-micro-app-page >
+<app-clm-micro-app-page>
   <div class="container">
-    <div class="main-content">
-      <!-- Image Logo -->
-      <div class="img-section">
-        <img src="/assets/icons/content-image.png"/>
+    <ng-container *ngIf="isInitializing; else content">
+      <!-- Loader Element -->
+      <div class="mat-spinner-div">
+        <mat-spinner [diameter]="40"></mat-spinner>
       </div>
-    
-      <!-- Text Description -->
-      <div class="text-section">
-        <div class="p-text">
-          <div class="intro">
-            <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.INTRODUCTION-TAG" | transloco}} 
-              <span class="teal-text"> Financial Literacy!</span>
-            </p>
-          </div>
-          <div class="intro">
-            <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.DESCRIPTION-TEXT" | transloco}} 
-              <span class="teal-text"> Personal Finance, budgeting and investment basics.</span>
-            </p>
-          </div>
-            <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.CLOSING-TEXT" | transloco}} finances effectively
-            </p>
-        </div>
-    
-        <div class="btn-section">
-          <button class="teal-btn" [disabled]="isInitializing" (click)="handleStart()">{{"MICROAPPS-SCREENS.BUTTON-TEXT" | transloco }}</button>
-        </div>
-      </div>
-    </div>
+    </ng-container>
+    <ng-template #content>
+      <ng-container *ngIf="appType === 5"> 
+        <app-assessment-landing-page [app]="app"></app-assessment-landing-page>
+      </ng-container>
+    </ng-template>
   </div>
 </app-clm-micro-app-page>
+
