@@ -1,12 +1,12 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
-import { combineLatest, map, Observable, switchMap, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { Assessment, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { MicroAppStatus, MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
-import { AssessmentProgressUpdate, QuestionResponse, QuestionResponseMap } from '@app/model/convs-mgr/micro-app/assessments';
+import { AssessmentProgressUpdate, QuestionResponse } from '@app/model/convs-mgr/micro-app/assessments';
 import { MicroAppManagementService } from '@app/state/convs-mgr/micro-app';
 import { AssessmentQuestionStore, AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
 
@@ -91,27 +91,18 @@ export class ContentSectionComponent implements OnInit, OnDestroy
   /** Fetch assessment Questions */
   getAssessmentQuestions (orgId: string)
   {
-    const progress$ = this._assessmentQuestionStore.getAssessmentProgress(this.app.appId, orgId, this.app.endUserId);
-    const questions$ = this._assessmentQuestionStore.getQuestionsByAssessment(this.app.appId, orgId);
-
-    let questionResponses: QuestionResponseMap;
-    this._sBS.sink = combineLatest([progress$, questions$]).pipe(take(1),map(([progress, questions])=> {
-      // If the assessment is in progress we append user answer responses
-      if(progress) {
-        const currentAttempt = progress.attemptCount;
-        questionResponses = progress.attempts[currentAttempt].questionResponses;
-
+    this._sBS.sink = this._assessmentQuestionStore.getQuestionsByAssessment(this.app.appId, orgId).subscribe(questions => {
+      if(questions && questions.length !== 0) {
+        this.assessmentQuestions = questions;
+        this.buildForms()
+        this.isLoading = false
       }
-      this.assessmentQuestions = questions;
-      this.buildForms(questionResponses)
-      this.isLoading = false
-    })).subscribe();
+    })
   }
 
   /**Building assessment forms */
-  buildForms(questionResponses?: QuestionResponseMap)
-  {
-    this.assessmentFormArray = this._assessFormService.createMicroAppAssessment(this.assessmentQuestions, questionResponses);
+  buildForms(){
+    this.assessmentFormArray = this._assessFormService.createMicroAppAssessment(this.assessmentQuestions);
     this.assessmentForm = this._fb.group({
       assessmentFormArray: this.assessmentFormArray
     });
@@ -156,11 +147,10 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     const markScore = this.assessmentFormArray?.controls[i].get('marks')?.value
     const questionResponse: QuestionResponse = {
       questionId: questionId,
-      answerId: selectedOption.id,
-      answerText: selectedOption ? selectedOption.text : textAnswer,
+      answerId: selectedOption,
+      answerText: textAnswer.text,
     }
     questionResponses.push(questionResponse);
-
     const progressMilestones: AssessmentProgressUpdate = {
       appId: this.app.appId, 
       endUserId: this.app.endUserId,
@@ -172,10 +162,10 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       assessmentDetails: {
         maxScore: totalMarks += markScore ,
         questionCount: this.totalSteps
-      }
-
+      },
+      hasSubmitted: this.currentStep === this.totalSteps - 1
     }
-    this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe();
+    this._microAppService.progressCallBack(this.app, progressMilestones);
   }
 
   ngOnDestroy()
