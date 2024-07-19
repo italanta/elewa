@@ -140,15 +140,20 @@ export class ContentSectionComponent implements OnInit, OnDestroy
   async saveProgress(i: number)
   {
     const questionResponses: QuestionResponse[] = this.questionResponses || [];
-    const selectedOption = this.assessmentFormArray?.controls[i].get('selectedOption')?.value
+    const selectedOptionId = this.assessmentFormArray?.controls[i].get('selectedOption')?.value
     const questionId = this.assessmentFormArray?.controls[i].get('id')?.value
     const textAnswer = this.assessmentFormArray?.controls[i].get('textAnswer')?.value
+
+    const question = this.assessmentQuestions.find((q)=> q.id === questionId);
+
+    const selectedOption = question?.options?.find((op)=> op.id === selectedOptionId);
+
     let totalMarks
     const markScore = this.assessmentFormArray?.controls[i].get('marks')?.value
     const questionResponse: QuestionResponse = {
       questionId: questionId,
-      answerId: selectedOption,
-      answerText: textAnswer.text,
+      answerId: selectedOption?.id,
+      answerText: selectedOption ? selectedOption.text : textAnswer,
     }
     questionResponses.push(questionResponse);
     const progressMilestones: AssessmentProgressUpdate = {
