@@ -1,15 +1,15 @@
-<div class="heading-wrapper">
+<div class="heading-wrapper" *ngIf="timeTaken$ | async as timeTaken">
   <div class="logo">
-    
+    <img src="/assets/icons/goomza-icon-transparent.png">
   </div>
-<!-- TODO: Pick Heading from a microapp assessment when published -->
+  <!-- TODO: Pick Heading from a microapp assessment when published -->
   <div class="heading">
-    <h3>Financial Literacy</h3>
+    <h3>{{ assessmentTitle }}</h3>
   </div>
-<!-- TODO: Pick timer time from sessions, when assessment is published -->
+  <!-- TODO: Pick timer time from sessions, when assessment is published -->
   <div class="timer">
     <div class="countDown">
-      <span> 00.02</span>
+      <span>{{timeTaken | date: 'HH:mm:ss'}}</span>
     </div>
   </div>
 </div>

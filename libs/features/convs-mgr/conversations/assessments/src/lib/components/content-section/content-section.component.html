@@ -2,7 +2,7 @@
   <ng-container class="micro-app-content">
   <!-- <ng-container *ngIf="pageMode === pageViewMode.AssessmentMode"> -->
     <!-- Header with details about assessment -->
-    <app-assessment-header></app-assessment-header>
+    <app-assessment-header [startTime]="startTime" [assessmentTitle]="assessmentTitle"></app-assessment-header>
 
     <!-- Banner with grade details -->
     <app-assessment-result-banner></app-assessment-result-banner>
@@ -12,7 +12,7 @@
       <div class="progress-tracker">
         <div class="progress-bar" [ngStyle]="{'width': progressPercentage + '%', 'background-image': getProgressColor(progressPercentage)}"></div>
         <div class="progress-text">
-          {{progressPercentage}}% Complete
+          {{ progressPercentage | number : '1.0-0' }}% Complete
         </div>
       </div>
     
@@ -27,16 +27,15 @@
 
       <div class="buttons-section">
         <div class="stepper-buttons" *ngIf="stepperForm === true">
-          <button class="previous" mat-raised-button (click)="prevStep()" [disabled]="currentStep === 0" [hidden]="currentStep === totalSteps - 1">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.PREVIOUS" | transloco }}</button>
-          <button class="btn-btns" mat-raised-button (click)="nextStep(currentStep)" [disabled]="currentStep === totalSteps - 1" [hidden]="currentStep === totalSteps - 1">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.NEXT-BUTTON" | transloco }}</button>
-        </div>
-  
-        <!-- submit button -->
-        <div class="submit-btn" *ngIf="stepperForm === false || currentStep === totalSteps - 1  ">
-          <button class="btn-btns" mat-raised-button (click)="saveProgress(currentStep)">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.SUBMIT-TEXT" | transloco }}</button>
+          <button class="previous" mat-raised-button (click)="prevStep()" [disabled]="currentStep === 0" [hidden]="currentStep === 0">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.PREVIOUS" | transloco }}</button>
+          <button class="next" mat-raised-button (click)="nextStep(currentStep)" [disabled]="currentStep === totalSteps - 1" [hidden]="currentStep === totalSteps - 1">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.NEXT-BUTTON" | transloco }}</button>
+          <!-- submit button -->
+          <div class="submit-btn" *ngIf="!stepperForm || currentStep === totalSteps - 1  ">
+            <button class="btn-btns" mat-raised-button (click)="saveProgress(currentStep)">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.SUBMIT-TEXT" | transloco }}</button>
+          </div>
         </div>
       </div>
-
     </div>
+    <app-micro-apps-footer></app-micro-apps-footer>
   <!-- </ng-container> -->
 </ng-container>

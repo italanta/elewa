@@ -38,10 +38,11 @@
     width: 80%;
     padding-left: 3%;
     margin-top: 1rem;
-    .btn-btns{
+    .next{
       color: var(--micro-apps-colour-white);
       background-color: var(--micro-apps-teal-primary);
       width: 200px !important;
+      margin-left: auto;
     }
     .previous{
       color: var(--micro-apps-teal-primary);
@@ -55,13 +56,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 3%;
     .btn-btns{
       color: var(--micro-apps-colour-white);
       background-color: var(--micro-apps-teal-primary);
       width: 200px !important;
     }
   }
+}
+
+app-micro-apps-footer{
+  position: relative;
+  bottom: 0;
 }
 @media only screen and (max-width: 768px){
   .main-content{

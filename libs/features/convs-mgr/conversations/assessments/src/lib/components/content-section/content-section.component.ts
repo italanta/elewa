@@ -47,6 +47,9 @@ export class ContentSectionComponent implements OnInit, OnDestroy
   stepperForm: boolean;
   /** Limit going back until progress is saved */
   canNavigate: boolean;
+  /** Configs for header components: startTime and assessmentTitle */
+  startTime: number;
+  assessmentTitle: string;
 
   questionResponses: QuestionResponse[]
   isLoading = true
@@ -67,6 +70,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     if(this.app) {
       this.getAssessment();
       this.getAssessmentQuestions(this.app.config.orgId);
+      this.startTime = this.app.startedOn as number;
     }    
     // Subscribe to changes when the navigation buttons are clicked for the stepper assessment form
     this._sBS.sink = this.stepService.currentStep$.subscribe(step => {
@@ -76,11 +80,12 @@ export class ContentSectionComponent implements OnInit, OnDestroy
   }
 
   /** Fetch micro-app assessment and use config object to render either stepper form or all questions form */
-  getAssessment(){
+  getAssessment()
+  {
     this._assessmentStore$.getAssessmentByOrg(this.app.appId, this.app.config.orgId).subscribe(_assessment => {
-      this.assessment = _assessment
-      console.log(this.assessment.configs?.questionsDisplay)
-       this.assessment.configs?.questionsDisplay === 1? this.stepperForm = true : this.stepperForm = false
+      this.assessment = _assessment;
+      this.assessmentTitle = this.assessment.title;
+      this.assessment.configs?.questionsDisplay === 1? this.stepperForm = true : this.stepperForm = false;
     })
   }
   /** Fetch assessment Questions */

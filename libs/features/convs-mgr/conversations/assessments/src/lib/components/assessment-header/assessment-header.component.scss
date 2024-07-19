@@ -7,10 +7,11 @@
   margin-bottom: 1rem;
 
   .logo{
-    width: 61px;
-    height: 59px;
-    border: 1px solid var(--micro-apps-cards-border);
-    border-radius: 4px;
+    img{
+      width: 61px;
+      height: 59px;
+      border-radius: 4px;
+    }
   }
   .heading{
     text-align: center;
