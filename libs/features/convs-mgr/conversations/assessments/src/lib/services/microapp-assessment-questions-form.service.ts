@@ -43,10 +43,7 @@ export class MicroAppAssessmentQuestionFormService
       const id = question.id as string;
 
       if(questionResponses && questionResponses[id]) {
-        selectedOption = {
-          id: questionResponses[id].answerId,
-          text: questionResponses[id].answerText,
-        }
+        selectedOption = questionResponses[id].answerId;
       }
 
       return this.createAssessmentQuestionForm(question, selectedOption);
