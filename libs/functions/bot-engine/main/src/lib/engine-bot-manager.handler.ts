@@ -132,17 +132,16 @@ export class EngineBotManager
 
         case ChatStatus.MicroApp:
           this._tools.Logger.log(() => `[EngineChatManagerHandler].execute: MicroApp in progress...`);
+
           break;
         case ChatStatus.Paused:
-          // TODO: resolve paused flow
-          const pauseTextMessage = createTextMessage("Chat has been paused");
-
-          // await bot.sendMessage(pauseTextMessage);
-
+          // Paused means talk to agent so we do not want the bot to respond
           break;
         case ChatStatus.PausedByAgent:
           message.direction = MessageDirection.FROM_ENDUSER_TO_AGENT;
 
+          // If its a file, we upload it and append the url to the message 
+          //  before we save it
           if(isFileMessage(message.type) && !message.url) {
             message = await bot.__setFileMessageUrl(message as FileMessage, END_USER_ID);
           }

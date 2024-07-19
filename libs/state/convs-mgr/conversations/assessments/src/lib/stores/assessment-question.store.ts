@@ -11,6 +11,7 @@ import { Assessment, AssessmentQuestion } from "@app/model/convs-mgr/conversatio
 import { ActiveOrgStore } from "@app/private/state/organisation/main";
 
 import { ActiveAssessmentStore } from "./active-assessment.store";
+import { AssessmentProgress } from "@app/model/convs-mgr/micro-app/assessments";
 
 @Injectable()
 export class AssessmentQuestionStore extends DataStore<AssessmentQuestion> {
@@ -46,6 +47,13 @@ export class AssessmentQuestionStore extends DataStore<AssessmentQuestion> {
 
     const repo = this._repoFac.getRepo<AssessmentQuestion>(`orgs/${org}/assessments/${assessmentId}/questions`);
     return repo.getDocuments();
+  }
+
+  getAssessmentProgress(assessmentId: string, orgId: string, endUserId: string)
+  {
+    const repo = this._repoFac.getRepo<AssessmentProgress>(`orgs/${orgId}/end-users/${endUserId}/assessment-progress`);
+
+    return repo.getDocumentById(assessmentId);
   }
 
   createAssessmentQuestion(assessmentId: string, question: AssessmentQuestion, questionId: string) {

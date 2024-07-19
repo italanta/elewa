@@ -2,8 +2,10 @@ import { QuestionResponse } from "./assessment-question-response.interface";
 
 export interface Attempt {
   /** Score of this specific attempt */
-   startedOn: Date;
+   startedOn: number;
    score: number;
-   questionResponses: QuestionResponse[];
-   finishedOn?: Date;
+   questionResponses: QuestionResponseMap;
+   finishedOn?: number;
   }
+
+export type QuestionResponseMap = { [key: string]: QuestionResponse };

@@ -1,7 +1,9 @@
 import { HandlerTools } from "@iote/cqrs";
 
-import { AssessmentProgress, AssessmentProgressUpdate, Attempt, QuestionResponse } from "@app/model/convs-mgr/micro-app/assessments";
+import { AssessmentProgress, AssessmentProgressUpdate, Attempt, AttemptsMap, QuestionResponse } from "@app/model/convs-mgr/micro-app/assessments";
 import { MicroAppProgress } from "@app/model/convs-mgr/micro-app/base";
+
+import { mapResponses } from "../utils/assessment-responses-map.util";
 
 export class AssessmentProgressService
 {
@@ -17,18 +19,18 @@ export class AssessmentProgressService
 
   private _initProgress(newProgress: AssessmentProgressUpdate, attemptCount: number): AssessmentProgress
   {
-    const attempts = new Map<number, Attempt>();
-
     const newAttempt = this._getNewAttempt(newProgress);
 
-    attempts.set(attemptCount, newAttempt);
+    const attempts: AttemptsMap = {
+      1: newAttempt
+    }
 
     const progress: AssessmentProgress = {
       id: newProgress.appId,
       attemptCount,
       finalScore: 0,
       maxScore: newProgress.assessmentDetails.maxScore,
-      attempts
+      attempts,
     };
 
     return progress;
@@ -57,35 +59,38 @@ export class AssessmentProgressService
     
     const currentProgress = await this._getCurrentProgress(progressUpdate);
     let newProgress: AssessmentProgress;
+
     if (currentProgress) {
 
-      const currentAttempt = currentProgress.attempts.get(currentProgress.attemptCount);
+      const currentAttempt = currentProgress.attempts[currentProgress.attemptCount];
 
-      if(currentAttempt.questionResponses.length === progressUpdate.assessmentDetails.questionCount) {
+      if(currentAttempt.finishedOn) {
         // The end of the attempt and start a new attempt
         const newAttempt = this._getNewAttempt(progressUpdate);
         currentProgress.attemptCount++;
-        currentProgress.attempts.set(currentProgress.attemptCount, newAttempt);
+        currentProgress.attempts[currentProgress.attemptCount] = newAttempt;
       } else {
         currentAttempt.score+= this._getScore(progressUpdate.questionResponses);
-        currentAttempt.questionResponses.push(...progressUpdate.questionResponses);
 
-        currentProgress.attempts.set(currentProgress.attemptCount, currentAttempt);
+        if(progressUpdate.hasSubmitted) currentAttempt.finishedOn = Date.now();
+
+        currentAttempt.questionResponses = mapResponses(progressUpdate.questionResponses, currentAttempt.questionResponses);
+
+        currentProgress.attempts[currentProgress.attemptCount] = currentAttempt;
       }
 
       newProgress = currentProgress;
     } else {
       newProgress = this._initProgress(progressUpdate, 1);
     }
-
     return this._updateProgress(newProgress, progressUpdate);
   }
 
   private _getNewAttempt(newProgress: AssessmentProgressUpdate) {
     const newAttempt: Attempt = {
       score: this._getScore(newProgress.questionResponses),
-      questionResponses: newProgress.questionResponses,
-      startedOn: new Date()
+      questionResponses: mapResponses(newProgress.questionResponses),
+      startedOn:  Date.now()
     };
 
     return newAttempt;
