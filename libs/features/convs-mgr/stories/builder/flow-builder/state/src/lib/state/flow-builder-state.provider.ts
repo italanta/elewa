@@ -1,52 +1,41 @@
 import { Injectable } from "@angular/core";
 import { SubSink } from "subsink";
-import { BehaviorSubject, map, take } from "rxjs";
-
-import { DataService, Repository } from "@ngfi/angular";
-
-import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
+import { BehaviorSubject, map } from "rxjs";
 
 import { FlowBuilderStateFrame } from "../model/flow-builder-state-frame.interface";
 import { __StoryToFlowFrame } from "../model/story-to-flow-frame.function";
-import { WFlow } from "@app/model/convs-mgr/stories/flows";
 
-@Injectable()
+import { WFlowService } from "@app/state/convs-mgr/wflows";
+
+@Injectable({
+  providedIn: 'root'
+})
 export class FlowBuilderStateProvider
 {
   private _sbS = new SubSink();
-  private _flowStore: Repository<WFlow>;
 
   private _isLoaded = false;
   private _activeInstance?: FlowBuilderStateFrame;
 
   private _state$$ = new BehaviorSubject<FlowBuilderStateFrame>(null as any);
 
-  constructor(
-    _repoFac: DataService,
-    private _activeStory$$: ActiveStoryStore)
-  { 
-    this._flowStore = _repoFac.getRepo<WFlow>(``)
-  }
+  constructor(private _flow$$: WFlowService)
+  { }
 
   /** 
    * Initialise a new flow builder state. 
    * This is done on loading of the flow page (ngOnInit).
    */
-  initialize()
+  async initialize()
   { 
-    const story$ = this._activeStory$$.get();
+    const [story, flow] = await Promise.all([this._flow$$.get(), 
+                                             this._flow$$.getLatestFlowConfig()]);                          
+    
+    this._activeInstance = __StoryToFlowFrame(story, flow);
 
-    this._sbS.sink = 
-      story$.pipe(
-        take(1),
-        map(s => __StoryToFlowFrame(s)))
-      .subscribe(s => 
-      {
-        this._activeInstance = s;
-        this._state$$.next(s);
+    this._state$$.next(this._activeInstance);
 
-        this._isLoaded = true;
-      });
+    return this._state$$;
   }
 
   /**

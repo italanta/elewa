@@ -31,6 +31,11 @@ export class FlowBuilderPageComponent implements OnInit, AfterViewInit, OnDestro
     this._navbar.setBuilderNavElements(this.navbar, this)
   }
 
+  doSomething()
+  {
+    
+  }
+
   ngOnDestroy(): void {
       
   }

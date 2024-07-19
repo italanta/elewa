@@ -1,7 +1,7 @@
 import { HandlerTools } from "@iote/cqrs";
 
 import { FileMessage, Message } from "@app/model/convs-mgr/conversations/messages";
-import { ActiveChannel } from "@app/functions/bot-engine";
+
 import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 import { StoryBlock, StoryBlockTypes, VariableTypes } from "@app/model/convs-mgr/stories/blocks/main";
@@ -9,6 +9,7 @@ import { StoryBlock, StoryBlockTypes, VariableTypes } from "@app/model/convs-mgr
 import { ProcessInput } from "../process-input.class";
 import { IProcessInput } from "../models/process-input.interface";
 import { BotMediaProcessService } from "../../media/process-media-service";
+import { ActiveChannel } from "../../../model/active-channel.service";
 
 export class ProcessMediaInput extends ProcessInput<string> implements IProcessInput {
 

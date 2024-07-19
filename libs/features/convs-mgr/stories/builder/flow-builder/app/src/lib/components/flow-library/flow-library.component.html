@@ -11,14 +11,14 @@
   <div fxLayout="column" fxFlex>
     @for (group of controls; track group; let i=$index)
     {
-      <div class="block-list" fxLayout="column" cdkDropListGroup>
+      <div class="block-list" fxLayout="column" cdkDropList > <!-- [cdkDropListConnectedTo]="" -->
 
         <h6 [class.first-title]="i === 0">{{ group.group| transloco }}</h6>
 
-        @for (control of group.controls; track control)
+        <!-- @for (control of group.controls; track control)
         {
           <app-flow-library-item [control]="control">  </app-flow-library-item>
-        }
+        } -->
       </div>
     }
 </div>

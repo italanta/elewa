@@ -5,7 +5,7 @@ import { FlowJSONV31 } from './library/v3.1/flow-json.interface';
  * Represents a whatsapp flow micro-app that can be loaded ontop of the Whatsapp flows API.
  *
  * - Follows a temporal design, where the latest timestamp acts as source of truth.
- * - Stored at orgs/${orgId}/stories/${storyId}/config/{timestamp}
+ * - Stored at orgs/${orgId}/stories/${storyId}/flow/{timestamp}
  * -    Story at ../stories/${storyId} must be of Module Type = Flow
  * 
  * @see https://developers.facebook.com/docs/whatsapp/flows/reference/flowsapi/
