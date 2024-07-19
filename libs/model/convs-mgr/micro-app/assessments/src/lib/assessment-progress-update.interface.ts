@@ -6,6 +6,7 @@ export interface AssessmentProgressUpdate extends MicroAppProgress {
   questionResponses: QuestionResponse[];
   timeSpent: number;
   assessmentDetails: AssessmentDetails;
+  hasSubmitted?: boolean;
 }
 
 export interface AssessmentDetails {
