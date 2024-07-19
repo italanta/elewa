@@ -16,6 +16,7 @@ import { PageViewMode } from '../../model/view-mode.enum';
 import { MicroAppAssessmentQuestionFormService } from '../../services/microapp-assessment-questions-form.service';
 import { AppViewService } from '../../services/content-view-mode.service';
 import { StepService } from '../../services/set-steps.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-assessment-content-section',
@@ -62,6 +63,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
                 private _microAppService: MicroAppManagementService,
                 private _assessmentQuestionStore: AssessmentQuestionStore,
                 private _assessmentStore$: AssessmentsStore,
+                private _router: Router
   ){ }
 
   ngOnInit() {
@@ -171,6 +173,9 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       hasSubmitted: this.currentStep === this.totalSteps - 1
     }
     this._microAppService.progressCallBack(this.app, progressMilestones);
+    if(this.currentStep === this.totalSteps - 1) {
+      this._router.navigate(['redirect', this.app.id]);
+    }
   }
 
   ngOnDestroy()
