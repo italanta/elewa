@@ -17,18 +17,18 @@ export class AssessmentProgressService
 
   private _initProgress(newProgress: AssessmentProgressUpdate, attemptCount: number): AssessmentProgress
   {
-    const attempts = new Map<number, Attempt>();
-
     const newAttempt = this._getNewAttempt(newProgress);
 
-    attempts.set(attemptCount, newAttempt);
+    const attempts: {[key: number]: Attempt} = {
+      1: newAttempt
+    }
 
     const progress: AssessmentProgress = {
       id: newProgress.appId,
       attemptCount,
       finalScore: 0,
       maxScore: newProgress.assessmentDetails.maxScore,
-      attempts
+      attempts,
     };
 
     return progress;
@@ -59,25 +59,24 @@ export class AssessmentProgressService
     let newProgress: AssessmentProgress;
     if (currentProgress) {
 
-      const currentAttempt = currentProgress.attempts.get(currentProgress.attemptCount);
+      const currentAttempt = currentProgress.attempts[currentProgress.attemptCount];
 
       if(currentAttempt.questionResponses.length === progressUpdate.assessmentDetails.questionCount) {
         // The end of the attempt and start a new attempt
         const newAttempt = this._getNewAttempt(progressUpdate);
         currentProgress.attemptCount++;
-        currentProgress.attempts.set(currentProgress.attemptCount, newAttempt);
+        currentProgress.attempts[currentProgress.attemptCount] = newAttempt;
       } else {
         currentAttempt.score+= this._getScore(progressUpdate.questionResponses);
         currentAttempt.questionResponses.push(...progressUpdate.questionResponses);
 
-        currentProgress.attempts.set(currentProgress.attemptCount, currentAttempt);
+        currentProgress.attempts[currentProgress.attemptCount] = currentAttempt;
       }
 
       newProgress = currentProgress;
     } else {
       newProgress = this._initProgress(progressUpdate, 1);
     }
-
     return this._updateProgress(newProgress, progressUpdate);
   }
 
