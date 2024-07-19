@@ -142,8 +142,8 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     const markScore = this.assessmentFormArray?.controls[i].get('marks')?.value
     const questionResponse: QuestionResponse = {
       questionId: questionId,
-      answerId: selectedOption,
-      answerText: textAnswer.text,
+      answerId: selectedOption.id,
+      answerText: selectedOption ? selectedOption.text : textAnswer,
     }
     questionResponses.push(questionResponse);
 
