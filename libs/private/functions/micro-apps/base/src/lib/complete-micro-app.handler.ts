@@ -39,7 +39,7 @@ export class CompleteMicroAppHandler extends FunctionHandler<InitMicroAppCmd, In
       
       const activeChannel = ___DirectChannelFactory(channel, tools);
 
-      const endUserRepo$ = await tools.getRepository<EndUser>(`orgs/${app.config.orgId}/users`);
+      const endUserRepo$ = tools.getRepository<EndUser>(`orgs/${app.config.orgId}/users`);
       const endUser = await endUserRepo$.getDocumentById(app.endUserId);
 
       endUser.status = ChatStatus.Running;
