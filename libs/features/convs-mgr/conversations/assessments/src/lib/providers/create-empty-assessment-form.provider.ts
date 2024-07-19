@@ -47,7 +47,7 @@ export function DEFAULT_ASSESSMENT(): Assessment {
     },
     type: MicroAppTypes.Assessment, 
     callBackUrl: '', 
-    channelId: '', 
+    channel: null as any, 
     pos: {
       storyId: '',
       blockId: ''
