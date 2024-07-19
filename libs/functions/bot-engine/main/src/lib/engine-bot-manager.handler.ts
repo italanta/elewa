@@ -206,6 +206,8 @@ export class EngineBotManager
    * TODO: Move state to memcached or redis
    */
   async duplicatePayload(tools: HandlerTools, orgId: string, endUserId: string, message: Message) {
+    if(!message) return false;
+    
     const stateRepo$ = tools.getRepository<BotState>(`orgs/${orgId}/end-users/${endUserId}/bot-state`);
 
     const currentstate = await stateRepo$.getDocumentById('current-state');
