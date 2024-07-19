@@ -66,7 +66,7 @@ export class MicroAppBlockService implements IProcessOperationBlock
 
     const config: MicroApp = {
       type: storyBlock.appType,
-      channelId: this._activeChannel.channel.id,
+      channel: this._activeChannel.channel,
       orgId, pos: newPosition
     } 
 

@@ -1,12 +1,14 @@
-export function getPlatformURL(endUserId: string) {
-  const idArr = endUserId.split('_');
-  const platformID = idArr[idArr.length-1];
-  const platform = idArr[0];
+import { CommunicationChannel, PlatformType, WhatsAppCommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
 
-  switch (platform) {
-    case 'w':
-      return `https://wa.me/${platformID}`;
+export function getPlatformURL(channel: CommunicationChannel) {
+  switch (channel.type) {
+    case PlatformType.WhatsApp:
+      return _getWhatsappURL(channel);
     default:
-      return `https://wa.me/${platformID}`;
+      return _getWhatsappURL(channel);
   }
+}
+
+function _getWhatsappURL(whatsapp: WhatsAppCommunicationChannel) {
+    return `https://wa.me/${whatsapp.phoneNumber}`
 }

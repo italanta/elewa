@@ -1,4 +1,4 @@
-import { EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
+import { CommunicationChannel, EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
 import { MicroAppTypes } from "./micro-app-types.enum";
 import { PassCriteriaTypes } from "./pass-criteria-types.enum";
 
@@ -18,7 +18,7 @@ export interface MicroApp
   orgId: string;
 
   /** Channel over which the systems are communicating */
-  channelId: string;
+  channel: CommunicationChannel;
 
   /** Position of where the micro-app was initiated */
   pos: EndUserPosition;

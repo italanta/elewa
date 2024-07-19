@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
-import { take, switchMap, of } from 'rxjs';
+import { take, switchMap } from 'rxjs';
 
-import { MicroAppSectionTypes, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
+import { MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
 import { MicroAppManagementService, MicroAppStore } from '@app/state/convs-mgr/micro-app';
 
 import { getPlatformURL } from '../../utils/create-platform-url.util';
@@ -74,6 +74,6 @@ export class PlatformRedirectPageComponent implements OnInit, OnDestroy
   redirect(): void 
   { 
     // TODO: Add support for other platforms
-    window.location.href = getPlatformURL(this.endUserId);
+    window.location.href = getPlatformURL(this.appStatus.config.channel);
   }
 }

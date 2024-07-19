@@ -35,9 +35,8 @@ export class CompleteMicroAppHandler extends FunctionHandler<InitMicroAppCmd, In
       await appRegistrationRepo$.update(app);
 
       // Send an update message to the user over the channel in which the thing was started
-      const _channelService$ = new ChannelDataService(tools);
-
-      const channel = await _channelService$.getChannelInfo(app.config.channelId);
+      const channel = app.config.channel;
+      
       const activeChannel = ___DirectChannelFactory(channel, tools);
 
       const endUser = await tools.getRepository<EndUser>(`orgs/${app.config.orgId}/users`).getDocumentById(app.endUserId);
