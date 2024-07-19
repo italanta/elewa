@@ -55,6 +55,9 @@ export class MicroAppStore
           console.error(
             `Critical error. Crash when loading app. App failed to load.`
           );
+          this._hasInit = true;
+          this._app = appHolder.app;
+          this._app$$.next(this._app);
         }
       });
   }

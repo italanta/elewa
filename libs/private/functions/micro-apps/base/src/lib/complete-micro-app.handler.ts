@@ -7,7 +7,7 @@ import { InitMicroAppCmd, InitMicroAppResponse, MicroAppStatus, MicroAppStatusTy
 
 import { ChannelDataService, EngineBotManager } from '@app/functions/bot-engine';
 import { ___DirectChannelFactory } from '@app/functions/bot-engine/channels';
-import { EndUser } from '@app/model/convs-mgr/conversations/chats';
+import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 
 /**
  * Handler responsible for completing a micro-app.
@@ -39,12 +39,16 @@ export class CompleteMicroAppHandler extends FunctionHandler<InitMicroAppCmd, In
       
       const activeChannel = ___DirectChannelFactory(channel, tools);
 
-      const endUser = await tools.getRepository<EndUser>(`orgs/${app.config.orgId}/users`).getDocumentById(app.endUserId);
+      const endUserRepo$ = await tools.getRepository<EndUser>(`orgs/${app.config.orgId}/users`);
+      const endUser = await endUserRepo$.getDocumentById(app.endUserId);
 
+      endUser.status = ChatStatus.Running;
+      
       const continueGoomzaFlow = new EngineBotManager(tools, tools.Logger, activeChannel);
       // TODO: await continueGoomzaFlow.run({ } as MicroAppSuccessMessage OR AssessmentCompleteMessage [subtype of MicroAppSuccessMessage], )    
       await continueGoomzaFlow.run(null, endUser);
-
+      
+      await endUserRepo$.update(endUser);
       return { success: true, app };
       
     } 
