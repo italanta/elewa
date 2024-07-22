@@ -89,7 +89,7 @@ export class ProcessMessageService
     // Get the full object of last block
     const lastBlock = await this._blockService$.getBlockById(lastBlockId, orgId, currentStory);
 
-    this._tools.Logger.log(()=> `Processing block: Last block: ${JSON.stringify(lastBlock)}}`);
+    this._tools.Logger.log(()=> `Processing block: Last block: ${JSON.stringify(lastBlock)}`);
 
     // If we had requested for the user input. The user response is saved here.
     //  Handle input: validates and saves the input to variable
