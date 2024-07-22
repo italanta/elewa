@@ -20,6 +20,13 @@
       </div>
     </div>
     <app-text-message [formgroup]="assessmentMicroAppForm"></app-text-message>
-    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="assessmentMicroAppForm"></app-default-option-field>
+    <div formArrayName="options" fxFlexFill>
+      <div *ngFor="let option of assessmentBlockOptions; let i = index" class="full-width" fxFlexFill>
+        <span [formGroupName]="i" fxFlex>
+          <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="assessmentMicroAppForm" [isReadOnly]="true"
+            [formGroupNameInput]="i"></app-option-input-field>
+        </span>
+      </div>
+    </div>
   </form>
 </div>

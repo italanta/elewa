@@ -184,6 +184,12 @@
         }
       },
       "BUTTONS": {
+        "ASSESSMENT-MICROAPP-BLOCK": {
+          "PASSED": "Passed",
+          "FAILED": "Failed",
+          "INCOMPLETE": "Incomplete",
+          "COMPLETE": "Complete"
+        },
         "JUMP-BLOCK": {
           "SUCCESS": "Success",
           "FAILED": "Failed"

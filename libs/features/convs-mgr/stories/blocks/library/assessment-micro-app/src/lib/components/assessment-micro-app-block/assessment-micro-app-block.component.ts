@@ -1,24 +1,25 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
+import { TranslateService } from '@ngfi/multi-lang';
+
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { AssessmentMicroAppBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
-
+import { PassCriteriaTypes } from '@app/model/convs-mgr/micro-app/base';
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
 import { _JsPlumbComponentDecorator } from '../../providers/decorate-jsplumb.provider';
-
 
 @Component({
   selector: 'app-assessment-micro-app-block',
   templateUrl: './assessment-micro-app-block.component.html',
   styleUrls: ['./assessment-micro-app-block.component.scss']
 })
-export class AssessmentMicroAppBlockComponent implements OnInit, AfterViewInit {
+export class AssessmentMicroAppBlockComponent implements OnInit {
 
   @Input() id: string;
   @Input() block: AssessmentMicroAppBlock;
@@ -34,20 +35,19 @@ export class AssessmentMicroAppBlockComponent implements OnInit, AfterViewInit {
   assessmentMicroAppType = StoryBlockTypes.MicroAppBlock;
   blockFormGroup: FormGroup;
 
+  assessmentBlockOptions: any[];
 
   assessments: Assessment[];
 
   constructor(private _assessmentService$: AssessmentService,
+              private _fb: FormBuilder,
+              private _translate: TranslateService
   ) { }
 
   ngOnInit() {
     this.getAssessments();
     this.getAssessmentName();
-  }
-
-  ngAfterViewInit(): void
-  {
-    this._decorateInput();
+    this.setAssessmentBlockOptions();
   }
 
   /** Get all assessments */
@@ -66,10 +66,51 @@ export class AssessmentMicroAppBlockComponent implements OnInit, AfterViewInit {
     })
   }
 
+  get options(): FormArray
+  {
+    return this.assessmentMicroAppForm.controls['options'] as FormArray;
+  }
+
+  setAssessmentBlockOptions()
+  {
+    this.assessmentBlockOptions = [{
+      message: this._translate.translate("PAGE-CONTENT.BLOCK.BUTTONS.ASSESSMENT-MICROAPP-BLOCK.PASSED"),
+      value: PassCriteriaTypes.Passed
+    },
+    {
+      message: this._translate.translate("PAGE-CONTENT.BLOCK.BUTTONS.ASSESSMENT-MICROAPP-BLOCK.FAILED"),
+      value: PassCriteriaTypes.Failed
+    },
+    {
+      message: this._translate.translate("PAGE-CONTENT.BLOCK.BUTTONS.ASSESSMENT-MICROAPP-BLOCK.COMPLETE"),
+      value: PassCriteriaTypes.Completed
+    },
+    {
+      message: this._translate.translate("PAGE-CONTENT.BLOCK.BUTTONS.ASSESSMENT-MICROAPP-BLOCK.INCOMPLETE"),
+      value: PassCriteriaTypes.Incomplete
+    },
+    ];
+
+    this.assessmentBlockOptions.forEach((option) =>
+    {
+      this.options.push(this.addAssessmentBlockOptions(option));
+    });
+  }
+
+  addAssessmentBlockOptions(option?: any)
+  {
+    return this._fb.group({
+      id: [option?.id ?? `${this.id}-${this.options.length + 1}`],
+      message: [option?.message ?? ''],
+      value: [option?.value ?? '']
+    });
+  }
+
   /** Add JsPlumb connector to max score input */
   private _decorateInput()
   {
-    const inputs = document.getElementsByClassName('option');
+    const inputs = document.getElementsByClassName('assessment-option');
+    console.log("Input:",inputs)
     if (this.jsPlumb) {
       for (let i = 0; i < inputs.length; i++) {
         let input = inputs[i];
