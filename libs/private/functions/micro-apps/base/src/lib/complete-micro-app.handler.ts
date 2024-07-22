@@ -43,12 +43,12 @@ export class CompleteMicroAppHandler extends FunctionHandler<InitMicroAppCmd, In
       const endUser = await endUserRepo$.getDocumentById(app.endUserId);
 
       endUser.status = ChatStatus.Running;
+      await endUserRepo$.update(endUser);
       
       const continueGoomzaFlow = new EngineBotManager(tools, tools.Logger, activeChannel);
       // TODO: await continueGoomzaFlow.run({ } as MicroAppSuccessMessage OR AssessmentCompleteMessage [subtype of MicroAppSuccessMessage], )    
       await continueGoomzaFlow.run(null, endUser);
       
-      await endUserRepo$.update(endUser);
       return { success: true, app };
       
     } 
