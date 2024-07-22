@@ -68,6 +68,7 @@ app-micro-apps-footer{
   position: relative;
   bottom: 0;
 }
+
 @media only screen and (max-width: 768px){
   .main-content{
     padding: 3rem 1rem;
@@ -75,5 +76,24 @@ app-micro-apps-footer{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+  }
+  .buttons-section{
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    width: 100%;
+    margin-left: 16%;
+    gap: 10%;
+  }
+  .stepper-buttons{
+    width: 100%;
+  }
+  .next{
+    width: 20% !important;
+    margin-left: auto;
+  }
+  .previous{
+    width: 20% !important;
+    border: 1px solid var(--micro-apps-teal-primary);
   }
 }

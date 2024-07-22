@@ -1,24 +1,25 @@
 .heading-wrapper{
   padding: 36px 4rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   background-color: var(--micro-apps-colour-white);
   margin-bottom: 1rem;
 
   .logo{
     img{
-      width: 61px;
-      height: 59px;
+      width: 20%;
+      height: 12%;
       border-radius: 4px;
     }
   }
   .heading{
     text-align: center;
+    width: 100%;
   }
   .timer{
-    width: 115px;
-    height: 44px;
+    width: 10%;
+    height: 10%;
     .countDown{
       padding: 0.5rem;
       border-radius: 2.5rem;
@@ -30,3 +31,32 @@
     }
   }
 }
+
+/* Medium Devices (MD) */
+@media (min-width: 375px) and (max-width: 730px) {
+  .heading-wrapper{
+    padding: 8px 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--micro-apps-colour-white);
+    margin-bottom: 1rem;
+  
+    .logo{
+      width: 40%;
+      img{
+        width: 20%;
+        height: 12%;
+        border-radius: 4px;
+      }
+    }
+    .heading{
+      text-align: center;
+      width: 100%;
+    }
+    .timer{
+      width: 32%;
+      height: 10%;
+    }
+  }
+}  
