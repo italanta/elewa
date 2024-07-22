@@ -32,6 +32,11 @@
 }
 
 .buttons-section{
+  display: flex;
+    justify-content: space-between;
+    align-self: center;
+    width: 100%;
+    gap: 10%;
   .stepper-buttons{
     display: flex;
     justify-content: space-between;
@@ -76,13 +81,6 @@ app-micro-apps-footer{
     justify-content: space-between;
     align-items: center;
   }
-  .buttons-section{
-    display: flex;
-    justify-content: space-between;
-    align-self: center;
-    width: 100%;
-    gap: 10%;
-  }
   .stepper-buttons{
     width: 100%;
   }
@@ -94,4 +92,8 @@ app-micro-apps-footer{
     width: 35% !important;
     border: 1px solid var(--micro-apps-teal-primary);
   }
+  .buttons-section .submit-btn {
+    display: flex;
+    justify-content: end;
+  }  
 }
