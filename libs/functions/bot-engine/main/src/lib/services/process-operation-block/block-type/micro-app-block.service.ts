@@ -54,7 +54,7 @@ export class MicroAppBlockService implements IProcessOperationBlock
 
     const newPosition: EndUserPosition = {
       // Id of the micro-app as the story id
-      storyId: storyBlock.appId,
+      storyId: currentStory,
 
       // Id of the micro-app block
       blockId: storyBlock.id
