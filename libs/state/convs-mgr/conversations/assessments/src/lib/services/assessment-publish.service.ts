@@ -1,18 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { combineLatest, map, of, switchMap, tap } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Logger } from '@iote/bricks-angular';
 
-import { Assessment, AssessmentQuestionOptions } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
-import { AssessmentQuestionService } from './assessment-question.service';
-import { StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { AssessmentQuestionBlock, Button, EndStoryAnchorBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
-import { StoriesStore } from '@app/state/convs-mgr/stories';
-import { StoryConnectionsStore } from '@app/state/convs-mgr/stories/block-connections';
-import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
 
 @Injectable({
@@ -21,11 +14,7 @@ import { MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
 export class AssessmentPublishService
 {
 
-  constructor(private _assessmentQuestionService$$: AssessmentQuestionService,
-    private _story$: StoriesStore,
-    private _blocks$$: StoryBlocksStore,
-    private _connections$$: StoryConnectionsStore,
-    private _logger: Logger
+  constructor( private _logger: Logger
     ) { }
 
   publish(newAssessment: Assessment)

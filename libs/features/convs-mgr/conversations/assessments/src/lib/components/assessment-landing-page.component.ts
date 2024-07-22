@@ -26,12 +26,24 @@ export class AssessmentLandingPageComponent implements OnInit
      this.getAssessment()
   }
 
-  /** Fetch micro-app assessment and use config object to render either stepper form or all questions form */
+  /** Fetch micro-app assessment and use config object to render either stepper form or all questions form
+   *  Update a micro-app assessment with the channel and position
+   */
   getAssessment(){
     this._assessmentStore$.getAssessmentByOrg(this.app.appId, this.app.config.orgId).subscribe(_assessment => {
       this.assessment = _assessment
+
+      if(_assessment){
+        const channelAssessment: Assessment = {
+         ... _assessment,
+          channel: this.app.config.channel,
+          pos: this.app.config.pos
+        }
+        this._assessmentStore$.update(channelAssessment)
+      } 
     })
   }
+  
 
   /**
    * Function called when a user clicks the start button
