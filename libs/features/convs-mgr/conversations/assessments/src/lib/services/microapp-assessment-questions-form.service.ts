@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormArray, FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormArray, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { QuestionResponseMap } from '@app/model/convs-mgr/micro-app/assessments';
@@ -23,7 +23,7 @@ export class MicroAppAssessmentQuestionFormService
       id: [assessmentQuestion?.id ?? ""],
       question: [assessmentQuestion?.message ?? ""],
       options: this._fb.array(assessmentQuestion?.options?.map(option => new FormControl(option)) || []),
-      selectedOption: [selectedOption ?? ""], //tracking the selected option
+      selectedOption: [selectedOption ?? "", Validators.required], //tracking the selected option
       textAnswer: this._fb.group({
         text: [assessmentQuestion?.textAnswer?.text ?? ""],
         accuracy: [assessmentQuestion?.textAnswer?.accuracy ?? null],
