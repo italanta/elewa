@@ -1,4 +1,4 @@
-<div class="heading-wrapper" *ngIf="timeTaken$ | async as timeTaken">
+<div class="heading-wrapper" *ngIf="startTime">
   <div class="logo">
     <img src="/assets/icons/goomza-icon-transparent.png">
   </div>
@@ -9,7 +9,7 @@
   <!-- TODO: Pick timer time from sessions, when assessment is published -->
   <div class="timer">
     <div class="countDown">
-      <span>{{timeTaken | date: 'HH:mm:ss'}}</span>
+      <span>{{elapsedTime}}</span>
     </div>
   </div>
 </div>

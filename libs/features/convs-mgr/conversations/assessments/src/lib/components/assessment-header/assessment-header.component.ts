@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { interval, map, Observable } from 'rxjs';
+
+import { UpdateElapsedTime } from '../../utils/get-elapsed-time.util';
 
 @Component({
   selector: 'app-assessment-header',
@@ -10,16 +11,13 @@ export class AssessmentHeaderComponent implements OnInit, OnDestroy
 {
   @Input() startTime: number;
   @Input() assessmentTitle: string;
-  timeTaken$: Observable<number>;
+  elapsedTime: string;
   private intervalId: any;
 
   ngOnInit() {
-    this.timeTaken$ = interval(1000).pipe(
-      map(() => {
-        const currentTime = Date.now();
-        return currentTime - this.startTime;
-      })
-    );
+    this.intervalId = setInterval(() => {
+      this.elapsedTime = UpdateElapsedTime(this.startTime);
+    }, 1000);
   }
 
   ngOnDestroy() {
