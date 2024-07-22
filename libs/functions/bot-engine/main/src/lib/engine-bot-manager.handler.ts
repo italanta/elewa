@@ -124,7 +124,9 @@ export class EngineBotManager
       //          to determine how we are going to process the message and reply to the end user
       switch (this.endUser.status) {
         case ChatStatus.Running:
-          message.direction = MessageDirection.FROM_END_USER_TO_CHATBOT;
+          if(message) {
+            message.direction = MessageDirection.FROM_END_USER_TO_CHATBOT;
+          }
 
           await bot.play(message, this.endUser, currentCursor);
 
