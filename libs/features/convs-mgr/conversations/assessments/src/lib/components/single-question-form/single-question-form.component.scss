@@ -1,7 +1,6 @@
 .question-card{
   width: 100%;
   color: var(--micro-apps-cards-border);
-  width: 80%;
   background-color: var(--micro-apps-colour-white);
 
   .question-header{
@@ -18,12 +17,19 @@
 }
 .single-form{
   padding-left: 5%;
-  min-width: 850px !important;
+
 
   .single-question-fm{
     width: 100%;
+
+    .single-question-div{
+      width: 100%;
+      padding: none;
+      margin: none;
+    }
   }
 }
+
 
 // Changing the default style of mat-radio-button to match Goomza colours
 :host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {

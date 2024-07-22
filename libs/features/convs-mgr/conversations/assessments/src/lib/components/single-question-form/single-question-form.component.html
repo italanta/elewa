@@ -1,7 +1,7 @@
   <!-- Stepper Form -->
   <div class="single-form" *ngIf="stepDataLoaded">
     <form [formGroup]="assessmentForm" class="single-question-fm">
-      <div formArrayName="assessmentFormArray">
+      <div formArrayName="assessmentFormArray" class="single-question-div">
         <div *ngFor="let question of assessmentFormArray.controls; let i = index" [formGroupName]="i">
           <mat-card class="question-card" *ngIf="i === currentStep">
             <mat-card-header class="question-header">
