@@ -14,7 +14,7 @@ export class UpdateMicroAppProgressHandler extends FunctionHandler<MicroAppProgr
   {
     const payload = req;
     
-    tools.Logger.log(() => `Received progress update callback`);
+    tools.Logger.log(() => `Received progress update callback ${JSON.stringify(req)}`);
 
     tools.Logger.log(() => `Processing progress for app with ID ${payload.appId} for user ${payload.endUserId}`);
     
