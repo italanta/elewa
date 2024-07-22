@@ -37,6 +37,7 @@
         },
         "RETAKE-TEXT": "Click Retry assignment button below to give it another go!"
       }
-    }
+    },
+    "NO-ANSWER-ERROR" : " Answer the question before proceeding. Don't worry, you can still come back to it before submitting"
   }
 }
