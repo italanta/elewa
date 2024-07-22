@@ -35,19 +35,18 @@
   .stepper-buttons{
     display: flex;
     justify-content: space-between;
-    width: 80%;
-    padding-left: 3%;
+    width: 100%;
     margin-top: 1rem;
     .next{
       color: var(--micro-apps-colour-white);
       background-color: var(--micro-apps-teal-primary);
-      width: 200px !important;
+      width: 20% !important;
       margin-left: auto;
     }
     .previous{
       color: var(--micro-apps-teal-primary);
       background-color: var(--micro-apps-colour-white);
-      width: 200px !important;
+      width: 20% !important;
       border: 1px solid var(--micro-apps-teal-primary);
     }
   }
@@ -59,7 +58,7 @@
     .btn-btns{
       color: var(--micro-apps-colour-white);
       background-color: var(--micro-apps-teal-primary);
-      width: 200px !important;
+      width: 20% !important;
     }
   }
 }
@@ -69,7 +68,7 @@ app-micro-apps-footer{
   bottom: 0;
 }
 
-@media only screen and (max-width: 768px){
+@media (min-width: 375px) and (max-width: 768px){
   .main-content{
     padding: 3rem 1rem;
     display: flex;
@@ -82,18 +81,17 @@ app-micro-apps-footer{
     justify-content: space-between;
     align-self: center;
     width: 100%;
-    margin-left: 16%;
     gap: 10%;
   }
   .stepper-buttons{
     width: 100%;
   }
   .next{
-    width: 20% !important;
+    width: 35% !important;
     margin-left: auto;
   }
   .previous{
-    width: 20% !important;
+    width: 35% !important;
     border: 1px solid var(--micro-apps-teal-primary);
   }
 }
