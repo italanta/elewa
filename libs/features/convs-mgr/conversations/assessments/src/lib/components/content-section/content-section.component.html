@@ -25,7 +25,7 @@
         >
       </app-assessment-card> 
 
-      <div class="buttons-section">
+      <div class="buttons-section" *ngIf="assessmentForm">
         <div class="stepper-buttons" *ngIf="stepperForm === true">
           <button class="previous" mat-raised-button (click)="prevStep()" [disabled]="currentStep === 0" [hidden]="currentStep === 0">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.PREVIOUS" | transloco }}</button>
           <button class="next" mat-raised-button (click)="nextStep(currentStep)" [disabled]="currentStep === totalSteps - 1 && assessmentFormArray.at(currentStep).get('selectedOption')?.invalid" [hidden]="currentStep === totalSteps - 1">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.NEXT-BUTTON" | transloco }}</button>

@@ -45,21 +45,22 @@
     .next{
       color: var(--micro-apps-colour-white);
       background-color: var(--micro-apps-teal-primary);
-      width: 20% !important;
+      width: 10% !important;
       margin-left: auto;
     }
     .previous{
       color: var(--micro-apps-teal-primary);
       background-color: var(--micro-apps-colour-white);
-      width: 20% !important;
+      width: 10% !important;
       border: 1px solid var(--micro-apps-teal-primary);
     }
   }
   .submit-btn{
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
-    padding-top: 3%;
+    padding-top: 1%;
+    width: 100%;
     .btn-btns{
       color: var(--micro-apps-colour-white);
       background-color: var(--micro-apps-teal-primary);
@@ -94,5 +95,8 @@ app-micro-apps-footer{
   .buttons-section .submit-btn {
     display: flex;
     justify-content: end;
+    align-items: center;
+    padding-top: 3.5%;
+    width: 100%;
   }  
 }
