@@ -160,8 +160,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
 
   async saveProgress(i: number)
   {
-    if(!this.stepperForm) this.assessmentFormArray?.controls[i].get('selectedOption')?.markAsTouched()
-    if(!this.assessmentForm.valid) return
+    if(!this.stepperForm) this.assessmentFormArray?.controls[i].get('selectedOption')?.markAsTouched();
 
     const selectedOptionId = this.assessmentFormArray?.controls[i].get('selectedOption')?.value
     const questionResponses: QuestionResponse[] = this.questionResponses || []
