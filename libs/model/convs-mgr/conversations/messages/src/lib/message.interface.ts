@@ -48,6 +48,9 @@ export interface Message extends IObject
    */
   direction?          : MessageDirection;
 
+  /** Bypass the direction of the message and send it directly to the end user */
+  isDirect?           : boolean;
+
   url?                : string;
 
   /**

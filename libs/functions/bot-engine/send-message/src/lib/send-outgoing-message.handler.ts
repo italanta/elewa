@@ -39,7 +39,7 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, SendMessage
   {
     try {
       // STEP 1: Check if the message is meant for the end user
-      if (outgoingPayload.direction !== MessageDirection.FROM_AGENT_TO_END_USER) return { success: false, data: "Message Direction Mismatch!" } as SendMessageResp;
+      if (outgoingPayload.direction !== MessageDirection.FROM_AGENT_TO_END_USER || !outgoingPayload.isDirect) return { success: false, data: "Message Direction Mismatch!" } as SendMessageResp;
 
       tools.Logger.log(() => `[WhatsAppSendOutgoingMsgHandler] - Outgoing message: ${JSON.stringify(outgoingPayload)}`);
 
