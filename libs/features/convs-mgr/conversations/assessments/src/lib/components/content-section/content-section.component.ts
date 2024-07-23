@@ -96,12 +96,14 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     const progress$ = this._assessmentQuestionStore.getAssessmentProgress(this.app.appId, orgId, this.app.endUserId);
     const questions$ = this._assessmentQuestionStore.getQuestionsByAssessment(this.app.appId, orgId);
 
-    let questionResponses: QuestionResponseMap;
+    let questionResponses: QuestionResponseMap | undefined;
     this._sBS.sink = combineLatest([progress$, questions$]).pipe(take(1),map(([progress, questions])=> {
           // If the assessment is in progress we append user answer responses
           if(progress) {
-            const currentAttempt = progress.attemptCount;
-            questionResponses = progress.attempts[currentAttempt].questionResponses;
+            const attemptNumber = progress.attemptCount;
+            const currentAttempt = progress.attempts[attemptNumber]
+            // If the current attempt finished, we start a new attempt without the question responses
+            questionResponses = !currentAttempt.finishedOn ? currentAttempt.questionResponses : undefined;
 
           }
           this.assessmentQuestions = questions;
