@@ -1,5 +1,7 @@
 import { IObject } from "@iote/bricks";
 
+import { MoveOnCriteriaTypes } from "@app/model/convs-mgr/conversations/assessments";
+
 import { Attempt } from "./assessment-attempt.interface";
 
 export interface AssessmentProgress extends IObject {
@@ -19,7 +21,13 @@ export interface AssessmentProgress extends IObject {
   maxScore: number;
 
   /** The mininum score for an assessment to be marked as 'passed' */
-  passMark?: number;
+  continueCriteria?: {
+    criteria: MoveOnCriteriaTypes;
+    /** The minimum score in percentage that the learner must have in 
+     *    order to continue with the flow
+     */
+    passMark?: number;
+}
 }
 
 export type AttemptsMap = {[key: number]: Attempt};

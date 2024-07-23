@@ -188,7 +188,8 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       type: MicroAppTypes.Assessment,
       assessmentDetails: {
         maxScore: totalMarks,
-        questionCount: this.totalSteps
+        questionCount: this.totalSteps,
+        continueCriteria: this.assessment.configs?.moveOnCriteria
       },
       hasSubmitted: this.currentStep === this.totalSteps - 1
     }

@@ -4,4 +4,5 @@ export interface QuestionResponse {
   /** The id of the answer if it was a multiple choice question. */
   answerId?: string;
   correctAnswer?: string;
+  feedback?: string;
 }

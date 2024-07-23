@@ -1,12 +1,14 @@
 import { MicroApp } from "@app/model/convs-mgr/micro-app/base";
 import { Story } from "@app/model/convs-mgr/stories/main";
 
+import { MoveOnCriteriaTypes } from "./continue-flow-criteria-types";
+
 export interface Assessment extends Story, MicroApp {
     title: string,
     instructions: string[],
     description: string,
     orgId: string,
-    configs?: AssessmentConfiguration,
+    configs: AssessmentConfiguration,
     scoreCategories?: ScoreCategory[],
 
     questionsOrder? : string[],
@@ -29,7 +31,17 @@ export interface AssessmentConfiguration{
     questionsDisplay: QuestionDisplayed,
     /** User attempts based on scores */
     scoreAttempts?: ScoreAttempType,
-    passMark?: number;
+
+    /** The minimum condition required for the user to continue
+     *    with the flow when attempting an assessment
+     */
+    moveOnCriteria?: {
+        criteria: MoveOnCriteriaTypes;
+        /** The minimum score in percentage that the learner must have in 
+         *    order to continue with the flow
+         */
+        passMark?: number;
+    }
 }
 
 export interface ScoreCategory{
