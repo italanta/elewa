@@ -171,9 +171,8 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     const question = this.assessmentQuestions.find((q)=> q.id === questionId);
 
     const selectedOption = question?.options?.find((op)=> op.id === selectedOptionId);
-
-    let totalMarks
-    const markScore = this.assessmentFormArray?.controls[i].get('marks')?.value
+    // Calculate total marks using the reducer
+    const totalMarks = this.calculateTotalMarks(this.assessmentFormArray.controls as FormGroup[]);
     const questionResponse: QuestionResponse = {
       questionId: questionId,
       answerId: selectedOption?.id,
@@ -189,7 +188,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       timeSpent: new Date().getTime() - this.app.startedOn!,
       type: MicroAppTypes.Assessment,
       assessmentDetails: {
-        maxScore: totalMarks += markScore ,
+        maxScore: totalMarks,
         questionCount: this.totalSteps
       },
       hasSubmitted: this.currentStep === this.totalSteps - 1
@@ -198,6 +197,13 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     if(this.currentStep === this.totalSteps - 1) {
       this._router.navigate(['redirect', this.app.id]);
     }
+  }
+  /** Total marks value of an assessment */
+  private calculateTotalMarks(questions: FormGroup[]): number {
+    return questions.reduce((total, question) => {
+      const marks = question.get('marks')?.value || 0;
+      return total + marks;
+    }, 0);
   }
 
   ngOnDestroy()
