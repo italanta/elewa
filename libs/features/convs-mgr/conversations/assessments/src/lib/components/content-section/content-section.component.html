@@ -1,6 +1,13 @@
-<!-- <ng-container *ngIf="pageView | async as pageMode" class="micro-app-content"> -->
+<ng-container *ngIf="pageView | async as pageMode" class="micro-app-content">
   <ng-container class="micro-app-content">
-  <!-- <ng-container *ngIf="pageMode === pageViewMode.AssessmentMode"> -->
+    <ng-container *ngIf="pageMode === pageViewMode.FailFeedbackMode" >
+      <app-assessment-failed-section
+        [assessment]="assessment"
+        [assessmentForm]="assessmentForm" 
+        [assessmentFormArray]="assessmentFormArray">
+    </app-assessment-failed-section>
+    </ng-container>
+  <ng-container *ngIf="pageMode === pageViewMode.AssessmentMode">
     <!-- Header with details about assessment -->
     <app-assessment-header [startTime]="startTime" [assessmentTitle]="assessmentTitle"></app-assessment-header>
 
@@ -37,5 +44,5 @@
       </div>
     </div>
     <app-micro-apps-footer></app-micro-apps-footer>
-  <!-- </ng-container> -->
+  </ng-container>
 </ng-container>

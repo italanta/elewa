@@ -4,6 +4,8 @@ import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 import { MicroAppSectionTypes, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
 import { AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
 import { MicroAppStore } from '@app/state/convs-mgr/micro-app';
+import { AppViewService } from '../services/content-view-mode.service';
+import { PageViewMode } from '../model/view-mode.enum';
 
 @Component({
   selector: 'app-assessment-landing-page',
@@ -18,6 +20,7 @@ export class AssessmentLandingPageComponent implements OnInit
   constructor( private _assessmentStore$: AssessmentsStore,
                private _microApp$$: MicroAppStore,
                private _router: Router,
+               private _pageViewService: AppViewService
   ){}
 
   ngOnInit ()
@@ -48,7 +51,7 @@ export class AssessmentLandingPageComponent implements OnInit
                         startedOn: new Date().getTime() 
                       };
     this._microApp$$.next(updatedApp);
-
+    this._pageViewService.setPageViewMode(PageViewMode.AssessmentMode)
     this._router.navigate(['main', this.app.id]);
   }
 }
