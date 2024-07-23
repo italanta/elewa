@@ -17,6 +17,9 @@ export interface AssessmentProgress extends IObject {
   
   /** Total score of the assessment */
   maxScore: number;
+
+  /** The mininum score for an assessment to be marked as 'passed' */
+  passMark?: number;
 }
 
 export type AttemptsMap = {[key: number]: Attempt};

@@ -12,4 +12,5 @@ export interface AssessmentProgressUpdate extends MicroAppProgress {
 export interface AssessmentDetails {
   questionCount: number;
   maxScore: number;
+  passMark?: number;
 }

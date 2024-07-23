@@ -29,6 +29,7 @@ export interface AssessmentConfiguration{
     questionsDisplay: QuestionDisplayed,
     /** User attempts based on scores */
     scoreAttempts?: ScoreAttempType,
+    passMark?: number;
 }
 
 export interface ScoreCategory{

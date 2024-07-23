@@ -26,6 +26,8 @@ export interface MicroAppConfig
   /** Type of micro-app */
   type: MicroAppTypes;
 
+  passMark?: number;
+
   /** Pass criteria for the assessment */
   passCriteria: PassCriteriaTypes;
   /** Progress URL for the assessment */
