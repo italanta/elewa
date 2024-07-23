@@ -14,7 +14,4 @@ export enum PassCriteriaTypes
   Passed = 'passed',
   /** Test scores do not meet the pass criteria */
   Failed = 'failed',
-
-  /** The task is not complete */
-  Incomplete = 'incomplete'
 }

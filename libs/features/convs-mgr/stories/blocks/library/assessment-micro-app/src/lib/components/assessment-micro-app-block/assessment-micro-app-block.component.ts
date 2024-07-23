@@ -9,7 +9,7 @@ import { TranslateService } from '@ngfi/multi-lang';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { AssessmentMicroAppBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
-import { PassCriteriaTypes } from '@app/model/convs-mgr/micro-app/base';
+import { AssessmentStatusTypes } from '@app/model/convs-mgr/micro-app/assessments';
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
 import { _JsPlumbComponentDecorator } from '../../providers/decorate-jsplumb.provider';
@@ -75,19 +75,15 @@ export class AssessmentMicroAppBlockComponent implements OnInit {
   {
     this.assessmentBlockOptions = [{
       message: this._translate.translate("PAGE-CONTENT.BLOCK.BUTTONS.ASSESSMENT-MICROAPP-BLOCK.PASSED"),
-      value: PassCriteriaTypes.Passed
+      value: AssessmentStatusTypes.Passed
     },
     {
       message: this._translate.translate("PAGE-CONTENT.BLOCK.BUTTONS.ASSESSMENT-MICROAPP-BLOCK.FAILED"),
-      value: PassCriteriaTypes.Failed
-    },
-    {
-      message: this._translate.translate("PAGE-CONTENT.BLOCK.BUTTONS.ASSESSMENT-MICROAPP-BLOCK.COMPLETE"),
-      value: PassCriteriaTypes.Completed
+      value: AssessmentStatusTypes.Failed
     },
     {
       message: this._translate.translate("PAGE-CONTENT.BLOCK.BUTTONS.ASSESSMENT-MICROAPP-BLOCK.INCOMPLETE"),
-      value: PassCriteriaTypes.Incomplete
+      value: AssessmentStatusTypes.Incomplete
     },
     ];
 
