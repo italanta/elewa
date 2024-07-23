@@ -45,19 +45,8 @@ progressCallBack(app?: MicroAppStatus, milestones?: AssessmentProgressUpdate) {
   const URL = `${this._env.microAppUrl}/${PROGRESS_MICROAPP_ENDPOINT}`;
 
   if (app.config.type === MicroAppTypes.Assessment && milestones) {
-    const assessmentPayload: AssessmentProgressUpdate = {
-      appId: milestones.appId,
-      endUserId: milestones.endUserId,
-      orgId: milestones.orgId,
-      questionResponses: milestones.questionResponses,
-      assessmentDetails: {
-        maxScore: milestones.assessmentDetails.maxScore,
-        questionCount: milestones.assessmentDetails.questionCount
-      },
-      type: MicroAppTypes.Assessment,
-      timeSpent: milestones.timeSpent
-    };
-    return this._http$.post(URL, { data: assessmentPayload });
+
+    return this._http$.post(URL, { data: milestones });
   } else {
       const appPayload: MicroAppProgress = {
         appId: app.appId,
