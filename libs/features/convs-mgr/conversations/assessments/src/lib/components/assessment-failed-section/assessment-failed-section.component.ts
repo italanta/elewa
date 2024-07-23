@@ -28,7 +28,6 @@ export class AssessmentFailedSectionComponent implements OnInit {
   ngOnInit(): void {
     if(this.assessmentForm){
       this.handleFeedback();
-      console.log(this.assessmentFormArray.value)
     }
   }
  
@@ -43,21 +42,21 @@ export class AssessmentFailedSectionComponent implements OnInit {
     // Calculate the total marks available
     for (let i = 0; i < this.assessmentFormArray.length; i++) {
       const question = this.assessmentFormArray.at(i) as FormGroup;
-      totalMarks += question.get('marks')?.value || 0;
+      totalMarks += question.get('marks')?.value || 0; // Right marks logged
     }
  
     // Iterate through the controls of assessmentFormArray to Fetch a single question form group
     for (let i = 0; i < this.assessmentFormArray.length; i++) {
       const question = this.assessmentFormArray.at(i) as FormGroup;
       // Fetch an option that has been picked as the answer, then compare the id of the selected option to the available options
-      const selectedOption: AssessmentQuestionOptions = question.get('selectedOption')?.value;
-      const selectedOptionId = selectedOption?.id;
+      const selectedOption: string = question.get('selectedOption')?.value;
       const options = question.get('options')?.value;
-      const selectedOptionDetails = options.find((option: AssessmentQuestionOptions) => option.id === selectedOptionId);
+      const selectedOptionDetails = options.find((option: AssessmentQuestionOptions) => option.id === selectedOption);
+
       // Give feedback provided for the particular option
       if (selectedOptionDetails) {
-        const feedback = selectedOption.accuracy ? selectedOption.feedback : selectedOption.feedback;
-        const condition = selectedOption.accuracy ? FeedbackCondition.Correct : FeedbackCondition.Wrong;
+        const feedback = selectedOptionDetails.accuracy ? selectedOptionDetails.feedback : '';
+        const condition = selectedOptionDetails.accuracy ? FeedbackCondition.Correct : FeedbackCondition.Wrong;
         question.get('feedback')?.setValue({ message: feedback, condition: condition });
  
         // Calculating marks
@@ -75,7 +74,7 @@ export class AssessmentFailedSectionComponent implements OnInit {
   getOptionFeedback(question: AbstractControl): string {
     const selectedOption = question.get('selectedOption')?.value;
     const options = question.get('options')?.value;
-    const selectedOptionDetails = options.find((option: { id: string }) => option.id === selectedOption?.id);
+    const selectedOptionDetails = options.find((option: { id: string }) => option.id === selectedOption);
  
     return selectedOptionDetails ? selectedOptionDetails.feedback : '';
   }
