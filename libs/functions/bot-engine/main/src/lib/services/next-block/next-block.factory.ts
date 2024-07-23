@@ -6,7 +6,7 @@ import { DefaultOptionMessageService } from "./block-type/default-block.service"
 import { BlockDataService } from "../data-services/blocks.service";
 import { ConnectionsDataService } from "../data-services/connections.service";
 import { MultipleOptionsMessageService } from "./block-type/multiple-options-block.service";
-import { AssessmentMicroAppOptionsService } from "./block-type/assessment-micro-app-block.service";
+import { AssessmentMicroAppOptionsService } from "./block-type/assessment-options-micro-app.service";
 
 /**
  * Factory to resolve block type and return the appropriate service that gets the next block
@@ -35,7 +35,7 @@ export class NextBlockFactory
 
       case StoryBlockTypes.AssessmentMicroAppBlock:
         return new AssessmentMicroAppOptionsService(blockDataService, connDataService, tools);
-        
+
       default:
         return new DefaultOptionMessageService(blockDataService, connDataService, tools);
     }
