@@ -43,15 +43,6 @@ export class MicroAppBlockService implements IProcessOperationBlock
 
     const currentStory = updatedCursor.position.storyId;
 
-    const nextPosition = await this.connDataService.getConnBySourceId(storyBlock.id, orgId, currentStory);
-    const nextBlockId = nextPosition.targetId;
-
-    // The next default block to route to after the micro-app is complete
-    const routedCursor: RoutedCursor = {
-      storyId: currentStory,
-      blockSuccess: nextBlockId
-    };
-
     const newPosition: EndUserPosition = {
       // Id of the micro-app as the story id
       storyId: currentStory,
