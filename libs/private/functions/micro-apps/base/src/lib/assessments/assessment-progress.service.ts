@@ -1,6 +1,6 @@
 import { HandlerTools } from "@iote/cqrs";
 
-import { AssessmentProgress, AssessmentProgressUpdate, Attempt, AttemptsMap, QuestionResponse } from "@app/model/convs-mgr/micro-app/assessments";
+import { AssessmentProgress, AssessmentProgressUpdate, AssessmentStatusTypes, Attempt, AttemptsMap, QuestionResponse } from "@app/model/convs-mgr/micro-app/assessments";
 import { MicroAppProgress } from "@app/model/convs-mgr/micro-app/base";
 
 import { mapResponses } from "../utils/assessment-responses-map.util";
@@ -15,6 +15,13 @@ export class AssessmentProgressService
     const assessmentResultsRepo$ = this.tools.getRepository<AssessmentProgress>(resultsPath);
 
     return assessmentResultsRepo$.getDocumentById(progress.appId);
+  }
+
+  /**
+   * Send the feedback pdf as a message to the end user
+   */
+  sendFeedbackPDF() {
+
   }
 
   private _initProgress(newProgress: AssessmentProgressUpdate, attemptCount: number): AssessmentProgress
@@ -83,6 +90,9 @@ export class AssessmentProgressService
     } else {
       newProgress = this._initProgress(progressUpdate, 1);
     }
+
+    newProgress = this._updateOutcome(newProgress);
+    
     return this._updateProgress(newProgress, progressUpdate);
   }
 
@@ -94,6 +104,30 @@ export class AssessmentProgressService
     };
 
     return newAttempt;
+  }
+
+  private _getOutcome(score: number, passMark?: number) {
+    if(!passMark) return AssessmentStatusTypes.Completed;
+
+    if(score <= passMark) {
+      return AssessmentStatusTypes.Failed;
+    } else {
+      return AssessmentStatusTypes.Passed;
+    }
+  }
+
+  private _updateOutcome(progress: AssessmentProgress) {
+    const currentAttempt = progress.attempts[progress.attemptCount];
+
+    if(currentAttempt.finishedOn) {
+      currentAttempt.outcome = this._getOutcome(currentAttempt.score, progress.passMark)
+    } else {
+      currentAttempt.outcome = AssessmentStatusTypes.Incomplete;
+    }
+
+    progress.attempts[progress.attemptCount] = currentAttempt;
+
+    return progress;
   }
 
   private _updateProgress(newProgress: AssessmentProgress, progressUpdate: AssessmentProgressUpdate)
