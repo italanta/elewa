@@ -87,7 +87,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     this._assessmentStore$.getAssessmentByOrg(this.app.appId, this.app.config.orgId).subscribe(_assessment => {
       this.assessment = _assessment;
       this.assessmentTitle = this.assessment.title;
-      this.assessment.configs?.questionsDisplay === 1? this.stepperForm = false : this.stepperForm = false;
+      this.assessment.configs?.questionsDisplay === 1? this.stepperForm = true: this.stepperForm = false;
     })
   }
   /** Fetch assessment Questions */
