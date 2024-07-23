@@ -120,7 +120,7 @@ export class AssessmentProgressService
     const currentAttempt = progress.attempts[progress.attemptCount];
 
     if(currentAttempt.finishedOn) {
-      currentAttempt.outcome = this._getOutcome(currentAttempt.score, progress.passMark)
+      currentAttempt.outcome = this._getOutcome(currentAttempt.score, progress.moveOnCriteria.passMark)
     } else {
       currentAttempt.outcome = AssessmentStatusTypes.Incomplete;
     }

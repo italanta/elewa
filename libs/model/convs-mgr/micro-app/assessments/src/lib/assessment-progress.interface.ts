@@ -21,7 +21,7 @@ export interface AssessmentProgress extends IObject {
   maxScore: number;
 
   /** The mininum score for an assessment to be marked as 'passed' */
-  continueCriteria?: {
+  moveOnCriteria?: {
     criteria: MoveOnCriteriaTypes;
     /** The minimum score in percentage that the learner must have in 
      *    order to continue with the flow
