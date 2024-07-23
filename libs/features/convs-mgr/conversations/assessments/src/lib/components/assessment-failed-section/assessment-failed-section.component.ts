@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
  
-import { Assessment, AssessmentQuestionOptions, FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment, AssessmentOptionValue, AssessmentQuestionOptions, FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
 import { MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
@@ -13,7 +13,7 @@ import { SetAssessmentScoreService } from '../../services/set-pass-status.servic
   templateUrl: './assessment-failed-section.component.html',
   styleUrls: ['./assessment-failed-section.component.scss'],
 })
-export class AssessmentFailedSectionComponent implements OnInit {
+export class AssessmentFeedbackSectionComponent implements OnInit {
   /** Assessment that's underway */
   @Input() assessment: Assessment;
   /** Assessments form group */
@@ -45,9 +45,9 @@ export class AssessmentFailedSectionComponent implements OnInit {
    */
   handleFeedback() {
     const totalMarks = this.calculateTotalMarks();
-    const obtainedMarks = this.calculateObtainedMarksAndFeedback();
+    const obtainedMarks = this.calculateScore();
     // Score a learner in percentage
-    const percentage = (obtainedMarks / totalMarks) * 100;
+    const percentage = Math.round((obtainedMarks / totalMarks) * 100);
     this._assessmentScoreService.setAssessmentScore(percentage);
     console.log(percentage)
     if(percentage >= 50) this.showFeedback = true
@@ -83,7 +83,7 @@ export class AssessmentFailedSectionComponent implements OnInit {
    *  Get feedback if selected option is correct
    *  Return total scores
    */
-  private calculateObtainedMarksAndFeedback(): number {
+  private calculateScore(): number {
     let obtainedMarks = 0;
     for (let i = 0; i < this.assessmentFormArray.length; i++) {
       const question = this.assessmentFormArray.at(i) as FormGroup;
@@ -94,10 +94,10 @@ export class AssessmentFailedSectionComponent implements OnInit {
       if (selectedOptionDetails) {
         this.setFeedback(question, selectedOptionDetails);
   
-        if (selectedOptionDetails.accuracy === 1) {  // Only award marks for correct answers
-          obtainedMarks += question.get('marks')?.value || 0;
+        if (selectedOptionDetails.accuracy === AssessmentOptionValue.Correct) {  // Only award marks for correct answers
+          obtainedMarks += question.get('marks')?.value;
           console.log(obtainedMarks)
-        }else if(selectedOptionDetails.accuracy === 3){
+        }else if(selectedOptionDetails.accuracy === AssessmentOptionValue.FiftyFifty){
           obtainedMarks += question.get('marks')?.value / 2
         }
       }
@@ -107,7 +107,7 @@ export class AssessmentFailedSectionComponent implements OnInit {
 
   private setFeedback(question: FormGroup, selectedOptionDetails: AssessmentQuestionOptions): void {
     const feedback = selectedOptionDetails.feedback;
-    const condition = selectedOptionDetails.accuracy === 1 ? FeedbackCondition.Correct : FeedbackCondition.Wrong;
+    const condition = selectedOptionDetails.accuracy === AssessmentOptionValue.Correct ? FeedbackCondition.Correct : FeedbackCondition.Wrong;
     question.get('feedback')?.setValue({ message: feedback, condition: condition });
   }
 

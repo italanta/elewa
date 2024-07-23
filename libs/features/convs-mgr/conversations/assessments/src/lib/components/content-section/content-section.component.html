@@ -1,6 +1,6 @@
 <ng-container *ngIf="pageView | async as pageMode" class="micro-app-content">
   <ng-container class="micro-app-content">
-    <ng-container *ngIf="pageMode === pageViewMode.FailFeedbackMode" >
+    <ng-container *ngIf="pageMode === pageViewMode.FeedbackMode" >
       <app-assessment-failed-section
         [app]="app"
         [assessment]="assessment"
