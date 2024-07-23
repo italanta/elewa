@@ -1,20 +1,49 @@
-<div class="page-container">
-  <div class="image">
-    <img src="/assets/icons/assessment-failed-feedback-img.svg" />
-  </div>
-  <div class="feedback">
-    <div class="feedback-text">
-      <p> {{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.INTRO" | transloco}} </p>
-    <p> 
-      <span>{{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.TRIAL-TEXT.INTRO" | transloco}} </span> 
-      {{trials}}
-      <span>{{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.TRIAL-TEXT.END" | transloco}}</span>
-    </p>
-    <p> {{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.RETAKE-TEXT" | transloco}} </p>
+<div class="page-container" *ngIf="this.assessmentForm">
+  <div class="feedback-section">
+    <div class="image">
+      <img src="/assets/icons/assessment-failed-feedback-img.svg" />
     </div>
     <div class="btns">
       <button class="previous" mat-raised-button > {{"ASSESSMENT-PAGE.BUTTONS-TEXT.WHATSAPP-BUTTON" | transloco}} </button>
       <button class="btn-btns" mat-raised-button > {{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-BUTTON" | transloco}}  </button>
+    <div class="feedback">
+      <div class="feedback-text">
+        <p> {{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.INTRO" | transloco}} </p>
+      <p>
+        <span>{{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.TRIAL-TEXT.INTRO" | transloco}} </span>
+        {{assessment.configs?.userAttempts}}
+        <span>{{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.TRIAL-TEXT.END" | transloco}}</span>
+      </p>
+      <p> {{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.RETAKE-TEXT" | transloco}} </p>
+      </div>
+      <div class="btns">
+        <button class="previous" mat-raised-button > {{"ASSESSMENT-PAGE.BUTTONS-TEXT.WHATSAPP-BUTTON" | transloco}} </button>
+        <button class="btn-btns" mat-raised-button  (click)="retryAssessment()"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-BUTTON" | transloco}}  </button>
+      </div>
     </div>
   </div>
+  <div class="long-questions">
+    <form [formGroup]="assessmentForm">
+      <div formArrayName="assessmentFormArray">
+        <mat-card class="question-card" *ngFor="let question of assessmentFormArray.controls; let i = index" [formGroupName]="i">
+          <mat-card-header class="question-header">
+            {{ "ASSESSMENT-PAGE.QUESTION" | transloco }}  {{i + 1}}
+          </mat-card-header>
+          <mat-card-content class="question-content">
+            <p>{{ question?.get('question')?.value }}</p>
+            <mat-radio-group aria-label="Select an option" class="column-radios" formControlName="selectedOption">
+              <mat-radio-button *ngFor="let option of question.get('options')?.value"
+                                [value]="option.id"
+                                [class.wrong-answer]="isWrongAnswer(question, option)">
+                                {{option.text}}
+              </mat-radio-button>
+            </mat-radio-group>
+            <div *ngIf="question.get('selectedOption')?.value && showFeedback">
+              <p>{{ getOptionFeedback(question) }}</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </form>
+  </div>  
 </div>

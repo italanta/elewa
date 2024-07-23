@@ -11,9 +11,8 @@
             <mat-radio-button *ngFor="let option of question.get('options')?.value" [value]="option.id">{{option.text}}</mat-radio-button>
           </mat-radio-group>  
           <mat-error class="error-text" *ngIf="assessmentFormArray.at(i).get('selectedOption')?.invalid && (assessmentFormArray.at(i).get('selectedOption')?.dirty || assessmentFormArray.at(i).get('selectedOption')?.touched)">
-            Answer is needed
+            {{ "ASSESSMENT-PAGE.NO-ANSWER-ERROR" | transloco }}
           </mat-error>  
-          <p>{{assessmentFormArray.at(i).get('selectedOption')?.invalid}}</p> 
         </mat-card-content>
       </mat-card>
     </div>

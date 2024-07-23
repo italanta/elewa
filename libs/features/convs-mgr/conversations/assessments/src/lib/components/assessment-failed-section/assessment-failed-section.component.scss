@@ -4,7 +4,7 @@
   gap: 5rem;
   align-items: center;
   padding-top: 5rem;
-
+ 
   .image{
     width: 280px;
     height: 280px;
@@ -13,19 +13,19 @@
       height: 100%;
     }
   }
-
+ 
   //Text section
   .feedback{
     text-align: center;
     min-height: 100%;
-
+ 
     .btns{
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       gap: 1rem;
-
+ 
       .btn-btns{
         color: #fff;
         background-color: #1F7A8C;
@@ -37,6 +37,29 @@
         width: 200px !important;
         border: 1px solid #1F7A8C;
       }
+    }
+  }
+}
+.long-questions{
+  width: 100%;
+  padding-left: 30%;
+}
+.question-card{
+  margin: 1rem;
+  color: var(--micro-apps-cards-border);
+  width: 70%;
+  background-color: var(--micro-apps-colour-white);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+ 
+  .question-header{
+    border-bottom: 1px solid var(--micro-apps-border-bottom);
+    padding-bottom: 8px;
+  }
+  .question-content{
+    padding-top: 8px;
+    .column-radios{
+      display: flex;
+      flex-direction: column;
     }
   }
 }
@@ -64,7 +87,7 @@
     }
   }
 }
-
+ 
 /* Small Devices (SM) */
 @media (max-width: 576px) {
   .page-container{
@@ -74,7 +97,7 @@
     align-items: center;
     gap: 1rem;
     padding-top: 5rem;
-
+ 
     .image{
       width: 50%;
       height: 70%;
@@ -92,7 +115,7 @@
     }  
   }  
 }
-
+ 
 /* Medium Devices (MD) */
 @media (min-width: 576px) and (max-width: 768px) {
   .page-container{
@@ -102,7 +125,7 @@
     align-items: center;
     gap: 1rem;
     padding-top: 5rem;
-
+ 
     .image{
       width: 50%;
       height: 70%;
@@ -119,4 +142,18 @@
       width: 50%;
     }  
   }  
+}
+// Changing the default style of mat-radio-button to match Goomza colours
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+  border-color: var(--micro-apps-teal-primary);
+}
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-conßtrol:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+  border-color: var(--micro-apps-teal-primary);
+}
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle{
+  border-color: var(--micro-apps-teal-primary);
+}
+:host ::ng-deep .mat-mdc-radio-button.wrong-answer .mdc-radio__background .mdc-radio__outer-circle,
+:host ::ng-deep .mat-mdc-radio-button.wrong-answer .mdc-radio__background .mdc-radio__inner-circle {
+  border-color: red;
 }
