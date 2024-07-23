@@ -12,8 +12,8 @@
               <mat-radio-group aria-label="Select an option" class="column-radios" formControlName="selectedOption">
                 <mat-radio-button *ngFor="let option of assessmentFormArray.at(i).get('options')?.value" [value]="option.id">{{ option.text }}</mat-radio-button>
               </mat-radio-group>
-              <mat-error *ngIf="assessmentFormArray.at(i).get('selectedOption')?.invalid && (assessmentFormArray.at(i).get('selectedOption')?.dirty || assessmentFormArray.at(i).get('selectedOption')?.touched)">
-                Answer is needed
+              <mat-error class="error-text"*ngIf="assessmentFormArray.at(i).get('selectedOption')?.invalid && (assessmentFormArray.at(i).get('selectedOption')?.dirty || assessmentFormArray.at(i).get('selectedOption')?.touched)">
+                {{ "ASSESSMENT-PAGE.NO-ANSWER-ERROR" | transloco }}
               </mat-error>
             </mat-card-content>
           </mat-card>

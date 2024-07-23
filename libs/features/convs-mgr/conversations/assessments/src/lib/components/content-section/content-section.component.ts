@@ -87,7 +87,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     this._assessmentStore$.getAssessmentByOrg(this.app.appId, this.app.config.orgId).subscribe(_assessment => {
       this.assessment = _assessment;
       this.assessmentTitle = this.assessment.title;
-      this.assessment.configs?.questionsDisplay === 1? this.stepperForm = true : this.stepperForm = false;
+      this.assessment.configs?.questionsDisplay === 1? this.stepperForm = true: this.stepperForm = false;
     })
   }
   /** Fetch assessment Questions */
@@ -143,14 +143,26 @@ export class ContentSectionComponent implements OnInit, OnDestroy
   /** Navigate to the next question */
   nextStep(i: number)
   {
-    this.saveProgress(i)
-    this.stepService.nextStep();
+    this.assessmentFormArray.at(i).get('selectedOption')?.markAsTouched();
+    if (!this.assessmentFormArray.at(i).get('selectedOption')?.valid) return
+    if(this.assessmentFormArray.at(i).get('selectedOption')?.valid){
+      this.saveProgress(i)
+      this.stepService.nextStep();
+    }
   }
+
+  /** Update a learner's progress
+   *  Track the answered questions and store them in a responses array
+   *  When on the last question, redirect them back to platform
+   */
 
   async saveProgress(i: number)
   {
-    const questionResponses: QuestionResponse[] = this.questionResponses || [];
+    if(!this.stepperForm) this.assessmentFormArray?.controls[i].get('selectedOption')?.markAsTouched()
+    if(!this.assessmentForm.valid) return
+
     const selectedOptionId = this.assessmentFormArray?.controls[i].get('selectedOption')?.value
+    const questionResponses: QuestionResponse[] = this.questionResponses || []
     const questionId = this.assessmentFormArray?.controls[i].get('id')?.value
     const textAnswer = this.assessmentFormArray?.controls[i].get('textAnswer')?.value
 

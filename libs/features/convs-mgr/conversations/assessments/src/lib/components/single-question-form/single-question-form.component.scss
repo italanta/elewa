@@ -35,6 +35,10 @@
     padding-left: 5%;
   }  
 }
+.error-text{
+  color: red;
+  font-size: smaller;
+}
 
 // Changing the default style of mat-radio-button to match Goomza colours
 :host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
