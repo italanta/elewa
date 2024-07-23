@@ -18,7 +18,7 @@ export enum PageViewMode {
   /** Show assessment content */
   AssessmentMode = 2,
   /**Page to display after a learner has failed an assessment */
-  FailFeedbackMode = 3,
+  FeedbackMode = 3,
   /** Page to show after a user is done with an assessment */
   RedirectPage = 4
 }

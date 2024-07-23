@@ -160,7 +160,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
   {
     if(!this.stepperForm) this.assessmentFormArray?.controls[i].get('selectedOption')?.markAsTouched()
     if(!this.assessmentForm.valid) return
-
+    const isLastStep = this.currentStep === this.totalSteps - 1;
     const selectedOptionId = this.assessmentFormArray?.controls[i].get('selectedOption')?.value
     const questionResponses: QuestionResponse[] = this.questionResponses || []
     const questionId = this.assessmentFormArray?.controls[i].get('id')?.value
@@ -190,10 +190,10 @@ export class ContentSectionComponent implements OnInit, OnDestroy
         maxScore: totalMarks += markScore ,
         questionCount: this.totalSteps
       },
-      hasSubmitted: this.currentStep === this.totalSteps - 1
+      hasSubmitted: isLastStep
     }
     this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe();
-    if(this.currentStep === this.totalSteps - 1) {
+    if(isLastStep) {
       this._router.navigate(['redirect', this.app.id]);
     }
   }
