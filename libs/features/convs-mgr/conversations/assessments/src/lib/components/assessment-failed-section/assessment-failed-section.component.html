@@ -18,11 +18,11 @@
     <!-- CTA Buttons -->
     <div class="btns">
       <button class="__backToPlatform" mat-raised-button > {{"ASSESSMENT-PAGE.BUTTONS-TEXT.WHATSAPP-BUTTON" | transloco}} </button>
-      <button class="__retryAssessment" mat-raised-button  (click)="retryAssessment()"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-BUTTON" | transloco}}  </button>
+      <button class="__retryAssessment" mat-raised-button  (click)="retryAssessment()" [hidden]="canRetry === false"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-BUTTON" | transloco}}  </button>
     </div>
   </div>
   <!-- feedback form questions -->
-  <div class="long-assessment" *ngIf="assessmentFormArray">
+  <div class="long-assessment" *ngIf="assessmentFormArray && showFeedback === true">
     <form [formGroup]="assessmentForm">
       <div formArrayName="assessmentFormArray">
         <mat-card class="question-card" *ngFor="let question of assessmentFormArray.controls; let i = index" [formGroupName]="i">
@@ -36,7 +36,7 @@
                 {{option.text}}
               </mat-radio-button>
             </mat-radio-group>  
-            <div *ngIf="question.get('selectedOption')?.value && showFeedback">
+            <div *ngIf="question.get('selectedOption')?.value">
               <p>{{ getOptionFeedback(question) }}</p>
             </div>
           </mat-card-content>

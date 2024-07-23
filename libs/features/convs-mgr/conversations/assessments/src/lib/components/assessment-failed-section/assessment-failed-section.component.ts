@@ -1,9 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
-import { SetAssessmentScoreService } from '../../services/set-pass-status.service';
 import { Router } from '@angular/router';
  
 import { Assessment, AssessmentQuestionOptions, FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
+import { MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
+import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
+
+import { SetAssessmentScoreService } from '../../services/set-pass-status.service';
  
 @Component({
   selector: 'app-assessment-failed-section',
@@ -18,10 +21,14 @@ export class AssessmentFailedSectionComponent implements OnInit {
   /** Form array for when form view is single question */
   @Input() assessmentFormArray: FormArray;
   /** Display scores feedback */
+  @Input() app: MicroAppStatus
+
   showFeedback = false;
+  canRetry: boolean
  
   constructor(
     private _assessmentScoreService: SetAssessmentScoreService,
+    private _assessmentService$: AssessmentService,
     private router: Router
   ) {}
  
@@ -36,38 +43,13 @@ export class AssessmentFailedSectionComponent implements OnInit {
    * Update score percentage
    */
   handleFeedback() {
-    this.showFeedback = true;
-    let totalMarks = 0;
-    let obtainedMarks = 0;
-    // Calculate the total marks available
-    for (let i = 0; i < this.assessmentFormArray.length; i++) {
-      const question = this.assessmentFormArray.at(i) as FormGroup;
-      totalMarks += question.get('marks')?.value || 0; // Right marks logged
-    }
- 
-    // Iterate through the controls of assessmentFormArray to Fetch a single question form group
-    for (let i = 0; i < this.assessmentFormArray.length; i++) {
-      const question = this.assessmentFormArray.at(i) as FormGroup;
-      // Fetch an option that has been picked as the answer, then compare the id of the selected option to the available options
-      const selectedOption: string = question.get('selectedOption')?.value;
-      const options = question.get('options')?.value;
-      const selectedOptionDetails = options.find((option: AssessmentQuestionOptions) => option.id === selectedOption);
-
-      // Give feedback provided for the particular option
-      if (selectedOptionDetails) {
-        const feedback = selectedOptionDetails.accuracy ? selectedOptionDetails.feedback : '';
-        const condition = selectedOptionDetails.accuracy ? FeedbackCondition.Correct : FeedbackCondition.Wrong;
-        question.get('feedback')?.setValue({ message: feedback, condition: condition });
- 
-        // Calculating marks
-        if (selectedOptionDetails.accuracy) {
-          obtainedMarks += question.get('marks')?.value || 0;
-        }
-      }
-    }
-    // Calculate percentage and save it to score service
+    const totalMarks = this.calculateTotalMarks();
+    const obtainedMarks = this.calculateObtainedMarksAndFeedback();
+    // Score a learner in percentage
     const percentage = (obtainedMarks / totalMarks) * 100;
     this._assessmentScoreService.setAssessmentScore(percentage);
+    console.log(percentage)
+    if(percentage >= 50) this.showFeedback = true
   }
  
   /** Method to get feedback for a selected option */
@@ -79,17 +61,68 @@ export class AssessmentFailedSectionComponent implements OnInit {
     return selectedOptionDetails ? selectedOptionDetails.feedback : '';
   }
  
-  retryAssessment() {
-    this.router.navigate(['start']);
-    if (this.assessment?.configs?.userAttempts) {
-      this.assessment.configs.userAttempts -= 1;
-    }
-    // TODO: Update actual assessment to reduce retries
-  }
- 
   isWrongAnswer(question: AbstractControl, option: AssessmentQuestionOptions): boolean {
     const selectedOption = question.get('selectedOption')?.value;
     if (!selectedOption) return false;
     return selectedOption.id === option.id && !option.accuracy;
+  }
+
+  /** Calcualte the total marks available in an aassessment */
+  private calculateTotalMarks(): number
+   {
+    let totalMarks = 0;
+    for (let i = 0; i < this.assessmentFormArray.length; i++) {
+      const question = this.assessmentFormArray.at(i) as FormGroup;
+      totalMarks += question.get('marks')?.value || 0;
+    }
+    return totalMarks;
+  }
+
+  /** Calculate obtained marks
+   *  Get feedback if selected option is correct
+   *  Return total scores
+   */
+  private calculateObtainedMarksAndFeedback(): number {
+    let obtainedMarks = 0;
+    for (let i = 0; i < this.assessmentFormArray.length; i++) {
+      const question = this.assessmentFormArray.at(i) as FormGroup;
+      const selectedOption: string = question.get('selectedOption')?.value;
+      const options = question.get('options')?.value;
+      const selectedOptionDetails = options.find((option: AssessmentQuestionOptions) => option.id === selectedOption);
+  
+      if (selectedOptionDetails) {
+        this.setFeedback(question, selectedOptionDetails);
+  
+        if (selectedOptionDetails.accuracy === 1) {  // Only award marks for correct answers
+          obtainedMarks += question.get('marks')?.value || 0;
+          console.log(obtainedMarks)
+        }else if(selectedOptionDetails.accuracy === 3){
+          obtainedMarks += question.get('marks')?.value / 2
+        }
+      }
+    }
+    return obtainedMarks;
+  }
+
+  private setFeedback(question: FormGroup, selectedOptionDetails: AssessmentQuestionOptions): void {
+    const feedback = selectedOptionDetails.feedback;
+    const condition = selectedOptionDetails.accuracy === 1 ? FeedbackCondition.Correct : FeedbackCondition.Wrong;
+    question.get('feedback')?.setValue({ message: feedback, condition: condition });
+  }
+
+  retryAssessment() {
+    if(this.assessment?.configs?.userAttempts === 0) this.canRetry = false
+    if (this.assessment?.configs?.userAttempts) {
+      this.assessment.configs.userAttempts -= 1;
+      const updatedConfigs = {
+        ...this.assessment.configs,
+        userAttempts: this.assessment.configs.userAttempts
+      };
+      this._assessmentService$.updateAssessment$({
+        ...this.assessment,
+        configs: updatedConfigs
+      });
+    }
+    this.router.navigate(['start', this.app.appId]);
   }
 }

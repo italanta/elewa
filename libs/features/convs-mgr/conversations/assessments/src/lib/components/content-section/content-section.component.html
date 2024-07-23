@@ -2,6 +2,7 @@
   <ng-container class="micro-app-content">
     <ng-container *ngIf="pageMode === pageViewMode.FailFeedbackMode" >
       <app-assessment-failed-section
+        [app]="app"
         [assessment]="assessment"
         [assessmentForm]="assessmentForm" 
         [assessmentFormArray]="assessmentFormArray">
