@@ -6,7 +6,6 @@ import { map, Observable } from 'rxjs';
 import { FrontendEnvironment } from '@app/elements/base/frontend-env';
 import { InitMicroAppCmd, InitMicroAppResponse, MicroAppProgress, MicroAppSectionTypes, 
          MicroAppStatus, MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
-import { AssessmentProgressUpdate } from '@app/model/convs-mgr/micro-app/assessments';
 
 
 const INIT_MICROAPP_ENDPOINT = 'initMicroApp';
@@ -39,7 +38,7 @@ export class MicroAppManagementService
   }
 
 /** Updating a user's progress when they are done with an assessment, on the redirect page */
-progressCallBack(app?: MicroAppStatus, milestones?: AssessmentProgressUpdate) {
+progressCallBack(app?: MicroAppStatus, milestones?: MicroAppProgress) {
   if (!app || !app.config) return;
 
   const URL = `${this._env.microAppUrl}/${PROGRESS_MICROAPP_ENDPOINT}`;
