@@ -34,6 +34,7 @@ export class AssessmentFailedSectionComponent implements OnInit {
  
   ngOnInit(): void {
     if(this.assessmentForm){
+      if(this.assessment?.configs?.userAttempts === 0) this.canRetry = false
       this.handleFeedback();
     }
   }
@@ -111,7 +112,6 @@ export class AssessmentFailedSectionComponent implements OnInit {
   }
 
   retryAssessment() {
-    if(this.assessment?.configs?.userAttempts === 0) this.canRetry = false
     if (this.assessment?.configs?.userAttempts) {
       this.assessment.configs.userAttempts -= 1;
       const updatedConfigs = {
