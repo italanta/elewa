@@ -1,12 +1,12 @@
 <ng-container *ngIf="pageView | async as pageMode" class="micro-app-content">
   <ng-container class="micro-app-content">
     <ng-container *ngIf="pageMode === pageViewMode.FeedbackMode" >
-      <app-assessment-failed-section
+      <app-assessment-feedback-section
         [app]="app"
         [assessment]="assessment"
         [assessmentForm]="assessmentForm" 
         [assessmentFormArray]="assessmentFormArray">
-    </app-assessment-failed-section>
+    </app-assessment-feedback-section>
     </ng-container>
   <ng-container *ngIf="pageMode === pageViewMode.AssessmentMode">
     <!-- Header with details about assessment -->

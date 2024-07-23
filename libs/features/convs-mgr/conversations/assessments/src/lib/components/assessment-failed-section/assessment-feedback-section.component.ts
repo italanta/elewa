@@ -9,9 +9,9 @@ import { AssessmentService } from '@app/state/convs-mgr/conversations/assessment
 import { SetAssessmentScoreService } from '../../services/set-pass-status.service';
  
 @Component({
-  selector: 'app-assessment-failed-section',
-  templateUrl: './assessment-failed-section.component.html',
-  styleUrls: ['./assessment-failed-section.component.scss'],
+  selector: 'app-assessment-feedback-section',
+  templateUrl: './assessment-feedback-section.component.html',
+  styleUrls: ['./assessment-feedback-section.component.scss'],
 })
 export class AssessmentFeedbackSectionComponent implements OnInit {
   /** Assessment that's underway */
