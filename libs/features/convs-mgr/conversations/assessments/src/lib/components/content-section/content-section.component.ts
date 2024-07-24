@@ -87,7 +87,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     this._assessmentStore$.getAssessmentByOrg(this.app.appId, this.app.config.orgId).subscribe(_assessment => {
       this.assessment = _assessment;
       this.assessmentTitle = this.assessment.title;
-      this.assessment.configs?.questionsDisplay === 1? this.stepperForm = false : this.stepperForm = false;
+      this.assessment.configs?.questionsDisplay === 1? this.stepperForm = true : this.stepperForm = false;
     })
   }
   /** Fetch assessment Questions */
@@ -158,8 +158,8 @@ export class ContentSectionComponent implements OnInit, OnDestroy
 
   async saveProgress(i: number)
   {
-    if(!this.stepperForm) this.assessmentFormArray?.controls[i].get('selectedOption')?.markAsTouched()
-    if(!this.assessmentForm.valid) return
+    if(!this.stepperForm) this.assessmentFormArray.controls.forEach(control => control.get('selectedOption')?.markAsTouched());
+    // if(!this.assessmentForm.valid) return
     const isLastStep = this.currentStep === this.totalSteps - 1;
     const selectedOptionId = this.assessmentFormArray?.controls[i].get('selectedOption')?.value
     const questionResponses: QuestionResponse[] = this.questionResponses || []
@@ -192,9 +192,11 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       },
       hasSubmitted: isLastStep
     }
-    this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe();
+    // this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe();
+    console.log(isLastStep)
+    // this._pageViewservice.setPageViewMode(PageViewMode.FeedbackMode)
     if(isLastStep) {
-      this._router.navigate(['redirect', this.app.id]);
+      this._pageViewservice.setPageViewMode(PageViewMode.FeedbackMode)
     }
   }
 

@@ -30,7 +30,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   gap: 1rem;
 
   .__backToPlatform {
@@ -39,6 +38,12 @@
     width: 100%;
   }
   .__retryAssessment {
+    color: var(--micro-apps-colour-white);
+    background-color: var(--micro-apps-teal-primary);
+    width: 100%;
+    border: 1px solid var(--micro-apps-teal-primary);
+  }
+  .__retryLater{
     color: #1F7A8C;
     background-color: #fff;
     width: 100%;
@@ -153,4 +158,54 @@
 :host ::ng-deep .mat-mdc-radio-button.wrong-answer .mdc-radio__background .mdc-radio__outer-circle,
 :host ::ng-deep .mat-mdc-radio-button.wrong-answer .mdc-radio__background .mdc-radio__inner-circle {
   border-color: red;
+}
+
+
+// Assessment passed banner styling
+.content-wrapper{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+  height: 123px;
+  $color: var(--micro-apps-teal-primary);
+  $opacity: 0.35;
+  padding: 0.5rem 0;
+  background-color: rgba(31, 122, 140, 0.35);
+
+  .img-text{
+    display: flex;
+    gap: 64px;
+    align-items: center;
+  }
+  .marks-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 1rem;
+  }
+}
+
+//Assessment failed banner styling
+.fail-content-wrapper{
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+  height: 123px;
+  $color: var(--micro-apps-warning-red);
+  $opacity: 0.1;
+  padding: 0.5rem 0;
+  background-color: rgba(255, 182, 193, 0.35);
+
+  .img-text{
+    display: flex;
+    gap: 64px;
+    align-items: center;
+  }
+  .marks-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 1rem;
+  }
 }

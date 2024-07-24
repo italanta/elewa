@@ -25,11 +25,12 @@ export class AssessmentFeedbackSectionComponent implements OnInit {
 
   showFeedback = false;
   canRetry: boolean
+  marksScored = 0
  
   constructor(
     private _assessmentScoreService: SetAssessmentScoreService,
     private _assessmentService$: AssessmentService,
-    private router: Router
+    private _router: Router
   ) {}
  
   ngOnInit(): void {
@@ -48,9 +49,11 @@ export class AssessmentFeedbackSectionComponent implements OnInit {
     const obtainedMarks = this.calculateScore();
     // Score a learner in percentage
     const percentage = Math.round((obtainedMarks / totalMarks) * 100);
+    console.log(obtainedMarks)
+    console.log(totalMarks)
+    this.marksScored = percentage
     this._assessmentScoreService.setAssessmentScore(percentage);
-    console.log(percentage)
-    if(percentage >= 50) this.showFeedback = true
+    this.showFeedback = true
   }
  
   /** Method to get feedback for a selected option */
@@ -69,15 +72,12 @@ export class AssessmentFeedbackSectionComponent implements OnInit {
   }
 
   /** Calcualte the total marks available in an aassessment */
-  private calculateTotalMarks(): number
-   {
-    let totalMarks = 0;
-    for (let i = 0; i < this.assessmentFormArray.length; i++) {
-      const question = this.assessmentFormArray.at(i) as FormGroup;
-      totalMarks += question.get('marks')?.value || 0;
-    }
-    return totalMarks;
-  }
+  private calculateTotalMarks(): number {
+    return this.assessmentFormArray.controls.reduce((totalMarks, control) => {
+      const question = control as FormGroup;
+      return totalMarks + (question.get('marks')?.value || 0);
+    }, 0);
+  }  
 
   /** Calculate obtained marks
    *  Get feedback if selected option is correct
@@ -123,6 +123,10 @@ export class AssessmentFeedbackSectionComponent implements OnInit {
         configs: updatedConfigs
       });
     }
-    this.router.navigate(['start', this.app.appId]);
+    this._router.navigate(['start', this.app.appId]);
+  }
+
+  backToApp(){
+     this._router.navigate(['redirect', this.app.id]);
   }
 }
