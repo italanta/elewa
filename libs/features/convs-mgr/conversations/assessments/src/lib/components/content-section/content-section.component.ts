@@ -7,7 +7,7 @@ import { SubSink } from 'subsink';
 
 import { Assessment, AssessmentQuestion, RetryType } from '@app/model/convs-mgr/conversations/assessments';
 import { MicroAppStatus, MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
-import { AssessmentProgress, AssessmentProgressUpdate, QuestionResponse, QuestionResponseMap } from '@app/model/convs-mgr/micro-app/assessments';
+import { AssessmentProgress, AssessmentProgressUpdate, AssessmentStatusTypes, QuestionResponse, QuestionResponseMap } from '@app/model/convs-mgr/micro-app/assessments';
 import { MicroAppManagementService } from '@app/state/convs-mgr/micro-app';
 import { AssessmentQuestionStore, AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
 
@@ -161,8 +161,10 @@ export class ContentSectionComponent implements OnInit, OnDestroy
 
   saveProgress(i: number)
   {
+    const isLastStep = this.currentStep === this.totalSteps - 1;
+    
     if(!this.stepperForm) this.assessmentFormArray?.controls[i].get('selectedOption')?.markAsTouched();
-
+  
     const selectedOptionId = this.assessmentFormArray?.controls[i].get('selectedOption')?.value
     const questionResponses: QuestionResponse[] = this.questionResponses || []
     const questionId = this.assessmentFormArray?.controls[i].get('id')?.value
@@ -172,7 +174,6 @@ export class ContentSectionComponent implements OnInit, OnDestroy
 
     const selectedOption = question?.options?.find((op)=> op.id === selectedOptionId);
     // Calculate total marks using the reducer
-    const totalMarks = this.calculateTotalMarks(this.assessmentFormArray.controls as FormGroup[]);
     const questionResponse: QuestionResponse = {
       questionId: questionId,
       answerId: selectedOption?.id,
@@ -188,43 +189,28 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       timeSpent: new Date().getTime() - this.app.startedOn!,
       type: MicroAppTypes.Assessment,
       assessmentDetails: {
-        maxScore: totalMarks,
+        maxScore: this.assessment.maxScore,
         questionCount: this.totalSteps,
         continueCriteria: this.assessment.configs?.moveOnCriteria
       },
       hasSubmitted: isLastStep
     }
-    // this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe();
-    console.log(isLastStep)
-    // this._pageViewservice.setPageViewMode(PageViewMode.FeedbackMode)
+
     if(isLastStep ) {
-      
+      const attemptNumber = this.assessmentProgress.attemptCount;
+      this.assessmentProgress.attempts[attemptNumber].outcome = AssessmentStatusTypes.Passed;
+      this.pageViewMode = AssessmentPageViewMode.ResultsMode;
+      this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe((updatedProgress)=> {
+        if(updatedProgress) {
+          this.assessmentProgress = updatedProgress as any as AssessmentProgress;
+          // this.assessmentProgress.attempts[this.assessmentProgress.attemptCount]
+        
+          this.pageViewMode = AssessmentPageViewMode.ResultsMode;
+        }
+      }); 
     } else {
-      // this.pageViewMode = AssessmentPageViewMode.ResultsOnlyMode;
-      // Redirect page
+      this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe();
     }
-  }
-
-  submitProgress() {
-    if(this.assessment.configs?.retryType === RetryType.Default) {
-      const attempts = this.assessmentProgress.attemptCount;
-      const allowedAttempts = this.assessment.configs.userAttempts as number;
-
-      if(allowedAttempts >= attempts) {
-
-      } else {
-        this.pageViewMode = AssessmentPageViewMode.ResultsOnlyMode;
-      }
-    } else {
-      
-    }
-  }
-  /** Total marks value of an assessment */
-  private calculateTotalMarks(questions: FormGroup[]): number {
-    return questions.reduce((total, question) => {
-      const marks = question.get('marks')?.value || 0;
-      return total + marks;
-    }, 0);
   }
 
   ngOnDestroy()

@@ -18,11 +18,7 @@ export enum AssessmentPageViewMode {
   /** Show assessment content */
   AssessmentMode = 1,
   /**Page to display after a learner has failed an assessment is allowed to retry */
-  ResultsOnlyMode = 2,
-
-  /** Shown when the learner has passed an assessment or if they have failed on 
-   *    their last allowed attempt */
-  FeedbackMode = 3,
+  ResultsMode = 2,
 
   /** Page to show after a user is done with an assessment */
   // RedirectPage = 4

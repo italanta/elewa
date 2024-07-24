@@ -38,14 +38,14 @@ export class MicroAppManagementService
   }
 
 /** Updating a user's progress when they are done with an assessment, on the redirect page */
-progressCallBack(app?: MicroAppStatus, milestones?: MicroAppProgress) {
+progressCallBack(app?: MicroAppStatus, milestones?: MicroAppProgress) : Observable<MicroAppProgress> | undefined{
   if (!app || !app.config) return;
 
   const URL = `${this._env.microAppUrl}/${PROGRESS_MICROAPP_ENDPOINT}`;
 
   if (app.config.type === MicroAppTypes.Assessment && milestones) {
 
-    return this._http$.post(URL, { data: milestones });
+    return this._http$.post<MicroAppProgress>(URL, { data: milestones });
   } else {
       const appPayload: MicroAppProgress = {
         appId: app.appId,
@@ -57,7 +57,7 @@ progressCallBack(app?: MicroAppStatus, milestones?: MicroAppProgress) {
           timeSpent: (app.finishedOn && app.startedOn) ? (app.finishedOn - app.startedOn) : undefined
         }
       };
-      return this._http$.post(URL, { data: appPayload });
+      return this._http$.post<MicroAppProgress>(URL, { data: appPayload });
     }
 }
 

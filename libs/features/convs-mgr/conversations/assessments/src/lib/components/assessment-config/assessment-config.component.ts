@@ -21,7 +21,7 @@ export class AssessmentConfigComponent implements OnInit{
   immediateFeedback = FeedbackType.Immediately;
   onEndFeedback = FeedbackType.OnEnd;
   noFeedback = FeedbackType.Never;
-  defaultRetry = RetryType.Default
+  retryOnCount = RetryType.onCount
   scoreRetry = RetryType.OnScore
   singleDisplay = QuestionDisplayed.Single
   multipleDisplay = QuestionDisplayed.Multiple
@@ -37,7 +37,7 @@ export class AssessmentConfigComponent implements OnInit{
   }
 
   get isDefaultRetrySelected(): boolean {
-    return this.assessmentFormGroup?.get('configs.retryType')?.value === this.defaultRetry;
+    return this.assessmentFormGroup?.get('configs.retryType')?.value === this.retryOnCount;
   }
 
   get isScoreRetrySelected(): boolean {

@@ -4,6 +4,7 @@ import { Observable, pipe, take } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { SetAssessmentScoreService } from '../../services/set-pass-status.service';
+import { AssessmentProgress } from '@app/model/convs-mgr/micro-app/assessments';
 
 @Component({
   selector: 'app-assessment-result-banner',
@@ -12,20 +13,19 @@ import { SetAssessmentScoreService } from '../../services/set-pass-status.servic
 })
 export class AssessmentResultBannerComponent implements OnInit 
 {
+  @Input() resultsMode: {
+    failedAndNoRetries:  boolean,
+    failedAndHasRetries: boolean,
+    passedAndHasRetries: boolean,
+    passedAndNoRetries : boolean,
+  };
 
-  passCriteria$: Observable <number>;
-  @Input() userAttempts: number;
+  @Input() result: AssessmentProgress;
+
   score: number
 
-  private _sBS = new SubSink ()
-  constructor( private _assessmentScoreServ: SetAssessmentScoreService){}
-
   ngOnInit(): void {
-   this._sBS.sink = this._assessmentScoreServ.getAssessmentScore().pipe(take(1))
-      .subscribe(_passScores => {
-        console.log(_passScores)
-        this.score = _passScores
-      });
+    this.score = this.result.attempts[this.result.attemptCount].score;
   }
   
 }

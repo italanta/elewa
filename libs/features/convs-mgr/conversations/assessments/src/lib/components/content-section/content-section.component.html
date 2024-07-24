@@ -1,11 +1,12 @@
 <ng-container class="micro-app-content">
   <ng-container class="micro-app-content">
         <!-- If the view mode is Feedback -->
-    <ng-container *ngIf="pageViewMode === 3" >
+    <ng-container *ngIf="pageViewMode === 2" >
       <app-assessment-feedback-section
         [app]="app"
         [assessment]="assessment"
-        [assessmentForm]="assessmentForm" 
+        [assessmentForm]="assessmentForm"
+        [assessmentProgress]="assessmentProgress"
         [assessmentFormArray]="assessmentFormArray">
     </app-assessment-feedback-section>
     </ng-container>

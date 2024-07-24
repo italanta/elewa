@@ -24,15 +24,17 @@ export interface AssessmentMetrics {
     completedRes?: number
 }
 
+export interface RetryConfig {
+    type: RetryType;
+    onCount?: number;
+    /** User attempts based on scores */
+    onScore?: ScoreAttempt
+}
+
 export interface AssessmentConfiguration{
     feedback: FeedbackType,
-    userAttempts?: number,
-    /** Is a user allowed to retake an assessment */
-    canRetry: boolean
-    retryType?: RetryType,
+    retryConfig?: RetryConfig;
     questionsDisplay: QuestionDisplayed,
-    /** User attempts based on scores */
-    scoreAttempts?: ScoreAttempType,
 
     /** The minimum condition required for the user to continue
      *    with the flow when attempting an assessment
@@ -67,7 +69,7 @@ export enum CategoryType{
 
 /** Mode of retry allowed, if any */
 export enum RetryType {
-    Default = 1,
+    onCount = 1,
     OnScore = 2
 }
 
@@ -77,7 +79,7 @@ export enum QuestionDisplayed {
     Multiple = 2
 }
 
-export interface ScoreAttempType {
+export interface ScoreAttempt {
     minScore: number, 
-    userAttempts: number,
+    count: number,
 }

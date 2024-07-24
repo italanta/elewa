@@ -50,7 +50,7 @@
             <div class="retrial-allowed" *ngIf="retry">
                 <hr />
                 <mat-radio-group formControlName="retryType" fxLayout="column" fxLayoutAlign="start">
-                    <mat-radio-button [value]="defaultRetry">{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.DEFAULT.DEFAULT-TEXT' |
+                    <mat-radio-button [value]="retryOnCount">{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.DEFAULT.DEFAULT-TEXT' |
                         transloco}}</mat-radio-button>
                         <div class="retry-configs">
                             <div class="default-config" *ngIf="isDefaultRetrySelected">
