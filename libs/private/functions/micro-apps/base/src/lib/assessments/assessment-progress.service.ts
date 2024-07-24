@@ -48,12 +48,12 @@ export class AssessmentProgressService
 
     questionResponses.forEach((response)=> {
       if(response.answerId && response.answerId === response.correctAnswer) {
-        score++;
+        score+= response.marks;
       } 
 
       // TODO: Add intelligent matching of user response to correct answer
       if(response.answerText === response.correctAnswer) {
-        score++;
+        score+= response.marks;
       }
     })
 
