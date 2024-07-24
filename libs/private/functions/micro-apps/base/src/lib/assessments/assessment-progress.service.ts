@@ -4,6 +4,7 @@ import { AssessmentProgress, AssessmentProgressUpdate, AssessmentStatusTypes, At
 import { MicroAppProgress } from "@app/model/convs-mgr/micro-app/base";
 
 import { mapResponses } from "../utils/assessment-responses-map.util";
+import { Query } from "@ngfi/firestore-qbuilder";
 
 export class AssessmentProgressService
 {
@@ -22,6 +23,12 @@ export class AssessmentProgressService
    */
   sendFeedbackPDF() {
 
+  }
+
+  private _getAllQuestions(assessmentId: string, orgId: string) {
+    const qRepo$ = this.tools.getRepository(`orgs/${orgId}/assessments/${assessmentId}/questions`);
+
+    return qRepo$.getDocuments(new Query());
   }
 
   private _initProgress(newProgress: AssessmentProgressUpdate, attemptCount: number): AssessmentProgress
