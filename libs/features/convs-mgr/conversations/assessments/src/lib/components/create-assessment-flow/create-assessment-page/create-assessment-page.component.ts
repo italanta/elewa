@@ -96,6 +96,15 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
     ).subscribe()
   }
 
+  calculateMaxScore() {
+    let total = 0;
+    this.questions.forEach((q)=> {
+      total += q.marks
+    })
+
+    return total
+  }
+
   
   onSave()
   {
@@ -119,7 +128,8 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
 
   onPublish() {
     this.isPublishing = true;
-
+    this.assessment.maxScore = this.calculateMaxScore();
+    
     this._sbS.sink = this._publishAssessment.publish(this.assessment)
       .pipe(
         switchMap(() => {

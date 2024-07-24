@@ -15,6 +15,8 @@ export interface Assessment extends Story, MicroApp {
     /** Differentiate between published assessment and non published ones */
     isPublished?: boolean
     metrics?: AssessmentMetrics
+    /** The total marks of all questions in the assessment */
+    maxScore: number;
 }
 
 export interface AssessmentMetrics {
