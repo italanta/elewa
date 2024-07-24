@@ -8,7 +8,7 @@ import { MicroAppProgress } from "@app/model/convs-mgr/micro-app/base";
 import { AssessmentQuestion } from "@app/model/convs-mgr/conversations/assessments";
 import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
 import { SendOutgoingMsgHandler } from "@app/functions/bot-engine/send-message";
-import { FileMessage, MessageDirection } from "@app/model/convs-mgr/conversations/messages";
+import { DocumentMessage, FileMessage, Message, MessageDirection } from "@app/model/convs-mgr/conversations/messages";
 import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 import { mapResponses } from "../utils/assessment-responses-map.util";
@@ -28,32 +28,36 @@ export class AssessmentProgressService
   /**
    * Send the feedback pdf as a message to the end user
    */
-  async sendPDF(progress: AssessmentProgress, context: any, tools: HandlerTools, channel: CommunicationChannel) {
+  async sendPDF(progress: AssessmentProgress, tools: HandlerTools, channel: CommunicationChannel) {
     const pdfURL = await this.generatePDF(progress, tools);
 
     progress.pdfUrl = pdfURL;
 
-    this._updateProgress(progress);
+    await this._updateProgress(progress);
 
-    const pdfMessage: FileMessage = {
+    const pdfMessage: DocumentMessage = {
       endUserPhoneNumber: progress.endUserId.split('_')[2],
       receipientId: progress.endUserId.split('_')[2],
       type: MessageTypes.DOCUMENT,
       isDirect: true,
       url: pdfURL,
       n: channel.n,
-      direction: MessageDirection.FROM_CHATBOT_TO_END_USER
+      documentName: `${progress.title} - ${new Date().toLocaleString()}`,
+      direction: MessageDirection.FROM_CHATBOT_TO_END_USER,
+      id: Date.now().toString()
     }
 
-    return new SendOutgoingMsgHandler().execute(pdfMessage, context, tools);
+    const messagesRepo$ = tools.getRepository<Message>(`orgs/${progress.orgId}/end-users/${progress.endUserId}/messages`);
+
+    return messagesRepo$.create(pdfMessage);
   }
 
   async generatePDF(progress: AssessmentProgress, tools: HandlerTools) {
     const url = this._getURL();
     const resp = await axios.post(url, {data: progress});
-    tools.Logger.log(()=> `[AssessmentProgressService].generatePDF - Resp ${JSON.stringify(resp.data)}`);
-    if(resp.data.success) {
-      return resp.data.url;
+    tools.Logger.log(()=> `[AssessmentProgressService].generatePDF - Resp ${JSON.stringify(resp.data.result)}`);
+    if(resp.data.result.success) {
+      return resp.data.result.url;
     } else {
       return '';
     }

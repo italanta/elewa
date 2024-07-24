@@ -7,7 +7,7 @@ import { InitMicroAppCmd, InitMicroAppResponse, MicroAppStatus, MicroAppStatusTy
 
 import { EngineBotManager } from '@app/functions/bot-engine';
 import { ___DirectChannelFactory } from '@app/functions/bot-engine/channels';
-import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
+import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 
 import { AssessmentProgressService } from './assessments/assessment-progress.service';
 
@@ -50,12 +50,9 @@ export class CompleteMicroAppHandler extends FunctionHandler<InitMicroAppCmd, In
 
         const progress = await assessmentProgressSrv.getCurrentProgress(app.config.orgId, app.endUserId, app.appId);
 
-        await assessmentProgressSrv.sendPDF(progress, context, tools, channel);
+        await assessmentProgressSrv.sendPDF(progress, tools, channel);
       }
 
-      endUser.status = ChatStatus.Running;
-      await endUserRepo$.update(endUser);
-      
       const continueGoomzaFlow = new EngineBotManager(tools, tools.Logger, activeChannel);
       // TODO: await continueGoomzaFlow.run({ } as MicroAppSuccessMessage OR AssessmentCompleteMessage [subtype of MicroAppSuccessMessage], )    
       await continueGoomzaFlow.run(null, endUser);
