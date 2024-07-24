@@ -7,11 +7,11 @@ import { AssessmentProgress, AssessmentProgressUpdate, AssessmentStatusTypes, At
 import { MicroAppProgress } from "@app/model/convs-mgr/micro-app/base";
 import { AssessmentQuestion } from "@app/model/convs-mgr/conversations/assessments";
 import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
-
-import { mapResponses } from "../utils/assessment-responses-map.util";
 import { SendOutgoingMsgHandler } from "@app/functions/bot-engine/send-message";
 import { FileMessage, MessageDirection } from "@app/model/convs-mgr/conversations/messages";
 import { MessageTypes } from "@app/model/convs-mgr/functions";
+
+import { mapResponses } from "../utils/assessment-responses-map.util";
 
 export class AssessmentProgressService
 {
