@@ -53,12 +53,12 @@ export class GetFeedbackPDFHandler extends FunctionHandler<AssessmentProgress, R
 
       await this.generatePDF(feedbackHTML, tempFilePath);
 
-      const resp = await this._uploadFile(req.orgId, req.endUserId, tempFilePath, pdfName, tools);
+      const url = await this._uploadFile(req.orgId, req.endUserId, tempFilePath, pdfName, tools);
 
-      if(resp) {
-        return { success: false, resp };
+      if(url) {
+        return { success: true, url };
       } else {
-        throw `${JSON.stringify(resp)}`;
+        throw `${JSON.stringify(url)}`;
       }
       // return assessmentProgressSrv.trackProgress(req);
     } catch (error) {
