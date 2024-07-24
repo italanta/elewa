@@ -6,4 +6,6 @@ export interface QuestionResponse {
   correctAnswer?: string;
   feedback?: string;
   marks?: number;
+  score?: number;
+  correct: boolean;
 }
