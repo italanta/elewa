@@ -43,12 +43,14 @@ export class AssessmentMicroAppOptionsService extends NextBlockService
 	async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: AssessmentMicroAppBlock, orgId: string, currentStory: string, endUserId: string, type?: string): Promise<Cursor>
 	{
     // Get results
-    const progressRepo$ = this.tools.getRepository<AssessmentProgress>(`orgs/${orgId}/end-users/${endUserId}`);
+    const progressRepo$ = this.tools.getRepository<AssessmentProgress>(`orgs/${orgId}/end-users/${endUserId}/assessment-progress`);
     const progress = await progressRepo$.getDocumentById(currentBlock.appId);
     
     const newCursor = {...currentCursor};
 
     const currentResult = progress.attempts[progress.attemptCount].outcome;
+
+		this.tools.Logger.log(()=> `Result: ${currentResult}`);
 
     let index = currentBlock.options.findIndex((op)=> op.value === currentResult);
 
