@@ -7,20 +7,21 @@ export function QuestionsToHTML(allQuestions: AssessmentQuestion[], progress: As
   const currentAttempt = progress.attempts[attemptCount]
   
   allQuestions.forEach((question, index)=> {
-    const questionScore = currentAttempt.questionResponses[question.id].score;
-    const questionMarks = question.marks;
-    const points = `${questionScore}/${questionMarks}`
-
-    questionsHTML+= Question(index+1, points, question, currentAttempt)
+    if(currentAttempt.questionResponses[question.id]) {
+      const questionScore = currentAttempt.questionResponses[question.id].score || 0;
+      const questionMarks = question.marks || 0;
+      
+      const points = `${questionScore}/${questionMarks}`
+      questionsHTML+= Question(index, points, question, currentAttempt)
+    }
   })
-
   return questionsHTML;
 }
 
-export const Question = (questionNumber: number, points: string, questionDetails: AssessmentQuestion, attempt: Attempt) => 
+export const Question = (index: number, points: string, questionDetails: AssessmentQuestion, attempt: Attempt) => 
   `<div class="question">
 <div class="question-header">
-  <span class="question-number">Question ${questionNumber}</span>
+  <span class="question-number">Question ${(index+1)}</span>
   <span class="question-points">${points} points</span>
 </div>
 <hr/>

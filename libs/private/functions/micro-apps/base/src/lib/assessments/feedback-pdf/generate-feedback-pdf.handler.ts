@@ -1,7 +1,7 @@
 import { tmpdir } from "os";
 import { join } from "path";
 
-import puppeteer from "puppeteer";
+import * as puppeteer from "puppeteer";
 
 import * as admin from 'firebase-admin';
 
@@ -28,22 +28,24 @@ export class GetFeedbackPDFHandler extends FunctionHandler<AssessmentProgress, R
     try {
       const assessmentProgressSrv = new AssessmentProgressService(tools);
       const allQuestions = await assessmentProgressSrv.getAllQuestions(req.id, req.orgId);
+      
       const questionsHTML = QuestionsToHTML(allQuestions, req);
+      
       const endUserRepo$ = tools.getRepository<EndUser>(`orgs/${req.orgId}/end-users`);
       const endUser = await endUserRepo$.getDocumentById(req.endUserId);
-
+      
       const orgRepo$ = tools.getRepository<Organisation>(`orgs`);
       const org = await orgRepo$.getDocumentById(req.orgId);
-
+      
       const headerDetails = {
-        assessmentTitle: req.title,
-        logoURL: org.logoUrl,
+        assessmentTitle: req.title || '',
+        logoURL: org.logoUrl || '',
         learnerName: endUser.variables['name'] || '',
-        organisationName: org.name
+        organisationName: org.name || ''
       };
-
-      const formattedTitle = req.title.split(' ').join('_');
-      const formattedName = endUser.name.split(' ').join('_');
+      
+      const formattedTitle = req.title ? req.title.split(' ').join('_') : '';
+      const formattedName = endUser.variables['name'] ? endUser.variables['name'].split(' ').join('_') : '';
 
       const pdfName = `${formattedName}_${formattedTitle}_${Date.now()}.pdf`;
 
@@ -52,7 +54,7 @@ export class GetFeedbackPDFHandler extends FunctionHandler<AssessmentProgress, R
       const tempFilePath = join(tmpdir(), pdfName);
 
       await this.generatePDF(feedbackHTML, tempFilePath);
-
+      
       const url = await this._uploadFile(req.orgId, req.endUserId, tempFilePath, pdfName, tools);
 
       if(url) {
@@ -62,22 +64,27 @@ export class GetFeedbackPDFHandler extends FunctionHandler<AssessmentProgress, R
       }
       // return assessmentProgressSrv.trackProgress(req);
     } catch (error) {
-      tools.Logger.error(() => `[UpdateMicroAppProgressHandler].execute - Encountered error :: ${JSON.stringify(error)}`);
+      tools.Logger.error(() => `[GetFeedbackPDFHandler].execute - Encountered error :: ${error}`);
       return { success: false, error: JSON.stringify(error) };
     }
   }
 
   async generatePDF(feedbackHTML: string, filePath: string)
   {
-    const browser = await puppeteer.launch();
-
-    const page = await browser.newPage();
-
-    await page.setContent(feedbackHTML);
-
-    await page.pdf({ path: filePath, format: 'A4', printBackground: true });
-
-    await browser.close();
+    try {
+      const browser = await puppeteer.launch({headless: true, timeout: 10000});
+  
+      const page = await browser.newPage();
+  
+      await page.setContent(feedbackHTML);
+  
+      await page.pdf({ path: filePath, format: 'A4' });
+  
+      await browser.close();
+      
+    } catch (error) {
+      console.log('generatePDF error: ', error)
+    }
   }
 
   private async _uploadFile(orgId: string, endUserId: string, filePath: string, fileName: string, tools: HandlerTools)
