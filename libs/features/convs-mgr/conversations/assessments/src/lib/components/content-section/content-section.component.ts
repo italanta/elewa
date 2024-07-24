@@ -168,17 +168,21 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     const selectedOptionId = this.assessmentFormArray?.controls[i].get('selectedOption')?.value
     const questionResponses: QuestionResponse[] = this.questionResponses || []
     const questionId = this.assessmentFormArray?.controls[i].get('id')?.value
+    const questionMarks = this.assessmentFormArray?.controls[i].get('marks')?.value
     const textAnswer = this.assessmentFormArray?.controls[i].get('textAnswer')?.value
 
     const question = this.assessmentQuestions.find((q)=> q.id === questionId);
 
     const selectedOption = question?.options?.find((op)=> op.id === selectedOptionId);
+    
     // Calculate total marks using the reducer
     const questionResponse: QuestionResponse = {
       questionId: questionId,
       answerId: selectedOption?.id,
       answerText: selectedOption ? selectedOption.text : textAnswer,
+      marks: parseInt(questionMarks)
     }
+
     questionResponses.push(questionResponse);
     const progressMilestones: AssessmentProgressUpdate = {
       appId: this.app.appId, 

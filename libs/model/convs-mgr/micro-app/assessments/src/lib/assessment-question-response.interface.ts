@@ -5,4 +5,5 @@ export interface QuestionResponse {
   answerId?: string;
   correctAnswer?: string;
   feedback?: string;
+  marks?: number;
 }
