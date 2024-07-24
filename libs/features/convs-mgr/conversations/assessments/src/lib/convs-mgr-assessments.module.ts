@@ -45,7 +45,7 @@ import { CreateAssessmentPageComponent } from './components/create-assessment-fl
 
 import { AssessmentFormService } from './services/assessment-form.service';
 import { AssessmentCardComponent } from './components/assessment-card/assessment-card.component';
-import { AssessmentFeedbackSectionComponent } from './components/assessment-failed-section/assessment-feedback-section.component';
+import { AssessmentFeedbackSectionComponent } from './components/assessment-feedback-section/assessment-feedback-section.component';
 import { AssessmentHeaderComponent } from './components/assessment-header/assessment-header.component';
 import { AssessmentResultBannerComponent } from './components/assessment-result-banner/assessment-result-banner.component';
 import { ContentSectionComponent } from './components/content-section/content-section.component';
