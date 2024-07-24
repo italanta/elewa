@@ -7,5 +7,5 @@ export interface QuestionResponse {
   feedback?: string;
   marks?: number;
   score?: number;
-  correct: boolean;
+  correct?: boolean;
 }

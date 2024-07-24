@@ -19,5 +19,6 @@ export interface AssessmentDetails {
      *    order to continue with the flow
      */
     passMark?: number;
-}
+},
+  title: string;
 }
