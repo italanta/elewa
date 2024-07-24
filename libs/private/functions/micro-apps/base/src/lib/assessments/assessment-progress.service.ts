@@ -1,10 +1,11 @@
 import { HandlerTools } from "@iote/cqrs";
+import { Query } from "@ngfi/firestore-qbuilder";
 
 import { AssessmentProgress, AssessmentProgressUpdate, AssessmentStatusTypes, Attempt, AttemptsMap, QuestionResponse } from "@app/model/convs-mgr/micro-app/assessments";
 import { MicroAppProgress } from "@app/model/convs-mgr/micro-app/base";
+import { AssessmentQuestion } from "@app/model/convs-mgr/conversations/assessments";
 
 import { mapResponses } from "../utils/assessment-responses-map.util";
-import { Query } from "@ngfi/firestore-qbuilder";
 
 export class AssessmentProgressService
 {
@@ -25,8 +26,8 @@ export class AssessmentProgressService
 
   }
 
-  private _getAllQuestions(assessmentId: string, orgId: string) {
-    const qRepo$ = this.tools.getRepository(`orgs/${orgId}/assessments/${assessmentId}/questions`);
+  getAllQuestions(assessmentId: string, orgId: string) {
+    const qRepo$ = this.tools.getRepository<AssessmentQuestion>(`orgs/${orgId}/assessments/${assessmentId}/questions`);
 
     return qRepo$.getDocuments(new Query());
   }
@@ -45,6 +46,9 @@ export class AssessmentProgressService
       finalScore: 0,
       maxScore: newProgress.assessmentDetails.maxScore,
       attempts,
+      orgId: newProgress.orgId,
+      endUserId: newProgress.endUserId,
+      title: newProgress.assessmentDetails.title
     };
 
     return progress;
@@ -53,18 +57,27 @@ export class AssessmentProgressService
   private _getScore(questionResponses: QuestionResponse[]) {
     let score = 0;
 
-    questionResponses.forEach((response)=> {
-      if(response.answerId && response.answerId === response.correctAnswer) {
-        score+= response.marks;
-      } 
-
-      // TODO: Add intelligent matching of user response to correct answer
-      if(response.answerText === response.correctAnswer) {
-        score+= response.marks;
+      for(const response of questionResponses) {
+        if(response.answerId && response.answerId === response.correctAnswer) {
+          score+= response.marks;
+          response.score = response.marks;
+          response.correct = true;
+        } else {
+          response.score = 0;
+        }
+        
+        // TODO: Add intelligent matching of user response to correct answer
+        if(response.answerText === response.correctAnswer) {
+          score+= response.marks;
+          response.score = response.marks
+          response.correct = true;
+        } else {
+          response.score = 0;
+        }
       }
-    })
+  
 
-    return score;
+    return {score, questionResponses};
   }
 
   async trackProgress(progress: MicroAppProgress)
@@ -84,11 +97,12 @@ export class AssessmentProgressService
         currentProgress.attemptCount++;
         currentProgress.attempts[currentProgress.attemptCount] = newAttempt;
       } else {
-        currentAttempt.score+= this._getScore(progressUpdate.questionResponses);
+        const {score, questionResponses} = this._getScore(progressUpdate.questionResponses);
+        currentAttempt.score+= score
 
         if(progressUpdate.hasSubmitted) currentAttempt.finishedOn = Date.now();
 
-        currentAttempt.questionResponses = mapResponses(progressUpdate.questionResponses, currentAttempt.questionResponses);
+        currentAttempt.questionResponses = mapResponses(questionResponses, currentAttempt.questionResponses);
 
         currentProgress.attempts[currentProgress.attemptCount] = currentAttempt;
       }
@@ -104,9 +118,10 @@ export class AssessmentProgressService
   }
 
   private _getNewAttempt(newProgress: AssessmentProgressUpdate) {
+    const {score, questionResponses} = this._getScore(newProgress.questionResponses);
     const newAttempt: Attempt = {
-      score: this._getScore(newProgress.questionResponses),
-      questionResponses: mapResponses(newProgress.questionResponses),
+      score: score,
+      questionResponses: mapResponses(questionResponses),
       startedOn:  Date.now()
     };
 
