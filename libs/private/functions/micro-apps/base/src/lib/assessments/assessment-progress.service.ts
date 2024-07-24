@@ -1,29 +1,69 @@
+import axios from "axios";
+
 import { HandlerTools } from "@iote/cqrs";
 import { Query } from "@ngfi/firestore-qbuilder";
 
 import { AssessmentProgress, AssessmentProgressUpdate, AssessmentStatusTypes, Attempt, AttemptsMap, QuestionResponse } from "@app/model/convs-mgr/micro-app/assessments";
 import { MicroAppProgress } from "@app/model/convs-mgr/micro-app/base";
 import { AssessmentQuestion } from "@app/model/convs-mgr/conversations/assessments";
+import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
 
 import { mapResponses } from "../utils/assessment-responses-map.util";
+import { SendOutgoingMsgHandler } from "@app/functions/bot-engine/send-message";
+import { FileMessage, MessageDirection } from "@app/model/convs-mgr/conversations/messages";
+import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 export class AssessmentProgressService
 {
   constructor(private tools: HandlerTools) { }
 
-  private _getCurrentProgress(progress: AssessmentProgressUpdate)
+  getCurrentProgress(orgId: string, endUserId: string, id: string)
   {
-    const resultsPath = `orgs/${progress.orgId}/end-users/${progress.endUserId}/assessment-progress`;
+    const resultsPath = `orgs/${orgId}/end-users/${endUserId}/assessment-progress`;
     const assessmentResultsRepo$ = this.tools.getRepository<AssessmentProgress>(resultsPath);
 
-    return assessmentResultsRepo$.getDocumentById(progress.appId);
+    return assessmentResultsRepo$.getDocumentById(id);
   }
 
   /**
    * Send the feedback pdf as a message to the end user
    */
-  sendFeedbackPDF() {
+  async sendPDF(progress: AssessmentProgress, context: any, tools: HandlerTools, channel: CommunicationChannel) {
+    const pdfURL = await this.generatePDF(progress, tools);
 
+    progress.pdfUrl = pdfURL;
+
+    this._updateProgress(progress);
+
+    const pdfMessage: FileMessage = {
+      endUserPhoneNumber: progress.endUserId.split('_')[2],
+      receipientId: progress.endUserId.split('_')[2],
+      type: MessageTypes.DOCUMENT,
+      isDirect: true,
+      url: pdfURL,
+      n: channel.n,
+      direction: MessageDirection.FROM_CHATBOT_TO_END_USER
+    }
+
+    return new SendOutgoingMsgHandler().execute(pdfMessage, context, tools);
+  }
+
+  async generatePDF(progress: AssessmentProgress, tools: HandlerTools) {
+    const url = this._getURL();
+    const resp = await axios.post(url, {data: progress});
+    tools.Logger.log(()=> `[AssessmentProgressService].generatePDF - Resp ${JSON.stringify(resp.data)}`);
+    if(resp.data.success) {
+      return resp.data.url;
+    } else {
+      return '';
+    }
+  }
+
+  private _getURL() {
+    const project = process.env.GCLOUD_PROJECT;
+    const location = process.env.EVENTARC_CLOUD_EVENT_SOURCE.split('/')[3];
+
+    return `https://${location}-${project}.cloudfunctions.net/getFeedbackPDF`
   }
 
   getAllQuestions(assessmentId: string, orgId: string) {
@@ -84,7 +124,7 @@ export class AssessmentProgressService
   {
     const progressUpdate = progress as AssessmentProgressUpdate;
     
-    const currentProgress = await this._getCurrentProgress(progressUpdate);
+    const currentProgress = await this.getCurrentProgress(progressUpdate.orgId, progressUpdate.endUserId, progress.appId);
     let newProgress: AssessmentProgress;
 
     if (currentProgress) {
@@ -114,7 +154,7 @@ export class AssessmentProgressService
 
     newProgress = this._updateOutcome(newProgress);
     
-    return this._updateProgress(newProgress, progressUpdate);
+    return this._updateProgress(newProgress);
   }
 
   private _getNewAttempt(newProgress: AssessmentProgressUpdate) {
@@ -153,11 +193,11 @@ export class AssessmentProgressService
     return progress;
   }
 
-  private _updateProgress(newProgress: AssessmentProgress, progressUpdate: AssessmentProgressUpdate)
+  private _updateProgress(newProgress: AssessmentProgress)
   {
-    const resultsPath = `orgs/${progressUpdate.orgId}/end-users/${progressUpdate.endUserId}/assessment-progress`;
+    const resultsPath = `orgs/${newProgress.orgId}/end-users/${newProgress.endUserId}/assessment-progress`;
     const assessmentResultsRepo$ = this.tools.getRepository<AssessmentProgress>(resultsPath);
 
-    return assessmentResultsRepo$.write(newProgress, progressUpdate.appId);
+    return assessmentResultsRepo$.write(newProgress, newProgress.id);
   }
 } 

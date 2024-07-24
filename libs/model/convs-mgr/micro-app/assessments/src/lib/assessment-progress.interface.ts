@@ -28,9 +28,11 @@ export interface AssessmentProgress extends IObject {
      */
     passMark?: number;
 }
-orgId: string;
-endUserId: string;
-title: string;
+  orgId: string;
+  endUserId: string;
+  title: string;
+
+  pdfUrl?: string;
 }
 
 export type AttemptsMap = {[key: number]: Attempt};
