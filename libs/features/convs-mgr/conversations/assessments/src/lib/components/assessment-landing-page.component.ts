@@ -5,7 +5,6 @@ import { MicroAppSectionTypes, MicroAppStatus, MicroAppStatusTypes } from '@app/
 import { AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
 import { MicroAppStore } from '@app/state/convs-mgr/micro-app';
 import { AppViewService } from '../services/content-view-mode.service';
-import { PageViewMode } from '../model/view-mode.enum';
 
 @Component({
   selector: 'app-assessment-landing-page',
@@ -51,7 +50,6 @@ export class AssessmentLandingPageComponent implements OnInit
                         startedOn: new Date().getTime() 
                       };
     this._microApp$$.next(updatedApp);
-    this._pageViewService.setPageViewMode(PageViewMode.AssessmentMode)
     this._router.navigate(['main', this.app.id]);
   }
 }

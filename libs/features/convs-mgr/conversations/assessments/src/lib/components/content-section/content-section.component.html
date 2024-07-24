@@ -1,6 +1,7 @@
-<ng-container *ngIf="pageView | async as pageMode" class="micro-app-content">
+<ng-container class="micro-app-content">
   <ng-container class="micro-app-content">
-    <ng-container *ngIf="pageMode === pageViewMode.FeedbackMode" >
+        <!-- If the view mode is Feedback -->
+    <ng-container *ngIf="pageViewMode === 3" >
       <app-assessment-feedback-section
         [app]="app"
         [assessment]="assessment"
@@ -8,12 +9,13 @@
         [assessmentFormArray]="assessmentFormArray">
     </app-assessment-feedback-section>
     </ng-container>
-  <ng-container *ngIf="pageMode === pageViewMode.AssessmentMode">
+    <!-- If the view mode is assessment -->
+  <ng-container *ngIf="pageViewMode === 1">
     <!-- Header with details about assessment -->
     <app-assessment-header [startTime]="startTime" [assessmentTitle]="assessmentTitle"></app-assessment-header>
 
     <!-- Banner with grade details -->
-    <app-assessment-result-banner></app-assessment-result-banner>
+    <!-- <app-assessment-result-banner *ngIf="pageViewMode === 3 || pageViewMode === 2"></app-assessment-result-banner> -->
 
     <!--Assessment details  -->
     <div class="assessment-mode">

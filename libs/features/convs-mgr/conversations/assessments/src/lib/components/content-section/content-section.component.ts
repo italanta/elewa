@@ -5,14 +5,14 @@ import { Router } from '@angular/router';
 import { combineLatest, map, Observable, take } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { Assessment, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment, AssessmentQuestion, RetryType } from '@app/model/convs-mgr/conversations/assessments';
 import { MicroAppStatus, MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
-import { AssessmentProgressUpdate, QuestionResponse, QuestionResponseMap } from '@app/model/convs-mgr/micro-app/assessments';
+import { AssessmentProgress, AssessmentProgressUpdate, QuestionResponse, QuestionResponseMap } from '@app/model/convs-mgr/micro-app/assessments';
 import { MicroAppManagementService } from '@app/state/convs-mgr/micro-app';
 import { AssessmentQuestionStore, AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
 
 import { __CalculateProgress } from '../../utils/calculate-progress.util';
-import { PageViewMode } from '../../model/view-mode.enum';
+import { AssessmentPageViewMode } from '../../model/view-mode.enum';
 
 import { MicroAppAssessmentQuestionFormService } from '../../services/microapp-assessment-questions-form.service';
 import { AppViewService } from '../../services/content-view-mode.service';
@@ -28,8 +28,9 @@ export class ContentSectionComponent implements OnInit, OnDestroy
   @Input() app: MicroAppStatus;
 
   /** Whether a user is viewing assessment content or general page content */
-  pageView: Observable<PageViewMode>;
-  pageViewMode = PageViewMode;
+  // pageView: Observable<PageViewMode>;
+  pageViewMode = AssessmentPageViewMode.AssessmentMode;
+  assessmentProgress: AssessmentProgress;
 
   /** Questions in an assessment */
   assessmentQuestions: AssessmentQuestion[];
@@ -67,7 +68,6 @@ export class ContentSectionComponent implements OnInit, OnDestroy
   ){ }
 
   ngOnInit() {
-    this.pageView = this._pageViewservice.getPageViewMode();
     
     if(this.app) {
       this.getAssessment();
@@ -98,6 +98,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
 
     let questionResponses: QuestionResponseMap;
     this._sBS.sink = combineLatest([progress$, questions$]).pipe(take(1),map(([progress, questions])=> {
+          this.assessmentProgress = progress
           // If the assessment is in progress we append user answer responses
           if(progress) {
             const currentAttempt = progress.attemptCount;
@@ -156,7 +157,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
    *  When on the last question, redirect them back to platform
    */
 
-  async saveProgress(i: number)
+  saveProgress(i: number)
   {
     if(!this.stepperForm) this.assessmentFormArray.controls.forEach(control => control.get('selectedOption')?.markAsTouched());
     // if(!this.assessmentForm.valid) return
@@ -195,8 +196,26 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     // this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe();
     console.log(isLastStep)
     // this._pageViewservice.setPageViewMode(PageViewMode.FeedbackMode)
-    if(isLastStep) {
-      this._pageViewservice.setPageViewMode(PageViewMode.FeedbackMode)
+    if(isLastStep ) {
+      
+    } else {
+      // this.pageViewMode = AssessmentPageViewMode.ResultsOnlyMode;
+      // Redirect page
+    }
+  }
+
+  submitProgress() {
+    if(this.assessment.configs?.retryType === RetryType.Default) {
+      const attempts = this.assessmentProgress.attemptCount;
+      const allowedAttempts = this.assessment.configs.userAttempts as number;
+
+      if(allowedAttempts >= attempts) {
+
+      } else {
+        this.pageViewMode = AssessmentPageViewMode.ResultsOnlyMode;
+      }
+    } else {
+      
     }
   }
 
