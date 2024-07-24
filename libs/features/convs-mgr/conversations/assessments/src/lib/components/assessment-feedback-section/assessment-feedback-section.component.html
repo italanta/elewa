@@ -46,12 +46,14 @@
               <p>{{ question?.get('question')?.value }}</p>
               <mat-radio-group aria-label="Select an option" class="column-radios" formControlName="selectedOption">
                 <mat-radio-button *ngFor="let option of question.get('options')?.value" [value]="option.id" [class.wrong-answer]="isWrongAnswer(question, option)">
-                  {{option.text}}
+                    <div class="radio-text">
+                      {{option.text}}
+                      <p *ngIf="question.get('selectedOption')?.value === option.id" class="feedback-text"> 
+                        <span> {{option.accuracy === 1? 'Correct: ': 'Wrong: ' }}                      
+                        </span> {{ getOptionFeedback(question) }} </p>
+                    </div>
                 </mat-radio-button>
-              </mat-radio-group>  
-              <div *ngIf="question.get('selectedOption')?.value">
-                <p>{{ getOptionFeedback(question) }}</p>
-              </div>
+              </mat-radio-group> 
             </mat-card-content>
           </mat-card>
         </div>

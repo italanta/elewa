@@ -143,10 +143,18 @@ export class AssessmentFeedbackSectionComponent implements OnInit {
     return selectedOptionDetails ? selectedOptionDetails.feedback : '';
   }
  
-  isWrongAnswer(question: AbstractControl, option: AssessmentQuestionOptions): boolean {
+  /** Checking if an answer is right or wrong, to style option accordingly */
+  isWrongAnswer(question: AbstractControl, option: AssessmentQuestionOptions): boolean 
+  {
     const selectedOption = question.get('selectedOption')?.value;
-    if (!selectedOption) return false;
-    return selectedOption.id === option.id && !option.accuracy;
+    if (!selectedOption) {
+      return false;
+    }
+  
+    const isSelected = selectedOption === option.id;
+    const isAccurate = option.accuracy === 1; 
+  
+    return isSelected && !isAccurate;
   }
 
   /** Calculate obtained marks
