@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { FormViewMode, PageViewMode } from '../model/view-mode.enum';
+import { FormViewMode, AssessmentPageViewMode } from '../model/view-mode.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class AppViewService
   /** Single question form or multiple question forms */
   private formViewModeSource = new BehaviorSubject<FormViewMode >(FormViewMode .MultipleQuestionView);
   /** Different page view navigation */
-  private pageViewModeSource = new BehaviorSubject<PageViewMode>(PageViewMode.HomePageView)
+  private pageViewModeSource = new BehaviorSubject<AssessmentPageViewMode>(AssessmentPageViewMode.AssessmentMode)
 
   formViewMode$ = this.formViewModeSource.asObservable();
   pageViewMode$ = this.pageViewModeSource.asObservable()
@@ -27,11 +27,11 @@ export class AppViewService
   }
 
   /** Getting and setting the page to show */
-  setPageViewMode(viewMode: PageViewMode) {
+  setPageViewMode(viewMode: AssessmentPageViewMode) {
     this.pageViewModeSource.next(viewMode);
   }
 
-  getPageViewMode(): Observable<PageViewMode> {
+  getPageViewMode(): Observable<AssessmentPageViewMode> {
     return this.pageViewMode$;
   }
 }

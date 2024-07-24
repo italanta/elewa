@@ -1,5 +1,6 @@
 // Assessment passed banner styling
 .content-wrapper{
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-self: center;
@@ -7,12 +8,18 @@
   $color: var(--micro-apps-teal-primary);
   $opacity: 0.35;
   padding: 0.5rem 0;
-  background-color: rgba($color, $opacity);
+  background-color: rgba(31, 122, 140, 0.35);
 
-  .img-text, .marks-text{
+  .img-text{
     display: flex;
     gap: 64px;
     align-items: center;
+  }
+  .marks-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 1rem;
   }
 }
 
@@ -25,11 +32,17 @@
   $color: var(--micro-apps-warning-red);
   $opacity: 0.1;
   padding: 0.5rem 0;
-  background-color: rgba($color, $opacity);
+  background-color: rgba(255, 182, 193, 0.35);
 
-  .img-text, .marks-text{
+  .img-text{
     display: flex;
     gap: 64px;
     align-items: center;
+  }
+  .marks-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 1rem;
   }
 }

@@ -14,7 +14,8 @@
       "PREVIOUS": "Previous",
       "SUBMIT-TEXT": "Submit assessment",
       "WHATSAPP-BUTTON": "Go back to WhatsApp",
-      "RETRY-BUTTON": "Retry assessment"
+      "RETRY-NOW-BUTTON": "Retry Now",
+      "RETRY-LATER-BUTTON": "Retry Later"
     },
     "QUESTION": "Question",
     "GRADE-DISPLAY": {

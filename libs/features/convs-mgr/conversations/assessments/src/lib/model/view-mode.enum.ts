@@ -12,13 +12,18 @@ export enum FormViewMode {
  *  Enum to switch between different views depending on where a learner is on an assessment
  *  Toggle between Landing page, assessment content, feedback page and redirect page
  */
-export enum PageViewMode {
+export enum AssessmentPageViewMode {
   /** Show the landing page */
-  HomePageView = 1,
+  // HomePageView = 1,
   /** Show assessment content */
-  AssessmentMode = 2,
-  /**Page to display after a learner has failed an assessment */
-  FailFeedbackMode = 3,
+  AssessmentMode = 1,
+  /**Page to display after a learner has failed an assessment is allowed to retry */
+  ResultsOnlyMode = 2,
+
+  /** Shown when the learner has passed an assessment or if they have failed on 
+   *    their last allowed attempt */
+  FeedbackMode = 3,
+
   /** Page to show after a user is done with an assessment */
-  RedirectPage = 4
+  // RedirectPage = 4
 }

@@ -1,0 +1,211 @@
+.page-container {
+  display: flex;
+  justify-content: center;
+  gap: 2%;
+  align-items: center;
+  padding: 2% 2%;
+}
+
+// Text section
+.feedback-section {
+  text-align: center;
+  min-height: 100%;
+  .image {
+    width: 80%;
+    height: 80%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .long-assessment {
+    width: 100%;
+    padding: 8px 2%;
+  }
+}
+
+// Buttons
+.btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+
+  .__backToPlatform {
+    color: #fff;
+    background-color: #1F7A8C;
+    width: 100%;
+  }
+  .__retryAssessment {
+    color: var(--micro-apps-colour-white);
+    background-color: var(--micro-apps-teal-primary);
+    width: 100%;
+    border: 1px solid var(--micro-apps-teal-primary);
+  }
+  .__retryLater{
+    color: #1F7A8C;
+    background-color: #fff;
+    width: 100%;
+    border: 1px solid #1F7A8C;
+  }
+}
+
+.long-assessment {
+  width: 100%;
+}
+
+.question-card {
+  margin: 1rem 0;
+  width: 100%;
+  color: var(--micro-apps-cards-border);
+  width: 97%;
+  background-color: var(--micro-apps-colour-white);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+
+  .question-header {
+    border-bottom: 1px solid var(--micro-apps-border-bottom);
+    padding-bottom: 8px;
+  }
+  .question-content {
+    padding-top: 8px;
+    .column-radios {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+/** Media Queries for responsive designs */
+/* Extra Small Devices (XS) */
+@media (max-width: 575px) {
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2% 2%;
+
+    .feedback-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .fail-feedback {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .img-section {
+          width: 80%;
+          height: 80%;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+  .long-assessment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Medium Devices (MD) */
+@media (min-width: 576px) and (max-width: 768px) {
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 2%;
+
+    .image {
+      width: 50%;
+      height: 70%;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .feedback {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+    }
+  }
+}
+
+// Changing the default style of mat-radio-button to match Goomza colours
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+  border-color: var(--micro-apps-teal-primary);
+}
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+  border-color: var(--micro-apps-teal-primary);
+}
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+  border-color: var(--micro-apps-teal-primary);
+}
+:host ::ng-deep .mat-mdc-radio-button.wrong-answer .mdc-radio__background .mdc-radio__outer-circle,
+:host ::ng-deep .mat-mdc-radio-button.wrong-answer .mdc-radio__background .mdc-radio__inner-circle {
+  border-color: red;
+}
+
+
+// Assessment passed banner styling
+.content-wrapper{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+  height: 123px;
+  $color: var(--micro-apps-teal-primary);
+  $opacity: 0.35;
+  padding: 0.5rem 0;
+  background-color: rgba(31, 122, 140, 0.35);
+
+  .img-text{
+    display: flex;
+    gap: 64px;
+    align-items: center;
+  }
+  .marks-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 1rem;
+  }
+}
+
+//Assessment failed banner styling
+.fail-content-wrapper{
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+  height: 123px;
+  $color: var(--micro-apps-warning-red);
+  $opacity: 0.1;
+  padding: 0.5rem 0;
+  background-color: rgba(255, 182, 193, 0.35);
+
+  .img-text{
+    display: flex;
+    gap: 64px;
+    align-items: center;
+  }
+  .marks-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 1rem;
+  }
+}

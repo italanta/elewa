@@ -22,6 +22,7 @@ export class MicroAppAssessmentQuestionFormService
     return this._fb.group({
       id: [assessmentQuestion?.id ?? ""],
       question: [assessmentQuestion?.message ?? ""],
+      marks: [assessmentQuestion?.marks ?? ""],
       options: this._fb.array(assessmentQuestion?.options?.map(option => new FormControl(option)) || []),
       selectedOption: [selectedOption ?? "", Validators.required], //tracking the selected option
       textAnswer: this._fb.group({
