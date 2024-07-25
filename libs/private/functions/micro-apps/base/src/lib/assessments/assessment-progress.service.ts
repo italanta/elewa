@@ -1,7 +1,15 @@
+import axios from "axios";
+
 import { HandlerTools } from "@iote/cqrs";
+import { Query } from "@ngfi/firestore-qbuilder";
 
 import { AssessmentProgress, AssessmentProgressUpdate, AssessmentStatusTypes, Attempt, AttemptsMap, QuestionResponse } from "@app/model/convs-mgr/micro-app/assessments";
 import { MicroAppProgress } from "@app/model/convs-mgr/micro-app/base";
+import { AssessmentQuestion } from "@app/model/convs-mgr/conversations/assessments";
+import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
+import { SendOutgoingMsgHandler } from "@app/functions/bot-engine/send-message";
+import { DocumentMessage, FileMessage, Message, MessageDirection } from "@app/model/convs-mgr/conversations/messages";
+import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 import { mapResponses } from "../utils/assessment-responses-map.util";
 
@@ -9,19 +17,63 @@ export class AssessmentProgressService
 {
   constructor(private tools: HandlerTools) { }
 
-  private _getCurrentProgress(progress: AssessmentProgressUpdate)
+  getCurrentProgress(orgId: string, endUserId: string, id: string)
   {
-    const resultsPath = `orgs/${progress.orgId}/end-users/${progress.endUserId}/assessment-progress`;
+    const resultsPath = `orgs/${orgId}/end-users/${endUserId}/assessment-progress`;
     const assessmentResultsRepo$ = this.tools.getRepository<AssessmentProgress>(resultsPath);
 
-    return assessmentResultsRepo$.getDocumentById(progress.appId);
+    return assessmentResultsRepo$.getDocumentById(id);
   }
 
   /**
    * Send the feedback pdf as a message to the end user
    */
-  sendFeedbackPDF() {
+  async sendPDF(progress: AssessmentProgress, tools: HandlerTools, channel: CommunicationChannel) {
+    const pdfURL = await this.generatePDF(progress, tools);
 
+    progress.pdfUrl = pdfURL;
+
+    await this._updateProgress(progress);
+
+    const pdfMessage: DocumentMessage = {
+      endUserPhoneNumber: progress.endUserId.split('_')[2],
+      receipientId: progress.endUserId.split('_')[2],
+      type: MessageTypes.DOCUMENT,
+      isDirect: true,
+      url: pdfURL,
+      n: channel.n,
+      documentName: `${progress.title} - ${new Date().toLocaleString()}`,
+      direction: MessageDirection.FROM_CHATBOT_TO_END_USER,
+      id: Date.now().toString()
+    }
+
+    const messagesRepo$ = tools.getRepository<Message>(`orgs/${progress.orgId}/end-users/${progress.endUserId}/messages`);
+
+    return messagesRepo$.create(pdfMessage);
+  }
+
+  async generatePDF(progress: AssessmentProgress, tools: HandlerTools) {
+    const url = this._getURL();
+    const resp = await axios.post(url, {data: progress});
+    tools.Logger.log(()=> `[AssessmentProgressService].generatePDF - Resp ${JSON.stringify(resp.data.result)}`);
+    if(resp.data.result.success) {
+      return resp.data.result.url;
+    } else {
+      return '';
+    }
+  }
+
+  private _getURL() {
+    const project = process.env.GCLOUD_PROJECT;
+    const location = process.env.EVENTARC_CLOUD_EVENT_SOURCE.split('/')[3];
+
+    return `https://${location}-${project}.cloudfunctions.net/getFeedbackPDF`
+  }
+
+  getAllQuestions(assessmentId: string, orgId: string) {
+    const qRepo$ = this.tools.getRepository<AssessmentQuestion>(`orgs/${orgId}/assessments/${assessmentId}/questions`);
+
+    return qRepo$.getDocuments(new Query());
   }
 
   private _initProgress(newProgress: AssessmentProgressUpdate, attemptCount: number): AssessmentProgress
@@ -38,6 +90,9 @@ export class AssessmentProgressService
       finalScore: 0,
       maxScore: newProgress.assessmentDetails.maxScore,
       attempts,
+      orgId: newProgress.orgId,
+      endUserId: newProgress.endUserId,
+      title: newProgress.assessmentDetails.title
     };
 
     return progress;
@@ -46,25 +101,34 @@ export class AssessmentProgressService
   private _getScore(questionResponses: QuestionResponse[]) {
     let score = 0;
 
-    questionResponses.forEach((response)=> {
-      if(response.answerId && response.answerId === response.correctAnswer) {
-        score+= response.marks;
-      } 
-
-      // TODO: Add intelligent matching of user response to correct answer
-      if(response.answerText === response.correctAnswer) {
-        score+= response.marks;
+      for(const response of questionResponses) {
+        if(response.answerId && response.answerId === response.correctAnswer) {
+          score+= response.marks;
+          response.score = response.marks;
+          response.correct = true;
+        } else {
+          response.score = 0;
+        }
+        
+        // TODO: Add intelligent matching of user response to correct answer
+        if(response.answerText === response.correctAnswer) {
+          score+= response.marks;
+          response.score = response.marks
+          response.correct = true;
+        } else {
+          response.score = 0;
+        }
       }
-    })
+  
 
-    return score;
+    return {score, questionResponses};
   }
 
   async trackProgress(progress: MicroAppProgress)
   {
     const progressUpdate = progress as AssessmentProgressUpdate;
     
-    const currentProgress = await this._getCurrentProgress(progressUpdate);
+    const currentProgress = await this.getCurrentProgress(progressUpdate.orgId, progressUpdate.endUserId, progress.appId);
     let newProgress: AssessmentProgress;
 
     if (currentProgress) {
@@ -77,11 +141,12 @@ export class AssessmentProgressService
         currentProgress.attemptCount++;
         currentProgress.attempts[currentProgress.attemptCount] = newAttempt;
       } else {
-        currentAttempt.score+= this._getScore(progressUpdate.questionResponses);
+        const {score, questionResponses} = this._getScore(progressUpdate.questionResponses);
+        currentAttempt.score+= score
 
         if(progressUpdate.hasSubmitted) currentAttempt.finishedOn = Date.now();
 
-        currentAttempt.questionResponses = mapResponses(progressUpdate.questionResponses, currentAttempt.questionResponses);
+        currentAttempt.questionResponses = mapResponses(questionResponses, currentAttempt.questionResponses);
 
         currentProgress.attempts[currentProgress.attemptCount] = currentAttempt;
       }
@@ -93,13 +158,14 @@ export class AssessmentProgressService
 
     newProgress = this._updateOutcome(newProgress);
     
-    return this._updateProgress(newProgress, progressUpdate);
+    return this._updateProgress(newProgress);
   }
 
   private _getNewAttempt(newProgress: AssessmentProgressUpdate) {
+    const {score, questionResponses} = this._getScore(newProgress.questionResponses);
     const newAttempt: Attempt = {
-      score: this._getScore(newProgress.questionResponses),
-      questionResponses: mapResponses(newProgress.questionResponses),
+      score: score,
+      questionResponses: mapResponses(questionResponses),
       startedOn:  Date.now()
     };
 
@@ -131,11 +197,11 @@ export class AssessmentProgressService
     return progress;
   }
 
-  private _updateProgress(newProgress: AssessmentProgress, progressUpdate: AssessmentProgressUpdate)
+  private _updateProgress(newProgress: AssessmentProgress)
   {
-    const resultsPath = `orgs/${progressUpdate.orgId}/end-users/${progressUpdate.endUserId}/assessment-progress`;
+    const resultsPath = `orgs/${newProgress.orgId}/end-users/${newProgress.endUserId}/assessment-progress`;
     const assessmentResultsRepo$ = this.tools.getRepository<AssessmentProgress>(resultsPath);
 
-    return assessmentResultsRepo$.write(newProgress, progressUpdate.appId);
+    return assessmentResultsRepo$.write(newProgress, newProgress.id);
   }
 } 

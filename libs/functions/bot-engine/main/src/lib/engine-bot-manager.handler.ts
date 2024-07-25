@@ -131,11 +131,7 @@ export class EngineBotManager
           await bot.play(message, this.endUser, currentCursor);
 
           break;
-
-        case ChatStatus.MicroApp:
-          this._tools.Logger.log(() => `[EngineChatManagerHandler].execute: MicroApp in progress...`);
-
-          break;
+          
         case ChatStatus.Paused:
           // Paused means talk to agent so we do not want the bot to respond
           break;

@@ -82,10 +82,6 @@ export class MicroAppBlockService implements IProcessOperationBlock
 
     // Create the url button to be sent to the user.
     const ctaBlock = this._createInteractiveButtonBlock(microAppLink, storyBlock.message, storyBlock.name);
-
-    // Update bot engine status to Micro-app
-    await this._updateBotStatus(orgId, endUser);
-
     return {
       storyBlock: ctaBlock,
       newCursor: nextCursor

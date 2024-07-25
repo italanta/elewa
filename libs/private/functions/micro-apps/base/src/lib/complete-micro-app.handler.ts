@@ -3,11 +3,13 @@ import { isString as ___isString } from 'lodash';
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionHandler, FunctionContext } from '@ngfi/functions';
 
-import { InitMicroAppCmd, InitMicroAppResponse, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
+import { InitMicroAppCmd, InitMicroAppResponse, MicroAppStatus, MicroAppStatusTypes, MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
 
-import { ChannelDataService, EngineBotManager } from '@app/functions/bot-engine';
+import { EngineBotManager } from '@app/functions/bot-engine';
 import { ___DirectChannelFactory } from '@app/functions/bot-engine/channels';
-import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
+import { EndUser } from '@app/model/convs-mgr/conversations/chats';
+
+import { AssessmentProgressService } from './assessments/assessment-progress.service';
 
 /**
  * Handler responsible for completing a micro-app.
@@ -42,9 +44,15 @@ export class CompleteMicroAppHandler extends FunctionHandler<InitMicroAppCmd, In
       const endUserRepo$ = tools.getRepository<EndUser>(`orgs/${app.config.orgId}/end-users`);
       const endUser = await endUserRepo$.getDocumentById(app.endUserId);
 
-      endUser.status = ChatStatus.Running;
-      await endUserRepo$.update(endUser);
-      
+      // If the type is an assessment, we send the pdf before we resume the flow
+      if(app.config.type === MicroAppTypes.Assessment) {
+        const assessmentProgressSrv = new AssessmentProgressService(tools);
+
+        const progress = await assessmentProgressSrv.getCurrentProgress(app.config.orgId, app.endUserId, app.appId);
+
+        await assessmentProgressSrv.sendPDF(progress, tools, channel);
+      }
+
       const continueGoomzaFlow = new EngineBotManager(tools, tools.Logger, activeChannel);
       // TODO: await continueGoomzaFlow.run({ } as MicroAppSuccessMessage OR AssessmentCompleteMessage [subtype of MicroAppSuccessMessage], )    
       await continueGoomzaFlow.run(null, endUser);
