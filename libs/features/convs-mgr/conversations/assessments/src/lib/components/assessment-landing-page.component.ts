@@ -34,15 +34,6 @@ export class AssessmentLandingPageComponent implements OnInit
   getAssessment(){
     this._assessmentStore$.getAssessmentByOrg(this.app.appId, this.app.config.orgId).subscribe(_assessment => {
       this.assessment = _assessment
-
-      if(_assessment){
-        const channelAssessment: Assessment = {
-         ... _assessment,
-          channel: this.app.config.channel,
-          pos: this.app.config.pos
-        }
-        this._assessmentStore$.update(channelAssessment)
-      } 
     })
   }
   
