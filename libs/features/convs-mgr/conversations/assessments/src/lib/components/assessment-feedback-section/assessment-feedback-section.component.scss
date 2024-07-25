@@ -5,7 +5,10 @@
   align-items: center;
   padding: 2% 2%;
 }
-
+.question-details{
+  display: flex;
+  justify-content: space-between;
+}
 // Text section
 .feedback-section {
   text-align: center;
