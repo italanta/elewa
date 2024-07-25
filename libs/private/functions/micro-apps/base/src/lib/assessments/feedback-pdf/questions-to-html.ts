@@ -3,18 +3,23 @@ import { AssessmentProgress, Attempt } from "@app/model/convs-mgr/micro-app/asse
 
 export function QuestionsToHTML(allQuestions: AssessmentQuestion[], progress: AssessmentProgress) {
   let questionsHTML = '';
-  const attemptCount = progress.attemptCount
-  const currentAttempt = progress.attempts[attemptCount]
+  const attemptCount = progress.attemptCount.toString();
+  const currentAttempt = progress.attempts[attemptCount];
   
-  allQuestions.forEach((question, index)=> {
-    if(currentAttempt.questionResponses[question.id]) {
-      const questionScore = currentAttempt.questionResponses[question.id].score || 0;
-      const questionMarks = question.marks || 0;
-      
-      const points = `${questionScore}/${questionMarks}`
-      questionsHTML+= Question(index, points, question, currentAttempt)
-    }
-  })
+  // Check if currentAttempt and questionResponses are defined
+  if (currentAttempt && currentAttempt.questionResponses) {
+    allQuestions.forEach((question, index) => {
+      const response = currentAttempt.questionResponses[question.id];
+      if (response) {
+        const questionScore = response.score || 0;
+        const questionMarks = question.marks || 0;
+        
+        const points = `${questionScore}/${questionMarks}`;
+        questionsHTML += Question(index, points, question, currentAttempt);
+      }
+    });
+  }
+  
   return questionsHTML;
 }
 
@@ -45,11 +50,13 @@ export function OptionsToHTML(question: AssessmentQuestion, currentAttempt: Atte
   let optionsHTML = '';
   const questionResponse = currentAttempt.questionResponses[question.id];
 
-  for(const option of question.options) {
-    const isSelected = questionResponse.answerId === option.id;
-    const checked = isSelected ? `checked="checked"` : '';
-    const feedback = (isSelected || questionResponse.correct) ? option.feedback : '';
-    optionsHTML += Option(option.text, checked, feedback)
+  if (questionResponse) {
+    for (const option of question.options) {
+      const isSelected = questionResponse.answerId === option.id;
+      const checked = isSelected ? `checked="checked"` : '';
+      const feedback = (isSelected || questionResponse.correct) ? option.feedback : '';
+      optionsHTML += Option(option.text, checked, feedback);
+    }
   }
 
   return optionsHTML;
