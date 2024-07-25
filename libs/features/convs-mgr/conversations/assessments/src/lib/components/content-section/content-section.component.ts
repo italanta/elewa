@@ -209,7 +209,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       this.pageViewMode = AssessmentPageViewMode.ResultsMode;
       this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe((updatedProgress)=> {
         if(updatedProgress) {
-          this.assessmentProgress = updatedProgress as any as AssessmentProgress;
+          this.assessmentProgress = updatedProgress.response as AssessmentProgress;
           // this.assessmentProgress.attempts[this.assessmentProgress.attemptCount]
         
           this.pageViewMode = AssessmentPageViewMode.ResultsMode;

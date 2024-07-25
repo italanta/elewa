@@ -43,11 +43,11 @@
             <mat-card-header class="question-header">
               <p class="question-details"> 
                 <span>{{ "ASSESSMENT-PAGE.QUESTION" | transloco }}  {{i + 1}} </span> 
-                <!-- <span>{{currentProgress.questionResponses[i].score}} / {{currentProgress.questionResponses[i].marks}}</span>  -->
+                <span>{{currentProgress.questionResponses[i].score}} / {{currentProgress.questionResponses[question.get('id')?.value].marks}}</span> 
               </p>
+              <p>{{ question?.get('id')?.value }}</p>
             </mat-card-header>
             <mat-card-content class="question-content">
-              <p>{{ question?.get('question')?.value }}</p>
               <mat-radio-group aria-label="Select an option" class="column-radios" formControlName="selectedOption">
                 <mat-radio-button *ngFor="let option of question.get('options')?.value" [value]="option.id" [class.wrong-answer]="isWrongAnswer(question, option)">
                     <div class="radio-text">

@@ -27,9 +27,10 @@ export class AssessmentResultBannerComponent implements OnInit
   /** Final score after all attempts in percentage */
   finalScore: number
 
-  ngOnInit(): void {
-    this.score = (this.result.attempts[this.result.attemptCount].score / this.result.maxScore) * 100;
-    this.finalScore = (this.result.finalScore / this.result.maxScore) * 100
+  ngOnInit(): void 
+  {
+    this.score = Math.round((this.result.attempts[this.result.attemptCount].score / this.result.maxScore) * 100);
+    this.finalScore = Math.round((this.result.finalScore / this.result.maxScore) * 100)
   }
   
 }
