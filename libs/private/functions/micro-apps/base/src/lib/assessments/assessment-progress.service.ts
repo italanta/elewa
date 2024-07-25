@@ -100,28 +100,23 @@ export class AssessmentProgressService
 
   private _getScore(questionResponses: QuestionResponse[]) {
     let score = 0;
-
-      for(const response of questionResponses) {
-        if(response.answerId && response.answerId === response.correctAnswer) {
-          score+= response.marks;
-          response.score = response.marks;
-          response.correct = true;
-        } else {
-          response.score = 0;
-        }
-        
-        // TODO: Add intelligent matching of user response to correct answer
-        if(response.answerText === response.correctAnswer) {
-          score+= response.marks;
-          response.score = response.marks
-          response.correct = true;
-        } else {
-          response.score = 0;
-        }
-      }
   
-
-    return {score, questionResponses};
+    for (let i = 0; i < questionResponses.length; i++) {
+      if (questionResponses[i].answerId && questionResponses[i].answerId === questionResponses[i].correctAnswer) {
+        score += questionResponses[i].marks;
+        questionResponses[i].score = questionResponses[i].marks;
+        questionResponses[i].correct = true;
+      } else if (questionResponses[i].answerText === questionResponses[i].correctAnswer) {
+        score += questionResponses[i].marks;
+        questionResponses[i].score = questionResponses[i].marks;
+        questionResponses[i].correct = true;
+      } else {
+        questionResponses[i].score = 0;
+        questionResponses[i].correct = false;
+      }
+    }
+  
+    return { score, questionResponses };
   }
 
   async trackProgress(progress: MicroAppProgress)
