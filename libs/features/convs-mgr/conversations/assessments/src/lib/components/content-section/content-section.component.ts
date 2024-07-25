@@ -54,7 +54,8 @@ export class ContentSectionComponent implements OnInit, OnDestroy
   assessmentTitle: string;
 
   questionResponses: QuestionResponse[]
-  isLoading = true
+  isLoading = true;
+  isSubmitting: boolean;
 
   private _sBS = new SubSink()
   constructor ( private _assessFormService: MicroAppAssessmentQuestionFormService,
@@ -204,14 +205,12 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     }
 
     if(isLastStep ) {
-      const attemptNumber = this.assessmentProgress.attemptCount;
-      this.assessmentProgress.attempts[attemptNumber].outcome = AssessmentStatusTypes.Passed;
-      this.pageViewMode = AssessmentPageViewMode.ResultsMode;
+      this.isSubmitting = true;
       this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe((updatedProgress)=> {
         if(updatedProgress) {
-          this.assessmentProgress = updatedProgress as any as AssessmentProgress;
+          this.assessmentProgress = updatedProgress.result as AssessmentProgress;
           // this.assessmentProgress.attempts[this.assessmentProgress.attemptCount]
-        
+          this.isSubmitting = false;
           this.pageViewMode = AssessmentPageViewMode.ResultsMode;
         }
       }); 
