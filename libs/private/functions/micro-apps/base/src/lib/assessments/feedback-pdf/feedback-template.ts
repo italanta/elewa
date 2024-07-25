@@ -18,8 +18,8 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
       text-align: center;
     }
     .company-logo {
-      width: 10%;
-      align-self: center;
+      width: 3rem;
+      height: fit-content;
     }
     .learner-name {
       font-size: small;
