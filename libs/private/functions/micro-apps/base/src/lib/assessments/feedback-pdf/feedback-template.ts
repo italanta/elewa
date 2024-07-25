@@ -24,9 +24,13 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
       text-align: center;
     }
     .company-logo {
-      width: 3rem;
-      height: fit-content;
+      align-self: center;
     }
+    .company-logo > img {
+      max-width: 20%;
+      height: auto;
+    }
+
     .learner-name {
       font-size: small;
       color: #101010;
