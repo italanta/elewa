@@ -127,9 +127,7 @@ export class AssessmentFeedbackSectionComponent implements OnInit
   {
     if(this.assessmentProgress){
       const currentProgress = this.assessmentProgress.attempts[this.assessmentProgress.attemptCount];
-
       this.currentProgress = currentProgress as Attempt
-      // const questionResponses = currentProgress.questionResponses   
       this.showFeedback = true;
     }
   }

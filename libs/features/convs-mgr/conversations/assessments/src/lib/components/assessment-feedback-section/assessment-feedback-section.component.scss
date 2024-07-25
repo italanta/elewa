@@ -1,13 +1,16 @@
 .page-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   gap: 2%;
   align-items: center;
   padding: 2% 2%;
 }
-.question-details{
+
+.question-header{
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 // Text section
 .feedback-section {
@@ -36,12 +39,26 @@
   color: var(--micro-apps-teal-primary);
 }
 
+.radio-text{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+ }
+
+ .feedback-text {
+   font-size: smaller;
+   margin: 0;
+   height: 18px;
+   line-height: 1;
+ }
+
 // Buttons
 .btns {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 1rem;
+  width: 100%;
 
   .__backToPlatform {
     color: #fff;
