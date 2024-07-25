@@ -40,6 +40,7 @@ export class AssessmentPublishService
       orgId: assessment.orgId,
       isPublished: true,
       isAssessment: true,
+      maxScore: assessment.maxScore
     };
 
     this._logger.log(() => `Assessment published!`)
