@@ -52,11 +52,13 @@ export class AssessmentMicroAppOptionsService extends NextBlockService
 
 		this.tools.Logger.log(()=> `Result: ${currentResult}`);
 
-    let index = currentBlock.options.findIndex((op)=> op.value === currentResult);
+		let index = 2;
 
-    if(!index) {
-      index = currentBlock.options.findIndex((op)=> op.value === AssessmentStatusTypes.Incomplete);
-    }
+		if(currentResult === AssessmentStatusTypes.Completed || currentResult == AssessmentStatusTypes.Passed) {
+			index = 0;
+		} else if(currentResult === AssessmentStatusTypes.Failed) {
+			index = 1;
+		}
 
     const sourceId = `i-${index}-${currentBlock.id}`;
 
