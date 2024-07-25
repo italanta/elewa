@@ -1,0 +1,78 @@
+<ng-container *ngIf="assessmentProgress && assessmentForm">
+<!-- Feedback Banner -->
+<app-assessment-result-banner [result]="assessmentProgress" [resultsMode]="resultsMode"></app-assessment-result-banner>
+
+<div class="page-container">
+  <!-- Image section and call to action buttons -->
+   <div>
+    <div class="feedback-section">
+      <div class="fail-feedback" *ngIf="resultsMode.failedAndHasRetries">
+        <!-- Image  -->
+        <div class="image">
+          <img src="/assets/icons/assessment-failed-feedback-img.svg" />  
+        </div>
+        <!-- Feedback-text -->
+        <div class="feedback-text">
+          <p> {{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.INTRO" | transloco}} </p>
+          <p>
+            <span>{{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.TRIAL-TEXT.INTRO" | transloco}} </span>
+              {{allowedAttempts}}
+            <span>{{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.TRIAL-TEXT.END" | transloco}}</span>
+          </p>
+          <p> {{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.RETAKE-TEXT" | transloco}} </p>
+        </div>
+      </div>
+      
+      <!-- CTA Buttons -->
+      <div class="btns">
+        <button class="__backToPlatform" mat-raised-button  (click)="backToApp()" *ngIf="resultsMode.failedAndNoRetries || resultsMode.passedAndNoRetries"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.WHATSAPP-BUTTON" | transloco}} </button>
+
+        <button class="__retryAssessment" mat-raised-button  (click)="retryAssessment()" *ngIf="resultsMode.failedAndHasRetries || resultsMode.passedAndHasRetries"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-NOW-BUTTON" | transloco}}  </button>
+        <button class="__retryLater" mat-raised-button  (click)="backToApp()" *ngIf="resultsMode.failedAndHasRetries || resultsMode.passedAndHasRetries"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-LATER-BUTTON" | transloco}}  </button>
+      </div> 
+    </div>
+   </div>
+  
+  <!-- feedback form questions -->
+  <div class="long-assessment" *ngIf="assessmentFormArray">
+    <div *ngIf="resultsMode.failedAndNoRetries || resultsMode.passedAndNoRetries || resultsMode.passedAndHasRetries">
+      <form [formGroup]="assessmentForm">
+        <div formArrayName="assessmentFormArray">
+          <mat-card class="question-card" *ngFor="let question of assessmentFormArray.controls; let i = index" [formGroupName]="i">
+            <!-- Question number and total score for a question -->
+            <mat-card-header>
+              <div class="question-header">
+                <p> {{ "ASSESSMENT-PAGE.QUESTION" | transloco }}  {{i + 1}} </p>
+                <p>{{currentProgress.questionResponses[question.get('id')?.value ].score}} / {{currentProgress.questionResponses[question.get('id')?.value].marks}} </p>
+              </div>
+            </mat-card-header>
+            <mat-card-content class="question-content">
+              <div class="question-feedback" *ngFor="let option of question.get('options')?.value">
+                <div class="option-details">
+                  <input
+                    type="radio"
+                    [value]="option.id"
+                    formControlName="selectedOption"
+                    [checked]="question.get('selectedOption')?.value === option.id"
+                    class="custom-radio"
+                  />
+                  <label [for]="'option-' + option.id">{{ option.text }}</label>
+                </div>
+                <div class="radio-text">
+                  <p *ngIf="question.get('selectedOption')?.value === option.id" class="feedback-text">
+                    <span [ngClass]="{'red-text': option.accuracy !== 1, 'teal-text': option.accuracy === 1}">
+                      {{ option.accuracy === 1 ? 'Correct: ' : 'Wrong: ' }}
+                    </span>
+                    {{ getOptionFeedback(question) }}
+                  </p>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </form>
+    </div>
+  </div> 
+</div>
+
+</ng-container>

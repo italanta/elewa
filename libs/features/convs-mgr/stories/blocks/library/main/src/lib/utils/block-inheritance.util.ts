@@ -3,6 +3,8 @@
 import { FormArray, FormBuilder } from "@angular/forms";
 import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
+import { _CreateAssessmentBlockForm } from "@app/features/convs-mgr/stories/blocks/library/micro-apps-base";
+
 import { _CreateTextMessageBlockForm }      from "./model/message-block-form.model";
 import { _CreateImageMessageBlockForm }     from "./model/image-block-form.model";
 import { _CreateNameMessageBlockForm }      from "./model/name-block-form.model";
@@ -30,6 +32,7 @@ import { _CreateEventBlockForm }            from "./model/event-block-form.model
 import { _CreateAssessmentBrickForm }       from "./model/assessment-brick-form.model";
 import { _CreateConditionalBlockForm }      from "./model/conditional-block.model";
 import { _CreateCmi5BlockForm }             from "./model/cmi5-block-form.model";
+
 
 /**
  * This class controls the inheritance behaviour of blocks, adding polymorphic behaviour based on block type.
@@ -128,6 +131,9 @@ function _renderBlockByType(block: StoryBlock, type: StoryBlockTypes, _fb: FormB
 
     case StoryBlockTypes.CMI5Block:
       return _CreateCmi5BlockForm(_fb, block);
+      
+    case StoryBlockTypes.AssessmentMicroAppBlock:
+      return _CreateAssessmentBlockForm(_fb, block);  
   }
   // Default return null
   return null;

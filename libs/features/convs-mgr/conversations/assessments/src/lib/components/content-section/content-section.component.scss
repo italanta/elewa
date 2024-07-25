@@ -1,0 +1,102 @@
+.assessment-mode{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 10%;
+
+  .progress-tracker{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    padding: 1rem 0 1rem 0.5rem;
+    width: 98%;
+    
+    .progress-bar{
+      width: 100%;
+      height: 8px;
+      background-color: var(--micro-apps-assessment-background);
+      border-radius: 6px;
+    }
+    .progress-text{
+      font-family: 'Roboto', sans-serif;
+      font-weight: 300;
+      padding: 0.5rem 0 0.5rem 0.8rem;
+      font-size: smaller;
+    }
+  }
+  .question-cards{
+    width: 100%;
+  }
+}
+
+.buttons-section{
+  display: flex;
+    justify-content: space-between;
+    align-self: center;
+    width: 100%;
+    gap: 10%;
+  .stepper-buttons{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 1rem;
+    .next{
+      color: var(--micro-apps-colour-white);
+      background-color: var(--micro-apps-teal-primary);
+      width: 10% !important;
+      margin-left: auto;
+    }
+    .previous{
+      color: var(--micro-apps-teal-primary);
+      background-color: var(--micro-apps-colour-white);
+      width: 10% !important;
+      border: 1px solid var(--micro-apps-teal-primary);
+    }
+  }
+  .submit-btn{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-top: 1%;
+    width: 100%;
+    .btn-btns{
+      color: var(--micro-apps-colour-white);
+      background-color: var(--micro-apps-teal-primary);
+    }
+  }
+}
+
+app-micro-apps-footer{
+  position: relative;
+  bottom: 0;
+}
+
+@media (min-width: 375px) and (max-width: 768px){
+  .main-content{
+    padding: 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .stepper-buttons{
+    width: 100%;
+  }
+  .next{
+    width: 35% !important;
+    margin-left: auto;
+  }
+  .previous{
+    width: 35% !important;
+    border: 1px solid var(--micro-apps-teal-primary);
+  }
+  .buttons-section .submit-btn {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-top: 3.5%;
+    width: 100%;
+  }  
+}

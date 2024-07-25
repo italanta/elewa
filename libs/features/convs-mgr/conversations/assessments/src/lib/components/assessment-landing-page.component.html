@@ -1,0 +1,24 @@
+  <div class="main-content" *ngIf="assessment">
+    <!-- Image Logo -->
+    <div class="img-section">
+      <img src="/assets/icons/content-image.png"/>
+    </div>
+  
+    <!-- Text Description -->
+    <div class="text-section">
+      <div class="p-text">
+        <div class="intro">
+          <p class="main-text">{{"MICROAPPS-SCREENS.CONTENT-SECTION.INTRODUCTION-TAG" | transloco}} 
+            <span class="teal-text">{{assessment.title}} </span>
+          </p>
+        </div>
+        <div class="intro">
+          <p class="main-text">{{assessment.description}}</p>
+        </div>
+          <p class="main-text">{{assessment.instructions}}</p>
+      </div>
+      <div class="btn-section">
+        <button class="teal-btn" [disabled]="!app" (click)="handleStart()">{{"MICROAPPS-SCREENS.BUTTON-TEXT" | transloco }}</button>
+      </div>
+    </div>
+  </div>

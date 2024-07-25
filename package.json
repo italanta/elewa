@@ -57,6 +57,7 @@
     "mime-types": "^2.1.35",
     "moment": "^2.29.4",
     "ngx-webstorage-service": "^5.0.0",
+    "puppeteer": "^16.2.0",
     "request-promise": "^4.2.6",
     "rxjs": "^7.8.1",
     "subsink": "^1.0.2",
@@ -105,6 +106,7 @@
     "eslint-plugin-cypress": "2.15.2",
     "jest": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
+    "jest-environment-node": "^29.4.1",
     "jest-preset-angular": "14.1.1",
     "jsonwebtoken": "^9.0.1",
     "ng-packagr": "18.0.0",
@@ -133,6 +135,7 @@
     "dotenv",
     "@google-cloud/tasks",
     "@google-cloud/scheduler",
-    "@google/generative-ai"
+    "@google/generative-ai",
+    "puppeteer"
   ]
 }

@@ -110,29 +110,32 @@ export class BotEnginePlay implements IBotEnginePlay
    */
   private async __getNextBlock(endUser: EndUser, currentPosition: Cursor | boolean, message?: Message)
   {
-
     this._tools.Logger.log(() => `[BotEnginePlay].__getNextBlock: Getting the next block... ${JSON.stringify(currentPosition)}`);
 
-    if (message && message.type === MessageTypes.TEXT) {
+    if (message && message.type === MessageTypes.TEXT) 
+    {
       const textMessage = message as TextMessage;
 
-      if (__isCommand(textMessage.text)) return this.chatCommandsManager.parseCommand(textMessage, endUser);
-
+      if (__isCommand(textMessage.text)) 
+        return this.chatCommandsManager.parseCommand(textMessage, endUser);
     }
 
-    if (!currentPosition) {
-
+    if (!currentPosition) 
+    {
       this._tools.Logger.log(() => `[BotEnginePlay].__getNextBlock: New conversation, getting the first block instead.`);
       // If the end user position does not exist then the conversation is new and we return the first block
       return this._processMessageService$.getFirstBlock(this._tools, this.orgId, this.defaultStory);
-    } else {
+    }
+    // I am in a running story. Find the next position from previous position + input
+    else {
       this._tools.Logger.log(() => `[BotEnginePlay].__getNextBlock: Continuing conversation, getting the next block.`);
 
-      const endUserPosition = currentPosition as Cursor;
-      const currentStory  = endUserPosition.position.storyId;
+      const endUserPosition = currentPosition as Cursor;        // Get previous block
+      const currentStory    = endUserPosition.position.storyId; // Get active story
 
       // If the end user exists, then we continue the story by returning the next block.
-      return this._processMessageService$.resolveNextBlock(message, endUserPosition, endUser, this.orgId, currentStory, this._tools);
+      return this._processMessageService$
+                 .resolveNextBlock(message, endUserPosition, endUser, this.orgId, currentStory, this._tools);
     }
   }
 
@@ -205,9 +208,10 @@ export class BotEnginePlay implements IBotEnginePlay
   private async __save(message: Message, endUserId: string) 
   {
       return this._msgService$.saveMessage(message, this.orgId, endUserId);
-  };
+  }
 
-  private async _saveEndUserMessage (message: Message, endUserId: string) {
+  private async _saveEndUserMessage (message: Message, endUserId: string) 
+  {
     if(!message) return;
 
     if(isFileMessage(message.type) && !message.url) {
@@ -218,8 +222,8 @@ export class BotEnginePlay implements IBotEnginePlay
     this.sideOperations.push(saveEndUserMessage);
   }
 
-  async __setFileMessageUrl(msg: FileMessage, endUserId: string) { 
-
+  async __setFileMessageUrl(msg: FileMessage, endUserId: string) 
+  { 
     msg.url = await this._processMediaService$.getFileURL(msg, endUserId, this._activeChannel) || null;
 
     return msg;

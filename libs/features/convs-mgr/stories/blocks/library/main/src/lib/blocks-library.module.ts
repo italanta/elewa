@@ -41,11 +41,13 @@ import { ConvsMgrEventBlockModule } from '@app/features/convs-mgr/stories/blocks
 import { ConvsMgrAssessmentBrickModule } from '@app/features/convs-mgr/stories/blocks/library/assessment-brick';
 import { ConvsMgrConditionalBlockModule } from '@app/features/convs-mgr/stories/blocks/library/conditional-block';
 import { ConvsMgrCMI5BlockModule } from '@app/private/features/convs-mgr/stories/blocks/library/cmi5-block';
+import { ConvsMgrAssessmentMicroAppModule } from '@app/features/convs-mgr/stories/blocks/library/assessment-micro-app';
 
 import { FileStateModule } from '@app/state/file';
 
 import { BlockInjectorService } from './block-injector.service';
 import { BlockComponent } from './components/block/block.component';
+
 
 @NgModule({
   imports: [
@@ -88,6 +90,7 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrAssessmentBrickModule,
     ConvsMgrConditionalBlockModule,
     ConvsMgrCMI5BlockModule,
+    ConvsMgrAssessmentMicroAppModule,
 
     FileStateModule,
   ],

@@ -1,10 +1,3 @@
-// Import your custom theme
-// Todo: Find a better way to import this.
-@use "@angular/material" as mat;
-@use "sass:map";
-@use '_theme';
-@use "sass:meta";
-
 //this dialog specific styles
 ::ng-deep .delete-dialog-container {
   height: auto;
