@@ -13,7 +13,7 @@ export interface AssessmentProgressUpdate extends MicroAppProgress {
 export interface AssessmentDetails {
   questionCount: number;
   maxScore: number;
-  continueCriteria?: {
+  moveOnCriteria?: {
     criteria: MoveOnCriteriaTypes;
     /** The minimum score in percentage that the learner must have in 
      *    order to continue with the flow

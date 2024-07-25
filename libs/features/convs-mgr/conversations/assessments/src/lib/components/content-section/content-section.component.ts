@@ -198,7 +198,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       assessmentDetails: {
         maxScore: this.assessment.maxScore,
         questionCount: this.totalSteps,
-        continueCriteria: this.assessment.configs?.moveOnCriteria,
+        moveOnCriteria: this.assessment.configs?.moveOnCriteria,
         title: this.assessment.title
       },
       hasSubmitted: isLastStep

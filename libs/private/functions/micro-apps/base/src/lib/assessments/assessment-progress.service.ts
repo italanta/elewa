@@ -92,7 +92,8 @@ export class AssessmentProgressService
       attempts,
       orgId: newProgress.orgId,
       endUserId: newProgress.endUserId,
-      title: newProgress.assessmentDetails.title
+      title: newProgress.assessmentDetails.title,
+      moveOnCriteria: newProgress.assessmentDetails.moveOnCriteria || null
     };
 
     return progress;
