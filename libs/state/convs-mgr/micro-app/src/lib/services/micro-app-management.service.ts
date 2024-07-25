@@ -38,7 +38,7 @@ export class MicroAppManagementService
   }
 
 /** Updating a user's progress when they are done with an assessment, on the redirect page */
-progressCallBack(app?: MicroAppStatus, milestones?: MicroAppProgress) : Observable<MicroAppProgress> | undefined{
+progressCallBack(app?: MicroAppStatus, milestones?: MicroAppProgress) : Observable<any> | undefined{
   if (!app || !app.config) return;
 
   const URL = `${this._env.microAppUrl}/${PROGRESS_MICROAPP_ENDPOINT}`;
