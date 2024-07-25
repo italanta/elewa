@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { combineLatest, map, Observable, take } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { Assessment, AssessmentQuestion, RetryType } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment, AssessmentOptionValue, AssessmentQuestion, RetryType } from '@app/model/convs-mgr/conversations/assessments';
 import { MicroAppStatus, MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
 import { AssessmentProgress, AssessmentProgressUpdate, AssessmentStatusTypes, QuestionResponse, QuestionResponseMap } from '@app/model/convs-mgr/micro-app/assessments';
 import { MicroAppManagementService } from '@app/state/convs-mgr/micro-app';
@@ -172,6 +172,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     const textAnswer = this.assessmentFormArray?.controls[i].get('textAnswer')?.value
 
     const question = this.assessmentQuestions.find((q)=> q.id === questionId);
+    const correctAnswer =  question?.options?.find((op)=> op.accuracy === AssessmentOptionValue.Correct)
 
     const selectedOption = question?.options?.find((op)=> op.id === selectedOptionId);
     
@@ -180,7 +181,8 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       questionId: questionId,
       answerId: selectedOption?.id,
       answerText: selectedOption ? selectedOption.text : textAnswer,
-      marks: parseInt(questionMarks)
+      marks: parseInt(questionMarks),
+      correctAnswer: correctAnswer?.id
     }
 
     questionResponses.push(questionResponse);
