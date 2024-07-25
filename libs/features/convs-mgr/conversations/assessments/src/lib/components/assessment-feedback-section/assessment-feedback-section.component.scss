@@ -27,6 +27,14 @@
     padding: 8px 2%;
   }
 }
+// Feedback text color styles
+.red-text {
+  color: red;
+}
+
+.teal-text {
+  color: var(--micro-apps-teal-primary);
+}
 
 // Buttons
 .btns {
