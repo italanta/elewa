@@ -1,5 +1,5 @@
 export function HasChanged(obj1: any, obj2: any): boolean {
-  if(obj1.payload && obj2.payload && obj1.payload.timestamp === obj2.payload.timestamp) return false;
+  if(obj1.payload.timestamp && obj1.payload.timestamp === obj2.payload.timestamp) return false;
 
   if (Object.keys(obj1).length !== Object.keys(obj2).length) return true;
 
