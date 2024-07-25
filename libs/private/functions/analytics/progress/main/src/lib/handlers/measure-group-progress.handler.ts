@@ -151,7 +151,8 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
     progressCompletion,
     coursesCompleted,
     coursesStarted,
-    courseProgress
+    courseProgress,
+    createdOn: date
   }
 
   const savedMilestone = await monitoringDataServ.createNewMilestone(milestone, milestoneId);
