@@ -1,5 +1,5 @@
 import { FormBuilder } from "@angular/forms";
-import { Assessment, RetryType } from "@app/model/convs-mgr/conversations/assessments";
+import { Assessment, MoveOnCriteriaTypes, RetryType } from "@app/model/convs-mgr/conversations/assessments";
 import { MicroAppTypes } from "@app/model/convs-mgr/micro-app/base";
 
 export function CREATE_EMPTY_ASSESSMENT_FORM(_fb: FormBuilder) {
@@ -46,6 +46,10 @@ export function DEFAULT_ASSESSMENT(): Assessment {
         }
       },
       questionsDisplay: 1,
+      moveOnCriteria: {
+        criteria: MoveOnCriteriaTypes.OnPassMark,
+        passMark: 0
+      },
     },
     type: MicroAppTypes.Assessment, 
     callBackUrl: '', 

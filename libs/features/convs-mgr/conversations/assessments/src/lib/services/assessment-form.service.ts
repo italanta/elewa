@@ -27,6 +27,10 @@ export class AssessmentFormService {
             minScore: [assessment.configs?.retryConfig?.onScore?.minScore ?? ''],
             userAttempts: [assessment.configs?.retryConfig?.onScore?.count ?? ''],
 
+          }),
+          moveOnCriteria: this._formBuilder.group({
+            criteria: [assessment.configs?.moveOnCriteria?.criteria ?? ''],
+            passMark: [assessment.configs?.moveOnCriteria?.passMark ?? '']
           })
         }),
         questionsDisplay: [assessment.configs?.questionsDisplay ?? ''],

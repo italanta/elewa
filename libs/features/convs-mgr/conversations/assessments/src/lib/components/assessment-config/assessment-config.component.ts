@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
-import { Assessment, FeedbackType, QuestionDisplayed, RetryType } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment, FeedbackType, MoveOnCriteriaTypes, QuestionDisplayed, RetryType } from '@app/model/convs-mgr/conversations/assessments';
 
 @Component({
   selector: 'app-assessment-config',
@@ -28,6 +28,9 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
   scoreRetry = RetryType.OnScore
   singleDisplay = QuestionDisplayed.Single
   multipleDisplay = QuestionDisplayed.Multiple
+  moveOnPass: MoveOnCriteriaTypes.OnPassMark
+  moveOnComplete: MoveOnCriteriaTypes.OnComplete
+  private _sbS = new SubSink()
 
   ngOnInit(): void {
     this.retry = this.assessmentFormGroup?.get('configs.canRetry')?.value;
