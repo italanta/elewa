@@ -126,10 +126,8 @@ export class AssessmentFeedbackSectionComponent implements OnInit
   handleMarksFeedback() 
   {
     if(this.assessmentProgress){
-      console.log(this.assessmentProgress)
       const currentProgress = this.assessmentProgress.attempts[this.assessmentProgress.attemptCount];
-      console.log(this.assessmentProgress.attemptCount)
-      console.log(this.currentProgress)
+
       this.currentProgress = currentProgress as Attempt
       // const questionResponses = currentProgress.questionResponses   
       this.showFeedback = true;
