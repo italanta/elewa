@@ -2,19 +2,17 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
  
-import { Assessment, AssessmentOptionValue, AssessmentQuestionOptions, FeedbackCondition, RetryType } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment, AssessmentQuestionOptions, RetryType } from '@app/model/convs-mgr/conversations/assessments';
 import { MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
-import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
-
-import { SetAssessmentScoreService } from '../../services/set-pass-status.service';
-import { AssessmentProgress, AssessmentStatusTypes } from '@app/model/convs-mgr/micro-app/assessments';
+import { AssessmentProgress, AssessmentStatusTypes, Attempt } from '@app/model/convs-mgr/micro-app/assessments';
  
 @Component({
   selector: 'app-assessment-feedback-section',
   templateUrl: './assessment-feedback-section.component.html',
   styleUrls: ['./assessment-feedback-section.component.scss'],
 })
-export class AssessmentFeedbackSectionComponent implements OnInit {
+export class AssessmentFeedbackSectionComponent implements OnInit 
+{
   /** Assessment that's underway */
   @Input() assessment: Assessment;
   /** Assessments form group */
@@ -26,16 +24,20 @@ export class AssessmentFeedbackSectionComponent implements OnInit {
   /** Display scores feedback */
   @Input() app: MicroAppStatus;
 
+  /** Number of times a learner can do an assessment */
   allowedAttempts = 0;
   attemptCount: number;
-
+  /** Conditions for retrial */
   retryType: RetryType;
+  /** Final result of an assessment */
   outcome: AssessmentStatusTypes;
 
+  /** Show questions and their answers */
   showFeedback = false;
-  canRetry: boolean
-  marksScored = 0;
-
+  /** Track if retry is allowed */
+  canRetry: boolean;
+  currentProgress: Attempt;
+  /** Different statuses to display on the results page (view modes) */
   resultsMode = {
     failedAndNoRetries: false,
     failedAndHasRetries: false,
@@ -44,8 +46,6 @@ export class AssessmentFeedbackSectionComponent implements OnInit {
   }
 
   constructor(
-    private _assessmentScoreService: SetAssessmentScoreService,
-    private _assessmentService$: AssessmentService,
     private _router: Router
   ) {}
  
@@ -104,7 +104,7 @@ export class AssessmentFeedbackSectionComponent implements OnInit {
         // Show page 6, with Retry Now & Retry Later Buttons + score(to be designed later)
       }
 
-      this.handleFeedback();
+      this.handleMarksFeedback();
     }
   }
 
@@ -123,17 +123,16 @@ export class AssessmentFeedbackSectionComponent implements OnInit {
    * Fetch feedback on whether an answer is wrong or right
    * Update score percentage
    */
-  handleFeedback() {
-    const maxScore = this.assessment.maxScore;
-    const obtainedMarks = this.calculateScore();
-    // Score a learner in percentage
-    const percentage = Math.round((obtainedMarks / maxScore) * 100);
-    console.log(obtainedMarks)
-    this.marksScored = percentage
-    this._assessmentScoreService.setAssessmentScore(percentage);
-    this.showFeedback = true
+  handleMarksFeedback() 
+  {
+    if(this.assessmentProgress){
+      const currentProgress = this.assessmentProgress.attempts[this.assessmentProgress.attemptCount];
+      this.currentProgress = currentProgress as Attempt
+      // const questionResponses = currentProgress.questionResponses   
+      this.showFeedback = true;
+    }
   }
- 
+  
   /** Method to get feedback for a selected option */
   getOptionFeedback(question: AbstractControl): string {
     const selectedOption = question.get('selectedOption')?.value;
@@ -155,38 +154,6 @@ export class AssessmentFeedbackSectionComponent implements OnInit {
     const isAccurate = option.accuracy === 1; 
   
     return isSelected && !isAccurate;
-  }
-
-  /** Calculate obtained marks
-   *  Get feedback if selected option is correct
-   *  Return total scores
-   */
-  private calculateScore(): number {
-    let obtainedMarks = 0;
-    for (let i = 0; i < this.assessmentFormArray.length; i++) {
-      const question = this.assessmentFormArray.at(i) as FormGroup;
-      const selectedOption: string = question.get('selectedOption')?.value;
-      const options = question.get('options')?.value;
-      const selectedOptionDetails = options.find((option: AssessmentQuestionOptions) => option.id === selectedOption);
-  
-      if (selectedOptionDetails) {
-        this.setFeedback(question, selectedOptionDetails);
-  
-        if (selectedOptionDetails.accuracy === AssessmentOptionValue.Correct) {  // Only award marks for correct answers
-          obtainedMarks += question.get('marks')?.value;
-          console.log(obtainedMarks)
-        }else if(selectedOptionDetails.accuracy === AssessmentOptionValue.FiftyFifty){
-          obtainedMarks += question.get('marks')?.value / 2
-        }
-      }
-    }
-    return obtainedMarks;
-  }
-
-  private setFeedback(question: FormGroup, selectedOptionDetails: AssessmentQuestionOptions): void {
-    const feedback = selectedOptionDetails.feedback;
-    const condition = selectedOptionDetails.accuracy === AssessmentOptionValue.Correct ? FeedbackCondition.Correct : FeedbackCondition.Wrong;
-    question.get('feedback')?.setValue({ message: feedback, condition: condition });
   }
 
   retryAssessment() {

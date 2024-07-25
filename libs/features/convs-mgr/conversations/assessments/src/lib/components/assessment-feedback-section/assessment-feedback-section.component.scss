@@ -5,7 +5,10 @@
   align-items: center;
   padding: 2% 2%;
 }
-
+.question-details{
+  display: flex;
+  justify-content: space-between;
+}
 // Text section
 .feedback-section {
   text-align: center;
@@ -23,6 +26,14 @@
     width: 100%;
     padding: 8px 2%;
   }
+}
+// Feedback text color styles
+.red-text {
+  color: red;
+}
+
+.teal-text {
+  color: var(--micro-apps-teal-primary);
 }
 
 // Buttons
