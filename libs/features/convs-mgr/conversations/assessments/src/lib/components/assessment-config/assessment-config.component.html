@@ -41,6 +41,27 @@
                 </div>
             </div>
         </div>
+        <!-- Story flow configs -->
+        <div class="assessment-config">
+            <div class="enable-retrial">
+                <h5>{{'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.HEADER' | transloco}}</h5> 
+            </div>
+            <span> {{'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.DETAIL-TEXT' | transloco}}</span>
+            <div class="retrial-allowed">
+                <hr />
+                <mat-radio-group formControlName="" fxLayout="column" fxLayoutAlign="start">
+                    <mat-radio-button [value]="">{{'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.UPON-PASSING' |transloco}}</mat-radio-button>
+                        <div class="retry-configs">
+                            <div class="default-config">
+                                <span>{{'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.PASS-SCORE' | transloco}}</span>
+                                <input formControlName="" type="number" min="0" max="100"/>
+                            </div>
+                        </div>    
+                    <mat-radio-button [value]="">{{'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.UPON-COMPLETION' |transloco}}</mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+        <!-- Retry configs -->
         <div class="assessment-config">
             <div class="enable-retrial">
                 <h5>{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.ENABLE-RETRIAL' | transloco}}</h5> 

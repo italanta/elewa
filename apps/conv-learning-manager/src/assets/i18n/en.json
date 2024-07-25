@@ -662,6 +662,13 @@
             "TRIAL-NOS": "Number of trials"
           }
         }
+      },
+      "STORY-FLOW": {
+        "HEADER": "Story flow",
+        "DETAIL-TEXT": "Allow users to continue with the story flow",
+        "UPON-PASSING": "Upon passing the assessment",
+        "PASS-SCORE": "Pass score",
+        "UPON-COMPLETION": "Upon completion of the assessment"
       }
     }
   },
