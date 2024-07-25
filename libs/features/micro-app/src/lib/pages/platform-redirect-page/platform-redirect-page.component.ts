@@ -21,7 +21,7 @@ export class PlatformRedirectPageComponent implements OnInit, OnDestroy
   /** Phone number of a user */
   endUserId: string;
   /** countdown timer to redirect to platform*/
-  COUNTDOWN = 10;
+  COUNTDOWN = 13;
 
   private _sbS = new SubSink();
 
