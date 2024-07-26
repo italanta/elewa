@@ -33,5 +33,8 @@ export interface AssessmentMicroApp extends MicroApp
   passCriteria: PassCriteriaTypes;
   /** Progress URL for the assessment */
   progressUrl: string;
+
+  /** Storage Url of the uploaded pdf */
+  pdf?: { name: string, url: string};
 }
 
