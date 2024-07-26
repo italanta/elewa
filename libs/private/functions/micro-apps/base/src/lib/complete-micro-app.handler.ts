@@ -48,9 +48,7 @@ export class CompleteMicroAppHandler extends FunctionHandler<InitMicroAppCmd, In
       if(app.config.type === MicroAppTypes.Assessment) {
         const assessmentProgressSrv = new AssessmentProgressService(tools);
 
-        const progress = await assessmentProgressSrv.getCurrentProgress(app.config.orgId, app.endUserId, app.appId);
-
-        await assessmentProgressSrv.sendPDF(progress, tools, channel);
+        await assessmentProgressSrv.sendPDF(app, tools, channel.n);
       }
 
       const continueGoomzaFlow = new EngineBotManager(tools, tools.Logger, activeChannel);
