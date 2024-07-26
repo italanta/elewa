@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "strictPropertyInitialization": false,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@app/admin/config/environment-config": [
         "libs/admin/config/environment-config/src/index.ts"
