@@ -35,7 +35,7 @@ export class AssessmentFeedbackPDFService {
         return of(null)
       }
     }), switchMap((pdf)=> {
-          const pdfPath =`orgs/${app.config.orgId}/end-users/${app.endUserId}/assessments/${fileName}`;
+          const pdfPath =`orgs/${app.config.orgId}/end-users/${app.endUserId}/assessments/feedback-pdfs/${Date.now()}.pdf`;
           if(pdf) {
             return this.uploadFile(pdf, pdfPath)
           } else {
@@ -70,6 +70,7 @@ export class AssessmentFeedbackPDFService {
         scale: 2,
         logging: true,
         dpi: 96,
+        useCORS: true,
         letterRendering: true,
       },
       jsPDF: {
