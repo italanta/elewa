@@ -1,9 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { Observable, pipe, take } from 'rxjs';
-import { SubSink } from 'subsink';
-
-import { SetAssessmentScoreService } from '../../services/set-pass-status.service';
 import { AssessmentProgress } from '@app/model/convs-mgr/micro-app/assessments';
 
 @Component({

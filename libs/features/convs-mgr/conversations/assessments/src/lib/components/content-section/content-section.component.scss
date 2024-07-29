@@ -81,22 +81,45 @@ app-micro-apps-footer{
     justify-content: space-between;
     align-items: center;
   }
-  .stepper-buttons{
-    width: 100%;
-  }
-  .next{
-    width: 35% !important;
-    margin-left: auto;
-  }
-  .previous{
-    width: 35% !important;
-    border: 1px solid var(--micro-apps-teal-primary);
-  }
-  .buttons-section .submit-btn {
+  
+  .buttons-section{
     display: flex;
-    justify-content: end;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding-top: 3.5%;
-    width: 100%;
-  }  
+    width: 90%;
+    margin-left: 2%;
+    .stepper-buttons{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      .next{
+        color: var(--micro-apps-colour-white);
+        background-color: var(--micro-apps-teal-primary);
+        width: 100% !important;
+      }
+      .previous{
+        color: var(--micro-apps-teal-primary);
+        background-color: var(--micro-apps-colour-white);
+        width: 100% !important;
+        border: 1px solid var(--micro-apps-teal-primary);
+      }
+    }  
+    .submit-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 3.5%;
+      width: 100%;
+      .btn-btns{
+        color: var(--micro-apps-colour-white);
+        background-color: var(--micro-apps-teal-primary);
+        width: 100%;
+      }
+    }  
+  }
+  
 }
