@@ -1,0 +1,261 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2%;
+  align-items: center;
+  padding: 2% 2%;
+}
+
+.draw-wrapper {
+  position: absolute !important;
+  left: -9999px;
+  top: -9999px;
+  overflow: hidden;
+}
+
+.custom-spinner {
+  position: relative;
+  align-self: center;
+  border: 2px solid #f3f3f3; /* Light grey */
+  border-top: 2px solid transparent; /* Blue */
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.question-header{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+// Text section
+.feedback-section {
+  text-align: center;
+  min-height: 100%;
+  .image {
+    width: 80%;
+    height: 80%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+.long-assessment {
+  width: 100%;
+  padding: 8px 2%;
+}
+// Feedback text color styles
+.red-text {
+  color: red;
+}
+
+.teal-text {
+  color: var(--micro-apps-teal-primary);
+}
+
+.question-feedback{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.5rem;
+
+  .option-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0.1rem 0;
+    .custom-radio {
+      appearance: none;
+      border: 2px solid #ccc;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      position: relative;
+      margin-right: 8px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .custom-radio.red-radio:checked{
+      border-color: red;
+    }
+    
+    .custom-radio:checked {
+      border-color: var(--micro-apps-teal-primary);
+    }
+
+    .custom-radio.red-radio:checked::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background-color:red;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  
+    
+    .custom-radio:checked::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background-color:var(--micro-apps-teal-primary);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .radio-text{
+    .feedback-text{
+      margin: 0;
+      padding-left: 0.5rem;
+      font-size: smaller;
+    }
+  }
+
+}
+
+// Buttons
+.btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+
+  .__backToPlatform {
+    color: #fff;
+    background-color: #1F7A8C;
+    width: 100%;
+  }
+  .__retryAssessment {
+    color: var(--micro-apps-colour-white);
+    background-color: var(--micro-apps-teal-primary);
+    width: 100%;
+    border: 1px solid var(--micro-apps-teal-primary);
+  }
+  .__retryLater{
+    color: #1F7A8C;
+    background-color: #fff;
+    width: 100%;
+    border: 1px solid #1F7A8C;
+  }
+}
+
+.question-card {
+  margin: 1rem 0;
+  width: 100%;
+  color: var(--micro-apps-cards-border);
+  width: 100%;
+  background-color: var(--micro-apps-colour-white);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+
+  .question-header {
+    border-bottom: 1px solid var(--micro-apps-border-bottom);
+    padding-bottom: 8px;
+  }
+  .question-content {
+    padding-top: 8px;
+    .column-radios {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+/** Media Queries for responsive designs */
+/* Extra Small Devices (XS) */
+@media (max-width: 575px) {
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2% 2%;
+
+    .feedback-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .fail-feedback {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .img-section {
+          width: 80%;
+          height: 80%;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+  .long-assessment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+/* Medium Devices (MD) */
+@media (min-width: 576px) and (max-width: 768px) {
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 2%;
+
+    .image {
+      width: 50%;
+      height: 70%;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .long-assessment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+// Changing the default style of mat-radio-button to match Goomza colours
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+  border-color: var(--micro-apps-teal-primary);
+}
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+  border-color: var(--micro-apps-teal-primary);
+}
+:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+  border-color: var(--micro-apps-teal-primary);
+}
+:host ::ng-deep .mat-mdc-radio-button.wrong-answer .mdc-radio__background .mdc-radio__outer-circle,
+:host ::ng-deep .mat-mdc-radio-button.wrong-answer .mdc-radio__background .mdc-radio__inner-circle {
+  border-color: red !important;
+}
+

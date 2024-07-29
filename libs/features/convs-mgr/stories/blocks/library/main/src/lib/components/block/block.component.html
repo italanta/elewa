@@ -145,5 +145,10 @@
             <app-cmi5-block [id]="id" [block]="block" [CMI5BlockForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">     
             </app-cmi5-block>
         </div>
+
+        <div *ngSwitchCase="assessmentMicroAppType">
+            <app-assessment-micro-app-block [id]="id" [block]="block" [assessmentMicroAppForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">     
+            </app-assessment-micro-app-block>
+        </div>
     </div>
 </mat-card>

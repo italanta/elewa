@@ -18,18 +18,18 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
 
   @Input() previewMode: boolean;
   /** If a user can retry an assignment  */
-  retry: boolean
+  retry: boolean;
+
+  private _sbS = new SubSink()
 
   /** Radio control values */
   immediateFeedback = FeedbackType.Immediately;
   onEndFeedback = FeedbackType.OnEnd;
   noFeedback = FeedbackType.Never;
-  defaultRetry = RetryType.Default;
-  scoreRetry = RetryType.OnScore;
-  singleDisplay = QuestionDisplayed.Single;
-  multipleDisplay = QuestionDisplayed.Multiple;
-
-  private _sbS = new SubSink()
+  retryOnCount = RetryType.onCount
+  scoreRetry = RetryType.OnScore
+  singleDisplay = QuestionDisplayed.Single
+  multipleDisplay = QuestionDisplayed.Multiple
 
   ngOnInit(): void {
     this.retry = this.assessmentFormGroup?.get('configs.canRetry')?.value;
@@ -59,7 +59,7 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
   }
 
   get isDefaultRetrySelected(): boolean {
-    return this.assessmentFormGroup?.get('configs.retryType')?.value === this.defaultRetry;
+    return this.assessmentFormGroup?.get('configs.retryType')?.value === this.retryOnCount;
   }
 
   get isScoreRetrySelected(): boolean {

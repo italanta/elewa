@@ -1,0 +1,26 @@
+{
+  "name": "model-convs-mgr-micro-app-assessments",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/model/convs-mgr/micro-app/assessments/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/model/convs-mgr/micro-app/assessments/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/model/convs-mgr/micro-app/assessments"],
+      "options": {
+        "jestConfig": "libs/model/convs-mgr/micro-app/assessments/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

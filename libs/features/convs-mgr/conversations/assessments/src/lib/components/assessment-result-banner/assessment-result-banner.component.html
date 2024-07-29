@@ -1,0 +1,36 @@
+<ng-container *ngIf="result">
+  <!-- Banner to display when a learner has passed an assessment -->
+  <ng-container *ngIf="resultsMode.passedAndNoRetries || resultsMode.passedAndHasRetries">
+    <div class="content-wrapper">
+      <div class="img-text">
+        <div class="image">
+          <img  src="/assets/icons/happy_news.svg"/>
+        </div>
+      </div>
+  
+      <div class="marks-text">
+        <span>{{"ASSESSMENT-PAGE.GRADE-DISPLAY.PASS-MESSAGE.PASS-TEXT" | transloco}} </span>
+        <div class="marks-text">
+          <span>{{"ASSESSMENT-PAGE.GRADE-DISPLAY.PASS-MESSAGE.GRADE-TEXT" | transloco}}: {{score}}% </span>
+          <!-- <span>{{"ASSESSMENT-PAGE.GRADE-DISPLAY.PASS-MESSAGE.SCORE-TEXT" | transloco}}: {{finalScore}}%</span> -->
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  
+  <!-- Banner to display when a learner has failed an assessment -->
+  <ng-container *ngIf="resultsMode.failedAndNoRetries || resultsMode.failedAndHasRetries">
+    <div class="fail-content-wrapper">
+      <div class="img-text">
+        <div class="image">
+          <img  src="/assets/icons/assessment-failed-feedback-img.svg"/>
+        </div>
+      </div>
+  
+      <div class="marks-text">
+        <span>{{"ASSESSMENT-PAGE.GRADE-DISPLAY.FAIL-MESSAGE.FAIL-TEXT" | transloco}} </span>
+        <span>{{"ASSESSMENT-PAGE.GRADE-DISPLAY.PASS-MESSAGE.GRADE-TEXT" | transloco}}: {{score}}% </span>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

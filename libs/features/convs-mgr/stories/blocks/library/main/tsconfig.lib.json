@@ -8,5 +8,5 @@
     "types": []
   },
   "exclude": ["src/test-setup.ts", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../micro-apps-base/src/lib/models/assessment-microapp-form.model.ts", "../micro-apps-base/src/lib/models/general-microapp-form.model.ts"]
 }

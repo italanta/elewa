@@ -1,0 +1,16 @@
+<app-clm-micro-app-page>
+  <div class="container">
+    <ng-container *ngIf="isInitializing; else content">
+      <!-- Loader Element -->
+      <div class="mat-spinner-div">
+        <mat-spinner [diameter]="40"></mat-spinner>
+      </div>
+    </ng-container>
+    <ng-template #content>
+      <ng-container *ngIf="appType === 5"> 
+        <app-assessment-landing-page [app]="app"></app-assessment-landing-page>
+      </ng-container>
+    </ng-template>
+  </div>
+</app-clm-micro-app-page>
+

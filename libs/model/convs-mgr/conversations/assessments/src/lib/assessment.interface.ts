@@ -1,17 +1,22 @@
+import { MicroApp } from "@app/model/convs-mgr/micro-app/base";
 import { Story } from "@app/model/convs-mgr/stories/main";
 
-export interface Assessment extends Story {
+import { MoveOnCriteriaTypes } from "./continue-flow-criteria-types";
+
+export interface Assessment extends Story, MicroApp {
     title: string,
     instructions: string[],
     description: string,
     orgId: string,
-    configs?: AssessmentConfiguration,
+    configs: AssessmentConfiguration,
     scoreCategories?: ScoreCategory[],
 
     questionsOrder? : string[],
     /** Differentiate between published assessment and non published ones */
     isPublished?: boolean
     metrics?: AssessmentMetrics
+    /** The total marks of all questions in the assessment */
+    maxScore: number;
 }
 
 export interface AssessmentMetrics {
@@ -19,15 +24,28 @@ export interface AssessmentMetrics {
     completedRes?: number
 }
 
+export interface RetryConfig {
+    type: RetryType;
+    onCount?: number;
+    /** User attempts based on scores */
+    onScore?: ScoreAttempt
+}
+
 export interface AssessmentConfiguration{
     feedback: FeedbackType,
-    userAttempts?: number,
-    /** Is a user allowed to retake an assessment */
-    canRetry: boolean
-    retryType?: RetryType,
+    retryConfig?: RetryConfig;
     questionsDisplay: QuestionDisplayed,
-    /** User attempts based on scores */
-    scoreAttempts?: ScoreAttempType,
+
+    /** The minimum condition required for the user to continue
+     *    with the flow when attempting an assessment
+     */
+    moveOnCriteria?: {
+        criteria: MoveOnCriteriaTypes;
+        /** The minimum score in percentage that the learner must have in 
+         *    order to continue with the flow
+         */
+        passMark?: number;
+    }
 }
 
 export interface ScoreCategory{
@@ -51,7 +69,7 @@ export enum CategoryType{
 
 /** Mode of retry allowed, if any */
 export enum RetryType {
-    Default = 1,
+    onCount = 1,
     OnScore = 2
 }
 
@@ -61,7 +79,7 @@ export enum QuestionDisplayed {
     Multiple = 2
 }
 
-export interface ScoreAttempType {
+export interface ScoreAttempt {
     minScore: number, 
-    userAttempts: number,
+    count: number,
 }
