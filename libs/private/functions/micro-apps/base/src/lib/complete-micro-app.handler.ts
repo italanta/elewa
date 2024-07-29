@@ -33,6 +33,11 @@ export class CompleteMicroAppHandler extends FunctionHandler<InitMicroAppCmd, In
 
       // Complete the micro-app
       app.finishedOn = Date.now();
+      
+      if(app.status === MicroAppStatusTypes.Completed) {
+        return { success: true, app };
+      }
+
       app.status = MicroAppStatusTypes.Completed;
       await appRegistrationRepo$.update(app);
 
