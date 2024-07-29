@@ -40,7 +40,9 @@ jobs:
             node-version: ${{ matrix.nodeversion }}
 
       - name: Create environments folder
-        run: mkdir apps/conv-learning-manager/src/environments
+        run: | 
+            mkdir apps/conv-learning-manager/src/environments
+            mkdir apps/conv-lm-micro-app/src/environments
 
       - name: Create environment file from secrets
         shell: bash
