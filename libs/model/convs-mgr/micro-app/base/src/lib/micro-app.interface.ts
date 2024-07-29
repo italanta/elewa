@@ -25,7 +25,7 @@ export interface MicroApp
 
   orgLogoUrl?: string;
 }
-
+ 
 /**
  * Specifications for assessment-specific micro-apps
  */
