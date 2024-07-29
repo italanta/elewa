@@ -54,7 +54,7 @@
                   'red-text': currentProgress.questionResponses[question.get('id')?.value].score !== currentProgress.questionResponses[question.get('id')?.value].marks,
                   'teal-text': currentProgress.questionResponses[question.get('id')?.value].score === currentProgress.questionResponses[question.get('id')?.value].marks
                 }">
-              {{currentProgress.questionResponses[question.get('id')?.value].score}} / {{currentProgress.questionResponses[question.get('id')?.value].marks}} 
+              {{currentProgress.questionResponses[question.get('id')?.value].score}}/{{currentProgress.questionResponses[question.get('id')?.value].marks}} 
             </p>
               </div>
             </mat-card-header>
@@ -67,7 +67,7 @@
                     formControlName="selectedOption"
                     [checked]="question.get('selectedOption')?.value === option.id"
                     class="custom-radio"
-                  />
+                    [ngClass]="{'red-radio': option.accuracy !== 1}">
                   <label [for]="'option-' + option.id">{{ option.text }}</label>
                 </div>
                 <div class="radio-text">
