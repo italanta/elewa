@@ -14,15 +14,17 @@ export function CREATE_EMPTY_ASSESSMENT_FORM(_fb: FormBuilder) {
     // configs
     configs: _fb.group({
       feedback: [''],
-      userAttempts: [''],
-      retryType: [''],
-      questionsDisplay: [''],
-      scoreAttempts: _fb.group({
-        minScore: [''],
-        userAttempts: [''],
+      retryConfig: _fb.group({
+        type: [RetryType.onCount],
+        onCount: [0],
+        onScore: _fb.group({
+          count: [0],
+          minScore: [0]
+        })
       }),
+
       moveOnCriteria: _fb.group({
-        criteria: [''],
+        criteria: [MoveOnCriteriaTypes.OnComplete],
         passMark: ['']
       }),
     }),
