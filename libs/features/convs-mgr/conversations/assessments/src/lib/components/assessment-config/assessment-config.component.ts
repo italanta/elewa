@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
@@ -33,38 +33,31 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
   private _sbS = new SubSink()
 
   ngOnInit(): void {
-    this.retry = this.assessmentFormGroup?.get('configs.canRetry')?.value;
-    this._sbS.sink =  this.assessmentFormGroup?.get('configs.canRetry')?.valueChanges.subscribe((value) => {
-      this.retry = value;
-
-      if (!value) {
-        this.clearControls();
-      }
-    });
+    this._sbS.sink = this.moveOnPassControl.valueChanges.subscribe();
   }
   
+  get moveOnPassControl() {
+    return this.assessmentFormGroup.get('configs.moveOnCriteria.criteria') as FormControl;
+  }
   /** Turn retry on or off.  */
   toggleRetry(): void {
-    const canRetryControl = this.assessmentFormGroup.get('configs.canRetry');
-    if (canRetryControl) {
-     this.retry = canRetryControl.value;
-    }
+    this.retry = !this.retry
   }
 
   /** If a user disables retry, clear out previous retry configurations */
   clearControls(): void {
-    this.assessmentFormGroup.get('configs.retryType')?.setValue(null);
-    this.assessmentFormGroup.get('configs.userAttempts')?.setValue(null);
-    this.assessmentFormGroup.get('configs.scoreAttempts.minScore')?.setValue(null);
-    this.assessmentFormGroup.get('configs.scoreAttempts.userAttempts')?.setValue(null);
+    this.assessmentFormGroup.get('configs.retryConfig.type')?.setValue(null);
+    this.assessmentFormGroup.get('configs.retryConfig.onCount')?.setValue(null);
+    this.assessmentFormGroup.get('configs.retryConfig.onScore.minScore')?.setValue(null);
+    this.assessmentFormGroup.get('configs.retryConfig.onScore.count')?.setValue(null);
   }
 
   get isDefaultRetrySelected(): boolean {
-    return this.assessmentFormGroup?.get('configs.retryType')?.value === this.retryOnCount;
+    return this.assessmentFormGroup?.get('configs.retryConfig.type')?.value === this.retryOnCount;
   }
 
   get isScoreRetrySelected(): boolean {
-    return this.assessmentFormGroup?.get('configs.retryType')?.value === this.scoreRetry;
+    return this.assessmentFormGroup?.get('configs.retryConfig.type')?.value === this.scoreRetry;
   }
 
   ngOnDestroy(): void {
