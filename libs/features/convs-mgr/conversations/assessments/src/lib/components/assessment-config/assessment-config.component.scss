@@ -26,7 +26,11 @@
 	}
 
 	.on-pass{
-		padding-left: 2rem;
+		display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-left: 5.5%;
+    gap: 2rem;
 		input{
 			padding-left: 4px;
 		}
@@ -39,7 +43,7 @@
 				display: flex;
 				justify-content: start;
 				align-items: center;
-				padding-left: 8%;
+				padding-left: 5.5%;
 				gap: 15%;
 
 				input{
