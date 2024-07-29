@@ -4,15 +4,15 @@ import { HandlerTools } from "@iote/cqrs";
 
 import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { Cursor, EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
-import { ChatStatus, EndUser } from "@app/model/convs-mgr/conversations/chats";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 import { InteractiveURLButtonBlock, MicroAppBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { MicroApp, MicroAppStatus, MicroAppStatusTypes } from "@app/model/convs-mgr/micro-app/base";
+import { Organisation } from '@app/model/organisation';
 
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
-import { EndUserDataService } from "../../data-services/end-user.service";
 import { ActiveChannel } from '../../../model/active-channel.service';
 
 export class MicroAppBlockService implements IProcessOperationBlock
@@ -55,10 +55,14 @@ export class MicroAppBlockService implements IProcessOperationBlock
     const nextCursor = updatedCursor;
     this.tools.Logger.log(() => `👉🏾 The next cursor's value is ${JSON.stringify(nextCursor)}`);
 
+    // Get organisation logo to be used within the micro-app
+    const logoUrl = await this._getLogoUrl(orgId);
+
     const config: MicroApp = {
       type: storyBlock.appType,
       channel: this._activeChannel.channel,
-      orgId, pos: newPosition
+      orgId, pos: newPosition,
+      orgLogoUrl: logoUrl || ''
     } 
 
     // Register the app onto firestore
@@ -112,12 +116,10 @@ export class MicroAppBlockService implements IProcessOperationBlock
     return callToActionURL;
   }
 
-  private _updateBotStatus(orgId: string, endUser: EndUser)
-  {
-    const endUserService = new EndUserDataService(this.tools, orgId);
-    endUser.status = ChatStatus.MicroApp;
+  private async _getLogoUrl(orgId: string) {
+    const orgRepo = this.tools.getRepository<Organisation>(`orgs`);
+    const org = await orgRepo.getDocumentById(orgId);
 
-    return endUserService.updateEndUser(endUser);
+    return org.logoUrl;
   }
-
 } 

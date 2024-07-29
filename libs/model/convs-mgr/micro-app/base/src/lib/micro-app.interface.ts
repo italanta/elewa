@@ -22,6 +22,8 @@ export interface MicroApp
 
   /** Position of where the micro-app was initiated */
   pos: EndUserPosition;
+
+  orgLogoUrl?: string;
 }
 
 /**

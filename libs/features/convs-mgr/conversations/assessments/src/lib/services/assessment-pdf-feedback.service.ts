@@ -32,7 +32,7 @@ export class AssessmentFeedbackPDFService {
 
     const headerDetails = {
       assessmentTitle: progress.title || '',
-      logoURL: app.config.channel.logoUrl || '',
+      logoURL: app.config.orgLogoUrl || '',
       learnerName: app.endUserName
     };
 
