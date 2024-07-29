@@ -1,13 +1,12 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 
-import { combineLatest, map, Observable, take } from 'rxjs';
+import { combineLatest, map, take } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { Assessment, AssessmentOptionValue, AssessmentQuestion, RetryType } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment, AssessmentOptionValue, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { MicroAppStatus, MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
-import { AssessmentProgress, AssessmentProgressUpdate, AssessmentStatusTypes, QuestionResponse, QuestionResponseMap } from '@app/model/convs-mgr/micro-app/assessments';
+import { AssessmentProgress, AssessmentProgressUpdate, QuestionResponse, QuestionResponseMap } from '@app/model/convs-mgr/micro-app/assessments';
 import { MicroAppManagementService } from '@app/state/convs-mgr/micro-app';
 import { AssessmentQuestionStore, AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
 
@@ -15,7 +14,6 @@ import { __CalculateProgress } from '../../utils/calculate-progress.util';
 import { AssessmentPageViewMode } from '../../model/view-mode.enum';
 
 import { MicroAppAssessmentQuestionFormService } from '../../services/microapp-assessment-questions-form.service';
-import { AppViewService } from '../../services/content-view-mode.service';
 import { StepService } from '../../services/set-steps.service';
 
 @Component({
@@ -59,13 +57,11 @@ export class ContentSectionComponent implements OnInit, OnDestroy
 
   private _sBS = new SubSink()
   constructor ( private _assessFormService: MicroAppAssessmentQuestionFormService,
-                private _pageViewservice: AppViewService,
                 private _fb: FormBuilder,
                 private stepService: StepService,
                 private _microAppService: MicroAppManagementService,
                 private _assessmentQuestionStore: AssessmentQuestionStore,
                 private _assessmentStore$: AssessmentsStore,
-                private _router: Router
   ){ }
 
   ngOnInit() {

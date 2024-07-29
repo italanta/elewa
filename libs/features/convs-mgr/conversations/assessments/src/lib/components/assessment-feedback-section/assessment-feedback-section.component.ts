@@ -1,11 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
- 
-import { Assessment, AssessmentQuestionOptions, RetryType } from '@app/model/convs-mgr/conversations/assessments';
+
+import { Assessment, AssessmentQuestion, AssessmentQuestionOptions, RetryType } from '@app/model/convs-mgr/conversations/assessments';
 import { MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
 import { AssessmentProgress, AssessmentStatusTypes, Attempt } from '@app/model/convs-mgr/micro-app/assessments';
- 
+
+import { AssessmentFeedbackPDFService } from '../../services/assessment-pdf-feedback.service';
+
 @Component({
   selector: 'app-assessment-feedback-section',
   templateUrl: './assessment-feedback-section.component.html',
@@ -19,6 +21,8 @@ export class AssessmentFeedbackSectionComponent implements OnInit
   @Input() assessmentForm: FormGroup;
 
   @Input() assessmentProgress: AssessmentProgress;
+
+  @Input() assessmentQuestions: AssessmentQuestion[];
   /** Form array for when form view is single question */
   @Input() assessmentFormArray: FormArray;
   /** Display scores feedback */
@@ -37,6 +41,8 @@ export class AssessmentFeedbackSectionComponent implements OnInit
   /** Track if retry is allowed */
   canRetry: boolean;
   currentProgress: Attempt;
+
+  isGettingPDF: boolean;
   /** Different statuses to display on the results page (view modes) */
   resultsMode = {
     failedAndNoRetries: false,
@@ -46,7 +52,8 @@ export class AssessmentFeedbackSectionComponent implements OnInit
   }
 
   constructor(
-    private _router: Router
+    private _router: Router,
+    private _feedbackPDF$: AssessmentFeedbackPDFService,
   ) {}
  
   ngOnInit(): void {
@@ -160,6 +167,11 @@ export class AssessmentFeedbackSectionComponent implements OnInit
   }
 
   backToApp(){
-     this._router.navigate(['redirect', this.app.id]);
+    this.isGettingPDF = true;
+    this._feedbackPDF$.generateAndUploadPDF(this.assessmentProgress, this.assessmentQuestions, this.app)
+      .subscribe(()=> {
+          this.isGettingPDF = false;
+          this._router.navigate(['redirect', this.app.id]);
+        })   
   }
 }

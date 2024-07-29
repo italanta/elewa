@@ -4,7 +4,7 @@ import { HandlerTools } from "@iote/cqrs";
 import { Query } from "@ngfi/firestore-qbuilder";
 
 import { AssessmentProgress, AssessmentProgressUpdate, AssessmentStatusTypes, Attempt, AttemptsMap, QuestionResponse } from "@app/model/convs-mgr/micro-app/assessments";
-import { MicroAppProgress } from "@app/model/convs-mgr/micro-app/base";
+import { AssessmentMicroApp, MicroAppProgress, MicroAppStatus } from "@app/model/convs-mgr/micro-app/base";
 import { AssessmentQuestion } from "@app/model/convs-mgr/conversations/assessments";
 import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
 import { SendOutgoingMsgHandler } from "@app/functions/bot-engine/send-message";
@@ -25,29 +25,21 @@ export class AssessmentProgressService
     return assessmentResultsRepo$.getDocumentById(id);
   }
 
-  /**
-   * Send the feedback pdf as a message to the end user
-   */
-  async sendPDF(progress: AssessmentProgress, tools: HandlerTools, channel: CommunicationChannel) {
-    const pdfURL = await this.generatePDF(progress, tools);
-
-    progress.pdfUrl = pdfURL;
-
-    await this._updateProgress(progress);
-
+  async sendPDF(app: MicroAppStatus, tools: HandlerTools, n: number) {
+    const assessmentConfig = app.config as AssessmentMicroApp;
     const pdfMessage: DocumentMessage = {
-      endUserPhoneNumber: progress.endUserId.split('_')[2],
-      receipientId: progress.endUserId.split('_')[2],
+      endUserPhoneNumber: app.endUserId.split('_')[2],
+      receipientId: app.endUserId.split('_')[2],
       type: MessageTypes.DOCUMENT,
       isDirect: true,
-      url: pdfURL,
-      n: channel.n,
-      documentName: `${progress.title} - ${new Date().toLocaleString()}`,
+      url: assessmentConfig.pdf.url,
+      n: n,
+      documentName: assessmentConfig.pdf.name,
       direction: MessageDirection.FROM_CHATBOT_TO_END_USER,
       id: Date.now().toString()
     }
 
-    const messagesRepo$ = tools.getRepository<Message>(`orgs/${progress.orgId}/end-users/${progress.endUserId}/messages`);
+    const messagesRepo$ = tools.getRepository<Message>(`orgs/${app.config.orgId}/end-users/${app.endUserId}/messages`);
 
     return messagesRepo$.create(pdfMessage);
   }

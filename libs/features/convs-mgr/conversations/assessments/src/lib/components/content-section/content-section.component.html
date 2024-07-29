@@ -7,6 +7,7 @@
         [assessment]="assessment"
         [assessmentForm]="assessmentForm"
         [assessmentProgress]="assessmentProgress"
+        [assessmentQuestions]="assessmentQuestions"
         [assessmentFormArray]="assessmentFormArray">
     </app-assessment-feedback-section>
     </ng-container>
@@ -43,7 +44,10 @@
         </div>
         <!-- submit button -->
         <div class="submit-btn flex-submit" *ngIf="!stepperForm || currentStep === totalSteps - 1  ">
-          <button class="btn-btns" mat-raised-button (click)="saveProgress(currentStep)">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.SUBMIT-TEXT" | transloco }}</button>
+          <button class="btn-btns" mat-raised-button (click)="saveProgress(currentStep)" [disabled]="isSubmitting">
+            <span *ngIf="!isSubmitting">{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.SUBMIT-TEXT" | transloco }}</span>
+            <div *ngIf="isSubmitting" class="custom-spinner"></div>
+          </button>
         </div>
       </div>
     </div>

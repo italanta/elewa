@@ -53,6 +53,8 @@
     "firebase-admin": "^12.1.1",
     "firebase-functions": "^5.0.1",
     "firebase-tools": "^13.11.2",
+    "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.2",
     "lodash": "^4.17.21",
     "mime-types": "^2.1.35",
     "moment": "^2.29.4",
