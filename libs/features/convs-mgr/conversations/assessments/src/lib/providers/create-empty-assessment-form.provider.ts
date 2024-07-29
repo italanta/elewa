@@ -21,6 +21,10 @@ export function CREATE_EMPTY_ASSESSMENT_FORM(_fb: FormBuilder) {
         minScore: [''],
         userAttempts: [''],
       }),
+      moveOnCriteria: _fb.group({
+        criteria: [''],
+        passMark: ['']
+      }),
     }),
 
     // quizzes
