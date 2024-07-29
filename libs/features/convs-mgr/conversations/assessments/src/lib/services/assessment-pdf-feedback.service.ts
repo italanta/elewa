@@ -12,6 +12,9 @@ import { FrontendEnvironment } from '@app/elements/base/frontend-env';
 import { MicroAppManagementService } from '@app/state/convs-mgr/micro-app';
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
+import { FeedbackTemplateHTML } from '../utils/pdf/feedback-template';
+import { QuestionsToHTML } from '../utils/pdf/questions-to-html';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,14 +30,18 @@ export class AssessmentFeedbackPDFService {
   generateAndUploadPDF(progress: AssessmentProgress, questions: AssessmentQuestion[], app: MicroAppStatus) {
     const fileName = `${progress.title} - ${new Date().toLocaleString()}.pdf`;
 
-    return this._generateFeedbackHTML(progress, questions)
-    .pipe(switchMap((resp)=> {
-      if(resp.result.success) {
-        return from(this._generatePdf(resp.result.feedbackHTML, progress.title))
-      } else {
-        return of(null)
-      }
-    }), switchMap((pdf)=> {
+    const headerDetails = {
+      assessmentTitle: progress.title || '',
+      logoURL: app.config.channel.logoUrl || '',
+      learnerName: app.endUserName
+    };
+
+    const questionsHTML = QuestionsToHTML(questions, progress);
+
+    const feedbackHTML = FeedbackTemplateHTML(headerDetails, questionsHTML);
+
+    return from(this._generatePdf(feedbackHTML, progress.title))
+    .pipe(switchMap((pdf)=> {
           const pdfPath =`orgs/${app.config.orgId}/end-users/${app.endUserId}/assessments/feedback-pdfs/${Date.now()}.pdf`;
           if(pdf) {
             return this.uploadFile(pdf, pdfPath)
@@ -110,12 +117,5 @@ export class AssessmentFeedbackPDFService {
         }
       )
     );
-  }
-
-  private _generateFeedbackHTML(progress: AssessmentProgress, questions: AssessmentQuestion[]) {
-    const url = `${this._env.microAppUrl}/getFeedbackHTML`;
-    const payload = {progress, questions}
-
-    return this._http$.post<{result: {success: boolean, feedbackHTML: string}}>(url, {data: payload});
   }
 }

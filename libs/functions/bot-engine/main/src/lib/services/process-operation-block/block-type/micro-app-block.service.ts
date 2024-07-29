@@ -3,7 +3,7 @@ import { Logger } from "@iote/bricks-angular";
 import { HandlerTools } from "@iote/cqrs";
 
 import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
-import { Cursor, EndUserPosition, RoutedCursor } from "@app/model/convs-mgr/conversations/admin/system";
+import { Cursor, EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
 import { ChatStatus, EndUser } from "@app/model/convs-mgr/conversations/chats";
 import { InteractiveURLButtonBlock, MicroAppBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { MicroApp, MicroAppStatus, MicroAppStatusTypes } from "@app/model/convs-mgr/micro-app/base";
@@ -69,7 +69,8 @@ export class MicroAppBlockService implements IProcessOperationBlock
       status: MicroAppStatusTypes.Initialized,
 
       config: config,
-      endUserId: endUser.id
+      endUserId: endUser.id,
+      endUserName: endUser.variables['name'] || ''
     };
     
 

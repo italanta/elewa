@@ -16,6 +16,7 @@ export interface MicroAppStatus extends IObject
   appId: string;
   /** The end user inititation the app */
   endUserId: string;
+  endUserName?: string;
   /** App config and interesting details such as organisation ID and callbacks */
   config: MicroApp;
   
