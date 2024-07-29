@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { SubSink } from 'subsink';
 
 import { Assessment, FeedbackType, MoveOnCriteriaTypes, QuestionDisplayed, RetryType } from '@app/model/convs-mgr/conversations/assessments';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-assessment-config',
@@ -42,13 +43,19 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
   ngOnInit(): void 
   {
     this.setRetryState();
-    this._sbS.sink = this.moveOnPassControl.valueChanges.subscribe();
+
+    const criteria = this.assessmentFormGroup.get('configs.moveOnCriteria.criteria') as FormControl
+    console.log(criteria, 'as criteria')
+      this._sbS.sink = criteria.valueChanges.pipe(
+        tap(value => {
+          console.log(value)
+          if (value.criteria !== this.moveOnPass) {
+            this.clearPassScore();
+          }
+        })
+      ).subscribe();
   }
   
-  /** get form controll for assessment passed */
-  get moveOnPassControl() {
-    return this.assessmentFormGroup.get('configs.moveOnCriteria.criteria') as FormControl;
-  }
 
   /** Get the state of the retry toggle */
   setRetryState(): void {
@@ -76,6 +83,12 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
     this.assessmentFormGroup.get('configs.retryConfig.onCount')?.setValue(null);
     this.assessmentFormGroup.get('configs.retryConfig.onScore.minScore')?.setValue(null);
     this.assessmentFormGroup.get('configs.retryConfig.onScore.count')?.setValue(null);
+  }
+
+  clearPassScore ()
+  {
+    console.log(this.assessmentFormGroup.get('configs.moveOnCriteria.passMark'), 'is pass mark')
+    this.assessmentFormGroup.get('configs.moveOnCriteria.passMark')?.setValue(null)
   }
 
   /** Retry based on number */
