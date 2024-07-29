@@ -49,6 +49,8 @@ jobs:
         run: |
             echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.prod.ts
             echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.ts
+            echo "$ENV_FILE" | base64 -d > apps/conv-lm-micro-app/src/environments/environment.prod.ts
+            echo "$ENV_FILE" | base64 -d > apps/conv-lm-micro-app/src/environments/environment.ts
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
