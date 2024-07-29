@@ -51,7 +51,7 @@ import { AssessmentResultBannerComponent } from './components/assessment-result-
 import { ContentSectionComponent } from './components/content-section/content-section.component';
 import { SingleQuestionFormComponent } from './components/single-question-form/single-question-form.component';
 import { AllQuestionsFormComponent } from './components/all-questions-form/all-questions-form.component';
-import { AssessmentLandingPageComponent } from './components/assessment-landing-page.component';
+import { AssessmentLandingPageComponent } from './components/micro-app-assessment-landing-page/assessment-landing-page.component';
 
 @NgModule({
   imports: [
