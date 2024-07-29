@@ -84,16 +84,33 @@
       cursor: pointer;
       outline: none;
     }
+
+    .custom-radio.red-radio:checked{
+      border-color: red;
+    }
     
     .custom-radio:checked {
-      border-color: teal;
+      border-color: var(--micro-apps-teal-primary);
     }
+
+    .custom-radio.red-radio:checked::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background-color:red;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  
     
     .custom-radio:checked::before {
       content: '';
       width: 12px;
       height: 12px;
-      background-color: teal;
+      background-color:var(--micro-apps-teal-primary);
       border-radius: 50%;
       position: absolute;
       top: 50%;
