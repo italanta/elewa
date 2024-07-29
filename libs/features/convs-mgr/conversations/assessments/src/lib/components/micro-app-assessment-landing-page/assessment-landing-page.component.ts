@@ -4,7 +4,7 @@ import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 import { MicroAppSectionTypes, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
 import { AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
 import { MicroAppStore } from '@app/state/convs-mgr/micro-app';
-import { AppViewService } from '../services/content-view-mode.service';
+import { AppViewService } from '../../services/content-view-mode.service';
 
 @Component({
   selector: 'app-assessment-landing-page',

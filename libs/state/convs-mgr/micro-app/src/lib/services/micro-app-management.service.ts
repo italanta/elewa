@@ -69,4 +69,11 @@ progressCallBack(app?: MicroAppStatus, milestones?: MicroAppProgress) : Observab
 
     return this._http$.post<any>(url, {data: payload});
   }
+
+  updateApp(app: MicroAppStatus): Observable<any> 
+  {
+    const url = `${this._env.microAppUrl}/updateMicroApp`;
+
+    return this._http$.post<any>(url, {data: app});
+  }
 }

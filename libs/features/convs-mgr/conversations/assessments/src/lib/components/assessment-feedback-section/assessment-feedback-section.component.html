@@ -2,6 +2,9 @@
 <!-- Feedback Banner -->
 <app-assessment-result-banner [result]="assessmentProgress" [resultsMode]="resultsMode"></app-assessment-result-banner>
 
+<div class="draw-wrapper">
+  <div id="draw-feedback"></div>
+</div>
 <div class="page-container">
   <!-- Image section and call to action buttons -->
    <div>
@@ -25,7 +28,10 @@
       
       <!-- CTA Buttons -->
       <div class="btns">
-        <button class="__backToPlatform" mat-raised-button  (click)="backToApp()" *ngIf="resultsMode.failedAndNoRetries || resultsMode.passedAndNoRetries"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.WHATSAPP-BUTTON" | transloco}} </button>
+        <button class="__backToPlatform" mat-raised-button  (click)="backToApp()" *ngIf="resultsMode.failedAndNoRetries || resultsMode.passedAndNoRetries"> 
+        <span *ngIf="!isGettingPDF">{{"ASSESSMENT-PAGE.BUTTONS-TEXT.WHATSAPP-BUTTON" | transloco}}</span>  
+        <div *ngIf="isGettingPDF" class="custom-spinner"></div>
+        </button>
 
         <button class="__retryAssessment" mat-raised-button  (click)="retryAssessment()" *ngIf="resultsMode.failedAndHasRetries || resultsMode.passedAndHasRetries"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-NOW-BUTTON" | transloco}}  </button>
         <button class="__retryLater" mat-raised-button  (click)="backToApp()" *ngIf="resultsMode.failedAndHasRetries || resultsMode.passedAndHasRetries"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-LATER-BUTTON" | transloco}}  </button>
@@ -39,11 +45,17 @@
       <form [formGroup]="assessmentForm">
         <div formArrayName="assessmentFormArray">
           <mat-card class="question-card" *ngFor="let question of assessmentFormArray.controls; let i = index" [formGroupName]="i">
+            <div>
             <!-- Question number and total score for a question -->
             <mat-card-header>
               <div class="question-header">
                 <p> {{ "ASSESSMENT-PAGE.QUESTION" | transloco }}  {{i + 1}} </p>
-                <p>{{currentProgress.questionResponses[question.get('id')?.value ].score}} / {{currentProgress.questionResponses[question.get('id')?.value].marks}} </p>
+                <p [ngClass]="{
+                  'red-text': currentProgress.questionResponses[question.get('id')?.value].score !== currentProgress.questionResponses[question.get('id')?.value].marks,
+                  'teal-text': currentProgress.questionResponses[question.get('id')?.value].score === currentProgress.questionResponses[question.get('id')?.value].marks
+                }">
+              {{currentProgress.questionResponses[question.get('id')?.value].score}}/{{currentProgress.questionResponses[question.get('id')?.value].marks}} 
+            </p>
               </div>
             </mat-card-header>
             <mat-card-content class="question-content">
@@ -55,7 +67,7 @@
                     formControlName="selectedOption"
                     [checked]="question.get('selectedOption')?.value === option.id"
                     class="custom-radio"
-                  />
+                    [ngClass]="{'red-radio': option.accuracy !== 1}">
                   <label [for]="'option-' + option.id">{{ option.text }}</label>
                 </div>
                 <div class="radio-text">
@@ -68,6 +80,7 @@
                 </div>
               </div>
             </mat-card-content>
+          </div>
           </mat-card>
         </div>
       </form>

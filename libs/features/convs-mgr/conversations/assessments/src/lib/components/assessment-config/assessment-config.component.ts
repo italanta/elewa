@@ -18,7 +18,9 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
 
   @Input() previewMode: boolean;
   /** If a user can retry an assignment  */
-  retry: boolean
+  retry: boolean;
+
+  private _sbS = new SubSink()
 
   /** Radio control values */
   immediateFeedback = FeedbackType.Immediately;
