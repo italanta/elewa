@@ -50,7 +50,7 @@
             <div class="retrial-allowed"formGroupName="moveOnCriteria" >
                 <hr />
                 <mat-radio-group formControlName="criteria" fxLayout="column" fxLayoutAlign="start">
-                    <mat-radio-button value="1">{{'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.UPON-PASSING' |transloco}}</mat-radio-button>
+                    <mat-radio-button [value]="moveOnPass">{{'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.UPON-PASSING' |transloco}}</mat-radio-button>
 
                         <div class="retry-configs">
                             <div class="on-pass" *ngIf="moveOnPassControl">
@@ -58,7 +58,7 @@
                                 <input formControlName="passMark" type="number" min="0" max="100"/>
                             </div>
                         </div>    
-                    <mat-radio-button value="2">{{'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.UPON-COMPLETION' |transloco}}</mat-radio-button>
+                    <mat-radio-button [value]="moveOnComplete">{{'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.UPON-COMPLETION' |transloco}}</mat-radio-button>
                 </mat-radio-group>
             </div>
         </div>

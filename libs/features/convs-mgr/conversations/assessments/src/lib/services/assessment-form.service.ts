@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder } from '@angular/forms';
 
-import { Assessment, AssessmentConfiguration, AssessmentQuestion, AssessmentQuestionOptions, 
+import { Assessment, AssessmentQuestion, AssessmentQuestionOptions, 
   AssessmentQuestionType } from '@app/model/convs-mgr/conversations/assessments';
 
 @Injectable({

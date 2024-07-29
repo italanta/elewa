@@ -24,29 +24,40 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
   immediateFeedback = FeedbackType.Immediately;
   onEndFeedback = FeedbackType.OnEnd;
   noFeedback = FeedbackType.Never;
-  retryOnCount = RetryType.onCount
-  scoreRetry = RetryType.OnScore
-  singleDisplay = QuestionDisplayed.Single
-  multipleDisplay = QuestionDisplayed.Multiple
-  moveOnPass: MoveOnCriteriaTypes.OnPassMark
-  moveOnComplete: MoveOnCriteriaTypes.OnComplete
-  private _sbS = new SubSink()
+  /** Can retry for given number of times */
+  retryOnCount = RetryType.onCount;
+  /** Retry based on score */
+  scoreRetry = RetryType.OnScore;
+  /** Only display one question on form */
+  singleDisplay = QuestionDisplayed.Single;
+  /** Display multiple questions on form*/
+  multipleDisplay = QuestionDisplayed.Multiple;
+  /** Step to take on story if a learner passes */
+  moveOnPass = MoveOnCriteriaTypes.OnPassMark;
+  /** Step to take on story if a learner completes an assesmment */
+  moveOnComplete = MoveOnCriteriaTypes.OnComplete;
 
-  ngOnInit(): void {
+  private _sbS = new SubSink();
+
+  ngOnInit(): void 
+  {
     this.setRetryState();
     this._sbS.sink = this.moveOnPassControl.valueChanges.subscribe();
   }
   
+  /** get form controll for assessment passed */
   get moveOnPassControl() {
     return this.assessmentFormGroup.get('configs.moveOnCriteria.criteria') as FormControl;
   }
 
+  /** Get the state of the retry toggle */
   setRetryState(): void {
     const retryControl = this.assessmentFormGroup.get('configs.retryConfig.type');
     if (retryControl) {
       this.retry = !!retryControl.value;
     }
   }
+
   /** Turn retry on or off.  */
   toggleRetry(event: any): void {
     const retryControl = this.assessmentFormGroup.get('configs.retryConfig.type');
@@ -54,6 +65,7 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
       this.retry = event.checked;
       if (!this.retry) {
         retryControl.setValue('');
+        this.clearControls();
       }
     }
   }
@@ -66,14 +78,16 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
     this.assessmentFormGroup.get('configs.retryConfig.onScore.count')?.setValue(null);
   }
 
+  /** Retry based on number */
   get isDefaultRetrySelected(): boolean {
     return this.assessmentFormGroup?.get('configs.retryConfig.type')?.value === this.retryOnCount;
   }
 
+  /** Control for retry set on score */
   get isScoreRetrySelected(): boolean {
     return this.assessmentFormGroup?.get('configs.retryConfig.type')?.value === this.scoreRetry;
   }
-
+/** Unsubscribe from all subscriptions */
   ngOnDestroy(): void {
       this._sbS.unsubscribe();
   }
