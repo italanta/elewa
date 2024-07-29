@@ -164,7 +164,7 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
       const onScore = retryConfig?.get('onScore');
       const moveOnCriteria = configs.get('moveOnCriteria');
 
-      const criteria = moveOnCriteria?.get('criteria')?.value;
+      const criteria = parseInt(moveOnCriteria?.get('criteria')?.value);
       const passMark = criteria === MoveOnCriteriaTypes.OnPassMark ? moveOnCriteria?.get('passMark')?.value : null;
 
       this.assessment['configs'] = {
@@ -183,6 +183,7 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
           passMark: passMark,
         },
       };
+
     }
 
     let questionsOrder = this.assessmentFormModel.assessmentsFormGroup.value.questionsOrder;
@@ -193,7 +194,7 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
     this.assessmentFormModel.assessmentsFormGroup.value['questionsOrder'] = questionsOrder;
 
     if (this.action === 'create')
-      return this._assessmentService.addAssessment$(this.assessmentFormModel.assessmentsFormGroup.value as Assessment);
+      return this._assessmentService.addAssessment$(this.assessmentFormModel.assessmentsFormGroup.value as Assessment)
 
     return this._assessmentService.updateAssessment$(this.assessmentFormModel.assessmentsFormGroup.value as Assessment);
   }

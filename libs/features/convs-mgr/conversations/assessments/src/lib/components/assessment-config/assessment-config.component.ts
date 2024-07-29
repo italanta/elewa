@@ -33,15 +33,29 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
   private _sbS = new SubSink()
 
   ngOnInit(): void {
+    this.setRetryState();
     this._sbS.sink = this.moveOnPassControl.valueChanges.subscribe();
   }
   
   get moveOnPassControl() {
     return this.assessmentFormGroup.get('configs.moveOnCriteria.criteria') as FormControl;
   }
+
+  setRetryState(): void {
+    const retryControl = this.assessmentFormGroup.get('configs.retryConfig.type');
+    if (retryControl) {
+      this.retry = !!retryControl.value;
+    }
+  }
   /** Turn retry on or off.  */
-  toggleRetry(): void {
-    this.retry = !this.retry
+  toggleRetry(event: any): void {
+    const retryControl = this.assessmentFormGroup.get('configs.retryConfig.type');
+    if (retryControl) {
+      this.retry = event.checked;
+      if (!this.retry) {
+        retryControl.setValue('');
+      }
+    }
   }
 
   /** If a user disables retry, clear out previous retry configurations */
