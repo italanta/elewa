@@ -22,7 +22,7 @@ export function CREATE_EMPTY_ASSESSMENT_FORM(_fb: FormBuilder) {
           minScore: [0]
         })
       }),
-
+      questionsDisplay: [''],
       moveOnCriteria: _fb.group({
         criteria: [MoveOnCriteriaTypes.OnComplete],
         passMark: ['']

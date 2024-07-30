@@ -39,15 +39,33 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
 
   private _sbS = new SubSink();
 
-  ngOnInit(): void 
-  {
+  ngOnInit(): void {
     this.setRetryState();
-    this._sbS.sink = this.moveOnPassControl.valueChanges.subscribe();
+    this._sbS.sink = this.moveOnCriteriaControl.valueChanges.subscribe(value => {
+      console.log(value);
+      if (value.criteria === this.moveOnComplete) {
+        this.clearMoveOnPassControls();
+      } else if (value.criteria === this.moveOnPass) {
+        this.clearMoveOnCompleteControls();
+      }
+    });
+
+    this._sbS.sink = this.retryTypeControl.valueChanges.subscribe(value => {
+      if (value === this.retryOnCount) {
+        this.clearScoreRetryControls();
+      } else if (value === this.scoreRetry) {
+        this.clearDefaultRetry();
+      }
+    });
   }
   
   /** get form controll for assessment passed */
-  get moveOnPassControl() {
+  get moveOnCriteriaControl() {
     return this.assessmentFormGroup.get('configs.moveOnCriteria.criteria') as FormControl;
+  }
+
+  get retryTypeControl() {
+    return this.assessmentFormGroup.get('configs.retryConfig.type') as FormControl;
   }
 
   /** Get the state of the retry toggle */
@@ -70,6 +88,22 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
     }
   }
 
+  //
+  // SECTION TO CLEAR CONTROLS
+  // 
+  // STORY FLOW CONTROLS
+  clearMoveOnPassControls(): void {
+    debugger
+    this.assessmentFormGroup.get('configs.moveOnCriteria.passMark')?.setValue(null);
+    this.assessmentFormGroup.get('configs.moveOnCriteria.criteria')?.setValue(null);
+  }
+
+  clearMoveOnCompleteControls() {
+    this.assessmentFormGroup.get('configs.moveOnCriteria.criteria')?.setValue(this.moveOnPass);
+  }
+
+  // RETRY CONFIGUARATION CONTROLS
+
   /** If a user disables retry, clear out previous retry configurations */
   clearControls(): void {
     this.assessmentFormGroup.get('configs.retryConfig.type')?.setValue(null);
@@ -78,6 +112,29 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
     this.assessmentFormGroup.get('configs.retryConfig.onScore.count')?.setValue(null);
   }
 
+  clearScoreRetryControls(): void {
+    this.assessmentFormGroup.get('configs.retryConfig.onScore.minScore')?.setValue(null);
+    this.assessmentFormGroup.get('configs.retryConfig.onScore.count')?.setValue(null);
+  }
+
+  clearDefaultRetry(): void 
+  {
+    this.assessmentFormGroup.get('configs.retryConfig.onCount')?.setValue(null);
+  }
+
+
+  // Control to manipulate form UI 
+
+  /** Get story flow control based on passing an assessment */
+  get isScoreFlow (){
+    return this.assessmentFormGroup?.get('configs.moveOnCriteria.criteria')?.value === this.moveOnPass
+  }
+
+  /** Get story flow control based on completing an assessment */
+  get isCompleteFlow (){
+    return this.assessmentFormGroup?.get('configs.moveOnCriteria.criteria')?.value === this.moveOnComplete
+  }
+  
   /** Retry based on number */
   get isDefaultRetrySelected(): boolean {
     return this.assessmentFormGroup?.get('configs.retryConfig.type')?.value === this.retryOnCount;
@@ -87,6 +144,7 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
   get isScoreRetrySelected(): boolean {
     return this.assessmentFormGroup?.get('configs.retryConfig.type')?.value === this.scoreRetry;
   }
+
 /** Unsubscribe from all subscriptions */
   ngOnDestroy(): void {
       this._sbS.unsubscribe();
