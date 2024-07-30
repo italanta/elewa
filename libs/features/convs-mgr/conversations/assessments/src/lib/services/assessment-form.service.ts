@@ -29,7 +29,7 @@ export class AssessmentFormService {
           }),
         }),
         moveOnCriteria: this._formBuilder.group({
-          criteria: ['test'],
+          criteria: [assessment.configs?.moveOnCriteria ?? ''],
           passMark: [assessment.configs?.moveOnCriteria?.passMark ?? '']
         }),
         questionsDisplay: [assessment.configs?.questionsDisplay ?? ''],
