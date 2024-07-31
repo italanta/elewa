@@ -28,8 +28,12 @@ export class AssessmentPreviewPageComponent implements OnInit
   constructor (private stepService: StepService,){}
 
   ngOnInit(): void {
-    if(this.assessmentForm) this.assessmentFormArray = this.assessmentForm.get('questions') as FormArray;
-
+    if(this.assessmentForm){
+      this.assessmentFormArray = this.assessmentForm.get('questions') as FormArray;
+      this.getProgressBar()
+      this.totalSteps = this.assessmentFormArray.controls.length;
+      this.stepService.setTotalSteps(this.totalSteps)
+    } 
       // Subscribe to changes when the navigation buttons are clicked for the stepper assessment form
     this._sBS.sink = this.stepService.currentStep$.subscribe(step => {
       this.currentStep = step;
@@ -63,5 +67,9 @@ export class AssessmentPreviewPageComponent implements OnInit
     if(this.assessmentFormArray.at(i).get('selectedOption')?.valid){
       this.stepService.nextStep();
     }
+  }
+
+  saveProgress(currentStep: number){
+
   }
 }
