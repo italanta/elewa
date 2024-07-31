@@ -1,11 +1,13 @@
-<ng-container>
+<ng-container class="preview-mode">
   <div class="preview" *ngIf="assessmentPreviewData && assessmentFormArray" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="30px" fxFlex>
-    <ng-container *ngIf="stepperForm">
-      <app-single-question-form [assessmentForm]="assessmentForm" [assessmentFormArray]="assessmentFormArray"></app-single-question-form>
-    </ng-container>
-  
-    <ng-container *ngIf="!stepperForm"> 
-      <app-all-questions-form assessmentForm]="assessmentForm" [assessmentFormArray]="assessmentFormArray"></app-all-questions-form>
-    </ng-container>
+    <div class="form-display">
+      <ng-container *ngIf="stepperForm">
+        <app-single-question-form [assessmentForm]="assessmentForm" [assessmentFormArray]="assessmentFormArray"></app-single-question-form>
+      </ng-container>
+    
+      <ng-container *ngIf="!stepperForm"> 
+        <app-all-questions-form assessmentForm]="assessmentForm" [assessmentFormArray]="assessmentFormArray"></app-all-questions-form>
+      </ng-container>
+    </div>
   </div>
 </ng-container>

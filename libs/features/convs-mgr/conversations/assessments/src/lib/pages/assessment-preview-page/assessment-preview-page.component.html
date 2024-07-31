@@ -6,6 +6,35 @@
     </div>
   </div>
 
+  <!-- BANNERS TO DISPLAY SHOWING DIFFERENT OUTCOMES -->
+  <ng-container *ngIf="pageViewMode === 2">
+    <div>
+      <div class="feedback-section">
+        <div class="fail-feedback" *ngIf="resultsMode.failedAndHasRetries">
+          <!-- Image  -->
+          <div class="image">
+            <img src="/assets/icons/assessment-failed-feedback-img.svg" />  
+          </div>
+          <!-- Feedback-text -->
+          <div class="feedback-text">
+            <p> {{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.INTRO" | transloco}} </p>
+            <p>
+              <span>{{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.TRIAL-TEXT.INTRO" | transloco}} </span>
+                {{allowedAttempts}}
+              <span>{{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.TRIAL-TEXT.END" | transloco}}</span>
+            </p>
+            <p> {{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.RETAKE-TEXT" | transloco}} </p>
+          </div>
+        </div>
+        
+        <!-- CTA Buttons -->
+        <div class="btns">
+          <button class="__retryAssessment" mat-raised-button  (click)="retryAssessment()" *ngIf="resultsMode.failedAndHasRetries || resultsMode.passedAndHasRetries"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-NOW-BUTTON" | transloco}}  </button>
+        </div> 
+      </div>
+     </div>
+  </ng-container>
+
   <app-assessment-view 
     [assessmentForm]="assessmentForm" 
     [assessmentFormArray]="assessmentFormArray"
