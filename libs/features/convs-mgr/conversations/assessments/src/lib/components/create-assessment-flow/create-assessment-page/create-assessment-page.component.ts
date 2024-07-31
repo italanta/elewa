@@ -12,6 +12,7 @@ import { AssessmentPublishService, AssessmentQuestionService, AssessmentService 
 import { AssessmentsFormsModel } from '../../../model/questions-form.model';
 import { AssessmentFormService } from '../../../services/assessment-form.service';
 import { DEFAULT_ASSESSMENT } from '../../../providers/create-empty-assessment-form.provider';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-create-assessment-page',
@@ -36,7 +37,7 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
   isPublishing = false;
   isSaving = false;
   formHasLoaded = false;
-
+  isPreviewTabActive = false;
   action: string;
 
   constructor(private _fb: FormBuilder,
@@ -220,6 +221,10 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
     delQstns.map(question => this._assessmentQuestion.deleteQuestion$(question));
 
     return assessmentQuestions.map(question => this._assessmentQuestion.addQuestion$(assessmentId, question, question.id!));
+  }
+  /** Ensure preview is only loaded when clicked on */
+  onTabChange(event: MatTabChangeEvent) {
+    this.isPreviewTabActive = event.index === 2;
   }
 
   ngOnDestroy(): void
