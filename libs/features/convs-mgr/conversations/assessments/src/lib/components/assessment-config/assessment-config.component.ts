@@ -42,7 +42,6 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
   ngOnInit(): void {
     this.setRetryState();
     this._sbS.sink = this.moveOnCriteriaControl.valueChanges.subscribe(value => {
-      console.log(value);
       if (value.criteria === this.moveOnComplete) {
         this.clearMoveOnPassControls();
       } else if (value.criteria === this.moveOnPass) {
@@ -93,7 +92,6 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
   // 
   // STORY FLOW CONTROLS
   clearMoveOnPassControls(): void {
-    debugger
     this.assessmentFormGroup.get('configs.moveOnCriteria.passMark')?.setValue(null);
     this.assessmentFormGroup.get('configs.moveOnCriteria.criteria')?.setValue(null);
   }
