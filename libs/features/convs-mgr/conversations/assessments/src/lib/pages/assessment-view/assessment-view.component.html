@@ -1,27 +1,24 @@
-<div class="preview" *ngIf="assessmentPreviewData" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="30px" fxFlex>
-  <div class="card">
-    <span class="card-title">
-      {{ assessmentPreviewData.title }}
-    </span>
-  </div>
-
-  <div class="questions-cards" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="20px">
-    <div *ngFor="let question of assessmentPreviewData.questions" class="card question-card" fxLayout="column"
-      fxLayoutAlign="start" fxLayoutGap="20px">
-      <span class="question-message">
-        {{ question.message }}
+<ng-container>
+  <div class="preview" *ngIf="assessmentPreviewData && assessmentFormArray" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="30px" fxFlex>
+    <!-- <div class="card">
+      <span class="card-title">
+        {{ assessmentPreviewData.title }}
       </span>
-
-      <div class="question-options">
-        <div style="margin-bottom: 20px;" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="20px" *ngFor="let option of question.options">
-          <span *ngIf="option.text && option.text != ''" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" class="option-name">
-            <i class="fa-regular fa-circle" style="color: #707070;"></i>
-            <span>
-              {{ option.text }}
-            </span>
-          </span>
-        </div>
+    </div> -->
+  
+    <div class="progress-tracker">
+      <div class="progress-bar" [ngStyle]="{'width': progressPercentage + '%', 'background-image': getProgressColor(progressPercentage)}"></div>
+      <div class="progress-text">
+        {{ progressPercentage | number : '1.0-0' }}% Complete
       </div>
     </div>
+    
+    <ng-container *ngIf="stepperForm">
+      <app-single-question-form [assessmentForm]="assessmentForm" [assessmentFormArray]="assessmentFormArray"></app-single-question-form>
+    </ng-container>
+  
+    <ng-container *ngIf="!stepperForm"> 
+      <app-all-questions-form assessmentForm]="assessmentForm" [assessmentFormArray]="assessmentFormArray"></app-all-questions-form>
+    </ng-container>
   </div>
-</div>
+</ng-container>

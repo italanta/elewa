@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormArray, FormGroup, FormBuilder } from '@angular/forms';
+import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Assessment, AssessmentConfiguration, AssessmentQuestion, AssessmentQuestionOptions, 
   AssessmentQuestionType } from '@app/model/convs-mgr/conversations/assessments';
@@ -35,7 +35,7 @@ export class AssessmentFormService {
     });
   }
 
-  createQuestionForm(question?: AssessmentQuestion){
+  createQuestionForm(question?: AssessmentQuestion, selectedOption?: any){
     return this._formBuilder.group({
       id: [question?.id ?? ''],
       questionType: AssessmentQuestionType.SingleSelectOptions,
@@ -44,6 +44,7 @@ export class AssessmentFormService {
       options: question?.options ? this._prefillOptions(question?.options) : this._formBuilder.array([
         this.createDefaultChoice()
       ]),
+      selectedOption: [selectedOption ?? "", Validators.required], //tracking the selected option
       nextQuestionId: [question?.nextQuestionId ?? null],
       prevQuestionId: [question?.prevQuestionId ?? null],
     });
