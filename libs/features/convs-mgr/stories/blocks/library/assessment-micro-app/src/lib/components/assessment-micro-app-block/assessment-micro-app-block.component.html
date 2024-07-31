@@ -1,0 +1,32 @@
+<div class="wide" [id]="id" *ngIf="assessmentMicroAppForm">
+  <form [formGroup]="assessmentMicroAppForm" fxLayout="column" fxLayoutALign="start center">
+    <div fxLayout="row">
+      <div class="form-group">
+        <div class="assess-select-wrapper">
+        <select class="assess-select" name="microAppId" required id="microAppId" formControlName="appId">
+          <option disabled selected>{{ 'ASSESSMENT-MICROAPP.PLACEHOLDER' | transloco }}</option>
+          <option>--</option>
+          <option *ngFor="let assessment of assessments" [value]="assessment.id">
+            {{ assessment.title }}
+            <!-- Display all available assessments for the active organization -->
+          </option>
+        </select>
+        <span class="custom-dropdown-arrow"></span>
+        </div>
+        <p class="create-assess"> 
+          <span><i class="fa-solid fa-plus"></i></span>
+          <span> {{ 'ASSESSMENT-MICROAPP.CREATE-TEXT' | transloco }} </span>
+        </p>
+      </div>
+    </div>
+    <app-text-message [formgroup]="assessmentMicroAppForm"></app-text-message>
+    <div formArrayName="options" fxFlexFill>
+      <div *ngFor="let option of assessmentBlockOptions; let i = index" class="full-width" fxFlexFill>
+        <span [formGroupName]="i" fxFlex>
+          <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="assessmentMicroAppForm" [isReadOnly]="true"
+            [formGroupNameInput]="i"></app-option-input-field>
+        </span>
+      </div>
+    </div>
+  </form>
+</div>

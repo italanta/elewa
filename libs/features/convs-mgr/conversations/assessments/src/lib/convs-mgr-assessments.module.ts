@@ -13,16 +13,14 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import {
-  ActiveAssessmentStore,
   AssessmentPublishService,
-  AssessmentQuestionService,
-  AssessmentQuestionStore,
   AssessmentService,
   AssessmentsStore,
 } from '@app/state/convs-mgr/conversations/assessments';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { ItalBreadCrumbModule } from '@app/elements/layout/ital-bread-crumb';
+import { ClmMicroAppLayoutModule } from '@app/elements/layout/clm-micro-app';
 
 import { AssessmentsRouterModule } from './assessments.router.module';
 
@@ -46,7 +44,14 @@ import { AssessmentsListViewComponent } from './components/assessments-list-view
 import { CreateAssessmentPageComponent } from './components/create-assessment-flow/create-assessment-page/create-assessment-page.component';
 
 import { AssessmentFormService } from './services/assessment-form.service';
-import { AssessmentMediaUploadComponent } from './components/assessment-media-upload.component';
+import { AssessmentCardComponent } from './components/assessment-card/assessment-card.component';
+import { AssessmentFeedbackSectionComponent } from './components/assessment-feedback-section/assessment-feedback-section.component';
+import { AssessmentHeaderComponent } from './components/assessment-header/assessment-header.component';
+import { AssessmentResultBannerComponent } from './components/assessment-result-banner/assessment-result-banner.component';
+import { ContentSectionComponent } from './components/content-section/content-section.component';
+import { SingleQuestionFormComponent } from './components/single-question-form/single-question-form.component';
+import { AllQuestionsFormComponent } from './components/all-questions-form/all-questions-form.component';
+import { AssessmentLandingPageComponent } from './components/micro-app-assessment-landing-page/assessment-landing-page.component';
 
 @NgModule({
   imports: [
@@ -63,6 +68,7 @@ import { AssessmentMediaUploadComponent } from './components/assessment-media-up
     MatSnackBarModule,
     DragDropModule,
     ItalBreadCrumbModule,
+    ClmMicroAppLayoutModule,
   ],
   declarations: [
     AssessmentsHomeComponent,
@@ -82,17 +88,25 @@ import { AssessmentMediaUploadComponent } from './components/assessment-media-up
     AssessmentsGridViewComponent,
     AssessmentsListViewComponent,
 
+    //Micro-App Assessments
+    AssessmentCardComponent,
+    AssessmentFeedbackSectionComponent,
+    AssessmentHeaderComponent,
+    AssessmentResultBannerComponent,
+    ContentSectionComponent,
+    SingleQuestionFormComponent,
+    AllQuestionsFormComponent,
+
     CreateAssessmentPageComponent,
-    AssessmentMediaUploadComponent,
+    AssessmentLandingPageComponent,
   ],
+
   providers: [
     AssessmentService,
     AssessmentFormService,
-    AssessmentQuestionService,
     AssessmentsStore,
-    ActiveAssessmentStore,
-    AssessmentQuestionStore,
     AssessmentPublishService,
   ],
+  exports: [ContentSectionComponent, AssessmentLandingPageComponent],
 })
 export class ConvsMgrAssessmentsModule {}

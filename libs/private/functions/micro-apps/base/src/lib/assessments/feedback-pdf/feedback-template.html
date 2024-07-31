@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Roboto", sans-serif;
+      width: 90%;
+      background: white;
+      color: black;
+      margin: 1rem;
+      font-weight: 400;
+      font-style: normal;
+    }
+    .header-section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: auto;
+      text-align: center;
+    }
+    .company-logo {
+      align-self: center;
+    }
+
+    .company-logo > img {
+      max-width: 20%;
+      height: auto;
+    }
+
+    .learner-name {
+      font-size: small;
+      color: #101010;
+      font-weight: 300;
+    }
+    .assessment-name {
+      font-size: larger;
+      color: black;
+      font-weight: bold;
+    }
+    .question-section {
+      display: flex;
+      flex-direction: column;
+      align-content: flex-start;
+      color: black;
+      font-weight: normal;
+    }
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .question-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .question-text {
+      font-weight: bold;
+    }
+    .question-options {
+      display: flex;
+      flex-direction: column;
+
+    }
+
+    .option {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 0.5rem;
+    }
+
+    .option-details {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.4rem;
+      margin: 0.1rem 0;
+    }
+    .feedback {
+      padding-left: 0.4rem;
+      padding-bottom: 0.2rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header-section">
+  <div class="company-logo">
+    <img src="https://media.licdn.com/dms/image/C4E0BAQFdWeZm9K2xHg/company-logo_200_200/0/1630586329188/farmbetter_logo?e=2147483647&v=beta&t=6fq77kqnNiXMYUcn_5h_o77yCrse124Zo4YWlQrflow"/>
+  </div>
+  <span class="learner-name">Augustine Mwambili</span>
+  <span class="assessment-name">Financial Literacy</span>
+</div>
+
+<br />
+<br />
+<br />
+
+<div class="questions-section">
+  <div class="questions">
+    <div class="question">
+      <div class="question-header">
+        <span class="question-number">Question 1</span>
+        <span class="question-points">3/3 points</span>
+      </div>
+      <hr/>
+      <div class="question-body">
+        <span class="question-text">
+          What is the recommended percentage of your income to allocate towards savings and investments?
+        </span>
+        <div class="question-options">
+          <div class="option">
+            <div class="option-details">
+              <input type="radio" checked="checked"/>
+              <label>5-10%</label>
+            </div>
+            <span class="feedback"></span>
+          </div>
+          <div class="option">
+            <div class="option-details">
+              <input type="radio" checked="checked"/>
+              <label>15-20%</label>
+            </div>
+            <span class="feedback">Correct: This is the correct answer</span>
+          </div>
+          <div class="option">
+            <div class="option-details">
+              <input type="radio" checked="checked"/>
+              <label>25-30%</label>
+            </div>
+            <span class="feedback"></span>
+          </div>
+          <div class="option">
+            <div class="option-details">
+              <input type="radio" checked="false"/>
+              <label>35-40%</label>
+            </div>
+            <span class="feedback"></span>
+          </div>
+        </div>
+      </div>
+      <div class="q-body">
+        <div class="question-text"></div>
+        <div class="question-answers"></div>
+      </div>
+      <br/>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -96,6 +96,15 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
     ).subscribe()
   }
 
+  calculateMaxScore() {
+    let total = 0;
+    this.questions.forEach((q)=> {
+      total += q.marks
+    })
+
+    return total
+  }
+
   
   onSave()
   {
@@ -119,7 +128,8 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
 
   onPublish() {
     this.isPublishing = true;
-
+    this.assessment.maxScore = this.calculateMaxScore();
+    
     this._sbS.sink = this._publishAssessment.publish(this.assessment)
       .pipe(
         switchMap(() => {
@@ -150,9 +160,9 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
   {
     this.assessment['configs'] = {
       feedback: this.assessmentFormModel.assessmentsFormGroup.value.configs.feedback,
-      canRetry: this.assessmentFormModel.assessmentsFormGroup.value.configs.canRetry,
-      userAttempts: this.assessmentFormModel.assessmentsFormGroup.value.configs.userAttempts,
-      retryType: this.assessmentFormModel.assessmentsFormGroup.value.configs.retryType,
+      // canRetry: this.assessmentFormModel.assessmentsFormGroup.value.configs,
+      // userAttempts: this.assessmentFormModel.assessmentsFormGroup.value.configs.userAttempts,
+      // retryType: this.assessmentFormModel.assessmentsFormGroup.value.configs.retryType,
       questionsDisplay: this.assessmentFormModel.assessmentsFormGroup.value.configs.questionsDisplay
     };
 

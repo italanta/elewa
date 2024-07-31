@@ -39,7 +39,7 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, SendMessage
   {
     try {
       // STEP 1: Check if the message is meant for the end user
-      if (outgoingPayload.direction !== MessageDirection.FROM_AGENT_TO_END_USER) return { success: false, data: "Message Direction Mismatch!" } as SendMessageResp;
+      if (!this._toSend(outgoingPayload)) return { success: false, data: "Message Direction Mismatch!" } as SendMessageResp;
 
       tools.Logger.log(() => `[WhatsAppSendOutgoingMsgHandler] - Outgoing message: ${JSON.stringify(outgoingPayload)}`);
 
@@ -83,6 +83,16 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, SendMessage
     } catch (error) {
       tools.Logger.error(() => `[SendOutgoingMsgHandler].execute - Encountered an error ${error}`);
       return { success: false, data: error } as SendMessageResp;
+    }
+  }
+
+  private _toSend(outgoingPayload: Message) {
+    if (outgoingPayload.direction === MessageDirection.FROM_AGENT_TO_END_USER) {
+      return true;
+    } else if(outgoingPayload.isDirect) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

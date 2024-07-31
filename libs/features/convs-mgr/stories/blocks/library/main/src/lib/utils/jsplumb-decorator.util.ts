@@ -14,6 +14,7 @@ import { DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMes
           AssessmentBrick,
           ConditionalBlock
 } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { _AssessmentMicroappBlockDecoratePlumb } from "@app/features/convs-mgr/stories/blocks/library/micro-apps-base";
 
 import { _MessageBlockDecoratePlumb } from './transformers/message-block.jsplumb';
 import { _QuestionsBlockDecoratePlumb } from './transformers/questions-block.jsplumb';
@@ -42,6 +43,7 @@ import { _EventBlockDecoratePlumb } from './transformers/event-block.jsplumb';
 import { _AssessmentBrickDecoratePlumb } from './transformers/assessment-brick.jsplumb';
 import { _ConditionalBlockDecoratePlumb } from './transformers/conditional-block.jsplumb';
 import { _CMI5BlockDecoratePlumb } from './transformers/cmi5-block.jsplumb';
+
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -136,6 +138,9 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
 
     case StoryBlockTypes.CMI5Block:
       return _CMI5BlockDecoratePlumb(block as ConditionalBlock, comp, jsPlumb);
+
+    case StoryBlockTypes.AssessmentMicroAppBlock:
+      return _AssessmentMicroappBlockDecoratePlumb(block as ConditionalBlock, comp, jsPlumb);  
   }
 
   return comp;

@@ -124,21 +124,22 @@ export class EngineBotManager
       //          to determine how we are going to process the message and reply to the end user
       switch (this.endUser.status) {
         case ChatStatus.Running:
-          message.direction = MessageDirection.FROM_END_USER_TO_CHATBOT;
+          if(message) {
+            message.direction = MessageDirection.FROM_END_USER_TO_CHATBOT;
+          }
 
           await bot.play(message, this.endUser, currentCursor);
 
           break;
+          
         case ChatStatus.Paused:
-          // TODO: resolve paused flow
-          const pauseTextMessage = createTextMessage("Chat has been paused");
-
-          // await bot.sendMessage(pauseTextMessage);
-
+          // Paused means talk to agent so we do not want the bot to respond
           break;
         case ChatStatus.PausedByAgent:
           message.direction = MessageDirection.FROM_ENDUSER_TO_AGENT;
 
+          // If its a file, we upload it and append the url to the message 
+          //  before we save it
           if(isFileMessage(message.type) && !message.url) {
             message = await bot.__setFileMessageUrl(message as FileMessage, END_USER_ID);
           }
@@ -203,6 +204,8 @@ export class EngineBotManager
    * TODO: Move state to memcached or redis
    */
   async duplicatePayload(tools: HandlerTools, orgId: string, endUserId: string, message: Message) {
+    if(!message) return false;
+    
     const stateRepo$ = tools.getRepository<BotState>(`orgs/${orgId}/end-users/${endUserId}/bot-state`);
 
     const currentstate = await stateRepo$.getDocumentById('current-state');

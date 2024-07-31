@@ -1,0 +1,14 @@
+<div *ngIf="assessmentFormArray" >
+  <div [ngSwitch]="stepperForm">
+    <!-- Stepper Form Case -->
+    <app-single-question-form *ngSwitchCase="true" [assessmentFormArray]="assessmentFormArray" [assessmentForm]="assessmentForm"></app-single-question-form>
+    
+    <!-- Full Form Case -->
+    <app-all-questions-form *ngSwitchCase="false" [assessmentFormArray]="assessmentFormArray" [assessmentForm]="assessmentForm"></app-all-questions-form>
+    
+    <!-- Optional: Default Case -->
+    <div *ngSwitchDefault>
+      <app-all-questions-form *ngSwitchCase="false"></app-all-questions-form>
+    </div>
+  </div>
+</div>

@@ -54,7 +54,7 @@ export class BotEngineJump extends BotEnginePlay
     const connDataService = new ConnectionsDataService(this._activeChannel.channel, this._tools);
     const blockDataService = new BlockDataService(this._activeChannel.channel, connDataService, this._tools);
 
-    const jumpBlockService$ = new JumpStoryBlockService(blockDataService, connDataService, this._tools);
+    const jumpBlockService$ = new JumpStoryBlockService(blockDataService, connDataService, this._tools, this._activeChannel);
 
     const jumpBlock: JumpBlock = {
 

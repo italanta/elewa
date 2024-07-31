@@ -9,6 +9,7 @@ import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
+import { ActiveChannel } from "../../../model/active-channel.service";
 
 
 /**
@@ -28,7 +29,11 @@ export class JumpStoryBlockService implements IProcessOperationBlock
   userInput: string;
   _logger: Logger;
 
-  constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, private tools: HandlerTools)
+  constructor(
+    private _blockDataService: BlockDataService, 
+    private _connDataService: ConnectionsDataService,
+    private tools: HandlerTools,
+    private _channel: ActiveChannel)
   { }
 
 

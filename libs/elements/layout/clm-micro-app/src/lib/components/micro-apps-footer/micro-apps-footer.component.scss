@@ -1,0 +1,29 @@
+.app-footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  height:  60px;
+  bottom: 0;
+
+  img{
+    width: 4%;
+  }
+  span{
+    font-size: medium;
+    padding-bottom: 6px;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 570px) {
+  .app-footer{
+    img{
+      width: 15%;
+    }
+    span{
+      font-size: small;
+      padding-bottom: 6px;
+    }
+  }
+}  

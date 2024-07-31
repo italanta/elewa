@@ -23,6 +23,7 @@ export interface CommunicationChannel extends IObject
 
   /** FK to the organisation to which this channel is connected. */
   orgId: string;
+
   /** In case this is set, defines the default behaviour of the channel,
    *    in case of new incoming chats. */
   defaultStory?: string;

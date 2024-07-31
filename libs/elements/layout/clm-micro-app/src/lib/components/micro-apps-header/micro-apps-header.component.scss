@@ -1,0 +1,17 @@
+.wrapper{
+  height: 100px;
+  width: 100%;
+  background-color: #1F7A8C;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding-left: 10%;
+
+  .logo{
+    width: 13%;
+    height: 40.49px;
+    img{
+      height: 100%;
+    }
+  }
+}
