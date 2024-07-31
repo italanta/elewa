@@ -1,1 +1,15 @@
-<p>assessment-preview-page works!</p>
+<ng-container>
+  <div class="progress-tracker">
+    <div class="progress-bar" [ngStyle]="{'width': progressPercentage + '%', 'background-image': getProgressColor(progressPercentage)}"></div>
+    <div class="progress-text">
+      {{ progressPercentage | number : '1.0-0' }}% Complete
+    </div>
+  </div>
+
+  <app-assessment-view 
+    [assessmentForm]="assessmentForm" 
+    [assessmentFormArray]="assessmentFormArray"
+    [progressBarCallback]="getProgressBar.bind(this)">
+  </app-assessment-view>
+</ng-container>
+

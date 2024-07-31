@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormArray, FormBuilder } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { SubSink } from 'subsink';
@@ -12,7 +12,6 @@ import { AssessmentPublishService, AssessmentQuestionService, AssessmentService 
 import { AssessmentsFormsModel } from '../../../model/questions-form.model';
 import { AssessmentFormService } from '../../../services/assessment-form.service';
 import { DEFAULT_ASSESSMENT } from '../../../providers/create-empty-assessment-form.provider';
-import { __CalculateProgress } from '../../../utils/calculate-progress.util';
 
 @Component({
   selector: 'app-create-assessment-page',
@@ -22,7 +21,7 @@ import { __CalculateProgress } from '../../../utils/calculate-progress.util';
 export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
   private _sbS = new SubSink();
 
-  assessmentFormModel:  AssessmentsFormsModel;
+  assessmentFormModel: AssessmentsFormsModel;
 
   assessment$: Observable<Assessment>;
   questions$: Observable<AssessmentQuestion[]>;
@@ -37,8 +36,6 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
   isPublishing = false;
   isSaving = false;
   formHasLoaded = false;
-  progressPercentage = 0;
-  assessmentFormArray: FormArray;
 
   action: string;
 
@@ -62,7 +59,6 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
     } else {
       this.initPage();
     }
-    this.assessmentFormArray = this.assessmentFormModel.assessmentsFormGroup.get('questions') as FormArray;
   }
 
   initializeEmptyAssessmentForm() {
@@ -118,22 +114,23 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
     // we spread the `assessmentQstns$()` since it's an array of Observables.
     let savedAssessmentId = '';
 
-    this.insertAssessmentConfig$().pipe(take(1),
-        tap((ass) => savedAssessmentId = ass.id!),
+    this.insertAssessmentConfig$()
+      .pipe(
+        take(1),
+        tap((ass) => (savedAssessmentId = ass.id!)),
         switchMap((ass) => this.persistAssessmentQuestions$(ass.id!)),
         tap(() => {
           this.isSaving = false;
-          this.openSnackBar('Assessment successfully saved', 'Save')
-          this._route$$.navigate([ 'assessments', savedAssessmentId]);
+          this.openSnackBar('Assessment successfully saved', 'Save');
+          this._route$$.navigate(['assessments', savedAssessmentId]);
         })
       )
-    .subscribe()
+      .subscribe();
   }
 
   onPublish() {
     this.isPublishing = true;
     this.assessment.maxScore = this.calculateMaxScore();
-    
     this._sbS.sink = this._publishAssessment.publish(this.assessment)
       .pipe(
         switchMap(() => {
@@ -203,20 +200,6 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
     delQstns.map(question => this._assessmentQuestion.deleteQuestion$(question));
 
     return assessmentQuestions.map(question => this._assessmentQuestion.addQuestion$(assessmentId, question, question.id!));
-  }
-
-  /** Tracking how far a learner is in their assignment, for UI rendering  */
-  getProgressBar(){
-    this.progressPercentage = __CalculateProgress(this.assessmentFormArray);
-  }
-  
-  /** Get the color for the progress bar */
-  getProgressColor(progress: number): string {
-    // Calculate the gradient stop position based on the progress percentage
-    const gradientStopPosition = progress / 100;
-
-    // Generate the linear gradient string
-    return `linear-gradient(to right, white ${gradientStopPosition}%, #1F7A8C ${gradientStopPosition}%)`;
   }
 
   ngOnDestroy(): void

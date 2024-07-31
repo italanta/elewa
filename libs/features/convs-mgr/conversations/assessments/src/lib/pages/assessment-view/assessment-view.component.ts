@@ -17,13 +17,13 @@ export class AssessmentViewComponent implements OnInit, AfterViewInit, OnDestroy
 
   @Input() assessmentForm: FormGroup;
   @Input() questions: AssessmentQuestion[];
+  @Input() assessmentFormArray: FormArray;
   @Input() progressBarCallback: () => void;
 
   stepperForm: boolean;
 
   assessmentPreviewData: any = {};
 
-  assessmentFormArray: FormArray
   private _sBS = new SubSink();
 
   constructor() {}
@@ -33,7 +33,6 @@ export class AssessmentViewComponent implements OnInit, AfterViewInit, OnDestroy
     this.assessmentFormArray = this.assessmentForm.get('questions') as FormArray;
     console.log(this.assessmentForm)
     this._sBS.sink =  this.assessmentForm.valueChanges.subscribe(() => {
-      debugger
       //Communicate progress to parent component and update progress UI
       this.progressBarCallback();
     });
