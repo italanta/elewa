@@ -28,7 +28,13 @@
         </mat-tab>
         <mat-tab label="Preview">
           <!-- use the view component to create the form preview -->
-          <app-assessment-view [assessmentForm]="assessmentFormModel.assessmentsFormGroup"></app-assessment-view>
+          <div class="progress-tracker">
+            <div class="progress-bar" [ngStyle]="{'width': progressPercentage + '%', 'background-image': getProgressColor(progressPercentage)}"></div>
+            <div class="progress-text">
+              {{ progressPercentage | number : '1.0-0' }}% Complete
+            </div>
+          </div>
+          <app-assessment-view [assessmentForm]="assessmentFormModel.assessmentsFormGroup" [progressBarCallback]="getProgressBar.bind(this)"></app-assessment-view>
         </mat-tab>
       </mat-tab-group>
     </div>

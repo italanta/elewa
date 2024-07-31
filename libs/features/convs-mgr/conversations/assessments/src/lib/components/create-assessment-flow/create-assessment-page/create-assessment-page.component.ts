@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
+import { FormArray, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { SubSink } from 'subsink';
@@ -12,6 +12,7 @@ import { AssessmentPublishService, AssessmentQuestionService, AssessmentService 
 import { AssessmentsFormsModel } from '../../../model/questions-form.model';
 import { AssessmentFormService } from '../../../services/assessment-form.service';
 import { DEFAULT_ASSESSMENT } from '../../../providers/create-empty-assessment-form.provider';
+import { __CalculateProgress } from '../../../utils/calculate-progress.util';
 
 @Component({
   selector: 'app-create-assessment-page',
@@ -36,6 +37,8 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
   isPublishing = false;
   isSaving = false;
   formHasLoaded = false;
+  progressPercentage = 0;
+  assessmentFormArray: FormArray;
 
   action: string;
 
@@ -59,6 +62,7 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
     } else {
       this.initPage();
     }
+    this.assessmentFormArray = this.assessmentFormModel.assessmentsFormGroup.get('questions') as FormArray;
   }
 
   initializeEmptyAssessmentForm() {
@@ -199,6 +203,20 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
     delQstns.map(question => this._assessmentQuestion.deleteQuestion$(question));
 
     return assessmentQuestions.map(question => this._assessmentQuestion.addQuestion$(assessmentId, question, question.id!));
+  }
+
+  /** Tracking how far a learner is in their assignment, for UI rendering  */
+  getProgressBar(){
+    this.progressPercentage = __CalculateProgress(this.assessmentFormArray);
+  }
+  
+  /** Get the color for the progress bar */
+  getProgressColor(progress: number): string {
+    // Calculate the gradient stop position based on the progress percentage
+    const gradientStopPosition = progress / 100;
+
+    // Generate the linear gradient string
+    return `linear-gradient(to right, white ${gradientStopPosition}%, #1F7A8C ${gradientStopPosition}%)`;
   }
 
   ngOnDestroy(): void

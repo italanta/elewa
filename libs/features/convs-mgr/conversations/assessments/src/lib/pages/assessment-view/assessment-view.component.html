@@ -1,18 +1,5 @@
 <ng-container>
   <div class="preview" *ngIf="assessmentPreviewData && assessmentFormArray" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="30px" fxFlex>
-    <!-- <div class="card">
-      <span class="card-title">
-        {{ assessmentPreviewData.title }}
-      </span>
-    </div> -->
-  
-    <div class="progress-tracker">
-      <div class="progress-bar" [ngStyle]="{'width': progressPercentage + '%', 'background-image': getProgressColor(progressPercentage)}"></div>
-      <div class="progress-text">
-        {{ progressPercentage | number : '1.0-0' }}% Complete
-      </div>
-    </div>
-    
     <ng-container *ngIf="stepperForm">
       <app-single-question-form [assessmentForm]="assessmentForm" [assessmentFormArray]="assessmentFormArray"></app-single-question-form>
     </ng-container>
