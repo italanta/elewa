@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SubSink } from 'subsink';
 import { Observable, tap, switchMap, take } from 'rxjs';
 
-import { Assessment, AssessmentMode, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment, AssessmentMode, AssessmentQuestion, MoveOnCriteriaTypes } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentPublishService, AssessmentQuestionService, AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
 import { AssessmentsFormsModel } from '../../../model/questions-form.model';
@@ -159,13 +159,33 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
 
   insertAssessmentConfig$()
   {
-    this.assessment['configs'] = {
-      feedback: this.assessmentFormModel.assessmentsFormGroup.value.configs.feedback,
-      // canRetry: this.assessmentFormModel.assessmentsFormGroup.value.configs,
-      // userAttempts: this.assessmentFormModel.assessmentsFormGroup.value.configs.userAttempts,
-      // retryType: this.assessmentFormModel.assessmentsFormGroup.value.configs.retryType,
-      questionsDisplay: this.assessmentFormModel.assessmentsFormGroup.value.configs.questionsDisplay
-    };
+    const configs = this.assessmentFormModel.assessmentsFormGroup.get('configs');
+    if (configs) {
+      const retryConfig = configs.get('retryConfig');
+      const onScore = retryConfig?.get('onScore');
+      const moveOnCriteria = configs.get('moveOnCriteria');
+
+      const criteria = parseInt(moveOnCriteria?.get('criteria')?.value);
+      const passMark = criteria === MoveOnCriteriaTypes.OnPassMark ? moveOnCriteria?.get('passMark')?.value : null;
+
+      this.assessment['configs'] = {
+        feedback: configs.get('feedback')?.value,
+        retryConfig: {
+          type: retryConfig?.get('type')?.value,
+          onCount: retryConfig?.get('onCount')?.value,
+          onScore: {
+            minScore: onScore?.get('minScore')?.value,
+            count: onScore?.get('count')?.value,
+          },
+        },
+        questionsDisplay: configs.get('questionsDisplay')?.value,
+        moveOnCriteria: {
+          criteria: criteria,
+          passMark: passMark,
+        },
+      };
+
+    }
 
     let questionsOrder = this.assessmentFormModel.assessmentsFormGroup.value.questionsOrder;
 
@@ -175,7 +195,7 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
     this.assessmentFormModel.assessmentsFormGroup.value['questionsOrder'] = questionsOrder;
 
     if (this.action === 'create')
-      return this._assessmentService.addAssessment$(this.assessmentFormModel.assessmentsFormGroup.value as Assessment);
+      return this._assessmentService.addAssessment$(this.assessmentFormModel.assessmentsFormGroup.value as Assessment)
 
     return this._assessmentService.updateAssessment$(this.assessmentFormModel.assessmentsFormGroup.value as Assessment);
   }

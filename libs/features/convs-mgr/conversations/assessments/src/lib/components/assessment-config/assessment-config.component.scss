@@ -25,6 +25,16 @@
 		}
 	}
 
+	.on-pass{
+		display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-left: 5.5%;
+    gap: 2rem;
+		input{
+			padding-left: 4px;
+		}
+	}
 	.retrial-allowed{
 		.retry-configs{
 			display: flex;
@@ -33,7 +43,7 @@
 				display: flex;
 				justify-content: start;
 				align-items: center;
-				padding-left: 8%;
+				padding-left: 5.5%;
 				gap: 15%;
 
 				input{
@@ -42,6 +52,7 @@
 					outline: none;
 					border: 1px solid gray;
 					border-radius: 4px;
+					padding-left: 4px;
 				}
 			}
 			.score-config{
@@ -63,6 +74,7 @@
 						outline: none;
 						border: 1px solid gray;
 						border-radius: 4px;
+						padding-left: 2px;
 					}
 				}
 			}

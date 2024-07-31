@@ -1,9 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
-import { Assessment, FeedbackType, QuestionDisplayed, RetryType } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment, FeedbackType, MoveOnCriteriaTypes, QuestionDisplayed, RetryType } from '@app/model/convs-mgr/conversations/assessments';
 
 @Component({
   selector: 'app-assessment-config',
@@ -20,52 +20,130 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
   /** If a user can retry an assignment  */
   retry: boolean;
 
-  private _sbS = new SubSink()
-
   /** Radio control values */
   immediateFeedback = FeedbackType.Immediately;
   onEndFeedback = FeedbackType.OnEnd;
   noFeedback = FeedbackType.Never;
-  retryOnCount = RetryType.onCount
-  scoreRetry = RetryType.OnScore
-  singleDisplay = QuestionDisplayed.Single
-  multipleDisplay = QuestionDisplayed.Multiple
+  /** Can retry for given number of times */
+  retryOnCount = RetryType.onCount;
+  /** Retry based on score */
+  scoreRetry = RetryType.OnScore;
+  /** Only display one question on form */
+  singleDisplay = QuestionDisplayed.Single;
+  /** Display multiple questions on form*/
+  multipleDisplay = QuestionDisplayed.Multiple;
+  /** Step to take on story if a learner passes */
+  moveOnPass = MoveOnCriteriaTypes.OnPassMark;
+  /** Step to take on story if a learner completes an assesmment */
+  moveOnComplete = MoveOnCriteriaTypes.OnComplete;
+
+  private _sbS = new SubSink();
 
   ngOnInit(): void {
-    this.retry = this.assessmentFormGroup?.get('configs.canRetry')?.value;
-    this._sbS.sink =  this.assessmentFormGroup?.get('configs.canRetry')?.valueChanges.subscribe((value) => {
-      this.retry = value;
+    this.setRetryState();
+    this._sbS.sink = this.moveOnCriteriaControl.valueChanges.subscribe(value => {
+      if (value.criteria === this.moveOnComplete) {
+        this.clearMoveOnPassControls();
+      } else if (value.criteria === this.moveOnPass) {
+        this.clearMoveOnCompleteControls();
+      }
+    });
 
-      if (!value) {
-        this.clearControls();
+    this._sbS.sink = this.retryTypeControl.valueChanges.subscribe(value => {
+      if (value === this.retryOnCount) {
+        this.clearScoreRetryControls();
+      } else if (value === this.scoreRetry) {
+        this.clearDefaultRetry();
       }
     });
   }
   
-  /** Turn retry on or off.  */
-  toggleRetry(): void {
-    const canRetryControl = this.assessmentFormGroup.get('configs.canRetry');
-    if (canRetryControl) {
-     this.retry = canRetryControl.value;
+  /** get form controll for assessment passed */
+  get moveOnCriteriaControl() {
+    return this.assessmentFormGroup.get('configs.moveOnCriteria.criteria') as FormControl;
+  }
+
+  get retryTypeControl() {
+    return this.assessmentFormGroup.get('configs.retryConfig.type') as FormControl;
+  }
+
+  /** Get the state of the retry toggle */
+  setRetryState(): void {
+    const retryControl = this.assessmentFormGroup.get('configs.retryConfig.type');
+    if (retryControl) {
+      this.retry = !!retryControl.value;
     }
   }
 
+  /** Turn retry on or off.  */
+  toggleRetry(event: any): void {
+    const retryControl = this.assessmentFormGroup.get('configs.retryConfig.type');
+    if (retryControl) {
+      this.retry = event.checked;
+      if (!this.retry) {
+        retryControl.setValue('');
+        this.clearControls();
+      }
+    }
+  }
+
+  //
+  // SECTION TO CLEAR CONTROLS
+  // 
+  // STORY FLOW CONTROLS
+  clearMoveOnPassControls(): void {
+    this.assessmentFormGroup.get('configs.moveOnCriteria.passMark')?.setValue(null);
+    this.assessmentFormGroup.get('configs.moveOnCriteria.criteria')?.setValue(null);
+  }
+
+  clearMoveOnCompleteControls() {
+    this.assessmentFormGroup.get('configs.moveOnCriteria.criteria')?.setValue(this.moveOnPass);
+  }
+
+  // RETRY CONFIGUARATION CONTROLS
+
   /** If a user disables retry, clear out previous retry configurations */
   clearControls(): void {
-    this.assessmentFormGroup.get('configs.retryType')?.setValue(null);
-    this.assessmentFormGroup.get('configs.userAttempts')?.setValue(null);
-    this.assessmentFormGroup.get('configs.scoreAttempts.minScore')?.setValue(null);
-    this.assessmentFormGroup.get('configs.scoreAttempts.userAttempts')?.setValue(null);
+    this.assessmentFormGroup.get('configs.retryConfig.type')?.setValue(null);
+    this.assessmentFormGroup.get('configs.retryConfig.onCount')?.setValue(null);
+    this.assessmentFormGroup.get('configs.retryConfig.onScore.minScore')?.setValue(null);
+    this.assessmentFormGroup.get('configs.retryConfig.onScore.count')?.setValue(null);
   }
 
+  clearScoreRetryControls(): void {
+    this.assessmentFormGroup.get('configs.retryConfig.onScore.minScore')?.setValue(null);
+    this.assessmentFormGroup.get('configs.retryConfig.onScore.count')?.setValue(null);
+  }
+
+  clearDefaultRetry(): void 
+  {
+    this.assessmentFormGroup.get('configs.retryConfig.onCount')?.setValue(null);
+  }
+
+
+  // Control to manipulate form UI 
+
+  /** Get story flow control based on passing an assessment */
+  get isScoreFlow (){
+    return this.assessmentFormGroup?.get('configs.moveOnCriteria.criteria')?.value === this.moveOnPass
+  }
+
+  /** Get story flow control based on completing an assessment */
+  get isCompleteFlow (){
+    return this.assessmentFormGroup?.get('configs.moveOnCriteria.criteria')?.value === this.moveOnComplete
+  }
+  
+  /** Retry based on number */
   get isDefaultRetrySelected(): boolean {
-    return this.assessmentFormGroup?.get('configs.retryType')?.value === this.retryOnCount;
+    return this.assessmentFormGroup?.get('configs.retryConfig.type')?.value === this.retryOnCount;
   }
 
+  /** Control for retry set on score */
   get isScoreRetrySelected(): boolean {
-    return this.assessmentFormGroup?.get('configs.retryType')?.value === this.scoreRetry;
+    return this.assessmentFormGroup?.get('configs.retryConfig.type')?.value === this.scoreRetry;
   }
 
+/** Unsubscribe from all subscriptions */
   ngOnDestroy(): void {
       this._sbS.unsubscribe();
   }
