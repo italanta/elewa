@@ -31,7 +31,6 @@ export class AssessmentViewComponent implements OnInit, AfterViewInit, OnDestroy
   ngOnInit(): void {
     this.stepperForm = true
     this.assessmentFormArray = this.assessmentForm.get('questions') as FormArray;
-    console.log(this.assessmentForm)
     this._sBS.sink =  this.assessmentForm.valueChanges.subscribe(() => {
       //Communicate progress to parent component and update progress UI
       this.progressBarCallback();
