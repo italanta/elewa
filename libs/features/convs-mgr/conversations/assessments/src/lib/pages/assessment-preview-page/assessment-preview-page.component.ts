@@ -4,7 +4,7 @@ import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 import { SubSink } from 'subsink';
 
 import { AssessmentStatusTypes, Attempt, QuestionResponseMap } from '@app/model/convs-mgr/micro-app/assessments';
-import { AssessmentConfiguration, AssessmentQuestion, AssessmentQuestionOptions, RetryConfig, RetryType } from '@app/model/convs-mgr/conversations/assessments';
+import { AssessmentConfiguration, AssessmentQuestionOptions, RetryConfig, RetryType } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentPageViewMode } from '../../model/view-mode.enum';
 import { StepService } from '../../services/set-steps.service';
@@ -47,6 +47,7 @@ export class AssessmentPreviewPageComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
+    //Build the assessment form array and assign total steps based on controls.
     if (this.assessmentForm) {
       this.assessmentFormArray = this.assessmentForm.get('questions') as FormArray;
       this.getProgressBar();
@@ -54,20 +55,17 @@ export class AssessmentPreviewPageComponent implements OnInit, AfterViewInit {
       this.stepService.setTotalSteps(this.totalSteps);
       this.getRetryControls();
     }
-
+    // Always update steps in an assessment
     this._sBS.sink = this.stepService.currentStep$.subscribe(step => {
       this.currentStep = step;
     });
   }
-
-  ngAfterViewInit(): void {
-    if (this.assessmentFormArray) {
-      this.assessmentFormArray.controls.forEach((control, index) => {
-        control.enable(); 
-      });
-    }
+  /** Use ngAfterViewInit to enable form controls  */
+  ngAfterViewInit(): void 
+  {
+    this.assessmentFormArray?.controls.forEach(control => control.enable());
   }
-
+  /** Methods below are for updating the progress UI */
   getProgressBar() {
     this.progressPercentage = __CalculateProgress(this.assessmentFormArray);
   }
@@ -76,7 +74,7 @@ export class AssessmentPreviewPageComponent implements OnInit, AfterViewInit {
     const gradientStopPosition = progress / 100;
     return `linear-gradient(to right, white ${gradientStopPosition}%, #1F7A8C ${gradientStopPosition}%)`;
   }
-
+  /** Check and fetch conditions for assessment retrial, if present */
   getRetryControls() {
     if (this.assessmentForm) {
       const config = this.assessmentForm.get('configs')?.value as AssessmentConfiguration
@@ -91,11 +89,10 @@ export class AssessmentPreviewPageComponent implements OnInit, AfterViewInit {
     }
   }
 
-
   prevStep() {
     this.stepService.prevStep();
   }
-
+  /** Update answers as a learner moves along a form */
   nextStep(i: number) {
     this.assessmentFormArray.at(i).get('selectedOption')?.markAsTouched();
     if (!this.assessmentFormArray.at(i).get('selectedOption')?.valid) return;
@@ -104,65 +101,78 @@ export class AssessmentPreviewPageComponent implements OnInit, AfterViewInit {
       this.stepService.nextStep();
     }
   }
-
-  saveProgress(currentStep: number) {
-    const questionFormGroup = this.assessmentFormArray.at(currentStep) as FormGroup;
-  
+  /** Saving a learner's progress depending on the view mode */
+  saveProgress(currentStep: number) 
+  {
+    // If stepper form is enabled, only save the current step's progress
+    if (this.stepperForm) {
+      this.saveQuestionProgress(currentStep);
+  } else {
+      // If all questions are displayed, save progress for all questions
+      for (let i = 0; i < this.totalSteps; i++) {
+          this.saveQuestionProgress(i);
+      }
+      this.isCompleted = true;
+      this.updateResultModeAndRetries();
+    }
+  }
+  /** Building the assessment progress object */
+  saveQuestionProgress(index: number) {
+    const questionFormGroup = this.assessmentFormArray.at(index) as FormGroup;
     const questionId = questionFormGroup.get('id')?.value;
     const selectedOptionId = questionFormGroup.get('selectedOption')?.value;
     const answerText = questionFormGroup.get('message')?.value;
     const marks = questionFormGroup.get('marks')?.value;
     const options = questionFormGroup.get('options')?.value;
-  
     const questionResponses = this.currentProgress?.questionResponses || {};
     const correctOption = options.find((option: any) => option.accuracy === 1);
     const isCorrect = correctOption?.id === selectedOptionId;
-  
+
     questionResponses[questionId] = {
-      questionId: questionId,
-      answerText: answerText,
-      answerId: selectedOptionId,
-      marks: marks,
-      correct: isCorrect,
-      score: isCorrect ? marks : 0,
+        questionId: questionId,
+        answerText: answerText,
+        answerId: selectedOptionId,
+        marks: marks,
+        correct: isCorrect,
+        score: isCorrect ? marks : 0,
     };
-  
+
     this.currentProgress = {
-      ...this.currentProgress,
-      questionResponses: questionResponses,
-      score: this.calculateScore(questionResponses)
+        ...this.currentProgress,
+        questionResponses: questionResponses,
+        score: this.calculateScore(questionResponses)
     };
-  
-    // Update result mode and handle retries based on the outcome
-    if (this.currentStep === this.totalSteps - 1) {
-      this.isCompleted = true
-      this.updateResultModeAndRetries();
-    }
-  }
-  
-  calculateScore(questionResponses: QuestionResponseMap): number {
+}
+  /** Looping over each answered question to get the scores */
+  private calculateScore(questionResponses: QuestionResponseMap): number {
     let totalScore = 0;
+    let maxScore = 0;
+
     Object.values(questionResponses).forEach(response => {
       totalScore += response.correct ? response.marks || 0 : 0;
+      maxScore += response.marks || 0; // Sum up the maximum possible marks
     });
-    this.score = totalScore
-    return totalScore;
+    const scorePercentage = (totalScore / maxScore) * 100;
+    this.score = scorePercentage;
+    return scorePercentage;
   }
+
   
+  /** Conditional rendering of different feedback state views */
   updateResultModeAndRetries() {
     let passed;
-    if(this.minScore){
+    if (this.minScore) {
       passed = this.currentProgress.score >= this.minScore;
-    }else{
+    } else {
       passed = this.currentProgress.score > 50
     }
-  
+
     if (passed) {
       this.currentProgress.outcome = AssessmentStatusTypes.Passed;
     } else {
       this.currentProgress.outcome = AssessmentStatusTypes.Failed;
     }
-  
+
     if (this.allowedAttempts > 0 && this.retryType === RetryType.OnScore && !passed) {
       this.resultsMode.failedAndHasRetries = true;
     } else if (this.allowedAttempts > 0 && this.retryType === RetryType.OnScore && passed) {
@@ -176,17 +186,16 @@ export class AssessmentPreviewPageComponent implements OnInit, AfterViewInit {
       this.resultsMode.failedAndNoRetries = !passed;
       this.resultsMode.passedAndNoRetries = passed;
     }
-  
+
     this.pageViewMode = AssessmentPageViewMode.ResultsMode;
   }
-  
+  /** Handle mock assessment retrial */
   retryAssessment() {
     if (this.allowedAttempts > 0) {
       this.allowedAttempts--;
       this.pageViewMode = AssessmentPageViewMode.AssessmentMode;
       this.currentStep = 0;
       // this.stepService.setCurrentStep(this.currentStep);
-      // this.resetProgress();
     }
   }
 
@@ -211,11 +220,4 @@ export class AssessmentPreviewPageComponent implements OnInit, AfterViewInit {
   
     return isSelected && !isAccurate;
   }
-
-
-  buildForm(assessmentQuestions: AssessmentQuestion) {
-    return this._assessFormService.createAssessmentQuestionForm(assessmentQuestions);
-  }
-
 }
-
