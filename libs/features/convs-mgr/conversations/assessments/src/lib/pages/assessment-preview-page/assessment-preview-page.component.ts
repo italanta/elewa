@@ -150,7 +150,12 @@ export class AssessmentPreviewPageComponent implements OnInit, AfterViewInit {
   }
   
   updateResultModeAndRetries() {
-    const passed = this.currentProgress.score >= this.minScore;
+    let passed;
+    if(this.minScore){
+      passed = this.currentProgress.score >= this.minScore;
+    }else{
+      passed = this.currentProgress.score > 50
+    }
   
     if (passed) {
       this.currentProgress.outcome = AssessmentStatusTypes.Passed;

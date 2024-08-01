@@ -167,5 +167,10 @@
       font-size: smaller;
     }
   }
-
+}
+.content-wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(31, 122, 140, 0.35);
 }
