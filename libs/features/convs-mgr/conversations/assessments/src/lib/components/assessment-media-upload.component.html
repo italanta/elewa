@@ -3,7 +3,7 @@
     <div formArrayName="questions">
       <div formGroup="questionFormGroup">
         <div class="header-text">
-          <h5 mat-dialog-title>{{fileAccept === 'image/*'? 'Import Image' : 'Import video'}}</h5>
+          <span mat-dialog-title>{{fileAccept === 'image/*'? 'Import Image' : 'Import video'}}</span>
           <div>
             <button (click)="onCancel()" class="cancel"><i class="fa-solid fa-xmark"></i></button>
           </div>

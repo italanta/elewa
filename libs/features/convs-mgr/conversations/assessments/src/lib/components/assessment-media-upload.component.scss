@@ -25,14 +25,28 @@
 .header-text{
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 5%;
 
   .cancel{
     background-color: none;
     border: none;
     outline: none;
+    .fa-xmark{
+      font-size: large;
+    }
+  }
+  span{
+    font-size: large;
+    font-weight: 400;
   }
 }
 .media-btn{
-  background-color: var( --convs-mgr-color-button);
+  background-color: var(--convs-mgr-color-button);
   color: var(--convs-mgr-color-FFFFFF);
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  border-radius: 10px;
+  width: 25%;
 }

@@ -40,13 +40,36 @@
 	width: 10rem;
 	height: 5rem;
 	border-radius: 8px;
-	img{
-		width: 10rem;
-		height: 5rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 2rem !important;
+
+	.media-div{
+		width: 100%;
+		height: 100%;
+		img{
+			width: 10rem;
+			height: 5rem;
+		}
+		video{
+			width: 10rem;
+			height: 5rem;
+		}
 	}
-	video{
-		width: 10rem;
-		height: 5rem;
+	.img-elipsis{
+		cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 24px;
+    padding: 1rem;
+    border: none;
+    border-radius: 50%;
+		&:hover{
+			background-color: rgb(198, 185, 185);
+		}
 	}
 }
 :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {

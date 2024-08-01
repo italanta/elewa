@@ -14,8 +14,11 @@
 								<div class="question-type-conf">
 									<div fxLayout="column" >
 										<div appearance="fill" fxFlex="60" *ngIf="mediaSrc" class="media-display">
-											<input *ngIf="isImage" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" formControlName="mediaPath">
-  										<input *ngIf="!isImage" #videoPlayer controls [src]="mediaSrc" class="uploaded-media" formControlName="mediaPath">
+											<div class="media-div">
+												<input *ngIf="isImage" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" formControlName="mediaPath">
+  											<input *ngIf="!isImage" #videoPlayer controls [src]="mediaSrc" class="uploaded-media" formControlName="mediaPath">
+											</div>
+											<button class="img-elipsis" [matMenuTriggerFor]="menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
 										</div>
 										<mat-form-field appearance="fill" fxFlex="60">
 											<input type="text" matInput formControlName="message" placeholder="Type your question">
@@ -65,3 +68,9 @@
 		<i class="fas fa-plus"></i>
 	</button>
 </div>
+
+<mat-menu #menu="matMenu" xPosition="after">
+  <button mat-menu-item><span> <i class="fa-solid fa-align-center"></i></span> <span> Align Center</span> </button>
+  <button mat-menu-item><span> <i class="fa-solid fa-align-right"></i></span> <span> Align Right</span></button>
+	<button mat-menu-item><span> <i class="fa-solid fa-align-left"></i></span> <span> Align Left</span></button>
+</mat-menu>
