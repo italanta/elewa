@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
@@ -18,25 +18,45 @@ export class AssessmentMediaUploadComponent implements OnInit
   uploadProgress = 0;
   selectedFile: File;
   assessmentFormGroup: FormGroup;
+  questionFormGroup: FormGroup;
   mediaSrc: File;
   isUploading: boolean;
   path: string;
+  index: number 
+  questions: FormArray
   private _sBS = new SubSink ();
 
   @ViewChild('mediaUpload') input: ElementRef<HTMLInputElement>;
 
   constructor(public dialogRef: MatDialogRef<AssessmentMediaUploadComponent>,
-               @Inject(MAT_DIALOG_DATA) public data: { fileType: string, assessmentFormGroup: FormGroup }, 
+               @Inject(MAT_DIALOG_DATA) public data: { fileType: string, 
+                                                       assessmentFormGroup: FormGroup, 
+                                                       index: number,
+                                                       questionFormGroup: FormGroup;
+                                                       questions: FormArray
+                                                       }, 
+                                                        
                private _uploadService: FileStorageService,          
   ) {
     this.assessmentFormGroup = this.data.assessmentFormGroup;
+    this.index = data.index
+    this.questionFormGroup = data.questionFormGroup
+    this.questions = data.questions
     this.fileAccept = data.fileType === 'image' ? 'image/*' : 'video/*';
   }
 
   ngOnInit()
   {
-    this.path = this.assessmentFormGroup.controls['mediaPath'].value 
+    const questions  = this.assessmentFormGroup.get('questions') as FormArray
+    console.log(questions)
+    this.questions = questions
+    this.path = questions.controls[this.index].get('mediaPath')?.value
+    console.log(this.path)
   }
+
+  get questionsList() {
+    return this.assessmentFormGroup.get('questions') as FormArray;
+  } 
 
   onFileSelected(event: any): void 
   {
@@ -75,8 +95,7 @@ export class AssessmentMediaUploadComponent implements OnInit
   async uploadFile(file: File): Promise<void> {
     this.isUploading = true;
     this.uploadProgress = 0;
-    const mediaName = this.assessmentFormGroup.controls['mediaPath'].value || this.selectedFile.name;
-
+    const mediaName = this.questionFormGroup.controls['mediaPath'].value || this.selectedFile.name;
     const result = await this._uploadService.uploadSingleFile(this.selectedFile, `assessmentMedia/${mediaName}`);
     this. _sBS.sink = result.subscribe({
       next: (progress: number) => {

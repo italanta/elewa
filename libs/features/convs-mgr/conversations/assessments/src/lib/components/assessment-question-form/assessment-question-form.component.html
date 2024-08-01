@@ -12,10 +12,10 @@
 
 							<div fxLayout="row" fxLayoutAlign="space-between center">
 								<div class="question-type-conf">
-									<div fxLayout="column" fxLayoutAlign="start start">
+									<div fxLayout="column" >
 										<div appearance="fill" fxFlex="60" *ngIf="mediaSrc" class="media-display">
-											<img *ngIf="isImage" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media">
-  										<video *ngIf="!isImage" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
+											<input *ngIf="isImage" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" formControlName="mediaPath">
+  										<input *ngIf="!isImage" #videoPlayer controls [src]="mediaSrc" class="uploaded-media" formControlName="mediaPath">
 										</div>
 										<mat-form-field appearance="fill" fxFlex="60">
 											<input type="text" matInput formControlName="message" placeholder="Type your question">

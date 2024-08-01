@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
@@ -68,6 +68,10 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     return this.questionsList.controls[this.questionFormGroupName as number] as FormGroup;
   }
 
+  get mediaPath(){
+    return this.assessmentFormGroup.get('mediaPath') as FormControl;
+  }
+
   /** delete Question */
   deleteQuestion() {
     const question = this.questionsList.at(this.index);
@@ -101,14 +105,17 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(AssessmentMediaUploadComponent, {
       data: { 
               fileType: type,
-              assessmentFormGroup: this.assessmentFormGroup
+              assessmentFormGroup: this.assessmentFormGroup,
+              index: this.index,
+              questions: this.questionsList,
+              questionFormGroup: this.questionFormGroup
             },
       panelClass: 'media-modal'
     });
 
     dialogRef.afterClosed().subscribe((file: File) => {
       if (file) {
-        this.mediaSrc = URL.createObjectURL(file);
+        this.mediaSrc = URL.createObjectURL(this.mediaPath.value);
         this.uploadType = type;
       }
     });

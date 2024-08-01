@@ -1,18 +1,26 @@
-<mat-dialog-content class="upload-modal" [formGroup]="assessmentFormGroup">
-  <div class="header-text">
-    <h5 mat-dialog-title>{{fileAccept === 'image/*'? 'Import Image' : 'Import video'}}</h5>
-    <mat-dialog-actions>
-      <button (click)="onCancel()" class="cancel"><i class="fa-solid fa-xmark"></i></button>
-    </mat-dialog-actions>
+<ng-content>
+  <div formGroup="assessmentFormGroup">
+    <div formArrayName="questions">
+      <div formGroup="questionFormGroup">
+        <div class="header-text">
+          <h5 mat-dialog-title>{{fileAccept === 'image/*'? 'Import Image' : 'Import video'}}</h5>
+          <div>
+            <button (click)="onCancel()" class="cancel"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+        <div class="upload-container" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+          <div class="media-drag">
+            <img src="/assets/images/MDI - image-outline.png" alt="">
+            <p>Drop files here</p>
+            <p>or</p>
+          </div>  
+          <input type="file" id="mediaUpload" (change)="onFileSelected($event)" [accept]="fileAccept" hidden #fileInput formControlName="mediaPath">
+          <button mat-raised-button (click)="fileInput.click()" class="media-btn">Choose File</button>
+          <div>
+            <p>Upload Progress: {{uploadProgress}}%</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="upload-container" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
-    <div class="media-drag">
-      <img src="/assets/images/MDI - image-outline.png" alt="">
-      <p>Drop files here</p>
-      <p>or</p>
-    </div>  
-    <input type="file" id="mediaUpload" (change)="onFileSelected($event)" [accept]="fileAccept" hidden #fileInput formControlName="mediaPath">
-    <button mat-raised-button (click)="fileInput.click()" class="media-btn">Choose File</button>
-    <p *ngIf="uploadProgress">Upload Progress: {{uploadProgress}}%</p>
-  </div>
-</mat-dialog-content>
+</ng-content>
