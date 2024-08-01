@@ -5,7 +5,7 @@ import { flatten as __flatten } from 'lodash';
 import { startWith, tap } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { AssessmentQuestion } from'@app/model/convs-mgr/conversations/assessments';
+import { AssessmentConfiguration, AssessmentQuestion } from'@app/model/convs-mgr/conversations/assessments';
 
 @Component({
   selector: 'app-assessment-view',
@@ -21,6 +21,7 @@ export class AssessmentViewComponent implements OnInit, AfterViewInit, OnDestroy
   @Input() progressBarCallback: () => void;
 
   stepperForm: boolean;
+  configs: AssessmentConfiguration;
 
   assessmentPreviewData: any = {};
 
@@ -29,8 +30,16 @@ export class AssessmentViewComponent implements OnInit, AfterViewInit, OnDestroy
   constructor() {}
 
   ngOnInit(): void {
-    this.stepperForm = true
     this.assessmentFormArray = this.assessmentForm.get('questions') as FormArray;
+    const displayMode = this.assessmentForm.get('configs.questionsDisplay')?.value 
+
+    if(displayMode === 2){
+      this.stepperForm = false
+    }else{
+      this.stepperForm = true
+    }
+    console.log(displayMode)
+    
     this._sBS.sink =  this.assessmentForm.valueChanges.subscribe(() => {
       //Communicate progress to parent component and update progress UI
       this.progressBarCallback();
