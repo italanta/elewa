@@ -123,7 +123,8 @@ export class AssessmentPreviewPageComponent implements OnInit, AfterViewInit {
       answerText: answerText,
       answerId: selectedOptionId,
       marks: marks,
-      correct: isCorrect
+      correct: isCorrect,
+      score: isCorrect ? marks : 0,
     };
   
     this.currentProgress = {
@@ -144,6 +145,7 @@ export class AssessmentPreviewPageComponent implements OnInit, AfterViewInit {
     Object.values(questionResponses).forEach(response => {
       totalScore += response.correct ? response.marks || 0 : 0;
     });
+    this.score = totalScore
     return totalScore;
   }
   
