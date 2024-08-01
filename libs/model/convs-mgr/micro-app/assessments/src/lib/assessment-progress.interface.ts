@@ -30,6 +30,7 @@ export interface AssessmentProgress extends IObject {
 }
   orgId: string;
   endUserId: string;
+  endUserName: string;
   title: string;
 
   pdfUrl?: string;

@@ -85,6 +85,7 @@ export class AssessmentProgressService
       orgId: newProgress.orgId,
       endUserId: newProgress.endUserId,
       title: newProgress.assessmentDetails.title,
+      endUserName: newProgress.endUserName,
       moveOnCriteria: newProgress.assessmentDetails.moveOnCriteria || null
     };
 
