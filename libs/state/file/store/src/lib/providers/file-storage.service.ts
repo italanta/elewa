@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { MatDialog } from '@angular/material/dialog';
 
-import { catchError, combineLatest, finalize, last, map, of, startWith, switchMap } from 'rxjs';
+import { catchError, combineLatest, last, map, of, startWith, switchMap } from 'rxjs';
 
 import { Bot } from '@app/model/convs-mgr/bots';
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
@@ -114,5 +114,5 @@ export class FileStorageService
       }))
     );
   } 
-  
+
 }

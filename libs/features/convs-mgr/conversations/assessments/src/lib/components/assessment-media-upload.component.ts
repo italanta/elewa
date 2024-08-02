@@ -5,7 +5,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SubSink } from 'subsink';
 
 import { FileStorageService } from '@app/state/file';
-import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-assessment-media-upload',
