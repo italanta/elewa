@@ -101,8 +101,9 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     this.addNewQuestion.emit(copiedQstn);
   }
 
-  /** Uploading an image or video */
-  openUploadModal(type: 'image' | 'video'): void {
+  /** Uploading an image or video and setting hte form control value to the value of the file */
+  openUploadModal(type: 'image' | 'video'): void 
+  {
     const dialogRef = this.dialog.open(AssessmentMediaUploadComponent, {
       data: { 
               fileType: type,
@@ -122,8 +123,9 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
       }
     });
   }
-
-  isImage(fileUrl?: string): boolean {
+  /** Check if a file is an image or a video */
+  isImage(fileUrl?: string): boolean 
+  {
     if (!fileUrl) {
       return false;
     }
@@ -132,7 +134,9 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     return imageExtensions.includes(fileExtension);
   }
   
-  checkMediaOnLoad(): void {
+  /** Helper method to check if media exists and to display it */
+  checkMediaOnLoad(): void 
+  {
     const mediaPath = this.mediaPath.value as string | undefined;
     if (mediaPath) {
       this.mediaSrc = mediaPath;

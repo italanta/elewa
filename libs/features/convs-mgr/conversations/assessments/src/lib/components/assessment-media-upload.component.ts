@@ -57,6 +57,7 @@ export class AssessmentMediaUploadComponent implements OnInit
     return this.assessmentFormGroup.get('questions') as FormArray;
   } 
 
+  /** Handle file selection event */
   onFileSelected(event: any): void 
   {
     this.selectedFile = event.target.files[0] as File;
@@ -65,6 +66,7 @@ export class AssessmentMediaUploadComponent implements OnInit
     }
   }
 
+  /** Track files when upload type is drag and drop */
   onDrop(event: DragEvent): void 
   {
     event.preventDefault();
@@ -78,6 +80,7 @@ export class AssessmentMediaUploadComponent implements OnInit
     event.preventDefault();
   }
 
+  /** Upload a file once the user selects it */
   handleFileSelection(file: File): void 
   {
     this.selectedFile = file;
@@ -91,7 +94,9 @@ export class AssessmentMediaUploadComponent implements OnInit
     };
   }
 
-  async uploadFile(file: File): Promise<void> {
+  /** Save selected file to firebase  */
+  async uploadFile(file: File): Promise<void> 
+  {
     this.isUploading = true;
     this.uploadProgress = 0;
     const mediaName = this.questionFormGroup.controls['mediaPath'].value || this.selectedFile.name;
@@ -111,9 +116,6 @@ export class AssessmentMediaUploadComponent implements OnInit
   
   onCancel(): void 
   {
-    // if (!this.path) {
-    //   this.assessmentFormGroup.controls['mediaPath'].setValue('');
-    // }
     this.dialogRef.close();
   }
 }
