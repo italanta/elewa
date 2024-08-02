@@ -49,10 +49,8 @@ export class AssessmentMediaUploadComponent implements OnInit
   ngOnInit()
   {
     const questions  = this.assessmentFormGroup.get('questions') as FormArray
-    console.log(questions)
     this.questions = questions
     this.path = questions.controls[this.index].get('mediaPath')?.value
-    console.log(this.path)
   }
 
   get questionsList() {
@@ -103,17 +101,19 @@ export class AssessmentMediaUploadComponent implements OnInit
     this._sBS.sink = upload$.subscribe(({ progress, downloadURL, filePath }) => {
       this.uploadProgress = Math.round(progress);
       if (this.uploadProgress === 100) {
-        this.isUploading = false;
-        this.dialogRef.close(filePath); // Close dialog with file path
+        if(downloadURL){
+          this.isUploading = false;
+          this.dialogRef.close(downloadURL); // Close dialog with uploaded file path
+        } 
       }
     });
   }
   
   onCancel(): void 
   {
-    if (!this.path) {
-      this.assessmentFormGroup.controls['mediaPath'].setValue('');
-    }
+    // if (!this.path) {
+    //   this.assessmentFormGroup.controls['mediaPath'].setValue('');
+    // }
     this.dialogRef.close();
   }
 }

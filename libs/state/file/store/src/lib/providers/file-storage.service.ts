@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { MatDialog } from '@angular/material/dialog';
 
-import { combineLatest, finalize, map, of, switchMap } from 'rxjs';
+import { catchError, combineLatest, finalize, last, map, of, startWith, switchMap } from 'rxjs';
 
 import { Bot } from '@app/model/convs-mgr/bots';
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
@@ -76,24 +76,43 @@ export class FileStorageService
     }))
   }
 
+    /**
+   * Uploads a single file to the specified path in Firebase Storage and returns
+   * an observable that emits the upload progress and download URL.
+   * 
+   * @param file - The file to be uploaded.
+   * @param filePath - The destination path in Firebase Storage where the file will be stored(name of file as well).
+   * @returns An observable that emits an object containing the upload progress, download URL, and file path.
+   */
   async uploadSingleFileAndPercentage(file: File, filePath: string) {
     const customMetadata = { app: 'ele-convs-mgr' };
-  
+
+    // Reference to the storage location
     const taskRef = this._afS$$.ref(filePath);
+    
+    // Upload the file with custom metadata
     const task = taskRef.put(file, { customMetadata });
-  
-    const taskPercentage = task.percentageChanges();
-  
+
+    // Observable tracking the percentage changes of the upload
+    const taskPercentage = task.percentageChanges().pipe(
+      startWith(0) // Start with 0 to ensure the progress bar shows from the beginning
+    );
+
+    // Observable to get the download URL after the upload completes
     const downloadURL$ = task.snapshotChanges().pipe(
-      finalize(async () => {
-        const url = taskRef.getDownloadURL()
-        return url;
-      })
+      last(), // Wait until the last emission from snapshotChanges, indicating completion
+      switchMap(() => taskRef.getDownloadURL()), // Fetch the download URL after completion
+      catchError(() => of(null)) // Return null in case of any errors
     );
+
+    // Combine the progress and download URL into a single observable output
+    return combineLatest([taskPercentage, downloadURL$.pipe(startWith(null))]).pipe(
+      map(([progress, downloadURL]) => ({
+        progress: progress || 0, // Default progress to 0 if undefined
+        downloadURL, // URL of the uploaded file, null if not available yet
+        filePath // Path where the file was uploaded
+      }))
+    );
+  } 
   
-    // Combine the progress and file path with download URL into a single observable
-    return combineLatest([taskPercentage, downloadURL$]).pipe(
-      map(([progress, downloadURL]) => ({ progress: progress || 0, downloadURL, filePath }))
-    );
-  }
 }
