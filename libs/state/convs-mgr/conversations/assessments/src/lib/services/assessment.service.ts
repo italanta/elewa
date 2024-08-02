@@ -27,6 +27,7 @@ export class AssessmentService {
   }
 
   addAssessment$(assessment: Assessment) {
+    // Create v2(micro-app enabled) assessments by default
     assessment.version == 'v2';
     return this._assessments$$.createAssessment(assessment);
   }
