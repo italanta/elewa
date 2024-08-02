@@ -41,21 +41,6 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
 
   ngOnInit(): void {
     this.setRetryState();
-    this._sbS.sink = this.moveOnCriteriaControl.valueChanges.subscribe(value => {
-      if (value.criteria === this.moveOnComplete) {
-        this.clearMoveOnPassControls();
-      } else if (value.criteria === this.moveOnPass) {
-        this.clearMoveOnCompleteControls();
-      }
-    });
-
-    this._sbS.sink = this.retryTypeControl.valueChanges.subscribe(value => {
-      if (value === this.retryOnCount) {
-        this.clearScoreRetryControls();
-      } else if (value === this.scoreRetry) {
-        this.clearDefaultRetry();
-      }
-    });
   }
   
   /** get form controll for assessment passed */
@@ -86,7 +71,22 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
       }
     }
   }
-
+  onCriteriaChange(criteria: MoveOnCriteriaTypes): void {
+    if (criteria === this.moveOnComplete) {
+      this.clearMoveOnPassControls();
+    } else if (criteria === this.moveOnPass) {
+      this.clearMoveOnCompleteControls();
+    }
+  }
+  
+  onRetryTypeChange(type: RetryType): void {
+    if (type === this.retryOnCount) {
+      this.clearScoreRetryControls();
+    } else if (type === this.scoreRetry) {
+      this.clearDefaultRetry();
+    }
+  }
+  
   //
   // SECTION TO CLEAR CONTROLS
   // 
