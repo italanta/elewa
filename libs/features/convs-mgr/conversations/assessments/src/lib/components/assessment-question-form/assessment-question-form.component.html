@@ -15,8 +15,8 @@
 									<div fxLayout="column" >
 										<div appearance="fill" fxFlex="60" *ngIf="mediaSrc" class="media-display">
 											<div class="media-div">
-												<input *ngIf="isImage" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" formControlName="mediaPath">
-  											<input *ngIf="!isImage" #videoPlayer controls [src]="mediaSrc" class="uploaded-media" formControlName="mediaPath">
+												<img *ngIf="isImage" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
+  											<video *ngIf="!isImage" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
 											</div>
 											<button class="img-elipsis" [matMenuTriggerFor]="menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
 										</div>

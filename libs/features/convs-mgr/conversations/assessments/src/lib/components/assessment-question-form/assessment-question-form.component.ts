@@ -45,7 +45,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private _assessmentForm: AssessmentFormService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   feedBackConditions = [
@@ -69,7 +69,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   }
 
   get mediaPath(){
-    return this.assessmentFormGroup.get('mediaPath') as FormControl;
+    return this.questionFormGroup.get('mediaPath') as FormControl;
   }
 
   /** delete Question */
@@ -80,11 +80,11 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
 
     if (prevQuestion) {
       prevQuestion.patchValue({ nextQuestionId : question.value.nextQuestionId })
-    };
+    }
 
     if (nextQuestion) {
       nextQuestion.patchValue({ prevQuestionId : question.value.prevQuestionId })
-    };
+    }
 
     this.questionsList.removeAt(this.index);
   }
@@ -117,6 +117,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
       if (file) {
         this.mediaSrc =file
         this.uploadType = type;
+        this.mediaPath.setValue(file);
       }
     });
   }

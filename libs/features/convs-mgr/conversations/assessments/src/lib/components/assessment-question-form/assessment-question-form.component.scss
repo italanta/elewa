@@ -37,23 +37,20 @@
 	width: 100%;
 }
 .media-display{
-	width: 10rem;
-	height: 5rem;
+	height: 6rem;
 	border-radius: 8px;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
-	gap: 2rem !important;
 
 	.media-div{
 		width: 100%;
 		height: 100%;
 		img{
-			width: 10rem;
+			width: 100%;
 			height: 5rem;
 		}
 		video{
-			width: 10rem;
+			width: 100%;
 			height: 5rem;
 		}
 	}
@@ -62,9 +59,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 48px;
+    width: 24px;
     height: 24px;
-    padding: 1rem;
+    padding: 0.5rem;
     border: none;
     border-radius: 50%;
 		&:hover{
