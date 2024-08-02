@@ -96,10 +96,10 @@ export class VariableInputComponent implements OnInit, OnDestroy {
      // Create a StoryBlockVariable object
     const storyBlockVariable: StoryBlockVariable = {
       id, 
-      botId: this.botId, 
-      name: name,
-      type: parseInt(type),
-      validate: this.validate, // include the validate property
+      botId: this.botId || '', 
+      name: name || '',
+      type: parseInt(type) || VariableTypes.String,
+      validate: this.validate || false, // include the validate property
     };
 
 
