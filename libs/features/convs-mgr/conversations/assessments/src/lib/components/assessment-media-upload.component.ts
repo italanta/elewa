@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SubSink } from 'subsink';
 
 import { FileStorageService } from '@app/state/file';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-assessment-media-upload',
@@ -96,22 +97,18 @@ export class AssessmentMediaUploadComponent implements OnInit
     this.isUploading = true;
     this.uploadProgress = 0;
     const mediaName = this.questionFormGroup.controls['mediaPath'].value || this.selectedFile.name;
-    const result = await this._uploadService.uploadSingleFile(this.selectedFile, `assessmentMedia/${mediaName}`);
-    this. _sBS.sink = result.subscribe({
-      next: (progress: number) => {
-        this.uploadProgress = Math.round(progress);
-        if (this.uploadProgress === 100) {
-          this.isUploading = false;
-          this.dialogRef.close(file);
-        }
-      },
-      error: (error: any) => {
-        console.error('Upload failed', error);
+  
+    const upload$ = await this._uploadService.uploadSingleFileAndPercentage(this.selectedFile, `assessmentMedia/${mediaName}`);
+    
+    this._sBS.sink = upload$.subscribe(({ progress, downloadURL, filePath }) => {
+      this.uploadProgress = Math.round(progress);
+      if (this.uploadProgress === 100) {
         this.isUploading = false;
+        this.dialogRef.close(filePath); // Close dialog with file path
       }
-    }); 
+    });
   }
-
+  
   onCancel(): void 
   {
     if (!this.path) {

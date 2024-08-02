@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { MatDialog } from '@angular/material/dialog';
 
-import { of, switchMap } from 'rxjs';
+import { combineLatest, finalize, map, of, switchMap } from 'rxjs';
 
 import { Bot } from '@app/model/convs-mgr/bots';
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
@@ -74,5 +74,26 @@ export class FileStorageService
         return of(null);
       }
     }))
+  }
+
+  async uploadSingleFileAndPercentage(file: File, filePath: string) {
+    const customMetadata = { app: 'ele-convs-mgr' };
+  
+    const taskRef = this._afS$$.ref(filePath);
+    const task = taskRef.put(file, { customMetadata });
+  
+    const taskPercentage = task.percentageChanges();
+  
+    const downloadURL$ = task.snapshotChanges().pipe(
+      finalize(async () => {
+        const url = taskRef.getDownloadURL()
+        return url;
+      })
+    );
+  
+    // Combine the progress and file path with download URL into a single observable
+    return combineLatest([taskPercentage, downloadURL$]).pipe(
+      map(([progress, downloadURL]) => ({ progress: progress || 0, downloadURL, filePath }))
+    );
   }
 }

@@ -113,9 +113,9 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
       panelClass: 'media-modal'
     });
 
-    dialogRef.afterClosed().subscribe((file: File) => {
+    dialogRef.afterClosed().subscribe((file: string) => {
       if (file) {
-        this.mediaSrc = URL.createObjectURL(this.mediaPath.value);
+        this.mediaSrc =file
         this.uploadType = type;
       }
     });
