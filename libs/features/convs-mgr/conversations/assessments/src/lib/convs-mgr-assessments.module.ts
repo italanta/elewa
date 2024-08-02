@@ -26,8 +26,8 @@ import { AssessmentsRouterModule } from './assessments.router.module';
 
 import { AssessmentsHomeComponent } from './pages/assessments-home/assessments-home.component';
 import { AssessmentViewComponent } from './pages/assessment-view/assessment-view.component';
-import { AssessmentResultsComponent } from './pages/assessment-results/assessment-results.component';
-import { LegacyAssessmentResultsComponent } from './pages/legacy-assessment-results/legacy-assessment-results.component';
+import { AssessmentResultsPageComponent } from './pages/assessment-results-page/assessment-results-page.component';
+import { LegacyAssessmentResultsComponent } from './components/legacy-assessment-results/legacy-assessment-results.component';
 
 import { DeleteAssessmentModalComponent } from './modals/delete-assessment-modal/delete-assessment-modal.component';
 
@@ -83,7 +83,7 @@ import { AssessmentLandingPageComponent } from './components/micro-app-assessmen
     AssessmentAnswersComponent,
     AssessmentAnswerComponent,
     AssessmentConfigComponent,
-    AssessmentResultsComponent,
+    AssessmentResultsPageComponent,
     LegacyAssessmentResultsComponent,
     DeleteAssessmentModalComponent,
     AssessmentsHeaderComponent,

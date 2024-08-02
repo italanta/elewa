@@ -5,7 +5,7 @@ import { AssessmentResolverService } from '@app/elements/layout/ital-bread-crumb
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentsHomeComponent } from './pages/assessments-home/assessments-home.component';
-import { AssessmentResultsComponent } from './pages/assessment-results/assessment-results.component';
+import { AssessmentResultsPageComponent } from './pages/assessment-results-page/assessment-results-page.component';
 
 import { CreateAssessmentPageComponent } from './components/create-assessment-flow/create-assessment-page/create-assessment-page.component';
 
@@ -29,7 +29,7 @@ const ASSESSMENTS_ROUTERS: Route[] = [
       },
       {
         path: 'results',
-        component: AssessmentResultsComponent,
+        component: AssessmentResultsPageComponent,
         data: { breadCrumb: 'Results' },
       },
     ]

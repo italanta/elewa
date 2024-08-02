@@ -16,11 +16,11 @@ import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb';
 import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
 
 @Component({
-  selector: 'app-assessment-results',
-  templateUrl: './assessment-results.component.html',
-  styleUrls: ['./assessment-results.component.scss'],
+  selector: 'app-assessment-results-page',
+  templateUrl: './assessment-results-page.component.html',
+  styleUrls: ['./assessment-results-page.component.scss'],
 })
-export class AssessmentResultsComponent implements OnInit, OnDestroy {
+export class AssessmentResultsPageComponent implements OnInit, OnDestroy {
   id: string;
   assessment: Assessment;
 
