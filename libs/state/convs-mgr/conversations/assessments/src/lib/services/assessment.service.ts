@@ -27,6 +27,7 @@ export class AssessmentService {
   }
 
   addAssessment$(assessment: Assessment) {
+    assessment.version == 'v2';
     return this._assessments$$.createAssessment(assessment);
   }
 
