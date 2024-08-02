@@ -58,6 +58,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     this.activeCard$.pipe(tap((activeId) => {
       this.activeCard = activeId;
     })).subscribe();
+    this.checkMediaOnLoad();
   }
 
   get questionsList() {
@@ -121,9 +122,26 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  isImage(fileUrl?: string): boolean {
+    if (!fileUrl) {
+      return false;
+    }
+    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+    const fileExtension = fileUrl.split('.').pop()?.toLowerCase() || '';
+    return imageExtensions.includes(fileExtension);
+  }
   
-  isImage(fileUrl: string): boolean {
-    return (fileUrl && this.uploadType === 'image')as boolean;
+  checkMediaOnLoad(): void {
+    const mediaPath = this.mediaPath.value as string | undefined;
+    if (mediaPath) {
+      this.mediaSrc = mediaPath;
+      this.uploadType = this.isImage(mediaPath) ? 'image' : 'video';
+      
+      if (this.uploadType === 'video' && this.video) {
+        this.video.nativeElement.load();
+      }
+    }
   }
 
   ngOnDestroy() {
