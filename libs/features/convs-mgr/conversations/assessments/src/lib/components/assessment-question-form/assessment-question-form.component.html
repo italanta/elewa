@@ -4,6 +4,15 @@
 
 		<i style="width: 100%; margin: auto; color: #B2B2B2;" class="fas fa-grip-horizontal"></i>
 
+		<div class="mini-btns">
+			<button mat-flat-button (click)="duplicateQuestion()">
+				<img src="assets/icons/duplicate-item.svg" alt="">
+			</button>
+			<button mat-flat-button (click)="deleteQuestion()">
+				<img src="assets/icons/delete-item.svg" alt="">
+			</button>
+		</div>
+
 		<div class="card-content">
 			<div *ngIf="assessmentFormGroup">
 				<div [formGroup]="assessmentFormGroup">
@@ -36,15 +45,6 @@
 											<i class="fa-solid fa-video"></i>
 										</button>
 									</div>
-								</div>
-					
-								<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-									<button mat-flat-button (click)="duplicateQuestion()">
-										<img src="assets/icons/duplicate-item.svg" alt="">
-									</button>
-									<button mat-flat-button (click)="deleteQuestion()">
-										<img src="assets/icons/delete-item.svg" alt="">
-									</button>
 								</div>
 							</div>
 

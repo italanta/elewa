@@ -37,13 +37,13 @@
 	width: 100%;
 }
 .media-display{
-	height: 6rem;
+	height: 7rem;
 	border-radius: 8px;
 	display: flex;
-	justify-content: space-between;
+	gap: 1rem;
 
 	.media-div{
-		width: 100%;
+		width: 75%;
 		height: 100%;
 		img{
 			width: 100%;
@@ -68,6 +68,14 @@
 			background-color: rgb(198, 185, 185);
 		}
 	}
+}
+
+.mini-btns{
+	display: flex;
+	justify-content: end;
+	gap: 1rem;
+	max-height: 30px;
+	margin-bottom: 1rem;
 }
 :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: white !important;
