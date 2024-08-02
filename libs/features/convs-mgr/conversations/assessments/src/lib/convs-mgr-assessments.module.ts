@@ -27,7 +27,6 @@ import { AssessmentsRouterModule } from './assessments.router.module';
 import { AssessmentsHomeComponent } from './pages/assessments-home/assessments-home.component';
 import { AssessmentViewComponent } from './pages/assessment-view/assessment-view.component';
 import { AssessmentResultsPageComponent } from './pages/assessment-results-page/assessment-results-page.component';
-import { LegacyAssessmentResultsComponent } from './components/legacy-assessment-results/legacy-assessment-results.component';
 
 import { DeleteAssessmentModalComponent } from './modals/delete-assessment-modal/delete-assessment-modal.component';
 
@@ -45,6 +44,8 @@ import { AssessmentsListViewComponent } from './components/assessments-list-view
 import { CreateAssessmentPageComponent } from './components/create-assessment-flow/create-assessment-page/create-assessment-page.component';
 
 import { AssessmentFormService } from './services/assessment-form.service';
+
+import { LegacyAssessmentResultsComponent } from './components/legacy-assessment-results/legacy-assessment-results.component';
 import { AssessmentCardComponent } from './components/assessment-card/assessment-card.component';
 import { AssessmentFeedbackSectionComponent } from './components/assessment-feedback-section/assessment-feedback-section.component';
 import { AssessmentHeaderComponent } from './components/assessment-header/assessment-header.component';
@@ -53,6 +54,7 @@ import { ContentSectionComponent } from './components/content-section/content-se
 import { SingleQuestionFormComponent } from './components/single-question-form/single-question-form.component';
 import { AllQuestionsFormComponent } from './components/all-questions-form/all-questions-form.component';
 import { AssessmentLandingPageComponent } from './components/micro-app-assessment-landing-page/assessment-landing-page.component';
+import { AssessmentResultsComponent } from './components/assessment-results/assessment-results.component';
 
 @NgModule({
   imports: [
@@ -89,6 +91,7 @@ import { AssessmentLandingPageComponent } from './components/micro-app-assessmen
     AssessmentsHeaderComponent,
     AssessmentsGridViewComponent,
     AssessmentsListViewComponent,
+    AssessmentResultsComponent,
 
     //Micro-App Assessments
     AssessmentCardComponent,
