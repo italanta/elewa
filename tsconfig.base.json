@@ -86,6 +86,9 @@
       "@app/features/convs-mgr/conversations/messaging": [
         "libs/features/convs-mgr/conversations/messaging/src/index.ts"
       ],
+      "@app/features/convs-mgr/conversations/question-banks": [
+        "libs/features/convs-mgr/conversations/question-banks/src/index.ts"
+      ],
       "@app/features/convs-mgr/conversations/surveys": [
         "libs/features/convs-mgr/conversations/surveys/src/index.ts"
       ],
@@ -433,6 +436,9 @@
       "@app/state/convs-mgr/conversations/assessments": [
         "libs/state/convs-mgr/conversations/assessments/src/index.ts"
       ],
+      "app/state/convs-mgr/conversationsquestions-banks": [
+        "libs/state/convs-mgr/conversations/question-banks/src/index.ts"
+      ],
       "@app/state/convs-mgr/conversations/chats": [
         "libs/state/convs-mgr/conversations/chats/src/index.ts"
       ],
@@ -504,9 +510,6 @@
       "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
       "intercom": ["libs/util/ngfi/intercom/src/index.ts"],
       "micro-apps-auth": ["libs/elements/base/micro-apps-auth/src/index.ts"],
-      "@app/features/convs-mgr/conversations/question-banks": [
-        "libs/features/convs-mgr/conversations/question-banks/src/index.ts"
-      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
