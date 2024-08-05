@@ -1,2 +1,2 @@
 export * from './lib/question-banks.module';
-export * from './lib/question-banks.routes';
+export * from './lib/question-banks.router.module';
