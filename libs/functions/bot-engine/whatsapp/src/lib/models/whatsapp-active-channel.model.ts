@@ -108,6 +108,8 @@ export class WhatsappActiveChannel implements ActiveChannel
     const n = this.channel.n;
     const orgId = this.channel.orgId;
     const endUserId = generateEndUserId(phone, PlatformType.WhatsApp, n);
+    this._tools.Logger.log(() => `[SendOutgoingMsgHandler]._handle24hourWindow - Generated End User Id :: ${endUserId}`);
+    
     const endUser = await this.endUserService.getEndUser(endUserId)
 
     const latestMessage = await msgService.getLatestUserMessage(endUserId, orgId);
@@ -128,7 +130,10 @@ export class WhatsappActiveChannel implements ActiveChannel
         if (templateConfig) {
           let params = message.params || templateConfig.params || null;
 
-          if(params) params = await this.__resolveParamVariables(params, orgId, endUser.variables);
+          if(params) params = this.__resolveParamVariables(params, orgId, endUser ? endUser.variables : null);
+
+          this._tools.Logger.error(() => `[SendOutgoingMsgHandler].execute [Warning] - Failed to fetch variables`);
+          if(!params) return null;  
 
           // Get the message template
           return this.parseOutMessageTemplate(templateConfig, params, phone, message);
@@ -140,8 +145,9 @@ export class WhatsappActiveChannel implements ActiveChannel
     }
   }
 
-  private async __resolveParamVariables(params: TemplateMessageParams[], orgId: string, variables: any) { 
-    const resolvedParams = params.map(async (param) => {
+  private __resolveParamVariables(params: TemplateMessageParams[], orgId: string, variables: any) { 
+    if(!variables) return;
+    const resolvedParams = params.map((param) => {
 
       if(param.value === '_var_') {
         const value = variables[param.name];
@@ -155,7 +161,7 @@ export class WhatsappActiveChannel implements ActiveChannel
       }
     });
 
-    return Promise.all(resolvedParams);
+    return resolvedParams
   }
 
   async send(whatsappMessage: WhatsAppOutgoingMessage, standardMessage?: Message) {
