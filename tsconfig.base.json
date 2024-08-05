@@ -436,9 +436,6 @@
       "@app/state/convs-mgr/conversations/assessments": [
         "libs/state/convs-mgr/conversations/assessments/src/index.ts"
       ],
-      "app/state/convs-mgr/conversationsquestions-banks": [
-        "libs/state/convs-mgr/conversations/question-banks/src/index.ts"
-      ],
       "@app/state/convs-mgr/conversations/chats": [
         "libs/state/convs-mgr/conversations/chats/src/index.ts"
       ],
@@ -508,8 +505,14 @@
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
       "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
+      "app/state/convs-mgr/conversationsquestions-banks": [
+        "libs/state/convs-mgr/conversations/question-banks/src/index.ts"
+      ],
       "intercom": ["libs/util/ngfi/intercom/src/index.ts"],
       "micro-apps-auth": ["libs/elements/base/micro-apps-auth/src/index.ts"],
+      "@app/model/convs-mgr/conversations/question-banks-model": [
+        "libs/model/convs-mgr/conversations/question-banks-model/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
