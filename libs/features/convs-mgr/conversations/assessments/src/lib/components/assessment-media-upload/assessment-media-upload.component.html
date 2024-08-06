@@ -1,7 +1,7 @@
-<ng-content>
-  <div formGroup="assessmentFormGroup">
+<ng-container class="media-modal">
+  <div [formGroup]="assessmentFormGroup">
     <div formArrayName="questions">
-      <div formGroup="questionFormGroup">
+      <div [formGroup]="questionFormGroup">
         <div class="header-text">
           <span mat-dialog-title>{{fileAccept === 'image/*'? 'Import Image' : 'Import video'}}</span>
           <div>
@@ -23,4 +23,4 @@
       </div>
     </div>
   </div>
-</ng-content>
+</ng-container>
