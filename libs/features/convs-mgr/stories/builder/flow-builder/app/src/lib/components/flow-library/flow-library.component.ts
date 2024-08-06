@@ -1,7 +1,7 @@
 import { SubSink } from 'subsink';
 
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { FLOW_CONTROLS, FlowControl } from '../../providers/flow-controls.const';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FLOW_CONTROLS, FlowControl, GROUP_FLOW_CONTROL_GROUPS } from '../../providers/flow-controls.const';
 
 @Component({
   selector: 'app-flow-library',
@@ -12,15 +12,15 @@ export class FlowLibraryComponent implements OnInit, OnDestroy
 {
   private _sbS = new SubSink();
 
-  controls: FlowControl[]
+  controls: FlowControl[]  = FLOW_CONTROLS();
 
 
   constructor() 
   { }
 
   ngOnInit(): void {
-    this.controls = FLOW_CONTROLS();
-    console.log(this.controls)
+    // GROUP_FLOW_CONTROL_GROUPS(this.controls)
+    // console.log(this.controls)
    }
 
 
