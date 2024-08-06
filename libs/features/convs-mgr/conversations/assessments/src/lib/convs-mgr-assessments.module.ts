@@ -21,6 +21,7 @@ import {
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { ItalBreadCrumbModule } from '@app/elements/layout/ital-bread-crumb';
 import { ClmMicroAppLayoutModule } from '@app/elements/layout/clm-micro-app';
+import { CustomComponentsModule } from '@app/elements/layout/convs-mgr/custom-components';
 
 import { AssessmentsRouterModule } from './assessments.router.module';
 
@@ -72,6 +73,7 @@ import { AssessmentResultsComponent } from './components/assessment-results/asse
     DragDropModule,
     ItalBreadCrumbModule,
     ClmMicroAppLayoutModule,
+    CustomComponentsModule
   ],
   declarations: [
     AssessmentsHomeComponent,

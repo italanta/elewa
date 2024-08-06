@@ -1,0 +1,11 @@
+<div class="card" [style.background-color]="color">
+  <div class="card-header">
+    <img *ngIf="icon" class="card-icon" [src]="'assets/icons/'+ icon"/>
+    <span class="card-title">
+      {{ text }}
+    </span>
+  </div>
+  <span class="card-number">
+    {{ score }}
+  </span>
+</div>
