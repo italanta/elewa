@@ -10,7 +10,8 @@ import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessmen
 import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
-import { AssessmentMediaUploadComponent } from '../assessment-media-upload.component';
+import { AssessmentMediaUploadComponent } from '../assessment-media-upload/assessment-media-upload.component';
+
 
 @Component({
   selector: 'app-assessment-question-form',
