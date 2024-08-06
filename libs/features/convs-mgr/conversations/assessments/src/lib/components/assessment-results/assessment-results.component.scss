@@ -1,5 +1,39 @@
 .page-container {
-  display: grid;
+  display: flex;
   padding: 1.4rem;
   gap: 1.3rem;
+  width: 100%;
+}
+
+.upper-section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.upper-left-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 60%;
+}
+
+.upper-right-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 40%;
+}
+
+.score-cards {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+app-score-card {
+  display: flex;
+  flex: 1 1 auto;
 }

@@ -1,2 +1,19 @@
 <div class="page-container">
+  <div class="upper-section">
+    <div class="upper-left-section">
+      <div class="score-cards">
+        <app-score-card [text]="'HIGHEST SCORE'" [score]="'98%'" [color]="'#3E788A'"></app-score-card>
+        <app-score-card [text]="'LOWEST SCORE'" [score]="'06%'" [color]="'#DAE0F0'"></app-score-card>
+        <app-score-card [text]="'AVERAGE SCORE'" [score]="'73%'" [color]="'#4A1A4C'"></app-score-card>
+      </div>
+      <div class="distribution-chart"></div>
+    </div>
+
+    <div class="upper-right-section">
+      <div class="pie-chart"></div>
+      <div class="number-stat"></div>
+    </div>
+
+    <div class="bottom-section"></div>
+  </div>
 </div>
