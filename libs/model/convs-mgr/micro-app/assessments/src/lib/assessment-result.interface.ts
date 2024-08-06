@@ -27,11 +27,14 @@ export interface AssessmentResult extends IObject {
  * Represents data for a pie chart, showing the status of assessments.
  */
 export interface PieChartData {
-  /** Number of assessments that are completed */
+  /** Number of learners that have completed */
   done: number;
 
-  /** Number of assessments that are still in progress */
+  /** Number of learners that are still doing the assessment */
   inProgress: number;
+
+  /** Number of learners that have not yet started the assessment */
+  notStarted?: number;
 }
 
 /**

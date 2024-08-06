@@ -7,7 +7,7 @@
     </div>
     <!-- <app-legacy-assessment-results *ngIf="!assessment.version || assessment.version === 'v1'"></app-legacy-assessment-results> -->
     <!-- <app-assessment-results *ngIf="assessment.version && assessment.version === 'v2'"></app-assessment-results> -->
-    <app-assessment-results></app-assessment-results>
+    <app-assessment-results *ngIf="assessment" [assessment]="assessment"></app-assessment-results>
 
   </div>
 </convl-page>

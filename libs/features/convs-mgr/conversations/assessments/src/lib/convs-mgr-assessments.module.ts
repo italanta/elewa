@@ -56,6 +56,9 @@ import { SingleQuestionFormComponent } from './components/single-question-form/s
 import { AllQuestionsFormComponent } from './components/all-questions-form/all-questions-form.component';
 import { AssessmentLandingPageComponent } from './components/micro-app-assessment-landing-page/assessment-landing-page.component';
 import { AssessmentResultsComponent } from './components/assessment-results/assessment-results.component';
+import { CompletionTimeComponent } from './components/assessment-results-components/completion-time/completion-time.component';
+import { ProgressPieChartComponent } from './components/assessment-results-components/progress-pie-chart/progress-pie-chart.component';
+import { DistributionBarChartComponent } from './components/assessment-results-components/distribution-bar-chart/distribution-bar-chart.component';
 
 @NgModule({
   imports: [
@@ -106,6 +109,10 @@ import { AssessmentResultsComponent } from './components/assessment-results/asse
 
     CreateAssessmentPageComponent,
     AssessmentLandingPageComponent,
+
+    CompletionTimeComponent,
+    ProgressPieChartComponent,
+    DistributionBarChartComponent
   ],
 
   providers: [
