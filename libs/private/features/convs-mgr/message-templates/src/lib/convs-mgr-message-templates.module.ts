@@ -17,7 +17,6 @@ import { MessageTemplateFormComponent } from './components/message-template-form
 import { MessageTemplateHeaderComponent } from './components/message-template-header/message-template-header.component';
 import { MessageTemplateListComponent } from './components/message-template-list/message-template-list.component';
 import { MessageTemplateSingleSettingsComponent } from './components/message-template-single-settings/message-template-single-settings.component';
-import { MessageTemplateSingleComponent } from './components/message-template-single/message-template-single.component';
 import { MessageTemplatesHistoryComponent } from './components/message-templates-history/message-templates-history.component';
 import { SpecificTimeModalComponent } from './modals/specific-time-modal/specific-time-modal.component';
 import { AfterInactivityModalComponent } from './modals/after-inactivity-modal/after-inactivity-modal.component';
@@ -47,7 +46,6 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
     MessageTemplateHeaderComponent,
     MessageTemplateListComponent,
     MessageTemplateSingleSettingsComponent,
-    MessageTemplateSingleComponent,
     SpecificTimeModalComponent,
     AfterInactivityModalComponent,
     MilestoneReachedModalComponent,
