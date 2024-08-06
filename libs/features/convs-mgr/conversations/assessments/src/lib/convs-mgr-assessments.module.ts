@@ -52,6 +52,7 @@ import { ContentSectionComponent } from './components/content-section/content-se
 import { SingleQuestionFormComponent } from './components/single-question-form/single-question-form.component';
 import { AllQuestionsFormComponent } from './components/all-questions-form/all-questions-form.component';
 import { AssessmentLandingPageComponent } from './components/micro-app-assessment-landing-page/assessment-landing-page.component';
+import { AssessmentMediaUploadComponent } from './components/assessment-media-upload/assessment-media-upload.component';
 
 @NgModule({
   imports: [
@@ -99,6 +100,7 @@ import { AssessmentLandingPageComponent } from './components/micro-app-assessmen
 
     CreateAssessmentPageComponent,
     AssessmentLandingPageComponent,
+    AssessmentMediaUploadComponent,
   ],
 
   providers: [
