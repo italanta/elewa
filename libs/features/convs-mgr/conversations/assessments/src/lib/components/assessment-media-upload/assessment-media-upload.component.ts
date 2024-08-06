@@ -56,15 +56,6 @@ export class AssessmentMediaUploadComponent implements OnInit
     return this.assessmentFormGroup.get('questions') as FormArray;
   } 
 
-  /** Handle file selection event */
-  onFileSelected(event: any): void 
-  {
-    this.selectedFile = event.target.files[0] as File;
-    if (this.selectedFile) {
-      this.handleFileSelection(this.selectedFile);
-    }
-  }
-
   /** Track files when upload type is drag and drop */
   onDrop(event: DragEvent): void 
   {
@@ -91,6 +82,27 @@ export class AssessmentMediaUploadComponent implements OnInit
       this.assessmentFormGroup.patchValue({ mediaSrc: this.mediaSrc });
       this.uploadFile(this.selectedFile)
     };
+  }
+  /** Programmatically open the file explorer */
+  openFileExplorer(accept: string): void {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = accept; // set the accepted file types
+    fileInput.style.display = 'none';
+
+    fileInput.addEventListener('change', (event: any) => {
+      const file = event.target.files[0];
+      if (file) {
+        this.handleFileSelection(file);
+      }
+    });
+
+    // Append to the body to trigger the click event
+    document.body.appendChild(fileInput);
+    fileInput.click();
+
+    // Remove the input from the DOM after usage
+    document.body.removeChild(fileInput);
   }
 
   /** Save selected file to firebase  */

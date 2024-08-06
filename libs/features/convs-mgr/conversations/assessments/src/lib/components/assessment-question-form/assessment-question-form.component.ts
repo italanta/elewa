@@ -38,7 +38,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   @Output() activeQuestionChanged = new EventEmitter();
   
   activeCard: number;
-  mediaSrc: string | ArrayBuffer = '';
+  mediaSrc = '';
   uploadType: 'image' | 'video';
   addMedia: true
 
@@ -124,19 +124,21 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
       }
     });
   }
-  /** Check if a file is an image or a video */
+  /** Check if a file is an image or a video depending on the extensions on a file */
   isImage(fileUrl?: string): boolean 
   {
     if (!fileUrl) {
       return false;
     }
-    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-    const fileExtension = fileUrl.split('.').pop()?.toLowerCase() || '';
-    return imageExtensions.includes(fileExtension);
+
+    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp'];
+    const fileExtension = this.getFileExtensionFromUrl(fileUrl)?.toLowerCase();
+    
+    return fileExtension ? imageExtensions.includes(fileExtension) : false;
   }
   
   /** Helper method to check if media exists and to display it */
-  checkMediaOnLoad(): void 
+  private checkMediaOnLoad(): void 
   {
     const mediaPath = this.mediaPath.value as string | undefined;
     if (mediaPath) {
@@ -147,6 +149,17 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
         this.video.nativeElement.load();
       }
     }
+  }
+
+  /** Helper method to extract the file extension from the URL gotten back from firebase */
+  private getFileExtensionFromUrl(url: string): string | undefined {
+    // Remove the query parameters and fragment identifier
+    const cleanUrl = url.split('?')[0].split('#')[0];
+    
+    // Extract the file extension by splitting the clean URL by '.' and taking the last part
+    const fileExtension = cleanUrl.split('.').pop();
+    
+    return fileExtension;
   }
 
   ngOnDestroy() {
