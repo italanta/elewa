@@ -671,6 +671,18 @@
             "TRIAL-NOS": "Number of trials"
           }
         }
+      }, 
+      "UPLOAD-TEXTS": {
+        "ALIGN-LEFT": "Align Left",
+        "ALIGN-RIGHT": "Align Right",
+        "ALIGN-CENTER": "Align Center",
+        "REPLACE-IMAGE": "Replace media",
+
+        "UPLOAD-MODAL": {
+          "DROP-FILES": "Drop files here",
+          "OR": "or",
+          "UPLOAD-PROGRESS": "Upload Progress"
+        }
       }
     }
   },

@@ -70,8 +70,8 @@
 </div>
 
 <mat-menu #menu="matMenu" xPosition="after">
-  <button mat-menu-item><span> <i class="fa-solid fa-align-center"></i></span> <span> Align Center </span> </button>
-  <button mat-menu-item><span> <i class="fa-solid fa-align-right"></i></span> <span> Align Right </span></button>
-	<button mat-menu-item><span> <i class="fa-solid fa-align-left"></i></span> <span> Align Left </span></button>
+  <button mat-menu-item><span> <i class="fa-solid fa-align-center"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-CENTER' | transloco }} </span> </button>
+  <button mat-menu-item><span> <i class="fa-solid fa-align-right"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-RIGHT' | transloco }}  </span></button>
+	<button mat-menu-item><span> <i class="fa-solid fa-align-left"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-LEFT' | transloco }} </span></button>
 	<button mat-menu-item (click)="uploadType === 'image'? openUploadModal('image') : openUploadModal('video')" ><span> <i class="fa-solid fa-align-left"></i></span> <span> {{ uploadType === 'image'? "Replace Image" : "Replace Video" }}</span></button>
 </mat-menu>

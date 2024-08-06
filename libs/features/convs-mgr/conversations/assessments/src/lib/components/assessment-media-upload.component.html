@@ -11,13 +11,13 @@
         <div class="upload-container" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
           <div class="media-drag">
             <img src="/assets/images/MDI - image-outline.png" alt="">
-            <p>Drop files here</p>
-            <p>or</p>
+            <p> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.UPLOAD-MODAL.DROP-FILES' | transloco }} </p>
+            <p> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.UPLOAD-MODAL.OR' | transloco }} </p>
           </div>  
           <input type="file" id="mediaUpload" (change)="onFileSelected($event)" [accept]="fileAccept" hidden #fileInput formControlName="mediaPath">
           <button mat-raised-button (click)="fileInput.click()" class="media-btn">Choose File</button>
           <div>
-            <p>Upload Progress: {{uploadProgress}}%</p>
+            <p>{{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.UPLOAD-MODAL.UPLOAD-PROGRESS' | transloco }}: {{uploadProgress}}%</p>
           </div>
         </div>
       </div>
