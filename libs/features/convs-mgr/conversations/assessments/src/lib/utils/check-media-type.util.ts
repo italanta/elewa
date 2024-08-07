@@ -1,6 +1,5 @@
 /** Determine the media type based on the file extension */
-export function getMediaType(fileUrl?: string): string | undefined 
-{
+export function getMediaType(fileUrl?: string): string | undefined {
   if (!fileUrl) {
     return undefined;
   }
@@ -11,25 +10,25 @@ export function getMediaType(fileUrl?: string): string | undefined
     return undefined;
   }
 
-  switch (fileExtension) {
-    case 'jpg':
-    case 'jpeg':
-    case 'png':
-    case 'gif':
-    case 'bmp':
-    case 'svg':
-    case 'webp':
-      return 'image';
-    case 'mp4':
-    case 'mov':
-    case 'avi':
-    case 'wmv':
-    case 'flv':
-    case 'mkv':
-      return 'video';
-    default:
-      return 'unknown';
+  if (isImageExtension(fileExtension)) {
+    return 'image';
   }
+
+  if (isVideoExtension(fileExtension)) {
+    return 'video';
+  }
+
+  return 'unknown';
+}
+
+function isImageExtension(extension: string): boolean {
+  const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp'];
+  return imageExtensions.includes(extension);
+}
+
+function isVideoExtension(extension: string): boolean {
+  const videoExtensions = ['mp4', 'mov', 'avi', 'wmv', 'flv', 'mkv'];
+  return videoExtensions.includes(extension);
 }
 
 /** Helper method to extract the file extension from the URL gotten back from firebase */
