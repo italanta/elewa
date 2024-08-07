@@ -6,8 +6,15 @@
 <div class="table-wrapper">
 <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="assessments-table">
   <ng-container matColumnDef="icon">
-    <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="icon" sortActionDescription="{{'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-NO' | transloco }}">#</th>
-    <td mat-cell *matCellDef="let i=index">{{ i + 1 }}</td>
+    <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="icon" sortActionDescription="{{'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-NO' | transloco }}"></th>
+    <td mat-cell *matCellDef="let endUser">
+      <div class="avatar" [ngStyle]="{'background-color': endUser.avatarColor }">
+        <div *ngIf="!endUser.name">
+         <span style="color: white;">UU</span>
+        </div>
+        <span class="user-char" *ngIf="endUser.name">{{getUserName(endUser.name)}}</span>
+      </div>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="name">
@@ -47,7 +54,7 @@
       {{ 'ASSESSMENTS.RESULTS.TABLE-HEADER.SCORE-CATEGORY' | transloco }}
     </th>
     <td class="table-cell" mat-cell *matCellDef="let endUser">
-      <span class="badge badge--end" [ngClass]="addClass(endUser)">
+      <span class="badge" [ngClass]="endUser.scoreCategory">
         {{ endUser.scoreCategory }}
       </span>
     </td>

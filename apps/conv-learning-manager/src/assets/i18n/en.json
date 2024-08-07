@@ -555,9 +555,10 @@
       },
       "TABLE-HEADER": {
         "NAME": "Name",
-        "PHONE-NO": "PhoneNumber",
+        "PHONE-NO": "Phone Number",
         "STARTED-ON": "Started On",
-        "FINISHED-ON": "Finished On",
+        "FINISHED-ON": "Date done",
+        "DATE-DONE": "Finished On",
         "SCORE": "Score",
         "SCORE-CATEGORY": "Score Category"
       },

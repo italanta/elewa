@@ -126,50 +126,48 @@
     gap: 1.5rem;
     align-self: flex-end;
   }
-
   .assessments-table {
     th.table-header {
       font-size: small;
-      font-weight: bold;
+      color: #7C7C7C !important;
     }
-
+    
     td.table-cell {
       font-size: small;
-
-      .badge {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 6rem;
-
-        &--end {
-          padding: 0.1rem 0.6rem;
-          border-radius: 3em;
-          color: white;
-
-          &.Failed {
-            background-color: var(--convs-mgr-color-primary-red);
-          }
-
-          &.Pass {
-            background-color: var(--convs-mgr-color-primary-shade);
-          }
-
-          &.below-average {
-            background-color: var(--convs-mgr-color-primary-yellow);
-          }
-
-          &.Average {
-            background-color: var(--convs-mgr-color-primary-purple-light);
-          }
-
-          &.in-progress {
-            background-color: var(--convs-mgr-color-A100);
-          }
-        }
-      }
+      font-weight: 300;
     }
   }
+}
+
+.mat-mdc-header-cell {
+  color: #7C7C7C !important;
+  
+}
+
+.mat-mdc-cell {
+  font-weight: 400;
+  text-align: left;
+}
+
+.badge {
+  border-radius: 20px;
+  font-size: smaller;
+  text-align: center;
+  display: inline-block;
+  width: 4.5rem;
+  text-transform: uppercase;
+}
+
+.passed {
+  background-color: transparent;
+  color: #1F7A8C;
+  border: 1px solid #1F7A8C;
+}
+
+.failed {
+  background-color: transparent;
+  color: #FF9402;
+  border: 1px solid #FF9402;
 }
 
 .search {
@@ -206,4 +204,18 @@
   padding: 0.8rem;
   border: 1px solid transparent;
   background: #fff;
+}
+
+.avatar{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .user-char {
+    color: white!important;
+  }
 }
