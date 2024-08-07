@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -23,15 +23,15 @@ import { AssessmentMetricsService } from '../../services/assessment-metrics.serv
 import { pieChartOptions } from '../../utils/chart.util';
 
 @Component({
-  selector: 'app-assessment-results',
-  templateUrl: './assessment-results.component.html',
-  styleUrls: ['./assessment-results.component.scss'],
+  selector: 'app-legacy-assessment-results',
+  templateUrl: './legacy-assessment-results.component.html',
+  styleUrl: './legacy-assessment-results.component.scss',
 })
-export class AssessmentResultsComponent implements OnInit, OnDestroy {
+export class LegacyAssessmentResultsComponent implements OnInit, OnDestroy {
   chart: Chart;
 
   id: string;
-  assessment: Assessment;
+  @Input() assessment: Assessment;
 
   dataSource: MatTableDataSource<EndUserDetails>;
   itemsLength: number;
@@ -53,7 +53,6 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   constructor(
     private _router: Router,
     private _liveAnnouncer: LiveAnnouncer,
-    private _activeAssessment$$: ActiveAssessmentStore,
     private _assessmentQuestion: AssessmentQuestionService,
     private _aMetrics: AssessmentMetricsService,
     private _endUserService: EndUserService,
@@ -68,24 +67,15 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   };
 
   getMetrics() {
-    this._sBs.sink = this._activeAssessment$$.get()
-      .pipe(
-        switchMap((assessment) => {
-          this.assessment = assessment
-          this.pageTitle = `Assessments / ${assessment.title} / results`;
-
-          return this._endUserService.getUserDetailsAndTheirCursor().pipe(
-            map((endUsers) => {
-              const { data, chartData, scores } = this._aMetrics.computeMetrics(endUsers,assessment);
-              this.itemsLength = data.length;
-              this.initDataSource(data);
-              this.computeScores(scores);
-              this._loadChart(chartData);
-            })
-          );
-        })
-      )
-      .subscribe();
+    this._sBs.sink = this._endUserService.getUserDetailsAndTheirCursor().pipe(
+      map((endUsers) => {
+        const { data, chartData, scores } = this._aMetrics.computeMetrics(endUsers, this.assessment);
+        this.itemsLength = data.length;
+        this.initDataSource(data);
+        this.computeScores(scores);
+        this._loadChart(chartData);
+      })
+    ).subscribe();
   };
 
   private initDataSource(data:EndUserDetails[]) {
