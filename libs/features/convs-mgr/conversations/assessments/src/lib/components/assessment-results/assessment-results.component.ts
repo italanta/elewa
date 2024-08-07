@@ -43,92 +43,27 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   }
 
   getResults() {
-  //  this._sBs.sink = this._assessmentResultsSvc$.getResults(this.assessment.id as string)
-  //                     .subscribe((resp)=> {
-  //                       if(resp.success) {
-  //                         this.assessmentResults = resp.results;
-  //                         console.log(this.assessmentResults)
-  //                       } else {
-  //                         console.error(resp.error)
-  //                       }
-  //                     })
+   this._sBs.sink = this._assessmentResultsSvc$.getResults(this.assessment.id as string)
+                      .subscribe((resp)=> {
+                        if(resp.success) {
+                          this.assessmentResults = resp.results;
+                          console.log(this.assessmentResults)
+                        } else {
+                          console.error(resp.error)
+                        }
+                      })
 
-  // this._sBs.sink = this._assessmentResultsSvc$.getUsers(this.assessment.id as string)
-  //                   .subscribe((resp)=> {
-  //                     if(resp.success) {
-  //                       this.assessmentUserResults = resp.results;
-  //                     } else {
-  //                       console.error(resp.error)
-  //                     }
-  //                   })  
-  
-  this.assessmentResults = dummyAssessmentResult;
-  this.assessmentUserResults = dummyAssessmentUserResults
-                    
+  this._sBs.sink = this._assessmentResultsSvc$.getUsers(this.assessment.id as string)
+                    .subscribe((resp)=> {
+                      if(resp.success) {
+                        this.assessmentUserResults = resp.results;
+                      } else {
+                        console.error(resp.error)
+                      }
+                    })
   }
 
   ngOnDestroy() {
     this._sBs.unsubscribe();
   }
 }
-
-const dummyAssessmentResult: AssessmentResult = {
-  lowestScore: 45,
-  highestScore: 98,
-  averageScore: 72,
-  averageTimeToCompletion: 5400000, // 1.5 hours in milliseconds
-  pieChartData: {
-    done: 120,
-    inProgress: 30,
-  },
-  barChartData: [
-    { range: "0-10", count: 5 },
-    { range: "11-20", count: 10 },
-    { range: "21-30", count: 15 },
-    { range: "31-40", count: 20 },
-    { range: "41-50", count: 25 },
-    { range: "51-60", count: 30 },
-    { range: "61-70", count: 25 },
-    { range: "71-80", count: 20 },
-    { range: "81-90", count: 15 },
-    { range: "91-100", count: 50 },
-  ],
-};
-
-const dummyAssessmentUserResults: AssessmentUserResults[] = [
-  {
-    name: "John Doe",
-    phoneNumber: "+254712345678",
-    dateDone: new Date("2024-07-15"),
-    score: 85,
-    scoreCategory: AssessmentStatusTypes.Passed,
-  },
-  {
-    name: "Jane Smith",
-    phoneNumber: "+254798765432",
-    dateDone: new Date("2024-07-16"),
-    score: 72,
-    scoreCategory: AssessmentStatusTypes.Passed,
-  },
-  {
-    name: "Hubo Johnson",
-    phoneNumber: "+254701234567",
-    dateDone: new Date("2024-07-17"),
-    score: 65,
-    scoreCategory: AssessmentStatusTypes.Passed,
-  },
-  {
-    name: "Bob Brown",
-    phoneNumber: "+254712345679",
-    dateDone: new Date("2024-07-18"),
-    score: 50,
-    scoreCategory: AssessmentStatusTypes.Failed,
-  },
-  {
-    name: "Charlie Davis",
-    phoneNumber: "+254798765431",
-    dateDone: new Date("2024-07-19"),
-    score: 30,
-    scoreCategory: AssessmentStatusTypes.Failed,
-  },
-];

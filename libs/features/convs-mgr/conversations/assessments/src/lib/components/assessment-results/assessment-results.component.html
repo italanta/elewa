@@ -1,4 +1,4 @@
-<div class="page-container">
+<div class="page-container" *ngIf="assessmentResults">
   <div class="upper-section">
     <div class="upper-left-section">
       <div class="score-cards">
@@ -25,3 +25,5 @@
     <app-assessment-users-table [assessmentUsers]="assessmentUserResults"></app-assessment-users-table>
   </div>
 </div>
+
+<convl-empty-page-illustration *ngIf="!assessmentResults" text="No results yet"></convl-empty-page-illustration>
