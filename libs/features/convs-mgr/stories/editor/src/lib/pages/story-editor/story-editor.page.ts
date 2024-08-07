@@ -185,7 +185,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     catch (e)
     {
       this.errors = e as StoryError[];
-      this.shownErrors = this.errors.slice(0,2);
+      this.shownErrors = this.errors.length !== 0 ? this.errors.slice(0,2) : []
       this.stateSaved = true;
     }
   }
@@ -210,7 +210,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
         return item.blockId !== error.blockId
       }
     )
-    this.shownErrors = this.errors.slice(0,2)
+    this.shownErrors = this.errors.length !== 0 ? this.errors.slice(0,2) : []
   }
 
   scrollTo(error: StoryError) {

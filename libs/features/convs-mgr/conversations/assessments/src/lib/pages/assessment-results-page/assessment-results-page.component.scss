@@ -1,0 +1,137 @@
+.page-container {
+  display: grid;
+  padding: 1.4rem;
+  gap: 1.3rem;
+
+  .chart-wrapper {
+    display: grid;
+    place-content: center;
+
+    .chart {
+      width: 23vw;
+      height: auto;
+      margin-top: -2rem;
+    }
+  }
+
+  .title-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+    gap: 1rem;
+
+    .btn {
+      outline: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 5px;
+      color: var(--convs-mgr-color-primary-white);
+      background-color: var(--convs-mgr-color-primary-yellow);
+  
+      &__edit {
+        background-color: var(--convs-mgr-color-primary-purple) !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2px;
+      }
+    }
+  }
+
+  .top-items {
+    margin: 0.5rem 0;
+  }
+
+  .classes-wrapper {
+    justify-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cards-chart-wrapper {
+    display: flex;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    gap: 1rem;
+
+    .cards-wrapper {
+      display: grid;
+      width: 80%;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      align-items: center;
+      gap: 3rem;
+
+      .card {
+        padding: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        border-radius: 0.5rem;
+
+        .icon {
+          border-radius: 50%;
+          width: 2.4rem;
+          height: 2.4rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          // tooltip
+          & > svg {
+            color: white;
+            font-size: 1rem;
+          }
+
+          &--yellow {
+            background-color: var(--convs-mgr-color-primary-yellow);
+          }
+
+          &--purple {
+            background-color: var(--convs-mgr-color-primary-purple);
+          }
+
+          &--red {
+            background-color: var(--convs-mgr-color-primary-red);
+          }
+
+          &--green {
+            background-color: var(--convs-mgr-color-primary-shade);
+          }
+        }
+
+        .metrics {
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
+          font-size: 0.8rem;
+
+          .score {
+            font-size: large;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+
+  .search-results-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    align-self: flex-end;
+  }
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  color: #101010;
+  font-size: 2rem;
+  font-weight: 400;
+};

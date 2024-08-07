@@ -1,0 +1,29 @@
+<div class="page-container" *ngIf="assessmentResults">
+  <div class="upper-section">
+    <div class="upper-left-section">
+      <div class="score-cards">
+        <app-score-card [text]="'HIGHEST SCORE'" [score]="assessmentResults.highestScore.toString()+ '%'" [backgroundColor]="'#3E788A'" [textColor]="'#fff'"></app-score-card>
+        <app-score-card [text]="'LOWEST SCORE'" [score]="assessmentResults.lowestScore.toString()+ '%'" [backgroundColor]="'#DAE0F0'" [textColor]="'#000'"></app-score-card>
+        <app-score-card [text]="'AVERAGE SCORE'" [score]="assessmentResults.averageScore.toString()+ '%'" [backgroundColor]="'#4A1A4C'" [textColor]="'#fff'"></app-score-card>
+      </div>
+      <div class="distribution-chart">
+        <app-distribution-bar-chart *ngIf="assessmentResults" [assessmentResults]="assessmentResults"></app-distribution-bar-chart>
+      </div>
+    </div>
+
+    <div class="upper-right-section">
+      <div class="pie-chart-wrapper">
+        <app-progress-pie-chart [assessmentResults]="assessmentResults"></app-progress-pie-chart>
+      </div>
+      <div class="number-stat-wrapper">
+        <app-completion-time [completionTime]="assessmentResults.averageTimeToCompletion"></app-completion-time>
+      </div>
+    </div>
+
+  </div>
+  <div class="bottom-section">
+    <app-assessment-users-table [assessmentUsers]="assessmentUserResults"></app-assessment-users-table>
+  </div>
+</div>
+
+<convl-empty-page-illustration *ngIf="!assessmentResults" text="No results yet"></convl-empty-page-illustration>

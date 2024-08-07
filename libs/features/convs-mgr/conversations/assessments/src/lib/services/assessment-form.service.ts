@@ -24,10 +24,13 @@ export class AssessmentFormService {
           type: [assessment.configs?.retryConfig?.type ?? ''],
           onCount: [assessment.configs?.retryConfig?.onCount ?? ''],
           onScore: this._formBuilder.group({
+            count: [assessment.configs?.retryConfig?.onScore?.count ?? ''],
             minScore: [assessment.configs?.retryConfig?.onScore?.minScore ?? ''],
-            userAttempts: [assessment.configs?.retryConfig?.onScore?.count ?? ''],
-
-          })
+          }),
+        }),
+        moveOnCriteria: this._formBuilder.group({
+          criteria: [assessment.configs?.moveOnCriteria ?? ''],
+          passMark: [assessment.configs?.moveOnCriteria?.passMark ?? '']
         }),
         questionsDisplay: [assessment.configs?.questionsDisplay ?? ''],
       }),

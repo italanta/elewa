@@ -21,12 +21,13 @@ import {
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { ItalBreadCrumbModule } from '@app/elements/layout/ital-bread-crumb';
 import { ClmMicroAppLayoutModule } from '@app/elements/layout/clm-micro-app';
+import { CustomComponentsModule } from '@app/elements/layout/convs-mgr/custom-components';
 
 import { AssessmentsRouterModule } from './assessments.router.module';
 
 import { AssessmentsHomeComponent } from './pages/assessments-home/assessments-home.component';
 import { AssessmentViewComponent } from './pages/assessment-view/assessment-view.component';
-import { AssessmentResultsComponent } from './pages/assessment-results/assessment-results.component';
+import { AssessmentResultsPageComponent } from './pages/assessment-results-page/assessment-results-page.component';
 
 import { DeleteAssessmentModalComponent } from './modals/delete-assessment-modal/delete-assessment-modal.component';
 
@@ -44,6 +45,8 @@ import { AssessmentsListViewComponent } from './components/assessments-list-view
 import { CreateAssessmentPageComponent } from './components/create-assessment-flow/create-assessment-page/create-assessment-page.component';
 
 import { AssessmentFormService } from './services/assessment-form.service';
+
+import { LegacyAssessmentResultsComponent } from './components/legacy-assessment-results/legacy-assessment-results.component';
 import { AssessmentCardComponent } from './components/assessment-card/assessment-card.component';
 import { AssessmentFeedbackSectionComponent } from './components/assessment-feedback-section/assessment-feedback-section.component';
 import { AssessmentHeaderComponent } from './components/assessment-header/assessment-header.component';
@@ -53,6 +56,13 @@ import { SingleQuestionFormComponent } from './components/single-question-form/s
 import { AllQuestionsFormComponent } from './components/all-questions-form/all-questions-form.component';
 import { AssessmentLandingPageComponent } from './components/micro-app-assessment-landing-page/assessment-landing-page.component';
 import { AssessmentMediaUploadComponent } from './components/assessment-media-upload/assessment-media-upload.component';
+
+import { AssessmentResultsComponent } from './components/assessment-results/assessment-results.component';
+import { CompletionTimeComponent } from './components/assessment-results-components/completion-time/completion-time.component';
+import { ProgressPieChartComponent } from './components/assessment-results-components/progress-pie-chart/progress-pie-chart.component';
+import { DistributionBarChartComponent } from './components/assessment-results-components/distribution-bar-chart/distribution-bar-chart.component';
+import { AssessmentUsersTableComponent } from './components/assessment-results-components/assessment-users-table/assessment-users-table.component';
+
 
 @NgModule({
   imports: [
@@ -70,6 +80,7 @@ import { AssessmentMediaUploadComponent } from './components/assessment-media-up
     DragDropModule,
     ItalBreadCrumbModule,
     ClmMicroAppLayoutModule,
+    CustomComponentsModule
   ],
   declarations: [
     AssessmentsHomeComponent,
@@ -83,11 +94,13 @@ import { AssessmentMediaUploadComponent } from './components/assessment-media-up
     AssessmentAnswersComponent,
     AssessmentAnswerComponent,
     AssessmentConfigComponent,
-    AssessmentResultsComponent,
+    AssessmentResultsPageComponent,
+    LegacyAssessmentResultsComponent,
     DeleteAssessmentModalComponent,
     AssessmentsHeaderComponent,
     AssessmentsGridViewComponent,
     AssessmentsListViewComponent,
+    AssessmentResultsComponent,
 
     //Micro-App Assessments
     AssessmentCardComponent,
@@ -101,6 +114,10 @@ import { AssessmentMediaUploadComponent } from './components/assessment-media-up
     CreateAssessmentPageComponent,
     AssessmentLandingPageComponent,
     AssessmentMediaUploadComponent,
+    CompletionTimeComponent,
+    ProgressPieChartComponent,
+    DistributionBarChartComponent,
+    AssessmentUsersTableComponent
   ],
 
   providers: [

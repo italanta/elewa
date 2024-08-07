@@ -1,0 +1,228 @@
+.page-container {
+  display: grid;
+  padding: 1.4rem;
+  gap: 1.3rem;
+
+  .chart-wrapper {
+    display: grid;
+    place-content: center;
+
+    .chart {
+      width: 23vw;
+      height: auto;
+      margin-top: -2rem;
+    }
+  }
+
+  .title-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+    gap: 1rem;
+
+    .btn {
+      outline: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 5px;
+      color: var(--convs-mgr-color-primary-white);
+      background-color: var(--convs-mgr-color-primary-yellow);
+  
+      &__edit {
+        background-color: var(--convs-mgr-color-primary-purple) !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2px;
+      }
+    }
+  }
+
+  .top-items {
+    margin: 0.5rem 0;
+  }
+
+  .classes-wrapper {
+    justify-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cards-chart-wrapper {
+    display: flex;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    gap: 1rem;
+
+    .cards-wrapper {
+      display: grid;
+      width: 80%;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      align-items: center;
+      gap: 3rem;
+
+      .card {
+        padding: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        border-radius: 0.5rem;
+
+        .icon {
+          border-radius: 50%;
+          width: 2.4rem;
+          height: 2.4rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          // tooltip
+          & > svg {
+            color: white;
+            font-size: 1rem;
+          }
+
+          &--yellow {
+            background-color: var(--convs-mgr-color-primary-yellow);
+          }
+
+          &--purple {
+            background-color: var(--convs-mgr-color-primary-purple);
+          }
+
+          &--red {
+            background-color: var(--convs-mgr-color-primary-red);
+          }
+
+          &--green {
+            background-color: var(--convs-mgr-color-primary-shade);
+          }
+        }
+
+        .metrics {
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
+          font-size: 0.8rem;
+
+          .score {
+            font-size: large;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+
+  .search-results-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    align-self: flex-end;
+  }
+  .assessments-table {
+    th.table-header {
+      font-size: small;
+      color: #7C7C7C !important;
+    }
+    
+    td.table-cell {
+      font-size: small;
+      font-weight: 300;
+    }
+  }
+}
+
+.mat-mdc-header-cell {
+  color: #7C7C7C !important;
+  
+}
+
+.mat-mdc-cell {
+  font-weight: 400;
+  text-align: left;
+}
+
+.badge {
+  border-radius: 20px;
+  font-size: smaller;
+  text-align: center;
+  display: inline-block;
+  width: 4.5rem;
+  text-transform: uppercase;
+}
+
+.passed {
+  background-color: transparent;
+  color: #1F7A8C;
+  border: 1px solid #1F7A8C;
+}
+
+.failed {
+  background-color: transparent;
+  color: #FF9402;
+  border: 1px solid #FF9402;
+}
+
+.search {
+  height: 5px;
+  width: 30%;
+  background-color: white;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+
+  &_tooltip {
+    color: gray;
+    font-size: 20px;
+    font-weight: 200;
+  }
+
+  &_input {
+    width: 90%;
+    height: 30px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    padding-left: 6px;
+  }
+}
+
+.search_input::-webkit-input-placeholder {
+  font-weight: 300;
+}
+.search_input::-moz-placeholder {
+  font-weight: 300;
+}
+.search_input::-ms-input-placeholder {
+  font-weight: 300;
+}
+
+.table-wrapper {
+  width: 97%;
+  border-radius: 20px;
+  padding: 0.8rem;
+  border: 1px solid transparent;
+  background: #fff;
+}
+
+.avatar{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .user-char {
+    color: white!important;
+  }
+}

@@ -1,0 +1,34 @@
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #FFFF;
+  border-radius: 1.25rem;
+  color: #101010;
+  text-align: center;
+  height: 11rem;
+  padding: 1.25rem;
+}
+
+.stat-card-info {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.card-title {
+  font-weight: 400;
+}
+
+.stat {
+  font-size: x-large;
+  font-weight: 500;
+  color: var(--convs-mgr-color-bright-teal);
+}
+
+.card-text {
+  font-weight: lighter;
+}
+.card-title, .stat, .card-text {
+  padding: 0.4rem;
+}

@@ -59,7 +59,6 @@
     "mime-types": "^2.1.35",
     "moment": "^2.29.4",
     "ngx-webstorage-service": "^5.0.0",
-    "puppeteer": "^16.2.0",
     "request-promise": "^4.2.6",
     "rxjs": "^7.8.1",
     "subsink": "^1.0.2",
@@ -137,7 +136,6 @@
     "dotenv",
     "@google-cloud/tasks",
     "@google-cloud/scheduler",
-    "@google/generative-ai",
-    "puppeteer"
+    "@google/generative-ai"
   ]
 }
