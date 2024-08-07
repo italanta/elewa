@@ -2,9 +2,9 @@
   <div class="upper-section">
     <div class="upper-left-section">
       <div class="score-cards">
-        <app-score-card [text]="'HIGHEST SCORE'" [score]="assessmentResults.highestScore.toString()+ '%'" [color]="'#3E788A'"></app-score-card>
-        <app-score-card [text]="'LOWEST SCORE'" [score]="assessmentResults.lowestScore.toString()+ '%'" [color]="'#DAE0F0'"></app-score-card>
-        <app-score-card [text]="'AVERAGE SCORE'" [score]="assessmentResults.averageScore.toString()+ '%'" [color]="'#4A1A4C'"></app-score-card>
+        <app-score-card [text]="'HIGHEST SCORE'" [score]="assessmentResults.highestScore.toString()+ '%'" [backgroundColor]="'#3E788A'" [textColor]="'#fff'"></app-score-card>
+        <app-score-card [text]="'LOWEST SCORE'" [score]="assessmentResults.lowestScore.toString()+ '%'" [backgroundColor]="'#DAE0F0'" [textColor]="'#000'"></app-score-card>
+        <app-score-card [text]="'AVERAGE SCORE'" [score]="assessmentResults.averageScore.toString()+ '%'" [backgroundColor]="'#4A1A4C'" [textColor]="'#fff'"></app-score-card>
       </div>
       <div class="distribution-chart">
         <app-distribution-bar-chart *ngIf="assessmentResults" [assessmentResults]="assessmentResults"></app-distribution-bar-chart>

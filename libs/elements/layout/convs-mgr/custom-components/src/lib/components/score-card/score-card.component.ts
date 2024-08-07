@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 export class ScoreCardComponent {
   @Input() text: string;
   @Input() score: string;
-  @Input() color: string;
+  @Input() backgroundColor: string;
   @Input() icon?: string;
+  @Input() textColor: string;
 }
