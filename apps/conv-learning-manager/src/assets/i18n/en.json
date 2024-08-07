@@ -1292,6 +1292,10 @@
       
   }
 },
+  "ASSESSMENT-MICROAPP": {
+    "PLACEHOLDER": "Select Assessment",
+    "CREATE-TEXT": "Create assessment"
+  },
   "MICROAPPS-SCREENS": {
     "FOOTER-TEXT": "Powered by",
     "CONTENT-SECTION": {
@@ -1301,8 +1305,37 @@
     },
     "BUTTON-TEXT": "Start Assessment"
   },
-  "ASSESSMENT-MICROAPP": {
-    "PLACEHOLDER": "Select Assessment",
-    "CREATE-TEXT": "Create assessment"
+  "ASSESSMENT-PAGE": {
+    "BUTTONS-TEXT": {
+      "NEXT-BUTTON": "Next",
+      "PREVIOUS": "Previous",
+      "SUBMIT-TEXT": "Submit assessment",
+      "WHATSAPP-BUTTON": "Go back to WhatsApp",
+      "RETRY-NOW-BUTTON": "Retry Now",
+      "RETRY-LATER-BUTTON": "Retry Later"
+    },
+    "QUESTION": "Question",
+    "GRADE-DISPLAY": {
+      "PASS-MESSAGE": {
+        "PASS-TEXT": "You passed!",
+        "GRADE-TEXT": "Grade received",
+        "SCORE-TEXT": "Highest score"
+      },
+      "FAIL-MESSAGE": {
+        "FAIL-TEXT": "You did not pass.",
+        "GRADE-TEXT": "Grade received:"
+      }
+    },
+    "FAIL-FEEDBACK": {
+      "FAIL-MESSAGE": {
+        "INTRO": "Oops! It looks like you didn’t pass the assessment this time. But don’t worry, you can try again.",
+        "TRIAL-TEXT": {
+          "INTRO": "You have",
+          "END": " more trials"
+        },
+        "RETAKE-TEXT": "Click Retry assignment button below to give it another go!"
+      }
+    },
+    "NO-ANSWER-ERROR" : " Answer the question before proceeding. Don't worry, you can still come back to it before submitting"
   }
 }

@@ -55,6 +55,7 @@ import { ContentSectionComponent } from './components/content-section/content-se
 import { SingleQuestionFormComponent } from './components/single-question-form/single-question-form.component';
 import { AllQuestionsFormComponent } from './components/all-questions-form/all-questions-form.component';
 import { AssessmentLandingPageComponent } from './components/micro-app-assessment-landing-page/assessment-landing-page.component';
+import { AssessmentPreviewPageComponent } from './pages/assessment-preview-page/assessment-preview-page.component';
 import { AssessmentResultsComponent } from './components/assessment-results/assessment-results.component';
 import { CompletionTimeComponent } from './components/assessment-results-components/completion-time/completion-time.component';
 import { ProgressPieChartComponent } from './components/assessment-results-components/progress-pie-chart/progress-pie-chart.component';
@@ -110,7 +111,7 @@ import { AssessmentUsersTableComponent } from './components/assessment-results-c
 
     CreateAssessmentPageComponent,
     AssessmentLandingPageComponent,
-
+    AssessmentPreviewPageComponent,
     CompletionTimeComponent,
     ProgressPieChartComponent,
     DistributionBarChartComponent,

@@ -1,0 +1,152 @@
+<ng-container>
+  <!-- Progress Tracker -->
+  <div class="progress-tracker">
+    <div class="progress-bar" [ngStyle]="{'width': progressPercentage + '%', 'background-image': getProgressColor(progressPercentage)}"></div>
+    <div class="progress-text">
+      {{ progressPercentage | number : '1.0-0' }}% Complete
+    </div>
+  </div>
+
+  <!-- Banners to Display Different Outcomes -->
+  <ng-container *ngIf="pageViewMode === 2">
+    <div>
+      <div class="feedback-section">
+        <!-- Fail Feedback -->
+        <div class="fail-feedback" *ngIf="resultsMode.failedAndHasRetries">
+          <div class="image">
+            <img src="/assets/icons/assessment-failed-feedback-img.svg" />  
+          </div>
+          <div class="feedback-text">
+            <p>{{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.INTRO" | transloco }}</p>
+            <p>
+              <span>{{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.TRIAL-TEXT.INTRO" | transloco }}</span>
+              {{ allowedAttempts }}
+              <span>{{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.TRIAL-TEXT.END" | transloco }}</span>
+            </p>
+            <p>{{ "ASSESSMENT-PAGE.FAIL-FEEDBACK.FAIL-MESSAGE.RETAKE-TEXT" | transloco }}</p>
+          </div>
+        </div>
+
+        <!-- Pass Feedback -->
+        <ng-container *ngIf="isCompleted">
+          <ng-container *ngIf="resultsMode.passedAndNoRetries || resultsMode.passedAndHasRetries">
+            <div class="content-wrapper">
+              <div class="img-text">
+                <div class="image">
+                  <img src="/assets/icons/happy_news.svg" />
+                </div>
+              </div>
+              <div class="marks-text">
+                <span>{{ "ASSESSMENT-PAGE.GRADE-DISPLAY.PASS-MESSAGE.PASS-TEXT" | transloco }}</span>
+                <div class="marks-text">
+                  <span>{{ "ASSESSMENT-PAGE.GRADE-DISPLAY.PASS-MESSAGE.GRADE-TEXT" | transloco }}: {{ score }}% </span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Fail Feedback -->
+          <ng-container *ngIf="resultsMode.failedAndNoRetries || resultsMode.failedAndHasRetries">
+            <div class="fail-content-wrapper">
+              <div class="img-text">
+                <div class="image">
+                  <img src="/assets/icons/assessment-failed-feedback-img.svg" />
+                </div>
+              </div>
+              <div class="marks-text">
+                <span>{{ "ASSESSMENT-PAGE.GRADE-DISPLAY.FAIL-MESSAGE.FAIL-TEXT" | transloco }}</span>
+                <span>{{ "ASSESSMENT-PAGE.GRADE-DISPLAY.PASS-MESSAGE.GRADE-TEXT" | transloco }}: {{ score }}% </span>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- CTA Buttons -->
+          <div class="btns">
+            <button class="__retryAssessment" mat-raised-button (click)="retryAssessment()" *ngIf="resultsMode.failedAndHasRetries || resultsMode.passedAndHasRetries">
+              {{ "ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-NOW-BUTTON" | transloco }} retryNow
+            </button>
+            <button class="__backToPlatform" mat-raised-button *ngIf="resultsMode.failedAndNoRetries || resultsMode.passedAndNoRetries">
+              <span>{{"ASSESSMENT-PAGE.BUTTONS-TEXT.WHATSAPP-BUTTON" | transloco}}</span> 
+            </button>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- Feedback Form Questions -->
+      <div class="long-assessment" *ngIf="assessmentFormArray && !resultsMode.failedAndHasRetries">
+        <div *ngIf="resultsMode.failedAndNoRetries || resultsMode.passedAndNoRetries || resultsMode.passedAndHasRetries">
+          <form [formGroup]="assessmentForm">
+            <div formArrayName="questions">
+              <mat-card class="question-card" *ngFor="let question of assessmentFormArray.controls; let i = index" [formGroupName]="i">
+                <mat-card-header>
+                  <div class="question-header">
+                    <p>{{ "ASSESSMENT-PAGE.QUESTION" | transloco }} {{ i + 1 }}</p>
+                    <p [ngClass]="{
+                      'red-text': currentProgress.questionResponses[question.get('id')?.value].score !== currentProgress.questionResponses[question.get('id')?.value].marks,
+                      'teal-text': currentProgress.questionResponses[question.get('id')?.value].score === currentProgress.questionResponses[question.get('id')?.value].marks
+                    }">
+                      {{ currentProgress.questionResponses[question.get('id')?.value].score }} / {{ currentProgress.questionResponses[question.get('id')?.value].marks }}
+                    </p>
+                  </div>
+                </mat-card-header>
+                <mat-card-content class="question-content">
+                  <p>{{ question.get('message')?.value }}</p>
+                  <div class="question-feedback" *ngFor="let option of question.get('options')?.value">
+                    <div class="option-details">
+                      <input
+                        type="radio"
+                        [value]="option.id"
+                        formControlName="selectedOption"
+                        [checked]="question.get('selectedOption')?.value === option.id"
+                        class="custom-radio"
+                        [ngClass]="{'red-radio': option.accuracy !== 1}">
+                      <label [for]="'option-' + option.id">{{ option.text }}</label>
+                    </div>
+                    <div class="radio-text">
+                      <p *ngIf="question.get('selectedOption')?.value === option.id" class="feedback-text">
+                        <span [ngClass]="{'red-text': option.accuracy !== 1, 'teal-text': option.accuracy === 1}">
+                          {{ option.accuracy === 1 ? 'Correct: ' : 'Wrong: ' }}
+                        </span>
+                        {{ getOptionFeedback(question) }}
+                      </p>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Assessment View -->
+  <ng-container *ngIf="!isCompleted">
+    <app-assessment-view 
+      [assessmentForm]="assessmentForm" 
+      [assessmentFormArray]="assessmentFormArray"
+      [progressBarCallback]="getProgressBar.bind(this)">
+    </app-assessment-view>
+  </ng-container>
+
+  <!-- Navigation Buttons -->
+  <ng-container>
+    <div class="buttons-section" *ngIf="assessmentForm && !isCompleted">
+      <div class="stepper-buttons" *ngIf="stepperForm">
+        <button class="previous" mat-raised-button (click)="prevStep()" [disabled]="currentStep === 0" [hidden]="currentStep === 0">
+          {{ "ASSESSMENT-PAGE.BUTTONS-TEXT.PREVIOUS" | transloco }}
+        </button>
+        <button class="next" mat-raised-button (click)="nextStep(currentStep)" [disabled]="currentStep === totalSteps - 1 && assessmentFormArray.at(currentStep).get('selectedOption')?.invalid" [hidden]="currentStep === totalSteps - 1">
+          {{ "ASSESSMENT-PAGE.BUTTONS-TEXT.NEXT-BUTTON" | transloco }}
+        </button>
+      </div>
+      <div class="submit-btn flex-submit" *ngIf="!stepperForm || currentStep === totalSteps - 1">
+        <button class="btn-btns" mat-raised-button (click)="saveProgress(currentStep)">
+          <span>{{ "ASSESSMENT-PAGE.BUTTONS-TEXT.SUBMIT-TEXT" | transloco }}</span>
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+
