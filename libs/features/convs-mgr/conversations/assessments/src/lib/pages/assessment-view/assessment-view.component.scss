@@ -1,39 +1,9 @@
-	.preview {
+  .preview {
     width: 100%;
-    margin: 30px auto;
+    padding-left: 5%;
 
-
-    .card {
-      width: 60%!important;
-      margin: auto;
-      background-color: white;
-      color: black!important;
-      padding: 20px;
-      border-radius: 10px;
-      // border: solid #B8AFDA 2px;
-
-      .card-title {
-        font-size: 2rem;
-        font-weight: 400;
-      }
+    .form-display{
+      width: 90%;
     }
 
-    .questions-cards {
-      .question-card {
-        .question-message {
-          font-size: 1rem;
-          font-weight: 400;
-          color: #101010;
-        }
-
-        .question-options {
-          .option-name  span {
-            font-size: 1rem;
-            font-weight: 400;
-            color: #101010;
-          }
-        }
-      }
-    }
-
-  }
+}

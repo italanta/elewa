@@ -1,0 +1,207 @@
+.progress-tracker{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  padding: 1rem 0 1rem 0.5rem;
+  width: 98%;
+  
+  .progress-bar{
+    width: 100%;
+    height: 8px;
+    background-color: var(--micro-apps-assessment-background);
+    border-radius: 6px;
+  }
+  .progress-text{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    padding: 0.5rem 0 0.5rem 0.8rem;
+    font-size: smaller;
+  }
+}
+
+.buttons-section{
+  display: flex;
+    justify-content: space-between;
+    align-self: center;
+    width: 90%;
+    gap: 10%;
+  .stepper-buttons{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 1rem;
+    .next{
+      color: var(--micro-apps-colour-white);
+      background-color: var(--micro-apps-teal-primary);
+      width: 25% !important;
+      margin-left: auto;
+    }
+    .previous{
+      color: var(--micro-apps-teal-primary);
+      background-color: var(--micro-apps-colour-white);
+      width: 25% !important;
+      border: 1px solid var(--micro-apps-teal-primary);
+    }
+  }
+  .submit-btn{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-top: 1%;
+    width: 100%;
+    .btn-btns{
+      color: var(--micro-apps-colour-white);
+      background-color: var(--micro-apps-teal-primary);
+    }
+  }
+}
+
+
+.question-header{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+// Text section
+.feedback-section {
+  width: 99%;
+  .fail-feedback{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .image {
+      width: 30%;
+      height: 30%;
+      align-self: center;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+.long-assessment {
+  width: 90%;
+  padding: 8px 2%;
+}
+// Feedback text color styles
+.red-text {
+  color: red;
+}
+
+.teal-text {
+  color: var(--micro-apps-teal-primary);
+}
+.question-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.question-feedback{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.5rem;
+
+  .option-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0.1rem 0;
+    .custom-radio {
+      appearance: none;
+      border: 2px solid #ccc;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      position: relative;
+      margin-right: 8px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .custom-radio.red-radio:checked{
+      border-color: red;
+    }
+    
+    .custom-radio:checked {
+      border-color: var(--micro-apps-teal-primary);
+    }
+
+    .custom-radio.red-radio:checked::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background-color:red;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  
+    
+    .custom-radio:checked::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background-color:var(--micro-apps-teal-primary);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .radio-text{
+    .feedback-text{
+      margin: 0;
+      padding-left: 0.5rem;
+      font-size: smaller;
+    }
+  }
+}
+.content-wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(31, 122, 140, 0.35);
+}
+
+.fail-content-wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(255, 0, 0, 0.35);
+}
+// Buttons
+.btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding-top: 1rem;
+  .__backToPlatform {
+    color: #fff;
+    background-color: #1F7A8C;
+    width: 25%;
+  }
+  .__retryAssessment {
+    color: var(--micro-apps-colour-white);
+    background-color: var(--micro-apps-teal-primary);
+    width: 25%;
+    border: 1px solid var(--micro-apps-teal-primary);
+  }
+  .__retryLater{
+    color: #1F7A8C;
+    background-color: #fff;
+    width: 25%;
+    border: 1px solid #1F7A8C;
+  }
+}
