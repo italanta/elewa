@@ -1,6 +1,6 @@
 import Chart from 'chart.js/auto';
 
-import { Component, OnInit, OnDestroy, Input, AfterContentInit, AfterViewInit, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, AfterViewInit, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 
 import { SubSink } from 'subsink';
 
@@ -44,7 +44,7 @@ export class ProgressPieChartComponent implements OnInit, AfterViewInit,OnDestro
     return new Chart(this.progressPieChart.nativeElement, {
       type: 'doughnut',
       data: {
-        labels: ['Done', 'In progress', 'Not started'],
+        labels: ['Done', 'In progress'],
         datasets: [
           {
             data: [data.done, data.inProgress, 0],
@@ -55,19 +55,32 @@ export class ProgressPieChartComponent implements OnInit, AfterViewInit,OnDestro
       },
       options: {
         responsive: true,
+        cutout: '60%',
         plugins: {
           title: {
             display: true,
             text: 'Progress chart',
             font: {size: 14, weight: 'normal'}
           },
+          tooltip: {
+            enabled: true,
+            usePointStyle: true,
+            backgroundColor: 'white',
+            bodyColor: 'black',
+            titleColor: 'black',
+            callbacks: { 
+              // To change label in tooltip
+              label: (data) => { 
+                return "Users: "+data.formattedValue
+              }
+            },
+          },
           legend: {
             display: true,
             position: "bottom",
             labels: {
-              boxWidth: 12,
-              useBorderRadius: true,
-              borderRadius: 6
+              usePointStyle: true,
+              pointStyle: 'circle'
             },
           },
         }
