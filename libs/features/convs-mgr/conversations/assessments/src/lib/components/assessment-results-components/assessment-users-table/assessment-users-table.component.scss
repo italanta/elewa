@@ -174,7 +174,7 @@
 
 .search {
   height: 5px;
-  width: 97%;
+  width: 30%;
   background-color: var(--convs-mgr-color-primary-white);
   border-radius: 8px;
   margin-bottom: 1.375rem;
@@ -198,4 +198,12 @@
     font-size: 15px;
     padding-left: 6px;
   }
+}
+
+.table-wrapper {
+  width: 97%;
+  border-radius: 20px;
+  padding: 0.8rem;
+  border: 1px solid transparent;
+  background: #fff;
 }

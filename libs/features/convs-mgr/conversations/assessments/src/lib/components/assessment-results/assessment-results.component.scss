@@ -1,28 +1,35 @@
 .page-container {
   display: flex;
-  padding: 1.4rem;
-  gap: 1.3rem;
+  flex-direction: column;
+  padding: 1.4rem auto;
+  gap: 2.5rem;
   width: 100%;
+  margin: 0 auto;
 }
 
 .upper-section {
   display: flex;
   flex-direction: row;
   width: 100%;
+  gap: 2%;
 }
 
 .upper-left-section {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 60%;
+  width: 74%;
 }
 
 .upper-right-section {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 40%;
+  width: 22%;
+}
+
+.pie-chart-wrapper {
+  flex-grow: 1;
 }
 
 .score-cards {
@@ -36,4 +43,11 @@
 app-score-card {
   display: flex;
   flex: 1 1 auto;
+}
+
+app-assessment-users-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }

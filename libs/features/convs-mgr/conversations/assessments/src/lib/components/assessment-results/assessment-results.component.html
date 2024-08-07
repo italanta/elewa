@@ -12,16 +12,16 @@
     </div>
 
     <div class="upper-right-section">
-      <div class="pie-chart">
+      <div class="pie-chart-wrapper">
         <app-progress-pie-chart [assessmentResults]="assessmentResults"></app-progress-pie-chart>
       </div>
-      <div class="number-stat">
+      <div class="number-stat-wrapper">
         <app-completion-time [completionTime]="assessmentResults.averageTimeToCompletion"></app-completion-time>
       </div>
     </div>
 
-    <div class="bottom-section">
-      <app-assessment-users-table [assessmentUsers]="assessmentUserResults"></app-assessment-users-table>
-    </div>
+  </div>
+  <div class="bottom-section">
+    <app-assessment-users-table [assessmentUsers]="assessmentUserResults"></app-assessment-users-table>
   </div>
 </div>
