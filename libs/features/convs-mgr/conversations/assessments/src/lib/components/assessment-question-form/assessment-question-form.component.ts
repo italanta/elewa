@@ -126,7 +126,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
       }
     });
   }
-  
+  /** Check if media is present when component first loads */
   private _checkMediaOnLoad()
   {
     const mediaPath = this.mediaPath.value as string | undefined;
@@ -136,7 +136,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
       this.isImage = false;
     }
   }
-
+ /** Get media type when a user clicks update media button */
   private _updateMediaState(mediaPath: string)
   {
     this.mediaSrc = mediaPath;
@@ -152,7 +152,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
       this.video.nativeElement.load();
     }
   }
-  
+
   ngOnDestroy() {
     this._sBs.unsubscribe();
   }
