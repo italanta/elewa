@@ -197,6 +197,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
         moveOnCriteria: this.assessment.configs?.moveOnCriteria,
         title: this.assessment.title
       },
+      endUserName:this.app.endUserName,
       hasSubmitted: isLastStep
     }
 

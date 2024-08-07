@@ -12,6 +12,9 @@ export interface MicroAppProgress extends IObject
   appId: string;
   /** Id of the user engaging with the app */
   endUserId: string;
+
+  /** Name of the end user engaging with the app */
+  endUserName?: string;
   /** ID of an organization */
   orgId: string;
   /** Type of micro-app, can be course, assessment or custom */
