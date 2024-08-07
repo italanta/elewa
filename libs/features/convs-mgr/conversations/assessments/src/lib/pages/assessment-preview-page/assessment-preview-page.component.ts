@@ -176,10 +176,8 @@ export class AssessmentPreviewPageComponent implements OnInit, AfterViewInit {
     if (this.allowedAttempts > 0 && this.retryType === RetryType.OnScore && !passed) {
       this.resultsMode.failedAndHasRetries = true;
     } else if (this.allowedAttempts > 0 && this.retryType === RetryType.OnScore && passed) {
-      console.log(this.allowedAttempts)
       this.resultsMode.passedAndHasRetries = true;
     } else if (this.allowedAttempts > 0 && this.retryType === RetryType.onCount) {
-      console.log(this.allowedAttempts)
       this.resultsMode.failedAndHasRetries = !passed;
       this.resultsMode.passedAndHasRetries = passed;
     } else {

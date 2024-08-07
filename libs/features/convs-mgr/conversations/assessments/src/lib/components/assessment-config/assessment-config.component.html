@@ -59,7 +59,9 @@
             <div class="retrial-allowed" formGroupName="moveOnCriteria">
                 <hr />
                 <mat-radio-group formControlName="criteria" fxLayout="column" fxLayoutAlign="start">
-                    <mat-radio-button [value]="moveOnPass">
+                    <mat-radio-button 
+                    [value]="moveOnPass"
+                    (click)="onMoveOnCriteriaClick(moveOnPass)">
                         {{
                         'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.UPON-PASSING'
                         | transloco
@@ -77,7 +79,10 @@
                             <input formControlName="passMark" type="number" min="0" max="100" />
                         </div>
                     </div>
-                    <mat-radio-button [value]="moveOnComplete">
+                    <mat-radio-button 
+                    [value]="moveOnComplete"
+                    (click)="onMoveOnCriteriaClick(moveOnComplete)"
+                    >
                         {{
                         'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.UPON-COMPLETION'
                         | transloco
@@ -103,7 +108,10 @@
             <div class="retrial-allowed" *ngIf="retry">
                 <hr />
                 <mat-radio-group formControlName="type" fxLayout="column" fxLayoutAlign="start">
-                    <mat-radio-button [value]="retryOnCount">{{
+                    <mat-radio-button 
+                        [value]="retryOnCount"
+                        (click)="onRetryTypeClick(retryOnCount)"
+                    >{{
                         'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.DEFAULT.DEFAULT-TEXT'
                         | transloco
                         }}</mat-radio-button>
@@ -116,7 +124,10 @@
                             <input formControlName="onCount" type="number" min="0" max="100" />
                         </div>
                     </div>
-                    <mat-radio-button [value]="scoreRetry">{{
+                    <mat-radio-button 
+                        [value]="scoreRetry"
+                        (click)="onRetryTypeClick(scoreRetry)">
+                    {{
                         'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.ON-SCORE.SCORE-TEXT'
                         | transloco
                         }}
