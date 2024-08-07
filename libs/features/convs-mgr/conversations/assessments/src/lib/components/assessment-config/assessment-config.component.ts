@@ -71,7 +71,22 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
       }
     }
   }
-
+  onCriteriaChange(criteria: MoveOnCriteriaTypes): void {
+    if (criteria === this.moveOnComplete) {
+      this.clearMoveOnPassControls();
+    } else if (criteria === this.moveOnPass) {
+      this.clearMoveOnCompleteControls();
+    }
+  }
+  
+  onRetryTypeChange(type: RetryType): void {
+    if (type === this.retryOnCount) {
+      this.clearScoreRetryControls();
+    } else if (type === this.scoreRetry) {
+      this.clearDefaultRetry();
+    }
+  }
+  
   //
   // SECTION TO CLEAR CONTROLS
   // 
