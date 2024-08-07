@@ -195,6 +195,16 @@
   }
 }
 
+.search_input::-webkit-input-placeholder {
+  font-weight: 300;
+}
+.search_input::-moz-placeholder {
+  font-weight: 300;
+}
+.search_input::-ms-input-placeholder {
+  font-weight: 300;
+}
+
 .table-wrapper {
   width: 97%;
   border-radius: 20px;
