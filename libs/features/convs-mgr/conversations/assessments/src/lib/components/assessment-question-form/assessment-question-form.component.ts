@@ -11,6 +11,7 @@ import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessment
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
 import { AssessmentMediaUploadComponent } from '../assessment-media-upload/assessment-media-upload.component';
+import { getMediaType } from '../../utils/check-media-type.util'
 
 
 @Component({
@@ -40,7 +41,8 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   activeCard: number;
   mediaSrc = '';
   uploadType: 'image' | 'video';
-  addMedia: true
+  addMedia: true;
+  isImage: boolean
 
   @ViewChild('videoPlayer') video: ElementRef<HTMLVideoElement>;
 
@@ -59,7 +61,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     this.activeCard$.pipe(tap((activeId) => {
       this.activeCard = activeId;
     })).subscribe();
-    this.checkMediaOnLoad();
+    this._checkMediaOnLoad();
   }
 
   get questionsList() {
@@ -124,44 +126,33 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
       }
     });
   }
-  /** Check if a file is an image or a video depending on the extensions on a file */
-  isImage(fileUrl?: string): boolean 
-  {
-    if (!fileUrl) {
-      return false;
-    }
-
-    const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp'];
-    const fileExtension = this.getFileExtensionFromUrl(fileUrl)?.toLowerCase();
-    
-    return fileExtension ? imageExtensions.includes(fileExtension) : false;
-  }
   
-  /** Helper method to check if media exists and to display it */
-  private checkMediaOnLoad(): void 
+  private _checkMediaOnLoad()
   {
     const mediaPath = this.mediaPath.value as string | undefined;
     if (mediaPath) {
-      this.mediaSrc = mediaPath;
-      this.uploadType = this.isImage(mediaPath) ? 'image' : 'video';
-      
-      if (this.uploadType === 'video' && this.video) {
-        this.video.nativeElement.load();
-      }
+      this._updateMediaState(mediaPath);
+    } else {
+      this.isImage = false;
     }
   }
 
-  /** Helper method to extract the file extension from the URL gotten back from firebase */
-  private getFileExtensionFromUrl(url: string): string | undefined {
-    // Remove the query parameters and fragment identifier
-    const cleanUrl = url.split('?')[0].split('#')[0];
-    
-    // Extract the file extension by splitting the clean URL by '.' and taking the last part
-    const fileExtension = cleanUrl.split('.').pop();
-    
-    return fileExtension;
+  private _updateMediaState(mediaPath: string)
+  {
+    this.mediaSrc = mediaPath;
+    const mediaType = getMediaType(mediaPath);
+    if (mediaType === 'image' || mediaType === 'video') {
+      this.uploadType = mediaType;
+    } else {
+      this.uploadType = 'image'; 
+    }
+    this.isImage = this.uploadType === 'image';
+  
+    if (this.uploadType === 'video' && this.video) {
+      this.video.nativeElement.load();
+    }
   }
-
+  
   ngOnDestroy() {
     this._sBs.unsubscribe();
   }
