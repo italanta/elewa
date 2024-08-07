@@ -1,5 +1,5 @@
 import { FormBuilder } from "@angular/forms";
-import { Assessment, RetryType } from "@app/model/convs-mgr/conversations/assessments";
+import { Assessment, MoveOnCriteriaTypes, RetryType } from "@app/model/convs-mgr/conversations/assessments";
 import { MicroAppTypes } from "@app/model/convs-mgr/micro-app/base";
 
 export function CREATE_EMPTY_ASSESSMENT_FORM(_fb: FormBuilder) {
@@ -14,12 +14,18 @@ export function CREATE_EMPTY_ASSESSMENT_FORM(_fb: FormBuilder) {
     // configs
     configs: _fb.group({
       feedback: [''],
-      userAttempts: [''],
-      retryType: [''],
+      retryConfig: _fb.group({
+        type: [RetryType.onCount],
+        onCount: [0],
+        onScore: _fb.group({
+          count: [0],
+          minScore: [0]
+        })
+      }),
       questionsDisplay: [''],
-      scoreAttempts: _fb.group({
-        minScore: [''],
-        userAttempts: [''],
+      moveOnCriteria: _fb.group({
+        criteria: [MoveOnCriteriaTypes.OnComplete],
+        passMark: ['']
       }),
     }),
 
@@ -46,6 +52,10 @@ export function DEFAULT_ASSESSMENT(): Assessment {
         }
       },
       questionsDisplay: 1,
+      moveOnCriteria: {
+        criteria: MoveOnCriteriaTypes.OnPassMark,
+        passMark: 0
+      },
     },
     type: MicroAppTypes.Assessment, 
     callBackUrl: '', 
