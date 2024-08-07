@@ -59,6 +59,7 @@ import { AssessmentResultsComponent } from './components/assessment-results/asse
 import { CompletionTimeComponent } from './components/assessment-results-components/completion-time/completion-time.component';
 import { ProgressPieChartComponent } from './components/assessment-results-components/progress-pie-chart/progress-pie-chart.component';
 import { DistributionBarChartComponent } from './components/assessment-results-components/distribution-bar-chart/distribution-bar-chart.component';
+import { AssessmentUsersTableComponent } from './components/assessment-results-components/assessment-users-table/assessment-users-table.component';
 
 @NgModule({
   imports: [
@@ -112,7 +113,8 @@ import { DistributionBarChartComponent } from './components/assessment-results-c
 
     CompletionTimeComponent,
     ProgressPieChartComponent,
-    DistributionBarChartComponent
+    DistributionBarChartComponent,
+    AssessmentUsersTableComponent
   ],
 
   providers: [
