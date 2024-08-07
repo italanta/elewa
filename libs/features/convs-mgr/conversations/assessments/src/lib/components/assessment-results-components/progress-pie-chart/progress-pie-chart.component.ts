@@ -11,17 +11,27 @@ import { AssessmentResult, PieChartData } from '@app/model/convs-mgr/micro-app/a
   templateUrl: './progress-pie-chart.component.html',
   styleUrls: ['./progress-pie-chart.component.scss'],
 })
-export class ProgressPieChartComponent implements AfterViewInit,OnDestroy {
+export class ProgressPieChartComponent implements OnInit, AfterViewInit,OnDestroy {
   id: string;
   @ViewChild('progressPieChart') progressPieChart: ElementRef;
   @Input() assessmentResults: AssessmentResult;
 
   chart: Chart;
+  total = 0;
   private _sBs = new SubSink();
 
   constructor(private cdr: ChangeDetectorRef){}
 
+  ngOnInit(): void {
+      const statuses = Object.keys(this.assessmentResults.pieChartData);
+
+      for(const status of statuses) {
+        this.total += this.assessmentResults.pieChartData[status as keyof PieChartData] || 0;
+      }
+  }
+
   ngAfterViewInit() {
+    Chart.defaults.color = '#000';
     this.chart = this._loadChart(this.assessmentResults.pieChartData) as any;
     this.cdr.detectChanges();
   }
@@ -32,13 +42,14 @@ export class ProgressPieChartComponent implements AfterViewInit,OnDestroy {
     }
 
     return new Chart(this.progressPieChart.nativeElement, {
-      type: 'pie',
+      type: 'doughnut',
       data: {
         labels: ['Done', 'In progress', 'Not started'],
         datasets: [
           {
             data: [data.done, data.inProgress, 0],
             backgroundColor: ["#3E788A","#50BEA5", "#F3F3F3"],
+            borderWidth: 0
           },
         ],
       },
@@ -58,9 +69,7 @@ export class ProgressPieChartComponent implements AfterViewInit,OnDestroy {
               useBorderRadius: true,
               borderRadius: 6
             },
-          
           },
-
         }
       },
     });
