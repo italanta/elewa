@@ -44,6 +44,7 @@ export class AssessmentFormService {
       questionType: AssessmentQuestionType.SingleSelectOptions,
       marks: [question?.marks ?? ''],
       message: [question?.message ?? ''],
+      mediaPath: [question?.mediaPath ?? ''],
       options: question?.options ? this._prefillOptions(question?.options) : this._formBuilder.array([
         this.createDefaultChoice()
       ]),

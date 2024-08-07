@@ -649,6 +649,18 @@
         "CORRECT": "Correct",
         "WRONG": "Wrong",
         "50-50": "50/50"
+      },
+      "UPLOAD-TEXTS": {
+        "ALIGN-LEFT": "Align Left",
+        "ALIGN-RIGHT": "Align Right",
+        "ALIGN-CENTER": "Align Center",
+        "REPLACE-IMAGE": "Replace media",
+
+        "UPLOAD-MODAL": {
+          "DROP-FILES": "Drop files here",
+          "OR": "or",
+          "UPLOAD-PROGRESS": "Upload Progress"
+        }
       }
     },
     "ASSESSMENT-CONFIGS": {

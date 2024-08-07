@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit, OnDestroy, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 
@@ -9,6 +10,9 @@ import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessmen
 import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
+import { AssessmentMediaUploadComponent } from '../assessment-media-upload/assessment-media-upload.component';
+import { getMediaType } from '../../utils/check-media-type.util'
+
 
 @Component({
   selector: 'app-assessment-question-form',
@@ -35,9 +39,16 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   @Output() activeQuestionChanged = new EventEmitter();
   
   activeCard: number;
+  mediaSrc = '';
+  uploadType: 'image' | 'video';
+  addMedia: true;
+  isImage: boolean
+
+  @ViewChild('videoPlayer') video: ElementRef<HTMLVideoElement>;
 
   constructor(
-    private _assessmentForm: AssessmentFormService
+    private _assessmentForm: AssessmentFormService,
+    private dialog: MatDialog,
   ) {}
 
   feedBackConditions = [
@@ -50,6 +61,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     this.activeCard$.pipe(tap((activeId) => {
       this.activeCard = activeId;
     })).subscribe();
+    this._checkMediaOnLoad();
   }
 
   get questionsList() {
@@ -60,6 +72,10 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     return this.questionsList.controls[this.questionFormGroupName as number] as FormGroup;
   }
 
+  get mediaPath(){
+    return this.questionFormGroup.get('mediaPath') as FormControl;
+  }
+
   /** delete Question */
   deleteQuestion() {
     const question = this.questionsList.at(this.index);
@@ -68,11 +84,11 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
 
     if (prevQuestion) {
       prevQuestion.patchValue({ nextQuestionId : question.value.nextQuestionId })
-    };
+    }
 
     if (nextQuestion) {
       nextQuestion.patchValue({ prevQuestionId : question.value.prevQuestionId })
-    };
+    }
 
     this.questionsList.removeAt(this.index);
   }
@@ -86,6 +102,55 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     copiedQstn.patchValue({ nextQuestionId : null });
   
     this.addNewQuestion.emit(copiedQstn);
+  }
+
+  /** Uploading an image or video and setting hte form control value to the value of the file */
+  openUploadModal(type: 'image' | 'video'): void 
+  {
+    const dialogRef = this.dialog.open(AssessmentMediaUploadComponent, {
+      data: { 
+              fileType: type,
+              assessmentFormGroup: this.assessmentFormGroup,
+              index: this.index,
+              questions: this.questionsList,
+              questionFormGroup: this.questionFormGroup
+            },
+      panelClass: 'media-modal'
+    });
+
+    dialogRef.afterClosed().subscribe((file: string) => {
+      if (file) {
+        this.mediaSrc =file
+        this.uploadType = type;
+        this.mediaPath.setValue(file);
+      }
+    });
+  }
+  /** Check if media is present when component first loads */
+  private _checkMediaOnLoad()
+  {
+    const mediaPath = this.mediaPath.value as string | undefined;
+    if (mediaPath) {
+      this._updateMediaState(mediaPath);
+    } else {
+      this.isImage = false;
+    }
+  }
+ /** Get media type when a user clicks update media button */
+  private _updateMediaState(mediaPath: string)
+  {
+    this.mediaSrc = mediaPath;
+    const mediaType = getMediaType(mediaPath);
+    if (mediaType === 'image' || mediaType === 'video') {
+      this.uploadType = mediaType;
+    } else {
+      this.uploadType = 'image'; 
+    }
+    this.isImage = this.uploadType === 'image';
+  
+    if (this.uploadType === 'video' && this.video) {
+      this.video.nativeElement.load();
+    }
   }
 
   ngOnDestroy() {

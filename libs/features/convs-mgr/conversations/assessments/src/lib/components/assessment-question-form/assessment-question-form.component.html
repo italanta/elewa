@@ -4,6 +4,15 @@
 
 		<i style="width: 100%; margin: auto; color: #B2B2B2;" class="fas fa-grip-horizontal"></i>
 
+		<div class="mini-btns">
+			<button mat-flat-button (click)="duplicateQuestion()">
+				<img src="assets/icons/duplicate-item.svg" alt="">
+			</button>
+			<button mat-flat-button (click)="deleteQuestion()">
+				<img src="assets/icons/delete-item.svg" alt="">
+			</button>
+		</div>
+
 		<div class="card-content">
 			<div *ngIf="assessmentFormGroup">
 				<div [formGroup]="assessmentFormGroup">
@@ -11,17 +20,31 @@
 						<div [formGroup]="questionFormGroup">
 
 							<div fxLayout="row" fxLayoutAlign="space-between center">
-								<mat-form-field appearance="fill" fxFlex="60">
-									<input type="text" matInput formControlName="message" placeholder="Type your question">
-								</mat-form-field>
+								<div class="question-type-conf">
+									<div fxLayout="column" >
+										<div appearance="fill" fxFlex="60" *ngIf="mediaSrc" class="media-display">
+											<div class="media-div">
+												<img *ngIf="isImage" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
+  											<video *ngIf="!isImage" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
+											</div>
+											<button class="img-elipsis" [matMenuTriggerFor]="menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+										</div>
+										<mat-form-field appearance="fill" fxFlex="60">
+											<input type="text" matInput formControlName="message" placeholder="Type your question">
+										</mat-form-field>
+									</div>
 
-								<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-									<button mat-flat-button (click)="duplicateQuestion()">
-										<img src="assets/icons/duplicate-item.svg" alt="">
-									</button>
-									<button mat-flat-button (click)="deleteQuestion()">
-										<img src="assets/icons/delete-item.svg" alt="">
-									</button>
+									<div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+										<button mat-flat-button>
+											<i class="fa-solid fa-a"></i>
+										</button>
+										<button mat-flat-button (click)="openUploadModal('image')">
+											<i class="fa-regular fa-image"></i>
+										</button>
+										<button mat-flat-button (click)="openUploadModal('video')">
+											<i class="fa-solid fa-video"></i>
+										</button>
+									</div>
 								</div>
 							</div>
 
@@ -45,3 +68,10 @@
 		<i class="fas fa-plus"></i>
 	</button>
 </div>
+
+<mat-menu #menu="matMenu" xPosition="after">
+  <button mat-menu-item><span> <i class="fa-solid fa-align-center"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-CENTER' | transloco }} </span> </button>
+  <button mat-menu-item><span> <i class="fa-solid fa-align-right"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-RIGHT' | transloco }}  </span></button>
+	<button mat-menu-item><span> <i class="fa-solid fa-align-left"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-LEFT' | transloco }} </span></button>
+	<button mat-menu-item (click)="uploadType === 'image'? openUploadModal('image') : openUploadModal('video')" ><span> <i class="fa-solid fa-align-left"></i></span> <span> {{ uploadType === 'image'? "Replace Image" : "Replace Video" }}</span></button>
+</mat-menu>
