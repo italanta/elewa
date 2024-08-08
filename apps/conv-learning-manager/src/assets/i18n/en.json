@@ -1139,7 +1139,7 @@
           "CONTENT": {
             "HEADER": {
               "HEADER": "Header",
-              "HEADER-DESCRIPTION": "Add a header of either text or image",
+              "HEADER-DESCRIPTION": "Add a text header",
               "TEXT": "Text"
             },
             "BODY": {
