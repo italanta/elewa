@@ -1,7 +1,7 @@
-<mat-card  class="card" [id]="id" class="block-card">
+<mat-card  class="card" [id]="id" class="block-card" >
     <div [id]="id" [ngSwitch]="type" (mouseenter)="highLight()" (mouseleave)="removeHighlight()">
         <div *ngIf="type !== endStoryAnchor" class="outer">
-            <div class="block-title-container"> 
+            <div class="block-title-container" (contextmenu)="copyMenu($event)" > 
                 <ng-container *ngIf="svgIcon; else showIcon">
                     <img [src]="svgIcon" class="svgIcon">
                 </ng-container>
@@ -9,6 +9,11 @@
                     <i [class]="iconClass" class="icon-color"></i>
                 </ng-template>                
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
+                <button 
+                    *ngIf="copyButtonVisible" class="copy-button" (click)="copyBlockIdToClipboard()">
+                    <i class="far fa-copy"></i>
+                    Copy Reference
+                </button>
             </div>
 
             <mat-menu #menu="matMenu">
