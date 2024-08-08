@@ -4,8 +4,6 @@ import { FormArray, FormGroup } from '@angular/forms';
 import { Observable, tap } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
-
 import { StepService } from '../../services/set-steps.service';
 
 @Component({
