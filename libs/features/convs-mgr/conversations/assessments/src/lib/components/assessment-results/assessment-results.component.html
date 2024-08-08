@@ -22,7 +22,7 @@
 
   </div>
   <div class="bottom-section">
-    <app-assessment-users-table [assessmentUsers]="assessmentUserResults"></app-assessment-users-table>
+    <app-assessment-users-table *ngIf="assessmentUserResults" [assessmentUsers]="assessmentUserResults"></app-assessment-users-table>
   </div>
 </div>
 

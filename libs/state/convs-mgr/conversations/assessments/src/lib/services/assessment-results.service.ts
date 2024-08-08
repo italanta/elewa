@@ -12,10 +12,10 @@ export class AssessmentResultsService
 
   getResults(id: string)
   {
-    return this._aff$.httpsCallable<any, AssessmentResultResponse>('getAssessmentResults')({data: {id}});
+    return this._aff$.httpsCallable<any, AssessmentResultResponse>('getAssessmentResults')({id});
   }
   getUsers(id: string)
   {
-    return this._aff$.httpsCallable<any, AssessmentUserResultResponse>('getAssessmentUsers')({data: {id}});
+    return this._aff$.httpsCallable<any, AssessmentUserResultResponse>('getAssessmentUsers')({id});
   }
 }
