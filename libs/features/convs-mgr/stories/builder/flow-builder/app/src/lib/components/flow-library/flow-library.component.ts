@@ -2,6 +2,8 @@ import { SubSink } from 'subsink';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FLOW_CONTROLS, FlowControl, GROUP_FLOW_CONTROL_GROUPS } from '../../providers/flow-controls.const';
+import { FlowBuilderStateProvider } from '../../providers/flow-dragdrop-helper.provider';
+import { CdkDragStart } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-flow-library',
@@ -15,7 +17,7 @@ export class FlowLibraryComponent implements OnInit, OnDestroy
   controls: FlowControl[]  = FLOW_CONTROLS();
 
 
-  constructor() 
+  constructor(private flowStateProvider: FlowBuilderStateProvider) 
   { }
 
   ngOnInit(): void {
@@ -23,6 +25,10 @@ export class FlowLibraryComponent implements OnInit, OnDestroy
     // console.log(this.controls)
    }
 
+   onDragStart(event: CdkDragStart, control: FlowControl) {
+    console.log('drag started')
+    this.flowStateProvider.setDragData(control);
+  }
 
   ngOnDestroy(): void {
       

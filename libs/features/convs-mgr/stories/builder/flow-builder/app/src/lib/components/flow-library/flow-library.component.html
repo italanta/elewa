@@ -8,17 +8,23 @@
 
   <mat-divider></mat-divider>
 
-  <div fxLayout="column" fxFlex>
+  <div fxLayout="column" fxFlex
+    id="libraryDropList"
+    cdkDropList 
+    #libraryDropList="cdkDropList" 
+    [cdkDropListConnectedTo]="['flow-container-drop']"
+  >
     @for (group of controls; track group; let i=$index)
     {
-      <div class="block-list" fxLayout="column" cdkDropList >  <!-- [cdkDropListConnectedTo]="" -->
-
+      <div class="block-list" fxLayout="column">
         <h6 [class.first-title]="i === 0">{{ group.group| transloco }}</h6>
-
         @for (control of controls; track control)
         {
-          <app-flow-library-item [control]="control" cdkDrag>  </app-flow-library-item>
+          <app-flow-library-item [control]="control" cdkDrag
+            (cdkDragStarted)="onDragStart($event, control)"
+          >  </app-flow-library-item> <!--CDK drag directive for elements that can be dragged-->
         }
       </div>
     }
+  </div>  
 </div>

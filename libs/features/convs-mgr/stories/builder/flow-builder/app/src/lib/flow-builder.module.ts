@@ -27,6 +27,7 @@ import { FlowPageSelectorComponent } from './components/page-selector/page-selec
 import { FlowPreviewComponent } from './components/flow-preview/flow-preview.component';
 
 import { FlowBuilderRouterModule } from './flow-builder.router.module';
+import { FlowBuilderStateProvider } from './providers/flow-dragdrop-helper.provider';
 
 @NgModule({
   imports: [
@@ -55,6 +56,7 @@ import { FlowBuilderRouterModule } from './flow-builder.router.module';
   ],
 
   providers: [
+    FlowBuilderStateProvider
   ],
 })
 export class FlowBuilderModule { }
