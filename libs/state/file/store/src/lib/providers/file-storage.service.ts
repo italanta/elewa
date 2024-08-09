@@ -10,6 +10,7 @@ import { WhatsappUploadFileService } from '@app/state/file/whatsapp';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
 import { FILE_LIMITS } from '../model/platform-file-size-limits';
+import { FileLimits } from '../model/file-limits.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -47,15 +48,33 @@ export class FileStorageService
     });
   }
 
-  checkFileSizeLimits(size: number, type: string) { 
-    const filelimits = FILE_LIMITS[type as keyof typeof FILE_LIMITS] as any[];
-
-    const limitsViolated = filelimits.filter((limit: any) => {
-      return size > this.__convertedSize(limit.size, limit.unit);
-    })
-
-    return limitsViolated;
+  checkSupportedLimits(size: number, fileType: string, category: keyof FileLimits) {
+    // Access the specific file limit for the given category under WhatsApp
+    const fileLimit = FILE_LIMITS.whatsapp[category];
+  
+    // Check if the file size exceeds the limit
+    const sizeLimitExceeded = size > this.__convertedSize(fileLimit.size, fileLimit.unit);
+  
+    // Check if the file type is allowed
+    const typeNotAllowed = !fileLimit.types.includes(fileType);
+  
+    // Return an object with the violation details and the desired file size limit
+    if (sizeLimitExceeded || typeNotAllowed) {
+      return {
+        sizeLimitExceeded,
+        typeNotAllowed,
+        desiredSizeLimit: {
+          size: fileLimit.size,
+          unit: fileLimit.unit,
+        },
+        allowedTypes: fileLimit.types,
+      };
+    }
+  
+    // Return null if no violations are found
+    return null;
   }
+  
 
   private __convertedSize(size: number, unit: string) {
     if (unit === 'KB') {
