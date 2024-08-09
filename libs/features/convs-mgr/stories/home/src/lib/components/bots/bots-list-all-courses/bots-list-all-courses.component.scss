@@ -78,8 +78,8 @@ table {
 	gap: 0.625rem;
 
 	button {
-		color: white;
-		background-color: teal;
+		color: var(--convs-mgr-color-text-white);
+		background-color: var(--convs-mgr-color-bright-teal);
 	}
 }
 
