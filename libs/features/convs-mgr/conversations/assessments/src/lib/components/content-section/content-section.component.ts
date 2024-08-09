@@ -114,7 +114,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
   buildForms(questionResponses?: QuestionResponseMap){
     this.assessmentFormArray = this._assessFormService.createMicroAppAssessment(this.assessmentQuestions, questionResponses);
     this.assessmentForm = this._fb.group({
-      assessmentFormArray: this.assessmentFormArray
+     questions: this.assessmentFormArray
     });
     this.getProgressBar()
     this.totalSteps = this.assessmentFormArray.controls.length;

@@ -8,9 +8,10 @@ import { formatDuration } from '../../../utils/format-duration.util';
   styleUrl: './completion-time.component.scss'
 })
 export class CompletionTimeComponent {
+  /** The average completion time in milliseconds */
   @Input() completionTime: number;
 
   formatTime() {
-    return formatDuration(this.completionTime);
+    return formatDuration((this.completionTime/1000));
   }
 }

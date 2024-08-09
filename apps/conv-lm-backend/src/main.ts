@@ -50,6 +50,5 @@ export * from './app/micro-apps/base/get-app-progress.function'
 export * from './app/micro-apps/base/complete-micro-app.function'
 
 // Assessment Micro App
-export * from './app/micro-apps/assessments/get-feedback-pdf.function'
 export * from './app/micro-apps/assessments/get-assessment-results.function'
 export * from './app/micro-apps/assessments/get-assessment-users.function'
