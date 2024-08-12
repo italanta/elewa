@@ -2,10 +2,11 @@
 <div mat-dialog-content>
   <div>
     <input type="file" [accept]="acceptedFileTypes" (change)="onFileSelected($event)"/>
-    <button [disabled]='disableBtn' type="button" (click)="onUploadProfilePic()"> Upload </button>
+    <button [disabled]='disableBtn' *ngIf="!isUploading" type="button" (click)="onUploadProfilePic()"> Upload </button>
   </div>
+  <mat-spinner *ngIf="isUploading" diameter="25"></mat-spinner>
   <h4>  Allowed image formats png, jpeg or jpg</h4>
 </div>
 <div mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button *ngIf="!isUploading" mat-button mat-dialog-close>Cancel</button>
 </div>
