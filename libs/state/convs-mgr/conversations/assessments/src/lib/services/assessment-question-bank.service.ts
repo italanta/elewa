@@ -3,13 +3,15 @@ import { Injectable } from '@angular/core';
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentQuestionStore } from '../stores/assessment-question.store';
+import { AssessmentQuestionService } from './assessment-question.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssessmentQuestionBankService {
 
-  constructor(private _questionBank$$: AssessmentQuestionStore) {}
+  constructor(private _questionBank$$: AssessmentQuestionStore, 
+              private _assessmentQuestionService$: AssessmentQuestionService) {}
 
   addQuestions$(questions: AssessmentQuestion[]){
     return this._questionBank$$.addMultiple(questions, true);
@@ -17,6 +19,10 @@ export class AssessmentQuestionBankService {
 
   getQuestions$(){
     return this._questionBank$$.get();
+  }
+
+  addQuestionToAssessment$(assessmentId: string, question: AssessmentQuestion) {
+    return this._assessmentQuestionService$.addQuestion$(assessmentId, question, question.id as string);
   }
 
   addQuestion$(question: AssessmentQuestion) {
