@@ -96,6 +96,15 @@ export const APP_ROUTES: Route[] = [
   },
 
   {
+    path: 'question-bank',
+    loadChildren: () => import('@app/features/convs-mgr/conversations/question-banks').then(m => m.QuestionBanksModule),
+    data: {
+      breadCrumb: { src: 'assets/svgs/breadcrumbs/question-bank.svg' },
+    },
+    canActivate: [IsLoggedInGuard, CanAccessAssessmentsGuard],
+  },
+
+  {
     path: 'surveys',
     loadChildren: () => import('@app/features/convs-mgr/conversations/surveys').then(m => m.ConvsMgrSurveysModule),
     data: { feature: 'surveys', breadCrumb: 'Surveys' },
