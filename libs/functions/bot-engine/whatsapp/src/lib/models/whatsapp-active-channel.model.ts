@@ -121,9 +121,11 @@ export class WhatsappActiveChannel implements ActiveChannel
           let params = message.params || templateConfig.params || null;
 
           if(params) params = this.__resolveParamVariables(params, orgId, endUser ? endUser.variables : null);
-
-          this._tools.Logger.error(() => `[SendOutgoingMsgHandler].execute [Warning] - Failed to fetch variables`);
-          if(!params) return null;  
+          
+          if(!params) {
+            this._tools.Logger.error(() => `[SendOutgoingMsgHandler].execute [Warning] - Failed to fetch variables`);
+            return null;
+          };  
 
           // Get the message template
           return this.parseOutMessageTemplate(templateConfig, params, phone, message);
