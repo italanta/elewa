@@ -1,10 +1,10 @@
 <h1 mat-dialog-title>Change Profile Picture</h1>
 <div mat-dialog-content>
-  <div>
+  <div class="file-upload">
     <input type="file" [accept]="acceptedFileTypes" (change)="onFileSelected($event)"/>
     <button [disabled]='disableBtn' *ngIf="!isUploading" type="button" (click)="onUploadProfilePic()"> Upload </button>
+    <mat-spinner *ngIf="isUploading" diameter="25"></mat-spinner>
   </div>
-  <mat-spinner *ngIf="isUploading" diameter="25"></mat-spinner>
   <h4>  Allowed image formats png, jpeg or jpg</h4>
 </div>
 <div mat-dialog-actions align="end">
