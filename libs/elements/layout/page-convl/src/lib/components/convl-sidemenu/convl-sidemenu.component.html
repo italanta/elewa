@@ -100,12 +100,12 @@
               
             </li>
 
-            <!-- Asssessments sections -->
-            <li *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item" >
-              <a routerLink="/assessments" routerLinkActive="active">
+            <!-- Assessment Section -->
+            <li class="menu-item" (click)="toggleDropdown('assessments')">
+              <a matTooltipPosition="above"matTooltip="{{'PAGE-CONTENT.SIDE-MENU.ASSESSMENTS'| transloco }}" [matTooltipDisabled]="isAssessmentDropdownOpen">
                 <span class="menu-icon">
                   <img *ngIf="isExpanded" src="assets/icons/assessments-stroked.svg" class="img" alt="">
-                  <img *ngIf="!isExpanded" matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.ASSESSMENTS'| transloco }}" src="assets/icons/assessments-stroked.svg" class="img" alt="">
+                  <img *ngIf="!isExpanded"  src="assets/icons/assessments-stroked.svg" class="img" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
                   {{'PAGE-CONTENT.SIDE-MENU.ASSESSMENTS'| transloco }}
@@ -114,6 +114,32 @@
                   <img src="assets/icons/chevron-down.png" alt="" class="img chevron" [ngClass]="{'chevron-up': isAssessmentDropdownOpen}">
                 </span>
               </a>
+
+              <div *ngIf="isAssessmentDropdownOpen">
+                <ul class="sub-side-menu">
+                  <li matTooltipPosition="above" [matTooltipDisabled]="isAssessmentDropdownOpen" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.ASSESSMENTS'| transloco }}">
+                    <a *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item" routerLink="/assessments" routerLinkActive="active" (click)="$event.stopPropagation()">
+                      <span class="menu-icon">
+                        <img src="assets/icons/assessments-stroked.svg" class="img" alt="">
+                      </span>
+                      <span *ngIf="isExpanded" class="menu-title">
+                        {{'PAGE-CONTENT.SIDE-MENU.ASSESSMENTS'| transloco }}
+                      </span>
+                    </a>
+                  </li>
+                  <li matTooltipPosition="above" [matTooltipDisabled]="isAssessmentDropdownOpen" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.QUESTION-BANKS'| transloco }}">
+                    <a *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item" routerLink="/question-bank" routerLinkActive="active" (click)="$event.stopPropagation()">
+                      <span class="menu-icon">
+                        <img src="assets/icons/catalog-magazine.svg" class="img" alt="">
+                      </span>
+                      <span *ngIf="isExpanded" class="menu-title">
+                        {{'PAGE-CONTENT.SIDE-MENU.QUESTION-BANKS'| transloco }}
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              
             </li>
 
             <!-- Surveys sections -->

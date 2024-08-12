@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { questionBanksRoutes } from './question-banks.router.module';
+import { QUESTION_BANK_ROUTES } from './question-banks.router.module';
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(questionBanksRoutes)],
+  imports: [CommonModule, RouterModule.forChild(QUESTION_BANK_ROUTES)],
 })
 export class QuestionBanksModule {}
