@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
+import { QuestionBankListComponent } from './components/question-bank-list/question-bank-list.component';
 
 export const QUESTION_BANK_ROUTES: Route[] = [
-  /* { path: '', pathMatch: 'full', component: InsertYourComponentHere } */
+   { path: '', pathMatch: 'full', component: QuestionBankListComponent }
 ];
 
 
