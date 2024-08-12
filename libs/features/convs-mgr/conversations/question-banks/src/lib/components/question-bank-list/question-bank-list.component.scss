@@ -1,3 +1,41 @@
 .question-page{
   padding: 1.4rem;
+
+  .search-tab{
+    .questions-number{
+      span{
+        font-weight: 400;
+        font-size: 2.5rem;
+      }
+    }
+    .search-content{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .search-details{
+        display: flex;
+        align-items: start;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1rem 2rem;
+        width: 23%;
+        border-radius: 20px;
+        background-color: white;
+      }
+    }
+    .sort-tab{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 15%;
+      padding: 1rem;
+      border-radius: 20px;
+      background-color: white;
+    }
+  }
+  .questions-number{
+    padding: 2rem 0;
+    
+  }
 }
+
