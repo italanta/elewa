@@ -20,9 +20,10 @@
         <h6 [class.first-title]="i === 0">{{ group.group| transloco }}</h6>
         @for (control of controls; track control)
         {
+          <!--CDK drag directive for elements that can be dragged-->
           <app-flow-library-item [control]="control" cdkDrag
-            (cdkDragStarted)="onDragStart($event, control)"
-          >  </app-flow-library-item> <!--CDK drag directive for elements that can be dragged-->
+            (cdkDragStarted)="onDragStart($event, control)">  
+          </app-flow-library-item> 
         }
       </div>
     }

@@ -8,6 +8,8 @@
   
   padding: 20px;
   border: 1px solid #101010;
+  display: flex;
+  gap: 2rem;
 }
 
   #phone-container {
@@ -29,3 +31,16 @@
   #flow-container-drop {
     height: 100%;
   }
+
+  .config-container{
+    width: 400px !important;
+    height: 600px !important;
+    border: 1 px solid black;
+    border-radius: 10px;
+    background-color: antiquewhite;
+  }
+  .drop-item{
+    display: grid;
+    grid-template-columns: 10fr 1fr;
+  }
+  

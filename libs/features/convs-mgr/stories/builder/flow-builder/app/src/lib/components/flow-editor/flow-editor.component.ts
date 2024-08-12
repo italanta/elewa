@@ -17,25 +17,30 @@ export class FlowEditorComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void { }
 
-  // drop(event: CdkDragDrop<any>): void {
-  //   debugger
-  //   if (event.previousContainer === event.container) {
-  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-  //   } else {
-  //     transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
-  //   }
-  //   console.log(this.flowEls);
-  // }
- 
-  //TESTING DROP WITH SERVICE
   drop(event: CdkDragDrop<FlowControl[]>) {
-    console.log('gotten drag data')
     const draggedData = this.flowStateProvider.getDragData();
     if (draggedData) {
+      // Push the dragged item to the flowEls array
       this.flowEls.push(draggedData);
-      this.flowStateProvider.clearDragData();
+      // Find the index of the item being dropped
+      const index = this.flowEls.findIndex(item => item.id === draggedData.id);
+
+      if (index !== -1) {
+        // Set the 'dropped' flag for the item at the found index
+        this.flowEls[index].dropped = true;
+  
+        this.flowStateProvider.clearDragData();
+        
+        // Transfer the item between arrays 
+        if (event.previousContainer === event.container) {
+          moveItemInArray(this.flowEls, index, event.currentIndex);
+        } else {
+          transferArrayItem(this.flowEls, event.container.data, index, event.currentIndex);
+        }
+      }
     }
   }
+  
 
   ngOnDestroy(): void { }
 }
