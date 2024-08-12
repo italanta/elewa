@@ -12,26 +12,32 @@ export interface FlowControl
   
   /** Control icon */
   icon: string;
+
+  /** Id */
+  id: string;
+
+  /** dropped */
+  dropped: boolean
 }
 
 /** List of all flow controls (wrapped into a function to avoid direct editing of the list) */
 export const FLOW_CONTROLS: () => FlowControl[] = () => [
-  { group: 'FLOW-CATEGORY.TEXT-ELS', label:'Header',       value:'h1',       icon:'fa-solid fa-heading' },
-  { group: 'FLOW-CATEGORY.TEXT-ELS', label:'Light Header', value:'h2',       icon:'fa-solid fa-bold' },
-  { group: 'FLOW-CATEGORY.TEXT-ELS', label:'Text',         value:'text',     icon:'fa-solid fa-font' },
-  { group: 'FLOW-CATEGORY.TEXT-ELS', label:'Small text',   value:'caption',  icon:'fa-solid fa-subscript' },
+  { id: '1', group: 'FLOW-CATEGORY.TEXT-ELS', label:'Header',       value:'h1',       icon:'fa-solid fa-heading' , dropped: false },
+  { id: '2', group: 'FLOW-CATEGORY.TEXT-ELS', label:'Light Header', value:'h2',       icon:'fa-solid fa-bold' , dropped: false },
+  { id: '3', group: 'FLOW-CATEGORY.TEXT-ELS', label:'Text',         value:'text',     icon:'fa-solid fa-font' , dropped: false },
+  { id: '4', group: 'FLOW-CATEGORY.TEXT-ELS', label:'Small text',   value:'caption',  icon:'fa-solid fa-subscript' , dropped: false },
 
-  { group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Image',  value:'image',  icon:'fa-regular fa-image' },
-  { group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Link',   value:'link',   icon:'fa-solid fa-link' },
-  { group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Footer', value:'footer', icon:'fa-solid fa-window-minimize' },
+  { id: '5', group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Image',  value:'image',  icon:'fa-regular fa-image' , dropped: false },
+  { id: '6', group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Link',   value:'link',   icon:'fa-solid fa-link' , dropped: false },
+  { id: '7', group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Footer', value:'footer', icon:'fa-solid fa-window-minimize' , dropped: false },
 
-  { group: 'FLOW-CATEGORY.INPUT-ELS', label:'Single line text', value:'textInput',  icon:'fa-solid fa-font' },
-  { group: 'FLOW-CATEGORY.INPUT-ELS', label:'Text area',        value:'textArea',   icon:'fa-solid fa-pen-fancy' },
-  { group: 'FLOW-CATEGORY.INPUT-ELS', label:'List selection',   value:'select',     icon:'fa-solid fa-window-minimize' },
-  { group: 'FLOW-CATEGORY.INPUT-ELS', label:'Checkboxes',       value:'checkbox',   icon:'fa-solid fa-list-check' },
-  { group: 'FLOW-CATEGORY.INPUT-ELS', label:'Radio buttons',    value:'radio',      icon:'fa-solid fa-circle-dot' },
-  { group: 'FLOW-CATEGORY.INPUT-ELS', label:'Date picker',      value:'datepick',   icon:'fa-solid fa-calendar-days' },
-  { group: 'FLOW-CATEGORY.INPUT-ELS', label:'Opt in',           value:'optIn',      icon:'fa-solid fa-square-check' }
+  { id: '8', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Single line text', value:'textInput',  icon:'fa-solid fa-font' , dropped: false },
+  { id: '9', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Text area',        value:'textArea',   icon:'fa-solid fa-pen-fancy' , dropped: false },
+  { id: '10', group: 'FLOW-CATEGORY.INPUT-ELS', label:'List selection',   value:'select',     icon:'fa-solid fa-window-minimize' , dropped: false },
+  { id: '11', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Checkboxes',       value:'checkbox',   icon:'fa-solid fa-list-check' , dropped: false },
+  { id: '12', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Radio buttons',    value:'radio',      icon:'fa-solid fa-circle-dot' , dropped: false },
+  { id: '13', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Opt in',           value:'optIn',      icon:'fa-solid fa-square-check' , dropped: false },
+  { id: '14', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Date picker',      value:'datepick',   icon:'fa-solid fa-calendar-days' , dropped: false },
 ]
 
 /**
