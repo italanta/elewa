@@ -5,4 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: './question-bank-header.component.html',
   styleUrl: './question-bank-header.component.scss',
 })
-export class QuestionBankHeaderComponent {}
+export class QuestionBankHeaderComponent 
+{
+  addQuestionBank(){
+    
+  }
+}
