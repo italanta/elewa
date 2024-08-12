@@ -45,7 +45,7 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
     ActionSortingOptions.Newest
   );
 
-  displayedColumns: string[] = ['name', 'type', 'lastEdited', 'channel', 'actions'];
+  displayedColumns: string[] = ['name', 'lastEdited', 'channel', 'actions'];
 
   dataSource: MatTableDataSource<Bot> = new MatTableDataSource();
 
