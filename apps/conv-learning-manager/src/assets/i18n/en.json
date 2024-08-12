@@ -676,7 +676,11 @@
     },
     "QUESTION-BANK": {
       "HEADER": "Question bank",
-      "DESCRIPTION": "Our intuitive platform empowers you to organise, customise and reuse questions, thus simplifying the process of delivering comprehensive and engaging assessments."
+      "DESCRIPTION": "Our intuitive platform empowers you to organise, customise and reuse questions, thus simplifying the process of delivering comprehensive and engaging assessments.",
+      "DESC-HEADER": "Build a question bank with ease",
+      "QUESTIONS": "Questions",
+      "QUESTIONS-SEARCH": "Search questions",
+      "SORTING": "Date created(Newest)"
     }
   },
   "SURVEYS": {
