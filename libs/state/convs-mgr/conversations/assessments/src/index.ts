@@ -5,5 +5,6 @@ export * from './lib/services/assessment.service';
 export * from './lib/services/assessment-question.service';
 export * from './lib/state-assessments.module';
 export * from './lib/services/assessment-publish.service';
+export * from './lib/services/assessment-question-bank.service';
 
 
