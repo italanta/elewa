@@ -76,6 +76,11 @@ table {
 .actions {
 	padding: 30px 0px;
 	gap: 0.625rem;
+
+	button {
+		color: var(--convs-mgr-color-text-white);
+		background-color: var(--convs-mgr-color-bright-teal);
+	}
 }
 
 .grid-list button img {
