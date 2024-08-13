@@ -16,11 +16,7 @@
           [cdkDropListConnectedTo]="['libraryDropList']" 
           (cdkDropListDropped)="drop($event)">
           <div *ngFor="let item of flowEls" cdkDrag class="drop-item">
-            <app-flow-library-item [control]="item" 
-            (click)="funcClick(item, item.id)"
-            > 
-            </app-flow-library-item>
-            <i class="fa-solid fa-chevron-right drop-icon" [hidden]="!item.dropped"></i>
+            <app-flow-library-item [control]="item" (click)="funcClick(item, item.id)">  </app-flow-library-item>
           </div>
         </div>
 
