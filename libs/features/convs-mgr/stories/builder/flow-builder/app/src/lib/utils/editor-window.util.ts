@@ -62,3 +62,16 @@ export function CREATE_EDITOR_INPUT(flowControl: FlowControl): HTMLInputElement 
     }
   }
 }
+
+/**
+ * Adding styles to generated elements using javascript
+ */
+export function STYLE_INPUTS(editingContainer: HTMLInputElement | HTMLTextAreaElement | HTMLDivElement) 
+{
+  editingContainer.classList.add('custom-input');
+  editingContainer.style.width = '98%';
+  editingContainer.style.padding = '1rem 0 1rem 1rem';
+  editingContainer.style.border = '1px solid #ccc';
+  editingContainer.style.borderRadius = '4px';
+
+}

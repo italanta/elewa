@@ -3,10 +3,11 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 
 import { SubSink } from 'subsink';
 
+import { FlowPageLayoutElementTypesV31, FlowPageTextSizesV31, FlowPageTextV31, FlowTextInput } from '@app/model/convs-mgr/stories/flows';
+
 import { FlowControl } from '../../providers/flow-controls.const';
 import { FlowBuilderStateProvider } from '../../providers/flow-dragdrop-helper.provider';
-import {CREATE_EDITOR_INPUT } from '../../utils/editor-window.util'
-import { FlowPageLayoutElementTypesV31, FlowPageTextSizesV31, FlowPageTextV31, FlowTextInput } from '@app/model/convs-mgr/stories/flows';
+import {CREATE_EDITOR_INPUT, STYLE_INPUTS } from '../../utils/editor-window.util'
 
 @Component({
   selector: 'app-flow-editor',
@@ -69,6 +70,7 @@ export class FlowEditorComponent implements OnInit, OnDestroy {
       const configContainer = document.querySelector('.config-container');
       if (configContainer) {
         configContainer.appendChild(editingWindow);
+        STYLE_INPUTS(editingContainer)
       }
     }
   }
