@@ -1,36 +1,36 @@
+import { FlowPageTextSizesV31 } from "@app/model/convs-mgr/stories/flows";
 import { FlowControl } from "../providers/flow-controls.const";
 
-/**
- * 
- * @param flowControl A flow element, that is dropped to the editor
- * @returns A html element depending on the type that is picked for editing
- * The value attribute of a flow control dictates the kind of input required
- */
-
-export function CREATE_EDITOR_INPUT(flowControl: FlowControl): HTMLInputElement | HTMLTextAreaElement | HTMLDivElement{
+export function CREATE_EDITOR_INPUT(flowControl: FlowControl): HTMLInputElement | HTMLTextAreaElement | HTMLDivElement {
   switch (flowControl.value) { 
     case 'h1':
-    case 'h2':
-    case 'text':
-    case 'smallText': {
+    case 'h2': {
       const input = document.createElement('input');
       input.type = 'text';
+      input.dataset['size'] = flowControl.value === 'h1' ? FlowPageTextSizesV31.Header : FlowPageTextSizesV31.SubHeader;
+      return input;
+    }
+    case 'text': {
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.dataset['size'] = FlowPageTextSizesV31.Body;
       return input;
     }
     case 'caption': {
       const textArea = document.createElement('textarea');
-      textArea.rows = 2; 
+      textArea.rows = 2;
+      textArea.dataset['size'] = FlowPageTextSizesV31.Caption;
       return textArea;
     }
     case 'image': {
       const fileSelect = document.createElement('input');
-      fileSelect.type = 'file'
-      return fileSelect
+      fileSelect.type = 'file';
+      return fileSelect;
     }
     case 'link': {
       const input = document.createElement('input');
-      input.type = 'url'
-      return input
+      input.type = 'url';
+      return input;
     }
     case 'select':
     case 'checkbox':
@@ -51,8 +51,8 @@ export function CREATE_EDITOR_INPUT(flowControl: FlowControl): HTMLInputElement 
     }
     case 'datepick': {
       const input = document.createElement('input');
-      input.type = 'date'
-      return input
+      input.type = 'date';
+      return input;
     }
     default: {
       const defaultInput = document.createElement('input');

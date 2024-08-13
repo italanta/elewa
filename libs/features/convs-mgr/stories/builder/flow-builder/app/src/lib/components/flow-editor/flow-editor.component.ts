@@ -6,6 +6,7 @@ import { SubSink } from 'subsink';
 import { FlowControl } from '../../providers/flow-controls.const';
 import { FlowBuilderStateProvider } from '../../providers/flow-dragdrop-helper.provider';
 import {CREATE_EDITOR_INPUT } from '../../utils/editor-window.util'
+import { FlowPageLayoutElementTypesV31, FlowPageTextSizesV31, FlowPageTextV31, FlowTextInput } from '@app/model/convs-mgr/stories/flows';
 
 @Component({
   selector: 'app-flow-editor',
@@ -18,7 +19,9 @@ export class FlowEditorComponent implements OnInit, OnDestroy {
 
   constructor( private flowStateProvider: FlowBuilderStateProvider) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.buildJsonFromEditor()
+  }
 
   /** Function handling drag and droop functionality for a component */
   drop(event: CdkDragDrop<FlowControl[]>) 
@@ -48,7 +51,8 @@ export class FlowEditorComponent implements OnInit, OnDestroy {
   
 
   /** Opening an editable field when user clicks on a dropped element */
-  funcClick(element: FlowControl, id: string) {
+  funcClick(element: FlowControl, id: string) 
+  {
     if (element.dropped) {
       // Create the editing container
       const editingContainer = CREATE_EDITOR_INPUT(element);
@@ -69,6 +73,27 @@ export class FlowEditorComponent implements OnInit, OnDestroy {
     }
   }
   
+ buildJsonFromEditor(): FlowPageTextV31[] {
+    const elements = document.querySelectorAll('.config-container input[type="text"], .config-container textarea');
+    const jsonStructure: FlowPageTextV31[] = [];
+  
+    elements.forEach(element => {
+      const textElement = element as HTMLInputElement | HTMLTextAreaElement;
+      const textSize = textElement.dataset['size'] as FlowPageTextSizesV31;
+  
+      if (textElement && textSize) {
+        const flowPageText: FlowPageTextV31 = {
+          text: textElement.value,
+          size: textSize,
+          type: FlowPageLayoutElementTypesV31.TEXT
+        };
+        jsonStructure.push(flowPageText);
+      }
+    });
+    console.log(jsonStructure)
+    return jsonStructure;
+  }
+   
 
   ngOnDestroy(): void { }
 }
