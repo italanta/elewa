@@ -1,8 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { FlowControl } from '../../providers/flow-controls.const';
+
 import { SubSink } from 'subsink';
+
+import { FlowControl } from '../../providers/flow-controls.const';
 import { FlowBuilderStateProvider } from '../../providers/flow-dragdrop-helper.provider';
+import {CREATE_EDITOR_INPUT } from '../../utils/editor-window.util'
 
 @Component({
   selector: 'app-flow-editor',
@@ -17,7 +20,9 @@ export class FlowEditorComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void { }
 
-  drop(event: CdkDragDrop<FlowControl[]>) {
+  /** Function handling drag and droop functionality for a component */
+  drop(event: CdkDragDrop<FlowControl[]>) 
+  {
     const draggedData = this.flowStateProvider.getDragData();
     if (draggedData) {
       // Push the dragged item to the flowEls array
@@ -37,6 +42,29 @@ export class FlowEditorComponent implements OnInit, OnDestroy {
         } else {
           transferArrayItem(this.flowEls, event.container.data, index, event.currentIndex);
         }
+      }
+    }
+  }
+  
+
+  /** Opening an editable field when user clicks on a dropped element */
+  funcClick(element: FlowControl, id: string) {
+    if (element.dropped) {
+      // Create the editing container
+      const editingContainer = CREATE_EDITOR_INPUT(element);
+      editingContainer.classList.add('custom-input')
+  
+      // Create the editing window div and add the class
+      const editingWindow = document.createElement('div');
+      editingWindow.classList.add('editing-window');
+  
+      // Append the editing container to the editing window
+      editingWindow.appendChild(editingContainer);
+  
+      // Append the editing window to the config-container div
+      const configContainer = document.querySelector('.config-container');
+      if (configContainer) {
+        configContainer.appendChild(editingWindow);
       }
     }
   }
