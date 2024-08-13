@@ -119,14 +119,15 @@ export class WhatsappActiveChannel implements ActiveChannel
 
         if (templateConfig) {
           let params = message.params || templateConfig.params || null;
+          
+          if(!endUser) {
+            this._tools.Logger.error(() => `[SendOutgoingMsgHandler].execute [Warning] - End User does not exist`);
+          } else if(!endUser.variables) {
+            this._tools.Logger.error(() => `[SendOutgoingMsgHandler].execute [Warning] - End User does not have saved variables`);
+          }
 
           if(params) params = this.__resolveParamVariables(params, orgId, endUser ? endUser.variables : null);
           
-          if(!params) {
-            this._tools.Logger.error(() => `[SendOutgoingMsgHandler].execute [Warning] - Failed to fetch variables`);
-            return null;
-          };  
-
           // Get the message template
           return this.parseOutMessageTemplate(templateConfig, params, phone, message);
         } else {
@@ -138,11 +139,10 @@ export class WhatsappActiveChannel implements ActiveChannel
   }
 
   private __resolveParamVariables(params: TemplateMessageParams[], orgId: string, variables: any) { 
-    if(!variables) return;
     const resolvedParams = params.map((param) => {
 
       if(param.value === '_var_') {
-        const value = variables[param.name];
+        const value = variables ? variables[param.name] : ' ';
 
         return { 
           name: param.name,
