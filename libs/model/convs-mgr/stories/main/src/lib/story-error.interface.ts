@@ -24,5 +24,8 @@ export enum StoryErrorType {
   MissingConnection = 10,
    
   // Indicates an error related to an empty text field.
-  EmptyTextField = 20     
+  EmptyTextField = 20 ,
+  
+  // Any other error 
+  Unknown = 0
 }
