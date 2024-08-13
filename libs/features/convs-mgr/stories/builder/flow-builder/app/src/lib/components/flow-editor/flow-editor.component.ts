@@ -14,13 +14,15 @@ import {CREATE_EDITOR_INPUT, STYLE_INPUTS } from '../../utils/editor-window.util
   templateUrl: './flow-editor.component.html',
   styleUrls: ['./flow-editor.component.scss']
 })
-export class FlowEditorComponent implements OnInit, OnDestroy {
+export class FlowEditorComponent implements OnInit, OnDestroy 
+{
   private _sbS = new SubSink();
   flowEls: FlowControl[] = [];
 
   constructor( private flowStateProvider: FlowBuilderStateProvider) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void 
+  { 
     this.buildJsonFromEditor()
   }
 
@@ -75,12 +77,15 @@ export class FlowEditorComponent implements OnInit, OnDestroy {
     }
   }
   
- buildJsonFromEditor(): FlowPageTextV31[] {
+  /** Transforming element value into Flow components */
+ buildJsonFromEditor(): FlowPageTextV31[]
+  {
     const elements = document.querySelectorAll('.config-container input[type="text"], .config-container textarea');
     const jsonStructure: FlowPageTextV31[] = [];
   
     elements.forEach(element => {
       const textElement = element as HTMLInputElement | HTMLTextAreaElement;
+      //Defining size for text inputs
       const textSize = textElement.dataset['size'] as FlowPageTextSizesV31;
   
       if (textElement && textSize) {
