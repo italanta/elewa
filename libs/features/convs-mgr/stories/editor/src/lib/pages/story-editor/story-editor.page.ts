@@ -47,7 +47,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
 
   @ViewChild('storyEditorFrame') storyEditorFrame: StoryEditorFrameComponent;
 
-  opened: boolean;
+  portalOpened$: Observable<boolean>;
 
   pageName: string;
   isSideScreenOpen:boolean;
@@ -106,6 +106,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
         = this.sideScreen.sideScreen$
             .subscribe((isOpen) => this.isSideScreenOpen = isOpen);
 
+      this.portalOpened$ = this._blockPortalService.isOpened$;
+
       this._sb.sink 
         = this._blockPortalService.portal$.subscribe((blockDetails) => 
       {
@@ -115,7 +117,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
           this.activeBlockTitle = blockDetails.title
           this.activeBlockIcon = blockDetails.icon
           this.activeComponent = new ComponentPortal(comp);
-          this.opened = true;
+          this._blockPortalService.setActiveComponent(this.activeComponent, blockDetails.id);
+          this._blockPortalService.setOpened(true);
         }
       });
     }
@@ -135,7 +138,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   onClose() {
     if (this.activeComponent && this.activeComponent.isAttached) {
       this.activeComponent?.detach()
-      this.opened = false;
+      this._blockPortalService.setOpened(false);
     }
   }
 
@@ -175,7 +178,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
             if (success) 
             {
               this.stateSaved = true;
-              this.opened = false;
+              this._blockPortalService.setOpened(false);
               this.storyHasBeenSaved = true;
             }
           // TODO: Handle failed saves
