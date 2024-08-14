@@ -9,7 +9,7 @@ import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 import { WhatsappUploadFileService } from '@app/state/file/whatsapp';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
-import { FILE_LIMITS } from '../model/platform-file-size-limits';
+import { FILE_LIMITS, OLD_FILE_LIMITS } from '../model/platform-file-size-limits';
 import { FileLimits } from '../model/file-limits.interface';
 
 @Injectable({
@@ -46,6 +46,16 @@ export class FileStorageService
         message
       }
     });
+  }
+
+  checkFileSizeLimits(size: number, type: string) { 
+    const filelimits = OLD_FILE_LIMITS[type as keyof typeof OLD_FILE_LIMITS] as any[];
+
+    const limitsViolated = filelimits.filter((limit: any) => {
+      return size > this.__convertedSize(limit.size, limit.unit);
+    })
+
+    return limitsViolated;
   }
 
   checkSupportedLimits(size: number, fileType: string, category: keyof FileLimits) {
