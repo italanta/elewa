@@ -10,7 +10,7 @@ import { HandlerTools } from "@iote/cqrs";
 import { __DECODE_AES } from "@app/elements/base/security-config";
 import { ActiveChannel, EndUserDataService, MailMergeVariables, MessagesDataService, generateEndUserId } from "@app/functions/bot-engine";
 
-import { WhatsAppOutgoingMessage } from "@app/model/convs-mgr/functions";
+import { WhatsAppMessageType, WhatsAppOutgoingMessage } from "@app/model/convs-mgr/functions";
 import { PlatformType, WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { Message, MessageTemplateConfig, TemplateMessageParams } from "@app/model/convs-mgr/conversations/messages";
@@ -162,7 +162,7 @@ export class WhatsappActiveChannel implements ActiveChannel
     const URL = `https://graph.facebook.com/${this.API_VERSION}/${PHONE_NUMBER_ID}/messages`;
 
     try {
-      if (standardMessage) {
+      if (standardMessage && whatsappMessage.type !== WhatsAppMessageType.TEMPLATE) {
         whatsappMessage = (await this._handle24hourWindow(whatsappMessage.to, standardMessage)) || whatsappMessage;
       }
   

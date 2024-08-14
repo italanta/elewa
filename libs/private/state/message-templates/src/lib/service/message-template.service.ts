@@ -43,13 +43,10 @@ export class MessageTemplatesService {
   }
 
   private constructSendMessageReq(payload: any, channel: CommunicationChannel, selectedUsers: EnrolledEndUser[]): any {
-    const endUserIds =  selectedUsers.map((user)=> {
-      if(user.platformDetails){
-        return user.platformDetails[channel.type].endUserId
-      } else {
-        return null;
-      }
-    });
+
+    for(const user of selectedUsers) {
+      
+    }
 
     return {
       n: channel.n || 0,
@@ -60,7 +57,7 @@ export class MessageTemplatesService {
         language: payload.template.language,
         templateType: payload.templateType,
       },
-      endUserIds: endUserIds,
+      enroledEndUsers: selectedUsers,
     };
   }
 

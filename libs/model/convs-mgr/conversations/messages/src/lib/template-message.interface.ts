@@ -37,17 +37,25 @@ export enum TemplateMessageTypes {
 
    /** A template message with media (only video, image and document) 
     *    which will be included on the header */
-   Media               = 2,
+   Image               = 2,
+   Video               = 3,
+   Document            = 4,
 
    /** A template message with a quick reply button */
-   Interactive         = 3,
+   Interactive         = 5,
 
    /** A template message with a location cordinates which will be included on the header */
-   Location            = 4,
+   Location            = 6,
 
    /** A template message used for OTP */
-   Authentication      = 5,
+   Authentication      = 7,
 
    /** A template message used to showcase multiple products */
-   MultiProduct        = 6
+   MultiProduct        = 8
+}
+
+export interface ImageTemplateMessage extends TemplateMessage {
+  mediaType: 'image';
+  section: 'header';
+  url: string;
 }
