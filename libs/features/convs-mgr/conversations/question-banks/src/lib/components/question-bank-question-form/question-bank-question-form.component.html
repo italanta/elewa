@@ -1,1 +1,25 @@
-<p>question-bank-question-form works!</p>
+<div class="question-form">
+  <div>
+  <i style="width: 100%; margin: auto; color: #B2B2B2;" class="fas fa-grip-horizontal"></i>
+
+  <div class="card-content">
+      <div [formGroup]="questionFormGroup">
+
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-form-field appearance="fill" fxFlex="60">
+            <input type="text" matInput formControlName="message" placeholder="Type your question">
+          </mat-form-field>
+        </div>
+
+        <app-assessment-answers [questionId]="questionFormGroup.value.id" [questionFormGroup]="questionFormGroup"></app-assessment-answers>
+
+        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1%">
+          <mat-form-field appearance="fill">
+            <mat-label> Marks </mat-label>
+            <input type="number" matInput formControlName="marks">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
