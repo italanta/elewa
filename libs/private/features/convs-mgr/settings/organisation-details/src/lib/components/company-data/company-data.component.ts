@@ -66,12 +66,20 @@ export class CompanyDataComponent implements OnInit {
       }
     })
   }
-
+  
   getChannels() {
     this._channelService$.getAllChannels().subscribe((channels) => {
       this.dataSource = channels;
     });
   }
+
+  transformChannelPlatform(type: string) {
+    if(type === 'whatsapp'){
+      return 'WhatsApp';
+    }
+    return type.charAt(0).toUpperCase() + type.slice(1);
+  }
+
   buildOrgDataFormGroup(orgData: Organisation) {    
     this.orgDataFormGroup = this._fb.group({
       id: [orgData.id],
