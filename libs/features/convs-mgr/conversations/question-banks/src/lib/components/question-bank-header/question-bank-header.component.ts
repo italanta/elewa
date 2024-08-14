@@ -20,6 +20,7 @@ export class QuestionBankHeaderComponent
 
   constructor(private _assessmentForm: AssessmentFormService) {}
 
+  /** Triggering form output */
   addQuestion() 
   {
     this.addAQuestion = true;

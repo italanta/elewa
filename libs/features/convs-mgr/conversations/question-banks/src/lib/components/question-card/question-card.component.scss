@@ -65,3 +65,22 @@
   }
 
 }
+
+.header__wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  .mini-btns{
+    display: flex;
+    justify-content: end;
+    max-height: 30px;
+
+    .__actionBtn{
+      padding: 3px 0.5rem;
+      border: none;
+      cursor: pointer;
+      background: none;
+    }
+  }
+}

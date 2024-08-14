@@ -30,11 +30,13 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
     this._sBS.sink = this.questionStore.get().subscribe(_res => this.questions = _res)
   }
 
+  /** Sending form group to event */
   onNewQuestionAdded(questionFormGroup: FormGroup)
    {
     this.questionsFormGroup = questionFormGroup;
   }
 
+  /** Listening to add clicked */
   onAddModeChanged(addMode: boolean)
   {
     this.isAddingQuestion = addMode;

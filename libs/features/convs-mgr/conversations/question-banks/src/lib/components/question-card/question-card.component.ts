@@ -9,4 +9,14 @@ import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessmen
 export class QuestionCardComponent 
 {
   @Input() question: AssessmentQuestion
+
+  editQuestion()
+  {
+
+  }
+
+  deleteQuestion()
+  {
+    
+  }
 }

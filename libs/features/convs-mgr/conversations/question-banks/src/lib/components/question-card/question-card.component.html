@@ -1,8 +1,18 @@
 <mat-card class="question-card">
   <div *ngIf="question">
     <mat-card-header>
-      <div class="question-header">
-        <p> {{ question.message}}</p>
+      <div class="header__wrapper">
+        <div class="question-header">
+          <p> {{ question.message}}</p>
+        </div>
+        <div class="mini-btns">
+          <button class="__actionBtn" (click)="editQuestion()">
+            <img src="assets/icons/edit-item.svg" alt="">
+          </button>
+          <button class="__actionBtn" (click)="deleteQuestion()">
+            <img src="assets/icons/delete-item.svg" alt="">
+          </button>
+        </div>
       </div>
     </mat-card-header>
     <mat-card-content class="question-content">

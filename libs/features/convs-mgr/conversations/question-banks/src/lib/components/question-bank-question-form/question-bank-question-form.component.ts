@@ -16,17 +16,21 @@ import { SubSink } from 'subsink';
 })
 export class QuestionBankQuestionFormComponent implements OnDestroy 
 {
+  /** Form group */
   @Input() questionFormGroup: FormGroup;
+  /** Type of Assessment question */
   question: AssessmentQuestion;
-  questionId: string;
+  /** Variable to store media url */
   mediaSrc = '';
+  /** Type of media supported */
   uploadType: 'image' | 'video';
-  addMedia: true;
+  /** Boolean for when a file is an image */
   isImage: boolean;
+  /** Form state when user clicks add */
   isAddingQuestion = true;
-  showForm = true;
 
   private _sBS = new SubSink();
+  
   @ViewChild('videoPlayer') video: ElementRef<HTMLVideoElement>;
 
   constructor(private questionBankService: AssessmentQuestionBankStore,
