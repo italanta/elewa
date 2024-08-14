@@ -4,11 +4,13 @@ import
   RecepientType,
   WhatsAppMessageType,
   WhatsAppTemplateMessage,
-  WhatsappTemplateComponent,
-  WhatsappTemplateParameter,
+  WhatsappSendBodyTemplateComponent,
+  WhatsappSendHeaderTemplateComponent,
+  WhatsappSendImageTemplateParameter,
+  WhatsappSendTemplateParameter,
 } from '@app/model/convs-mgr/functions';
 
-import { OutgoingMessagePayload,TemplateMessage, TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+import { ImageTemplateMessage, OutgoingMessagePayload,TemplateMessage, TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
 
 /**
  * Interprets our standardized template messages @see {Message} to a whatsapp template message.
@@ -49,7 +51,7 @@ export class WhatsappTemplateMessageParser
     // If the message has parameters which can be variables, then we include them
     //  in the whatsapp message
     if(message.params) {
-      const templateParams: WhatsappTemplateParameter[] = message.params.map((param) =>
+      const templateParams: WhatsappSendTemplateParameter[] = message.params.map((param) =>
       {
         return {
           type: WhatsAppMessageType.TEXT,
@@ -62,9 +64,69 @@ export class WhatsappTemplateMessageParser
           type: "body",
           parameters: templateParams,
         }
-      ] as WhatsappTemplateComponent[];
+      ] as WhatsappSendBodyTemplateComponent[];
 
       generatedMessage.template.components = templateComponents;
+    }
+
+    return generatedMessage;
+  }
+
+  private _getImageTemplateMessage(message: ImageTemplateMessage, phone: string): any
+  {
+    // Create the text payload which will be sent to api
+    const generatedMessage: WhatsAppTemplateMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: phone,
+      
+      type: WhatsAppMessageType.TEMPLATE,
+      template: {
+        name: message.name,
+        language: {
+          code: message.language
+        }
+      }
+    };
+
+    // If the message has parameters which can be variables, then we include them
+    //  in the whatsapp message
+    if(message.params) {
+      const templateParams: WhatsappSendTemplateParameter[] = message.params.map((param) =>
+      {
+        return {
+          type: WhatsAppMessageType.TEXT,
+          text: param.value,
+        };
+      });
+
+      const templateComponents = [
+        {
+          type: "body",
+          parameters: templateParams,
+        }
+      ] as WhatsappSendBodyTemplateComponent[];
+
+      generatedMessage.template.components = templateComponents;
+    }
+
+    const headerComponent = {
+      type: 'header',
+      parameters: [
+        {
+          type: 'image',
+          image: {
+            link: message.url
+          } 
+        } as WhatsappSendImageTemplateParameter
+      ]
+    } as WhatsappSendHeaderTemplateComponent;
+
+    if(generatedMessage.template.components && generatedMessage.template.components.length > 0) {
+      generatedMessage.template.components.unshift(headerComponent)
+
+    } else {
+      generatedMessage.template.components = [headerComponent];
     }
 
     return generatedMessage;
@@ -77,6 +139,7 @@ export class WhatsappTemplateMessageParser
 
     switch (message.templateType) {
       case TemplateMessageTypes.Text:                parser = this._getTextTemplateMessage; break;
+      case TemplateMessageTypes.Image:               parser = this._getImageTemplateMessage; break;
       default:
         parser = this._getTextTemplateMessage;
     }

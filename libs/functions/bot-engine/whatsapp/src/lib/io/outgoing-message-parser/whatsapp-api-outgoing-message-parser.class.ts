@@ -16,9 +16,9 @@ import
   WhatsAppImageMessage,
   WhatsAppInteractiveMessage,
   WhatsAppMessageType,
-  WhatsappTemplateComponent,
+  WhatsappSendBodyTemplateComponent,
+  WhatsappSendTemplateParameter,
   WhatsAppTemplateMessage,
-  WhatsappTemplateParameter,
   WhatsAppTextMessage,
   WhatsAppVideoMessage,
 } from '@app/model/convs-mgr/functions';
@@ -350,7 +350,7 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     };
 
     if(params) {
-      const templateParams: WhatsappTemplateParameter[] = params.map((param) =>
+      const templateParams: WhatsappSendTemplateParameter[] = params.map((param) =>
       {
         return {
           type: WhatsAppMessageType.TEXT,
@@ -363,7 +363,7 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
           type: "body",
           parameters: templateParams,
         }
-      ] as WhatsappTemplateComponent[];
+      ] as WhatsappSendBodyTemplateComponent[];
 
       messageTemplate.template.components = templateComponents;
     }
