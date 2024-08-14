@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'lib-question-bank-header',
@@ -7,7 +9,11 @@ import { Component } from '@angular/core';
 })
 export class QuestionBankHeaderComponent 
 {
+
+  @Output() addNewQuestion = new EventEmitter<FormGroup>();
+  @Output() addMode = new EventEmitter<boolean>();
+
   addQuestionBank(){
-    
+    //
   }
 }

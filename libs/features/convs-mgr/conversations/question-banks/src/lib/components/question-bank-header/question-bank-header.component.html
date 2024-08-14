@@ -9,12 +9,11 @@
 
    <div class="banner">
     <span class="circle">
-      <button mat-fab class="btn-add" (click)="addQuestionBank()">
+      <button mat-fab class="btn-add" (click)="addNewQuestion.emit()">
         <i class="fas fa-plus"></i>
       </button>
     </span>
 
-    <!-- <span>{{ "ASSESSMENTS.BUTTON.ADD" | transloco }}</span> -->
     <div class="description-banner"> 
       <h1>
         {{"ASSESSMENTS.QUESTION-BANK.DESC-HEADER" | transloco }}
