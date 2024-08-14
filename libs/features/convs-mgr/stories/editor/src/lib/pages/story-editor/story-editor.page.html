@@ -5,7 +5,7 @@
 
     <!-- Side screen wiht block selectors and editor -->
     <div [ngClass]="isSideScreenOpen ? 'open' : 'close'" class="nav">
-      <div *ngIf="opened; else library">
+      <div *ngIf="portalOpened$ | async as opened; else library">
         <div class="wrapper-edit">
           <div class="top-section-edit">
             <input type="button" class="goToBlocks" (click)="onClose()"/>
