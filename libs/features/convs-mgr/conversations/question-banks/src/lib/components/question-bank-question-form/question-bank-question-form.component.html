@@ -1,4 +1,4 @@
-<div class="question-form">
+<div class="question-form" *ngIf="isAddingQuestion">
   <div class="card">
   <i style="width: 100%; margin: auto; color: #B2B2B2;" class="fas fa-grip-horizontal"></i>
 
@@ -6,9 +6,32 @@
       <div [formGroup]="questionFormGroup">
 
         <div fxLayout="row" fxLayoutAlign="space-between center">
-          <mat-form-field appearance="fill" fxFlex="60">
-            <input type="text" matInput formControlName="message" placeholder="Type your question">
-          </mat-form-field>
+          <div class="question-type-conf">
+            <div fxLayout="column" >
+              <div appearance="fill" fxFlex="60" *ngIf="mediaSrc" class="media-display">
+                <div class="media-div">
+                  <img *ngIf="isImage" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
+                  <video *ngIf="!isImage" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
+                </div>
+
+              </div>
+              <mat-form-field appearance="fill">
+                <input type="text" matInput formControlName="message" placeholder="Type your question">
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+              <button mat-flat-button>
+                <i class="fa-solid fa-a"></i>
+              </button>
+              <button mat-flat-button (click)="openUploadModal('image')">
+                <i class="fa-regular fa-image"></i>
+              </button>
+              <button mat-flat-button (click)="openUploadModal('video')">
+                <i class="fa-solid fa-video"></i>
+              </button>
+            </div>
+          </div>
         </div>
 
         <app-assessment-answers [questionId]="questionFormGroup.value.id" [questionFormGroup]="questionFormGroup"></app-assessment-answers>
@@ -22,8 +45,8 @@
       </div>
     </div>
     <div class="__buttons">
-      <button class="bank__button filled">Save</button>
-      <button class="bank__button outline">Discard</button>
+      <button class="bank__button filled" (click)="addQuestion()">Save</button>
+      <button class="bank__button outline" (click)="discardQuestion()">Discard</button>
     </div>
   </div>
 </div>
