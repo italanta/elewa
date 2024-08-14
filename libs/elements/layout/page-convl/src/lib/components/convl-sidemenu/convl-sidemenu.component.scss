@@ -19,6 +19,7 @@ $sidebar-footer-height: 230px;
 .active {
   font-weight: bolder;
   border-right: solid var(--convs-mgr-button-color) 1px;
+  background:rgba(160, 196, 204, 0.6);
 
   .menu-title{
     color: var(--convs-mgr-button-color)!important;

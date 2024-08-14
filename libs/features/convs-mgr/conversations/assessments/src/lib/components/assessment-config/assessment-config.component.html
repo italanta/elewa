@@ -27,49 +27,127 @@
 
     <div formGroupName="configs">
         <div class="assessment-config">
-            <h5>{{'ASSESSMENTS.ASSESSMENT-CONFIGS.QUES-PER-PAGE' | transloco}}</h5>
-            <p> {{'ASSESSMENTS.ASSESSMENT-CONFIGS.PER-PAGE-DESC' | transloco}}</p>
-            <hr/>
-            <div >
+            <h5>{{ 'ASSESSMENTS.ASSESSMENT-CONFIGS.QUES-PER-PAGE' | transloco }}</h5>
+            <p>{{ 'ASSESSMENTS.ASSESSMENT-CONFIGS.PER-PAGE-DESC' | transloco }}</p>
+            <hr />
+            <div>
                 <div fxLayout="column" fxLayoutAlign="start" fxLayoutGap="2%">
                     <mat-radio-group formControlName="questionsDisplay" fxLayout="column" fxLayoutAlign="start">
-                        <mat-radio-button [value]="singleDisplay">{{'ASSESSMENTS.ASSESSMENT-CONFIGS.DISPLAY-OPTIONS.SINGLE' |
-                            transloco}}</mat-radio-button>
-                        <mat-radio-button [value]="multipleDisplay">{{'ASSESSMENTS.ASSESSMENT-CONFIGS.DISPLAY-OPTIONS.MULTIPLE' |
-                            transloco}}</mat-radio-button>
+                        <mat-radio-button [value]="singleDisplay">{{
+                            'ASSESSMENTS.ASSESSMENT-CONFIGS.DISPLAY-OPTIONS.SINGLE'
+                            | transloco
+                            }}</mat-radio-button>
+                        <mat-radio-button [value]="multipleDisplay">{{
+                            'ASSESSMENTS.ASSESSMENT-CONFIGS.DISPLAY-OPTIONS.MULTIPLE'
+                            | transloco
+                            }}</mat-radio-button>
                     </mat-radio-group>
                 </div>
             </div>
         </div>
+        <!-- Story flow configs -->
         <div class="assessment-config">
             <div class="enable-retrial">
-                <h5>{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.ENABLE-RETRIAL' | transloco}}</h5> 
-                <mat-slide-toggle formControlName="canRetry" (change)="toggleRetry()"></mat-slide-toggle>
+                <h5>
+                    {{ 'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.HEADER' | transloco }}
+                </h5>
             </div>
-            <span> {{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-TEXT' | transloco}}</span>
+            <span>
+                {{
+                'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.DETAIL-TEXT' | transloco
+                }}</span>
+            <div class="retrial-allowed" formGroupName="moveOnCriteria">
+                <hr />
+                <mat-radio-group formControlName="criteria" fxLayout="column" fxLayoutAlign="start">
+                    <mat-radio-button 
+                    [value]="moveOnPass"
+                    (click)="onMoveOnCriteriaClick(moveOnPass)">
+                        {{
+                        'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.UPON-PASSING'
+                        | transloco
+                        }}
+                    </mat-radio-button>
+                    <div class="retry-configs" *ngIf="
+              assessmentFormGroup.get('configs.moveOnCriteria.criteria')
+                ?.value === moveOnPass
+            ">
+                        <div class="on-pass">
+                            <span>{{
+                                'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.PASS-SCORE'
+                                | transloco
+                                }}</span>
+                            <input formControlName="passMark" type="number" min="0" max="100" />
+                        </div>
+                    </div>
+                    <mat-radio-button 
+                    [value]="moveOnComplete"
+                    (click)="onMoveOnCriteriaClick(moveOnComplete)"
+                    >
+                        {{
+                        'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.UPON-COMPLETION'
+                        | transloco
+                        }}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+        <!-- Retry configs -->
+        <div class="assessment-config" formGroupName="retryConfig">
+            <div class="enable-retrial">
+                <h5>
+                    {{
+                    'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.ENABLE-RETRIAL' | transloco
+                    }}
+                </h5>
+                <mat-slide-toggle [checked]="retry" (change)="toggleRetry($event)"></mat-slide-toggle>
+            </div>
+            <span>
+                {{
+                'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-TEXT' | transloco
+                }}</span>
             <div class="retrial-allowed" *ngIf="retry">
                 <hr />
-                <mat-radio-group formControlName="retryType" fxLayout="column" fxLayoutAlign="start">
-                    <mat-radio-button [value]="retryOnCount">{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.DEFAULT.DEFAULT-TEXT' |
-                        transloco}}</mat-radio-button>
-                        <div class="retry-configs">
-                            <div class="default-config" *ngIf="isDefaultRetrySelected">
-                                <span>{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.DEFAULT.TRIAL-NOS' | transloco}}</span>
-                                <input formControlName="userAttempts" type="number" min="0" max="100"/>
-                            </div>
-                        </div>    
-                    <mat-radio-button [value]="scoreRetry">{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.ON-SCORE.SCORE-TEXT' |
-                        transloco}}</mat-radio-button>
+                <mat-radio-group formControlName="type" fxLayout="column" fxLayoutAlign="start">
+                    <mat-radio-button 
+                        [value]="retryOnCount"
+                        (click)="onRetryTypeClick(retryOnCount)"
+                    >{{
+                        'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.DEFAULT.DEFAULT-TEXT'
+                        | transloco
+                        }}</mat-radio-button>
+                    <div class="retry-configs">
+                        <div class="default-config" *ngIf="isDefaultRetrySelected">
+                            <span>{{
+                                'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.DEFAULT.TRIAL-NOS'
+                                | transloco
+                                }}</span>
+                            <input formControlName="onCount" type="number" min="0" max="100" />
+                        </div>
+                    </div>
+                    <mat-radio-button 
+                        [value]="scoreRetry"
+                        (click)="onRetryTypeClick(scoreRetry)">
+                    {{
+                        'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.ON-SCORE.SCORE-TEXT'
+                        | transloco
+                        }}
+                    </mat-radio-button>
                 </mat-radio-group>
-                <div class="retry-configs">
-                    <div class="score-config" *ngIf="isScoreRetrySelected" formGroupName="scoreAttempts">
+                <div class="retry-configs" formGroupName="onScore">
+                    <div class="score-config" *ngIf="isScoreRetrySelected">
                         <div class="score-descs">
-                            <span>{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.ON-SCORE.MINIMUM-SCORE' | transloco}}</span>
-                            <input formControlName="minScore" type="number" min="0" max="100"/>
+                            <span>{{
+                                'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.ON-SCORE.MINIMUM-SCORE'
+                                | transloco
+                                }}</span>
+                            <input formControlName="minScore" type="number" min="0" max="100" />
                         </div>
                         <div class="score-descs">
-                            <span>{{'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.ON-SCORE.TRIAL-NOS' | transloco}}</span>
-                            <input formControlName="userAttempts" type="number" min="0"/>
+                            <span>{{
+                                'ASSESSMENTS.ASSESSMENT-CONFIGS.RETRIAL.RETRIAL-PROVISIONS.ON-SCORE.TRIAL-NOS'
+                                | transloco
+                                }}</span>
+                            <input formControlName="count" type="number" min="0" />
                         </div>
                     </div>
                 </div>

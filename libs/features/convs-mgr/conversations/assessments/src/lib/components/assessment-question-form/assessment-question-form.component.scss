@@ -20,7 +20,6 @@
 		border: solid #B8AFDA 2px!important;
 	}
 }
-
 .btn-add {
 	background-color: white;
 	color: black!important;
@@ -32,6 +31,54 @@
 	background-color: transparent!important;
 }
 
+.question-type-conf, .customInputs{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+.media-display{
+	height: 7rem;
+	border-radius: 8px;
+	display: flex;
+	gap: 1rem;
+
+	.media-div{
+		width: 60%;
+		height: 100%;
+		img{
+			width: 100%;
+			height: 7rem;
+			border-radius: 4px;
+		}
+		video{
+			width: 100%;
+			height: 7rem;
+			border-radius: 4px;
+		}
+	}
+	.img-elipsis{
+		cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 50%;
+		&:hover{
+			background-color: rgb(198, 185, 185);
+		}
+	}
+}
+
+.mini-btns{
+	display: flex;
+	justify-content: end;
+	gap: 1rem;
+	max-height: 30px;
+	margin-bottom: 1rem;
+}
 :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: white !important;
 }

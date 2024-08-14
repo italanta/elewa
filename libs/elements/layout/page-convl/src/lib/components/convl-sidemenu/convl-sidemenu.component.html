@@ -180,7 +180,7 @@
                   <li matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.USERS'| transloco }}" [matTooltipDisabled]="isManageUsersDropdownOpen && isExpanded">
                     <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/users" routerLinkActive="active" (click)="$event.stopPropagation()">
                       <span class="menu-icon">
-                        <img src="assets/icons/message-chat.svg" class="img" alt="">
+                        <img src="assets/icons/users-alt.svg" class="img" alt="">
                       </span>
                       <span *ngIf="isExpanded" class="menu-title">
                         Users
@@ -190,7 +190,7 @@
                   <li matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.USER-GROUPS'| transloco }}" [matTooltipDisabled]="isManageUsersDropdownOpen && isExpanded">
                     <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/user-groups" routerLinkActive="active" (click)="$event.stopPropagation()">
                       <span class="menu-icon">
-                        <img src="assets/icons/message-template.svg" class="img" alt="">
+                        <img src="assets/icons/users-class.svg" class="img" alt="">
                       </span>
                       <span *ngIf="isExpanded" class="menu-title">
                         User Groups

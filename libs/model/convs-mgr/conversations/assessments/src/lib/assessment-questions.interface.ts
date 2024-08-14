@@ -9,6 +9,7 @@ export interface AssessmentQuestion extends StoryBlock, IObject {
   options?: AssessmentQuestionOptions[];
   prevQuestionId?: string;
   nextQuestionId?: string;
+  mediaPath?: string;
   textAnswer?: AssessmentTextAnswer;
 }
 

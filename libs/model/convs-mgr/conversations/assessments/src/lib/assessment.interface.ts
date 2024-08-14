@@ -17,7 +17,15 @@ export interface Assessment extends Story, MicroApp {
     metrics?: AssessmentMetrics
     /** The total marks of all questions in the assessment */
     maxScore: number;
+
+    /** 
+     * Marks the version of the assessment, for backward compatibility. 
+     *  Although new assessments will be v2 by default.
+     */
+    version?: VersionType;
 }
+
+export type VersionType = 'v1' | 'v2';
 
 export interface AssessmentMetrics {
     inProgress: number,

@@ -6,9 +6,7 @@ import { Query } from "@ngfi/firestore-qbuilder";
 import { AssessmentProgress, AssessmentProgressUpdate, AssessmentStatusTypes, Attempt, AttemptsMap, QuestionResponse } from "@app/model/convs-mgr/micro-app/assessments";
 import { AssessmentMicroApp, MicroAppProgress, MicroAppStatus } from "@app/model/convs-mgr/micro-app/base";
 import { AssessmentQuestion } from "@app/model/convs-mgr/conversations/assessments";
-import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
-import { SendOutgoingMsgHandler } from "@app/functions/bot-engine/send-message";
-import { DocumentMessage, FileMessage, Message, MessageDirection } from "@app/model/convs-mgr/conversations/messages";
+import { DocumentMessage, Message, MessageDirection } from "@app/model/convs-mgr/conversations/messages";
 import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 import { mapResponses } from "../utils/assessment-responses-map.util";
@@ -85,6 +83,7 @@ export class AssessmentProgressService
       orgId: newProgress.orgId,
       endUserId: newProgress.endUserId,
       title: newProgress.assessmentDetails.title,
+      endUserName: newProgress.endUserName,
       moveOnCriteria: newProgress.assessmentDetails.moveOnCriteria || null
     };
 
@@ -160,10 +159,12 @@ export class AssessmentProgressService
     return newAttempt;
   }
 
-  private _getOutcome(score: number, passMark?: number) {
+  private _getOutcome(score: number, maxScore: number, passMark?: number) {
     if(!passMark) return AssessmentStatusTypes.Completed;
 
-    if(score <= passMark) {
+    const percentageScore = Math.round(score/maxScore * 100);
+
+    if(percentageScore <= passMark) {
       return AssessmentStatusTypes.Failed;
     } else {
       return AssessmentStatusTypes.Passed;
@@ -175,7 +176,7 @@ export class AssessmentProgressService
 
     if(currentAttempt.finishedOn) {
       const passMark = progress.moveOnCriteria ? progress.moveOnCriteria.passMark : undefined;
-      currentAttempt.outcome = this._getOutcome(currentAttempt.score, passMark)
+      currentAttempt.outcome = this._getOutcome(currentAttempt.score, progress.maxScore, passMark)
     } else {
       currentAttempt.outcome = AssessmentStatusTypes.Incomplete;
     }

@@ -6,12 +6,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SubSink } from 'subsink';
 import { Observable, tap, switchMap, take } from 'rxjs';
 
-import { Assessment, AssessmentMode, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment, AssessmentMode, AssessmentQuestion, MoveOnCriteriaTypes } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentPublishService, AssessmentQuestionService, AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
 import { AssessmentsFormsModel } from '../../../model/questions-form.model';
 import { AssessmentFormService } from '../../../services/assessment-form.service';
 import { DEFAULT_ASSESSMENT } from '../../../providers/create-empty-assessment-form.provider';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-create-assessment-page',
@@ -21,7 +22,7 @@ import { DEFAULT_ASSESSMENT } from '../../../providers/create-empty-assessment-f
 export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
   private _sbS = new SubSink();
 
-  assessmentFormModel:  AssessmentsFormsModel;
+  assessmentFormModel: AssessmentsFormsModel;
 
   assessment$: Observable<Assessment>;
   questions$: Observable<AssessmentQuestion[]>;
@@ -36,7 +37,7 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
   isPublishing = false;
   isSaving = false;
   formHasLoaded = false;
-
+  isPreviewTabActive = false;
   action: string;
 
   constructor(private _fb: FormBuilder,
@@ -114,22 +115,23 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
     // we spread the `assessmentQstns$()` since it's an array of Observables.
     let savedAssessmentId = '';
 
-    this.insertAssessmentConfig$().pipe(take(1),
-        tap((ass) => savedAssessmentId = ass.id!),
+    this.insertAssessmentConfig$()
+      .pipe(
+        take(1),
+        tap((ass) => (savedAssessmentId = ass.id!)),
         switchMap((ass) => this.persistAssessmentQuestions$(ass.id!)),
         tap(() => {
           this.isSaving = false;
-          this.openSnackBar('Assessment successfully saved', 'Save')
-          this._route$$.navigate([ 'assessments', savedAssessmentId]);
+          this.openSnackBar('Assessment successfully saved', 'Save');
+          this._route$$.navigate(['assessments', savedAssessmentId]);
         })
       )
-    .subscribe()
+      .subscribe();
   }
 
   onPublish() {
     this.isPublishing = true;
     this.assessment.maxScore = this.calculateMaxScore();
-    
     this._sbS.sink = this._publishAssessment.publish(this.assessment)
       .pipe(
         switchMap(() => {
@@ -158,13 +160,33 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
 
   insertAssessmentConfig$()
   {
-    this.assessment['configs'] = {
-      feedback: this.assessmentFormModel.assessmentsFormGroup.value.configs.feedback,
-      // canRetry: this.assessmentFormModel.assessmentsFormGroup.value.configs,
-      // userAttempts: this.assessmentFormModel.assessmentsFormGroup.value.configs.userAttempts,
-      // retryType: this.assessmentFormModel.assessmentsFormGroup.value.configs.retryType,
-      questionsDisplay: this.assessmentFormModel.assessmentsFormGroup.value.configs.questionsDisplay
-    };
+    const configs = this.assessmentFormModel.assessmentsFormGroup.get('configs');
+    if (configs) {
+      const retryConfig = configs.get('retryConfig');
+      const onScore = retryConfig?.get('onScore');
+      const moveOnCriteria = configs.get('moveOnCriteria');
+
+      const criteria = parseInt(moveOnCriteria?.get('criteria')?.value);
+      const passMark = criteria === MoveOnCriteriaTypes.OnPassMark ? moveOnCriteria?.get('passMark')?.value : null;
+
+      this.assessment['configs'] = {
+        feedback: configs.get('feedback')?.value,
+        retryConfig: {
+          type: retryConfig?.get('type')?.value,
+          onCount: retryConfig?.get('onCount')?.value,
+          onScore: {
+            minScore: onScore?.get('minScore')?.value,
+            count: onScore?.get('count')?.value,
+          },
+        },
+        questionsDisplay: configs.get('questionsDisplay')?.value,
+        moveOnCriteria: {
+          criteria: criteria,
+          passMark: passMark,
+        },
+      };
+
+    }
 
     let questionsOrder = this.assessmentFormModel.assessmentsFormGroup.value.questionsOrder;
 
@@ -174,7 +196,7 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
     this.assessmentFormModel.assessmentsFormGroup.value['questionsOrder'] = questionsOrder;
 
     if (this.action === 'create')
-      return this._assessmentService.addAssessment$(this.assessmentFormModel.assessmentsFormGroup.value as Assessment);
+      return this._assessmentService.addAssessment$(this.assessmentFormModel.assessmentsFormGroup.value as Assessment)
 
     return this._assessmentService.updateAssessment$(this.assessmentFormModel.assessmentsFormGroup.value as Assessment);
   }
@@ -199,6 +221,10 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
     delQstns.map(question => this._assessmentQuestion.deleteQuestion$(question));
 
     return assessmentQuestions.map(question => this._assessmentQuestion.addQuestion$(assessmentId, question, question.id!));
+  }
+  /** Ensure preview is only loaded when clicked on */
+  onTabChange(event: MatTabChangeEvent) {
+    this.isPreviewTabActive = event.index === 2;
   }
 
   ngOnDestroy(): void

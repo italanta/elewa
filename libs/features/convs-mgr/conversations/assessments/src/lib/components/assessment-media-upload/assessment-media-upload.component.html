@@ -1,0 +1,28 @@
+<ng-container class="media-modal">
+  <div [formGroup]="assessmentFormGroup">
+    <div formArrayName="questions">
+      <div [formGroup]="questionFormGroup">
+        <div class="header-text">
+          <span mat-dialog-title>{{fileAccept === 'image/*' ? 'Import Image' : 'Import video'}}</span>
+          <div>
+            <button (click)="onCancel()" class="cancel"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+        <div class="upload-container" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+          <div class="media-drag">
+            <img src="/assets/images/MDI - image-outline.png" alt="">
+            <p>{{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.UPLOAD-MODAL.DROP-FILES' | transloco}}</p>
+            <p>{{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.UPLOAD-MODAL.OR' | transloco}}</p>
+          </div>
+          <!-- Button to trigger file selection -->
+          <button mat-raised-button (click)="openFileExplorer(fileAccept)" class="media-btn">Choose File</button>
+          <!-- Display upload progress -->
+          <div>
+            <p>{{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.UPLOAD-MODAL.UPLOAD-PROGRESS' | transloco}}: {{uploadProgress}}%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+

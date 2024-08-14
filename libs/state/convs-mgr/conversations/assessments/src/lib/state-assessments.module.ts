@@ -9,6 +9,7 @@ import { AssessmentService } from './services/assessment.service';
 import { AssessmentQuestionService } from './services/assessment-question.service';
 import { AssessmentPublishService } from './services/assessment-publish.service';
 import { AssessmentQuestionBankService } from './services/assessment-question-bank.service';
+import { AssessmentResultsService } from './services/assessment-results.service';
 
 @NgModule({
   imports: [CommonModule],
@@ -24,7 +25,8 @@ export class StateAssessmentsModule {
         AssessmentService,
         AssessmentQuestionService,
         AssessmentPublishService,
-        AssessmentQuestionBankService
+        AssessmentQuestionBankService,
+        AssessmentResultsService
       ],
     };
   }

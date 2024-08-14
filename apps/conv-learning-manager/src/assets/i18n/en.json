@@ -556,9 +556,10 @@
       },
       "TABLE-HEADER": {
         "NAME": "Name",
-        "PHONE-NO": "PhoneNumber",
+        "PHONE-NO": "Phone Number",
         "STARTED-ON": "Started On",
-        "FINISHED-ON": "Finished On",
+        "FINISHED-ON": "Date done",
+        "DATE-DONE": "Finished On",
         "SCORE": "Score",
         "SCORE-CATEGORY": "Score Category"
       },
@@ -649,6 +650,18 @@
         "CORRECT": "Correct",
         "WRONG": "Wrong",
         "50-50": "50/50"
+      },
+      "UPLOAD-TEXTS": {
+        "ALIGN-LEFT": "Align Left",
+        "ALIGN-RIGHT": "Align Right",
+        "ALIGN-CENTER": "Align Center",
+        "REPLACE-IMAGE": "Replace media",
+
+        "UPLOAD-MODAL": {
+          "DROP-FILES": "Drop files here",
+          "OR": "or",
+          "UPLOAD-PROGRESS": "Upload Progress"
+        }
       }
     },
     "ASSESSMENT-CONFIGS": {
@@ -672,6 +685,13 @@
             "TRIAL-NOS": "Number of trials"
           }
         }
+      },
+      "STORY-FLOW": {
+        "HEADER": "Story flow",
+        "DETAIL-TEXT": "Allow users to continue with the story flow",
+        "UPON-PASSING": "Upon passing the assessment",
+        "PASS-SCORE": "Pass score",
+        "UPON-COMPLETION": "Upon completion of the assessment"
       }
     },
     "QUESTION-BANK": {
@@ -1128,7 +1148,7 @@
           "CONTENT": {
             "HEADER": {
               "HEADER": "Header",
-              "HEADER-DESCRIPTION": "Add a header of either text or image",
+              "HEADER-DESCRIPTION": "Add a text header",
               "TEXT": "Text"
             },
             "BODY": {
@@ -1293,6 +1313,10 @@
       
   }
 },
+  "ASSESSMENT-MICROAPP": {
+    "PLACEHOLDER": "Select Assessment",
+    "CREATE-TEXT": "Create assessment"
+  },
   "MICROAPPS-SCREENS": {
     "FOOTER-TEXT": "Powered by",
     "CONTENT-SECTION": {
@@ -1302,8 +1326,37 @@
     },
     "BUTTON-TEXT": "Start Assessment"
   },
-  "ASSESSMENT-MICROAPP": {
-    "PLACEHOLDER": "Select Assessment",
-    "CREATE-TEXT": "Create assessment"
+  "ASSESSMENT-PAGE": {
+    "BUTTONS-TEXT": {
+      "NEXT-BUTTON": "Next",
+      "PREVIOUS": "Previous",
+      "SUBMIT-TEXT": "Submit assessment",
+      "WHATSAPP-BUTTON": "Go back to WhatsApp",
+      "RETRY-NOW-BUTTON": "Retry Now",
+      "RETRY-LATER-BUTTON": "Retry Later"
+    },
+    "QUESTION": "Question",
+    "GRADE-DISPLAY": {
+      "PASS-MESSAGE": {
+        "PASS-TEXT": "You passed!",
+        "GRADE-TEXT": "Grade received",
+        "SCORE-TEXT": "Highest score"
+      },
+      "FAIL-MESSAGE": {
+        "FAIL-TEXT": "You did not pass.",
+        "GRADE-TEXT": "Grade received:"
+      }
+    },
+    "FAIL-FEEDBACK": {
+      "FAIL-MESSAGE": {
+        "INTRO": "Oops! It looks like you didn’t pass the assessment this time. But don’t worry, you can try again.",
+        "TRIAL-TEXT": {
+          "INTRO": "You have",
+          "END": " more trials"
+        },
+        "RETAKE-TEXT": "Click Retry assignment button below to give it another go!"
+      }
+    },
+    "NO-ANSWER-ERROR" : " Answer the question before proceeding. Don't worry, you can still come back to it before submitting"
   }
 }

@@ -9,8 +9,6 @@ import { UIWorkflowModule } from '@iote/ui-workflows';
 import { UserStateModule } from '@app/state/user';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-import { iTalPageModule } from '@app/elements/layout/page';
-
 import { LoginComponent }            from './components/login/login.component';
 import { RegisterComponent }         from './components/register/register.component';
 import { ForgotPasswordModalComponent }       from './modals/forgot-password-modal/forgot-password-modal.component';
@@ -28,7 +26,6 @@ import { AuthRouterModule }  from './auth-router.module';
     MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, UIWorkflowModule,
     FormsModule, ReactiveFormsModule,CommonModule,
     UserStateModule,
-    iTalPageModule,
     AuthRouterModule],
 
   declarations: [LoginComponent,

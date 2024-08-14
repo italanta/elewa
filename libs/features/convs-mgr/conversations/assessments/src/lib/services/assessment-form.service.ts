@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { FormArray, FormGroup, FormBuilder } from '@angular/forms';
+import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { Assessment, AssessmentConfiguration, AssessmentQuestion, AssessmentQuestionOptions, 
+import { Assessment, AssessmentQuestion, AssessmentQuestionOptions, 
   AssessmentQuestionType } from '@app/model/convs-mgr/conversations/assessments';
 
 @Injectable({
@@ -24,10 +24,13 @@ export class AssessmentFormService {
           type: [assessment.configs?.retryConfig?.type ?? ''],
           onCount: [assessment.configs?.retryConfig?.onCount ?? ''],
           onScore: this._formBuilder.group({
+            count: [assessment.configs?.retryConfig?.onScore?.count ?? ''],
             minScore: [assessment.configs?.retryConfig?.onScore?.minScore ?? ''],
-            userAttempts: [assessment.configs?.retryConfig?.onScore?.count ?? ''],
-
-          })
+          }),
+        }),
+        moveOnCriteria: this._formBuilder.group({
+          criteria: [assessment.configs?.moveOnCriteria ?? ''],
+          passMark: [assessment.configs?.moveOnCriteria?.passMark ?? '']
         }),
         questionsDisplay: [assessment.configs?.questionsDisplay ?? ''],
       }),
@@ -35,15 +38,17 @@ export class AssessmentFormService {
     });
   }
 
-  createQuestionForm(question?: AssessmentQuestion){
+  createQuestionForm(question?: AssessmentQuestion, selectedOption?: any){
     return this._formBuilder.group({
       id: [question?.id ?? ''],
       questionType: AssessmentQuestionType.SingleSelectOptions,
       marks: [question?.marks ?? ''],
       message: [question?.message ?? ''],
+      mediaPath: [question?.mediaPath ?? ''],
       options: question?.options ? this._prefillOptions(question?.options) : this._formBuilder.array([
         this.createDefaultChoice()
       ]),
+      selectedOption: [selectedOption ?? "", Validators.required], //tracking the selected option
       nextQuestionId: [question?.nextQuestionId ?? null],
       prevQuestionId: [question?.prevQuestionId ?? null],
     });
