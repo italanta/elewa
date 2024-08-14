@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MultiLangModule } from '@ngfi/multi-lang';
 
@@ -12,6 +12,8 @@ import { QuestionBankListComponent } from './components/question-bank-list/quest
 import { QuestionBankHeaderComponent } from './components/question-bank-header/question-bank-header.component';
 import { QuestionBankRouterModule } from './question-banks.router.module';
 import { QuestionBankQuestionFormComponent } from './components/question-bank-question-form/question-bank-question-form.component';
+import { MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -19,6 +21,10 @@ import { QuestionBankQuestionFormComponent } from './components/question-bank-qu
     RouterModule,
     MultiLangModule,
     ReactiveFormsModule,
+    FlexLayoutModule,
+    MaterialBricksModule,
+    MaterialDesignModule,
+    FormsModule,
 
     QuestionBankRouterModule,
     ConvlPageModule,

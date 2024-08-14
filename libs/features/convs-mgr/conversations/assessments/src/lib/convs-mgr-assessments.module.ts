@@ -109,7 +109,8 @@ import { AssessmentLandingPageComponent } from './components/micro-app-assessmen
   ],
   exports: [ContentSectionComponent, 
             AssessmentLandingPageComponent,
-            AssessmentQuestionFormComponent
+            AssessmentQuestionFormComponent,
+            AssessmentAnswersComponent
           ],
 })
 export class ConvsMgrAssessmentsModule {}
