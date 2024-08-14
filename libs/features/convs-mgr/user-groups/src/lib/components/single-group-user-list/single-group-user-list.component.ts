@@ -38,7 +38,7 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
 
   _sbs = new SubSink();
 
-  allPlatforms: string[] = ['whatsapp', 'messenger'];
+  allPlatforms: string[] = ['WhatsApp', 'Messenger'];
   allStatus = [{name: 'Active', value: 1}, {name: 'Inactive', value: 2}];
 
   allLearners: EnrolledEndUser[] = [];

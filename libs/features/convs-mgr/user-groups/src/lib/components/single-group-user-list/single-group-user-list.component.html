@@ -24,7 +24,7 @@
             <div class="select">
               <select (change)="filterTable($event,'platform')">
                 <option value="allPlatforms" selected>All Platforms</option>
-                <option *ngFor="let platform of allPlatforms" [value]="platform">{{ platform | titlecase }}</option>
+                <option *ngFor="let platform of allPlatforms" [value]="platform">{{ platform }}</option>
               </select>
             </div>
             </div>
