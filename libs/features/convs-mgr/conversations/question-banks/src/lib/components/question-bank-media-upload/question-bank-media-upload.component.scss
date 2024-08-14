@@ -1,0 +1,52 @@
+::ng-deep  .media-modal{
+  width: 45%;
+  height: auto;
+  margin-left: 10%;
+}
+.upload-modal{
+  border-radius: 16px;
+}
+.upload-container {
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.upload-container input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.header-text{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 5%;
+
+  .cancel{
+    background-color: none;
+    border: none;
+    outline: none;
+    .fa-xmark{
+      font-size: large;
+    }
+  }
+  span{
+    font-size: large;
+    font-weight: 400;
+  }
+}
+.media-btn{
+  background-color: var(--convs-mgr-color-button);
+  color: var(--convs-mgr-color-FFFFFF);
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  border-radius: 10px;
+  width: 25%;
+}
