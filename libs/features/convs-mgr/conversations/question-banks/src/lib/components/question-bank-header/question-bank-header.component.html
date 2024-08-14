@@ -9,7 +9,7 @@
 
    <div class="banner">
     <span class="circle">
-      <button mat-fab class="btn-add" (click)="addNewQuestion.emit()">
+      <button mat-fab class="btn-add" (click)="addQuestion()">
         <i class="fas fa-plus"></i>
       </button>
     </span>
@@ -25,4 +25,5 @@
    </div>
 
   </div>
+  <app-question-bank-question-form *ngIf="addAQuestion" [questionFormGroup]="questionsFormGroup"></app-question-bank-question-form>
 </div>

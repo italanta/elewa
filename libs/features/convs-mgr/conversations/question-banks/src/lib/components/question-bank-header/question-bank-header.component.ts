@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { AssessmentFormService } from 'libs/features/convs-mgr/conversations/assessments/src/lib/services/assessment-form.service';
 
 
 @Component({
@@ -9,11 +10,20 @@ import { FormGroup } from '@angular/forms';
 })
 export class QuestionBankHeaderComponent 
 {
+  questionsFormGroup: FormGroup;
+  addAQuestion: boolean;
 
   @Output() addNewQuestion = new EventEmitter<FormGroup>();
   @Output() addMode = new EventEmitter<boolean>();
 
-  addQuestionBank(){
-    //
+  constructor(private _assessmentForm: AssessmentFormService){}
+
+  addQuestion(){
+    this.addAQuestion = true
+    this.questionsFormGroup = this._assessmentForm.createQuestionForm()
+    
+    this.addNewQuestion.emit(this.questionsFormGroup);
   }
+
+
 }
