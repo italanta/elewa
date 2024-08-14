@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+import { FormGroup } from '@angular/forms';
 
-import { AssessmentFormService } from 'libs/features/convs-mgr/conversations/assessments/src/lib/services/assessment-form.service';
+import { AssessmentFormService } from '@app/features/convs-mgr/conversations/assessments';
 
 @Component({
   selector: 'lib-question-bank-list-component',
@@ -11,24 +10,20 @@ import { AssessmentFormService } from 'libs/features/convs-mgr/conversations/ass
 })
 export class QuestionBankListComponent implements OnInit
 {
-  i: number;
-  count = 0;
+  questionsFormGroup: FormGroup;
+  isAddingQuestion = false;
 
-  questionsFormArray: FormArray;
+  constructor(private _assessmentForm: AssessmentFormService) {}
 
-  constructor(private fb: FormBuilder, private _assessmentForm: AssessmentFormService) {}
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    this.questionsFormArray = this.fb.array([]);
+  onNewQuestionAdded(questionFormGroup: FormGroup)
+   {
+    this.questionsFormGroup = questionFormGroup;
   }
 
-  addNewQuestion(newQForm?: FormGroup) {
-    const questionForm = newQForm ? newQForm : this._assessmentForm.createQuestionForm();
-    this.questionsFormArray.push(questionForm);
+  onAddModeChanged(addMode: boolean)
+  {
+    this.isAddingQuestion = addMode;
   }
-
-  get questions() {
-    return this.questionsFormArray;
-  }
-
 }
