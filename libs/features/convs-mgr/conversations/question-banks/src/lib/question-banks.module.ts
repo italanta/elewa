@@ -12,8 +12,12 @@ import { QuestionBankListComponent } from './components/question-bank-list/quest
 import { QuestionBankHeaderComponent } from './components/question-bank-header/question-bank-header.component';
 import { QuestionBankRouterModule } from './question-banks.router.module';
 import { QuestionBankQuestionFormComponent } from './components/question-bank-question-form/question-bank-question-form.component';
-import { MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
+import {
+  MaterialBricksModule,
+  MaterialDesignModule,
+} from '@iote/bricks-angular';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { QuestionBankMediaUploadComponent } from './components/question-bank-media-upload/question-bank-media-upload.component';
 
 @NgModule({
   imports: [
@@ -35,6 +39,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     QuestionBankListComponent,
     QuestionBankHeaderComponent,
     QuestionBankQuestionFormComponent,
+    QuestionBankMediaUploadComponent,
   ],
 })
 export class QuestionBanksModule {}
