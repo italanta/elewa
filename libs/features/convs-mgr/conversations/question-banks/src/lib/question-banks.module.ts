@@ -18,6 +18,8 @@ import {
 } from '@iote/bricks-angular';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { QuestionBankMediaUploadComponent } from './components/question-bank-media-upload/question-bank-media-upload.component';
+import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
+import { QuestionCardComponent } from './components/question-card/question-card.component';
 
 @NgModule({
   imports: [
@@ -40,6 +42,8 @@ import { QuestionBankMediaUploadComponent } from './components/question-bank-med
     QuestionBankHeaderComponent,
     QuestionBankQuestionFormComponent,
     QuestionBankMediaUploadComponent,
+    QuestionCardComponent,
   ],
+  providers: [AssessmentQuestionBankStore],
 })
 export class QuestionBanksModule {}
