@@ -7,5 +7,4 @@ export * from './lib/state-assessments.module';
 export * from './lib/services/assessment-publish.service';
 export * from './lib/services/assessment-question-bank.service';
 export * from './lib/services/assessment-results.service';
-
-
+export * from './lib/stores/assessment-question-bank.store';
