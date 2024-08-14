@@ -11,7 +11,7 @@ import { ConvsMgrAssessmentsModule } from '@app/features/convs-mgr/conversations
 import { QuestionBankListComponent } from './components/question-bank-list/question-bank-list.component';
 import { QuestionBankHeaderComponent } from './components/question-bank-header/question-bank-header.component';
 import { QuestionBankRouterModule } from './question-banks.router.module';
-
+import { QuestionBankQuestionFormComponent } from './components/question-bank-question-form/question-bank-question-form.component';
 
 @NgModule({
   imports: [
@@ -23,8 +23,12 @@ import { QuestionBankRouterModule } from './question-banks.router.module';
     QuestionBankRouterModule,
     ConvlPageModule,
 
-    ConvsMgrAssessmentsModule
+    ConvsMgrAssessmentsModule,
   ],
-  declarations: [QuestionBankListComponent, QuestionBankHeaderComponent],
+  declarations: [
+    QuestionBankListComponent,
+    QuestionBankHeaderComponent,
+    QuestionBankQuestionFormComponent,
+  ],
 })
 export class QuestionBanksModule {}
