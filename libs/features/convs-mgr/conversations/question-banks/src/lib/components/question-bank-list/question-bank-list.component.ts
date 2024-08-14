@@ -3,7 +3,6 @@ import { FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
-import { AssessmentFormService } from '@app/features/convs-mgr/conversations/assessments';
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
 
@@ -21,9 +20,7 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
 
   private _sBS = new SubSink ()
 
-  constructor(private _assessmentForm: AssessmentFormService,
-              private questionStore: AssessmentQuestionBankStore
-  ) {}
+  constructor(private questionStore: AssessmentQuestionBankStore) {}
 
   ngOnInit()
   {

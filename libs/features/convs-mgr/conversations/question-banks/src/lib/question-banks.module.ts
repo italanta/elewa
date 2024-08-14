@@ -20,6 +20,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { QuestionBankMediaUploadComponent } from './components/question-bank-media-upload/question-bank-media-upload.component';
 import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
 import { QuestionCardComponent } from './components/question-card/question-card.component';
+import { DeleteQuestionModalComponent } from './components/delete-question-modal/delete-question-modal.component';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import { QuestionCardComponent } from './components/question-card/question-card.
     QuestionBankQuestionFormComponent,
     QuestionBankMediaUploadComponent,
     QuestionCardComponent,
+    DeleteQuestionModalComponent,
   ],
   providers: [AssessmentQuestionBankStore],
 })
