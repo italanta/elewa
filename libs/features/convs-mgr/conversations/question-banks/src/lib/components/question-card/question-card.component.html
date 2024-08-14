@@ -1,1 +1,26 @@
-<p>question-card works!</p>
+<mat-card class="question-card">
+  <div *ngIf="question">
+    <mat-card-header>
+      <div class="question-header">
+        <p> {{ question.message}}</p>
+      </div>
+    </mat-card-header>
+    <mat-card-content class="question-content">
+      <div class="question-feedback" *ngFor="let option of question.options">
+        <div class="option-details">
+          <input
+            type="radio">
+          <label [for]="'option-' + option.id">{{ option.text }}</label>
+        </div>
+        <div class="radio-text">
+          <p class="feedback-text">
+            <span [ngClass]="{'red-text': option.accuracy !== 1, 'teal-text': option.accuracy === 1}">
+              {{ option.accuracy === 1 ? 'Correct: ' : 'Wrong: ' }}
+            </span>
+            {{ option.feedback }}
+          </p>
+        </div>
+      </div>
+    </mat-card-content>
+  </div>
+</mat-card>

@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
 @Component({
-  selector: 'lib-question-card',
+  selector: 'app-question-card',
   templateUrl: './question-card.component.html',
   styleUrl: './question-card.component.scss',
 })
-export class QuestionCardComponent {}
+export class QuestionCardComponent 
+{
+  @Input() question: AssessmentQuestion
+}

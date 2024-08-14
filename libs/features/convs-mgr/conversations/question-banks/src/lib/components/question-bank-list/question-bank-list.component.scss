@@ -39,3 +39,56 @@
   }
 }
 
+.displayedQuestions{
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  input[type="checkbox"] {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    -webkit-appearance: none; 
+    appearance: none; 
+  }
+  
+  /* Style for the unchecked state */
+  input[type="checkbox"]:not(:checked)::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+  
+  /* Style for the checked state */
+  input[type="checkbox"]:checked::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    background-color: var(--micro-apps-teal-primary); 
+  }
+  /* Add the white checkmark */
+  input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    left: 0.35rem;
+    width: 0.5rem;
+    height: 1rem;
+    border: solid white;
+    border-width: 0 0.2rem 0.2rem 0;
+    transform: rotate(45deg);
+  }
+  .__card{
+    width: 100%;
+  }
+}
+

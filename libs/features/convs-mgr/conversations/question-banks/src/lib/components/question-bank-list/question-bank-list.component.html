@@ -26,6 +26,11 @@
         [questionFormGroup]="questionsFormGroup">
       </app-question-bank-question-form>
     </div>
+
+    <div class="displayedQuestions" *ngFor="let question of questions">
+      <input type="checkbox"/>
+      <app-question-card [question]="question" class="__card"></app-question-card>
+    </div>
   </div>
 </convl-page>
 
