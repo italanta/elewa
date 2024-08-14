@@ -18,13 +18,31 @@ export interface WhatsAppTemplateMessage extends WhatsAppOutgoingMessage
   };
 
 }
-
 export interface WhatsappTemplateComponent {
-  type: "body";
-  parameters: WhatsappTemplateParameter[];
+  parameters: WhatsappSendTemplateParameter[];
 }
 
-export interface WhatsappTemplateParameter { 
+export interface WhatsappSendBodyTemplateComponent extends WhatsappTemplateComponent {
+  type: "body";
+  parameters: WhatsappSendTemplateParameter[];
+}
+
+
+export interface WhatsappSendHeaderTemplateComponent extends WhatsappTemplateComponent {
+  type: "header";
+  parameters: WhatsappSendTemplateParameter[];
+}
+export interface WhatsappSendTemplateParameter { 
   type: WhatsAppMessageType;
+}
+
+export interface WhatsappSendTextTemplateParameter extends WhatsappSendTemplateParameter { 
   text: string;
+}
+
+
+export interface WhatsappSendImageTemplateParameter extends WhatsappSendTemplateParameter { 
+  image: {
+    link: string;
+  };
 }

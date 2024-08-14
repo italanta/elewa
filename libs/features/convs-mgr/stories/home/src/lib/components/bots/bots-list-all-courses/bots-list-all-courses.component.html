@@ -35,12 +35,6 @@
       <td mat-cell style="font-weight: lighter;" *matCellDef="let element" (click)="openBot(element.id)"> {{element.name}} </td>
     </ng-container>
   
-    <!-- Type Column -->
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef> {{ "BOTS.BOTS-PAGE.TYPE" | transloco }} </th>
-      <td mat-cell style="font-weight: lighter;" *matCellDef="let element" (click)="openBot(element.id)"> {{ "BOTS.BOTS-PAGE.BEGINNER" | transloco }} </td>
-    </ng-container>
-  
     <!-- Last Edited Column -->
     <ng-container matColumnDef="lastEdited">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "BOTS.BOTS-PAGE.LAST" | transloco }} </th>

@@ -10,7 +10,7 @@ import { HandlerTools } from "@iote/cqrs";
 import { __DECODE_AES } from "@app/elements/base/security-config";
 import { ActiveChannel, EndUserDataService, MailMergeVariables, MessagesDataService, generateEndUserId } from "@app/functions/bot-engine";
 
-import { WhatsAppOutgoingMessage } from "@app/model/convs-mgr/functions";
+import { WhatsAppMessageType, WhatsAppOutgoingMessage } from "@app/model/convs-mgr/functions";
 import { PlatformType, WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { Message, MessageTemplateConfig, TemplateMessageParams } from "@app/model/convs-mgr/conversations/messages";
@@ -119,12 +119,15 @@ export class WhatsappActiveChannel implements ActiveChannel
 
         if (templateConfig) {
           let params = message.params || templateConfig.params || null;
+          
+          if(!endUser) {
+            this._tools.Logger.error(() => `[SendOutgoingMsgHandler].execute [Warning] - End User does not exist`);
+          } else if(!endUser.variables) {
+            this._tools.Logger.error(() => `[SendOutgoingMsgHandler].execute [Warning] - End User does not have saved variables`);
+          }
 
           if(params) params = this.__resolveParamVariables(params, orgId, endUser ? endUser.variables : null);
-
-          this._tools.Logger.error(() => `[SendOutgoingMsgHandler].execute [Warning] - Failed to fetch variables`);
-          if(!params) return null;  
-
+          
           // Get the message template
           return this.parseOutMessageTemplate(templateConfig, params, phone, message);
         } else {
@@ -136,11 +139,10 @@ export class WhatsappActiveChannel implements ActiveChannel
   }
 
   private __resolveParamVariables(params: TemplateMessageParams[], orgId: string, variables: any) { 
-    if(!variables) return;
     const resolvedParams = params.map((param) => {
 
       if(param.value === '_var_') {
-        const value = variables[param.name];
+        const value = variables ? variables[param.name] : ' ';
 
         return { 
           name: param.name,
@@ -160,7 +162,7 @@ export class WhatsappActiveChannel implements ActiveChannel
     const URL = `https://graph.facebook.com/${this.API_VERSION}/${PHONE_NUMBER_ID}/messages`;
 
     try {
-      if (standardMessage) {
+      if (standardMessage && whatsappMessage.type !== WhatsAppMessageType.TEMPLATE) {
         whatsappMessage = (await this._handle24hourWindow(whatsappMessage.to, standardMessage)) || whatsappMessage;
       }
   

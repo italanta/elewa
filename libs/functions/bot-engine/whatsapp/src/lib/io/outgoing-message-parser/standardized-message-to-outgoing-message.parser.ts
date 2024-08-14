@@ -8,11 +8,8 @@ import
   WhatsAppImageMessage,
   WhatsAppLocationMessage,
   WhatsAppMessageType,
-  WhatsAppTemplateMessage,
-  WhatsappTemplateComponent,
   WhatsAppTextMessage,
   WhatsAppVideoMessage,
-  WhatsappTemplateParameter,
 } from '@app/model/convs-mgr/functions';
 
 import { 
