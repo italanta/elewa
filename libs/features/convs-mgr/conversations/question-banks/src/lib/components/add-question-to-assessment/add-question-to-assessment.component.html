@@ -1,1 +1,52 @@
-<p>add-question-to-assessment works!</p>
+<div fxFlex fxLayout="column" *ngIf="hasData" class="__wrapper">
+  <div fxFlex fxLayout="column" class="__text__desc">
+    <span class="__header_text">Add questions to assessment</span>
+    <span class="__gray_text"> This question can only be added to assessments that have not yet been taken by users.</span>
+    <span class="__teal_text"> <i class="fa-solid fa-plus"></i> Create a new assessment</span>
+  </div>
+  <table mat-table [dataSource]="dataSource"
+    fxFlex>
+
+    <ng-container matColumnDef="actions">
+      <th class="table-header" mat-header-cell *matHeaderCellDef>
+      </th>
+      <td class="title-desc"  mat-cell *matCellDef="let assessment">
+        <input type="checkbox" />
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th class="table-header" mat-header-cell *matHeaderCellDef>
+        {{'ASSESSMENTS.TABLE-HEADER.TITLE' | transloco}}</th>
+      <td class="title-desc" mat-cell *matCellDef="let assessment">
+        {{assessment.title}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th class="table-header" mat-header-cell *matHeaderCellDef>
+        {{'ASSESSMENTS.TABLE-HEADER.STATUS' | transloco}}</th>
+      <td class="title-desc" (click)="openAssessment(assessment.id)" mat-cell *matCellDef="let assessment">
+        <span [ngClass]="assessment.isPublished ? ['badge' , 'active'] : ['badge']">
+          {{assessment.isPublished ? 'Published' : 'Draft'}}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedOn">
+      <th class="table-header" mat-header-cell *matHeaderCellDef>
+        {{'ASSESSMENTS.TABLE-HEADER.CREATED-ON' | transloco}}</th>
+      <td mat-cell *matCellDef="let assessment">
+        {{assessment.updatedOn ? getFormattedDate(assessment.updatedOn) : '-' }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="assessmentsColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: assessmentsColumns"></tr>
+
+  </table>
+
+  <div class="__buttons">
+    <button class="bank__button outline" (click)="closeDialog()">Cancel</button>
+    <button class="bank__button filled" (click)="addToAssessment()" [disabled]="!noneSelected">Add Here</button>
+  </div>
+</div>
