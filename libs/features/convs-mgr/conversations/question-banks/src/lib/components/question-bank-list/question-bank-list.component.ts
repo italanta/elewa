@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
-import { MatDialog } from '@angular/material/dialog';
+
 import { AddQuestionToAssessmentComponent } from '../add-question-to-assessment/add-question-to-assessment.component';
 
 
@@ -19,6 +20,8 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
   questionsFormGroup: FormGroup;
   isAddingQuestion = false;
   questions: AssessmentQuestion[] = []
+  filteredQuestions: AssessmentQuestion[] = [];
+  searchTerm = '';
 
   private _sBS = new SubSink ()
 
@@ -28,7 +31,10 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
-    this._sBS.sink = this.questionStore.get().subscribe(_res => this.questions = _res)
+    this._sBS.sink = this.questionStore.get().subscribe(_res => {
+      this.questions = _res;
+      this.filteredQuestions = _res;
+    })
   }
 
   /** Sending form group to event */
@@ -51,6 +57,26 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
         panelClass: "__addModal"
       }
     )
+  }
+
+  searchQuestion() {
+    if (this.searchTerm.trim() === '') {
+      this.filteredQuestions = this.questions; // If no search term, show all questions
+    } else {
+      this.filteredQuestions = this.questions.filter((question) =>
+        question.message.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+  }
+
+  sortDates()
+  {
+    this.questions.sort((a, b) => {
+      if (a.createdOn && b.createdOn) {
+        return new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime();
+      }
+      return 0; 
+    });
   }
 
   ngOnDestroy(): void {

@@ -21,6 +21,12 @@
         width: 23%;
         border-radius: 20px;
         background-color: white;
+        input{
+          border: none;
+          outline: none;
+          font-size: medium;
+          width: 100%;
+        }
       }
     }
     .sort-tab{

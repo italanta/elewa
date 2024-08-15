@@ -11,10 +11,10 @@
       <div class="search-content">
         <div class="search-details">
           <img src="assets/icons/ellipse-search.svg"/>
-          <span>{{ "ASSESSMENTS.QUESTION-BANK.QUESTIONS-SEARCH" | transloco }}</span>
+          <input [(ngModel)]="searchTerm" (input)="searchQuestion()" [placeholder]="'ASSESSMENTS.QUESTION-BANK.QUESTIONS-SEARCH' | transloco" />
         </div>
 
-        <div class="sort-tab">
+        <div class="sort-tab" (click)="sortDates()">
           <span>{{ "ASSESSMENTS.QUESTION-BANK.SORTING" | transloco }}</span>
           <i class="fa-solid fa-chevron-down"></i>
         </div>
@@ -27,10 +27,10 @@
       </app-question-bank-question-form>
     </div>
 
-    <div class="displayedQuestions" *ngFor="let question of questions">
+    <div class="displayedQuestions" *ngFor="let question of filteredQuestions">
       <input type="checkbox" (click)="addQuestion(question.id!)" />
       <app-question-card [question]="question" class="__card"></app-question-card>
-    </div>
+    </div>    
   </div>
 </convl-page>
 
