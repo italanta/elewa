@@ -95,7 +95,7 @@ export class ProgressMonitoringService {
     
     return this._endUserService.getEndUsersFromEnrolled(usersInCourse).pipe(map((endusers)=> {
       const pausedChats = this._endUserService.getPausedChats(endusers).length;
-      const activeChats = this._endUserService.getActiveChats(endusers).length;
+      const activeChats = latestProgress.courseProgress[courseId].activeUsers.currentWeekCount as number;
       const stuckChats = this._endUserService.getStuckChats(endusers).length;
 
       data[0].count = engagedUsers;
