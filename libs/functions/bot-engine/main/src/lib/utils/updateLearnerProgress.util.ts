@@ -24,7 +24,9 @@ export async function updateLearnerProgress (currentStory: string, lastBlock:Sto
   let parentCourse: Bot;
   let parentModule: BotModule;
 
-  const enrolledUser = await enrolledDataServ.getEnrolledUser(endUser.enrolledUserId ?? '');
+  const contactID = endUser.id.split('_')[2];
+
+  const enrolledUser = await enrolledDataServ.getEnrolledUserByPhoneNumber(endUser.phoneNumber ?? contactID);
   
   // Skip learner progress if user does not exist
   if (!enrolledUser) return;
