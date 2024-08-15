@@ -13,7 +13,7 @@
   
   .mat-mdc-row:hover .mat-mdc-cell {
     cursor: pointer;
-    background-color: rgba(31, 122, 140, 0.1);
+    background-color: var(--convs-mgr-color-hover);
   }
   
   .mat-mdc-paginator {
