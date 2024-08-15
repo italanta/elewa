@@ -5,6 +5,8 @@ import { SubSink } from 'subsink';
 
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
+import { MatDialog } from '@angular/material/dialog';
+import { AddQuestionToAssessmentComponent } from '../add-question-to-assessment/add-question-to-assessment.component';
 
 
 @Component({
@@ -20,7 +22,9 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
 
   private _sBS = new SubSink ()
 
-  constructor(private questionStore: AssessmentQuestionBankStore) {}
+  constructor(private questionStore: AssessmentQuestionBankStore,
+              private _dialog: MatDialog,
+  ) {}
 
   ngOnInit()
   {
@@ -37,6 +41,16 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
   onAddModeChanged(addMode: boolean)
   {
     this.isAddingQuestion = addMode;
+  }
+
+  addQuestion(id: string)
+  {
+    this._dialog.open(AddQuestionToAssessmentComponent, 
+      {
+        data: {question: this.questions.filter((question)=> question.id === id)},
+        panelClass: "__addModal"
+      }
+    )
   }
 
   ngOnDestroy(): void {

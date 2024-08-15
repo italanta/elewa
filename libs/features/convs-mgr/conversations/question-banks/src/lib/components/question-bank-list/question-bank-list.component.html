@@ -28,7 +28,7 @@
     </div>
 
     <div class="displayedQuestions" *ngFor="let question of questions">
-      <input type="checkbox"/>
+      <input type="checkbox" (click)="addQuestion(question.id!)" />
       <app-question-card [question]="question" class="__card"></app-question-card>
     </div>
   </div>
