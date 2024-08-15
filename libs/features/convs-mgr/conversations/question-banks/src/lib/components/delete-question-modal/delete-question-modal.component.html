@@ -2,15 +2,15 @@
 <div class="modal">
   <!-- Modal Header -->
   <div class="modal-header">
-    <span> <img src="assets/icons/delete-item.svg"/> Delete Question</span>
-    <button> <img src="assets/icons/x-icon.svg"/> </button>
+    <span class="__delete"> <img src="assets/icons/trash-can-outline.svg"/> Delete Question</span>
+    <button class="__xBtn" (click)="closeDialog()"> <img src="assets/icons/x-icon.svg"/> </button>
   </div>
   
   <!-- Modal Body -->
   <div class="modal-body">
     <p>You are about to delete a question from the question bank. Are you sure you want to continue?</p>
     <div class="modal-info">
-      <i class="icon-info"></i>
+      <img src="assets/icons/information-outline.svg"/>
       <span>Deleting this question from the question bank does not delete it from assessments it has been added to.</span>
     </div>
   </div>

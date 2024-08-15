@@ -7,12 +7,23 @@
   .modal-header{
     display: flex;
     justify-content: space-between;
+    .__delete{
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .__xBtn{
+      cursor: pointer;
+      border: none;
+      background-color: white;
+    }
   }
 
   .__buttons{
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 0, 1rem;
+    cursor: pointer;
     .bank__button{
       padding: 1rem;
       border-radius: 40px;
@@ -27,6 +38,15 @@
     .outline{
       color: var(--micro-apps-teal-primary);
       border: 1px solid var(--micro-apps-teal-primary);
+    }
+  }
+
+  .modal-body{
+    .modal-info{
+      color: grey;
+      display: flex;
+      gap: 1rem;
+      align-items: start;
     }
   }
 }
