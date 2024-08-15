@@ -78,8 +78,13 @@
   }
   .filled{
     color: white;
-    background-color: var(--micro-apps-teal-primary);
     border: none;
+  }
+  .disabled{
+    background-color:  rgba(62, 120, 138, 0.35);
+  }
+ .active{
+    background-color: var(--micro-apps-teal-primary);
   }
   .outline{
     color: var(--micro-apps-teal-primary);

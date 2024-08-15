@@ -1,13 +1,14 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+
+import { BehaviorSubject, Observable } from 'rxjs';
+import { SubSink } from 'subsink';
 
 import { __DateFromStorage } from '@iote/time';
 import { Assessment, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
-import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
-import { Observable } from 'rxjs';
-import { SubSink } from 'subsink';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { AssessmentQuestionBankService, AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
 @Component({
   selector: 'lib-add-question-to-assessment',
@@ -16,21 +17,33 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 })
 export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
 {
+  /** Table columns */
   assessmentsColumns = [ 'actions', 'title', 'status', 'updatedOn'];
-
+  /** TAble data */
   dataSource = new MatTableDataSource<Assessment>();
+  /** An array of available assesments */
   assessments: Assessment[];
+  /** An observable stream of assessments  */
   assessments$: Observable<Assessment[]>;
+  /** Assessment data loaded */
   hasData: boolean;
+  /** State before checkmark is checked */
   noneSelected: boolean;
+  /** Specific question selected*/
   question: AssessmentQuestion;
+  /** Unique ids of selected questions */
+  // Initialize selectedAssessmentIds as a BehaviorSubject
+  private selectedAssessmentIds$ = new BehaviorSubject<Set<string>>(new Set());
+
 
   private _sBS = new SubSink();
 
   constructor(private _router: Router,
               private _assessmentService: AssessmentService,
               private _dialog: MatDialog,
+              private _questionService: AssessmentQuestionBankService,
               @Inject(MAT_DIALOG_DATA) public data: { question: AssessmentQuestion }
+
   ) {
     this.question = this.data.question
   }
@@ -39,32 +52,70 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
   {
     this.assessments$ = this._assessmentService.getAssessments$();
     this._sBS.sink = this.assessments$.subscribe((assessments) => { 
-      console.log(assessments)
       this.dataSource.data = assessments;
       this.hasData = true
     })  
   }
-
+  
   openAssessment(assessmentId: string) 
   {
     this._router.navigate(['/assessments', assessmentId]);
   }
 
+  /** Create a new assessment */
+  createAssessement()
+  {
+    this._router.navigate(['/assessments/create'])
+    this._dialog.closeAll()
+  }
+  /** Format date display */
   getFormattedDate(date: Date)
   {
     const newDate = __DateFromStorage(date as Date);
     return newDate.format('DD/MM/YYYY HH:mm');
   }
 
-  addToAssessment()
-  {
-    console.log(this.question)
+  get selectedAssessmentIds(): Set<string> {
+    return this.selectedAssessmentIds$.getValue();
   }
+  
+  /** Check bock selected event 
+   * Get the assessment id value 
+  */
+  onCheckboxChange(event: Event, assessmentId: string): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    const newSelectedAssessmentIds = new Set(this.selectedAssessmentIds$.getValue());
+    if (isChecked) {
+      newSelectedAssessmentIds.add(assessmentId);
+    } else {
+      newSelectedAssessmentIds.delete(assessmentId);
+    }
+    this.selectedAssessmentIds$.next(newSelectedAssessmentIds);
+  
+    // Update the noneSelected flag based on the size of the new set
+    this.noneSelected = newSelectedAssessmentIds.size === 0;
+  }
+  
+  /** Adding a question to selected assessments */
+  addToAssessment(): void {
+    if (this.selectedAssessmentIds.size === 0) return;
+    this.selectedAssessmentIds.forEach((assessmentId) => {
 
+      if (!assessmentId) {
+        console.error('Invalid assessmentId:', assessmentId);
+        return;
+      }
+      if(assessmentId && this.question){
+        this._questionService.addQuestionToAssessment$(assessmentId, this.question)
+      }
+    });
+  
+    this.closeDialog();
+  }
+  
   closeDialog(){
     this._dialog.closeAll()
   }
-
 
   ngOnDestroy(): void 
   {

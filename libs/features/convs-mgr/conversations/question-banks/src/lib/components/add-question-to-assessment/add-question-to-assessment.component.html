@@ -2,7 +2,7 @@
   <div fxFlex fxLayout="column" class="__text__desc">
     <span class="__header_text">Add questions to assessment</span>
     <span class="__gray_text"> This question can only be added to assessments that have not yet been taken by users.</span>
-    <span class="__teal_text"> <i class="fa-solid fa-plus"></i> Create a new assessment</span>
+    <span class="__teal_text" (click)="createAssessement()"> <i class="fa-solid fa-plus"></i> Create a new assessment</span>
   </div>
   <table mat-table [dataSource]="dataSource"
     fxFlex>
@@ -11,7 +11,8 @@
       <th class="table-header" mat-header-cell *matHeaderCellDef>
       </th>
       <td class="title-desc"  mat-cell *matCellDef="let assessment">
-        <input type="checkbox" />
+        <!-- When this checkbox is clicked, get the assessment id -->
+        <input type="checkbox"  [value]="assessment.id" (change)="onCheckboxChange($event, assessment.id)"/>
       </td>
     </ng-container>
 
@@ -47,6 +48,7 @@
 
   <div class="__buttons">
     <button class="bank__button outline" (click)="closeDialog()">Cancel</button>
-    <button class="bank__button filled" (click)="addToAssessment()" [disabled]="!noneSelected">Add Here</button>
+    <!-- Disable button until a checkbox is clicked. Opacity of 35% to current styling -->
+    <button class="bank__button filled" (click)="addToAssessment()" [disabled]="noneSelected" [ngClass]="noneSelected? 'active' : 'disabled'">Add Here</button>
   </div>
 </div>
