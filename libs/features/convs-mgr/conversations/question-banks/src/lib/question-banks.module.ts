@@ -21,6 +21,7 @@ import { QuestionBankMediaUploadComponent } from './components/question-bank-med
 import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
 import { QuestionCardComponent } from './components/question-card/question-card.component';
 import { DeleteQuestionModalComponent } from './components/delete-question-modal/delete-question-modal.component';
+import { AddQuestionToAssessmentComponent } from './components/add-question-to-assessment/add-question-to-assessment.component';
 
 @NgModule({
   imports: [
@@ -45,6 +46,7 @@ import { DeleteQuestionModalComponent } from './components/delete-question-modal
     QuestionBankMediaUploadComponent,
     QuestionCardComponent,
     DeleteQuestionModalComponent,
+    AddQuestionToAssessmentComponent,
   ],
   providers: [AssessmentQuestionBankStore],
 })
