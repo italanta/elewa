@@ -1,6 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -42,6 +43,7 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
               private _assessmentService: AssessmentService,
               private _dialog: MatDialog,
               private _questionService: AssessmentQuestionBankService,
+              private _snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: { question: AssessmentQuestion }
 
   ) {
@@ -107,12 +109,23 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
       }
       if(assessmentId && this.question){
         this._questionService.addQuestionToAssessment$(assessmentId, this.question)
+        this.showSuccessToast();
       }
     });
   
     this.closeDialog();
   }
+  showSuccessToast(): void {
+    const snackBarRef = this._snackBar.open('Success. Question has been added to assessment', 'Close', {
+      duration: 3000,
+      panelClass: ['success-snackbar']
+    });
   
+    snackBarRef.onAction().subscribe(() => {
+      // Close the snackbar programmatically
+      snackBarRef.dismiss();
+    });
+  }  
   closeDialog(){
     this._dialog.closeAll()
   }

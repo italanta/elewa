@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { MultiLangModule } from '@ngfi/multi-lang';
 
@@ -23,6 +24,7 @@ import { QuestionCardComponent } from './components/question-card/question-card.
 import { DeleteQuestionModalComponent } from './components/delete-question-modal/delete-question-modal.component';
 import { AddQuestionToAssessmentComponent } from './components/add-question-to-assessment/add-question-to-assessment.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -33,6 +35,7 @@ import { AddQuestionToAssessmentComponent } from './components/add-question-to-a
     MaterialBricksModule,
     MaterialDesignModule,
     FormsModule,
+    MatSnackBarModule,
 
     QuestionBankRouterModule,
     ConvlPageModule,
