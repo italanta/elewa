@@ -28,8 +28,11 @@
     </div>
 
     <div class="displayedQuestions" *ngFor="let question of filteredQuestions">
-      <input type="checkbox" (click)="addQuestion(question.id!)" />
-      <app-question-card [question]="question" class="__card"></app-question-card>
+      <div *ngIf="!isAddingQuestion"><input type="checkbox" (click)="addQuestion(question.id!)"/></div>
+      <app-question-card [question]="question" class="__card"
+                          (addNewQuestion)="onNewQuestionAdded($event)" 
+                          (addMode)="onAddModeChanged($event)"
+      ></app-question-card>
     </div>    
   </div>
 </convl-page>

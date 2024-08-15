@@ -90,7 +90,12 @@ export class QuestionBankQuestionFormComponent implements OnDestroy
   addQuestion()
   {
     const questionToAdd = this.questionFormGroup.value as AssessmentQuestion;
-    this._sBS.sink = this.questionBankService.add(questionToAdd ).subscribe(()=> this.isAddingQuestion = false )
+    if(questionToAdd.id !== ''){
+      this._sBS.sink = this.questionBankService.update(questionToAdd ).subscribe(()=> this.isAddingQuestion = false )
+    }else{
+      this._sBS.sink = this.questionBankService.add(questionToAdd ).subscribe(()=> this.isAddingQuestion = false )
+    }
+    
   }
 
   discardQuestion()
