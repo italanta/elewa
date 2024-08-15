@@ -17,10 +17,15 @@ import { AddQuestionToAssessmentComponent } from '../add-question-to-assessment/
 })
 export class QuestionBankListComponent implements OnInit, OnDestroy
 {
+  /** Qestion form group */
   questionsFormGroup: FormGroup;
+  /** Editor mode */
   isAddingQuestion = false;
+  /** List of questions */
   questions: AssessmentQuestion[] = []
+  /** Filtered questions on search */
   filteredQuestions: AssessmentQuestion[] = [];
+  /** Text written on search */
   searchTerm = '';
 
   private _sBS = new SubSink ()
@@ -49,6 +54,7 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
     this.isAddingQuestion = addMode;
   }
 
+  /** Opening the add question to assessment  */
   addQuestion(id: string)
   {
     this._dialog.open(AddQuestionToAssessmentComponent, 
@@ -58,7 +64,7 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
       }
     )
   }
-
+  /** Seach for specific question text */
   searchQuestion() {
     if (this.searchTerm.trim() === '') {
       this.filteredQuestions = this.questions; // If no search term, show all questions
@@ -68,7 +74,7 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
       );
     }
   }
-
+  /** Sort according to date added */
   sortDates()
   {
     this.questions.sort((a, b) => {

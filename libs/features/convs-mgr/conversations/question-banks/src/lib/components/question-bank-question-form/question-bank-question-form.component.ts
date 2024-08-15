@@ -2,12 +2,14 @@ import { Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/cor
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
+import { SubSink } from 'subsink';
+
+import { getMediaType } from '@app/features/convs-mgr/conversations/assessments';
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
 
 import { QuestionBankMediaUploadComponent } from '../question-bank-media-upload/question-bank-media-upload.component';
-import { getMediaType } from '@app/features/convs-mgr/conversations/assessments';
-import { SubSink } from 'subsink';
+
 
 @Component({
   selector: 'app-question-bank-question-form',
@@ -87,6 +89,7 @@ export class QuestionBankQuestionFormComponent implements OnDestroy
     }
   }
 
+  /** Update or create a new question depending on whether a question is new*/
   addQuestion()
   {
     const questionToAdd = this.questionFormGroup.value as AssessmentQuestion;
