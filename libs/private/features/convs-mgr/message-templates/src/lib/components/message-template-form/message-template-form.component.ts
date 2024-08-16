@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -83,7 +83,12 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
   ngOnInit()
   {
     this.templateForm = createTemplateForm(this.fb);
-    this.initPage();
+
+    // Set listeners for value changes on body and header
+    //  We use this to detect and update the variables added
+    this.onBodyChange();
+    this.onHeaderChange();
+    this.onExamplesChange();
     this.showCard = true;
     this.channels$ = this._channelService.getAllChannels();
     this.getActiveOrg();
@@ -106,13 +111,6 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
 
               this.showHeaderExampleSection = this.templateForm.controls['headerExamples'].value.length > 0;
               this.showBodyExampleSection = this.templateForm.controls['bodyExamples'].value.length > 0;
-
-              // Set listeners for value changes on body and header
-              //  We use this to detect and update the variables added
-              this.onBodyChange();
-              this.onHeaderChange();
-              this.onExamplesChange();
-
             }
           });
         }
