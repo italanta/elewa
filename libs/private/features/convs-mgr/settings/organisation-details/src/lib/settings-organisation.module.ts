@@ -19,6 +19,8 @@ import { SelectChannelModalComponent } from './modals/select-channel-modal/selec
 import { ChannelFormModalComponent } from './modals/channel-form-modal/channel-form-modal.component';
 import { MainChannelModalComponent } from './modals/main-channel-modal/main-channel-modal.component';
 
+import { PlatformPipe } from './pipes/platform.pipe';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -39,6 +41,7 @@ import { MainChannelModalComponent } from './modals/main-channel-modal/main-chan
     SelectChannelModalComponent,
     ChannelFormModalComponent,
     MainChannelModalComponent,
+    PlatformPipe,
   ],
   exports: [CompanyDataComponent],
   providers: [
