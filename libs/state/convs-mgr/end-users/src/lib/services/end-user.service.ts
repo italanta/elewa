@@ -1,3 +1,5 @@
+import { uniqBy } from 'lodash';
+
 import { Injectable } from '@angular/core';
 
 import { Observable, map, switchMap, combineLatest } from 'rxjs';
@@ -32,11 +34,14 @@ export class EndUserService {
     })))
   }
 
-  getEndUsersFromEnrolled(enrolledUsers: string[]) {
+  getEndUsersFromEnrolled(enrolledUsers: {phoneNumber: string; id: string}[]) {
     return this.getAllUsers().pipe(map((users)=> {
-      const filteredEndUsers = users.filter(enduser =>
-        enrolledUsers.includes(enduser.enrolledUserId as string)
-      );
+      const uniqUsers = uniqBy(users, 'phoneNumber');
+      const filteredEndUsers = uniqUsers
+        .filter(item => enrolledUsers
+            .map(x => x.phoneNumber)
+            .includes(item.phoneNumber as string));
+
         return filteredEndUsers;
     }))
   }

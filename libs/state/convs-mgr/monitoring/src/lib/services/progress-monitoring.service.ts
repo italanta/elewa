@@ -89,13 +89,15 @@ export class ProgressMonitoringService {
       return of(data);
     }
 
-    const usersInCourse = latestProgress.courseProgress[courseId].enrolledUsers as string[];
+    const usersInCourse = latestProgress.courseProgress[courseId].enrolledUsers as {phoneNumber: string; id: string}[];
+
+    console.log(latestProgress.courseProgress[courseId].enrolledUsers)
     
-    const engagedUsers = usersInCourse.length;
+    const engagedUsers = usersInCourse?.length;
     
     return this._endUserService.getEndUsersFromEnrolled(usersInCourse).pipe(map((endusers)=> {
       const pausedChats = this._endUserService.getPausedChats(endusers).length;
-      const activeChats = latestProgress.courseProgress[courseId].activeUsers.currentWeekCount as number;
+      const activeChats = this._endUserService.getActiveChats(endusers).length;
       const stuckChats = this._endUserService.getStuckChats(endusers).length;
 
       data[0].count = engagedUsers;
