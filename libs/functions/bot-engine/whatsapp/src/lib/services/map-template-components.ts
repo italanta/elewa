@@ -19,7 +19,9 @@ export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTo
 {
   const components = Object.keys(messageTemplate.content);
 
-  const templateComponents: WhatsappNewTemplateComponent[] = components.map((comp) =>
+  const filteredComponents = components.filter((com)=> messageTemplate.content[com]);
+
+  const templateComponents: WhatsappNewTemplateComponent[] = filteredComponents.map((comp) =>
   {
     switch (comp) {
       case "body": {
