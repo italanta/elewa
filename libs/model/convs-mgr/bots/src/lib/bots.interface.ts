@@ -32,6 +32,9 @@ export interface Bot extends IObject {
   /* bot archive status*/
   isArchived?: boolean;
 
+  /** The id of the course complete event block */
+  courseCompleteEventId?: string;
+
   /** The id channel this bot is connected to */
   linkedChannel?: string;
 }
