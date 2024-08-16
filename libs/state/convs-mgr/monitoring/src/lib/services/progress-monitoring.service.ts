@@ -59,7 +59,7 @@ export class ProgressMonitoringService {
     {count: 0, text: "Courses Started", color: "#404E4D", icon: "book-multiple-outline.svg"},
     {count: 0, text: "Courses Completed", color: "#69306D", icon: "book-check-outline.svg"}];
 
-    if(!latestProgress || latestProgress.courseProgress) {
+    if(!latestProgress || !latestProgress.courseProgress) {
       return data;
     }
 
@@ -89,9 +89,9 @@ export class ProgressMonitoringService {
       return of(data);
     }
 
-    const usersInCourse = latestProgress.courseProgress[courseId].enrolledUsers as string[];
+    const usersInCourse = latestProgress.courseProgress[courseId].enrolledUsers as {phoneNumber: string; id: string}[];
     
-    const engagedUsers = usersInCourse.length;
+    const engagedUsers = usersInCourse?.length;
     
     return this._endUserService.getEndUsersFromEnrolled(usersInCourse).pipe(map((endusers)=> {
       const pausedChats = this._endUserService.getPausedChats(endusers).length;

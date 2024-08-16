@@ -24,7 +24,9 @@ export async function updateLearnerProgress (currentStory: string, lastBlock:Sto
   let parentCourse: Bot;
   let parentModule: BotModule;
 
-  const enrolledUser = await enrolledDataServ.getEnrolledUser(endUser.enrolledUserId ?? '');
+  const contactID = endUser.id.split('_')[2];
+
+  const enrolledUser = await enrolledDataServ.getEnrolledUserByPhoneNumber(endUser.phoneNumber ?? contactID);
   
   // Skip learner progress if user does not exist
   if (!enrolledUser) return;
@@ -45,6 +47,14 @@ export async function updateLearnerProgress (currentStory: string, lastBlock:Sto
   // Find or create the course
   if(parentCourse) {
     enrolledCourse = enrolledUser.courses.find(course => course.courseId === parentCourse.id);
+    // If the user has completed the course
+    if(parentCourse.courseCompleteEventId && parentCourse.courseCompleteEventId === lastBlock.id) {
+      if(enrolledUser.completedCourses) {
+        enrolledUser.completedCourses.unshift({id: parentCourse.id, completionDate: new Date()});
+      } else {
+        enrolledUser.completedCourses = [{id: parentCourse.id, completionDate: new Date()}];
+      }
+    }
   }
 
   if (!enrolledCourse) {

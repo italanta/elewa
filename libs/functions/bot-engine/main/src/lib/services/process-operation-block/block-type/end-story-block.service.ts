@@ -10,10 +10,6 @@ import { ConnectionsDataService } from "../../data-services/connections.service"
 
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 import { EndUserDataService } from "../../data-services/end-user.service";
-import { BotModuleDataService } from "../../data-services/botmodules.service";
-import { CoursesDataService } from "../../data-services/courses.service";
-import { EnrolledUserDataService } from "../../data-services/enrolled-user.service";
-import { StoriesDataService } from "../../data-services/stories.service";
 
 /**
  * When an end user gets to the end of the story we can either end the conversation(return null) or 
@@ -98,10 +94,6 @@ export class EndStoryBlockService implements IProcessOperationBlock
       // Resolve and return the success block
       nextBlock = await this._blockDataService.getBlockById(nextBlockId, orgId, topRoutineStoryId);
 
-      // Update user course completion status
-      const courseCompletion = this._updateCourseCompletion(orgId, endUser, currentStory);
-      this.sideOperations.push(courseCompletion);
-
       return {
         storyBlock: nextBlock,
         newCursor
@@ -137,63 +129,5 @@ export class EndStoryBlockService implements IProcessOperationBlock
       } else {
         return assessmentCursor.pass;
       }
-    }
-
-    private async _updateCourseCompletion(orgId: string, endUser: EndUser, currentStory: string) 
-    {
-      const enrolledDataServ = new EnrolledUserDataService(this.tools, orgId);
-      const botModDataService = new BotModuleDataService(this.tools, orgId);
-      const storiesDataService = new StoriesDataService(this.tools, orgId);
-      const botDataService = new CoursesDataService(this.tools, orgId);
-    
-      const enrolledUser = await enrolledDataServ.getEnrolledUser(endUser.enrolledUserId ?? '');
-    
-      const story = await storiesDataService.getStory(currentStory);
-      const parentModule = await botModDataService.getBotModule(story.parentModule);
-
-      // TODO: The bot should be a common value in the bot engine
-      //  This should be fetched from the channel property 'linkedBot' once the publish
-      //    feature has been implemented.
-      const activeBot = await botDataService.getBot(parentModule.parentBot);
-
-      // Total number of stories in the whole course/bot
-      let numOfStories = 0;
-
-      for (const moduleId of activeBot.modules) {
-        const module = await botModDataService.getBotModule(moduleId);
-        numOfStories += module.stories.length;
-      }
-
-      // Find the current course/bot they are doing
-      // const currentCourse = enrolledUser.courses.find((courses)=> courses.courseId === bot.id);
-      const currentCourse = enrolledUser.courses[enrolledUser.courses.length-1];
-      
-      if(currentCourse.courseId === activeBot.id) {
-        // Total number of stories the learner has done
-        let numOfStoriesComplete = 0;
-
-        currentCourse.modules.forEach((module)=> numOfStoriesComplete += module.lessons.length);
-      
-      // If the learner has done all the stories it means
-      //  that they have completed the course. So we push it
-      //    to the array of completed courses.
-      if(numOfStories == numOfStoriesComplete) {
-        if(enrolledUser.completedCourses) {
-          enrolledUser.completedCourses.unshift({id: activeBot.id, completionDate: new Date()});
-        } else {
-          enrolledUser.completedCourses = [{id: activeBot.id, completionDate: new Date()}];
-        }
-      }
-
-      currentCourse.completion = `${numOfStoriesComplete}/${numOfStories}`;
-
-      enrolledUser.courses[enrolledUser.courses.length-1] = currentCourse;
-
-      await enrolledDataServ.updateEnrolledUser(enrolledUser);
-      
-      } else {
-        this.tools.Logger.warn(()=> `[EndStoryBlockService] - User current course does not match active course(bot)!`)
-      }
-      
     }
 }

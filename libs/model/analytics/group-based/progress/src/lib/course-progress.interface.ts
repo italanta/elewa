@@ -18,6 +18,6 @@ export interface CourseProgress {
   totalCompletionDuration?: number;
 
   /** Id's of the users enrolled in this course */
-  enrolledUsers?: string[];
+  enrolledUsers?: {phoneNumber: string, id: string}[];
 }
 
