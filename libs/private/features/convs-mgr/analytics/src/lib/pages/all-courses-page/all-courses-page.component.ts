@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
 import { Observable, combineLatest, tap } from 'rxjs';
@@ -12,7 +12,7 @@ import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
   templateUrl: './all-courses-page.component.html',
   styleUrls: ['./all-courses-page.component.scss'],
 })
-export class AllCoursesPageComponent implements OnInit {
+export class AllCoursesPageComponent implements OnInit, OnDestroy {
   @Input() periodical: Periodicals;
 
   @Input() progress$: Observable<{scopedProgress: GroupProgressModel[], allProgress: GroupProgressModel[]}>;
@@ -35,5 +35,9 @@ export class AllCoursesPageComponent implements OnInit {
     this._sBs.sink = combineLatest([progress$, bots$]).pipe(tap(([progress, bots])=>{
       this.topStatsAllCourses = this._progressMonitoring.allCoursesTopStats(bots,progress);
     })).subscribe()
+  }
+
+  ngOnDestroy(): void {
+      this._sBs.unsubscribe();
   }
 }
