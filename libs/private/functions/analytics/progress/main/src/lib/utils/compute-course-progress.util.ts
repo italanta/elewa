@@ -93,7 +93,7 @@ export function getCompletionDuration(enrolledUser: EnrolledEndUser, courseId: s
   const startedOn = __DateFromStorage(courseInfo.enrollmentDate || enrolledUser.createdOn);
   const completedOn = __DateFromStorage(completedCourseInfo.completionDate);
 
-  return startedOn.diff(completedOn, 'seconds');
+  return completedOn.diff(startedOn, 'seconds');
 }
 
 export function enrolledUsersInCourse(enrolledEndUsers: EnrolledEndUser[], courseId: string)

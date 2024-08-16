@@ -50,19 +50,22 @@ export class SingleCoursePageComponent implements OnInit
 
   getCompletionRate(courseId: string, progress: GroupProgressModel | null)
   {
-    if(!progress || !progress.courseProgress) {
+    if(!progress || !progress.courseProgress || !progress.courseProgress[courseId]) {
       return 0;
     }
 
     this.learnersCompletedCourse = progress.courseProgress[courseId].completedLearnerCount as number;
     this.totalLearnersInCourse = (progress.courseProgress[courseId].totalUsers as UserCount).dailyCount;
 
-    return (this.learnersCompletedCourse / this.totalLearnersInCourse) * 100;
+    const percentageCompleted = (this.learnersCompletedCourse / this.totalLearnersInCourse) * 100;
+
+    return Math.round(percentageCompleted * 100) / 100
+
   }
 
   getAverageCompletionTime(courseId: string, progress: GroupProgressModel | null)
   {
-    if(!progress || !progress.courseProgress) {
+    if(!progress || !progress.courseProgress || !progress.courseProgress[courseId]) {
       return "";
     }
 
@@ -71,7 +74,6 @@ export class SingleCoursePageComponent implements OnInit
 
     // Calculate average in seconds
     const averageTime = totalCompletionDuration / usersCompletedCourse;
-
     // Convert to human readable form
     return formatDuration(averageTime);
   }
