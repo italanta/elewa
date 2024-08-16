@@ -88,7 +88,7 @@
                     </div>
 
                     <app-header-variables-sample-section #headerSection 
-                        *ngIf="template" 
+                        *ngIf="template || templateForm" 
                         [hidden]="!showHeaderExampleSection" 
                         [templateForm]="templateForm" [template]="template">
                     </app-header-variables-sample-section>
@@ -142,7 +142,7 @@
                           
                         <br>
                         <app-body-variables-sample-section #bodySection 
-                            *ngIf="template"
+                            *ngIf="template || templateForm"
                             [hidden]="!showBodyExampleSection"
                             [templateForm]="templateForm" [template]="template"
                             ></app-body-variables-sample-section>
