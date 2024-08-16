@@ -90,8 +90,6 @@ export class ProgressMonitoringService {
     }
 
     const usersInCourse = latestProgress.courseProgress[courseId].enrolledUsers as {phoneNumber: string; id: string}[];
-
-    console.log(latestProgress.courseProgress[courseId].enrolledUsers)
     
     const engagedUsers = usersInCourse?.length;
     
