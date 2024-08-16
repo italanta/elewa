@@ -17,7 +17,7 @@ export function createTemplateForm(fb: FormBuilder, template?: MessageTemplate):
     content: fb.group({
       header: fb.group({
         type: "TEXT",
-        text: [(template?.content?.header as TextHeader)?.text ?? '',  Validators.required],
+        text: [(template?.content?.header as TextHeader)?.text ?? ''],
       }),
       body: fb.group({
         text: [template?.content?.body?.text ?? '', Validators.required],
