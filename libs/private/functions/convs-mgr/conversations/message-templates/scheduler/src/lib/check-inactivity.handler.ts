@@ -42,6 +42,7 @@ export class CheckInactivityHandler extends FunctionHandler<CheckInactivityReq, 
         return { success: false, message: "No inactive users found" };
       }
 
+      tools.Logger.log(() => `[CheckInactivityHandler].execute - Inactive users: ${JSON.stringify(inactiveUsers)}`);
       // Get the enrolled users who are inactive
       const filteredInactiveUsers = enrolledUsers.filter((eu)=> inactiveUsers.includes(eu.whatsappUserId));
 
