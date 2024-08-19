@@ -7,6 +7,7 @@ import { SubSink } from 'subsink';
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
 import { StepService } from '../../services/set-steps.service';
+import { getMediaType } from '../../utils/check-media-type.util';
 
 @Component({
   selector: 'app-single-question-form',
@@ -19,6 +20,12 @@ export class SingleQuestionFormComponent implements OnInit
   @Input() assessmentForm: FormGroup;
   /** Form array for when form view is single question */
   @Input() assessmentFormArray: FormArray;
+
+  /** Expected media type */
+  mediaType: 'image' | 'video';
+
+  /** Track media state */
+  isImage: boolean
 
   /** Current question view clicked */
   currStep$: Observable<number>;
@@ -39,5 +46,10 @@ export class SingleQuestionFormComponent implements OnInit
                                             this.stepDataLoaded = true;
                                           })
                             ).subscribe();
+  }
+
+  /** Get media type for the current question */
+  getMediaTypeForQuestion(mediaPath: string): 'image' | 'video' {
+    return getMediaType(mediaPath) as 'image' | 'video';
   }
 }
