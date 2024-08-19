@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Assessment, AssessmentQuestion, AssessmentQuestionOptions, 
-  AssessmentQuestionType } from '@app/model/convs-mgr/conversations/assessments';
+  AssessmentQuestionType, 
+  MoveOnCriteriaTypes} from '@app/model/convs-mgr/conversations/assessments';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class AssessmentFormService {
           }),
         }),
         moveOnCriteria: this._formBuilder.group({
-          criteria: [assessment.configs?.moveOnCriteria ?? ''],
+          criteria: [assessment.configs?.moveOnCriteria?.criteria ?? MoveOnCriteriaTypes.OnComplete],
           passMark: [assessment.configs?.moveOnCriteria?.passMark ?? '']
         }),
         questionsDisplay: [assessment.configs?.questionsDisplay ?? ''],
