@@ -153,7 +153,7 @@ export class AssessmentPreviewPageComponent implements OnInit, AfterViewInit {
       maxScore += response.marks || 0; // Sum up the maximum possible marks
     });
     const scorePercentage = (totalScore / maxScore) * 100;
-    this.score = scorePercentage;
+    this.score = Math.round(scorePercentage);
     return scorePercentage;
   }
 
