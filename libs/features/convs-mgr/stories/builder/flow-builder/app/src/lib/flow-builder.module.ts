@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {DragDropModule} from '@angular/cdk/drag-drop'
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
-import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule, MaterialFormBricksModule } from '@iote/bricks-angular';
+import {
+  FlexLayoutModule,
+  MaterialBricksModule,
+  MaterialDesignModule,
+  MaterialFormBricksModule,
+} from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { StoryEditorStateModule } from '@app/state/convs-mgr/story-editor';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
-import { ToastModule } from '@app/elements/layout/toast'
+import { ToastModule } from '@app/elements/layout/toast';
 
 import { BlocksLibraryModule } from '@app/features/convs-mgr/stories/builder/blocks/library/main';
 import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/builder/blocks/library/anchor-block';
@@ -28,21 +33,29 @@ import { FlowPreviewComponent } from './components/flow-preview/flow-preview.com
 
 import { FlowBuilderRouterModule } from './flow-builder.router.module';
 import { FlowBuilderStateProvider } from './providers/flow-dragdrop-helper.provider';
+import { FlowHeaderTextComponent } from './components/flow-header-text/flow-header-text.component';
 
 @NgModule({
   imports: [
-    CommonModule, MultiLangModule,
-    MaterialDesignModule, FlexLayoutModule, MaterialBricksModule,
-    MaterialFormBricksModule, FormsModule, ReactiveFormsModule,
-    ConvlPageModule, ConvsMgrAnchorBlockModule,
+    CommonModule,
+    MultiLangModule,
+    MaterialDesignModule,
+    FlexLayoutModule,
+    MaterialBricksModule,
+    MaterialFormBricksModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ConvlPageModule,
+    ConvsMgrAnchorBlockModule,
     DragDropModule,
-    BlocksLibraryModule, StoryEditorStateModule,
+    BlocksLibraryModule,
+    StoryEditorStateModule,
     ToastModule,
 
     BuilderNavbarModule,
     FlowBuilderStateModule,
 
-    FlowBuilderRouterModule
+    FlowBuilderRouterModule,
   ],
 
   declarations: [
@@ -52,11 +65,10 @@ import { FlowBuilderStateProvider } from './providers/flow-dragdrop-helper.provi
     FlowLibraryItemComponent,
     FlowPageSelectorComponent,
 
-    FlowBuilderPageComponent
+    FlowBuilderPageComponent,
+    FlowHeaderTextComponent,
   ],
 
-  providers: [
-    FlowBuilderStateProvider
-  ],
+  providers: [FlowBuilderStateProvider],
 })
-export class FlowBuilderModule { }
+export class FlowBuilderModule {}
