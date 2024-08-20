@@ -1,13 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewContainerRef, ViewChild } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 import { SubSink } from 'subsink';
 
-import { FlowPageLayoutElementTypesV31, FlowPageTextSizesV31, FlowPageTextV31, FlowTextInput } from '@app/model/convs-mgr/stories/flows';
+import { FlowPageLayoutElementTypesV31, FlowPageTextSizesV31, FlowPageTextV31 } from '@app/model/convs-mgr/stories/flows';
 
 import { FlowControl } from '../../providers/flow-controls.const';
 import { FlowBuilderStateProvider } from '../../providers/flow-dragdrop-helper.provider';
-import {CREATE_EDITOR_INPUT, STYLE_INPUTS } from '../../utils/editor-window.util'
+
+import { EditorComponentFactory } from '../../services/editor-component-factory.service.ts';
 
 @Component({
   selector: 'app-flow-editor',
@@ -19,7 +20,12 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   private _sbS = new SubSink();
   flowEls: FlowControl[] = [];
 
-  constructor( private flowStateProvider: FlowBuilderStateProvider) { }
+  @ViewChild('vcr', { static: true, read: ViewContainerRef })
+  vcr!: ViewContainerRef;
+
+  constructor( private flowStateProvider: FlowBuilderStateProvider,
+               private editorComponentFactory: EditorComponentFactory
+  ) { }
 
   ngOnInit(): void 
   { 
@@ -54,29 +60,17 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   
 
   /** Opening an editable field when user clicks on a dropped element */
-  funcClick(element: FlowControl, id: string) 
-  {
+  funcClick(element: FlowControl, id: string) {
     if (element.dropped) {
-      // Create the editing container
-      const editingContainer = CREATE_EDITOR_INPUT(element);
-      editingContainer.classList.add('custom-input')
-  
-      // Create the editing window div and add the class
-      const editingWindow = document.createElement('div');
-      editingWindow.classList.add('editing-window');
-  
-      // Append the editing container to the editing window
-      editingWindow.appendChild(editingContainer);
-  
-      // Append the editing window to the config-container div
-      const configContainer = document.querySelector('.config-container');
-      if (configContainer) {
-        configContainer.appendChild(editingWindow);
-        STYLE_INPUTS(editingContainer)
-      }
+      const componentRef = this.editorComponentFactory.createEditorComponent(element, this.vcr);
+
+      console.log('Component Created:', componentRef.componentType);
+      componentRef.instance.value = element.type;  // Pass the value to the component
+
+      componentRef.changeDetectorRef.detectChanges();
     }
   }
-  
+ 
   /** Transforming element value into Flow components */
  buildJsonFromEditor(): FlowPageTextV31[]
   {
