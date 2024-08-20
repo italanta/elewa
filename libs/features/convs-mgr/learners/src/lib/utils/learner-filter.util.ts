@@ -1,4 +1,5 @@
 import { EnrolledEndUser, EnrolledEndUserStatus } from "@app/model/convs-mgr/learners";
+import { toLower } from "lodash";
 
 /** filter learners by class */
 export function filterLearnersByClass(learners: EnrolledEndUser[], selectedClassId: string, ) {
@@ -26,8 +27,7 @@ export function filterLearnersByCourse(learners: EnrolledEndUser[], selectedCour
 /** filter learners by platform */
 export function filterLearnersByPlatform(learners: EnrolledEndUser[], selectedPlatform: string) {
   const filteredLearners = learners.filter((learner) => {
-    // TODO: add Platform filter
-    return learner;
+    return learner.platformDetails && learner.platformDetails[selectedPlatform.toLowerCase()]
   });
 
   return filteredLearners
