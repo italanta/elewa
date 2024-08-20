@@ -21,8 +21,7 @@
         @for (control of controls; track control)
         {
           <!--CDK drag directive for elements that can be dragged-->
-          <app-flow-library-item [control]="control" cdkDrag
-            (cdkDragStarted)="onDragStart($event, control)">  
+          <app-flow-library-item [control]="control" cdkDrag [cdkDragData]="control" >  
           </app-flow-library-item> 
         }
       </div>

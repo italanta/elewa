@@ -15,11 +15,11 @@
           [cdkDropListData]="flowEls" 
           [cdkDropListConnectedTo]="['libraryDropList']" 
           (cdkDropListDropped)="drop($event)">
-          <div *ngFor="let item of flowEls" cdkDrag class="drop-item">
+          @for(item of flowEls; track item)
+          {
             <app-flow-library-item [control]="item" (click)="funcClick(item, item.id)">  </app-flow-library-item>
-          </div>
+          }
         </div>
-
         <!-- Fixed elements such as footer -->
       </div>
     </div>

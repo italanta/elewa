@@ -3,12 +3,10 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 
 import { SubSink } from 'subsink';
 
-import { FlowPageLayoutElementTypesV31, FlowPageTextSizesV31, FlowPageTextV31 } from '@app/model/convs-mgr/stories/flows';
-
 import { FlowControl } from '../../providers/flow-controls.const';
-import { FlowBuilderStateProvider } from '../../providers/flow-dragdrop-helper.provider';
+import { FlowBuilderStateProvider } from '../../providers/flow-buiilder-state.provider';
+import { EditorComponentFactory } from '../../services/editor-component-factory.service';
 
-import { EditorComponentFactory } from '../../services/editor-component-factory.service.ts';
 
 @Component({
   selector: 'app-flow-editor',
@@ -29,36 +27,34 @@ export class FlowEditorComponent implements OnInit, OnDestroy
 
   ngOnInit(): void 
   { 
-    this.buildJsonFromEditor()
+
   }
 
-  /** Function handling drag and droop functionality for a component */
+  /** Function handling drag and drop functionality for a component */
   drop(event: CdkDragDrop<FlowControl[]>) 
   {
-    const draggedData = this.flowStateProvider.getDragData();
+    const draggedData = event.item.data; // Access the dragged data directly
+
     if (draggedData) {
       // Push the dragged item to the flowEls array
       this.flowEls.push(draggedData);
+
       // Find the index of the item being dropped
       const index = this.flowEls.findIndex(item => item.id === draggedData.id);
 
       if (index !== -1) {
         // Set the 'dropped' flag for the item at the found index
         this.flowEls[index].dropped = true;
-  
-        this.flowStateProvider.clearDragData();
-        
-        // Transfer the item between arrays 
+
+        //Transfer the item between arrays 
         if (event.previousContainer === event.container) {
           moveItemInArray(this.flowEls, index, event.currentIndex);
         } else {
-          transferArrayItem(this.flowEls, event.container.data, index, event.currentIndex);
+          transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
         }
       }
     }
   }
-  
-
   /** Opening an editable field when user clicks on a dropped element */
   funcClick(element: FlowControl, id: string) {
     if (element.dropped) {
@@ -70,32 +66,7 @@ export class FlowEditorComponent implements OnInit, OnDestroy
 
       componentRef.changeDetectorRef.detectChanges();
     }
-  }
- 
-  /** Transforming element value into Flow components */
- buildJsonFromEditor(): FlowPageTextV31[]
-  {
-    const elements = document.querySelectorAll('.config-container input[type="text"], .config-container textarea');
-    const jsonStructure: FlowPageTextV31[] = [];
-  
-    elements.forEach(element => {
-      const textElement = element as HTMLInputElement | HTMLTextAreaElement;
-      //Defining size for text inputs
-      const textSize = textElement.dataset['size'] as FlowPageTextSizesV31;
-  
-      if (textElement && textSize) {
-        const flowPageText: FlowPageTextV31 = {
-          text: textElement.value,
-          size: textSize,
-          type: FlowPageLayoutElementTypesV31.TEXT
-        };
-        jsonStructure.push(flowPageText);
-      }
-    });
-    console.log(jsonStructure)
-    return jsonStructure;
-  }
-   
+  }   
 
   ngOnDestroy(): void { }
 }
