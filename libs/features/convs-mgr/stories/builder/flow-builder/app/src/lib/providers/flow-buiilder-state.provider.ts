@@ -12,25 +12,15 @@ export class FlowBuilderStateProvider
   controls = FLOW_CONTROLS();
   /** List of control state for the editor */
   controls$$ = new BehaviorSubject<FlowControl[]>(this.controls);
-  /** Drag and drop transfer data */
-  private dragData$$ = new BehaviorSubject<FlowControl | null>(null);
+  
+  updateComponent(comp: FlowControl)
+  {
+    const controls = this.controls.filter(c => c.id !== comp.id)
 
-  dragData$ = this.dragData$$.asObservable();
+    controls.push(comp)
 
-  // constructor(private _flow$$: any)
-  // {
+    this.controls = controls
 
-  // }
-
-  setDragData(data: FlowControl) {
-    this.dragData$$.next(data);
-  }
-
-  clearDragData() {
-    this.dragData$$.next(null);
-  }
-
-  getDragData() {
-    return this.dragData$$.getValue();
+    this.controls$$.next(this.controls)
   }
 }

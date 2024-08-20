@@ -46,7 +46,7 @@ export class EditorComponentFactory {
 
     const componentRef = vcr.createComponent(componentType);
 
-    // Optionally set inputs
+    //Optionally set inputs
     if (flowControl.type === FlowControlType.Header || flowControl.type === FlowControlType.LightHeader) {
       componentRef.instance.size = flowControl.type === FlowControlType.Header ? FlowPageTextSizesV31.Header : FlowPageTextSizesV31.SubHeader;
     } else if (flowControl.type === FlowControlType.Text) {

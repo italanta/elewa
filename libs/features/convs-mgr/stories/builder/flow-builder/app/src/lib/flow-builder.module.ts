@@ -32,7 +32,7 @@ import { FlowPageSelectorComponent } from './components/page-selector/page-selec
 import { FlowPreviewComponent } from './components/flow-preview/flow-preview.component';
 
 import { FlowBuilderRouterModule } from './flow-builder.router.module';
-import { FlowBuilderStateProvider } from './providers/flow-dragdrop-helper.provider';
+import { FlowBuilderStateProvider } from './providers/flow-buiilder-state.provider';
 import { FlowTypeTextComponent } from './components/flow-type-text/flow-type-text.component';
 import { FlowTypeInputComponent } from './components/flow-type-input/flow-type-input.component';
 import { FlowDatepickInputComponent } from './components/flow-datepick-input/flow-datepick-input.component';
