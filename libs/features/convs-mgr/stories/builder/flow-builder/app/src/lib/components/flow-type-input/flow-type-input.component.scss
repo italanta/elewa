@@ -86,3 +86,9 @@
   transform: translate(-50%, -50%) rotate(45deg);
   background-color: var(--convs-mgr-color-bright-teal);
 }
+
+.__anchor{
+  color: var(--convs-mgr-color-bright-teal);
+  cursor: pointer;
+  text-decoration: underline;
+}

@@ -1,0 +1,20 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  padding: 0;
+  .__inputDesc{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+.__dateEntry{
+  height: 48px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  padding: 0 0.8rem;
+  font-weight: 300;
+  font-size: large;
+}

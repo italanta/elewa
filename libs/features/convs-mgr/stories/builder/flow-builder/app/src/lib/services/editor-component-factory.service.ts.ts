@@ -3,6 +3,7 @@ import { FlowPageTextSizesV31 } from "@app/model/convs-mgr/stories/flows";
 import { FlowControl, FlowControlType } from "../providers/flow-controls.const";
 import { FlowTypeTextComponent } from '../components/flow-type-text/flow-type-text.component';
 import { FlowTypeInputComponent } from '../components/flow-type-input/flow-type-input.component';
+import { FlowDatepickInputComponent } from '../components/flow-datepick-input/flow-datepick-input.component';
 
 
 @Injectable({
@@ -25,21 +26,18 @@ export class EditorComponentFactory {
         //     componentType = FlowImageComponent;
         //     break;
         // }
-        // case 'link': {
-        //     componentType = FlowLinkComponent;
-        //     break;
-        // }
         case FlowControlType.TextArea:
         case FlowControlType.Select:
         case FlowControlType.Radio:
-        case FlowControlType.OptIn: {
+        case FlowControlType.OptIn:
+        case FlowControlType.Link: {
             componentType = FlowTypeInputComponent;
             break;
         }
-        // case 'datepick': {
-        //     componentType = FlowDatePickerComponent;
-        //     break;
-        // }
+        case 'datepick': {
+            componentType = FlowDatepickInputComponent;
+            break;
+        }
         default: {
             componentType = FlowTypeTextComponent;
             break;
