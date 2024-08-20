@@ -9,14 +9,15 @@ import { FlowControlType } from '../../providers/flow-controls.const';
 export class FlowTypeTextComponent implements OnInit
 {
   /** The type of input, for text inputs */
-  @Input() type: FlowControlType
-  flowControlTpe = FlowControlType
+  type: FlowControlType
+  flowControlType = FlowControlType
 
   inputId = '';
   vrc = inject(ViewContainerRef)
 
 
   ngOnInit(): void {
-    this.inputId = `input-${this.type}`;
+    this.inputId = `input-${this.flowControlType}`;
+    console.log(this.flowControlType)
   }
 }

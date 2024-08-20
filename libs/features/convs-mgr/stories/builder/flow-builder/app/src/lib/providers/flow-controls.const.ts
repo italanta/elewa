@@ -32,9 +32,8 @@ export enum FlowControlType
   TextInput = 'textInput',
   TextArea = 'textArea',
   Select = 'select',
-  Checkbox = 'checkbox',
   Radio = 'radio',
-  OptIn = 'optIn',
+  OptIn = 'checkbox',
   Datepick = 'datepick'
 }
 
@@ -51,7 +50,7 @@ export const FLOW_CONTROLS: () => FlowControl[] = () => [
 
   { id: '8',  group: 'FLOW-CATEGORY.INPUT-ELS', label:'Single line text', type: FlowControlType.TextInput,  icon:'fa-solid fa-font' },
   { id: '9',  group: 'FLOW-CATEGORY.INPUT-ELS', label:'Text area',        type: FlowControlType.TextArea,   icon:'fa-solid fa-pen-fancy' },
-  { id: '10', group: 'FLOW-CATEGORY.INPUT-ELS', label:'List selection',   type:  FlowControlType.Checkbox,   icon:'fa-solid fa-list-check' },
+  { id: '10', group: 'FLOW-CATEGORY.INPUT-ELS', label:'List selection',   type:  FlowControlType.Select,   icon:'fa-solid fa-list-check' },
   { id: '12', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Radio buttons',    type: FlowControlType.Radio,      icon:'fa-solid fa-circle-dot' },
   { id: '13', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Opt in',           type: FlowControlType.OptIn,      icon:'fa-solid fa-square-check' },
   { id: '14', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Date picker',      type: FlowControlType.Datepick,   icon:'fa-solid fa-calendar-days' },

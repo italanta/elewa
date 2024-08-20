@@ -1,1 +1,35 @@
-<p>flow-type-input works!</p>
+<div class="wrapper">
+  @switch(type) {
+    <!-- Single Line Text -->
+    @case (flowControlType.TextInput) {
+      <input id="{{inputId}}" type="text" class="__text" />
+    }
+    @case (flowControlType.TextArea) {
+      <input id="{{inputId}}" type="textarea" class="__textArea" />
+    }
+    @case (flowControlType.Select){
+      <div class="__inputDesc">
+        <select id="{{inputId}}" type="select" class="__select">
+          <option></option>
+        </select>
+      </div>  
+    }
+    @case (flowControlType.Radio) {
+      <div class="__inputDesc flexDiv">
+        <input id="{{inputId}}" type="radio" class="__radio" />
+        <span> Description about action goes here</span>
+      </div>
+    }
+    @case (flowControlType.OptIn) {
+      <div class="__inputDesc flexDiv">
+        <input id="{{inputId}}" type="checkbox" class="__checkbox" />
+        <span> Description about action goes here</span>
+      </div>  
+    }
+    @default {
+      <!-- Fallback input if none of the cases match -->
+      <input id="{{inputId}}" type="text" class="fallback" />
+      <span> Description about action goes here</span>
+    }
+  }
+</div>

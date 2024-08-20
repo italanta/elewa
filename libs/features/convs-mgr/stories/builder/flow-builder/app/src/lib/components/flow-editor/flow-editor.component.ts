@@ -65,7 +65,8 @@ export class FlowEditorComponent implements OnInit, OnDestroy
       const componentRef = this.editorComponentFactory.createEditorComponent(element, this.vcr);
 
       console.log('Component Created:', componentRef.componentType);
-      componentRef.instance.value = element.type;  // Pass the value to the component
+      console.log(element)
+      componentRef.instance.type = element.type;  // Pass the value to the component
 
       componentRef.changeDetectorRef.detectChanges();
     }

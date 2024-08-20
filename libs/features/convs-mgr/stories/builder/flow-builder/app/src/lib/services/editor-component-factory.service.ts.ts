@@ -2,6 +2,7 @@ import { Injectable, Type, ViewContainerRef } from '@angular/core';
 import { FlowPageTextSizesV31 } from "@app/model/convs-mgr/stories/flows";
 import { FlowControl, FlowControlType } from "../providers/flow-controls.const";
 import { FlowTypeTextComponent } from '../components/flow-type-text/flow-type-text.component';
+import { FlowTypeInputComponent } from '../components/flow-type-input/flow-type-input.component';
 
 
 @Injectable({
@@ -28,12 +29,13 @@ export class EditorComponentFactory {
         //     componentType = FlowLinkComponent;
         //     break;
         // }
-        // case 'select':
-        // case 'checkbox':
-        // case 'radio': {
-        //     componentType = FlowSelectComponent;
-        //     break;
-        // }
+        case FlowControlType.TextArea:
+        case FlowControlType.Select:
+        case FlowControlType.Radio:
+        case FlowControlType.OptIn: {
+            componentType = FlowTypeInputComponent;
+            break;
+        }
         // case 'datepick': {
         //     componentType = FlowDatePickerComponent;
         //     break;
