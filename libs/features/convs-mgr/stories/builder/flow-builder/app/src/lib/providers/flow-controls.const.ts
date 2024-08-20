@@ -8,7 +8,7 @@ export interface FlowControl
   label: string;
 
   /** Value of the control */
-  value: string;
+  type: FlowControlType;
   
   /** Control icon */
   icon: string;
@@ -17,27 +17,44 @@ export interface FlowControl
   id: string;
 
   /** dropped */
-  dropped: boolean
+  dropped?: boolean
+}
+
+export enum FlowControlType
+{
+  Header = 'h1',
+  LightHeader = 'h2',
+  Text = 'text',
+  Caption = 'caption',
+  Image = 'image',
+  Link = 'link',
+  Footer = 'footer',
+  TextInput = 'textInput',
+  TextArea = 'textArea',
+  Select = 'select',
+  Checkbox = 'checkbox',
+  Radio = 'radio',
+  OptIn = 'optIn',
+  Datepick = 'datepick'
 }
 
 /** List of all flow controls (wrapped into a function to avoid direct editing of the list) */
 export const FLOW_CONTROLS: () => FlowControl[] = () => [
-  { id: '1', group: 'FLOW-CATEGORY.TEXT-ELS', label:'Header',       value:'h1',       icon:'fa-solid fa-heading' , dropped: false },
-  { id: '2', group: 'FLOW-CATEGORY.TEXT-ELS', label:'Light Header', value:'h2',       icon:'fa-solid fa-bold' , dropped: false },
-  { id: '3', group: 'FLOW-CATEGORY.TEXT-ELS', label:'Text',         value:'text',     icon:'fa-solid fa-font' , dropped: false },
-  { id: '4', group: 'FLOW-CATEGORY.TEXT-ELS', label:'Small text',   value:'caption',  icon:'fa-solid fa-subscript' , dropped: false },
+  { id: '1',  group: 'FLOW-CATEGORY.TEXT-ELS', label:'Header',       type: FlowControlType.Header,       icon:'fa-solid fa-heading' },
+  { id: '2',  group: 'FLOW-CATEGORY.TEXT-ELS', label:'Light Header', type: FlowControlType.LightHeader,       icon:'fa-solid fa-bold' },
+  { id: '3',  group: 'FLOW-CATEGORY.TEXT-ELS', label:'Text',         type: FlowControlType.Text,     icon:'fa-solid fa-font' },
+  { id: '4',  group: 'FLOW-CATEGORY.TEXT-ELS', label:'Small text',   type: FlowControlType.Caption,  icon:'fa-solid fa-subscript' },
 
-  { id: '5', group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Image',  value:'image',  icon:'fa-regular fa-image' , dropped: false },
-  { id: '6', group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Link',   value:'link',   icon:'fa-solid fa-link' , dropped: false },
-  { id: '7', group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Footer', value:'footer', icon:'fa-solid fa-window-minimize' , dropped: false },
+  { id: '5',  group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Image',  type: FlowControlType.Image,  icon:'fa-regular fa-image' },
+  { id: '6',  group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Link',   type: FlowControlType.Link,   icon:'fa-solid fa-link' },
+  { id: '7',  group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Footer', type: FlowControlType.Footer, icon:'fa-solid fa-window-minimize' },
 
-  { id: '8', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Single line text', value:'textInput',  icon:'fa-solid fa-font' , dropped: false },
-  { id: '9', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Text area',        value:'textArea',   icon:'fa-solid fa-pen-fancy' , dropped: false },
-  { id: '10', group: 'FLOW-CATEGORY.INPUT-ELS', label:'List selection',   value:'select',     icon:'fa-solid fa-window-minimize' , dropped: false },
-  { id: '11', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Checkboxes',       value:'checkbox',   icon:'fa-solid fa-list-check' , dropped: false },
-  { id: '12', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Radio buttons',    value:'radio',      icon:'fa-solid fa-circle-dot' , dropped: false },
-  { id: '13', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Opt in',           value:'optIn',      icon:'fa-solid fa-square-check' , dropped: false },
-  { id: '14', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Date picker',      value:'datepick',   icon:'fa-solid fa-calendar-days' , dropped: false },
+  { id: '8',  group: 'FLOW-CATEGORY.INPUT-ELS', label:'Single line text', type: FlowControlType.TextInput,  icon:'fa-solid fa-font' },
+  { id: '9',  group: 'FLOW-CATEGORY.INPUT-ELS', label:'Text area',        type: FlowControlType.TextArea,   icon:'fa-solid fa-pen-fancy' },
+  { id: '10', group: 'FLOW-CATEGORY.INPUT-ELS', label:'List selection',   type:  FlowControlType.Checkbox,   icon:'fa-solid fa-list-check' },
+  { id: '12', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Radio buttons',    type: FlowControlType.Radio,      icon:'fa-solid fa-circle-dot' },
+  { id: '13', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Opt in',           type: FlowControlType.OptIn,      icon:'fa-solid fa-square-check' },
+  { id: '14', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Date picker',      type: FlowControlType.Datepick,   icon:'fa-solid fa-calendar-days' },
 ]
 
 /**
