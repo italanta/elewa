@@ -34,6 +34,7 @@ import { FlowPreviewComponent } from './components/flow-preview/flow-preview.com
 import { FlowBuilderRouterModule } from './flow-builder.router.module';
 import { FlowBuilderStateProvider } from './providers/flow-dragdrop-helper.provider';
 import { FlowTypeTextComponent } from './components/flow-type-text/flow-type-text.component';
+import { FlowTypeInputComponent } from './components/flow-type-input/flow-type-input.component';
 
 @NgModule({
   imports: [
@@ -67,6 +68,7 @@ import { FlowTypeTextComponent } from './components/flow-type-text/flow-type-tex
 
     FlowBuilderPageComponent,
     FlowTypeTextComponent,
+    FlowTypeInputComponent,
   ],
 
   providers: [FlowBuilderStateProvider],
