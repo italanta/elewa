@@ -6,7 +6,7 @@ import { FlowControlType } from '../../providers/flow-controls.const';
   templateUrl: './flow-type-text.component.html',
   styleUrl: './flow-type-text.component.scss',
 })
-export class FlowHeaderTextComponent implements OnInit
+export class FlowTypeTextComponent implements OnInit
 {
   /** The type of input, for text inputs */
   @Input() type: FlowControlType

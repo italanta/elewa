@@ -1,7 +1,7 @@
 import { Injectable, Type, ViewContainerRef } from '@angular/core';
 import { FlowPageTextSizesV31 } from "@app/model/convs-mgr/stories/flows";
 import { FlowControl, FlowControlType } from "../providers/flow-controls.const";
-import { FlowHeaderTextComponent } from '../components/flow-type-text/flow-type-text.component';
+import { FlowTypeTextComponent } from '../components/flow-type-text/flow-type-text.component';
 
 
 @Injectable({
@@ -17,7 +17,7 @@ export class EditorComponentFactory {
         case FlowControlType.LightHeader:
         case FlowControlType.Caption:
         case FlowControlType.Text: {
-            componentType = FlowHeaderTextComponent;
+            componentType = FlowTypeTextComponent;
             break;
         }
         // case 'image': {
@@ -39,7 +39,7 @@ export class EditorComponentFactory {
         //     break;
         // }
         default: {
-            componentType = FlowHeaderTextComponent;
+            componentType = FlowTypeTextComponent;
             break;
         }
     }
