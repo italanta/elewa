@@ -35,6 +35,7 @@ import { FlowBuilderRouterModule } from './flow-builder.router.module';
 import { FlowBuilderStateProvider } from './providers/flow-dragdrop-helper.provider';
 import { FlowTypeTextComponent } from './components/flow-type-text/flow-type-text.component';
 import { FlowTypeInputComponent } from './components/flow-type-input/flow-type-input.component';
+import { FlowDatepickInputComponent } from './components/flow-datepick-input/flow-datepick-input.component';
 
 @NgModule({
   imports: [
@@ -69,6 +70,7 @@ import { FlowTypeInputComponent } from './components/flow-type-input/flow-type-i
     FlowBuilderPageComponent,
     FlowTypeTextComponent,
     FlowTypeInputComponent,
+    FlowDatepickInputComponent,
   ],
 
   providers: [FlowBuilderStateProvider],
