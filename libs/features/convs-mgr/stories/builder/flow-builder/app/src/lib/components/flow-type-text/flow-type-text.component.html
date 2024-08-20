@@ -1,0 +1,20 @@
+<div class="wrapper">
+  @switch(type) {
+    @case (flowControlTpe.Header) {
+      <input id="{{inputId}}" type="text" class="header" />
+    }
+    @case (flowControlTpe.LightHeader) {
+      <input id="{{inputId}}" type="text" class="light-header" />
+    }
+    @case (flowControlTpe.Text){
+      <input id="{{inputId}}" type="text" class="text" />
+    }
+    @case (flowControlTpe.Caption) {
+      <input id="{{inputId}}" type="text" class="small-text" />
+    }
+    @default {
+      <!-- Fallback input if none of the cases match -->
+      <input id="{{inputId}}" type="text" class="fallback" />
+    }
+  }
+</div>

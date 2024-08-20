@@ -1,7 +1,7 @@
 import { Injectable, Type, ViewContainerRef } from '@angular/core';
 import { FlowPageTextSizesV31 } from "@app/model/convs-mgr/stories/flows";
 import { FlowControl, FlowControlType } from "../providers/flow-controls.const";
-import { FlowHeaderTextComponent } from '../components/flow-header-text/flow-header-text.component';
+import { FlowHeaderTextComponent } from '../components/flow-type-text/flow-type-text.component';
 
 
 @Injectable({

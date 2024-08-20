@@ -33,7 +33,7 @@ import { FlowPreviewComponent } from './components/flow-preview/flow-preview.com
 
 import { FlowBuilderRouterModule } from './flow-builder.router.module';
 import { FlowBuilderStateProvider } from './providers/flow-dragdrop-helper.provider';
-import { FlowHeaderTextComponent } from './components/flow-header-text/flow-header-text.component';
+import { FlowHeaderTextComponent } from './components/flow-type-text/flow-type-text.component';
 
 @NgModule({
   imports: [
