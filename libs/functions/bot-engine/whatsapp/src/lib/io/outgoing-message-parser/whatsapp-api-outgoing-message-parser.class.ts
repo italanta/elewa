@@ -312,7 +312,7 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
       }
     };
 
-    if(params) {
+    if(params && params.length > 0) {
       const templateParams: WhatsappSendTemplateParameter[] = params.map((param) =>
       {
         return {

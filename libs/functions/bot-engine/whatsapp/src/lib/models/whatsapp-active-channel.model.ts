@@ -57,26 +57,6 @@ export class WhatsappActiveChannel implements ActiveChannel
   async parseOutStandardMessage(message: Message)
   {
     const phone = message.endUserPhoneNumber;
-    
-    const n = this.channel.n;
-    const endUserId = generateEndUserId(phone, PlatformType.WhatsApp, n);
-    const endUser = await this.endUserService.getEndUser(endUserId)
-
-    if(message.params) {
-      const variables = {
-        ...endUser,
-        ...endUser.variables
-      }
-
-      const newParams = message.params.map((param)=> {
-        if(param.value == '_var_'){
-          param.value = variables[param.name] || 'undefined';
-        }
-        return param;
-      })
-  
-      message.params = newParams;
-    }
 
     const outgoingMessagePayload = new StandardMessageOutgoingMessageParser().parse(message, phone);
 
@@ -126,7 +106,7 @@ export class WhatsappActiveChannel implements ActiveChannel
             this._tools.Logger.error(() => `[SendOutgoingMsgHandler].execute [Warning] - End User does not have saved variables`);
           }
 
-          if(params) params = this.__resolveParamVariables(params, orgId, endUser ? endUser.variables : null);
+          if(params && params.length > 0)  params = this.__resolveParamVariables(params, orgId, endUser ? endUser.variables : null);
           
           // Get the message template
           return this.parseOutMessageTemplate(templateConfig, params, phone, message);
@@ -139,19 +119,19 @@ export class WhatsappActiveChannel implements ActiveChannel
   }
 
   private __resolveParamVariables(params: TemplateMessageParams[], orgId: string, variables: any) { 
-    const resolvedParams = params.map((param) => {
+    const resolvedParams: TemplateMessageParams[] = [];
 
-      if(param.value === '_var_') {
-        const value = variables ? variables[param.name] : ' ';
-
-        return { 
+    for (const param of params) {
+      if (!param.value || param.value === '_var_') {
+        const value = variables?.[param.name] || " ";
+        resolvedParams.push({ 
           name: param.name,
           value
-        } as TemplateMessageParams
+        } as TemplateMessageParams);
       } else {
-        return param
+        resolvedParams.push(param);
       }
-    });
+    }
 
     return resolvedParams
   }
