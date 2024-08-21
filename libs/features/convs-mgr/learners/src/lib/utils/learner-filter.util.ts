@@ -1,5 +1,4 @@
 import { EnrolledEndUser, EnrolledEndUserStatus } from "@app/model/convs-mgr/learners";
-import { toLower } from "lodash";
 
 /** filter learners by class */
 export function filterLearnersByClass(learners: EnrolledEndUser[], selectedClassId: string, ) {
