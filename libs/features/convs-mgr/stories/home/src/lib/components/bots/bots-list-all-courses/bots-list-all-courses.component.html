@@ -40,6 +40,12 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "BOTS.BOTS-PAGE.LAST" | transloco }} </th>
       <td mat-cell style="font-weight: lighter;" *matCellDef="let element" (click)="openBot(element.id)"> {{element.lastEdited}} </td>
     </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "BOTS.BOTS-PAGE.STATUS" | transloco }} </th>
+      <td mat-cell style="font-weight: lighter;" *matCellDef="let element" (click)="openBot(element.id)"> {{element.isPublished ? "Published" : "Draft"}} </td>
+    </ng-container>
   
     <!-- Channel Column -->
     <ng-container matColumnDef="channel">
