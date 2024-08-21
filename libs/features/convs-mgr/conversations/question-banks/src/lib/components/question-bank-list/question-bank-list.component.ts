@@ -57,7 +57,6 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
   /** Opening the add question to assessment  */
   addQuestion(id: string)
   {
-    this.isAddingQuestion = true
     this._dialog.open(AddQuestionToAssessmentComponent, 
       {
         data: {question: this.questions.filter((question)=> question.id === id)},

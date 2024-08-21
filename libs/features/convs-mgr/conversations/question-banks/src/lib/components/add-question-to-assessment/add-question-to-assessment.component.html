@@ -12,7 +12,7 @@
       </th>
       <td class="title-desc"  mat-cell *matCellDef="let assessment">
         <!-- When this checkbox is clicked, get the assessment id -->
-        <input type="checkbox"  [value]="assessment.id" (change)="onCheckboxChange($event, assessment.id)"/>
+        <input type="checkbox"  [value]="assessment.id" (click)="onCheckboxChange($event, assessment.id)"/>
       </td>
     </ng-container>
 
@@ -49,6 +49,6 @@
   <div class="__buttons">
     <button class="bank__button outline" (click)="closeDialog()">Cancel</button>
     <!-- Disable button until a checkbox is clicked. Opacity of 35% to current styling -->
-    <button class="bank__button filled" (click)="addToAssessment()" [disabled]="noneSelected" [ngClass]="noneSelected? 'active' : 'disabled'">Add Here</button>
+    <button class="bank__button filled" (click)="addToAssessment()" [disabled]="noneSelected" [ngClass]="noneSelected? 'disabled' : 'active'">Add Here</button>
   </div>
 </div>

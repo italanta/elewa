@@ -29,7 +29,7 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
   /** Assessment data loaded */
   hasData: boolean;
   /** State before checkmark is checked */
-  noneSelected: boolean;
+  noneSelected = true;
   /** Specific question selected*/
   question: AssessmentQuestion;
   /** Unique ids of selected questions */
