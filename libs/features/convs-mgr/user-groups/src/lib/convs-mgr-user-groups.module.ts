@@ -10,6 +10,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { CustomPipesModule } from '@app/elements/custom-pipes';
 
 import { DeleteUserGroupModalComponent } from './modals/delete-user-group-modal/delete-user-group-modal.component';
 import { SingleGroupHeaderComponent } from './components/single-group-header/single-group-header.component';
@@ -24,7 +25,6 @@ import { CreateUserGroupComponent } from './modals/create-user-group/create-user
 import { UserGroupsRouterModule } from './user-groups.router.module';
 import { MoveUsersToGroupModalComponent } from './modals/move-users-to-group-modal/create-bot-modal/move-users-to-group-modal.component';
 
-import { PlatformPipe } from '../pipes/platform-pipe.pipe';
 // import { UserGroupsStore } ../pipes/platform-pipe.pipeonvs-mgr/user-groups/src/lib/store/user-groups.store';
 // import { UserGroupsService } from 'libs/state/convs-mgr/user-groups/src/lib/service/user-groups.service';
 
@@ -40,6 +40,7 @@ import { PlatformPipe } from '../pipes/platform-pipe.pipe';
     MultiLangModule,
     ReactiveFormsModule,
     MatMenuModule,
+    CustomPipesModule,
   ],
   declarations: [
     UserGroupsComponent,
@@ -53,7 +54,6 @@ import { PlatformPipe } from '../pipes/platform-pipe.pipe';
     AddUserToGroupModalComponent,
     DeleteUserFromGroupModalComponent,
     MoveUsersToGroupModalComponent,
-    PlatformPipe,
   ],
   providers:[]
 })
