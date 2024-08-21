@@ -12,6 +12,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 // import { FileStorageService } from '@ngfi/files';
 
 import { AccessControlModule } from '@app/private/elements/convs-mgr/access-control';
+import { CustomPipesModule } from '@app/elements/custom-pipes';
 
 import { CompanyDataComponent } from './components/company-data/company-data.component';
 import { UpdateCompanyLogoModalComponent } from './modals/update-company-logo-modal/update-company-logo-modal.component';
@@ -32,6 +33,7 @@ import { MainChannelModalComponent } from './modals/main-channel-modal/main-chan
     ReactiveFormsModule,
 
     AccessControlModule,
+    CustomPipesModule,
   ],
   declarations: [
     CompanyDataComponent,

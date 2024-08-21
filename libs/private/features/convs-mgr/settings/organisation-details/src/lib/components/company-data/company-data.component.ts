@@ -66,12 +66,13 @@ export class CompanyDataComponent implements OnInit {
       }
     })
   }
-
+  
   getChannels() {
     this._channelService$.getAllChannels().subscribe((channels) => {
       this.dataSource = channels;
     });
   }
+
   buildOrgDataFormGroup(orgData: Organisation) {    
     this.orgDataFormGroup = this._fb.group({
       id: [orgData.id],
