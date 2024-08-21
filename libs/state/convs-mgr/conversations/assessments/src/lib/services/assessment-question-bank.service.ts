@@ -21,8 +21,10 @@ export class AssessmentQuestionBankService {
     return this._questionBank$$.get();
   }
 
-  addQuestionToAssessment$(assessmentId: string, question: AssessmentQuestion) {
-    return this._assessmentQuestionService$.addQuestion$(assessmentId, question, question.id as string);
+  addQuestionToAssessment$(assessmentId: string, question: AssessmentQuestion[]) {
+    question.forEach(question => {
+      return this._assessmentQuestionService$.addQuestion$(assessmentId, question, question.id as string);
+    })
   }
 
   addQuestion$(question: AssessmentQuestion) {

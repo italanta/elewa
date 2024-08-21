@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="__buttons">
-      <button class="bank__button filled" (click)="addQuestion()">Save</button>
+      <button class="bank__button filled" (click)="addQuestion()" [disabled]="!questionFormGroup.valid">Save</button>
       <button class="bank__button outline" (click)="discardQuestion()">Discard</button>
     </div>
   </div>

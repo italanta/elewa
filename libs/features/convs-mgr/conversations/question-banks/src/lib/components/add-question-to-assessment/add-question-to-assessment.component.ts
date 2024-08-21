@@ -31,7 +31,7 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
   /** State before checkmark is checked */
   noneSelected = true;
   /** Specific question selected*/
-  question: AssessmentQuestion;
+  question: AssessmentQuestion[];
   /** Unique ids of selected questions */
   // Initialize selectedAssessmentIds as a BehaviorSubject
   private selectedAssessmentIds$ = new BehaviorSubject<Set<string>>(new Set());
@@ -44,7 +44,7 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
               private _dialog: MatDialog,
               private _questionService: AssessmentQuestionBankService,
               private _snackBar: MatSnackBar,
-              @Inject(MAT_DIALOG_DATA) public data: { question: AssessmentQuestion }
+              @Inject(MAT_DIALOG_DATA) public data: { question: AssessmentQuestion[] }
 
   ) {
     this.question = this.data.question
