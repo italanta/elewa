@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -30,6 +30,7 @@ export class QuestionBankQuestionFormComponent implements OnDestroy
   isImage: boolean;
   /** Form state when user clicks add */
   isAddingQuestion = true;
+  @Output() questionActionCompleted = new EventEmitter<void>();
 
   private _sBS = new SubSink();
   
@@ -94,16 +95,20 @@ export class QuestionBankQuestionFormComponent implements OnDestroy
   {
     const questionToAdd = this.questionFormGroup.value as AssessmentQuestion;
     if(questionToAdd.id !== ''){
-      this._sBS.sink = this.questionBankService.update(questionToAdd ).subscribe(()=> this.isAddingQuestion = false )
+      this._sBS.sink = this.questionBankService.update(questionToAdd ).subscribe(()=> {
+        this.questionActionCompleted.emit(); 
+      })
     }else{
-      this._sBS.sink = this.questionBankService.add(questionToAdd ).subscribe(()=> this.isAddingQuestion = false )
-    }
-    
+      this._sBS.sink = this.questionBankService.add(questionToAdd ).subscribe(()=> {
+        this.questionActionCompleted.emit(); 
+      })
+    } 
   }
 
   discardQuestion()
   {
-    this.isAddingQuestion= false;
+    this.questionActionCompleted.emit(); 
+    this.dialog.closeAll()
   }
   ngOnDestroy(): void {
     this._sBS.unsubscribe()

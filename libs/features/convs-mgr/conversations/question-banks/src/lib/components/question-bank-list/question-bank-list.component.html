@@ -23,7 +23,8 @@
     <div class="question-content">
       <app-question-bank-question-form 
         *ngIf="isAddingQuestion" 
-        [questionFormGroup]="questionsFormGroup">
+        [questionFormGroup]="questionsFormGroup"
+        (questionActionCompleted)="onQuestionActionCompleted()">
       </app-question-bank-question-form>
     </div>
 
