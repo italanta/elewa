@@ -1,4 +1,6 @@
-import { Message } from "./message.interface";
+import { Message } from "../message.interface";
+import { TemplateCategoryTypes } from "./template-category-types.enum";
+import { TemplateComponents } from "./template-components.interface";
 
 /**
  * Defines a template message that can be business initiated and sent to the user outside
@@ -13,6 +15,10 @@ export interface TemplateMessage extends Message
   /** The type of the template e.g. text, interactive, media etc. */
    templateType: TemplateMessageTypes;
 
+   category      : TemplateCategoryTypes;
+
+   content       : TemplateComponents;
+
    /** The name of the template as configured on whatsapp business */
    name: string;
 
@@ -21,6 +27,13 @@ export interface TemplateMessage extends Message
     * @see https://developers.facebook.com/docs/whatsapp/business-management-api/message-templates/supported-languages
     */
    language?: string;
+
+     /** Once the template has been created, Meta provides a unique identifier
+       *  for the template. This identifier can be used to update the template
+       */
+   externalId?   : string;
+
+   channelId?     : string;
 }
 
 /** 
