@@ -52,6 +52,8 @@ export class FlowEditorComponent implements OnInit, OnDestroy
         } else {
           transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
         }
+        // Update the FlowBuilderStateProvider with the modified list
+      this.flowStateProvider.setControls(this.flowEls);
       }
     }
   }
@@ -61,7 +63,7 @@ export class FlowEditorComponent implements OnInit, OnDestroy
       const componentRef = this.editorComponentFactory.createEditorComponent(element, this.vcr);
 
       console.log('Component Created:', componentRef.componentType);
-      console.log(element)
+
       componentRef.instance.type = element.type;  // Pass the value to the component
 
       componentRef.changeDetectorRef.detectChanges();

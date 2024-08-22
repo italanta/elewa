@@ -3,24 +3,49 @@ import { BehaviorSubject } from "rxjs";
 import { FLOW_CONTROLS, FlowControl } from "./flow-controls.const";
 
 /**
- * Unpacks flow state into the builder state.
+ * Manages the state of flow controls.
  */
 @Injectable()
 export class FlowBuilderStateProvider
 {
-  /** List of control state for the editor */
-  controls = FLOW_CONTROLS();
-  /** List of control state for the editor */
-  controls$$ = new BehaviorSubject<FlowControl[]>(this.controls);
+  /** Initial list of control state for the editor */
+  private _controls = FLOW_CONTROLS();
   
-  updateComponent(comp: FlowControl)
-  {
-    const controls = this.controls.filter(c => c.id !== comp.id)
+  /** BehaviorSubject to track changes in control state */
+  private _controls$$ = new BehaviorSubject<FlowControl[]>([]);
 
-    controls.push(comp)
+  /**
+   * Gets the current list of controls.
+   */
+  getControls(): FlowControl[] {
+    console.log(...this._controls)
+    return [...this._controls]; // Return a copy to avoid external mutation
+  }
 
-    this.controls = controls
+  /**
+   * Updates the list of controls and notifies subscribers.
+   * @param controls - The new list of controls.
+   */
+  setControls(controls: FlowControl[]) {
+    this._controls = [...controls];
+    this._controls$$.next(this._controls);
+    console.log(this._controls)
+  }
 
-    this.controls$$.next(this.controls)
+  /**
+   * Gets the BehaviorSubject for controls.
+   */
+  getControls$$(): BehaviorSubject<FlowControl[]> {
+    return this._controls$$;
+  }
+
+  /**
+   * Updates a specific control component.
+   * @param comp - The control component to update.
+   */
+  updateComponent(comp: FlowControl) {
+    const updatedControls = this._controls.filter(c => c.id !== comp.id);
+    updatedControls.push(comp);
+    this.setControls(updatedControls); // Use the setter method
   }
 }
