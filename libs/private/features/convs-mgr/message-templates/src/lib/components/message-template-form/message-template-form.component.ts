@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -6,7 +6,6 @@ import { SubSink } from 'subsink';
 
 import { Observable, map } from 'rxjs';
 
-import { MessageTemplate, VariableExample } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService } from '@app/private/state/message-templates';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
@@ -21,6 +20,7 @@ import { SnackbarService } from '../../services/snackbar.service';
 import { categoryOptions, languageOptions } from '../../utils/constants';
 import { HeaderVariablesSampleSectionComponent } from '../header-variables-sample-section/header-variables-sample-section.component';
 import { BodyVariablesSampleSectionComponent } from '../body-variables-sample-section copy/body-variables-sample-section.component';
+import { TemplateMessage, TemplateVariableExample } from '@app/model/convs-mgr/conversations/messages';
 @Component({
   selector: 'app-message-template-form',
   templateUrl: './message-template-form.component.html',
@@ -35,10 +35,10 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
   @ViewChild('bodySection')
   bodySection: BodyVariablesSampleSectionComponent;
 
-  template$: Observable<MessageTemplate | undefined>;
-  template: MessageTemplate;
+  template$: Observable<TemplateMessage | undefined>;
+  template: TemplateMessage;
   channels$: Observable<CommunicationChannel[]>;
-  deletedExamples: VariableExample[] = [];
+  deletedExamples: TemplateVariableExample[] = [];
 
   templateForm: FormGroup;
   content: FormGroup;
@@ -70,7 +70,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
 
   constructor(
     private fb: FormBuilder,
-    private _messageTemplatesService: MessageTemplatesService,
+    private _templateMessagesService: MessageTemplatesService,
     private _route: ActivatedRoute,
     private _route$$: Router,
     private _snackbar: SnackbarService,
@@ -101,7 +101,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
       .subscribe((templateId) =>
       {
         if (templateId) {
-          this.template$ = this._messageTemplatesService.getTemplateById(templateId);
+          this.template$ = this._templateMessagesService.getTemplateById(templateId);
 
           this._sbS.sink = this.template$.subscribe((template) =>
           {
@@ -154,35 +154,30 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
   {
 
     if(section == 'body') {
-
-      const examplesArray = this.templateForm.get('bodyExamples')?.value as VariableExample[];
+      const examplesArray = this.templateForm.get('bodyExamples')?.value as TemplateVariableExample[];
   
       examplesArray.forEach((exmp) =>
       {
         const variable = `{{${exmp.name}}}`;
   
         if (!change.includes(variable)) {
-          exmp.section = section;
           this.removeExample(exmp.name as string, section);
           this.deletedExamples.push(exmp);
         }
       });
     } else {
-      const examplesArray = this.templateForm.get('headerExamples')?.value as VariableExample[];
+      const examplesArray = this.templateForm.get('headerExamples')?.value as TemplateVariableExample[];
       
       examplesArray.forEach((exmp) =>
       {
         const variable = `{{${exmp.name}}}`;
         
         if (!change.includes(variable)) {
-          exmp.section = section;
           this.removeExample(exmp.name as string, section);
           this.deletedExamples.push(exmp);
         }
       });
-
     }
-
   }
 
   restoreOnChange(change: string, section: 'body' | 'header')
@@ -193,7 +188,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
       {
         const variable = `{{${exmp.name}}}`;
 
-        if (exmp.section === section && change.includes(variable)) {
+        if (change.includes(variable)) {
           this.addExample(exmp.name as string, section, true);
 
           this.deletedExamples = this.deletedExamples.filter((dExmp) => dExmp.name !== exmp.name);
@@ -281,11 +276,11 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
   {
     this.isSaving = true;
 
-    this._sbS.sink = this._messageTemplatesService
+    this._sbS.sink = this._templateMessagesService
       .updateTemplateMeta(this.templateForm.value)
       .subscribe((response) => {
         if (response.success) {
-          this._sbS.sink = this._messageTemplatesService
+          this._sbS.sink = this._templateMessagesService
             .updateTemplate(this.templateForm.value)
             .subscribe(() =>
             {
@@ -310,7 +305,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
     }
 
     this.isSaving = true;
-    this._sbS.sink = this._messageTemplatesService
+    this._sbS.sink = this._templateMessagesService
       .createTemplateMeta(this.templateForm.value)
       .subscribe((response) =>
       {
@@ -323,7 +318,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
 
         const templateId = `${this.templateForm.value.name}${this.templateForm.value.language}`;
 
-        this._sbS.sink = this._messageTemplatesService
+        this._sbS.sink = this._templateMessagesService
           .addMessageTemplate(this.templateForm.value, templateId)
           .subscribe(() =>
           {

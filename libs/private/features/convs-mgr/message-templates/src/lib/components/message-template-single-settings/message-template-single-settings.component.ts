@@ -7,9 +7,9 @@ import { SubSink } from 'subsink';
 import { take } from 'rxjs/operators';
 
 import { EventBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { JobTypes, MessageTemplate, MessageTypes, ScheduleOptionType, ScheduleOptions, ScheduledMessage } from '@app/model/convs-mgr/functions';
+import { JobTypes, MessageTypes, ScheduleOptionType, ScheduleOptions, ScheduledMessage } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService, MilestoneTriggersService, ScheduleMessageService } from '@app/private/state/message-templates';
-import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+import { TemplateMessage, TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
 import { MilestoneTriggers } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { AfterInactivityModalComponent } from '../../modals/after-inactivity-modal/after-inactivity-modal.component';
@@ -172,7 +172,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
     let scheduleMessageOptions: any;
 
     if (this.selectedOption) {
-      let templateMessage: MessageTemplate;
+      let templateMessage: TemplateMessage;
       this._messageService.getTemplateById(this.messageTemplateId).subscribe((template: any) => {
         templateMessage = template;
         if (templateMessage) {
@@ -199,7 +199,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
     }
   }
   
-  saveMilestone(template: MessageTemplate) {
+  saveMilestone(template: TemplateMessage) {
     const event:string = this.selectedMilestone.eventName as string;
     const milestoneTriggerRequest: MilestoneTriggers = {
         id: this.mtSchedule.id as string,
@@ -218,14 +218,14 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
     // TODO: save scheduled messages
   }
 
-  _getInactivityOptions(templateMessage: MessageTemplate) {
+  _getInactivityOptions(templateMessage: TemplateMessage) {
     return {
       id: this.inactivitySchedule.id,
       template: templateMessage,
       inactivityTime: this.inactivityTime,
     }
   }
-  _getSpecificTimeOptions(templateMessage: MessageTemplate) {
+  _getSpecificTimeOptions(templateMessage: TemplateMessage) {
     return {
       id: this.specificTimeSchedule.id,
       template: templateMessage,

@@ -3,7 +3,7 @@ import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 import { Observable, first, switchMap, throwError } from 'rxjs';
 
-import { MessageTemplate } from '@app/model/convs-mgr/functions'
+import { TemplateMessage } from '@app/model/convs-mgr/conversations/messages';
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
@@ -23,7 +23,7 @@ export class MessageTemplatesService {
     private _channelsServ$: CommunicationChannelService
   ) {}
 
-  private templateCallFunction(action: string, data: MessageTemplate) {
+  private templateCallFunction(action: string, data: TemplateMessage) {
     const templateRef = this._aff.httpsCallable('messageTemplateAPI');
     return templateRef({
       action: action,
@@ -43,10 +43,6 @@ export class MessageTemplatesService {
   }
 
   private constructSendMessageReq(payload: any, channel: CommunicationChannel, selectedUsers: EnrolledEndUser[]): any {
-
-    for(const user of selectedUsers) {
-      
-    }
 
     return {
       n: channel.n || 0,
@@ -80,14 +76,14 @@ export class MessageTemplatesService {
     );
   }
 
-  addMessageTemplate(template: MessageTemplate, id?:string){
+  addMessageTemplate(template: TemplateMessage, id?:string){
     return this._messageTemplateStore$$.add(template, id);
   }
 
-  removeTemplate(template: MessageTemplate){
+  removeTemplate(template: TemplateMessage){
     return this._messageTemplateStore$$.remove(template);
   }
-  updateTemplate(template: MessageTemplate){
+  updateTemplate(template: TemplateMessage){
     return this._messageTemplateStore$$.update(template);
   }
   getTemplateById(templateId: string) {
@@ -98,15 +94,15 @@ export class MessageTemplatesService {
     return this._messageTemplateStore$$.get();
   }
 
-  createTemplateMeta(payload: MessageTemplate){
+  createTemplateMeta(payload: TemplateMessage){
     return this.templateCallFunction('create', payload );
   }
 
-  deleteTemplateMeta(payload: MessageTemplate){
+  deleteTemplateMeta(payload: TemplateMessage){
     return this.templateCallFunction('delete', payload);
   }
 
-  updateTemplateMeta(payload: MessageTemplate){
+  updateTemplateMeta(payload: TemplateMessage){
     return this.templateCallFunction('update', payload );
   }
 

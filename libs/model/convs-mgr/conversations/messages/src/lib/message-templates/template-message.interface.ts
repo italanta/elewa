@@ -15,9 +15,9 @@ export interface TemplateMessage extends Message
   /** The type of the template e.g. text, interactive, media etc. */
    templateType: TemplateMessageTypes;
 
-   category      : TemplateCategoryTypes;
+   category?      : TemplateCategoryTypes;
 
-   content       : TemplateComponents;
+   content?       : TemplateComponents;
 
    /** The name of the template as configured on whatsapp business */
    name: string;
