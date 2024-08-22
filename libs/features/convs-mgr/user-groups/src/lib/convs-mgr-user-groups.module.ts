@@ -10,6 +10,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { CustomPipesModule } from '@app/elements/custom-pipes';
 
 import { DeleteUserGroupModalComponent } from './modals/delete-user-group-modal/delete-user-group-modal.component';
 import { SingleGroupHeaderComponent } from './components/single-group-header/single-group-header.component';
@@ -23,7 +24,8 @@ import { UserGroupsListComponent } from './components/user-groups-list/user-grou
 import { CreateUserGroupComponent } from './modals/create-user-group/create-user-group.component';
 import { UserGroupsRouterModule } from './user-groups.router.module';
 import { MoveUsersToGroupModalComponent } from './modals/move-users-to-group-modal/create-bot-modal/move-users-to-group-modal.component';
-// import { UserGroupsStore } from 'libs/state/convs-mgr/user-groups/src/lib/store/user-groups.store';
+
+// import { UserGroupsStore } ../pipes/platform-pipe.pipeonvs-mgr/user-groups/src/lib/store/user-groups.store';
 // import { UserGroupsService } from 'libs/state/convs-mgr/user-groups/src/lib/service/user-groups.service';
 
 @NgModule({
@@ -38,6 +40,7 @@ import { MoveUsersToGroupModalComponent } from './modals/move-users-to-group-mod
     MultiLangModule,
     ReactiveFormsModule,
     MatMenuModule,
+    CustomPipesModule,
   ],
   declarations: [
     UserGroupsComponent,
@@ -50,7 +53,7 @@ import { MoveUsersToGroupModalComponent } from './modals/move-users-to-group-mod
     SingleGroupUserListComponent,
     AddUserToGroupModalComponent,
     DeleteUserFromGroupModalComponent,
-    MoveUsersToGroupModalComponent
+    MoveUsersToGroupModalComponent,
   ],
   providers:[]
 })

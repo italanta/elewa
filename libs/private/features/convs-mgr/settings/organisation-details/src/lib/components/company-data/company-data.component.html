@@ -120,7 +120,7 @@
         
         <ng-container matColumnDef="type">
           <th mat-header-cell *matHeaderCellDef> {{"COMPANY-INFORMATION.CHANNEL-MODAL.PLATFORM" | transloco}}</th>
-          <td mat-cell *matCellDef="let element"> {{transformChannelPlatform(element.type)}} </td>
+          <td mat-cell *matCellDef="let element"> {{ element.type | platform }} </td>
         </ng-container>
       
       
