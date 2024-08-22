@@ -52,8 +52,6 @@ export class QuestionCardComponent implements OnDestroy
     this._dialog.open(DeleteQuestionModalComponent, 
       {
         data: { question: this.question},
-        height: "300px",
-        width: "600px"
       }
     )
   }

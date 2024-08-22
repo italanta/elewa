@@ -74,10 +74,7 @@ export class AssessmentQuestionStore extends DataStore<AssessmentQuestion> {
           }),
           switchMap(question => this._activeRepo.write(question, question.id as string))
         )
-      ),
-      tap({
-        complete: () => console.log('All questions created in all assessments')
-      })
+      )
     );
   }
 }

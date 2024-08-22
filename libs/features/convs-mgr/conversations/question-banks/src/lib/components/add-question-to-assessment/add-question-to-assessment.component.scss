@@ -1,6 +1,3 @@
-::ng-deep .__addModal{
-  width: 50%;
-}
 .mdc-data-table__header-cell {
 	color: #7C7C7C;
 	font-weight: 300;
@@ -42,9 +39,10 @@
 }
 
 .__wrapper{
+  width: 50%;
   padding-left: 1.5rem;
   gap: 0.5rem;
-  padding-top: 1rem;
+  padding: 2rem;
   .__text__desc{
     display: flex;
     flex-direction: column;

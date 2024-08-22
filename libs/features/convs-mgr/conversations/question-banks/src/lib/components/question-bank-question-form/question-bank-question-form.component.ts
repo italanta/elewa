@@ -30,6 +30,7 @@ export class QuestionBankQuestionFormComponent implements OnDestroy
   isImage: boolean;
   /** Form state when user clicks add */
   isAddingQuestion = true;
+  addClicked = false
   @Output() questionActionCompleted = new EventEmitter<void>();
 
   private _sBS = new SubSink();
@@ -93,14 +94,17 @@ export class QuestionBankQuestionFormComponent implements OnDestroy
   /** Update or create a new question depending on whether a question is new*/
   addQuestion()
   {
+    this.addClicked = true
     const questionToAdd = this.questionFormGroup.value as AssessmentQuestion;
     if(questionToAdd.id !== ''){
       this._sBS.sink = this.questionBankService.update(questionToAdd ).subscribe(()=> {
         this.questionActionCompleted.emit(); 
+        this.addClicked = false
       })
     }else{
       this._sBS.sink = this.questionBankService.add(questionToAdd ).subscribe(()=> {
         this.questionActionCompleted.emit(); 
+        this.addClicked = false
       })
     } 
   }

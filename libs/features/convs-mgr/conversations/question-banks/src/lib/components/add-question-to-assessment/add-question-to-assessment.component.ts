@@ -107,10 +107,6 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
           this.showSuccessToast();
           this._dialog.closeAll();
         },
-        error: err => {
-          console.error('Error adding questions to assessments', err);
-          this._snackBar.open('Failed to add questions. Please try again.', 'Close', { duration: 3000, panelClass: ['error-snackbar'] });
-        }
       });
   }
 

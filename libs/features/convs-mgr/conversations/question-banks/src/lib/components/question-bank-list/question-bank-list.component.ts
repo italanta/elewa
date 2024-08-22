@@ -64,7 +64,6 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
   addQuestion() {
     const dialogRef = this._dialog.open(AddQuestionToAssessmentComponent, {
       data: { question: this.questions.filter(question => this.selectedQuestions.includes(question.id!)) },
-      panelClass: "__addModal"
     });
   
     dialogRef.afterClosed().subscribe(() => this.selectedQuestions = []);
