@@ -209,7 +209,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   getLearnersCourse(learner: EnrolledEndUser) {
     if (!learner.courses || !learner.courses.length) return "";
 
-    return learner.courses[learner.courses?.length - 1].courseName;
+    return learner.courses[0].courseName;
   }
 
   sortData(sortState: Sort) {
