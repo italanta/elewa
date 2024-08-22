@@ -381,6 +381,7 @@
       "BEGINNER" : "Beginner",
       "CHANNEL" : "Channel",
       "ACTIONS" : "Actions",
+      "STATUS" : "Status",
       "TYPE" : "Type",
       "EDIT" : "Edit",
       "DELETE" : "Delete",
