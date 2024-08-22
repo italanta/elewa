@@ -1,8 +1,10 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+
+import { SubSink } from 'subsink';
+
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
-import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-delete-question-modal',

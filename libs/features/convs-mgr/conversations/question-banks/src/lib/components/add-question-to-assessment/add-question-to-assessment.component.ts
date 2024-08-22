@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
-import { BehaviorSubject, catchError, forkJoin, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { __DateFromStorage } from '@iote/time';
@@ -113,7 +113,7 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
         }
       });
   }
-  
+
   showSuccessToast(): void {
     const snackBarRef = this._snackBar.open('Success. Question has been added to assessment', 'Close', {
       duration: 3000,
