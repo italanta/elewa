@@ -18,6 +18,8 @@ export interface FlowControl
 
   /** dropped */
   dropped?: boolean
+
+  value?: any
 }
 
 export enum FlowControlType

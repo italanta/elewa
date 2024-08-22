@@ -6,6 +6,7 @@ import { SubSink } from 'subsink';
 import { FlowControl } from '../../providers/flow-controls.const';
 import { FlowBuilderStateProvider } from '../../providers/flow-buiilder-state.provider';
 import { EditorComponentFactory } from '../../services/editor-component-factory.service';
+import { ChangeTrackerService } from '../../providers/track-changes.service';
 
 
 @Component({
@@ -22,14 +23,19 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   vcr!: ViewContainerRef;
 
   constructor( private flowStateProvider: FlowBuilderStateProvider,
-               private editorComponentFactory: EditorComponentFactory
+               private editorComponentFactory: EditorComponentFactory,
+               private trackerService: ChangeTrackerService
   ) { }
 
-  ngOnInit(): void 
-  { 
-
+  ngOnInit(): void {
+    this.trackerService.change$.subscribe((events: Array<{ controlId: string; newValue: any }>) => {
+      events.forEach(({ controlId, newValue }) => {
+        console.log(`Control ${controlId} changed to ${newValue}`);
+        
+      });
+    });
   }
-
+  
   /** Function handling drag and drop functionality for a component */
   drop(event: CdkDragDrop<FlowControl[]>) 
   {
@@ -49,8 +55,6 @@ export class FlowEditorComponent implements OnInit, OnDestroy
         //Transfer the item between arrays 
         if (event.previousContainer === event.container) {
           moveItemInArray(this.flowEls, index, event.currentIndex);
-        } else {
-          transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
         }
         // Update the FlowBuilderStateProvider with the modified list
       this.flowStateProvider.setControls(this.flowEls);
@@ -63,6 +67,8 @@ export class FlowEditorComponent implements OnInit, OnDestroy
       const componentRef = this.editorComponentFactory.createEditorComponent(element, this.vcr);
 
       console.log('Component Created:', componentRef.componentType);
+
+      componentRef.instance.control = element
 
       componentRef.instance.type = element.type;  // Pass the value to the component
 

@@ -1,17 +1,17 @@
-<div class="wrapper">
+<div class="wrapper" *ngIf="control">
   @switch(type) {
     <!-- Heading. Blank value not accept. Max character 80 -->
     @case (flowControlType.Header) {
-      <input id="{{inputId}}" type="text" class="header" maxlength="80" />
+      <input id="{{inputId}}" type="text" class="header" maxlength="80" [(ngModel)]="control.value" (ngModelChange)="onInputChange($event)"/>
     }
     @case (flowControlType.LightHeader) {
-      <input id="{{inputId}}" type="text" class="light-header" maxlength="80"/>
+      <input id="{{inputId}}" type="text" class="light-header" maxlength="80"[(ngModel)]="control.value" (ngModelChange)="onInputChange($event)"/>
     }
     @case (flowControlType.Text){
-      <input id="{{inputId}}" type="text" class="text"  maxlength="4096"/>
+      <input id="{{inputId}}" type="text" class="text"  maxlength="4096"[(ngModel)]="control.value" (ngModelChange)="onInputChange($event)"/>
     }
     @case (flowControlType.Caption) {
-      <input id="{{inputId}}" type="text" class="small-text" maxlength="4096" />
+      <input id="{{inputId}}" type="text" class="small-text" maxlength="4096" [(ngModel)]="control.value" (ngModelChange)="onInputChange($event)"/>
     }
     @default {
       <!-- Fallback input if none of the cases match -->
