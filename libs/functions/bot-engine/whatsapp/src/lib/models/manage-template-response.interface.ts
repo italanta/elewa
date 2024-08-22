@@ -1,4 +1,4 @@
-import { TemplateCategoryTypes, TemplateStatusTypes } from "@app/model/convs-mgr/functions";
+import { TemplateCategoryTypes, TemplateStatusTypes } from "@app/model/convs-mgr/conversations/messages";
 
 /**
  * The response that will be sent back by the template API

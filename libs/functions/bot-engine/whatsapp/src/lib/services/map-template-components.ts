@@ -1,21 +1,9 @@
+import { isMediaHeader, TemplateBody, TemplateHeader, TemplateHeaderTypes, TemplateMessage, TextHeader } from "@app/model/convs-mgr/conversations/messages";
+import { WhatsappNewTemplateComponent, WhatsappBodyTemplateComponent, WhatsappTemplateComponentTypes, WhatsappHeaderTemplateComponent, WhatsappTemplateButtons, WhatsappButtonsTemplateComponent, WhatsappTextHeaderTemplateComponent, WhatsappMediaTemplateComponent } from "@app/model/convs-mgr/functions";
 import { HandlerTools } from "@iote/cqrs";
 
-import { MessageTemplate, 
-         WhatsappNewTemplateComponent, 
-         TemplateBody, 
-         WhatsappBodyTemplateComponent, 
-         WhatsappTemplateComponentTypes, 
-         TemplateHeader, 
-         WhatsappHeaderTemplateComponent, 
-         WhatsappTemplateButtons, 
-         WhatsappButtonsTemplateComponent, 
-         TemplateHeaderTypes, 
-         WhatsappMediaTemplateComponent, 
-         WhatsappTextHeaderTemplateComponent, 
-         isMediaHeader, 
-         TextHeader} from "@app/model/convs-mgr/functions";
 
-export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTools) 
+export function mapComponents(messageTemplate: TemplateMessage, tools: HandlerTools) 
 {
   const components = Object.keys(messageTemplate.content);
 
@@ -26,7 +14,7 @@ export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTo
     switch (comp) {
       case "body": {
         const rawBody = messageTemplate.content[comp] as TemplateBody;
-        const bodyExamples = messageTemplate.bodyExamples.map((exmp)=> exmp.value);
+        const bodyExamples = rawBody.examples.map((exmp)=> exmp.value);
 
         const parsedText = parseVariables(rawBody.text);
 
@@ -59,7 +47,7 @@ export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTo
 
       case "header": {
         const rawHeader = messageTemplate.content[comp] as TemplateHeader;
-        const headerExample = messageTemplate.headerExamples.map((exmp)=> exmp.value);
+        const headerExample = rawHeader.examples.map((exmp)=> exmp.value);
 
         let headerComponent: WhatsappHeaderTemplateComponent = {
           format: rawHeader.type,

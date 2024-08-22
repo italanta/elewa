@@ -4,9 +4,9 @@ import { FunctionHandler } from '@ngfi/functions';
 
 import { ChannelDataService } from '@app/functions/bot-engine';
 
-import { ActionTypes, ManageTemplateRequest } from './models/manage-templates-request.interface';
-import { ManageTemplateResponse } from './models/manage-template-response.interface';
 import { ManageTemplateService } from './services/manage-template-service.class';
+import { ManageTemplateResponse } from './models/manage-template-response.interface';
+import { ManageTemplateRequest, ActionTypes } from './models/manage-templates-request.interface';
 
 export class WhatsappManageTemplatesAPI extends FunctionHandler<ManageTemplateRequest, ManageTemplateResponse>
 {

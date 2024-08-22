@@ -2,7 +2,8 @@ import { HandlerTools } from "@iote/cqrs";
 
 import { HttpService } from "@app/functions/bot-engine";
 import { CommunicationChannel, WhatsAppCommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
-import { MessageTemplate, WhatsappCreateTemplate } from "@app/model/convs-mgr/functions";
+import { WhatsappCreateTemplate } from "@app/model/convs-mgr/functions";
+import { TemplateMessage } from "@app/model/convs-mgr/conversations/messages";
 
 import { mapComponents } from "./map-template-components";
 import { ManageTemplateResponse } from "../models/manage-template-response.interface";
@@ -20,7 +21,7 @@ export class ManageTemplateService
     this._orgId = communicationChannel.id;
   }
 
-  public async create(messageTemplate: MessageTemplate): Promise<ManageTemplateResponse> 
+  public async create(messageTemplate: TemplateMessage): Promise<ManageTemplateResponse> 
   {
     this._tools.Logger.log(()=> `[ManageTemplateService].create - Creating template: ${JSON.stringify(messageTemplate)}`);
     
@@ -50,13 +51,13 @@ export class ManageTemplateService
     }
   }
 
-  public async update(messageTemplate: MessageTemplate): Promise<ManageTemplateResponse>  
+  public async update(messageTemplate: TemplateMessage): Promise<ManageTemplateResponse>  
   {
     this._tools.Logger.log(()=> `[ManageTemplateService].create - Updating template: ${JSON.stringify(messageTemplate)}`);
 
     const whatsappCommChannel = this._communicationChannel as WhatsAppCommunicationChannel;
 
-    const updateURL = this.baseURL + `${messageTemplate.templateId}`;
+    const updateURL = this.baseURL + `${messageTemplate.externalId}`;
 
     const components = mapComponents(messageTemplate, this._tools);
 
@@ -131,7 +132,7 @@ export class ManageTemplateService
     return query;
   }
 
-  private _createTemplatePayload(messageTemplate: MessageTemplate) 
+  private _createTemplatePayload(messageTemplate: TemplateMessage) 
   {
     const templateComponents = mapComponents(messageTemplate, this._tools);
 
