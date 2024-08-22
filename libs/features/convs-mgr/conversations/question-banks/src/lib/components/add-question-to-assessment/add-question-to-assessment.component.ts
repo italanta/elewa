@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, forkJoin, Observable, tap } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { __DateFromStorage } from '@iote/time';
@@ -31,9 +31,8 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
   /** State before checkmark is checked */
   noneSelected = true;
   /** Specific question selected*/
-  question: AssessmentQuestion[];
-  /** Unique ids of selected questions */
-  // Initialize selectedAssessmentIds as a BehaviorSubject
+  questions: AssessmentQuestion[];
+  /** Unique ids of selected assessment IDs*/
   private selectedAssessmentIds$ = new BehaviorSubject<Set<string>>(new Set());
 
 
@@ -47,7 +46,7 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
               @Inject(MAT_DIALOG_DATA) public data: { question: AssessmentQuestion[] }
 
   ) {
-    this.question = this.data.question
+    this.questions = this.data.question
   }
 
   ngOnInit(): void 
@@ -82,7 +81,7 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
   }
   
   /** Check bock selected event 
-   * Get the assessment id value 
+   *  Get the assessment id value 
   */
   onCheckboxChange(event: Event, assessmentId: string): void {
     const isChecked = (event.target as HTMLInputElement).checked;
@@ -98,23 +97,26 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
     this.noneSelected = newSelectedAssessmentIds.size === 0;
   }
   
-  /** Adding a question to selected assessments */
+  /** Adding questins to an assessment */
   addToAssessment(): void {
-    if (this.selectedAssessmentIds.size === 0) return;
+    if (this.selectedAssessmentIds.size === 0 || this.questions.length === 0) return;
+  
     this.selectedAssessmentIds.forEach((assessmentId) => {
-
       if (!assessmentId) {
         console.error('Invalid assessmentId:', assessmentId);
         return;
       }
-      if(assessmentId && this.question){
-        this._questionService.addQuestionToAssessment$(assessmentId, this.question)
-        this.showSuccessToast();
+      
+      // Add each question to the assessment
+      if (assessmentId && this.questions) {
+        this._questionService.addQuestionToAssessment$(assessmentId, this.questions).subscribe(()=> {
+          this.showSuccessToast();
+          this._dialog.closeAll()
+        });
       }
     });
-  
-    this.closeDialog();
   }
+  
   showSuccessToast(): void {
     const snackBarRef = this._snackBar.open('Success. Question has been added to assessment', 'Close', {
       duration: 3000,

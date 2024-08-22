@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { concatMap, from, Observable, of } from 'rxjs';
 
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
@@ -20,13 +21,16 @@ export class AssessmentQuestionBankService {
   getQuestions$(){
     return this._questionBank$$.get();
   }
-
-  addQuestionToAssessment$(assessmentId: string, question: AssessmentQuestion[]) {
-    question.forEach(question => {
-      return this._assessmentQuestionService$.addQuestion$(assessmentId, question, question.id as string);
-    })
+  
+  addQuestionToAssessment$(assessmentId: string, questions: AssessmentQuestion[]): Observable<void> {
+    return from(questions).pipe(
+      concatMap((question: AssessmentQuestion) => {
+      this._assessmentQuestionService$.addQuestion$(assessmentId, question, question.id as string);
+        return of(void 0); // Emit a void observable to keep the chain going
+      })
+    );
   }
-
+  
   addQuestion$(question: AssessmentQuestion) {
     return this._questionBank$$.add(question);
   }

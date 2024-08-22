@@ -27,7 +27,8 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
   filteredQuestions: AssessmentQuestion[] = [];
   /** Text written on search */
   searchTerm = '';
-
+  /** Number of selected questions */
+  selectedQuestions: string[] = []
   private _sBS = new SubSink ()
 
   constructor(private questionStore: AssessmentQuestionBankStore,
@@ -54,16 +55,22 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
     this.isAddingQuestion = addMode;
   }
 
-  /** Opening the add question to assessment  */
-  addQuestion(id: string)
+  selectQuestion(questionId: string)
   {
-    this._dialog.open(AddQuestionToAssessmentComponent, 
-      {
-        data: {question: this.questions.filter((question)=> question.id === id)},
-        panelClass: "__addModal"
-      }
-    )
+    this.selectedQuestions.push(questionId)
   }
+
+  /** Opening the add question to assessment  */
+  addQuestion() {
+    const dialogRef = this._dialog.open(AddQuestionToAssessmentComponent, {
+      data: { question: this.questions.filter(question => this.selectedQuestions.includes(question.id!)) },
+      panelClass: "__addModal"
+    });
+  
+    dialogRef.afterClosed().subscribe(() => this.selectedQuestions = []);
+  }
+  
+
   /** Seach for specific question text */
   searchQuestion() {
     if (this.searchTerm.trim() === '') {
