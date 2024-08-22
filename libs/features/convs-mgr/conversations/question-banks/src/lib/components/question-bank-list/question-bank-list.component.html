@@ -4,6 +4,18 @@
       (addNewQuestion)="onNewQuestionAdded($event)" 
       (addMode)="onAddModeChanged($event)">
     </lib-question-bank-header>
+    <div class="select-tab" *ngIf="selectedQuestions.length">
+      <div class="text">
+        <span class="__teal-text">
+          {{selectedQuestions.length}} selected
+        </span>
+      </div>
+
+      <div class="__add" (click)="addQuestion()">
+        <img src="assets/icons/icons8-add-new-50.png"/>
+        <span class="__blackText">Add to</span>
+      </div>
+    </div>
     <div class="search-tab">
       <div class="questions-number">
         <span>{{ "ASSESSMENTS.QUESTION-BANK.QUESTIONS" | transloco }}</span>
@@ -29,7 +41,7 @@
     </div>
 
     <div class="displayedQuestions" *ngFor="let question of filteredQuestions">
-      <div *ngIf="!isAddingQuestion"><input type="checkbox" (click)="addQuestion(question.id!)"/></div>
+      <div *ngIf="!isAddingQuestion"><input type="checkbox" (click)="selectQuestion(question.id!)"/></div>
       <app-question-card [question]="question" class="__card"
                           (addNewQuestion)="onNewQuestionAdded($event)" 
                           (addMode)="onAddModeChanged($event)"
