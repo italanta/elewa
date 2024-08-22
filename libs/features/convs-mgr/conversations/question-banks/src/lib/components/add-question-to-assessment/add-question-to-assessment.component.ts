@@ -100,21 +100,18 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
   /** Adding questins to an assessment */
   addToAssessment(): void {
     if (this.selectedAssessmentIds.size === 0 || this.questions.length === 0) return;
-  
-    this.selectedAssessmentIds.forEach((assessmentId) => {
-      if (!assessmentId) {
-        console.error('Invalid assessmentId:', assessmentId);
-        return;
-      }
-      
-      // Add each question to the assessment
-      if (assessmentId && this.questions) {
-        this._questionService.addQuestionToAssessment$(assessmentId, this.questions).subscribe(()=> {
+
+    this._questionService.addMultipleQuestionsToAssessment$(Array.from(this.selectedAssessmentIds), this.questions)
+      .subscribe({
+        next: () => {
           this.showSuccessToast();
-          this._dialog.closeAll()
-        });
-      }
-    });
+          this._dialog.closeAll();
+        },
+        error: err => {
+          console.error('Error adding questions to assessments', err);
+          this._snackBar.open('Failed to add questions. Please try again.', 'Close', { duration: 3000, panelClass: ['error-snackbar'] });
+        }
+      });
   }
   
   showSuccessToast(): void {

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { concatMap, from, Observable, of } from 'rxjs';
 
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentQuestionStore } from '../stores/assessment-question.store';
 import { AssessmentQuestionService } from './assessment-question.service';
+import { concatMap, from, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,15 +22,16 @@ export class AssessmentQuestionBankService {
     return this._questionBank$$.get();
   }
   
-  addQuestionToAssessment$(assessmentId: string, questions: AssessmentQuestion[]): Observable<void> {
-    return from(questions).pipe(
-      concatMap((question: AssessmentQuestion) => {
-      this._assessmentQuestionService$.addQuestion$(assessmentId, question, question.id as string);
-        return of(void 0); // Emit a void observable to keep the chain going
-      })
-    );
+  addQuestionToAssessment$(assessmentId: string, question: AssessmentQuestion[]) {
+    question.forEach(question => {
+      return this._assessmentQuestionService$.addQuestion$(assessmentId, question, question.id as string);
+    })
   }
-  
+
+  addMultipleQuestionsToAssessment$(assessmentIds: string[], questions: AssessmentQuestion[]){
+    return this._assessmentQuestionService$.addQuestionsToAssessments(assessmentIds, questions)
+  }
+
   addQuestion$(question: AssessmentQuestion) {
     return this._questionBank$$.add(question);
   }

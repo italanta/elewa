@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { DataStore } from "@ngfi/state";
 import { DataService, Repository } from "@ngfi/angular";
 
-import { map, of, switchMap, tap, throttleTime } from "rxjs";
+import { concatMap, from, map, of, switchMap, tap, throttleTime } from "rxjs";
 
 import { Logger } from "@iote/bricks-angular";
 import { Query } from '@ngfi/firestore-qbuilder';
@@ -60,5 +60,24 @@ export class AssessmentQuestionStore extends DataStore<AssessmentQuestion> {
     return this._org$$.get().pipe(map((org) => {return {...question, orgId: org.id}}),
                                   tap((question) => {this._activeRepo = this._repoFac.getRepo<AssessmentQuestion>(`orgs/${question.orgId}/assessments/${assessmentId}/questions`)}),
                                   switchMap((question) => this._activeRepo.write(question, questionId))).subscribe();
+  }
+
+  createAssessmentQuestions(assessmentIds: string[], questions: AssessmentQuestion[]){
+    return from(assessmentIds).pipe(
+      concatMap(assessmentId =>
+        from(questions).pipe(
+          map(question => ({...question, assessmentId})),
+          tap(question => {
+            this._org$$.get().pipe(
+              map(org => this._repoFac.getRepo<AssessmentQuestion>(`orgs/${org.id}/assessments/${assessmentId}/questions`))
+            ).subscribe(repo => this._activeRepo = repo);
+          }),
+          switchMap(question => this._activeRepo.write(question, question.id as string))
+        )
+      ),
+      tap({
+        complete: () => console.log('All questions created in all assessments')
+      })
+    );
   }
 }

@@ -5,7 +5,7 @@
     <div class="card-content">
       <div [formGroup]="questionFormGroup">
 
-        <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayoutAlign="space-between">
           <div class="question-type-conf">
             <div fxLayout="column" >
               <div appearance="fill" fxFlex="60" *ngIf="mediaSrc" class="media-display">
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="__buttons">
-      <button class="bank__button filled" (click)="addQuestion()" [disabled]="!questionFormGroup.valid">Save</button>
+      <button class="bank__button filled" (click)="addQuestion()">Save</button>
       <button class="bank__button outline" (click)="discardQuestion()">Discard</button>
     </div>
   </div>
