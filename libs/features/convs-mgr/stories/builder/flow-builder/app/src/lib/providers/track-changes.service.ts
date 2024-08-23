@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,10 @@ import { BehaviorSubject } from 'rxjs';
  */
 export class ChangeTrackerService {
   private changeSubject = new BehaviorSubject<{ controlId: string; newValue: any }[]>([]);
-  public change$ = this.changeSubject.asObservable();
+  public change$ = this.changeSubject.asObservable().pipe(
+    debounceTime(500), // 0.5 second debounce time for autosave
+    distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)) // Prevent redundant saves
+  );
 
   constructor() {}
 
