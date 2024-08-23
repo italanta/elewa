@@ -314,7 +314,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
           this._snackbar.showError(response);
         }
 
-        this.templateForm.value.templateId = response.data.id;
+        this.templateForm.value.externalId = response.data.id;
 
         const templateId = `${this.templateForm.value.name}${this.templateForm.value.language}`;
 
