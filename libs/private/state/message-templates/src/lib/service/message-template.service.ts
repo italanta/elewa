@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
+import { ActivatedRoute } from '@angular/router';
 
-import { Observable, first, switchMap, throwError } from 'rxjs';
+import { Observable, first, of, switchMap, throwError } from 'rxjs';
 
 import { TemplateMessage } from '@app/model/convs-mgr/conversations/messages';
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
@@ -20,7 +21,8 @@ export class MessageTemplatesService {
   constructor(
     private _aff:  AngularFireFunctions, 
     private _messageTemplateStore$$: MessageTemplateStore,
-    private _channelsServ$: CommunicationChannelService
+    private _channelsServ$: CommunicationChannelService,
+    private route:ActivatedRoute
   ) {}
 
   private templateCallFunction(action: string, data: TemplateMessage) {
@@ -90,6 +92,19 @@ export class MessageTemplatesService {
   }
   getTemplateById(templateId: string) {
     return this._messageTemplateStore$$.getOne(templateId);
+  }
+
+  getTemplateFromParams() {
+    return this.route.paramMap.pipe(switchMap((paramMap)=> {
+      const templateId = paramMap.get('templateId');
+      
+      if(templateId) {
+        return this.getTemplateById(templateId)
+      } else {
+        return of(null)
+      }
+    }))
+  
   }
 
   getMessageTemplates$() {

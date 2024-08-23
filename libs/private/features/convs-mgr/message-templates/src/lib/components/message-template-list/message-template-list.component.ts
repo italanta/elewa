@@ -106,7 +106,7 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy {
   }
 
   sendButtonClicked(template: TemplateMessage){
-    this._router.navigate(['/learners'], {queryParams: {templateId: template.id}});
+    this._router.navigate(['/users'], {queryParams: {templateId: template.id}});
   }
 
   duplicateTemplate(template: TemplateMessage){
