@@ -24,12 +24,14 @@ export class MessageTemplatesService {
   ) {}
 
   private templateCallFunction(action: string, data: TemplateMessage) {
-    const templateRef = this._aff.httpsCallable('messageTemplateAPI');
-    return templateRef({
+    const payload = {
       action: action,
       channelId: data.channelId,
       template: data,
-    });
+    }
+    const templateRef = this._aff.httpsCallable('messageTemplateAPI');
+
+    return templateRef(payload);
   }
 
   private statusCallFunction(data: MessageStatusReq) {
@@ -94,7 +96,10 @@ export class MessageTemplatesService {
     return this._messageTemplateStore$$.get();
   }
 
-  createTemplateMeta(payload: TemplateMessage){
+  createTemplateMeta(payload: any){
+    payload.content.header.examples = payload.headerExamples;
+    payload.content.body.examples = payload.bodyExamples;
+
     return this.templateCallFunction('create', payload );
   }
 

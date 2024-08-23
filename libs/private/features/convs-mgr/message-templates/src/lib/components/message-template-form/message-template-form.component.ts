@@ -311,12 +311,12 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
       {
         if (!response.success) {
           this.isSaving = false;
-          this._snackbar.showError(response);
+          this._snackbar.showError(response.message);
         }
 
         this.templateForm.value.externalId = response.data.id;
 
-        const templateId = `${this.templateForm.value.name}${this.templateForm.value.language}`;
+        const templateId = `${this.templateForm.value.name}_${this.templateForm.value.language}`;
 
         this._sbS.sink = this._templateMessagesService
           .addMessageTemplate(this.templateForm.value, templateId)
