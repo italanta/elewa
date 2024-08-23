@@ -22,7 +22,6 @@ export class MessageTemplatesService {
     private _aff:  AngularFireFunctions, 
     private _messageTemplateStore$$: MessageTemplateStore,
     private _channelsServ$: CommunicationChannelService,
-    private route:ActivatedRoute
   ) {}
 
   private templateCallFunction(action: string, data: TemplateMessage) {
