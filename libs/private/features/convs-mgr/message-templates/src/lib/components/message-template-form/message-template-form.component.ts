@@ -21,6 +21,7 @@ import { categoryOptions, languageOptions } from '../../utils/constants';
 import { HeaderVariablesSampleSectionComponent } from '../header-variables-sample-section/header-variables-sample-section.component';
 import { BodyVariablesSampleSectionComponent } from '../body-variables-sample-section copy/body-variables-sample-section.component';
 import { TemplateMessage, TemplateVariableExample } from '@app/model/convs-mgr/conversations/messages';
+import { CleanPayload } from '../../utils/clean-form-payload.util';
 @Component({
   selector: 'app-message-template-form',
   templateUrl: './message-template-form.component.html',
@@ -83,6 +84,8 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
   ngOnInit()
   {
     this.templateForm = createTemplateForm(this.fb);
+
+    this.initPage();
 
     // Set listeners for value changes on body and header
     //  We use this to detect and update the variables added
@@ -276,12 +279,14 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
   {
     this.isSaving = true;
 
+    const payload = CleanPayload(this.templateForm.value);
+
     this._sbS.sink = this._templateMessagesService
-      .updateTemplateMeta(this.templateForm.value)
+      .updateTemplateMeta(payload)
       .subscribe((response) => {
         if (response.success) {
           this._sbS.sink = this._templateMessagesService
-            .updateTemplate(this.templateForm.value)
+            .updateTemplate(payload)
             .subscribe(() =>
             {
               this._snackbar.showSuccess('Template updated successfully');
@@ -304,9 +309,11 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
       return;
     }
 
+    const payload = CleanPayload(this.templateForm.value);
+
     this.isSaving = true;
     this._sbS.sink = this._templateMessagesService
-      .createTemplateMeta(this.templateForm.value)
+      .createTemplateMeta(payload)
       .subscribe((response) =>
       {
         if (!response.success) {
@@ -319,7 +326,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
         const templateId = `${this.templateForm.value.name}_${this.templateForm.value.language}`;
 
         this._sbS.sink = this._templateMessagesService
-          .addMessageTemplate(this.templateForm.value, templateId)
+          .addMessageTemplate(payload, templateId)
           .subscribe(() =>
           {
             this.isSaving = false;

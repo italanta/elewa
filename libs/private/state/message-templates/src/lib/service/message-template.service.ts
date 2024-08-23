@@ -97,9 +97,6 @@ export class MessageTemplatesService {
   }
 
   createTemplateMeta(payload: any){
-    payload.content.header.examples = payload.headerExamples;
-    payload.content.body.examples = payload.bodyExamples;
-
     return this.templateCallFunction('create', payload );
   }
 
