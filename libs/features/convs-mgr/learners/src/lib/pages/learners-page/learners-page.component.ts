@@ -15,7 +15,7 @@ import { Classroom } from '@app/model/convs-mgr/classroom';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
-import { MessageTemplatesService, ScheduleMessageService } from '@app/private/state/message-templates';
+import { ActiveMessageTemplateStore, MessageTemplatesService, ScheduleMessageService } from '@app/private/state/message-templates';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
@@ -87,7 +87,8 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     private _dialog: MatDialog,
     private _messageService: MessageTemplatesService,
     private _scheduleMessageService: ScheduleMessageService,
-    private _route$$: Router
+    private _route$$: Router,
+    private _activeTemplate$: ActiveMessageTemplateStore,
   ) {}
 
   ngOnInit() {
@@ -96,6 +97,13 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this.getAllCourses();
     this.getAllPlatforms();
     this.getScheduleOptions();
+    this.getTemplate();
+  }
+  
+  getTemplate() {
+   this._sBs.sink = this._activeTemplate$.get().subscribe((template)=> {
+    this.templateMessage = template;
+    })
   }
 
   getLearners() {
@@ -128,10 +136,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   }
 
   getStatus(status: number) {
-    return (
-      EnrolledEndUserStatus[status].charAt(0).toUpperCase() +
-      EnrolledEndUserStatus[status].slice(1)
-    );
+    return "Active";
   }
 
   getIcon(status: number) {
@@ -246,7 +251,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   getScheduleOptions(){
 
     this._scheduleMessageService.optionsSet$.subscribe((options)=> {
-      if(options || options.template) {
+      if(options && options.template) {
         this.scheduleMessageOptions = options;
         // TODO: Remove this redundancy
         this.templateMessage = options.template;
@@ -258,9 +263,10 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   sendMessageButtonClicked() {
     const selectedUsers = this.selection.selected;
-    const action = this.scheduleMessageOptions.action
-    if(this.scheduleMessageOptions && this.templateMessage) {
+    if(this.templateMessage) {
 
+      const action = this.scheduleMessageOptions ? this.scheduleMessageOptions.action : 'direct';
+  
       const basePayload = this._getBasePayload(this.templateMessage, selectedUsers);
 
       switch (action) {
@@ -268,6 +274,9 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
           this.scheduleMessage(basePayload);
           break;
         case 'inactivity':
+          this.scheduleInactivity(basePayload);
+          break;
+        case 'direct':
           this.scheduleInactivity(basePayload);
           break;
         default:
