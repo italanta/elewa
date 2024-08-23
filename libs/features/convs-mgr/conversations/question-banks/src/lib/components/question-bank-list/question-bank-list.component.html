@@ -33,11 +33,11 @@
       </div>
     </div>
     <div class="question-content">
-      <app-question-bank-question-form 
+      <app-assessment-question-form
         *ngIf="isAddingQuestion" 
-        [questionFormGroup]="questionsFormGroup"
+        [questionBankForm]="questionsFormGroup"
         (questionActionCompleted)="onQuestionActionCompleted()">
-      </app-question-bank-question-form>
+      </app-assessment-question-form>
     </div>
 
     <div class="displayedQuestions" *ngFor="let question of filteredQuestions">

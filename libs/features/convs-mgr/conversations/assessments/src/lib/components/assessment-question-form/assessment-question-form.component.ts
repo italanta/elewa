@@ -3,15 +3,16 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
-
 import { Observable, tap } from 'rxjs';
 
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
+import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
 import { AssessmentMediaUploadComponent } from '../assessment-media-upload/assessment-media-upload.component';
 import { getMediaType } from '../../utils/check-media-type.util'
+import { FeatureViewMode } from '../../model/feature-type.enum';
 
 
 @Component({
@@ -26,15 +27,13 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   @Input() questions: AssessmentQuestion[];
   @Input() questionNo: number;
   @Input() isLastQuestion: boolean;
-
   @Input() index: number;
-
   @Input() assessmentMode: number;
-  
   @Input() assessmentFormGroup: FormGroup;
   @Input() questionFormGroupName: number | string;
   @Input() activeCard$: Observable<number>;
-
+  @Input() featureMode: FeatureViewMode;
+  @Input() questionBankForm: FormGroup;
   @Output() addNewQuestion = new EventEmitter<FormGroup>();
   @Output() activeQuestionChanged = new EventEmitter();
   
@@ -43,12 +42,17 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   uploadType: 'image' | 'video';
   addMedia: true;
   isImage: boolean
+  /** Form state when user clicks add */
+  isAddingQuestion = true;
+  addClicked = false
+  @Output() questionActionCompleted = new EventEmitter<void>();
 
   @ViewChild('videoPlayer') video: ElementRef<HTMLVideoElement>;
 
   constructor(
     private _assessmentForm: AssessmentFormService,
     private dialog: MatDialog,
+    private questionBankService: AssessmentQuestionBankStore,
   ) {}
 
   feedBackConditions = [
@@ -57,28 +61,35 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     FeedbackCondition[3],
   ];
 
+  private _sBS = new SubSink()
   ngOnInit(): void {
-    this.activeCard$.pipe(tap((activeId) => {
-      this.activeCard = activeId;
-    })).subscribe();
+    if(this.featureMode){
+      this.activeCard$.pipe(tap((activeId) => {
+        this.activeCard = activeId;
+      })).subscribe();
+    }
     this._checkMediaOnLoad();
   }
 
   get questionsList() {
+    if(this.featureMode !== FeatureViewMode.AssessmentQuestion) return;
     return this.assessmentFormGroup.get('questions') as FormArray;
   }
 
   get questionFormGroup(){
+    if(!this.questionsList)return
     return this.questionsList.controls[this.questionFormGroupName as number] as FormGroup;
   }
 
   get mediaPath(){
+    if(!this.questionFormGroup)return
     return this.questionFormGroup.get('mediaPath') as FormControl;
   }
 
   /** delete Question */
   deleteQuestion() {
-    const question = this.questionsList.at(this.index);
+    if(this.questionsList){
+      const question = this.questionsList.at(this.index);
     const prevQuestion = this.questionsList.at(this.index - 1);
     const nextQuestion = this.questionsList.at(this.index + 1);
 
@@ -89,19 +100,21 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     if (nextQuestion) {
       nextQuestion.patchValue({ prevQuestionId : question.value.prevQuestionId })
     }
-
     this.questionsList.removeAt(this.index);
+    }  
   }
 
   /** duplicate question */
   duplicateQuestion() {
-    const prevQuestion = this.questionsList.at(this.index) as FormGroup;
+    if(this.questionsList){
+      const prevQuestion = this.questionsList.at(this.index) as FormGroup;
 
     const copiedQstn = this._assessmentForm.createQuestionForm(prevQuestion.value);
   
     copiedQstn.patchValue({ nextQuestionId : null });
   
     this.addNewQuestion.emit(copiedQstn);
+    }
   }
 
   /** Uploading an image or video and setting hte form control value to the value of the file */
@@ -122,14 +135,14 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
       if (file) {
         this.mediaSrc =file
         this.uploadType = type;
-        this.mediaPath.setValue(file);
+        this.mediaPath?.setValue(file);
       }
     });
   }
   /** Check if media is present when component first loads */
   private _checkMediaOnLoad()
   {
-    const mediaPath = this.mediaPath.value as string | undefined;
+    const mediaPath = this.mediaPath?.value as string | undefined;
     if (mediaPath) {
       this._updateMediaState(mediaPath);
     } else {
@@ -153,6 +166,29 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  /** Update or create a new question depending on whether a question is new*/
+  addQuestion()
+  {
+    this.addClicked = true
+    const questionToAdd = this.questionBankForm.value as AssessmentQuestion;
+    if(questionToAdd.id !== ''){
+      this._sBS.sink = this.questionBankService.update(questionToAdd ).subscribe(()=> {
+        this.questionActionCompleted.emit(); 
+        this.addClicked = false
+      })
+    }else{
+      this._sBS.sink = this.questionBankService.add(questionToAdd ).subscribe(()=> {
+        this.questionActionCompleted.emit(); 
+        this.addClicked = false
+      })
+    } 
+  }
+
+  discardQuestion()
+  {
+    this.questionActionCompleted.emit(); 
+    this.dialog.closeAll()
+  }
   ngOnDestroy() {
     this._sBs.unsubscribe();
   }
