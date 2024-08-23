@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
-import { ActivatedRoute } from '@angular/router';
 
 import { Observable, first, of, switchMap, throwError } from 'rxjs';
 
@@ -91,19 +90,6 @@ export class MessageTemplatesService {
   }
   getTemplateById(templateId: string) {
     return this._messageTemplateStore$$.getOne(templateId);
-  }
-
-  getTemplateFromParams() {
-    return this.route.paramMap.pipe(switchMap((paramMap)=> {
-      const templateId = paramMap.get('templateId');
-      
-      if(templateId) {
-        return this.getTemplateById(templateId)
-      } else {
-        return of(null)
-      }
-    }))
-  
   }
 
   getMessageTemplates$() {
