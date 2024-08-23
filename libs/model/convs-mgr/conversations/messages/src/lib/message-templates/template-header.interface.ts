@@ -49,7 +49,7 @@ export enum TemplateHeaderTypes {
   LOCATION = 'LOCATION'
 }
 
-export const isMediaHeader = (templateHeaderTypes: TemplateHeaderTypes) => {
+export const isMediaHeader = (templateHeaderTypes: string) => {
   switch (templateHeaderTypes) {
     case TemplateHeaderTypes.IMAGE:
       return true;

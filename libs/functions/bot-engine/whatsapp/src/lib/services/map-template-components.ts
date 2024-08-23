@@ -1,5 +1,14 @@
 import { isMediaHeader, TemplateBody, TemplateHeader, TemplateHeaderTypes, TemplateMessage, TextHeader } from "@app/model/convs-mgr/conversations/messages";
-import { WhatsappNewTemplateComponent, WhatsappBodyTemplateComponent, WhatsappTemplateComponentTypes, WhatsappHeaderTemplateComponent, WhatsappTemplateButtons, WhatsappButtonsTemplateComponent, WhatsappTextHeaderTemplateComponent, WhatsappMediaTemplateComponent } from "@app/model/convs-mgr/functions";
+import { WhatsappNewTemplateComponent, 
+         WhatsappBodyTemplateComponent, 
+         WhatsappTemplateComponentTypes, 
+         WhatsappHeaderTemplateComponent, 
+         WhatsappTemplateButtons, 
+         WhatsappButtonsTemplateComponent, 
+         WhatsappTextHeaderTemplateComponent, 
+         WhatsappMediaTemplateComponent, 
+         WhatsappTemplateHeaderTypes } from "@app/model/convs-mgr/functions";
+
 import { HandlerTools } from "@iote/cqrs";
 
 
@@ -7,14 +16,14 @@ export function mapComponents(messageTemplate: TemplateMessage, tools: HandlerTo
 {
   const components = Object.keys(messageTemplate.content);
 
-  const filteredComponents = components.filter((com)=> messageTemplate.content[com]);
+  const filteredComponents = components.filter((com) => messageTemplate.content[com]);
 
   const templateComponents: WhatsappNewTemplateComponent[] = filteredComponents.map((comp) =>
   {
     switch (comp) {
       case "body": {
         const rawBody = messageTemplate.content[comp] as TemplateBody;
-        const bodyExamples = rawBody.examples.map((exmp)=> exmp.value);
+        const bodyExamples = rawBody.examples.map((exmp) => exmp.value);
 
         const parsedText = parseVariables(rawBody.text);
 
@@ -29,7 +38,7 @@ export function mapComponents(messageTemplate: TemplateMessage, tools: HandlerTo
               // For some reason, whatsapp requires the examples to be inside anotehr array
               //   if they are more than one
               body_text: parsedText.varCount > 1 ? [bodyExamples] : bodyExamples
-            }
+            };
           } else {
             tools.Logger.error(() => `Error parsing template body - Variable count mismatch`);
           }
@@ -47,23 +56,23 @@ export function mapComponents(messageTemplate: TemplateMessage, tools: HandlerTo
 
       case "header": {
         const rawHeader = messageTemplate.content[comp] as TemplateHeader;
-        const headerExample = rawHeader.examples.map((exmp)=> exmp.value);
+        const headerExample = rawHeader.examples.map((exmp) => exmp.value);
 
         let headerComponent: WhatsappHeaderTemplateComponent = {
-          format: rawHeader.type,
+          format: rawHeader.type as unknown as WhatsappTemplateHeaderTypes,
           type: WhatsappTemplateComponentTypes.Header,
         };
 
         headerComponent = mapHeaders(headerComponent, rawHeader);
 
-        if(headerExample) {
+        if (headerExample) {
           headerComponent = addExampleToHeader(headerComponent, headerExample[0], tools);
         }
         return headerComponent;
       }
 
       case "buttons": {
-        const rawButtons = messageTemplate.content[comp] as WhatsappTemplateButtons[];
+        const rawButtons = messageTemplate.content[comp] as unknown as WhatsappTemplateButtons[];
         const buttonsComponent: WhatsappButtonsTemplateComponent = {
           type: WhatsappTemplateComponentTypes.Buttons,
           buttons: rawButtons,
@@ -80,9 +89,10 @@ export function mapComponents(messageTemplate: TemplateMessage, tools: HandlerTo
   return templateComponents;
 }
 
-function mapHeaders(header: WhatsappHeaderTemplateComponent, template: TemplateHeader) {
+function mapHeaders(header: WhatsappHeaderTemplateComponent, template: TemplateHeader)
+{
   // TODO -- Add other header types
-  if(template.type == TemplateHeaderTypes.TEXT) {
+  if (template.type == TemplateHeaderTypes.TEXT) {
     const textTemplate = template as TextHeader;
     header.text = textTemplate.text;
   }
@@ -93,7 +103,7 @@ function addExampleToHeader(header: WhatsappHeaderTemplateComponent, headerExamp
 {
   tools.Logger.log(() => `[ManageTemplateService]._addExampleToHeader - Adding example content to header...`);
 
-  if (header.format == TemplateHeaderTypes.TEXT) {
+  if (header.format == "TEXT") {
     const textHeader = header as WhatsappTextHeaderTemplateComponent;
     const parsedText = parseVariables(textHeader.text);
 
@@ -101,7 +111,7 @@ function addExampleToHeader(header: WhatsappHeaderTemplateComponent, headerExamp
     // Because the header only allows one variable
     if (parsedText.varCount == 1) {
       textHeader.example = {
-        header_text : [headerExample]
+        header_text: [headerExample]
       };
       textHeader.text = parsedText.newText;
     }
@@ -118,12 +128,14 @@ function addExampleToHeader(header: WhatsappHeaderTemplateComponent, headerExamp
   }
 }
 
-function parseVariables(text: string): { newText: string; varCount: number } {
+function parseVariables(text: string): { newText: string; varCount: number; }
+{
   const varExp = new RegExp(/\{\{([^}]+)\}\}/g);
 
   let count = 0;
 
-  const replacedText = text.replace(varExp, (_, match) => {
+  const replacedText = text.replace(varExp, (_, match) =>
+  {
     count++;
     return `{{${count.toString()}}}`;
   });

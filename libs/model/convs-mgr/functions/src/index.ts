@@ -31,4 +31,6 @@ export * from './lib/whatsapp/message-templates/whatsapp-new-template.interface'
 export * from './lib/whatsapp/message-templates/whatsapp-template-component-type.enum';
 export * from './lib/whatsapp/message-templates/whatsapp-template-components.interface';
 export * from './lib/whatsapp/message-templates/whatsapp-template-header-component';
+export * from './lib/whatsapp/message-templates/whatsapp-template-header-types.enum';
+export * from './lib/whatsapp/message-templates/whatsapp-template-categories.enum';
 export * from './lib/base/schedule/schedule-options.interface';

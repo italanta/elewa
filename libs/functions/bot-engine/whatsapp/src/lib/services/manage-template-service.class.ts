@@ -2,7 +2,7 @@ import { HandlerTools } from "@iote/cqrs";
 
 import { HttpService } from "@app/functions/bot-engine";
 import { CommunicationChannel, WhatsAppCommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
-import { WhatsappCreateTemplate } from "@app/model/convs-mgr/functions";
+import { WhatsappCreateTemplate, WhatsappTemplateCategoryTypes } from "@app/model/convs-mgr/functions";
 import { TemplateMessage } from "@app/model/convs-mgr/conversations/messages";
 
 import { mapComponents } from "./map-template-components";
@@ -143,7 +143,7 @@ export class ManageTemplateService
       allow_category_change: true,
       name: messageTemplate.name,
       language: messageTemplate.language,
-      category: messageTemplate.category,
+      category: messageTemplate.category as unknown as WhatsappTemplateCategoryTypes,
       components: templateComponents
     };
 
