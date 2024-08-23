@@ -1,9 +1,9 @@
-import { TemplateHeaderTypes } from "../../base/message-template.interface";
 import { WhatsappNewTemplateComponent } from "./whatsapp-template-components.interface";
+import { WhatsappTemplateHeaderTypes } from "./whatsapp-template-header-types.enum";
 
 export interface WhatsappHeaderTemplateComponent extends WhatsappNewTemplateComponent 
 {
-  format: TemplateHeaderTypes;
+  format: WhatsappTemplateHeaderTypes;
 }
 
 export interface WhatsappTextHeaderTemplateComponent extends WhatsappHeaderTemplateComponent 

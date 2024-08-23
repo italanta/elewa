@@ -19,8 +19,8 @@ import { MessageTemplatesService, ScheduleMessageService } from '@app/private/st
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
-import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
-import { MessageTemplate, MessageTypes } from '@app/model/convs-mgr/functions';
+import { TemplateMessage, TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+import { MessageTypes } from '@app/model/convs-mgr/functions';
 import { Bot } from '@app/model/convs-mgr/bots';
 
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
@@ -74,7 +74,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   activeMessageId: string;
 
   scheduleMessageOptions: any;
-  templateMessage: MessageTemplate;
+  templateMessage: TemplateMessage;
 
   channel: CommunicationChannel;
 
@@ -314,7 +314,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this._route$$.navigate(['/messaging', id]);
   }
 
-  _getBasePayload(template: MessageTemplate, selectedUsers: EnrolledEndUser[]) {
+  _getBasePayload(template: TemplateMessage, selectedUsers: EnrolledEndUser[]) {
     return {
       message: {
         type: MessageTypes.TEXT,
@@ -329,7 +329,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     };
   }
   
-  sendMessageWithChannel(template: MessageTemplate, selectedUsers: EnrolledEndUser[]) {
+  sendMessageWithChannel(template: TemplateMessage, selectedUsers: EnrolledEndUser[]) {
     const channelId = template?.channelId || '';
 
     const payload = {

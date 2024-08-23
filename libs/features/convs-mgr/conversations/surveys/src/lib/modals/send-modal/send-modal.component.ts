@@ -12,11 +12,11 @@ import { Observable, combineLatest, map, of, switchMap } from 'rxjs';
 import { Classroom } from '@app/model/convs-mgr/classroom';
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
-import { MessageTemplate } from '@app/model/convs-mgr/functions';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { SurveyPublishService, SurveyService } from '@app/state/convs-mgr/conversations/surveys';
 import { StartSurveyReq } from '@app/private/model/convs-mgr/micro-apps/surveys';
 import { MessageStatusRes, MessageTemplatesService } from '@app/private/state/message-templates';
+import { TemplateMessage } from '@app/model/convs-mgr/conversations/messages';
 
 import { SnackbarService } from '../../services/snackbar.service';
 
@@ -40,8 +40,8 @@ export class SendModalComponent implements OnInit {
 
   templateForm: FormGroup;
 
-  messageTemplates: MessageTemplate[];
-  messageTemplates$: Observable<MessageTemplate[]>;
+  messageTemplates: TemplateMessage[];
+  messageTemplates$: Observable<TemplateMessage[]>;
   templateStatus$: Observable<MessageStatusRes>;
 
   channelId: string;
