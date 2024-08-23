@@ -1,6 +1,6 @@
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { TemplateComponents, TemplateMessage, TemplateVariableExample, TextHeader } from '@app/model/convs-mgr/conversations/messages';
+import { TemplateCategoryTypes, TemplateComponents, TemplateMessage, TemplateVariableExample, TextHeader } from '@app/model/convs-mgr/conversations/messages';
 
 import { customTextValidator } from '../utils/validator';
 
@@ -8,9 +8,9 @@ export function createTemplateForm(fb: FormBuilder, template?: TemplateMessage):
 {
   return fb.group({
     name: [template?.name ?? '', [Validators.required, Validators.pattern(/^[a-z0-9_-]{1,512}$/), customTextValidator]],
-    category: [template?.category ?? '', Validators.required],
+    category: [template?.category ?? TemplateCategoryTypes.Marketing, Validators.required],
     channelId: [template?.channelId ?? '', Validators.required],
-    language: [template?.language ?? '', Validators.required],
+    language: [template?.language ?? 'en_US', Validators.required],
     id: [template?.id ?? ''],
     externalId: [template?.externalId ?? ''],
     headerExamples: loadExamples(fb, 'header', template),
