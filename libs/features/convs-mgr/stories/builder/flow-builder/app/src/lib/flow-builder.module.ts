@@ -19,23 +19,19 @@ import { ToastModule } from '@app/elements/layout/toast';
 import { BlocksLibraryModule } from '@app/features/convs-mgr/stories/builder/blocks/library/main';
 import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/builder/blocks/library/anchor-block';
 import { BuilderNavbarModule } from '@app/features/convs-mgr/stories/builder/nav';
-
 import { FlowBuilderStateModule } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 
 import { FlowBuilderPageComponent } from './pages/story-editor/flow-builder.page';
-
 import { FlowEditorComponent } from './components/flow-editor/flow-editor.component';
 import { FlowLibraryComponent } from './components/flow-library/flow-library.component';
 import { FlowLibraryItemComponent } from './components/flow-library-item/flow-library-item.component';
 import { FlowPageSelectorComponent } from './components/page-selector/page-selector.component';
-
 import { FlowPreviewComponent } from './components/flow-preview/flow-preview.component';
-
-import { FlowBuilderRouterModule } from './flow-builder.router.module';
-import { FlowBuilderStateProvider } from './providers/flow-buiilder-state.provider';
 import { FlowTypeTextComponent } from './components/flow-type-text/flow-type-text.component';
 import { FlowTypeInputComponent } from './components/flow-type-input/flow-type-input.component';
 import { FlowDatepickInputComponent } from './components/flow-datepick-input/flow-datepick-input.component';
+import { FlowBuilderRouterModule } from './flow-builder.router.module';
+
 
 @NgModule({
   imports: [
@@ -73,6 +69,5 @@ import { FlowDatepickInputComponent } from './components/flow-datepick-input/flo
     FlowDatepickInputComponent,
   ],
 
-  providers: [FlowBuilderStateProvider],
 })
 export class FlowBuilderModule {}

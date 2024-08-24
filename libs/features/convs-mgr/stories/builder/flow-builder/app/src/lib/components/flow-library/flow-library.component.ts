@@ -2,7 +2,7 @@ import { SubSink } from 'subsink';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FLOW_CONTROLS, FlowControl, GROUP_FLOW_CONTROL_GROUPS } from '../../providers/flow-controls.const';
-import { FlowBuilderStateProvider } from '../../providers/flow-buiilder-state.provider';
+import { FlowBuilderStateProvider } from '@app/state/convs-mgr/wflows';
 
 @Component({
   selector: 'app-flow-library',

@@ -2,11 +2,10 @@ import { Component, OnInit, OnDestroy, ViewContainerRef, ViewChild } from '@angu
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 import { SubSink } from 'subsink';
+import { ChangeTrackerService, FlowBuilderStateProvider } from '@app/state/convs-mgr/wflows';
 
 import { FlowControl } from '../../providers/flow-controls.const';
-import { FlowBuilderStateProvider } from '../../providers/flow-buiilder-state.provider';
 import { EditorComponentFactory } from '../../services/editor-component-factory.service';
-import { ChangeTrackerService } from '../../providers/track-changes.service';
 
 
 @Component({

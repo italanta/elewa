@@ -1,8 +1,8 @@
 import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges, ViewContainerRef } from '@angular/core';
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
-import { ChangeTrackerService } from '../../providers/track-changes.service';
+import { ChangeTrackerService } from '../../../../../../../../../../state/convs-mgr/wflows/main/src/lib/services/track-changes.service';
 import { SubSink } from 'subsink';
-import { FlowBuilderStateProvider } from '../../providers/flow-buiilder-state.provider';
+import { FlowBuilderStateProvider } from '../../../../../../../../../../state/convs-mgr/wflows/main/src/lib/providers/flow-buiilder-state.provider';
 
 @Component({
   selector: 'lib-flow-header-text',
