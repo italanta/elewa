@@ -1,7 +1,8 @@
 .table-filters {
     width: 100%;
     display: flex;
-    margin-top: 30px;
+    align-items: center;
+    margin: 30px 0;
     & * {
       border-radius: 0.5rem;
     }
@@ -9,7 +10,6 @@
     .search {
       height: 5px;
       width: 23%;
-      margin-right: auto;
       background-color: var(--convs-mgr-color-primary-white);
       border-radius: 3rem;
       display: flex;
@@ -89,37 +89,39 @@
         color: black;
       }
     }
+
+    .buttons{
+      margin-left: auto;
+      padding-left: auto;
+      align-self: flex-end;
+    }
+
+    .btn {
+      height: 2.813rem;
+      outline: none;
+      border: none;
+      padding: 0.875rem;
+      border-radius: 1.25rem;
+      margin-left: 1rem;
+      cursor: pointer;
+  
+    }
+
+    .delete-users {
+      border: 1px #1F7A8C solid;
+      color: #1F7A8C;
+    }
+
+    .move-users, .add-user {
+      border: none;
+      background-color: #1F7A8C;
+      color: white;
+    }
   }
 
 .container{
     display: flex;
     flex-direction: column
-}
-
-.btn {
-    height: 2.813rem;
-    outline: none;
-    border: none;
-    padding: 0.875rem;
-    border-radius: 1.25rem;
-    margin-left: 1rem;
-    cursor: pointer;
-
-}
-.delete-users {
-    border: 1px #1F7A8C solid;
-    color: #1F7A8C;
-}
-
-.move-users, .add-user {
-    border: none;
-    background-color: #1F7A8C;
-    color: white;
-}
-
-.buttons{
-    padding-left: auto;
-    align-self: flex-end;
 }
 
 .search-container {
