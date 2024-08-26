@@ -70,7 +70,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'assessment-brick', type:StoryBlockTypes.Assessment, message: 'Assessment', blockIcon:this.getBlockIcon(StoryBlockTypes.Assessment),  blockCategory: 'bricks' } as AssessmentBrick,
     { id: 'conditional-block', type:StoryBlockTypes.Conditional, message: 'Conditional', blockIcon:this.getBlockIcon(StoryBlockTypes.Conditional), blockCategory: 'operation-block' } as ConditionalBlock,
     // { id: 'end-anchor-block', type:StoryBlockTypes.EndStoryAnchorBlock, message: 'End Story', blockIcon:this.getBlockIcon(StoryBlockTypes.EndStoryAnchorBlock), blockCategory: 'end-block'} as EndStoryAnchorBlock
-    { id: 'CMI5-block', type:StoryBlockTypes.CMI5Block, message: 'CMI5 Block', blockIcon:this.getBlockIcon(StoryBlockTypes.CMI5Block), blockCategory: 'bricks' } as CMI5Block,
+    // { id: 'CMI5-block', type:StoryBlockTypes.CMI5Block, message: 'CMI5 Block', blockIcon:this.getBlockIcon(StoryBlockTypes.CMI5Block), blockCategory: 'bricks' } as CMI5Block,
     { id: 'micro-app', type: StoryBlockTypes.MicroAppBlock, message: 'General', blockIcon: this. getBlockIcon(StoryBlockTypes.MicroAppBlock), blockCategory: 'Micro-apps'} as MicroAppBlock,
     { id: 'assessment-micro-app', type: StoryBlockTypes.AssessmentMicroAppBlock, message: 'Assessments', blockIcon: this. getBlockIcon(StoryBlockTypes.AssessmentMicroAppBlock), blockCategory: 'Micro-apps'} as AssessmentMicroAppBlock,
   ];
