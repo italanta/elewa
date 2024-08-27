@@ -8,7 +8,7 @@
           <img [src]="user.photoUrl" alt="" (click)="newProfileImg()">
         </div>
         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start" *ngIf="showButtons" class="mainButtons">
-          <button>{{ 'PROFILE-DETAILS.BUTTON.UPLOAD' | transloco }}</button>
+          <button (click)="newProfileImg()">{{ 'PROFILE-DETAILS.BUTTON.UPLOAD' | transloco }}</button>
           <button>{{ 'PROFILE-DETAILS.BUTTON.REMOVE' | transloco }}</button>
         </div>
       </div>
