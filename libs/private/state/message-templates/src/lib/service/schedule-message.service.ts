@@ -25,7 +25,7 @@ export class ScheduleMessageService {
   }
 
   addScheduledMesssage(message: ScheduledMessage) {
-    return this._scheduledMessageStore$$.add(message);
+    return this._scheduledMessageStore$$.add(message, message.id);
   }
   updateScheduledMesssage(message: ScheduledMessage) {
     return this._scheduledMessageStore$$.update(message);

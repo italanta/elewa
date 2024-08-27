@@ -13,6 +13,7 @@ export function CreateTemplateMessagePayload (options: ScheduleOptions, channel:
     plaform: channel.type,
     orgId: channel.orgId,
     enroledEndUsers: inactiveUsers,
+    scheduleId: options.id,
     dispatchTime: new Date(options.dispatchTime)
   };
 }
@@ -25,6 +26,7 @@ export function CreateSurveyPayload (options: ScheduleOptions,channel: Communica
     surveyId: options.id,
     messageTemplateId: msg.id,
     channelId: channel.id,
+    scheduleId: options.id,
     orgId: channel.orgId,
   };
 }

@@ -16,11 +16,43 @@ export class SendMultipleMessagesHandler extends FunctionHandler<SendMultipleMes
   async execute(cmd: SendMultipleMessagesReq, context: FunctionContext, tools: HandlerTools) 
   {
     try {
+      tools.Logger.log(()=> `[SendMultipleMessagesHandler].execute - Received request: ${JSON.stringify(cmd)}`);
       
-      return this._sendMessages(cmd, tools);
+      const response = await this._sendMessages(cmd, tools);
+      
+      if(cmd.scheduleId && response) {
+        const scheduleRepo$ = tools.getRepository<ScheduledMessage>(`orgs/${cmd.orgId}/scheduled-messages`);
+        
+        const executionsRepo$ = tools.getRepository<any>(`orgs/${cmd.orgId}/scheduled-messages/${cmd.scheduleId}/executions`);
+        
+        const schedule = await scheduleRepo$.getDocumentById(cmd.scheduleId);
+        
+        if(!schedule) {
+          tools.Logger.log(()=> `[SendMultipleMessagesHandler].execute - Schedule not found: ${JSON.stringify(cmd.scheduleId)}`);
+          throw `Schedule not found: ${JSON.stringify(cmd.scheduleId)}`
+        }
+        
+        schedule.successful = response?.usersSent?.map((user)=> user.id);
+        schedule.failed = response?.usersFailed?.map((user)=> user.id);
+        
+        const executionEntry = {
+          id: Date.now().toString(),
+          successful: schedule.successful,
+          failed: schedule.failed,
+          dateExecuted: new Date()
+        }
+        
+        await executionsRepo$.create(executionEntry, executionEntry.id);
+        
+        await scheduleRepo$.update(schedule);
+        tools.Logger.log(()=> `[SendMultipleMessagesHandler].execute - Update schedule successful`);
+      }
+      
+      tools.Logger.log(()=> `[SendMultipleMessagesHandler].execute - Send messages complete: ${JSON.stringify(response)}`);
+
     } catch (error) {
       tools.Logger.error(()=> `[SendMultipleMessagesHandler].execute - Encountered error: ${JSON.stringify(error)}`);
-
+      
       return { attempted: 0, error} as SendMultipleMessagesResp
     }
   }

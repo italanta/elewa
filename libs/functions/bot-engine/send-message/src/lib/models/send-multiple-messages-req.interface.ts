@@ -19,4 +19,6 @@ export interface SendMultipleMessagesReq extends IObject
   enroledEndUsers: EnrolledEndUser[];
 
   orgId: string;
+
+  scheduleId?: string;
 }
