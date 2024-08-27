@@ -99,12 +99,6 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this.getAllPlatforms();
     this.getScheduleOptions();
   }
-  
-  getTemplate() {
-   this._sBs.sink = this._activeTemplate$.get().subscribe((template)=> {
-    this.templateMessage = template;
-    })
-  }
 
   getLearners() {
     const allLearners$ = this._eLearners.getAllLearners$();
@@ -262,6 +256,12 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
       }
     })
   }
+
+  getTemplate() {
+    this._sBs.sink = this._activeTemplate$.get().subscribe((template)=> {
+     this.templateMessage = template;
+     })
+   }
 
   sendMessageButtonClicked() {
     if(this.scheduleMessageOptions) {
