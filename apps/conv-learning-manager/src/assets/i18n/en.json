@@ -995,7 +995,9 @@
     "DELETE-TEXT":"You will receive an email to confirm your decision. This will not end your subscription or payments and you will continue to be charged.You can cancel your subscription, or switch payment methods to keep the team active",
     "FETCH-USER-DATA":"Fetching user data",
     "BUTTON":{
-      "PASSWORD-RESET":"Get Password Reset Link"
+      "PASSWORD-RESET":"Get Password Reset Link",
+      "UPLOAD":"Upload",
+      "REMOVE":"Remove"
     }
   },    
 

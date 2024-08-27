@@ -32,6 +32,7 @@ export class ProfileDetailsComponent implements OnInit {
   userDetailsLoaded: boolean;
 
   editProfile: boolean = false;
+  showButtons: boolean =  false;
 
   readonly CAN_PERFOM_ADMIN_ACTIONS = AppClaimDomains.Admin;
 
@@ -70,6 +71,7 @@ export class ProfileDetailsComponent implements OnInit {
 
   editUserProfile() {
     this.editProfile = !this.editProfile;
+    this.showButtons = !this.showButtons;
     if (this.editProfile) {
       this.userFormGroup.enable();
     } else {
