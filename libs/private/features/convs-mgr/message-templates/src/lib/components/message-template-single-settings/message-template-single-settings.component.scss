@@ -175,3 +175,18 @@
   opacity: .5;
 }
 
+.schedule-status {
+  padding: 0.6rem 0.5rem;
+  display: flex;
+  align-self: baseline;
+  font-weight: 600;
+}
+
+.schedule-status > .warning {
+  color: var(--convs-mgr-warning-color);
+}
+
+.schedule-status > .ready  {
+  color: var(--convs-mgr-button-color);
+}
+
