@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy, ViewContainerRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewContainerRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
+import { v4 as uuidv4 } from 'uuid';
 import { SubSink } from 'subsink';
 import { ChangeTrackerService, FlowBuilderStateProvider } from '@app/state/convs-mgr/wflows';
 
@@ -23,7 +24,8 @@ export class FlowEditorComponent implements OnInit, OnDestroy
 
   constructor( private flowStateProvider: FlowBuilderStateProvider,
                private editorComponentFactory: EditorComponentFactory,
-               private trackerService: ChangeTrackerService
+               private trackerService: ChangeTrackerService,
+               private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -36,27 +38,29 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   }
   
   /** Function handling drag and drop functionality for a component */
-  drop(event: CdkDragDrop<FlowControl[]>) 
-  {
-    const draggedData = event.item.data; // Access the dragged data directly
+  drop(event: CdkDragDrop<FlowControl[]>) {
+    const draggedData = event.item.data;
 
     if (draggedData) {
       // Push the dragged item to the flowEls array
       this.flowEls.push(draggedData);
-
-      // Find the index of the item being dropped
-      const index = this.flowEls.findIndex(item => item.id === draggedData.id);
-
+      
+      const index = this.flowEls.length - 1;
+      
       if (index !== -1) {
-        // Set the 'dropped' flag for the item at the found index
-        this.flowEls[index].dropped = true;
+        const elem = this.flowEls[index];
 
-        //Transfer the item between arrays 
+        // Assign a unique ID using UUID
+        elem.id = uuidv4(); 
+        elem.dropped = true;
+
+        // Handle array item transfers
         if (event.previousContainer === event.container) {
           moveItemInArray(this.flowEls, index, event.currentIndex);
         }
-        // Update the FlowBuilderStateProvider with the modified list
-      this.flowStateProvider.setControls(this.flowEls);
+
+        this.cdr.detectChanges();
+        this.flowStateProvider.setControls(this.flowEls); // Update the state provider
       }
     }
   }

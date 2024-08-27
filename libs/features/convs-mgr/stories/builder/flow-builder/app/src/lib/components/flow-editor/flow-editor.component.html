@@ -11,15 +11,15 @@
         <!-- Target for custom elements-->
         <div id="flow-container-drop" 
           cdkDropList 
-          #editorDropList="cdkDropList" 
           [cdkDropListData]="flowEls" 
           [cdkDropListConnectedTo]="['libraryDropList']" 
           (cdkDropListDropped)="drop($event)">
           @for(item of flowEls; track item)
           {
-            <app-flow-library-item [control]="item" (click)="funcClick(item, item.id)">  </app-flow-library-item>
+            <app-flow-library-item [control]="item" (click)="funcClick(item, item.id)" cdkDrag>  </app-flow-library-item>
           }
         </div>
+
         <!-- Fixed elements such as footer -->
       </div>
     </div>
