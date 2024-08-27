@@ -17,10 +17,10 @@ export class SetInactivityHandler extends FunctionHandler<SetInacivityReq, any>
     tools.Logger.log(() => `[SetInactivityHandler].execute - Request: ${JSON.stringify(cmd)}`);
     const schedulerService = new CloudSchedulerService(tools);
 
-    const minTime = 23;
+    // const minTime = 23;
 
     // Ensures the minimum time to repeat is 23 hours
-    const recurringTime = Math.max(minTime, cmd.inactivityTime);
+    // const recurringTime = Math.max(minTime, cmd.inactivityTime);
 
     try {
       const channelService = new ChannelDataService(tools);
@@ -30,7 +30,7 @@ export class SetInactivityHandler extends FunctionHandler<SetInacivityReq, any>
       const scheduleOptions: ScheduleOptions = {
         ...cmd,
         dispatchTime: new Date(),
-        frequency: `every ${recurringTime} hours`
+        frequency: `every 24 hours`
       }
 
       const schedulePayload = {
