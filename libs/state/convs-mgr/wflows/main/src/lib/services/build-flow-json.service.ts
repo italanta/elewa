@@ -1,117 +1,87 @@
 import { Injectable } from "@angular/core";
-import { FlowPageLayoutElementTypesV31, FlowPageLayoutElementV31, FlowPageTextSizesV31, FlowPageTextV31 } from "@app/model/convs-mgr/stories/flows";
+
 import { FlowControl, FlowControlType } from "@app/features/convs-mgr/stories/builder/flow-builder/app";
+import { FlowDynamicData, FlowpageForm, FlowPageLayoutElementTypesV31, FlowPageLayoutElementV31 } from "@app/model/convs-mgr/stories/flows";
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class FlowJsonBuilderService {
-
   constructor() {}
 
   buildJson(flowControls: FlowControl[]): any {
     const metaJson = flowControls.map(control => this.convertToMetaElement(control));
-
     return { elements: metaJson };
   }
 
-  /** Converting FlowControls to Meta defined types
-   *  This is depended on the type prop of a FlowControl
-   */
+  /** Converts FlowControls to Meta-defined elements */
   private convertToMetaElement(control: FlowControl): FlowPageLayoutElementV31 {
     switch (control.type) {
-      // Text inputs i.e elements that build a body
-      case FlowControlType.Header:
-      case FlowControlType.LightHeader:
-      case FlowControlType.Text:
-      case FlowControlType.Caption:
-        return this.buildTextElement(control);
-      case FlowControlType.Image:
-        return this.buildImageElement(control);
-      case FlowControlType.Link:
-        return this.buildLinkElement(control);
-        // Inputs ie elements that get data from a user.
       case FlowControlType.TextInput:
       case FlowControlType.TextArea:
       case FlowControlType.Select:
       case FlowControlType.Radio:
       case FlowControlType.OptIn:
       case FlowControlType.Datepick:
-          return this.buildInputs(control);  
+        return this.buildForm(control);
       default:
         throw new Error(`Unsupported element type: ${control.type}`);
     }
   }
 
-  /** Build a FlowPageTextV31 component */
-  private buildTextElement(textElement: FlowControl): FlowPageTextV31 {
+  /** Builds form element with children (controls) */
+  private buildForm(control: FlowControl): FlowpageForm {
     return {
-      type: FlowPageLayoutElementTypesV31.TEXT,
-      text: textElement.value,
-      size: this.mapTextSize(textElement.type),
+      type: FlowPageLayoutElementTypesV31.FORM,
+      children: this.buildFormControls(control),
+      "init-values": this.getInitialValues(control),
+      "error-messages": this.getErrorMessages(control)
     };
   }
 
-  /** Build a FlowImage component */
-  private buildImageElement(imageElement: FlowControl): any {
-    return {
-      type: FlowPageLayoutElementTypesV31.IMAGE,
-    };
-  }
-
-  /** Build a Link component */
-  private buildLinkElement(linkElement: FlowControl): any {
-    return {
-      type: FlowPageLayoutElementTypesV31.LINK,
-    };
-  }
-
-  /** Maps FlowControlType inputs to FlowPageLayoutElementV31 */
-  private buildInputs(flowInputs: FlowControl): any {
-    switch (flowInputs.type) {
+  /** Generates form controls based on FlowControl type */
+  private buildFormControls(control: FlowControl): FlowPageLayoutElementV31[] {
+    switch (control.type) {
       case FlowControlType.TextInput:
-        return {
+        return [{
           type: FlowPageLayoutElementTypesV31.TEXT_INPUT,
-        };
+        }];
       case FlowControlType.TextArea:
-        return {
+        return [{
           type: FlowPageLayoutElementTypesV31.TEXT_AREA_INPUT,
-        };
+        }];
       case FlowControlType.Select:
-        return {
+        return [{
           type: FlowPageLayoutElementTypesV31.OUTLINE_OPTIONS,
-        };
+        }];
       case FlowControlType.Radio:
-        return {
+        return [{
           type: FlowPageLayoutElementTypesV31.INLINE_RADIO_BUTTONS,
-        };
+        }];
       case FlowControlType.OptIn:
-        return {
-          type: FlowPageLayoutElementTypesV31.INLINE_CHECKBOX_INPUT,
-        };
+        return [{
+          type: FlowPageLayoutElementTypesV31.OPT_IN,
+        }];
       case FlowControlType.Datepick:
-        return {
+        return [{
           type: FlowPageLayoutElementTypesV31.DATE_PICKER_INPUT,
-        };
+        }];
       default:
-        throw new Error(`Unsupported input type: ${flowInputs.type}`);
+        throw new Error(`Unsupported input type: ${control.type}`);
     }
   }
 
-  /** Defining text sizes for text controls */
-  private mapTextSize(type: FlowControlType): FlowPageTextSizesV31 {
-    switch (type) {
-      case FlowControlType.Header:
-        return FlowPageTextSizesV31.Header;
-      case FlowControlType.LightHeader:
-        return FlowPageTextSizesV31.SubHeader;
-      case FlowControlType.Text:
-        return FlowPageTextSizesV31.Body;
-      case FlowControlType.Caption:
-        return FlowPageTextSizesV31.Caption;
-      default:
-        throw new Error(`Unsupported text size: ${type}`);
-    }
+  /** Gets initial values for form inputs */
+  private getInitialValues(control: FlowControl): FlowDynamicData | undefined {
+    // Logic to extract initial values from control (if applicable)
+    return control.value || undefined;
+  }
+
+  /** Gets error messages for the form inputs */
+  private getErrorMessages(control: FlowControl): { [control: string]: string } | undefined {
+    // Logic to extract error messages (if applicable)
+    // return control.errorMessages || undefined;
+    return undefined
   }
 }

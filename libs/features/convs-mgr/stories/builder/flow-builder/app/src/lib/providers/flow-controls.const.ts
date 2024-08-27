@@ -19,7 +19,7 @@ export interface FlowControl
   /** dropped */
   dropped?: boolean
 
-  value?: any
+  value?: any | InputsData
 }
 
 export enum FlowControlType
@@ -38,6 +38,14 @@ export enum FlowControlType
   OptIn = 'checkbox',
   Datepick = 'datepick'
 }
+
+export interface InputsData 
+{
+  name: string;
+  dataSource: any[];
+  label: string;
+}
+
 
 /** List of all flow controls (wrapped into a function to avoid direct editing of the list) */
 export const FLOW_CONTROLS: () => FlowControl[] = () => [

@@ -2,38 +2,45 @@
   @switch(type) {
     <!-- Single Line Text -->
     @case (flowControlType.TextInput) {
-      <input id="{{inputId}}" type="text" class="__text" />
+      <div class=".__text flexDiv">
+        <label for=""></label>
+        <input id="{{inputId}}" type="text" class="__text" name="" />
+      </div>
     }
     @case (flowControlType.TextArea) {
-      <input id="{{inputId}}" type="textarea" class="__textArea" />
+      <div class=".__textArea flexDiv">
+        <label for=""></label>
+        <input id="{{inputId}}" type="textarea" class="__textArea" name="" />
+      </div>
     }
     @case (flowControlType.Select){
       <div class="__inputDesc">
-        <select id="{{inputId}}" type="select" class="__select">
+        <select id="{{inputId}}" type="select" class="__select"[(ngModel)]="control.value" (ngModelChange)="onInputChange($event)">
           <option></option>
         </select>
       </div>  
     }
     @case (flowControlType.Radio) {
       <div class="__inputDesc flexDiv">
-        <input id="{{inputId}}" type="radio" class="__radio" />
-        <span> Description about action goes here</span>
+        <input id="{{inputId}}" type="radio" class="__radio" [(ngModel)]="control.value" [checked]="control.value" (ngModelChange)="onInputChange($event)" />
+        <input type="text" [(ngModel)]="newOption" placeholder="New option" (ngModelChange)="onInputChange($event)" />
+        <label>{{control.value}}</label>
       </div>
     }
     @case (flowControlType.OptIn) {
       <div class="__inputDesc flexDiv">
-        <input id="{{inputId}}" type="checkbox" class="__checkbox" />
+        <input id="{{inputId}}" type="checkbox" class="__checkbox" [(ngModel)]="control.value" (ngModelChange)="onInputChange($event)" />
         <span> Description about action goes here</span>
       </div>  
     }
     @case (flowControlType.Link) {
       <div class="__inputDesc flexDiv">
-        <a id="{{inputId}}"  class="__anchor"> Link </a>
+        <a id="{{inputId}}"  class="__anchor"[(ngModel)]="control.value" (ngModelChange)="onInputChange($event)"> Link </a>
       </div>  
     }
     @default {
       <!-- Fallback input if none of the cases match -->
-      <input id="{{inputId}}" type="text" class="fallback" />
+      <input id="{{inputId}}" type="text" class="fallback" [(ngModel)]="control.value" (ngModelChange)="onInputChange($event)"/>
       <span> Description about action goes here</span>
     }
   }
