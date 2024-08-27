@@ -1,87 +1,183 @@
 import { Injectable } from "@angular/core";
-
+import { BehaviorSubject } from "rxjs";
+import { 
+  FlowPageLayoutElementTypesV31, 
+  FlowPageLayoutElementV31, 
+  FlowPageTextSizesV31, 
+  FlowPageTextV31, 
+  FlowpageForm 
+} from "@app/model/convs-mgr/stories/flows";
 import { FlowControl, FlowControlType } from "@app/features/convs-mgr/stories/builder/flow-builder/app";
-import { FlowDynamicData, FlowpageForm, FlowPageLayoutElementTypesV31, FlowPageLayoutElementV31 } from "@app/model/convs-mgr/stories/flows";
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class FlowJsonBuilderService {
+  private metaJsonSubject = new BehaviorSubject<any[]>([]); // Storing the JSON data
+
   constructor() {}
 
-  buildJson(flowControls: FlowControl[]): any {
-    const metaJson = flowControls.map(control => this.convertToMetaElement(control));
-    return { elements: metaJson };
+  /** Public method to build the JSON from FlowControls */
+  buildJson(flowControls: FlowControl[]): void {
+    const metaJson: any[] = []; 
+
+    let formElements: FlowControl[] = [];
+    
+    // Grouping form inputs and building the JSON structure
+    flowControls.forEach(control => {
+      if (this.isInputControl(control)) {
+        formElements.push(control);
+      } else {
+        if (formElements.length > 0) {
+          metaJson.push(this.buildForm(formElements)); // Push the form when there are input controls
+          formElements = [];
+        }
+        metaJson.push(this.convertToMetaElement(control)); // Push non-input elements
+      }
+    });
+
+    // Handle case where inputs are at the end
+    if (formElements.length > 0) {
+      metaJson.push(this.buildForm(formElements));
+    }
+
+    // Emit the final result to the BehaviorSubject
+    this.metaJsonSubject.next(metaJson);
   }
 
-  /** Converts FlowControls to Meta-defined elements */
+  /** Public method to subscribe to the BehaviorSubject */
+  getMetaJson$() {
+    return this.metaJsonSubject.asObservable();
+  }
+  
+  /** Check if a FlowControl is an input element */
+  private isInputControl(control: FlowControl): boolean {
+    return [
+      FlowControlType.TextInput,
+      FlowControlType.TextArea,
+      FlowControlType.Select,
+      FlowControlType.Radio,
+      FlowControlType.OptIn,
+      FlowControlType.Datepick
+    ].includes(control.type);
+  }
+
+  /** Convert non-input FlowControl to Meta-defined types */
   private convertToMetaElement(control: FlowControl): FlowPageLayoutElementV31 {
     switch (control.type) {
-      case FlowControlType.TextInput:
-      case FlowControlType.TextArea:
-      case FlowControlType.Select:
-      case FlowControlType.Radio:
-      case FlowControlType.OptIn:
-      case FlowControlType.Datepick:
-        return this.buildForm(control);
+      case FlowControlType.Header:
+      case FlowControlType.LightHeader:
+      case FlowControlType.Text:
+      case FlowControlType.Caption:
+        return this.buildTextElement(control);
+      case FlowControlType.Image:
+        return this.buildImageElement(control);
+      case FlowControlType.Link:
+        return this.buildLinkElement(control);
       default:
         throw new Error(`Unsupported element type: ${control.type}`);
     }
   }
 
-  /** Builds form element with children (controls) */
-  private buildForm(control: FlowControl): FlowpageForm {
+  /** Build a FlowPageTextV31 component */
+  private buildTextElement(textElement: FlowControl): FlowPageTextV31 {
     return {
-      type: FlowPageLayoutElementTypesV31.FORM,
-      children: this.buildFormControls(control),
-      "init-values": this.getInitialValues(control),
-      "error-messages": this.getErrorMessages(control)
+      type: FlowPageLayoutElementTypesV31.TEXT,
+      text: textElement.value,
+      size: this.mapTextSize(textElement.type),
     };
   }
 
-  /** Generates form controls based on FlowControl type */
-  private buildFormControls(control: FlowControl): FlowPageLayoutElementV31[] {
-    switch (control.type) {
+  /** Build an Image component */
+  private buildImageElement(imageElement: FlowControl): any {
+    return {
+      type: FlowPageLayoutElementTypesV31.IMAGE,
+      url: imageElement.value,
+    };
+  }
+
+  /** Build a Link component */
+  private buildLinkElement(linkElement: FlowControl): any {
+    return {
+      type: FlowPageLayoutElementTypesV31.LINK,
+      text: linkElement.value,
+    };
+  }
+
+  /** Wrap inputs into a form */
+  private buildForm(inputControls: FlowControl[]): FlowpageForm {
+    const children = inputControls.map(input => this.buildInputs(input));
+    
+    return {
+      type: FlowPageLayoutElementTypesV31.FORM,
+      children: children,
+      "init-values": this.getInitialValues(inputControls),
+      "error-messages": this.getErrorMessages(inputControls),
+    };
+  }
+
+  /** Maps FlowControlType inputs to FlowPageLayoutElementV31 */
+  private buildInputs(flowInputs: FlowControl): FlowPageLayoutElementV31 {
+    switch (flowInputs.type) {
       case FlowControlType.TextInput:
-        return [{
+        return {
           type: FlowPageLayoutElementTypesV31.TEXT_INPUT,
-        }];
+        };
       case FlowControlType.TextArea:
-        return [{
+        return {
           type: FlowPageLayoutElementTypesV31.TEXT_AREA_INPUT,
-        }];
+        };
       case FlowControlType.Select:
-        return [{
+        return {
           type: FlowPageLayoutElementTypesV31.OUTLINE_OPTIONS,
-        }];
+        };
       case FlowControlType.Radio:
-        return [{
+        return {
           type: FlowPageLayoutElementTypesV31.INLINE_RADIO_BUTTONS,
-        }];
+        };
       case FlowControlType.OptIn:
-        return [{
-          type: FlowPageLayoutElementTypesV31.OPT_IN,
-        }];
+        return {
+          type: FlowPageLayoutElementTypesV31.INLINE_CHECKBOX_INPUT,
+        };
       case FlowControlType.Datepick:
-        return [{
+        return {
           type: FlowPageLayoutElementTypesV31.DATE_PICKER_INPUT,
-        }];
+        };
       default:
-        throw new Error(`Unsupported input type: ${control.type}`);
+        throw new Error(`Unsupported input type: ${flowInputs.type}`);
     }
   }
 
-  /** Gets initial values for form inputs */
-  private getInitialValues(control: FlowControl): FlowDynamicData | undefined {
-    // Logic to extract initial values from control (if applicable)
-    return control.value || undefined;
+  /** Define text sizes for text controls */
+  private mapTextSize(type: FlowControlType): FlowPageTextSizesV31 {
+    switch (type) {
+      case FlowControlType.Header:
+        return FlowPageTextSizesV31.Header;
+      case FlowControlType.LightHeader:
+        return FlowPageTextSizesV31.SubHeader;
+      case FlowControlType.Text:
+        return FlowPageTextSizesV31.Body;
+      case FlowControlType.Caption:
+        return FlowPageTextSizesV31.Caption;
+      default:
+        throw new Error(`Unsupported text size: ${type}`);
+    }
   }
 
-  /** Gets error messages for the form inputs */
-  private getErrorMessages(control: FlowControl): { [control: string]: string } | undefined {
-    // Logic to extract error messages (if applicable)
-    // return control.errorMessages || undefined;
-    return undefined
+  /** Get initial values for form inputs */
+  private getInitialValues(inputControls: FlowControl[]): any {
+    const initValues: any = {};
+    inputControls.forEach(control => {
+      if (control.value) {
+        initValues[control.id] = control.value;
+      }
+    });
+    return initValues;
+  }
+
+  /** Get error messages for form inputs */
+  private getErrorMessages(inputControls: FlowControl[]): { [control: string]: string } | undefined {
+    return undefined; 
   }
 }

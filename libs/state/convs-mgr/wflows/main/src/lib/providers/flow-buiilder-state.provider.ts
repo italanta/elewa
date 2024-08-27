@@ -70,14 +70,17 @@ export class FlowBuilderStateProvider {
         });
 
         // Pass FlowControl[] to FlowJsonBuilderService for mapping
-        const json = this.flowJsonBuilderService.buildJson(this.getControls());
-        
-        // Save the generated JSON
-        console.log("Updated JSON:", json);
-
-        // TODO: Find a way to send json to API
+        this.flowJsonBuilderService.buildJson(this.getControls());    
       }
+      this.saveJson()
     });
+  }
+
+  saveJson () {
+    // Save the generated JSON
+    this.flowJsonBuilderService.getMetaJson$().subscribe( (savedJson) => {
+      console.log("Updated JSON:", savedJson);
+    })
   }
 }
 
