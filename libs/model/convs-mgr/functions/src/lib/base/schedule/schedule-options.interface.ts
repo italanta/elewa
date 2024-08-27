@@ -48,12 +48,14 @@ export interface ScheduleOptions extends IObject
    type?: JobTypes;
 
    scheduleOption?: ScheduleOptionType;
+
+   channelId: string;
 }
 
 export enum ScheduleOptionType {
    Milestone = 'milestone',
    Inactivity = 'inactivity',
-   SpecificTime = 'time'
+   SpecificTime = 'specific-time'
 }
 
 export enum JobTypes 

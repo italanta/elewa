@@ -1,9 +1,11 @@
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionHandler, FunctionContext } from "@ngfi/functions";
+import { Query } from "@ngfi/firestore-qbuilder";
 
-import { MessageTypes } from "@app/model/convs-mgr/functions";
+import { MessageTypes, ScheduledMessage } from "@app/model/convs-mgr/functions";
 import { PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
 import { MessageDirection, TemplateMessage } from "@app/model/convs-mgr/conversations/messages";
+import { EnrolledEndUser } from "@app/model/convs-mgr/learners";
 
 import { SendOutgoingMsgHandler } from "./send-outgoing-message.handler";
 import { SendMultipleMessagesResp } from "./models/send-multiple-messages-rep.interface";
@@ -26,8 +28,12 @@ export class SendMultipleMessagesHandler extends FunctionHandler<SendMultipleMes
   private async _sendMessages(msgToSend: SendMultipleMessagesReq, tools: HandlerTools)
   {
     let count = 0;
-    const successfulUsers: string[] = [];
-    const failedUsers: string[] = [];
+    const successfulUsers: EnrolledEndUser[] = [];
+    const failedUsers: EnrolledEndUser[] = [];
+
+    const scheduledMessages$ = tools.getRepository<ScheduledMessage>(`orgs/${msgToSend.orgId}/scheduled-messages`);
+
+    const scheduled = await scheduledMessages$.getDocuments(new Query().where("objectID", "==", msgToSend.message.id));
 
     const message: TemplateMessage = {
       ...msgToSend.message,
@@ -50,9 +56,9 @@ export class SendMultipleMessagesHandler extends FunctionHandler<SendMultipleMes
       const resp = await sendMessage.execute(message, null, tools);
 
       if(resp.success) {
-        successfulUsers.push(message.endUserPhoneNumber || message.receipientId);
+        successfulUsers.push(user);
       } else {
-        failedUsers.push(message.endUserPhoneNumber || message.receipientId);
+        failedUsers.push(user);
       }
       count++;
     }

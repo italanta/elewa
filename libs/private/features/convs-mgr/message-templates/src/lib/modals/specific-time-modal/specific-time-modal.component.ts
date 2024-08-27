@@ -12,6 +12,7 @@ import { ScheduleOptionType, ScheduleOptions, ScheduledMessage } from '@app/mode
 
 import { recurrenceOptions, weekdays } from '../../utils/constants';
 import { ConvertToCron } from '../../utils/convert-to-cron.util';
+import { TemplateMessage } from '@app/model/convs-mgr/conversations/messages';
 
 @Component({
   selector: 'app-specific-time-modal',
@@ -61,7 +62,7 @@ export class SpecificTimeModalComponent {
     private _dialog: Dialog,
     private fb: FormBuilder,
     private _scheduleMessageService: ScheduleMessageService,
-    @Inject(MAT_DIALOG_DATA) public data: {schedule: ScheduledMessage, templateId: string}
+    @Inject(MAT_DIALOG_DATA) public data: {schedule: ScheduledMessage, template: TemplateMessage}
     ) {}
 
   ngOnInit(): void {
@@ -169,7 +170,8 @@ export class SpecificTimeModalComponent {
       // Save schedule to DB
       const scheduleMessage: ScheduledMessage = {
         id: uuid(),
-        objectID: this.data.templateId,
+        channelId: this.data.template.channelId as string,
+        objectID: this.data.template.id,
         dispatchTime: selectedDateTime,
         frequency: this.cronFormat || '',
         scheduledOn: new Date(),
@@ -177,13 +179,12 @@ export class SpecificTimeModalComponent {
         rawSchedule: this.schedulerForm.value
       }
 
-      this.dateTimeSelected.emit({ data: scheduleMessage });
-
-
       if(endDate) {
         scheduleMessage.endDate = endDate
       }
-    
+
+      this.dateTimeSelected.emit({ data: scheduleMessage });
+      
       // Update the schedule if it was prepopulated
       if(this.data.schedule) {
         scheduleMessage.id = this.data.schedule.id;
@@ -192,9 +193,22 @@ export class SpecificTimeModalComponent {
         this._scheduleMessageService.addScheduledMesssage(scheduleMessage).subscribe();
       }
 
-      this.dialogRef.close();
+    const optionsPayload = {
+        schedule: scheduleMessage,
+        template: this.data.template
     }
+    // Set the schedule configuration so that it can be accessed from the 
+    //  learners page
+    this._scheduleMessageService.setOptions(optionsPayload);
+    
+    this._dialog.afterAllClosed.subscribe(() => this.goToLearnersPage());
 
+    this.dialogRef.close();
+    }
+  }
+
+  goToLearnersPage(){
+    this._route$$.navigate(['/users']);
   }
 
   closeModal(){

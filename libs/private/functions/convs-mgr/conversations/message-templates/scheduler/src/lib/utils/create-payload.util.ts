@@ -11,6 +11,7 @@ export function CreateTemplateMessagePayload (options: ScheduleOptions, channel:
     functionName: 'sendMultipleMessages',
     n: channel.n,
     plaform: channel.type,
+    orgId: channel.orgId,
     enroledEndUsers: inactiveUsers,
     dispatchTime: new Date(options.dispatchTime)
   };
@@ -23,7 +24,8 @@ export function CreateSurveyPayload (options: ScheduleOptions,channel: Communica
     enroledEndUsers: inactiveUsers,
     surveyId: options.id,
     messageTemplateId: msg.id,
-    channelId: channel.id
+    channelId: channel.id,
+    orgId: channel.orgId,
   };
 }
 

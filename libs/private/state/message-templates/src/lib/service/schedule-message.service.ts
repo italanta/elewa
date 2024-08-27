@@ -12,7 +12,7 @@ import { ScheduledMessageStore } from '../store/scheduled-message.store';
   providedIn: 'root',
 })
 export class ScheduleMessageService {
-  private scheduleOption$ = new BehaviorSubject<any>({});
+  private scheduleOption$ = new BehaviorSubject<{schedule: ScheduledMessage, template: TemplateMessage}>(null as any);
   optionsSet$ = this.scheduleOption$.asObservable();
   
   constructor(
@@ -20,7 +20,7 @@ export class ScheduleMessageService {
     private _scheduledMessageStore$$: ScheduledMessageStore
   ) {}
 
-  setOptions(options: any) {
+  setOptions(options: {schedule: ScheduledMessage, template: TemplateMessage}) {
     this.scheduleOption$.next(options);
   }
 
