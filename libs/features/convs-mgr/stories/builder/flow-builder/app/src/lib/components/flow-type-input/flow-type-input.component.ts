@@ -1,9 +1,12 @@
 import { Component, EventEmitter, inject, OnChanges, OnInit, Output, SimpleChanges, ViewContainerRef } from '@angular/core';
-import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
+
 import { SubSink } from 'subsink';
+import { debounceTime, Subject } from 'rxjs';
 
 import { ChangeTrackerService, FlowBuilderStateProvider } from '@app/state/convs-mgr/wflows';
-import { debounceTime, Subject } from 'rxjs';
+
+import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
+
 
 @Component({
   selector: 'app-flow-type-input',
@@ -39,34 +42,6 @@ export class FlowTypeInputComponent implements OnInit, OnChanges
   constructor(private trackerService: ChangeTrackerService,
     private flowStateProvider: FlowBuilderStateProvider
 ) {}
-
-  // ngOnInit(): void 
-  // {
-  //   this.inputId = `input-${this.type }`;
-  //   if (this.control?.value) {
-  //     this.inputName = this.control.value?.name || '';
-  //     this.inputLabel = this.control.value?.label || '';
-  //     this.dataSource = this.control.value?.dataSource || [];
-  //   }
-    
-  // }  
-
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   if (changes['control']) {
-  //     this.trackerService.updateValue(this.control.id, this.control.type);
-  //   }
-  // }
-
-  // /*** Tracking user interactions with controls in real time */
-  // onInputChange(newValue: string): void {
-  //   if (!this.control) {
-  //     console.error('Control is undefined');
-  //     return;
-  //   }
-  //   this.control.value = { ...this.control.value, value: newValue };
-  //   this.trackerService.updateValue(this.control.id, newValue);
-  //   this.changeEvent.emit({ controlId: this.control.id, newValue });
-  // }
 
   ngOnInit(): void {
     this.inputId = `input-${this.type}`;

@@ -72,7 +72,6 @@ export class FlowBuilderStateProvider {
         // Pass FlowControl[] to FlowJsonBuilderService for mapping
         this.flowJsonBuilderService.buildJson(this.getControls());    
       }
-      this.saveJson()
     });
   }
 
