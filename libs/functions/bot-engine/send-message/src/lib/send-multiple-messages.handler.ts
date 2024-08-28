@@ -51,7 +51,7 @@ export class SendMultipleMessagesHandler extends FunctionHandler<SendMultipleMes
       tools.Logger.log(()=> `[SendMultipleMessagesHandler].execute - Send messages complete: ${JSON.stringify(response)}`);
 
     } catch (error) {
-      tools.Logger.error(()=> `[SendMultipleMessagesHandler].execute - Encountered error: ${JSON.stringify(error)}`);
+      tools.Logger.error(()=> `[SendMultipleMessagesHandler].execute - Encountered error: ${error}`);
       
       return { attempted: 0, error} as SendMultipleMessagesResp
     }
