@@ -280,12 +280,35 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
           break;
         }
 
-    } else {
-            // TODO: Send direct message
-          }
+      } else this.sendMessageNow();
   }
         
         
+  sendMessageNow() {
+    const selectedUsers = this.selection.selected;
+    const schedule: ScheduledMessage = {
+      id: `direct_${Date.now()}`, 
+      channelId: this.templateMessage.channelId as string,
+      objectID: this.templateMessage.id,
+      dispatchTime: new Date(),
+      scheduleOption: ScheduleOptionType.SpecificTime,
+    }
+
+    const scheduleRequest = {
+      ...schedule,
+      message: this.templateMessage,
+      enrolledEndUsers: selectedUsers.map((user)=> user.id),
+    };
+
+    
+    this._sBs.sink = this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe((resp)=> {
+      if(resp) {
+        // TODO: Display Toast Message based on Response
+        this.openTemplate(this.templateMessage.id as string);
+      }
+    });
+  }
+
   scheduleMessage() {
     const selectedUsers = this.selection.selected;
     const scheduleRequest = {
