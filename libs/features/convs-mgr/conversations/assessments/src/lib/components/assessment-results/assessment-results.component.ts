@@ -47,7 +47,6 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
                       .subscribe((resp)=> {
                         if(resp.success) {
                           this.assessmentResults = resp.results;
-                          console.log(this.assessmentResults)
                         } else {
                           console.error(resp.error)
                         }
