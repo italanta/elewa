@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
-import { Observable, first, of, switchMap, throwError } from 'rxjs';
+import { Observable, first, map, of, switchMap, throwError } from 'rxjs';
 
 import { TemplateMessage } from '@app/model/convs-mgr/conversations/messages';
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';

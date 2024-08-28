@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
-import { Observable, combineLatest, map, of } from 'rxjs';
+import { Observable, combineLatest, concatMap, forkJoin, map, mergeMap, of, switchMap, toArray } from 'rxjs';
 
 import { ScheduledMessage } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService, MessageStatusRes, ScheduleMessageService } from '@app/private/state/message-templates';
@@ -56,13 +56,25 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy {
   getTemplates() {
     this.isSaving = true;
 
-    this._sBS.sink = this._messageTemplateService.getMessageTemplates$().subscribe(
-        (templates) => {
-          this.isSaving = false;
-          this.dataSource.data = templates
-          this.getTemplateStatus(templates);
-        }
-      );
+    this._sBS.sink = this._messageTemplateService.getMessageTemplates$().pipe(switchMap((templates)=> {
+
+      const updatedTemplates$ = templates.map((temp)=> {
+         return this._scheduleMessageService.getScheduleByTemplate$(temp.id as string).pipe(
+          map((sch)=> {
+          if(sch) (temp as any).messageCount = sch.successful?.length;
+          
+          return temp;
+         }),
+        )
+      })
+
+      return combineLatest(updatedTemplates$)
+    })).subscribe((templates)=> {
+        this.isSaving = false;
+        this.dataSource.data = templates
+        this.getTemplateStatus(templates);
+    })
+
   }
 
   getTemplateStatus(templates: TemplateMessage[]) {
@@ -75,7 +87,6 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy {
     const channelId = firstTemplate ? firstTemplate.channelId : '';
 
     this.templateStatus$ = this._messageTemplateService.getTemplateStatus(channelId);
-    this.scheduledMessages$ = this._scheduleMessageService.getScheduledMessages$();
 
     this._sBS.sink = combineLatest([of(templates), this.templateStatus$])
       .pipe(

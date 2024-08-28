@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 
 import { JobTypes, ScheduledMessage } from '@app/model/convs-mgr/functions';
 import { TemplateMessage } from '@app/model/convs-mgr/conversations/messages';
@@ -37,6 +37,16 @@ export class ScheduleMessageService {
   getScheduledMessageById$(id: string) {
     return this._scheduledMessageStore$$.getOne(id);
   }
+
+  getScheduleByTemplate$(templateId: string) {
+    return this._scheduledMessageStore$$.get()
+          .pipe(map((schedules)=> {
+            const schedule = schedules.filter((sch)=> sch.objectID === templateId)[0];
+            if(schedule) return schedule;
+            return null;
+          }))
+  }
+
 
   getScheduledMessages$() {
     return this._scheduledMessageStore$$.get();
