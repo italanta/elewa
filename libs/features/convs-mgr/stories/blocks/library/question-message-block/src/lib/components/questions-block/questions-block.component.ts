@@ -1,6 +1,7 @@
-import { Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
+import { SubSink } from 'subsink';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
@@ -17,12 +18,14 @@ const questionOptionsArrayLimit = 3;
   templateUrl: './questions-block.component.html',
   styleUrls: ['./questions-block.component.scss'],
 })
-export class QuestionsBlockComponent implements OnInit 
+export class QuestionsBlockComponent implements OnInit, OnDestroy 
 {
   @ViewChild('inputOtion') inputOtion: ElementRef;
   @ViewChildren('optionInputFields') optionInputFields: QueryList<OptionInputFieldComponent>;
 
   private currentIndex = 0; 
+
+  private _sBs = new SubSink();
 
   @Input() id: string;
   @Input() block: QuestionMessageBlock;
@@ -35,6 +38,8 @@ export class QuestionsBlockComponent implements OnInit
   questiontype = StoryBlockTypes.QuestionBlock;
   blockFormGroup: FormGroup;
 
+  hitLimit: boolean;
+
   readonly questionOptionInputLimit = questionOptionInputLimit;
 
   constructor(private _fb: FormBuilder) { }
@@ -43,6 +48,9 @@ export class QuestionsBlockComponent implements OnInit
     this.block.options?.forEach((option) => {
       this.options.push(this.addQuestionOptions(option));
     })
+    this.hitLimit = this.block.options ? this.block.options?.length >= questionOptionsArrayLimit : false;
+
+    this.onOptionItemsChange();
   }
 
   get options(): FormArray {
@@ -54,6 +62,12 @@ export class QuestionsBlockComponent implements OnInit
       id: [option?.id ?? `${this.id}-${this.options.length + 1}`],
       message: [option?.message ?? ''],
       value: [option?.value ?? '']
+    })
+  }
+
+  onOptionItemsChange() {
+    this._sBs.sink = this.options.valueChanges.subscribe((val)=> {
+      this.hitLimit = val.length >= questionOptionsArrayLimit;
     })
   }
 
@@ -81,5 +95,9 @@ export class QuestionsBlockComponent implements OnInit
       this.currentIndex,
       this.optionInputFields
     );
+  }
+
+  ngOnDestroy(): void {
+      this._sBs.unsubscribe();
   }
 }
