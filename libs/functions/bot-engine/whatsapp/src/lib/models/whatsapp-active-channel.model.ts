@@ -132,13 +132,15 @@ export class WhatsappActiveChannel implements ActiveChannel
 
     const latestMessage = await msgService.getLatestUserMessage(endUserId, orgId);
 
+    let has24HoursPassed: boolean;
+
     if (latestMessage) {
       // Get the date in milliseconds
       const latestMessageTime = __DateFromStorage(latestMessage.createdOn as Date);
 
-      const has24HoursPassed = check24HoursPassed(latestMessageTime);
-
-      if (has24HoursPassed) {
+      has24HoursPassed = check24HoursPassed(latestMessageTime);
+      }
+      if (has24HoursPassed || !latestMessage) {
 
         this._tools.Logger.log(() => `[SendOutgoingMsgHandler].execute - Whatsapp 24 hours limit has passed`);
         this._tools.Logger.log(() => `[SendOutgoingMsgHandler].execute - Sending opt-in message to ${phone}`);
@@ -163,7 +165,7 @@ export class WhatsappActiveChannel implements ActiveChannel
           return null;
         }
       }
-    }
+
   }
 
   private __resolveParamVariables(params: TemplateMessageParams[], orgId: string, variables: any) { 
