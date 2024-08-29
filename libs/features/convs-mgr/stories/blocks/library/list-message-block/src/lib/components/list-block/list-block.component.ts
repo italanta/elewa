@@ -52,6 +52,16 @@ export class ListBlockComponent<T> implements AfterViewInit
     })
   }
 
+  handleEnterKey(event: any) {
+    // Prevent the default behavior (e.g., form submission)
+    event.preventDefault(); 
+    // Stop the event from propagating to other elements i.e.
+    //  deleteInput button was being triggered instead
+    event.stopPropagation(); 
+
+    this.addNewOption();
+  }
+
   addNewOption() {
     if (this.listItems.length < this.listOptionsArrayLimit) this.listItems.push(this.addListOptions());
     setTimeout(() => {

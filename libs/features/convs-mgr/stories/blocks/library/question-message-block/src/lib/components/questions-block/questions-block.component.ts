@@ -81,6 +81,16 @@ export class QuestionsBlockComponent implements OnInit
     this.hitLimit = this.options.length >= questionOptionsArrayLimit;
   }
 
+  handleEnterKey(event: any) {
+    // Prevent the default behavior (e.g., form submission)
+    event.preventDefault(); 
+    // Stop the event from propagating to other elements i.e.
+    //  deleteInput button was being triggered instead
+    event.stopPropagation(); 
+
+    this.addNewOption();
+  }
+
   setFocusOnNextInput() {
     this.currentIndex = __FocusCursorOnNextInputOfBlock(
       this.currentIndex,
