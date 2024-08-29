@@ -20,13 +20,7 @@
         </select>
       </div>  
     }
-    @case (flowControlType.Radio) {
-      <div class="__inputDesc flexDiv">
-        <input id="{{inputId}}" type="radio" class="__radio" [(ngModel)]="control.value" [disabled]="true" (ngModelChange)="onInputChange($event)" />
-        <input type="text" [(ngModel)]="newOption" placeholder="New option" (ngModelChange)="onInputChange($event)" />
-        <label *ngIf="control.value">{{control.value}}</label>
-      </div>
-    }
+    
     @case (flowControlType.OptIn) {
       <div class="__inputDesc flexDiv">
         <input id="{{inputId}}" type="checkbox" class="__checkbox" [(ngModel)]="control.value" (ngModelChange)="onInputChange($event)" />

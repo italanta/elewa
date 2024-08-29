@@ -1,1 +1,43 @@
-<p>flow-button-group works!</p>
+<div class="__inputDesc flexDiv">
+  <form [formGroup]="radioGroupForm" class="__groupForm">
+    <div class="__configs" *ngIf="showConfigs">
+        <p> Configure List of Options here </p>
+      <div class="__inputConfigs">
+        <label for="name">Name:</label>
+        <input type="text" id="name" formControlName="name">
+      </div>
+      <div class="__inputConfigs">
+        <label for="label">Label:</label>
+        <input type="text" id="label" formControlName="label">
+      </div>
+      <div class="__inputConfigs">
+        <label for="required">Required:</label>
+        <input type="checkbox" id="required" formControlName="required">
+      </div>
+      
+      <div formArrayName="options" class="__optionsArray">
+        <div class="add__options">
+          <span> Add or Delete Options </span>
+          <button type="button" (click)="addOption()"><i class="fa-solid fa-plus"></i></button>
+        </div>
+        <div *ngFor="let option of options.controls; let i = index" [formGroupName]="i" class="__inputConfigs">
+          <input type="text" formControlName="label" placeholder="Option label">
+          <button type="button" (click)="removeOption(i)"><i class="fa-solid fa-minus"></i></button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="__saveBtn">
+      <button type="submit" (click)="saveRadioConfig()"> Save </button>
+    </div>
+
+    <!-- Display saved radio buttons -->
+    <div *ngIf="!showConfigs && flowGroup" class="__labelDiv">
+      <h6>{{ flowGroup.label }}</h6>
+      <div *ngFor="let option of flowGroup.options" class="__inputConfigs">
+        <input class=".__radio " type="radio" [name]="flowGroup.name" [id]="option.label" [required]="flowGroup.required">
+        <label [for]="option.label">{{ option.label }}</label>
+      </div>
+    </div>
+  </form>
+</div>
