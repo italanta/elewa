@@ -7,7 +7,7 @@ import { FlowPageLayoutElementTypesV31, FlowPageTextV31 } from '@app/model/convs
 import { ChangeTrackerService, FlowEditorStateProvider } from '@app/state/convs-mgr/wflows';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
-import { TextElementFormService } from '../../services/text-inputs-form.service';
+import { TextElementFormService } from '../../services/text-elements-form.service';
 import { FeTextElement } from '../../models/fe-flow-text-element.model';
 
 @Component({
