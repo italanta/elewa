@@ -58,11 +58,11 @@ export class ConfirmDeleteModalComponent {
           .deleteBot(this.element as Bot)
           .subscribe((response) => {
             if(response.status === 200) {
-              this.snackBar.open("Delete Bot successful","Dismiss",{
+              this.snackBar.open(response.message,"Dismiss",{
                 duration: 3000
               });
             } else {
-              this.snackBar.open("Delete Bot failed","Dismiss",{
+              this.snackBar.open(response.message,"Dismiss",{
                 duration: 3000
               });
             }
@@ -71,11 +71,33 @@ export class ConfirmDeleteModalComponent {
       case DeleteElementsEnum.Story:
         return this._addStory$
           .removeStory(this.element as Story, this.parentElement as BotModule)
-          .subscribe(() => this._dialog.close());
+          .subscribe((response) => {
+            if(response.status === 200) {
+              this.snackBar.open(response.message,"Dismiss",{
+                duration: 3000
+              });
+            } else {
+              this.snackBar.open(response.message,"Dismiss",{
+                duration: 3000
+              });
+            }
+            this._dialog.close()
+          });
       case DeleteElementsEnum.BotModule:
         return this._botModServ$
           .deleteBotModules(this.element as BotModule)
-          .subscribe(() => this._dialog.close());
+          .subscribe((response) => {
+            if(response.status === 200) {
+              this.snackBar.open(response.message,"Dismiss",{
+                duration: 3000
+              });
+            } else {
+              this.snackBar.open(response.message,"Dismiss",{
+                duration: 3000
+              });
+            }
+            this._dialog.close()
+          });
     }
   }
 }
