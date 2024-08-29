@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
-import { Observable, map } from 'rxjs';
+import { Observable, map, of, switchMap, take } from 'rxjs';
 
 import { MessageTemplatesService } from '@app/private/state/message-templates';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
@@ -100,22 +100,26 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
   initPage()
   {
     this._sbS.sink = this._route.params
-      .pipe(map((params) => params['id'] as string))
-      .subscribe((templateId) =>
+      .pipe(switchMap((params) =>
       {
+        const templateId = params['id'] as string;
         if (templateId) {
-          this.template$ = this._templateMessagesService.getTemplateById(templateId);
+          return this._templateMessagesService.getTemplateById(templateId);
+        } else {
+          return of(null);
+        }
+      })).subscribe((template) =>
+      {
+        if (template) {
+          this.template = template;
+          this.templateForm = createTemplateForm(this.fb, template);
 
-          this._sbS.sink = this.template$.subscribe((template) =>
-          {
-            if (template) {
-              this.template = template;
-              this.templateForm = createTemplateForm(this.fb, template);
+          this.showHeaderExampleSection = this.templateForm.controls['headerExamples'].value.length > 0;
+          this.showBodyExampleSection = this.templateForm.controls['bodyExamples'].value.length > 0;
 
-              this.showHeaderExampleSection = this.templateForm.controls['headerExamples'].value.length > 0;
-              this.showBodyExampleSection = this.templateForm.controls['bodyExamples'].value.length > 0;
-            }
-          });
+          this.onBodyChange();
+          this.onHeaderChange();
+          this.onExamplesChange();
         }
       });
   }
@@ -156,13 +160,13 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
   removeOnChange(change: string, section: 'body' | 'header')
   {
 
-    if(section == 'body') {
+    if (section == 'body') {
       const examplesArray = this.templateForm.get('bodyExamples')?.value as TemplateVariableExample[];
-  
+
       examplesArray.forEach((exmp) =>
       {
         const variable = `{{${exmp.name}}}`;
-  
+
         if (!change.includes(variable)) {
           this.removeExample(exmp.name as string, section);
           this.deletedExamples.push(exmp);
@@ -170,11 +174,11 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
       });
     } else {
       const examplesArray = this.templateForm.get('headerExamples')?.value as TemplateVariableExample[];
-      
+
       examplesArray.forEach((exmp) =>
       {
         const variable = `{{${exmp.name}}}`;
-        
+
         if (!change.includes(variable)) {
           this.removeExample(exmp.name as string, section);
           this.deletedExamples.push(exmp);
@@ -283,7 +287,8 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
 
     this._sbS.sink = this._templateMessagesService
       .updateTemplateMeta(payload)
-      .subscribe((response) => {
+      .subscribe((response) =>
+      {
         if (response.success) {
           this._sbS.sink = this._templateMessagesService
             .updateTemplate(payload)
