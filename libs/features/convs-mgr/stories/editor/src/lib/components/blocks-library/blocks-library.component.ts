@@ -44,7 +44,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     // { id: 'io-block', type: StoryBlockTypes.IO, message: 'IO', blockIcon: this.getBlockIcon(StoryBlockTypes.IO) } as QuestionMessageBlock,
     { id: 'input-location-block', type: StoryBlockTypes.Location, message: 'Location', blockIcon: this.getBlockIcon(StoryBlockTypes.Location), blockCategory: 'messages-block' } as LocationMessageBlock,
     { id: 'input-image-block', type: StoryBlockTypes.Image, message: 'Image', blockIcon: this.getBlockIcon(StoryBlockTypes.Image), blockCategory: 'messages-block' } as ImageMessageBlock,
-    { id: 'input-question-block', type: StoryBlockTypes.QuestionBlock, message: 'Question', blockIcon: this.getBlockIcon(StoryBlockTypes.QuestionBlock), blockCategory: 'questions-block' } as QuestionMessageBlock,
+    { id: 'input-question-block', type: StoryBlockTypes.QuestionBlock, message: 'Buttons', blockIcon: this.getBlockIcon(StoryBlockTypes.QuestionBlock), blockCategory: 'questions-block' } as QuestionMessageBlock,
     { id: 'input-docs-block', type: StoryBlockTypes.Document, message: 'Document', blockIcon: this.getBlockIcon(StoryBlockTypes.Document), blockCategory: 'messages-block' } as DocumentMessageBlock,
     { id: 'input-audio-block', type: StoryBlockTypes.Audio, message: 'Audio', blockIcon: this.getBlockIcon(StoryBlockTypes.Audio), blockCategory: 'messages-block' } as VoiceMessageBlock,
     // { id: 'io-structural-block', type: StoryBlockTypes.Structural, message: 'Structural', blockIcon: this.getBlockIcon(StoryBlockTypes.Structural) } as TextMessageBlock,
