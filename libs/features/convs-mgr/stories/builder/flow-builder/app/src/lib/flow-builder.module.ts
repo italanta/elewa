@@ -32,6 +32,7 @@ import { FlowTypeInputComponent } from './components/flow-type-input/flow-type-i
 import { FlowDatepickInputComponent } from './components/flow-datepick-input/flow-datepick-input.component';
 import { FlowBuilderRouterModule } from './flow-builder.router.module';
 import { FlowButtonGroupComponent } from './components/flow-button-group/flow-button-group.component';
+import { FlowCheckboxOptionsComponent } from './components/flow-checkbox-options/flow-checkbox-options.component';
 
 @NgModule({
   imports: [
@@ -68,6 +69,7 @@ import { FlowButtonGroupComponent } from './components/flow-button-group/flow-bu
     FlowTypeInputComponent,
     FlowDatepickInputComponent,
     FlowButtonGroupComponent,
+    FlowCheckboxOptionsComponent,
   ],
 })
 export class FlowBuilderModule {}
