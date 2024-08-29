@@ -1,5 +1,7 @@
-import { AfterViewInit, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+
+import { SubSink } from 'subsink';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -12,8 +14,10 @@ import { OptionInputFieldComponent, __FocusCursorOnNextInputOfBlock } from '@app
   templateUrl: './list-block.component.html',
   styleUrls: ['./list-block.component.scss'],
 })
-export class ListBlockComponent<T> implements AfterViewInit 
+export class ListBlockComponent<T> implements AfterViewInit, OnDestroy 
 {
+  private _sBs = new SubSink();
+
   @Input() id: string;
   @Input() block: ListMessageBlock;
   @Input() listMessageBlock: FormGroup;
@@ -44,7 +48,7 @@ export class ListBlockComponent<T> implements AfterViewInit
   }
 
   onListItemsChange() {
-    this.listItems.valueChanges.subscribe((val)=> {
+    this._sBs.sink = this.listItems.valueChanges.subscribe((val)=> {
       this.hitLimit = val.length >= this.listOptionsArrayLimit;
     })
   }
@@ -73,4 +77,8 @@ export class ListBlockComponent<T> implements AfterViewInit
       this.optionInputFields
     );
 }
+
+  ngOnDestroy(): void {
+      this._sBs.unsubscribe();
+  }
 }
