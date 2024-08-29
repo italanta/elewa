@@ -14,8 +14,8 @@
     </div>
 
   </form>
-  <div class="line" [class.active]="listItems.length > 0"></div>
-  <button (click)="addNewOption()" mat-flat-button class="add-button">
+  <div class="line" [class.active]="listItems.length > 0" *ngIf="!hitLimit"></div>
+  <button (click)="addNewOption()" mat-flat-button class="add-button" *ngIf="!hitLimit">
     {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
   </button>
 </div>

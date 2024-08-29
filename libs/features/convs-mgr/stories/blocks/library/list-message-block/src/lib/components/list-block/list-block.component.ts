@@ -24,6 +24,7 @@ export class ListBlockComponent<T> implements AfterViewInit
 
   readonly listOptionInputLimit = 24;
   readonly listOptionsArrayLimit = 10;
+  hitLimit: boolean;
 
   constructor(private _fb: FormBuilder) 
   { }
@@ -32,10 +33,20 @@ export class ListBlockComponent<T> implements AfterViewInit
     this.block.options?.forEach((listItem) => {
       this.listItems.push(this.addListOptions(listItem));
     })
+
+    this.hitLimit = this.block.options ? this.block.options?.length >= this.listOptionsArrayLimit : false;
+
+    this.onListItemsChange();
   }
 
   get listItems(): FormArray {
     return this.listMessageBlock.controls['options'] as FormArray;
+  }
+
+  onListItemsChange() {
+    this.listItems.valueChanges.subscribe((val)=> {
+      this.hitLimit = val.length >= this.listOptionsArrayLimit;
+    })
   }
 
   addListOptions(listItem?: ButtonsBlockButton<T>) {
