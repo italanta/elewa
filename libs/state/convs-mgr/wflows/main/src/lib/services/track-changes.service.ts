@@ -20,6 +20,8 @@ export class ChangeTrackerService {
   updateValue(controlId: string, newValue: any): void {
     console.log(controlId);
     this.changeSubject.next([{ controlId, newValue }]);
+
+    console.log(newValue)
     // this.
   }
 

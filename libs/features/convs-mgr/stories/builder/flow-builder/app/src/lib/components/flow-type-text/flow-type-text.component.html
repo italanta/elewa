@@ -1,21 +1,23 @@
-<div class="wrapper" *ngIf="control">
-  @switch(type) {
-    <!-- Heading. Blank value not accept. Max character 80 -->
-    @case (flowControlType.Header) {
-      <input id="{{inputId}}" type="text" class="header" maxlength="80" [(ngModel)]="control.value" (ngModelChange)="onInputChange($event)"/>
+<div class="wrapper" *ngIf="control && textInputForm">
+  <form [formGroup]="textInputForm">
+    @switch(type) {
+      <!-- Heading. Blank value not accept. Max character 80 -->
+      @case (flowControlType.Header) {
+        <input id="{{inputId}}" type="text" class="header" maxlength="80" formControlName="text"/>
+      }
+      @case (flowControlType.LightHeader) {
+        <input id="{{inputId}}" type="text" class="light-header" maxlength="80"formControlName="text"/>
+      }
+      @case (flowControlType.Text){
+        <input id="{{inputId}}" type="text" class="text"  maxlength="4096"formControlName="text"/>
+      }
+      @case (flowControlType.Caption) {
+        <input id="{{inputId}}" type="text" class="small-text" maxlength="4096" formControlName="text"/>
+      }
+      @default {
+        <!-- Fallback input if none of the cases match -->
+        <input id="{{inputId}}" type="text" class="fallback" />
+      }
     }
-    @case (flowControlType.LightHeader) {
-      <input id="{{inputId}}" type="text" class="light-header" maxlength="80"[(ngModel)]="control.value" (ngModelChange)="onInputChange($event)"/>
-    }
-    @case (flowControlType.Text){
-      <input id="{{inputId}}" type="text" class="text"  maxlength="4096"[(ngModel)]="control.value" (ngModelChange)="onInputChange($event)"/>
-    }
-    @case (flowControlType.Caption) {
-      <input id="{{inputId}}" type="text" class="small-text" maxlength="4096" [(ngModel)]="control.value" (ngModelChange)="onInputChange($event)"/>
-    }
-    @default {
-      <!-- Fallback input if none of the cases match -->
-      <input id="{{inputId}}" type="text" class="fallback" />
-    }
-  }
+  </form>
 </div>

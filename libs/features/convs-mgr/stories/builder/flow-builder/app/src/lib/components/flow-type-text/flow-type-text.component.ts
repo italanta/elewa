@@ -1,61 +1,84 @@
-import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges, ViewContainerRef } from '@angular/core';
-import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
-// import { ChangeTrackerService } from '../../../../../../../../../../state/convs-mgr/wflows/main/src/lib/services/track-changes.service';
+import { Component, EventEmitter, inject, OnInit, Output, ViewContainerRef } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { SubSink } from 'subsink';
+import { debounceTime } from 'rxjs/operators';
+
+import { FlowPageLayoutElementTypesV31, FlowPageTextV31 } from '@app/model/convs-mgr/stories/flows';
 import { ChangeTrackerService, FlowEditorStateProvider } from '@app/state/convs-mgr/wflows';
-// import { FlowBuilderStateProvider } from '../../../../../../../../../../state/convs-mgr/wflows/main/src/lib/providers/flow-buiilder-state.provider';
+
+import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
+import { TextElementFormService } from '../../services/text-inputs-form.service';
+import { FeTextElement } from '../../models/fe-flow-text-element.model';
 
 @Component({
   selector: 'lib-flow-header-text',
   templateUrl: './flow-type-text.component.html',
-  styleUrl: './flow-type-text.component.scss',
+  styleUrls: ['./flow-type-text.component.scss'],
 })
-export class FlowTypeTextComponent implements OnInit, OnChanges
-{
+export class FlowTypeTextComponent implements OnInit {
   /** The type of input, for text inputs */
   type: FlowControlType;
   flowControlType = FlowControlType;
 
-  /** Cntrol being interacted with */
+  /** Control being interacted with */
   control: FlowControl;
   @Output() changeEvent = new EventEmitter<any>();
 
   inputId = '';
   vrc = inject(ViewContainerRef)
 
-  private _sbS = new SubSink ()
+  textInputForm: FormGroup;
+  textElement: FlowPageTextV31
+  private _sbS = new SubSink();
 
-  constructor(private trackerService: ChangeTrackerService,
-              private flowStateProvider: FlowEditorStateProvider
+  constructor(
+    private trackerService: ChangeTrackerService,
+    private flowStateProvider: FlowEditorStateProvider,
+    private textFormService: TextElementFormService
   ) {}
 
   ngOnInit(): void {
     this.inputId = `input-${this.control.type}`;
-    console.log(this.control.type);
-    /** Updating control state */
-    this._sbS.sink = this.trackerService.change$.subscribe((events: Array<{ controlId: string; newValue: any }>) => {
-    events.forEach(({ controlId, newValue }) => {
-      console.log(`Autosaving Control ${controlId} with value ${newValue}`);
+    this.buildForm();
+
+    // Subscribe to form value changes
+    this._sbS.sink = this.textInputForm.valueChanges
+    .pipe(debounceTime(2000))  // 2000 milliseconds = 2 seconds
+    .subscribe(formValues => {
+
+      this.buildV31Element();
       
-      this.flowStateProvider.updateComponent({ group: this.control.group, label: this.control.label, icon: this.control.icon, id: controlId, type: FlowControlType.Text, value: newValue });
+      // Update component state
+      this.flowStateProvider.updateComponent({
+        group: this.control.group,
+        label: this.control.label,
+        icon: this.control.icon,
+        id: this.control.id,
+        type: FlowControlType.Text, 
+        value: formValues.text
+      });
     });
-  });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['control']) {
-      this.trackerService.updateValue(this.control.id, this.control.type);
+  buildForm(): void {
+    if (this.control && this.textElement) {
+      this.textInputForm = this.textFormService.createTextForm(this.textElement);
+    } else {
+      this.textInputForm = this.textFormService.createEmptyForm();
     }
   }
 
-  /*** Tracking user interactions with controls in real time */
-  onInputChange(newValue: string): void {
-    if (!this.control) {
-      console.error('Control is undefined');
-      return;
-    }
-    this.changeEvent.emit({ controlId: this.control.id, newValue });
-    this.trackerService.updateValue(this.control.id, newValue);
+  buildV31Element() {
+    const formValues = {text: this.textInputForm.get('text')?.value,
+      size: this.control.type,
+      type: FlowPageLayoutElementTypesV31.TEXT,
+    } as FeTextElement;
+
+    const textElement = this.textFormService.transformElement(formValues);
+
+    this.trackerService.updateValue(this.control.id, textElement);
+
+    console.log('V31 Element', textElement);
   }
-  
 }
+
