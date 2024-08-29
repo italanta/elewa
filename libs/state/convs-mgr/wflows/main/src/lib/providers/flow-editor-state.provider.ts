@@ -1,4 +1,5 @@
 // import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 
 import { ChangeTrackerService } from "../services/track-changes.service";
@@ -10,6 +11,7 @@ import { FLOW_CONTROLS, FlowControl } from "./flow-controls.const";
  * Manages the state of flow controls.
  */
 
+@Injectable()
 export class FlowEditorStateProvider {
   /** Initial list of control state for the editor */
   private _controls = FLOW_CONTROLS();

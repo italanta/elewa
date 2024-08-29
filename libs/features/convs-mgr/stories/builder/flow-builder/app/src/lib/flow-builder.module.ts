@@ -33,6 +33,7 @@ import { FlowDatepickInputComponent } from './components/flow-datepick-input/flo
 import { FlowBuilderRouterModule } from './flow-builder.router.module';
 import { FlowButtonGroupComponent } from './components/flow-button-group/flow-button-group.component';
 import { FlowCheckboxOptionsComponent } from './components/flow-checkbox-options/flow-checkbox-options.component';
+import { FlowEditorStateProvider, FlowsStore } from '@app/state/convs-mgr/wflows';
 
 @NgModule({
   imports: [
@@ -70,6 +71,7 @@ import { FlowCheckboxOptionsComponent } from './components/flow-checkbox-options
     FlowDatepickInputComponent,
     FlowButtonGroupComponent,
     FlowCheckboxOptionsComponent,
-  ]
+  ],
+  providers: [FlowEditorStateProvider, FlowsStore, ]
 })
 export class FlowBuilderModule {}

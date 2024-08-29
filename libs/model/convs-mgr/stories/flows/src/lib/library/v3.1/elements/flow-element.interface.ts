@@ -18,7 +18,7 @@ export interface FlowPageLayoutElementV31
  * 
  * Max number of elements per page is 50!
  */
-export enum FlowPageLayoutElementTypesV31 
+export enum     FlowPageLayoutElementTypesV31 
 {
   //
   // Structural elements

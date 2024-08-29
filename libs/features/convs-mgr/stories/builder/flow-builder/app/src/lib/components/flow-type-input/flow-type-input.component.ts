@@ -58,7 +58,7 @@ export class FlowTypeInputComponent implements OnInit, OnChanges
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['control']) {
+    if (changes[' ']) {
       this.trackerService.updateValue(this.control.id, this.control.type);
     }
   }
