@@ -297,6 +297,9 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
               this._snackbar.showSuccess('Template updated successfully');
               this.isSaving = false;
             });
+          } else {
+            this._snackbar.showSuccess('Template failed to update. Invalid changes made');
+            this.isSaving = false;
         }
       });
   }
