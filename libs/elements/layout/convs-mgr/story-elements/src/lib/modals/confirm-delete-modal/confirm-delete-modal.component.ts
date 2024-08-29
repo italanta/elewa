@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogRef } from '@angular/cdk/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { SubSink } from 'subsink';
 
@@ -33,6 +34,7 @@ export class ConfirmDeleteModalComponent {
     private _botServ$: BotsStateService,
     private _botModServ$: BotModulesStateService,
     private _dialog: DialogRef,
+    private snackBar: MatSnackBar,
               public dialogRef: MatDialogRef<ConfirmDeleteModalComponent>, 
               @Inject(MAT_DIALOG_DATA)     public data: {
                 mode: DeleteElementsEnum;
@@ -54,7 +56,18 @@ export class ConfirmDeleteModalComponent {
       case DeleteElementsEnum.Bot:
         return this._botServ$
           .deleteBot(this.element as Bot)
-          .subscribe(() => this._dialog.close());
+          .subscribe((response) => {
+            if(response.status === 200) {
+              this.snackBar.open("Delete Bot successful","Dismiss",{
+                duration: 3000
+              });
+            } else {
+              this.snackBar.open("Delete Bot failed","Dismiss",{
+                duration: 3000
+              });
+            }
+            this._dialog.close()
+          });
       case DeleteElementsEnum.Story:
         return this._addStory$
           .removeStory(this.element as Story, this.parentElement as BotModule)
