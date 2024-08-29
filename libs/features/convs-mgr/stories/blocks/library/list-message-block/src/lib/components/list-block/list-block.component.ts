@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
@@ -31,6 +31,14 @@ export class ListBlockComponent<T> implements AfterViewInit
 
   constructor(private _fb: FormBuilder) 
   { }
+
+/** Prevent default key events for the buttons 
+ *    so that the enter key can add a new option */
+  @HostListener('document:keydown', ['$event'])
+  onKeydownHandler(event: KeyboardEvent)
+  {
+    event.preventDefault();
+  }
 
   ngAfterViewInit(): void {
     this.block.options?.forEach((listItem) => {
