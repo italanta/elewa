@@ -108,8 +108,8 @@
     }
 
     .delete-users {
-      border: 1px #1F7A8C solid;
-      color: #1F7A8C;
+      border: 1px var(--convs-mgr-color-bright-teal) solid;
+      color: var(--convs-mgr-color-bright-teal);
     }
 
     .move-users, .add-user {
@@ -296,7 +296,7 @@
   }
   
   .mdc-data-table__header-cell {
-    color: #7c7c7c;
+    color: var(--convs-mgr-text-color);
     font-weight: 300;
     font-size: 1.1rem;
   }
