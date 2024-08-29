@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -21,7 +21,7 @@ export class QuestionsBlockComponent implements OnInit
   @ViewChild('inputOtion') inputOtion: ElementRef;
   @ViewChildren('optionInputFields') optionInputFields: QueryList<OptionInputFieldComponent>;
 
-  private currentIndex = 0;
+  private currentIndex = 0; 
 
   @Input() id: string;
   @Input() block: QuestionMessageBlock;
@@ -40,64 +40,48 @@ export class QuestionsBlockComponent implements OnInit
 
   constructor(private _fb: FormBuilder) { }
 
-  /** Prevent default key events for the buttons 
-   *    so that the enter key can add a new option */
-  @HostListener('document:keydown', ['$event'])
-  onKeydownHandler(event: KeyboardEvent)
-  {
-    event.preventDefault();
-  }
-
-  ngOnInit(): void
-  {
-    this.block.options?.forEach((option) =>
-    {
+  ngOnInit(): void {
+    this.block.options?.forEach((option) => {
       this.options.push(this.addQuestionOptions(option));
-    });
+    })
     this.hitLimit = this.block.options ? this.block.options?.length >= questionOptionsArrayLimit : false;
   }
 
-  get options(): FormArray
-  {
+  get options(): FormArray {
     return this.questionMessageBlock.controls['options'] as FormArray;
   }
 
-  addQuestionOptions(option?: ButtonsBlockButton<any>)
-  {
+  addQuestionOptions(option?: ButtonsBlockButton<any>) {
     return this._fb.group({
       id: [option?.id ?? `${this.id}-${this.options.length + 1}`],
       message: [option?.message ?? ''],
       value: [option?.value ?? '']
-    });
+    })
   }
 
-  addNewOption()
-  {
+  addNewOption() {
     if (this.options.length < questionOptionsArrayLimit) this.options.push(this.addQuestionOptions());
-    setTimeout(() =>
-    {
+    setTimeout(() => {
       this.setFocusOnNextInput();
     });
     this.hitLimit = this.options.length >= questionOptionsArrayLimit;
   }
 
-  deleteInput(i: number)
-  {
+  deleteInput(i: number) {
     const optionElementId = `i-${i}-${this.id}`;
 
     const optionElement = document.getElementById(optionElementId) as Element;
-
+    
     this.jsPlumb.removeAllEndpoints(optionElement);
-
-    this.jsPlumb.deleteConnectionsForElement(optionElement);
-
+    
+    this.jsPlumb.deleteConnectionsForElement(optionElement)
+    
     this.options.removeAt(i);
 
     this.hitLimit = this.options.length >= questionOptionsArrayLimit;
   }
 
-  setFocusOnNextInput()
-  {
+  setFocusOnNextInput() {
     this.currentIndex = __FocusCursorOnNextInputOfBlock(
       this.currentIndex,
       this.optionInputFields
