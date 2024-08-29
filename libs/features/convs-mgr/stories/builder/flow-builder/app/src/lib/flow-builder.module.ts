@@ -31,7 +31,7 @@ import { FlowTypeTextComponent } from './components/flow-type-text/flow-type-tex
 import { FlowTypeInputComponent } from './components/flow-type-input/flow-type-input.component';
 import { FlowDatepickInputComponent } from './components/flow-datepick-input/flow-datepick-input.component';
 import { FlowBuilderRouterModule } from './flow-builder.router.module';
-
+import { FlowButtonGroupComponent } from './components/flow-button-group/flow-button-group.component';
 
 @NgModule({
   imports: [
@@ -67,7 +67,7 @@ import { FlowBuilderRouterModule } from './flow-builder.router.module';
     FlowTypeTextComponent,
     FlowTypeInputComponent,
     FlowDatepickInputComponent,
+    FlowButtonGroupComponent,
   ],
-
 })
 export class FlowBuilderModule {}
