@@ -7,7 +7,8 @@ import { Injectable } from "@angular/core";
 import { ActiveStoryStore } from "@app/state/convs-mgr/stories";
 
 import { StoryModuleTypes } from "@app/model/convs-mgr/stories/main";
-import { FlowStory, WFlow } from "@app/model/convs-mgr/stories/flows";
+import { FlowStory, WFlow, FlowStore } from "@app/model/convs-mgr/stories/flows";
+
 
 @Injectable({ providedIn: 'root' })
 export class WFlowService
@@ -19,7 +20,9 @@ export class WFlowService
   private _storyFlowTracker$: Observable<FlowStory | false>;
 
   constructor(_activeStory$$: ActiveStoryStore,
-              private _dataService: DataService) 
+              private _dataService: DataService,
+              private _flowStore: FlowsStore
+            ) 
   { 
     this._storyFlowTracker$ 
       = _activeStory$$.get()
@@ -75,5 +78,13 @@ export class WFlowService
   getLatestFlowConfig() : Promise<WFlow | undefined>
   {
     return lastValueFrom(this.getFlowConfig());
+  }
+
+  saveWFlow ()
+  {
+    return this._flowStore.add({
+      id: "test",
+
+    }as WFlow)
   }
 }
