@@ -1,31 +1,28 @@
-// import { Injectable } from '@angular/core';
-// import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FlowInlineRadioButtonsInputV31, FlowPageLayoutElementTypesV31 } from "@app/model/convs-mgr/stories/flows";
+import { FEFlowRadioGroup } from "../models/fe-flow-radio-element.model";
 
-// @Injectable({ providedIn: 'root' })
-// export class InputFormService {
-//   private formBuilder: FormBuilder;
+/**
+ * 
+ * @param FeGroup Simple object that holds the options configuraton data
+ * @returns A FlowInlineRadioButtonsInputV31 compliant object 
+ */
+export function buildV31RadioGroup (FeGroup: FEFlowRadioGroup): FlowInlineRadioButtonsInputV31
+{
+  const mappedOptions = FeGroup.options.map(option => ({
+    id: option.optionId,
+    title: option.label
+  }));
 
-//   constructor(formBuilder: FormBuilder) {
-//     this.formBuilder = formBuilder;
-//   }
+  const radioGroup: FlowInlineRadioButtonsInputV31 = {
+    type: FlowPageLayoutElementTypesV31.INLINE_RADIO_BUTTONS,
+    name: FeGroup.name,
+    label: FeGroup.label,
+    required: FeGroup.required,
+    'data-source': mappedOptions,
+    enabled: true,
+    visible: true
+  };
 
-//   buildSingleInputForm(input: { title: string; id: string }): FormGroup {
-//     return this.formBuilder.group({
-//       title: input.title,
-//       id: input.id
-//     });
-//   }
+  return radioGroup;
 
-//   buildInputsForm(inputs: { title: string; id: string }[]): FormGroup {
-//     const formArray = this.formBuilder.array([]);
-//     inputs.forEach((input) => formArray.push(this.buildSingleInputForm(input)));
-  
-//     // Create a FormGroup with the formArray
-//     const formGroup = this.formBuilder.group({
-//       inputs: formArray
-//     });
-  
-//     // Return the formArray control
-//     return formGroup.get('inputs') as FormArray;
-//   }
-// }
+}

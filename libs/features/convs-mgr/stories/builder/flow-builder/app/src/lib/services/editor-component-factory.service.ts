@@ -4,6 +4,7 @@ import { FlowControl, FlowControlType } from "../providers/flow-controls.const";
 import { FlowTypeTextComponent } from '../components/flow-type-text/flow-type-text.component';
 import { FlowTypeInputComponent } from '../components/flow-type-input/flow-type-input.component';
 import { FlowDatepickInputComponent } from '../components/flow-datepick-input/flow-datepick-input.component';
+import { FlowButtonGroupComponent } from '../components/flow-button-group/flow-button-group.component';
 
 
 @Injectable({
@@ -28,7 +29,6 @@ export class EditorComponentFactory {
         // }
         case FlowControlType.TextArea:
         case FlowControlType.Select:
-        case FlowControlType.Radio:
         case FlowControlType.OptIn:
         case FlowControlType.Link: {
             componentType = FlowTypeInputComponent;
@@ -37,6 +37,10 @@ export class EditorComponentFactory {
         case 'datepick': {
             componentType = FlowDatepickInputComponent;
             break;
+        }
+        case FlowControlType.Radio: {
+          componentType = FlowButtonGroupComponent;
+          break;
         }
         default: {
             componentType = FlowTypeTextComponent;
