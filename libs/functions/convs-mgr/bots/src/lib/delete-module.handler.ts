@@ -6,6 +6,7 @@ import { FunctionHandler, FunctionContext, RestResult } from '@ngfi/functions';
 
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Story } from '@app/model/convs-mgr/stories/main';
+import { Bot } from '@app/model/convs-mgr/bots';
 
 /**
  * Handler to delete a module and its subsequent stories.
@@ -22,6 +23,12 @@ export class DeleteModuleHandler extends FunctionHandler<{ moduleId: string, org
 
       const module = await modulesRepo$.getDocumentById(req.moduleId);
 
+      const botsRepo$ = tools.getRepository<Bot>(`orgs/${req.orgId}/bots`);
+
+      const bot = await botsRepo$.getDocumentById(module.parentBot);
+
+      bot.modules = bot.modules.filter((modules)=> modules !== req.moduleId);
+
       const moduleStories = await storiesRepo$.getDocuments(new Query().where("parentModule", "==", module));
 
       for (const story of moduleStories) {
@@ -33,6 +40,7 @@ export class DeleteModuleHandler extends FunctionHandler<{ moduleId: string, org
 
       const deleteModule = await modulesRepo$.delete(module.id);
 
+      await botsRepo$.update(bot);
       
       if (deleteModule) {
         tools.Logger.log(() => `[DeleteModuleHandler].execute - Module delete successful :: ${req.moduleId}`);

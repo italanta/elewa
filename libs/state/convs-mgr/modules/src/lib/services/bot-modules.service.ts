@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
+
+import { Observable, map, switchMap } from 'rxjs';
 
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 import { BotModulesStore } from '../stores/bot-module.stores';
 
@@ -9,7 +12,9 @@ import { BotModulesStore } from '../stores/bot-module.stores';
   providedIn: 'root',
 })
 export class BotModulesStateService {
-  constructor(private _botModuleStore$$: BotModulesStore) {}
+  constructor(private _botModuleStore$$: BotModulesStore,     
+              private _activeOrg: ActiveOrgStore,
+              private _aff$: AngularFireFunctions) {}
 
   getBotModules(): Observable<BotModule[]> {
     return this._botModuleStore$$.get();
@@ -37,7 +42,8 @@ export class BotModulesStateService {
     return this._botModuleStore$$.update(botModule);
   }
 
-  deleteBotModules(botModule: BotModule): Observable<BotModule> {
-    return this._botModuleStore$$.remove(botModule);
+  deleteBotModules(botModule: BotModule): Observable<any> {
+    return this._activeOrg.get()
+    .pipe(switchMap((org)=> this._aff$.httpsCallable('deleteModule')({orgId: org.id, moduleId: botModule.id})));
   }
 }
