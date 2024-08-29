@@ -3,14 +3,15 @@ import { lastValueFrom, map, Observable, switchMap, take } from "rxjs";
 import { DataService } from "@ngfi/angular";
 import { Query } from "@ngfi/firestore-qbuilder";
 
-import { Injectable } from "@angular/core";
+// import { Injectable } from "@angular/core";
 import { ActiveStoryStore } from "@app/state/convs-mgr/stories";
 
 import { StoryModuleTypes } from "@app/model/convs-mgr/stories/main";
-import { FlowStory, WFlow, FlowStore } from "@app/model/convs-mgr/stories/flows";
+import { FlowStory, WFlow } from "@app/model/convs-mgr/stories/flows";
+import { FlowsStore } from "../stores/wflow.store";
 
 
-@Injectable({ providedIn: 'root' })
+// @Injectable({ providedIn: 'root' })
 export class WFlowService
 {
   /** 
@@ -80,11 +81,8 @@ export class WFlowService
     return lastValueFrom(this.getFlowConfig());
   }
 
-  saveWFlow ()
+  saveWFlow (flowObject: WFlow)
   {
-    return this._flowStore.add({
-      id: "test",
-
-    }as WFlow)
+    return this._flowStore.add(flowObject);
   }
 }

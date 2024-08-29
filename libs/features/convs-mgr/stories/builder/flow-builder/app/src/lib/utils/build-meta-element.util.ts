@@ -1,93 +1,13 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import {
   FlowPageLayoutElementTypesV31,
   FlowPageLayoutElementV31,
   FlowPageTextSizesV31,
   FlowPageTextV31,
-  FlowpageForm,
 } from '@app/model/convs-mgr/stories/flows';
 import { FlowControl, FlowControlType } from '../providers/flow-controls.const';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class FlowJsonBuilderService {
-  private metaJsonSubject = new BehaviorSubject<any[]>([]); // Storing the JSON data
-
-  constructor() {}
-
-  /** Public method to build the JSON from FlowControls */
-  buildJson(flowControls: FlowControl[]): void {
-    const metaJson: any[] = [];
-
-    let formElements: FlowControl[] = [];
-
-    // Grouping form inputs and building the JSON structure
-    flowControls.forEach((control) => {
-      if (this.isInputControl(control)) {
-        formElements.push(control);
-      } else {
-        if (formElements.length > 0) {
-          metaJson.push(this.buildForm(formElements)); // Push the form when there are input controls
-          formElements = [];
-        }
-        metaJson.push(this.convertToMetaElement(control)); // Push non-input elements
-      }
-    });
-
-    // Handle case where inputs are at the end
-    if (formElements.length > 0) {
-      metaJson.push(this.buildForm(formElements));
-    }
-
-    // Emit the final result to the BehaviorSubject
-    this.metaJsonSubject.next(metaJson);
-  }
-
-  /** Public method to subscribe to the BehaviorSubject */
-  getMetaJson$() {
-    return this.metaJsonSubject.asObservable();
-  }
-
-  /** Check if a FlowControl is an input element */
-  private isInputControl(control: FlowControl): boolean {
-    return [
-      FlowControlType.TextInput,
-      FlowControlType.TextArea,
-      FlowControlType.Select,
-      FlowControlType.Radio,
-      FlowControlType.OptIn,
-      FlowControlType.Datepick
-    ].includes(control.type);
-  }
-
-  /** Wrap inputs into a form */
-  private buildForm(inputControls: FlowControl[]): FlowpageForm {
-    const children = inputControls.map((input) => this.buildInputs(input));
-
-    return {
-      type: FlowPageLayoutElementTypesV31.FORM,
-      children: children,
-      'init-values': this.getInitialValues(inputControls),
-      'error-messages': this.getErrorMessages(inputControls),
-    };
-  }
-
-  /** Get initial values for form inputs */
-  // TODO: Switch back to typed
-  // private getInitialValues(inputControls: FlowPageLayoutElementV31[]): any {
-  private getInitialValues(inputControls: any[]): any {
-    console.log(inputControls);
-    const initValues: any = {};
-    inputControls.forEach((control) => {
-      if (control.value) {
-        initValues[control.id] = control.value;
-      }
-    });
-    return initValues;
-  }
-
+export class BuildMetaElement {
+  /** Define text sizes for text controls */
   private mapTextSize(type: FlowControlType): FlowPageTextSizesV31 {
     switch (type) {
       case FlowControlType.Header:
@@ -174,11 +94,5 @@ export class FlowJsonBuilderService {
       text: linkElement.value,
     };
   }
-
-  /** Get error messages for form inputs */
-  private getErrorMessages(
-    inputControls: any[]
-  ): { [control: string]: string } | undefined {
-    return undefined;
-  }
 }
+/** Convert non-input FlowControl to Meta-defined types */

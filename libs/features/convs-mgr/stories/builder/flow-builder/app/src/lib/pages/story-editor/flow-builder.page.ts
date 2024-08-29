@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, AfterViewInit } from '@angular/core';
 import { BuilderNavBarElementsProvider } from '@app/features/convs-mgr/stories/builder/nav';
-import { WFlowService} from '@app/state/convs-mgr/wflows';
+// import { WFlowService} from '@app/state/convs-mgr/wflows';
 
 import { SubSink } from 'subsink';
 
@@ -20,7 +20,7 @@ export class FlowBuilderPageComponent implements OnInit, AfterViewInit, OnDestro
   showPreview = true;
 
   constructor(private _navbar: BuilderNavBarElementsProvider,
-              private _flowServ: WFlowService
+              // private _flowServ: WFlowService
   ) 
   { }
 
@@ -36,10 +36,10 @@ export class FlowBuilderPageComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   saveFlow(){
-    this._flowServ.saveWFlow()
+    // this._flowServ.saveWFlow()
   }
 
   ngOnDestroy(): void {
-      
+      console.log("destroyed")
   }
 }

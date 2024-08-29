@@ -3,7 +3,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 
 import { v4 as uuidv4 } from 'uuid';
 import { SubSink } from 'subsink';
-import { ChangeTrackerService, FlowBuilderStateProvider } from '@app/state/convs-mgr/wflows';
+import { ChangeTrackerService, FlowEditorStateProvider } from '@app/state/convs-mgr/wflows';
 
 import { FlowControl } from '../../providers/flow-controls.const';
 import { EditorComponentFactory } from '../../services/editor-component-factory.service';
@@ -22,7 +22,7 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   @ViewChild('vcr', { static: true, read: ViewContainerRef })
   vcr!: ViewContainerRef;
 
-  constructor( private flowStateProvider: FlowBuilderStateProvider,
+  constructor( private flowStateProvider: FlowEditorStateProvider,
                private editorComponentFactory: EditorComponentFactory,
                private trackerService: ChangeTrackerService,
                private cdr: ChangeDetectorRef
@@ -79,6 +79,8 @@ export class FlowEditorComponent implements OnInit, OnDestroy
     }
   }   
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {
+    console.log("destroyed")
+   }
 }
 

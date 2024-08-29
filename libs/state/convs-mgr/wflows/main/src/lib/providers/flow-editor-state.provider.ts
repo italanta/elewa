@@ -1,16 +1,16 @@
-import { Injectable } from "@angular/core";
+// import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 
 import { ChangeTrackerService } from "../services/track-changes.service";
 
 import { FlowJsonBuilderService } from "../services/build-flow-json.service";
-import { FLOW_CONTROLS, FlowControl } from "@app/features/convs-mgr/stories/builder/flow-builder/app";
+import { FLOW_CONTROLS, FlowControl } from "./flow-controls.const";
 
 /**
  * Manages the state of flow controls.
  */
-@Injectable({ providedIn: 'root' })
-export class FlowBuilderStateProvider {
+
+export class FlowEditorStateProvider {
   /** Initial list of control state for the editor */
   private _controls = FLOW_CONTROLS();
   

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
@@ -6,6 +6,7 @@ import { OptionGroupFormService } from '../../services/input-options-group-form.
 
 import { FEFlowOptionGroup } from '../../models/fe-flow-option-element.model';
 import { buildV31CheckboxGroup } from '../../utils/build-checkbox-group.util';
+import { ChangeTrackerService } from '@app/state/convs-mgr/wflows';
 
 @Component({
   selector: 'lib-flow-checkbox-options',
@@ -28,7 +29,7 @@ export class FlowCheckboxOptionsComponent implements OnInit
 
   constructor(private optionGroupFormService: OptionGroupFormService,
               private fb: FormBuilder,
-
+              private _trackerService: ChangeTrackerService
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +38,18 @@ export class FlowCheckboxOptionsComponent implements OnInit
     } else {
       this.checkboxGroupForm = this.optionGroupFormService.createEmptyRadioGpForm();
     }
+    this.checkboxGroupForm.valueChanges.subscribe((value) => {
+      console.log(value);
+      this.saveRadioConfig();
+    })
   }
+  
+
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   if (changes['control']) {
+      
+  //   }
+  // }
 
   /** Options controls */
   get options() {
@@ -67,10 +79,25 @@ export class FlowCheckboxOptionsComponent implements OnInit
       this.flowGroup = this.checkboxGroupForm.value;
       const metaRGroup = buildV31CheckboxGroup(this.checkboxGroupForm.value)
       console.log('Saved Radio Config:', metaRGroup);
-      this.showConfigs = false
+      // this.showConfigs = false;
+      this._trackerService.updateValue(this.control.id, metaRGroup);
       
     } else {
       console.error('Form is invalid');
     }
   }
+
+  // private _buildFlowObject(metaRGroup: FlowScreenV31){
+  //   const wFlow: WFlow = {
+  //     flow: {
+  //       version: '3.1',
+  //       screens: [
+
+  //       ],
+  //       data_api_version: '3.0',
+  //       routing_model: {}
+  //     },
+  //     validation_errors: []
+  //   }
+  // }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+// import { Injectable } from '@angular/core';
 
 import { Repository, DataService } from '@ngfi/angular';
 import { DataStore }  from '@ngfi/state';
@@ -15,7 +15,7 @@ import { ActiveOrgStore } from '@app/private/state/organisation/main';
 import { WFlow } from '@app/model/convs-mgr/stories/flows';
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 
-@Injectable()
+// @Injectable()
 export class FlowsStore extends DataStore<WFlow>
 {
   protected store = 'stories-store';
@@ -55,8 +55,9 @@ export class FlowsStore extends DataStore<WFlow>
     });
   }
 
-  publish(story: WFlow){
+  saveWFlow(story: WFlow){
+    console.log(story);
     // story.publishedOn = new Date();
-    return this._activeRepo.write(story, story.id!);
+    // return this._activeRepo.write(story, story.id!);
   }
 }

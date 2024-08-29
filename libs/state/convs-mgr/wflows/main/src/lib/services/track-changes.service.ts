@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { FlowsStore } from '../stores/wflow.store';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +15,12 @@ export class ChangeTrackerService {
     distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)) // Prevent redundant saves
   );
 
-  constructor() {}
+  constructor(private _wFlowStore: FlowsStore) {}
 
   updateValue(controlId: string, newValue: any): void {
+    console.log(controlId);
     this.changeSubject.next([{ controlId, newValue }]);
+    // this.
   }
 
   clearChanges(): void {

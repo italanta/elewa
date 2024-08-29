@@ -1,8 +1,9 @@
 import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges, ViewContainerRef } from '@angular/core';
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
-import { ChangeTrackerService } from '../../../../../../../../../../state/convs-mgr/wflows/main/src/lib/services/track-changes.service';
+// import { ChangeTrackerService } from '../../../../../../../../../../state/convs-mgr/wflows/main/src/lib/services/track-changes.service';
 import { SubSink } from 'subsink';
-import { FlowBuilderStateProvider } from '../../../../../../../../../../state/convs-mgr/wflows/main/src/lib/providers/flow-buiilder-state.provider';
+import { ChangeTrackerService, FlowEditorStateProvider } from '@app/state/convs-mgr/wflows';
+// import { FlowBuilderStateProvider } from '../../../../../../../../../../state/convs-mgr/wflows/main/src/lib/providers/flow-buiilder-state.provider';
 
 @Component({
   selector: 'lib-flow-header-text',
@@ -25,7 +26,7 @@ export class FlowTypeTextComponent implements OnInit, OnChanges
   private _sbS = new SubSink ()
 
   constructor(private trackerService: ChangeTrackerService,
-              private flowStateProvider: FlowBuilderStateProvider
+              private flowStateProvider: FlowEditorStateProvider
   ) {}
 
   ngOnInit(): void {

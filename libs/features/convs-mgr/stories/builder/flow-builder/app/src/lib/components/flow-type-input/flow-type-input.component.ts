@@ -3,7 +3,7 @@ import { Component, EventEmitter, inject, OnChanges, OnInit, Output, SimpleChang
 import { SubSink } from 'subsink';
 import { debounceTime, Subject } from 'rxjs';
 
-import { ChangeTrackerService, FlowBuilderStateProvider } from '@app/state/convs-mgr/wflows';
+import { ChangeTrackerService, FlowEditorStateProvider } from '@app/state/convs-mgr/wflows';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
 
@@ -40,7 +40,7 @@ export class FlowTypeInputComponent implements OnInit, OnChanges
   private _sbS = new SubSink ()
 
   constructor(private trackerService: ChangeTrackerService,
-    private flowStateProvider: FlowBuilderStateProvider
+    private flowStateProvider: FlowEditorStateProvider
 ) {}
 
   ngOnInit(): void {

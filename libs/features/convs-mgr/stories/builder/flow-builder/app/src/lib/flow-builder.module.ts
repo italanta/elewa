@@ -70,6 +70,6 @@ import { FlowCheckboxOptionsComponent } from './components/flow-checkbox-options
     FlowDatepickInputComponent,
     FlowButtonGroupComponent,
     FlowCheckboxOptionsComponent,
-  ],
+  ]
 })
 export class FlowBuilderModule {}
