@@ -78,24 +78,7 @@ export class NewStoryService implements OnDestroy {
 
   /** delete story from DB */
   removeStory(story: Story, parentModule:BotModule) {
-    return this._storyServ$.deleteStory(story).pipe(
-      take(1),
-      switchMap((oldStory) => {
-        return this._botModulesServ$.getBotModuleById(parentModule.id as string).pipe(
-          take(1),
-          switchMap((botModule) => {
-            if (!botModule) return of(null); // Handle the case where module is null (should never happen);
-  
-            // delete from parentModule stories list 
-            botModule.stories = botModule.stories.filter((storyId) => storyId !== oldStory.id);
-
-            return this._botModulesServ$.updateBotModules(botModule as BotModule).pipe(
-              tap(() => this._dialog.closeAll())
-            );
-          })
-        )
-      }),
-    )
+    return this._storyServ$.deleteStory(story)
   }
 
   /** delete story from old parentBotModule */
