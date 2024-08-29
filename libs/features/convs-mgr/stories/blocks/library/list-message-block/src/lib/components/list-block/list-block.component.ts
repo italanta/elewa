@@ -14,9 +14,8 @@ import { OptionInputFieldComponent, __FocusCursorOnNextInputOfBlock } from '@app
   templateUrl: './list-block.component.html',
   styleUrls: ['./list-block.component.scss'],
 })
-export class ListBlockComponent<T> implements AfterViewInit, OnDestroy 
+export class ListBlockComponent<T> implements AfterViewInit 
 {
-  private _sBs = new SubSink();
 
   @Input() id: string;
   @Input() block: ListMessageBlock;
@@ -39,18 +38,10 @@ export class ListBlockComponent<T> implements AfterViewInit, OnDestroy
     })
 
     this.hitLimit = this.block.options ? this.block.options?.length >= this.listOptionsArrayLimit : false;
-
-    this.onListItemsChange();
   }
 
   get listItems(): FormArray {
     return this.listMessageBlock.controls['options'] as FormArray;
-  }
-
-  onListItemsChange() {
-    this._sBs.sink = this.listItems.valueChanges.subscribe((val)=> {
-      this.hitLimit = val.length >= this.listOptionsArrayLimit;
-    })
   }
 
   addListOptions(listItem?: ButtonsBlockButton<T>) {
@@ -66,9 +57,12 @@ export class ListBlockComponent<T> implements AfterViewInit, OnDestroy
     setTimeout(() => {
       this.setFocusOnNextInput();
     });
+
+    this.hitLimit = this.listItems.length >= this.listOptionsArrayLimit;
   }
   deleteInput(i: number) {
     this.listItems.removeAt(i);
+    this.hitLimit = this.listItems.length >= this.listOptionsArrayLimit;
   }
 
   setFocusOnNextInput() {
@@ -78,7 +72,4 @@ export class ListBlockComponent<T> implements AfterViewInit, OnDestroy
     );
 }
 
-  ngOnDestroy(): void {
-      this._sBs.unsubscribe();
-  }
 }

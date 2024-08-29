@@ -1,7 +1,5 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-
-import { SubSink } from 'subsink';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
@@ -18,14 +16,12 @@ const questionOptionsArrayLimit = 3;
   templateUrl: './questions-block.component.html',
   styleUrls: ['./questions-block.component.scss'],
 })
-export class QuestionsBlockComponent implements OnInit, OnDestroy 
+export class QuestionsBlockComponent implements OnInit 
 {
   @ViewChild('inputOtion') inputOtion: ElementRef;
   @ViewChildren('optionInputFields') optionInputFields: QueryList<OptionInputFieldComponent>;
 
   private currentIndex = 0; 
-
-  private _sBs = new SubSink();
 
   @Input() id: string;
   @Input() block: QuestionMessageBlock;
@@ -49,8 +45,6 @@ export class QuestionsBlockComponent implements OnInit, OnDestroy
       this.options.push(this.addQuestionOptions(option));
     })
     this.hitLimit = this.block.options ? this.block.options?.length >= questionOptionsArrayLimit : false;
-
-    this.onOptionItemsChange();
   }
 
   get options(): FormArray {
@@ -65,17 +59,12 @@ export class QuestionsBlockComponent implements OnInit, OnDestroy
     })
   }
 
-  onOptionItemsChange() {
-    this._sBs.sink = this.options.valueChanges.subscribe((val)=> {
-      this.hitLimit = val.length >= questionOptionsArrayLimit;
-    })
-  }
-
   addNewOption() {
     if (this.options.length < questionOptionsArrayLimit) this.options.push(this.addQuestionOptions());
     setTimeout(() => {
       this.setFocusOnNextInput();
     });
+    this.hitLimit = this.options.length >= questionOptionsArrayLimit;
   }
 
   deleteInput(i: number) {
@@ -88,6 +77,8 @@ export class QuestionsBlockComponent implements OnInit, OnDestroy
     this.jsPlumb.deleteConnectionsForElement(optionElement)
     
     this.options.removeAt(i);
+
+    this.hitLimit = this.options.length >= questionOptionsArrayLimit;
   }
 
   setFocusOnNextInput() {
@@ -97,7 +88,4 @@ export class QuestionsBlockComponent implements OnInit, OnDestroy
     );
   }
 
-  ngOnDestroy(): void {
-      this._sBs.unsubscribe();
-  }
 }
