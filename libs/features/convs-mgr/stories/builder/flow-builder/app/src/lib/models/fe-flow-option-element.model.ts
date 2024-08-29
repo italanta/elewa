@@ -2,7 +2,7 @@
  * Interface to guide user in setting up options for a radio button. 
  */
 
-export interface FEFlowRadioGroup 
+export interface FEFlowOptionGroup 
 {
   /** Radio group name */
   name: string;
@@ -11,10 +11,10 @@ export interface FEFlowRadioGroup
   /** If it is required or not */
   required: boolean;
   /** Options in the radio group */
-  options: RadioOptions[]
+  options: ElementsOptions[]
 }
 
-export class RadioOptions 
+export class ElementsOptions 
 {
   /** Unique id for option */
   optionId: string;

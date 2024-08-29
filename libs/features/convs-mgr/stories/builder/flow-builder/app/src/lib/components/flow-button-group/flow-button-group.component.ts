@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
-import { RadioOptionGroupFormService } from '../../services/input-options-group-form.service';
+import { OptionGroupFormService } from '../../services/input-options-group-form.service';
 import { buildV31RadioGroup } from '../../utils/build-radio-options-group.util';
-import { FEFlowRadioGroup } from '../../models/fe-flow-radio-element.model';
+import { FEFlowOptionGroup } from '../../models/fe-flow-option-element.model';
 
 @Component({
   selector: 'lib-flow-button-group',
@@ -19,12 +19,14 @@ export class FlowButtonGroupComponent implements OnInit
   flowControlType = FlowControlType;
   /** Specific control */
   control: FlowControl
-  flowGroup?: FEFlowRadioGroup; // Pass in the radio group
+  /** Pass in the radio group */
+  flowGroup?: FEFlowOptionGroup; 
   radioGroupForm: FormGroup;
-  savedRadioConfig: any;
+ 
+  /** Toggle view state */
   showConfigs = true;
 
-  constructor(private radioOptionGroupFormService: RadioOptionGroupFormService,
+  constructor(private radioOptionGroupFormService: OptionGroupFormService,
               private fb: FormBuilder,
 
   ) {}

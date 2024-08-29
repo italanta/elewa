@@ -1,12 +1,12 @@
 import { FlowInlineRadioButtonsInputV31, FlowPageLayoutElementTypesV31 } from "@app/model/convs-mgr/stories/flows";
-import { FEFlowRadioGroup } from "../models/fe-flow-radio-element.model";
+import { FEFlowOptionGroup } from "../models/fe-flow-option-element.model";
 
 /**
  * 
  * @param FeGroup Simple object that holds the options configuraton data
  * @returns A FlowInlineRadioButtonsInputV31 compliant object 
  */
-export function buildV31RadioGroup (FeGroup: FEFlowRadioGroup): FlowInlineRadioButtonsInputV31
+export function buildV31RadioGroup (FeGroup: FEFlowOptionGroup): FlowInlineRadioButtonsInputV31
 {
   const mappedOptions = FeGroup.options.map(option => ({
     id: option.optionId,

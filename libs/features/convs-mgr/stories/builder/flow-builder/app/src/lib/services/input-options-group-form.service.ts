@@ -1,16 +1,16 @@
 import { Injectable } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 
-import { FEFlowRadioGroup, RadioOptions } from "../models/fe-flow-radio-element.model";
+import { ElementsOptions, FEFlowOptionGroup } from "../models/fe-flow-option-element.model";
 
 
 @Injectable({providedIn: 'root'})
 
-export class RadioOptionGroupFormService 
+export class OptionGroupFormService 
 {
   constructor (private _formBuilder: FormBuilder){}
 
-  createSingleOptionForm(flowControl: RadioOptions)
+  createSingleOptionForm(flowControl: ElementsOptions)
   {
     return this._formBuilder.group({
       optionId: [flowControl.optionId ?? ''],
@@ -18,7 +18,7 @@ export class RadioOptionGroupFormService
     })
   }
 
-  createRadioGroupForm(flowGroup: FEFlowRadioGroup)
+  createRadioGroupForm(flowGroup: FEFlowOptionGroup)
   {
     return this._formBuilder.group({
       name: [flowGroup.name || ''],
