@@ -1,4 +1,6 @@
 .flow-lib-button {
+  display: flex;
+  justify-content: space-between;
   width: -moz-calc(100% - 24px);
   width: -webkit-calc(100% - 24px);
   width: calc(100% - 24px);

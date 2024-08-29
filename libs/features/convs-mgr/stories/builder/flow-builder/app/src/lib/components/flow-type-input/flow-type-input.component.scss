@@ -1,0 +1,94 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  padding: 0;
+}
+
+.__inputDesc {
+  width: 98%;
+  padding: 1rem 0 1rem 1rem;
+  border-radius: 4px;
+  border: none;
+}
+
+.flexDiv {
+  display: flex;
+  justify-content: start;
+  gap: 1rem;
+  align-items: center;
+}
+
+.__text {
+  width: 100%;
+}
+
+.__textArea {
+  width: 98%;
+  height: 100%;
+  padding: 1rem 0 1rem 1rem;
+  border-radius: 4px;
+  border: none;
+}
+
+.__select {
+  width: 60%;
+  height: 36px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+}
+
+.__radio {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--convs-mgr-color-bright-teal);
+  position: relative;
+  outline: none;
+  cursor: pointer;
+}
+
+.__radio:checked::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--convs-mgr-color-bright-teal);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.__checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--convs-mgr-color-bright-teal);
+  position: relative;
+  outline: none;
+  cursor: pointer;
+}
+
+.__checkbox:checked::before {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background-color: var(--convs-mgr-color-bright-teal);
+}
+
+.__anchor{
+  color: var(--convs-mgr-color-bright-teal);
+  cursor: pointer;
+  text-decoration: underline;
+}

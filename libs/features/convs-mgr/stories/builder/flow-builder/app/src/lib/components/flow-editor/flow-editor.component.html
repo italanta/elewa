@@ -9,16 +9,24 @@
         <!-- Fixed elements such as page title -->
 
         <!-- Target for custom elements-->
-        <div id="flow-container-drop" cdkDropList [cdkDropListData]="flowEls"
-                                      (cdkDropListDropped)="drop($event)">
-
+        <div id="flow-container-drop" 
+          cdkDropList 
+          [cdkDropListData]="flowEls" 
+          [cdkDropListConnectedTo]="['libraryDropList']" 
+          (cdkDropListDropped)="drop($event)">
+          @for(item of flowEls; track item)
+          {
+            <app-flow-library-item [control]="item" (click)="funcClick(item, item.id)" cdkDrag>  </app-flow-library-item>
+          }
         </div>
-        <!-- Fixed elements such as footer -->
 
+        <!-- Fixed elements such as footer -->
       </div>
     </div>
 
-
+    <div class="config-container">
+      <ng-container #vcr> </ng-container>
+    </div>
   </div>
 
 

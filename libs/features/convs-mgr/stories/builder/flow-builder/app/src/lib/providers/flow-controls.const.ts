@@ -8,30 +8,62 @@ export interface FlowControl
   label: string;
 
   /** Value of the control */
-  value: string;
+  type: FlowControlType;
   
   /** Control icon */
   icon: string;
+
+  /** Id */
+  id: string;
+
+  /** dropped */
+  dropped?: boolean
+
+  value?: any | InputsData
 }
+
+export enum FlowControlType
+{
+  Header = 'h1',
+  LightHeader = 'h2',
+  Text = 'text',
+  Caption = 'caption',
+  Image = 'image',
+  Link = 'link',
+  Footer = 'footer',
+  TextInput = 'textInput',
+  TextArea = 'textArea',
+  Select = 'select',
+  Radio = 'radio',
+  OptIn = 'checkbox',
+  Datepick = 'datepick'
+}
+
+export interface InputsData 
+{
+  name: string;
+  dataSource: any[];
+  label: string;
+}
+
 
 /** List of all flow controls (wrapped into a function to avoid direct editing of the list) */
 export const FLOW_CONTROLS: () => FlowControl[] = () => [
-  { group: 'FLOW-CATEGORY.TEXT-ELS', label:'Header',       value:'h1',       icon:'fa-solid fa-heading' },
-  { group: 'FLOW-CATEGORY.TEXT-ELS', label:'Light Header', value:'h2',       icon:'fa-solid fa-bold' },
-  { group: 'FLOW-CATEGORY.TEXT-ELS', label:'Text',         value:'text',     icon:'fa-solid fa-font' },
-  { group: 'FLOW-CATEGORY.TEXT-ELS', label:'Small text',   value:'caption',  icon:'fa-solid fa-subscript' },
+  { id: '1',  group: 'FLOW-CATEGORY.TEXT-ELS', label:'Header',       type: FlowControlType.Header,       icon:'fa-solid fa-heading' },
+  { id: '2',  group: 'FLOW-CATEGORY.TEXT-ELS', label:'Light Header', type: FlowControlType.LightHeader,       icon:'fa-solid fa-bold' },
+  { id: '3',  group: 'FLOW-CATEGORY.TEXT-ELS', label:'Text',         type: FlowControlType.Text,     icon:'fa-solid fa-font' },
+  { id: '4',  group: 'FLOW-CATEGORY.TEXT-ELS', label:'Small text',   type: FlowControlType.Caption,  icon:'fa-solid fa-subscript' },
 
-  { group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Image',  value:'image',  icon:'fa-regular fa-image' },
-  { group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Link',   value:'link',   icon:'fa-solid fa-link' },
-  { group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Footer', value:'footer', icon:'fa-solid fa-window-minimize' },
+  { id: '5',  group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Image',  type: FlowControlType.Image,  icon:'fa-regular fa-image' },
+  { id: '6',  group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Link',   type: FlowControlType.Link,   icon:'fa-solid fa-link' },
+  { id: '7',  group: 'FLOW-CATEGORY.DESIGN-ELS', label:'Footer', type: FlowControlType.Footer, icon:'fa-solid fa-window-minimize' },
 
-  { group: 'FLOW-CATEGORY.INPUT-ELS', label:'Single line text', value:'textInput',  icon:'fa-solid fa-font' },
-  { group: 'FLOW-CATEGORY.INPUT-ELS', label:'Text area',        value:'textArea',   icon:'fa-solid fa-pen-fancy' },
-  { group: 'FLOW-CATEGORY.INPUT-ELS', label:'List selection',   value:'select',     icon:'fa-solid fa-window-minimize' },
-  { group: 'FLOW-CATEGORY.INPUT-ELS', label:'Checkboxes',       value:'checkbox',   icon:'fa-solid fa-list-check' },
-  { group: 'FLOW-CATEGORY.INPUT-ELS', label:'Radio buttons',    value:'radio',      icon:'fa-solid fa-circle-dot' },
-  { group: 'FLOW-CATEGORY.INPUT-ELS', label:'Date picker',      value:'datepick',   icon:'fa-solid fa-calendar-days' },
-  { group: 'FLOW-CATEGORY.INPUT-ELS', label:'Opt in',           value:'optIn',      icon:'fa-solid fa-square-check' }
+  { id: '8',  group: 'FLOW-CATEGORY.INPUT-ELS', label:'Single line text', type: FlowControlType.TextInput,  icon:'fa-solid fa-font' },
+  { id: '9',  group: 'FLOW-CATEGORY.INPUT-ELS', label:'Text area',        type: FlowControlType.TextArea,   icon:'fa-solid fa-pen-fancy' },
+  { id: '10', group: 'FLOW-CATEGORY.INPUT-ELS', label:'List selection',   type:  FlowControlType.Select,   icon:'fa-solid fa-list-check' },
+  { id: '12', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Radio buttons',    type: FlowControlType.Radio,      icon:'fa-solid fa-circle-dot' },
+  { id: '13', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Opt in',           type: FlowControlType.OptIn,      icon:'fa-solid fa-square-check' },
+  { id: '14', group: 'FLOW-CATEGORY.INPUT-ELS', label:'Date picker',      type: FlowControlType.Datepick,   icon:'fa-solid fa-calendar-days' },
 ]
 
 /**

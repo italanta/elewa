@@ -4,6 +4,7 @@
  * 
  * The screen is built out of these elements
  * @see https://developers.facebook.com/docs/whatsapp/flows/reference/flowsapi/
+ * @see https://developers.facebook.com/docs/whatsapp/flows/reference/flowjson/components/
  */
 export interface FlowPageLayoutElementV31 
 { 

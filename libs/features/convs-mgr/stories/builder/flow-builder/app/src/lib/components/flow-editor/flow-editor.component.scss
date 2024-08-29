@@ -8,6 +8,8 @@
   
   padding: 20px;
   border: 1px solid #101010;
+  display: flex;
+  gap: 2rem;
 }
 
   #phone-container {
@@ -26,4 +28,19 @@
     background-color: red;
   }
 
+  #flow-container-drop {
+    height: 100%;
+  }
 
+  .config-container{
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 500px !important;
+    height: 600px !important;
+    border: 1 px solid black;
+    border-radius: 10px;
+    background-color: antiquewhite;
+    padding: 1.5rem;  
+  }
+  
