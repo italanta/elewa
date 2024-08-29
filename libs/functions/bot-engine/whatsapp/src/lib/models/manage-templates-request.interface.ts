@@ -1,10 +1,11 @@
-import { MessageTemplate } from "@app/model/convs-mgr/functions";
+import { TemplateMessage } from "@app/model/convs-mgr/conversations/messages";
+
 
 export interface ManageTemplateRequest
 {
   /** The type of operation to perform */
   action: ActionTypes;
-  template: MessageTemplate;
+  template: TemplateMessage;
   channelId: string;
 }
 

@@ -1065,6 +1065,9 @@
       "BTN-CONT": {
         "SAVE-BUTTON": {
           "SAVE": "Save"
+        },
+        "SEND-BUTTON": {
+          "SEND": "Send"
         }
       },
       "FORM-GROUP": {

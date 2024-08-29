@@ -14,7 +14,7 @@ class CloudSchedulerService
   private tools: HandlerTools;
   private projectId: string;
 
-  private locationId = 'europe-west1';
+  private locationId = 'asia-south1';
 
   constructor(tools: HandlerTools, projectId: string = process.env.GCLOUD_PROJECT)
   {

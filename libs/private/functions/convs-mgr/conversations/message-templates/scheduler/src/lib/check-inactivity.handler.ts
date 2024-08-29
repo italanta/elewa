@@ -1,4 +1,5 @@
 import { HandlerTools } from "@iote/cqrs";
+import { __DateFromStorage } from "@iote/time";
 import { FunctionHandler, FunctionContext } from "@ngfi/functions";
 
 import { JobTypes } from "@app/model/convs-mgr/functions";
@@ -33,7 +34,8 @@ export class CheckInactivityHandler extends FunctionHandler<CheckInactivityReq, 
       // Get users whose have met the inactivity threshold
       const inactiveUsers = endUsers.filter((endUser) =>
       {
-        const lastActiveTime = endUser.lastActiveTime.getTime();
+        if(!endUser.lastActiveTime) return false;
+        const lastActiveTime = __DateFromStorage(endUser.lastActiveTime).unix() * 1000;
         const timeDifference = new Date().getTime() - lastActiveTime;
         return timeDifference > INACTIVE_THRESHOLD;
       }).map((user) => user.id);

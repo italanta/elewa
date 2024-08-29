@@ -61,13 +61,18 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
       return { success: false, error } as any;
     }
   }
-
+  
   private async _updateScheduledMessage(id: string, task: any, orgId: string, tools: HandlerTools)
   {
     
     const scheduledMessages$ = tools.getRepository<ScheduledMessage>(`orgs/${orgId}/scheduled-messages`);
     
     const scheduledMessage  = await scheduledMessages$.getDocumentById(id);
+    
+    if(!scheduledMessage) {
+      tools.Logger.log(() => `[ScheduleMessageTemplatesHandler]._updateScheduledMessage - ScheduledMessage not found: ${id}`);
+      return;
+    }
     
     const schedule = {
       ...scheduledMessage,

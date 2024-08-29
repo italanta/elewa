@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { TemplateMessage, TemplateVariableExample } from '@app/model/convs-mgr/conversations/messages';
 
-import { MessageTemplate, VariableExample } from '@app/model/convs-mgr/functions';
 
 @Component({
   selector: 'app-header-variables-sample-section',
@@ -10,10 +10,10 @@ import { MessageTemplate, VariableExample } from '@app/model/convs-mgr/functions
 })
 export class HeaderVariablesSampleSectionComponent {
   @Input() templateForm: FormGroup;
-  @Input() template: MessageTemplate;
+  @Input() template: TemplateMessage;
   section = 'header';
 
-  samplesArray: VariableExample[] = [];
+  samplesArray: TemplateVariableExample[] = [];
 
   constructor(private _fb: FormBuilder) {}
 
@@ -23,7 +23,7 @@ export class HeaderVariablesSampleSectionComponent {
     return this.templateForm.controls['headerExamples'] as FormArray;
   }
 
-  createExampleFB(example?: VariableExample)
+  createExampleFB(example?: TemplateVariableExample)
   {
     return this._fb.group({
       name: [example?.name ?? ''],
@@ -38,7 +38,7 @@ export class HeaderVariablesSampleSectionComponent {
 
   removeExample(name: string)
   {
-    const index = this.headerExamples.value.findIndex((exm: VariableExample) => {
+    const index = this.headerExamples.value.findIndex((exm: TemplateVariableExample) => {
       return exm.name === name;
     });
     if(index !== -1) this.headerExamples.removeAt(index);

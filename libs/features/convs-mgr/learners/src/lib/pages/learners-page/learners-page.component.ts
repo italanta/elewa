@@ -15,18 +15,19 @@ import { Classroom } from '@app/model/convs-mgr/classroom';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
-import { MessageTemplatesService, ScheduleMessageService } from '@app/private/state/message-templates';
+import { ActiveMessageTemplateStore, MessageTemplatesService, ScheduleMessageService } from '@app/private/state/message-templates';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
-import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
-import { MessageTemplate, MessageTypes } from '@app/model/convs-mgr/functions';
+import { TemplateMessage, TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+import { MessageTypes, ScheduledMessage, ScheduleOptionType } from '@app/model/convs-mgr/functions';
 import { Bot } from '@app/model/convs-mgr/bots';
 
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
 import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
 import { CreateClassModalComponent } from '../../modals/create-class-modal/create-class-modal.component';
 import { filterLearnersByClass, filterLearnersByCourse, filterLearnersByPlatform, filterLearnersByStatus } from '../../utils/learner-filter.util';
+import { switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-learners-page',
@@ -73,8 +74,8 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   selectedTime: Date;
   activeMessageId: string;
 
-  scheduleMessageOptions: any;
-  templateMessage: MessageTemplate;
+  scheduleMessageOptions: {schedule: ScheduledMessage, template: TemplateMessage};
+  templateMessage: TemplateMessage;
 
   channel: CommunicationChannel;
 
@@ -87,7 +88,8 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     private _dialog: MatDialog,
     private _messageService: MessageTemplatesService,
     private _scheduleMessageService: ScheduleMessageService,
-    private _route$$: Router
+    private _route$$: Router,
+    private _activeTemplate$: ActiveMessageTemplateStore,
   ) {}
 
   ngOnInit() {
@@ -128,10 +130,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   }
 
   getStatus(status: number) {
-    return (
-      EnrolledEndUserStatus[status].charAt(0).toUpperCase() +
-      EnrolledEndUserStatus[status].slice(1)
-    );
+    return "Active";
   }
 
   getIcon(status: number) {
@@ -245,91 +244,106 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   getScheduleOptions(){
 
-    this._scheduleMessageService.optionsSet$.subscribe((options)=> {
-      if(options || options.template) {
+    this._scheduleMessageService.optionsSet$.pipe(tap((opt)=> {
+      if(!opt) this.getTemplate();
+    })).subscribe((options)=> {
+       if(options && options.template) {
         this.scheduleMessageOptions = options;
         // TODO: Remove this redundancy
         this.templateMessage = options.template;
-        this.activeMessageId = options.template.id;
-        this.selectedTime = options.dispatchDate;
+        this.activeMessageId = options.template.id as string
+        this.selectedTime = options.schedule.dispatchTime as Date;
       }
     })
   }
 
+  getTemplate() {
+    this._sBs.sink = this._activeTemplate$.get().subscribe((template)=> {
+     this.templateMessage = template;
+     })
+   }
+
   sendMessageButtonClicked() {
-    const selectedUsers = this.selection.selected;
-    const action = this.scheduleMessageOptions.action
-    if(this.scheduleMessageOptions && this.templateMessage) {
-
-      const basePayload = this._getBasePayload(this.templateMessage, selectedUsers);
-
+    if(this.scheduleMessageOptions) {
+      
+      const action = this.scheduleMessageOptions.schedule.scheduleOption;
+      
       switch (action) {
-        case 'specific-time':
-          this.scheduleMessage(basePayload);
+        case ScheduleOptionType.SpecificTime:
+          this.scheduleMessage();
           break;
-        case 'inactivity':
-          this.scheduleInactivity(basePayload);
+        case ScheduleOptionType.Inactivity:
+          this.scheduleInactivity();
           break;
         default:
           alert('No message configuration found!')
           break;
-      }
-    }
+        }
+
+      } else this.sendMessageNow();
   }
-  
-  
-  scheduleMessage(payload: any) {
+        
+        
+  sendMessageNow() {
+    const selectedUsers = this.selection.selected;
+    const schedule: ScheduledMessage = {
+      id: `direct_${Date.now()}`, 
+      channelId: this.templateMessage.channelId as string,
+      objectID: this.templateMessage.id,
+      dispatchTime: new Date(),
+      scheduleOption: ScheduleOptionType.SpecificTime,
+    }
+
     const scheduleRequest = {
-      ...payload,
-      id: this.scheduleMessageOptions.id,
-      dispatchTime: this.scheduleMessageOptions.dispatchDate,
-      endDate:  this.scheduleMessageOptions.endDate || null,
-      frequency: this.scheduleMessageOptions.frequency || null
+      ...schedule,
+      message: this.templateMessage,
+      enrolledEndUsers: selectedUsers.map((user)=> user.id),
+    };
+
+    
+    this._sBs.sink = this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe((resp)=> {
+      if(resp) {
+        // TODO: Display Toast Message based on Response
+        this.openTemplate(this.templateMessage.id as string);
+      }
+    });
+  }
+
+  scheduleMessage() {
+    const selectedUsers = this.selection.selected;
+    const scheduleRequest = {
+      ...this.scheduleMessageOptions.schedule,
+      message: this.templateMessage,
+      enrolledEndUsers: selectedUsers.map((user)=> user.id),
     };
     
     this._sBs.sink = this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe((resp)=> {
       if(resp) {
         // TODO: Display Toast Message based on Response
-        this.openTemplate(payload.id);
+        this.openTemplate(this.templateMessage.id as string);
       }
     });
   }
   
-  scheduleInactivity(payload: any) {
+  scheduleInactivity() {
     const inactivityRequest = {
-      ...payload,
-      id: this.scheduleMessageOptions.id,
-      inactivityTime: this.scheduleMessageOptions.inactivityTime
+      ...this.scheduleMessageOptions.schedule,
+      message: this.templateMessage
     };
   
     this._sBs.sink = this._scheduleMessageService.scheduleInactivity(inactivityRequest).subscribe((resp)=> {
       if(resp) {
         // TODO: Display Toast Message based on Response
-        this.openTemplate(payload.id);
+        this.openTemplate(this.templateMessage.id as string);
       }
     });
   }
 
-  openTemplate(id: any){
+  openTemplate(id: string){
     this._route$$.navigate(['/messaging', id]);
   }
-
-  _getBasePayload(template: MessageTemplate, selectedUsers: EnrolledEndUser[]) {
-    return {
-      message: {
-        type: MessageTypes.TEXT,
-        name: template?.name,
-        language: template?.language,
-        templateType: TemplateMessageTypes.Text,
-      },
-      id: this.scheduleMessageOptions.id,
-      channelId: template?.channelId,
-      enrolledEndUsers: selectedUsers.map((user)=> user.id),
-      type: this.scheduleMessageOptions.type
-    };
-  }
   
-  sendMessageWithChannel(template: MessageTemplate, selectedUsers: EnrolledEndUser[]) {
+  sendMessageWithChannel(template: TemplateMessage, selectedUsers: EnrolledEndUser[]) {
     const channelId = template?.channelId || '';
 
     const payload = {
@@ -341,7 +355,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   
     this._messageService.sendMessageTemplate(payload, channelId, selectedUsers).subscribe();
     
-    this.openTemplate(template.id);
+    this.openTemplate(template.id as string);
   }
 
   _getChannelDetails(channelId: string) {
