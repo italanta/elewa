@@ -7,7 +7,7 @@ const createNewWhatsappFlowHandler = new CreateWhatsappFlowHandler()
 const FLOWS_REPO = `orgs/{orgId}/stories/{storyId}/flows/{flowId}`;
 
 export const onCreateWhatsappFlow = new ConvLearnFunction('onCreateWhatsappFlow',
-                                                  new FirestoreCreateRegistrar(),
+                                                  new FirestoreCreateRegistrar(FLOWS_REPO),
                                                   [],
                                                   createNewWhatsappFlowHandler)
                                                   .build()
