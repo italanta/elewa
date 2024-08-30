@@ -1,5 +1,5 @@
-<form [formGroup]="imageMessageForm" fxLayout="column" fxLayoutALign="start center">
-  <div [id]="imageInputId" class="image_bg" [ngClass]="byPassedLimits.length ? 'error' : ''">
+<form [formGroup]="imageMessageForm" [class.edit_form_wrapper] = "isEdit">
+  <div [id]="imageInputId" class="image_bg" [class.edit_form] = "isEdit" [ngClass]="byPassedLimits.length ? 'error' : ''">
 
     <input *ngIf="!isLoadingImage" (change)="processImage($event)" type="file" class="image-file" [id]="imageInputUpload" hidden />
 
@@ -24,7 +24,9 @@
     <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.IMAGE.MESSAGE-TWO' | transloco }}</span>
   </div>
   
-  <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco" formControlName="message"/>
+  <mat-divider *ngIf="isEdit"></mat-divider>
 
-  <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-LINK' | transloco" formControlName="fileSrc" />
+  <input type="text" [class.edit_input] = "isEdit" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco" formControlName="message"/>
+
+  <input type="text" [class.edit_input] = "isEdit" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-LINK' | transloco" formControlName="fileSrc" />
 </form>

@@ -44,7 +44,7 @@ input {
 	color: var(--convs-mgr-color-primary-black) !important;
 	min-width: calc(100% - 20px) !important; 
 	padding: 10px;
-	height: 5rem;
+	height: 8rem;
 	background-color: var(--convs-mgr-placeholder-color) !important;
 	border-radius: 0.6rem;
 	opacity: 1;
@@ -53,6 +53,21 @@ input {
 	&.error {
 		border: 0.1875rem solid red !important;
 	}
+}
+
+.edit_form {
+	background: white !important;
+	color: var(--convs-mgr-color-101010) !important;
+}
+
+.edit_form_wrapper {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 1.3rem !important;
+}
+
+.edit_input {
+	background: white !important;
 }
 
 .doc-icon {
@@ -71,7 +86,7 @@ input {
 }
 
 .media-placeholder-text {
-	color: #101010;
+	color: var(--convs-mgr-color-101010);
 	font-weight: 200;
   font-size: small;
 }

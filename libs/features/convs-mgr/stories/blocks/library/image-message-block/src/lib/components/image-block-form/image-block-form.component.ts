@@ -20,6 +20,7 @@ export class ImageBlockFormComponent {
   @Input() block: ImageMessageBlock;
   @Input() imageMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+  @Input() isEdit: boolean;
 
   file: File;
   imageInputId: string;
