@@ -1,17 +1,9 @@
 <div class="block-edit-form-wrapper">
-  <form [formGroup]="form" action="" class="block-form-edit">
+  <div  class="block-form-edit">
     <div class="block-edit-header">
       <i [class]="icon" class="icon-color"></i>
       <span class="title">{{ title | transloco }}</span>
     </div>
-    <textarea class="text" id="message" name="message" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-INPUT' | transloco" 
-      formControlName="message"></textarea>
-
-      <div class="block-edit-variable-input-section">
-        <mat-divider></mat-divider>
-        <app-variable-input [BlockFormGroup]="form" [noValidation]="true"></app-variable-input>
-        <mat-divider></mat-divider>
-      </div>
-  </form>
-  
+    <app-image-block-form [id]="id" [block]="block" [imageMessageForm]="form" [jsPlumb]="jsPlumb"></app-image-block-form>
+  </div>
 </div>
