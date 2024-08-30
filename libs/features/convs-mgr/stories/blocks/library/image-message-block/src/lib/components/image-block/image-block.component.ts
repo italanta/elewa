@@ -83,7 +83,7 @@ export class ImageBlockComponent implements OnInit, OnDestroy {
 
   private _checkIfImageExists() {
     this.imageLink = this.imageMessageForm.value.fileSrc;
-    this.hasImage = this.imageLink != '' ? true : false;
+    this.hasImage = !this.imageLink ? false : true;
   }
 
   private _autofillUrl(url: string, fileSizeInKB: number) {
