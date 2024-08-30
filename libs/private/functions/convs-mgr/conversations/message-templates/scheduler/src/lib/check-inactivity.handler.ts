@@ -53,9 +53,14 @@ export class CheckInactivityHandler extends FunctionHandler<CheckInactivityReq, 
       if(!inactiveUsers || inactiveUsers.length < 1) {
         return { success: false, message: "No inactive users found" };
       }
-
+      
       // Get the enrolled users who are inactive
       const filteredInactiveUsers = enrolledUsers.filter((eu)=> inactiveUsers.includes(eu.whatsappUserId) && !eu.completedCourses);
+      
+      if(!filteredInactiveUsers || filteredInactiveUsers.length < 1) {
+        tools.Logger.log(() => `[CheckInactivityHandler].execute - No inactive enrolled users matching the criteria`);
+        return { success: false, message: "No inactive users found" };
+      }
 
       const learnersWithName = filteredInactiveUsers.map(learner => {
         const endUser = endUsers.find(l => l.id === learner.whatsappUserId);
