@@ -512,10 +512,7 @@
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
       "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
-      "@app/functions/whatsapp-flows": ["libs/private/functions/whatsapp-flows/src/index.ts"],
-      "@app/conv-lm-backend/whatsappFlows": [
-        "apps/conv-lm-backend/src/app/whatsappFlows/src/index.ts"
-      ]
+      "@app/functions/whatsapp-flows": ["libs/private/functions/whatsapp-flows/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
