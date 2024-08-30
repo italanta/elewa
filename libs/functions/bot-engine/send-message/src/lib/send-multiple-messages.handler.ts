@@ -47,6 +47,8 @@ export class SendMultipleMessagesHandler extends FunctionHandler<SendMultipleMes
         message.receipientId = contactID;
       }
 
+      message.params[0].value = user.name || " ";
+
       const resp = await sendMessage.execute(message, null, tools);
 
       if(resp.success) {
