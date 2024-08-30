@@ -1,7 +1,7 @@
 .editor-container 
 {
   min-width: 800px;
-  height: 650px;
+  height: fit content;
 
   background: #F6F6F6;
   color: #101010;
@@ -36,7 +36,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-    
+    width: 100%;
     border: 1 px solid black;
     border-radius: 10px;
     background-color: antiquewhite;
