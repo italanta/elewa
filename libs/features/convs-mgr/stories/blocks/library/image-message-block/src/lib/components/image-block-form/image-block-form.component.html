@@ -1,0 +1,30 @@
+<form [formGroup]="imageMessageForm" fxLayout="column" fxLayoutALign="start center">
+  <div [id]="imageInputId" class="image_bg" [ngClass]="byPassedLimits.length ? 'error' : ''">
+
+    <input *ngIf="!isLoadingImage" (change)="processImage($event)" type="file" class="image-file" [id]="imageInputUpload" hidden />
+
+    <label *ngIf="!isLoadingImage" [for]="imageInputUpload">
+      <div *ngIf="!hasImage; else inputHasImage" class="block-media-placeholder">
+        <img type="image" class="placeholder-icon" src="assets/svgs/blocks/ph_image-light.svg" alt="" />
+        <span class="media-placeholder-text" >{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-UPLOAD' | transloco }}</span>
+      </div>
+      <ng-template #inputHasImage>
+        <img type="image" class="upload-image" [src]="imageLink" alt="" />
+      </ng-template>
+    </label>
+
+    <div *ngIf="isLoadingImage" class="doc-icon">
+      <i class="fas fa-circle-notch fa-spin fa-3x"></i>
+    </div>
+
+  </div>
+
+  <div class="error-message" *ngIf="whatsappLimit">
+    <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.IMAGE.MESSAGE-ONE' | transloco }}</span><br>
+    <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.IMAGE.MESSAGE-TWO' | transloco }}</span>
+  </div>
+  
+  <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco" formControlName="message"/>
+
+  <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-LINK' | transloco" formControlName="fileSrc" />
+</form>

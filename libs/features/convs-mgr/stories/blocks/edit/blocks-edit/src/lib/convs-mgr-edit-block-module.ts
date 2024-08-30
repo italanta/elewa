@@ -11,6 +11,7 @@ import {
 import { ConvsMgrProcessInputsModule } from '@app/features/convs-mgr/stories/blocks/process-inputs';
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import { ConvsMgrReusableTextAreaModule } from '@app/features/convs-mgr/stories/blocks/library/reusable-text-area';
+import { ConvsMgrImageMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/image-message-block';
 
 import { QuestionButtonsEditFormsComponent } from './components/question-buttons-edit-forms/question-buttons-edit-forms.component';
 import { LocationInputBlockEditComponent } from './components/location-input-block-edit/location-input-block-edit.component';
@@ -40,7 +41,8 @@ import { ImageOutputBlockEditComponent } from './components/image-output-block-e
     MaterialDesignModule,
     ConvsMgrProcessInputsModule,
     ConvsMgrBlockOptionsModule,
-    ConvsMgrReusableTextAreaModule
+    ConvsMgrReusableTextAreaModule,
+    ConvsMgrImageMessageBlockModule
   ],
   
   declarations: [
