@@ -77,6 +77,7 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
       .subscribe((learners) => {
         this.dataSource.data = learners;
         this.allLearners = learners;
+        this.dataSource.paginator = this.paginator;
       });
   }
 

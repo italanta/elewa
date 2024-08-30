@@ -98,10 +98,10 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
       </table>
-
-      <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" [length]="dataSource.data.length" [pageSize]="10"
-        [ariaLabel]="'ASSESSMENTS.RESULTS.ACCESSIBILITY.SELECT-RESULTS-PAGE' | transloco "></mat-paginator>
     </div>
+    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" [length]="dataSource.data.length" [pageSize]="10"
+      [ariaLabel]="'ASSESSMENTS.RESULTS.ACCESSIBILITY.SELECT-RESULTS-PAGE' | transloco "></mat-paginator>
+    
 </div>
 
 
