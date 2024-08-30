@@ -30,12 +30,9 @@ export class EditorComponentFactory {
         // }
         case FlowControlType.TextArea:
         case FlowControlType.OptIn:
-        case FlowControlType.Link: {
+        case FlowControlType.Link:
+        case FlowControlType.Datepick:   {
             componentType = FlowTypeInputComponent;
-            break;
-        }
-        case 'datepick': {
-            componentType = FlowDatepickInputComponent;
             break;
         }
         case FlowControlType.Radio: {

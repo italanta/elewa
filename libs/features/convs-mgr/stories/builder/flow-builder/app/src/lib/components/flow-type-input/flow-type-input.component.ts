@@ -1,11 +1,15 @@
-import { Component, EventEmitter, inject, OnChanges, OnInit, Output, SimpleChanges, ViewContainerRef } from '@angular/core';
+import { Component, inject, OnInit, ViewContainerRef } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 import { debounceTime, Subject } from 'rxjs';
 
 import { ChangeTrackerService, FlowEditorStateProvider } from '@app/state/convs-mgr/wflows';
+import { FlowDatePickerInput, FlowTextAreaInput, FlowTextInput } from '@app/model/convs-mgr/stories/flows';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
+import { TextInputElementsService } from '../../services/text-inputs-elements.service';
+import { FeTextInput } from '../../models/text-type-elements.model';
 
 
 @Component({
@@ -13,7 +17,7 @@ import { FlowControl, FlowControlType } from '../../providers/flow-controls.cons
   templateUrl: './flow-type-input.component.html',
   styleUrl: './flow-type-input.component.scss',
 })
-export class FlowTypeInputComponent implements OnInit, OnChanges
+export class FlowTypeInputComponent implements OnInit 
 { 
   /** The type of input, for text inputs */
   type: FlowControlType
@@ -25,107 +29,72 @@ export class FlowTypeInputComponent implements OnInit, OnChanges
   /** Dynamic input id */
   inputId = '';
   /** Form fields for inputs */
-  inputName = '';
-  inputLabel = '';
-  dataSource: any[] = [];
-   /** For adding new options dynamically */
-  newOption = '';
+  textInputForm: FormGroup;
+
+  element: FlowTextInput | FlowDatePickerInput | FlowTextAreaInput
+  showConfigs = true;
+
   /** View Container */
   vrc = inject(ViewContainerRef)
   private autosaveSubject = new Subject<any>();
 
-  /** Notify editor of changes */
-  @Output() changeEvent = new EventEmitter<any>();
-
   private _sbS = new SubSink ()
 
   constructor(private trackerService: ChangeTrackerService,
-    private flowStateProvider: FlowEditorStateProvider
+              private flowStateProvider: FlowEditorStateProvider,
+              private _formService: TextInputElementsService
 ) {}
 
   ngOnInit(): void {
     this.inputId = `input-${this.type}`;
-    if (this.control?.value) {
-      this.inputName = this.control.value?.name || '';
-      this.inputLabel = this.control.value?.label || '';
-      this.dataSource = this.control.value?.dataSource || [];
-    }
 
+    this.buildForms()
     // Setup autosave with debounce
     this.autosaveSubject.pipe(debounceTime(300)).subscribe((value) => {
       this.triggerAutosave(value);
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes[' ']) {
-      this.trackerService.updateValue(this.control.id, this.control.type);
+  buildForms(element?: FeTextInput): void {
+    console.log(this.type)
+    switch (this.type) {
+      case this.flowControlType.TextInput:
+        console.log(this.type)
+        this.textInputForm = element
+          ? this._formService.buildTextForm(element)
+          : this._formService.buildEmptyTextForm();
+        break;
+      case this.flowControlType.TextArea:
+        this.textInputForm = element
+          ? this._formService.buildTextAreaForm(element)
+          : this._formService.buildEmptyTextAreaForm();
+        break;
+      case this.flowControlType.Datepick:
+        this.textInputForm = element
+          ? this._formService.buildDateForm(element)
+          : this._formService.buildEmptyDateForm();
+        break;
+      default:
+        this.textInputForm = this._formService.buildEmptyTextForm(); // Fallback
+        break;
     }
+
+    // Autosave on form value changes
+    this._sbS.sink = this.textInputForm.valueChanges.subscribe((formValue) => {
+      this.autosaveSubject.next(formValue);
+    });
   }
-
-  /** This method will debounce and trigger autosave */
-  onInputChange(newValue: string): void {
-    if (!this.control) {
-      console.error('Control is undefined');
-      return;
-    }
-
-    this.control.value = { ...this.control.value, value: newValue };
-    // Emit the new value to trigger autosave after debounce
-    this.autosaveSubject.next(newValue);
-  }
-
+  
   /** Trigger autosave */
   private triggerAutosave(newValue: any): void {
     this.trackerService.updateValue(this.control.id, newValue);
-    this.changeEvent.emit({ controlId: this.control.id, newValue });
-  }
-  /** Track changes to input name */
-  onNameChange(newName: string): void {
-    this.inputName = newName;
-    this.updateControlValue();
   }
 
-  /** Track changes to input label */
-  onLabelChange(newLabel: string): void {
-    this.inputLabel = newLabel;
-    this.updateControlValue();
-  }
-
-  /** Track changes to input options (e.g., for radio, select) */
-  onDataSourceChange(newDataSource: any[]): void {
-    this.dataSource = newDataSource;
-    this.updateControlValue();
-  }
-
-  /** Update the FlowControl value with the new input data */
-  private updateControlValue(): void {
-    if (!this.control) {
-      console.error('Control is undefined');
-      return;
-    }
-
-    this.control.value = {
-      name: this.inputName,
-      label: this.inputLabel,
-      dataSource: this.dataSource,
-    };
-    this.trackerService.updateValue(this.control.id, this.control.value);
-    this.changeEvent.emit({ controlId: this.control.id, newValue: this.control.value });
-  }
-
-  /** Add a new option to dataSource */
-  addOption(): void {
-    if (this.newOption.trim() !== '') {
-      this.dataSource.push({ label: this.newOption, value: this.newOption });
-      this.newOption = '';
-      this.updateControlValue();
+  saveInputConfig(): void {
+    if (this.textInputForm.valid) {
+      this.element = this.textInputForm.value;  // Capture form values
+      this.showConfigs = false;  // Hide configuration form
     }
   }
-
-  /** Remove an option from dataSource */
-  removeOption(index: number): void {
-    this.dataSource.splice(index, 1);
-    this.updateControlValue();
-  }
+  
 }

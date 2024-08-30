@@ -1,41 +1,103 @@
 <div class="wrapper">
-  @switch(type) {
-    <!-- Single Line Text -->
-    @case (flowControlType.TextInput) {
-      <div class=".__text flexDiv">
-        <label for=""></label>
-        <input id="{{inputId}}" type="text" class="__text" name="" />
-      </div>
-    }
-    @case (flowControlType.TextArea) {
-      <div class=".__textArea flexDiv">
-        <label for=""></label>
-        <input id="{{inputId}}" type="textarea" class="__textArea" name="" />
-      </div>
-    }
-    @case (flowControlType.Select){
-      <div class="__inputDesc">
-        <select id="{{inputId}}" type="select" class="__select"[(ngModel)]="control.value" (ngModelChange)="onInputChange($event)">
-          <option></option>
-        </select>
-      </div>  
-    }
-    
-    @case (flowControlType.OptIn) {
-      <div class="__inputDesc flexDiv">
-        <input id="{{inputId}}" type="checkbox" class="__checkbox" [(ngModel)]="control.value" (ngModelChange)="onInputChange($event)" />
+  <form *ngIf="textInputForm && control " [formGroup]="textInputForm" class=".__groupForm">
+    @switch(type) {
+      <!-- Single Line Text -->
+      @case (flowControlType.TextInput) {
+        <div class="__configs">
+          <div class="__inputConfigs">
+            <label for="name">Name:</label>
+            <input type="text" id="name" formControlName="name">
+          </div>
+          <div class="__inputConfigs">
+            <label for="label">Label:</label>
+            <input type="text" id="label" formControlName="label">
+          </div>
+          <div class="__inputConfigs">
+            <label for="required">Required:</label>
+            <input type="checkbox" id="required" formControlName="required">
+          </div>
+          <div class="__saveBtn">
+            <button type="submit" (click)="saveInputConfig()"> Save </button>
+          </div>
+        </div>
+        <div class="flex-container" *ngIf="!showConfigs">
+          <div class="column">
+            <label [for]="element.name">{{ element.label }}</label>
+            <input type="text"
+              class="text-area-input"
+              [name]="element.name"
+              [id]="element.name"
+              [required]="element.required"
+            />
+          </div>
+        </div> 
+      }
+      @case (flowControlType.TextArea) {
+        <div class="__configs" *ngIf="showConfigs">
+          <div class="__inputConfigs">
+            <label for="name">Name:</label>
+            <input type="text" id="name" formControlName="name">
+          </div>
+          <div class="__inputConfigs">
+            <label for="label">Label:</label>
+            <input type="text" id="label" formControlName="label">
+          </div>
+          <div class="__inputConfigs">
+            <label for="required">Required:</label>
+            <input type="checkbox" id="required" formControlName="required">
+          </div>
+          <div class="__saveBtn">
+            <button type="submit" (click)="saveInputConfig()"> Save </button>
+          </div>
+        </div>
+        <div class="flex-container" *ngIf="!showConfigs">
+          <div class="column">
+            <label [for]="element.name">{{ element.label }}</label>
+            <textarea 
+              class="text-area-input"
+              [name]="element.name"
+              [id]="element.name"
+              [required]="element.required"
+            ></textarea>
+          </div>
+        </div>  
+      }
+      @case (flowControlType.Datepick) {
+        <div class="____configs">
+          <div class="__inputConfigs">
+            <label for="name">Name:</label>
+            <input type="text" id="name" formControlName="name">
+          </div>
+          <div class="__inputConfigs">
+            <label for="label">Label:</label>
+            <input type="text" id="label" formControlName="label">
+          </div>
+          <div class="__inputConfigs">
+            <label for="required">Required:</label>
+            <input type="checkbox" id="required" formControlName="required">
+          </div>
+          <div class="__saveBtn">
+            <button type="submit" (click)="saveInputConfig()"> Save </button>
+          </div>
+        </div>
+        <div class="flex-container" *ngIf="!showConfigs">
+          <div class="column">
+            <label [for]="element.name">{{ element.label }}</label>
+            <input type="date"
+              class="text-area-input"
+              [name]="element.name"
+              [id]="element.name"
+              [required]="element.required"
+            />
+          </div>
+        </div> 
+      }
+      
+      @default {
+        <!-- Fallback input if none of the cases match -->
+        <input id="{{inputId}}" type="text" class="fallback" />
         <span> Description about action goes here</span>
-      </div>  
+      }
     }
-    @case (flowControlType.Link) {
-      <div class="__inputDesc flexDiv">
-        <a id="{{inputId}}"  class="__anchor"[(ngModel)]="control.value" (ngModelChange)="onInputChange($event)"> Link </a>
-      </div>  
-    }
-    @default {
-      <!-- Fallback input if none of the cases match -->
-      <input id="{{inputId}}" type="text" class="fallback" [(ngModel)]="control.value" (ngModelChange)="onInputChange($event)"/>
-      <span> Description about action goes here</span>
-    }
-  }
+  </form>
 </div>
