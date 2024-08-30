@@ -155,6 +155,7 @@
         "END-ANCHOR": "End",
         "CAPTION": "Caption",
         "IMAGE-LINK": "Image Url",
+        "IMAGE-UPLOAD": "Click here to upload image from your computer",
         "NAME": "Name",
         "EMAIL": "Email",
         "PHONE-NUMBER": "Phone",

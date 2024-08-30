@@ -5,8 +5,9 @@
 			<input *ngIf="!isLoadingImage" (change)="processImage($event)" type="file" class="image-file" [id]="imageInputUpload" hidden />
 
 			<label *ngIf="!isLoadingImage" [for]="imageInputUpload">
-				<div *ngIf="!hasImage; else inputHasImage">
-					<img type="image" class="" src="'/assets/svgs/blocks/ph_image-light.svg'" alt="" />
+				<div *ngIf="!hasImage; else inputHasImage" class="block-media-placeholder">
+					<img type="image" class="placeholder-icon" src="assets/svgs/blocks/ph_image-light.svg" alt="" />
+					<span class="media-placeholder-text" >{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-UPLOAD' | transloco }}</span>
 				</div>
 				<ng-template #inputHasImage>
 					<img type="image" class="upload-image" [src]="imageLink" alt="" />

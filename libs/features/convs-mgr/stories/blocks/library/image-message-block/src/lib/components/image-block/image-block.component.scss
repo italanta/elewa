@@ -38,6 +38,8 @@ input {
 }
 
 .image_bg {
+	display: flex;
+  align-items: center;
 	text-align: center;
 	color: var(--convs-mgr-color-primary-black) !important;
 	min-width: calc(100% - 20px) !important; 
@@ -47,10 +49,32 @@ input {
 	border-radius: 0.6rem;
 	opacity: 1;
 	overflow: hidden;
-
+	cursor: pointer;
 	&.error {
 		border: 0.1875rem solid red !important;
 	}
+}
+
+.block-media-placeholder {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	flex-direction: column;
+	width: 100%;
+  gap: 0.5rem;
+  margin: auto;
+	cursor: pointer;
+}
+
+.media-placeholder-text {
+	color: #101010;
+	font-weight: 200;
+  font-size: small;
+}
+
+.placeholder-icon {
+	width: 8% !important;
+	margin: auto;
 }
 
 .error-message {
