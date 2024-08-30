@@ -1,6 +1,6 @@
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { ListBlockEditComponent, QuestionButtonsEditFormsComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { ImageOutputBlockEditComponent, ListBlockEditComponent, QuestionButtonsEditFormsComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { LocationInputBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { KeywordJumpBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { OpenEndedQuestionEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
@@ -21,7 +21,7 @@ export function getActiveBlock(type: StoryBlockTypes) {
     case StoryBlockTypes.TextMessage:
       return MessageBlockEditComponent;
     case StoryBlockTypes.Image:
-      return DefaultComponent;
+      return ImageOutputBlockEditComponent;
     case StoryBlockTypes.Name:
       return NameBlockEditComponent;
     case StoryBlockTypes.Email:

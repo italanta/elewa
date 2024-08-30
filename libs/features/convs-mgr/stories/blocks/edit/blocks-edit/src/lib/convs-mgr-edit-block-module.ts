@@ -27,6 +27,7 @@ import { NameBlockEditComponent } from './components/name-block-edit/name-block-
 import { WebhookEditComponent } from './components/webhook-edit/webhook-edit.component';
 import { DefaultComponent } from './components/default/default.component';
 import { ListBlockEditComponent } from './components/list-block-edit/list-block-edit.component';
+import { ImageOutputBlockEditComponent } from './components/image-output-block-edit/image-output-block-edit.component';
 
 @NgModule({
   imports: [
@@ -57,7 +58,8 @@ import { ListBlockEditComponent } from './components/list-block-edit/list-block-
     PhoneBlockEditComponent,
     WebhookEditComponent,
     DefaultComponent,
-    ListBlockEditComponent
+    ListBlockEditComponent,
+    ImageOutputBlockEditComponent
   ],
 })
 export class ConvsMgrEditBlockModule {}
