@@ -21,7 +21,7 @@ export class UpdateWhatsappFlowHandler extends FunctionHandler<any, any> {
 
     return axios.post(base_url, formData, {
       headers: {
-        'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
+        'Content-Type': `multipart/form-data`,
         'Authorization': `Bearer ${GRAPH_ACCESS_TOKEN}`
       }
     })

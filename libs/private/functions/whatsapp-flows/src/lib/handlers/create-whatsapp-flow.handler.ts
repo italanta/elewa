@@ -1,5 +1,4 @@
 import axios from 'axios';
-import FormData from 'form-data';
 
 import { WFlow } from "@app/model/convs-mgr/stories/flows";
 import { HandlerTools } from '@iote/cqrs';
@@ -20,20 +19,20 @@ export class CreateWhatsappFlowHandler extends FunctionHandler<any, any> {
     // Update the flow ID
     return axios.post(base_url, formData, {
       headers: {
-        'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
+        'Content-Type': `multipart/form-data`,
         'Authorization': `Bearer ${GRAPH_ACCESS_TOKEN}`
       }
     })
   }
 
-  private _prepareData(data: WFlow): FormData{
+  private _prepareData(data: WFlow){
     const formData = new FormData();
     formData.append('flow', JSON.stringify(data.flow));
-    formData.append('name', data.name);
+    formData.append('name', data.name as string);
     formData.append('validation_errors', JSON.stringify(data.validation_errors));
     formData.append('preview', JSON.stringify(data.preview));
-    formData.append('endpoint_uri', data.endpoint_uri);
-    formData.append('clone_flow_id', data.clone_flow_id);
+    formData.append('endpoint_uri', data.endpoint_uri as string);
+    formData.append('clone_flow_id', data.clone_flow_id as string);
     return formData;
   }
 }
