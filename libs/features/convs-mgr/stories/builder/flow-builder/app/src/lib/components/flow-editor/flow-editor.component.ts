@@ -46,14 +46,12 @@ export class FlowEditorComponent implements OnInit, OnDestroy
       this.flowEls.push(draggedData);
       
       const index = this.flowEls.length - 1;
+
+      // Assign a unique ID using UUID
+      draggedData.id = uuidv4(); 
+      draggedData.dropped = true;
       
       if (index !== -1) {
-        const elem = this.flowEls[index];
-
-        // Assign a unique ID using UUID
-        elem.id = uuidv4(); 
-        elem.dropped = true;
-
         // Handle array item transfers
         if (event.previousContainer === event.container) {
           moveItemInArray(this.flowEls, index, event.currentIndex);
@@ -62,6 +60,8 @@ export class FlowEditorComponent implements OnInit, OnDestroy
         this.cdr.detectChanges();
         this.flowStateProvider.setControls(this.flowEls); // Update the state provider
       }
+
+      debugger
     }
   }
   /** Opening an editable field when user clicks on a dropped element */

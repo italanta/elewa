@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
@@ -44,13 +44,6 @@ export class FlowCheckboxOptionsComponent implements OnInit
     })
   }
   
-
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   if (changes['control']) {
-      
-  //   }
-  // }
-
   /** Options controls */
   get options() {
     return this.checkboxGroupForm.get('options') as FormArray;
@@ -59,7 +52,7 @@ export class FlowCheckboxOptionsComponent implements OnInit
   /** Adding another option */
   addOption() {
     const optionGroup = this.fb.group({
-      id: Math.random().toString(),
+      optionId: [Math.random().toString()],
       label: ['', Validators.required]
     });
     this.options.push(optionGroup);
@@ -76,8 +69,9 @@ export class FlowCheckboxOptionsComponent implements OnInit
    */
   saveRadioConfig() {
     if (this.checkboxGroupForm.valid) {
-      this.flowGroup = this.checkboxGroupForm.value;
+      this.flowGroup = this.checkboxGroupForm.value;      
       const metaRGroup = buildV31CheckboxGroup(this.checkboxGroupForm.value)
+
       console.log('Saved Radio Config:', metaRGroup);
       // this.showConfigs = false;
       this._trackerService.updateValue(this.control.id, metaRGroup);
@@ -87,17 +81,4 @@ export class FlowCheckboxOptionsComponent implements OnInit
     }
   }
 
-  // private _buildFlowObject(metaRGroup: FlowScreenV31){
-  //   const wFlow: WFlow = {
-  //     flow: {
-  //       version: '3.1',
-  //       screens: [
-
-  //       ],
-  //       data_api_version: '3.0',
-  //       routing_model: {}
-  //     },
-  //     validation_errors: []
-  //   }
-  // }
 }

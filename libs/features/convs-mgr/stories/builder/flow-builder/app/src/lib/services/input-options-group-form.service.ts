@@ -36,9 +36,7 @@ export class OptionGroupFormService
       name: [''],
       label: [''],
       required: [''],
-      options: this._formBuilder.array(
-        ([])
-      )
+      options: this._formBuilder.array([])
     })
   }
 }
