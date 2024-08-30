@@ -1,8 +1,7 @@
-import { RestRegistrar } from '@ngfi/functions';
 
-import { CreateNewUserHandler } from '@app/functions/user';
-
+import { FirestoreCreateRegistrar } from "@ngfi/functions";
 import { ConvLearnFunction } from "../../conv-learn-func.class";
+import { CreateWhatsappFlowHandler } from '@app/functions/whatsapp-flows';
 
 const createNewWhatsappFlowHandler = new CreateWhatsappFlowHandler()
 const FLOWS_REPO = `orgs/{orgId}/stories/{storyId}/flows/{flowId}`;
