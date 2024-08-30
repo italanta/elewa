@@ -1,7 +1,10 @@
 <div class="__inputDesc flexDiv">
   <form [formGroup]="checkboxGroupForm" class="__groupForm">
     <div class="__configs" *ngIf="showConfigs">
-        <p> Configure List of Options here </p>
+      <div class="__saveBtn">
+        <button type="submit" (click)="saveRadioConfig()"> Save </button>
+      </div>
+      <p> Configure List of Options here </p>
       <div class="__inputConfigs">
         <label for="name">Name:</label>
         <input type="text" id="name" formControlName="name">
@@ -25,10 +28,6 @@
           <button type="button" (click)="removeOption(i)"><i class="fa-solid fa-minus"></i></button>
         </div>
       </div>
-    </div>
-    
-    <div class="__saveBtn">
-      <button type="submit" (click)="saveRadioConfig()"> Save </button>
     </div>
 
     <!-- Display saved checkbox buttons -->

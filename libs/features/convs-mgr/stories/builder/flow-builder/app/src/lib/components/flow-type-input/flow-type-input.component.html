@@ -3,7 +3,7 @@
     @switch(type) {
       <!-- Single Line Text -->
       @case (flowControlType.TextInput) {
-        <div class="__configs">
+        <div class="__configs" *ngIf="showConfigs">
           <div class="__inputConfigs">
             <label for="name">Name:</label>
             <input type="text" id="name" formControlName="name">
@@ -63,7 +63,7 @@
         </div>  
       }
       @case (flowControlType.Datepick) {
-        <div class="____configs">
+        <div class="__configs" *ngIf="showConfigs">
           <div class="__inputConfigs">
             <label for="name">Name:</label>
             <input type="text" id="name" formControlName="name">
