@@ -29,7 +29,6 @@ export class CreateWhatsappFlowHandler extends FunctionHandler<any, any> {
     const formData = new FormData();
     formData.append('flow', JSON.stringify(data.flow));
     formData.append('name', data.name as string);
-    formData.append('validation_errors', JSON.stringify(data.validation_errors));
     formData.append('preview', JSON.stringify(data.preview));
     formData.append('endpoint_uri', data.endpoint_uri as string);
     formData.append('clone_flow_id', data.clone_flow_id as string);

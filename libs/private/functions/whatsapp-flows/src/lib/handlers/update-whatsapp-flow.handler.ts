@@ -1,7 +1,4 @@
 import axios from 'axios';
-import FormData from 'form-data';
-import fs from 'fs';
-
 import { WFlow } from "@app/model/convs-mgr/stories/flows";
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionContext, FunctionHandler } from '@ngfi/functions/v2';
@@ -29,12 +26,21 @@ export class UpdateWhatsappFlowHandler extends FunctionHandler<any, any> {
 
   private _prepareData(data: WFlow): FormData{
     const formData = new FormData();
-    formData.append('flow', JSON.stringify(data.flow));
-    formData.append('name', data.name);
-    formData.append('validation_errors', JSON.stringify(data.validation_errors));
-    formData.append('preview', JSON.stringify(data.preview));
-    formData.append('endpoint_uri', data.endpoint_uri);
-    formData.append('clone_flow_id', data.clone_flow_id);
+    if(data.flow){
+        formData.append('flow', JSON.stringify(data.flow));
+    }
+    if(data.name){
+        formData.append('name', data.name as string);
+    }
+    if(data.preview){
+        formData.append('preview', JSON.stringify(data.preview));
+    }
+    if(data.endpoint_uri){
+        formData.append('endpoint_uri', data.endpoint_uri as string);
+    }
+    if(data.clone_flow_id){
+        formData.append('clone_flow_id', data.clone_flow_id as string);
+    }
     return formData;
   }
 }
