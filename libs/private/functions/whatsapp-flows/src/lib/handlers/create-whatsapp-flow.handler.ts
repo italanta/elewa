@@ -17,7 +17,7 @@ export class CreateWhatsappFlowHandler extends FunctionHandler<any, any> {
     const base_url= `${GRAPH_API}/${API_VERSION}/${WABA_ID}/flows`;
 
     const formData = this._prepareData(data);
-
+    // Update the flow ID
     return axios.post(base_url, formData, {
       headers: {
         'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
