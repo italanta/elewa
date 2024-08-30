@@ -83,15 +83,17 @@ svg.frame-connector path {
 
 .doc-icon {
 	text-align: center;
-	color: var(--convs-mgr-color-primary-purple) !important;
 	background-color: var(--convs-mgr-color-primary-white) !important;
 	opacity: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-
+  color: var(--convs-mgr-color-bright-teal) !important;
+	align-self: center;
+	width: 100%;
+  
 	.fa-spin {
-		color: var(--convs-mgr-color-primary-purple) !important;
+    color: var(--convs-mgr-color-bright-teal) !important;
 		border: none;
 	}
 }
