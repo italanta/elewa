@@ -92,9 +92,13 @@
                     color: var(--convs-mgr-input-color);
                     font-size: smaller;
                     font-family: Roboto;
-                    font-weight: 300;
+                    font-weight: 500;
                     word-wrap: break-word;
                     padding: 2%;
+
+                    &::placeholder{
+                        font-weight: 300;
+                    }
                 }
                 label{
                     // Messenger Channel Details
