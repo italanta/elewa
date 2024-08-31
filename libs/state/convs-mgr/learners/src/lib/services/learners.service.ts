@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 
 import { map, switchMap, of, combineLatest, concatMap, take } from 'rxjs';
 
-import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
+import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
 import { EndUserService } from '@app/state/convs-mgr/end-users';
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
@@ -34,7 +34,17 @@ export class EnrolledLearnersService {
           return this._endUsers.getSpecificUser(user.whatsappUserId).pipe(
             map((endUser) => {
               if (endUser) {
-                user.currentCourse = endUser.currentStory as string || "";
+                const lastActiveOn = endUser.lastActiveTime && 
+                  new Date((endUser.lastActiveTime as any).seconds * 1000 + (endUser.lastActiveTime as any).nanoseconds / 1000000);
+
+                if(lastActiveOn){
+                  const currentDateTime = new Date();
+                  const hourDifference = (currentDateTime.getTime() - lastActiveOn.getTime()) / (1000 * 3600);
+                  user.status = hourDifference <= 48 ? EnrolledEndUserStatus.Active : EnrolledEndUserStatus.Inactive;
+                }
+                else{
+                  user.status = EnrolledEndUserStatus.Inactive;
+                }
 
                 if(endUser.variables) {
                   user.name = endUser.variables['name'] || "";
