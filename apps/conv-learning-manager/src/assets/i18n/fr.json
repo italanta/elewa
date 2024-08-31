@@ -885,8 +885,8 @@
         "CHANNEL-NAME":"Nom du canal",
         "PLATFORM":"Plate-forme",
         "FIRST-STORY":"Première histoire",
-        "EDIT-CHANNEL":"Modifier la chaîne"
-        
+        "EDIT-CHANNEL":"Modifier la chaîne",
+        "CHANNEL-FIRST":"Veuillez d'abord sélectionner une chaîne"
     }
   }
 }

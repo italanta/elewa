@@ -8,7 +8,9 @@
           <div class="messenger">
               <input type="radio" id="javascript" name="fav_language" [(ngModel)]="selectedPlatform" [value]="messengerValue">
               <label for="javascript"><img src="assets/icons/facebook-messenger.png" alt="">{{ "COMPANY-INFORMATION.CHANNEL-MODAL.Messenger" | transloco }}</label>
-          </div>   
+          </div> 
+          
+          <div *ngIf="platformNotSelected" class="channel-first">{{ "COMPANY-INFORMATION.CHANNEL-MODAL.CHANNEL-FIRST" | transloco }}</div>
       </div>
       <div class="buttons">
           <button class="cancel" type="button" (click)="closeDialog()" >{{ "BOTS.CREATE-MODAL.CANCEL" | transloco }}</button>

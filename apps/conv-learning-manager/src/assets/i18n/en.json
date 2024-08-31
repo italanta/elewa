@@ -1304,8 +1304,8 @@
       "MESSENGER-CHANNEL-DETAILS":"Messenger Channel Details",
       "CHANNEL-NAME":"Channel Name",
       "PLATFORM":"Platform",
-      "FIRST-STORY":"First Story"
-      
+      "FIRST-STORY":"First Story",
+      "CHANNEL-FIRST":"Please select a channel first"
   }
 },
   "ASSESSMENT-MICROAPP": {
