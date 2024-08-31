@@ -89,15 +89,16 @@
                     margin: 1% 0;
                     // General Details
                     // Bot Name
-                    color: var(--convs-mgr-input-color);
+                    color: var(--convs-mgr-color-primary-black);
                     font-size: smaller;
                     font-family: Roboto;
-                    font-weight: 500;
+                    font-weight: 400;
                     word-wrap: break-word;
                     padding: 2%;
-
+                    
                     &::placeholder{
                         font-weight: 300;
+                        color: var(--convs-mgr-input-color);
                     }
                 }
                 label{
