@@ -41,11 +41,11 @@ input {
 	display: flex;
   align-items: center;
 	text-align: center;
-	color: var(--convs-mgr-color-primary-black) !important;
+	color: var(--convs-mgr-color-primary-black);
 	min-width: calc(100% - 20px) !important; 
 	padding: 10px;
 	height: 8rem;
-	background-color: var(--convs-mgr-placeholder-color) !important;
+	background-color: var(--convs-mgr-placeholder-color);
 	border-radius: 0.6rem;
 	opacity: 1;
 	overflow: hidden;
