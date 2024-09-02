@@ -1,6 +1,5 @@
 import { HandlerTools } from "@iote/cqrs";
 
-import { EndStoryAnchorBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { AssessmentCursor, AssessmentResult, Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { EndUser } from "@app/model/convs-mgr/conversations/chats";
@@ -33,7 +32,7 @@ export class EndStoryBlockService implements IProcessOperationBlock
    *  3. Update the cursor
    *  4. Resolve and return the success block
    */
-  async handleBlock(storyBlock: EndStoryAnchorBlock, currentCursor: Cursor, orgId: string, endUser: EndUser)
+  async handleBlock(storyBlock: any, currentCursor: Cursor, orgId: string, endUser: EndUser)
   {
     const cursor = currentCursor;
     let nextBlock: StoryBlock;
