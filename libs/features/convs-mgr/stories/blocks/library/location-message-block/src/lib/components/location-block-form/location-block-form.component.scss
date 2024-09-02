@@ -107,3 +107,18 @@ app-default-option-field {
 .fa-trash-alt:hover {
   color: var(--convs-mgr-color-primary-purple);
 }
+
+.edit_form {
+	background: white !important;
+	color: var(--convs-mgr-color-101010) !important;
+}
+
+.edit_form_wrapper {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 1.3rem !important;
+}
+
+.edit_input {
+	background: white !important;
+}

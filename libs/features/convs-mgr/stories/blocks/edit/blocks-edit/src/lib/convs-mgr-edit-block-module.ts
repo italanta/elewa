@@ -12,6 +12,7 @@ import { ConvsMgrProcessInputsModule } from '@app/features/convs-mgr/stories/blo
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import { ConvsMgrReusableTextAreaModule } from '@app/features/convs-mgr/stories/blocks/library/reusable-text-area';
 import { ConvsMgrImageMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/image-message-block';
+import { ConvsMgrLocationMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/location-message-block';
 
 import { QuestionButtonsEditFormsComponent } from './components/question-buttons-edit-forms/question-buttons-edit-forms.component';
 import { LocationInputBlockEditComponent } from './components/location-input-block-edit/location-input-block-edit.component';
@@ -29,6 +30,7 @@ import { WebhookEditComponent } from './components/webhook-edit/webhook-edit.com
 import { DefaultComponent } from './components/default/default.component';
 import { ListBlockEditComponent } from './components/list-block-edit/list-block-edit.component';
 import { ImageOutputBlockEditComponent } from './components/image-output-block-edit/image-output-block-edit.component';
+import { LocationOutputBlockEditComponent } from './components/location-output-block-edit/location-output-block-edit.component';
 
 @NgModule({
   imports: [
@@ -42,7 +44,8 @@ import { ImageOutputBlockEditComponent } from './components/image-output-block-e
     ConvsMgrProcessInputsModule,
     ConvsMgrBlockOptionsModule,
     ConvsMgrReusableTextAreaModule,
-    ConvsMgrImageMessageBlockModule
+    ConvsMgrImageMessageBlockModule,
+    ConvsMgrLocationMessageBlockModule
   ],
   
   declarations: [
@@ -61,7 +64,8 @@ import { ImageOutputBlockEditComponent } from './components/image-output-block-e
     WebhookEditComponent,
     DefaultComponent,
     ListBlockEditComponent,
-    ImageOutputBlockEditComponent
+    ImageOutputBlockEditComponent,
+    LocationOutputBlockEditComponent
   ],
 })
 export class ConvsMgrEditBlockModule {}

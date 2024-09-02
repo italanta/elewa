@@ -28,7 +28,7 @@ import { LocationBlockFormComponent } from './components/location-block-form/loc
     LocationBlockMapComponent,
     LocationBlockFormComponent,
   ],
-  exports: [LocationBlockComponent],
+  exports: [LocationBlockComponent, LocationBlockFormComponent],
   imports: [
     CommonModule,
     MultiLangModule,

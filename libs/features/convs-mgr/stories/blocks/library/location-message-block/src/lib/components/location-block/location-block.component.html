@@ -1,3 +1,6 @@
 <div class="wide" [id]="id" *ngIf="locationMessageForm">
 	<app-location-block-form [id]="id" [block]="block" [locationMessageForm]="locationMessageForm" [jsPlumb]="jsPlumb"></app-location-block-form>
+
+	<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationMessageForm">
+  </app-default-option-field>
 </div>

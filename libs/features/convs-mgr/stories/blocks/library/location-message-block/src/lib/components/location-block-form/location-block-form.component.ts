@@ -22,6 +22,7 @@ export class LocationBlockFormComponent implements OnInit, AfterViewInit {
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
   @Input() locationMessageForm: FormGroup;
+  @Input() isEdit: boolean;
 
   locationInputId: string;
 

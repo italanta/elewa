@@ -16,3 +16,4 @@ export * from './lib/components/keyword-jump-block-edit/keyword-jump-block-edit.
 export * from './lib/components/question-buttons-edit-forms/question-buttons-edit-forms.component'
 export * from './lib/components/list-block-edit/list-block-edit.component';
 export * from './lib/components/image-output-block-edit/image-output-block-edit.component';
+export * from './lib/components/location-output-block-edit/location-output-block-edit.component';
