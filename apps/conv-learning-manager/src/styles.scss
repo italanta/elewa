@@ -304,3 +304,18 @@ mat-form-field.full-field{
   gap: 5px;
 }
 
+.edit_form {
+	background: white !important;
+	color: var(--convs-mgr-color-101010) !important;
+}
+
+.edit_form_wrapper {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 1.3rem !important;
+}
+
+.edit_input {
+	background: white !important;
+}
+
