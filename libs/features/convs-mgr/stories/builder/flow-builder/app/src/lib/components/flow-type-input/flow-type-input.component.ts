@@ -41,7 +41,6 @@ export class FlowTypeInputComponent implements OnInit
   private _sbS = new SubSink ()
 
   constructor(private trackerService: ChangeTrackerService,
-              private flowStateProvider: FlowEditorStateProvider,
               private _formService: TextInputElementsService
 ) {}
 

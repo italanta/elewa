@@ -18,11 +18,7 @@ export class ChangeTrackerService {
   constructor(private _wFlowStore: FlowsStore) {}
 
   updateValue(controlId: string, newValue: any): void {
-    console.log(controlId);
     this.changeSubject.next([{ controlId, newValue }]);
-
-    console.log(newValue)
-    // this.
   }
 
   clearChanges(): void {

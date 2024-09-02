@@ -18,18 +18,22 @@ export class OptionGroupFormService
     })
   }
 
-  createRadioGroupForm(flowGroup: FEFlowOptionGroup)
+  createRadioGroupForm(flowGroup?: FEFlowOptionGroup)
   {
-    return this._formBuilder.group({
-      name: [flowGroup.name || ''],
-      label: [flowGroup.label || ''],
-      required: [flowGroup.required || false],
-      options: this._formBuilder.array(
-        (flowGroup.options || []).map(option => this.createSingleOptionForm(option))
-      )
-    })
-  }
-
+    if(flowGroup){
+      return this._formBuilder.group({
+        name: [flowGroup.name || ''],
+        label: [flowGroup.label || ''],
+        required: [flowGroup.required || false],
+        options: this._formBuilder.array(
+          (flowGroup.options || []).map(option => this.createSingleOptionForm(option))
+        )
+       })
+      }else{
+        return this.createEmptyRadioGpForm()
+      }
+    }
+  
   createEmptyRadioGpForm()
   {
     return this._formBuilder.group({

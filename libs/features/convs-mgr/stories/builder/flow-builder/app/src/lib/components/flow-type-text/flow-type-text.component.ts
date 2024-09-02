@@ -77,8 +77,6 @@ export class FlowTypeTextComponent implements OnInit {
     const textElement = this.textFormService.transformElement(formValues);
 
     this.trackerService.updateValue(this.control.id, textElement);
-
-    console.log('V31 Element', textElement);
   }
 }
 

@@ -5,10 +5,10 @@ import { HandlerTools } from '@iote/cqrs';
 import { FunctionContext, FunctionHandler } from '@ngfi/functions';
 
 
-const GRAPH_API = process.env['graphAPI'];
+const GRAPH_API = process.env['GRAPH_API'];
 const API_VERSION: string = process.env['MESSENGER_VERSION'] || 'v18.0';
-const GRAPH_ACCESS_TOKEN = process.env['graphAccessToken'];
-const WABA_ID = process.env['wabaId'];
+const GRAPH_ACCESS_TOKEN = process.env['GRAPH_ACCESS_TOKEN'];
+const WABA_ID = process.env['WABA_ID'];
 
 export class CreateWhatsappFlowHandler extends FunctionHandler<any, any> {
   public override execute(data: WFlow, context: FunctionContext, tools: HandlerTools): Promise<WFlow> 

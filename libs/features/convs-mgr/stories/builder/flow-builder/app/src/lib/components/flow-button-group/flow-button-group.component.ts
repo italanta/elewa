@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeTrackerService } from '@app/state/convs-mgr/wflows';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
 import { OptionGroupFormService } from '../../services/input-options-group-form.service';
-import { buildV31RadioGroup } from '../../utils/build-radio-options-group.util';
+import { __buildV31RadioGroup } from '../../utils/build-radio-options-group.util';
 import { FEFlowOptionGroup } from '../../models/fe-flow-option-element.model';
 
 @Component({
@@ -28,15 +29,13 @@ export class FlowButtonGroupComponent implements OnInit
 
   constructor(private radioOptionGroupFormService: OptionGroupFormService,
               private fb: FormBuilder,
+              private _trackerService: ChangeTrackerService
 
   ) {}
 
   ngOnInit(): void {
-    if (this.flowGroup) {
-      this.radioGroupForm = this.radioOptionGroupFormService.createRadioGroupForm(this.flowGroup);
-    } else {
-      this.radioGroupForm = this.radioOptionGroupFormService.createEmptyRadioGpForm();
-    }
+    //TODO: Get the saved flows and assign them to flowGroup so as to build forms
+    this.radioGroupForm = this.radioOptionGroupFormService.createRadioGroupForm(this.flowGroup)
   }
 
   /** Options controls */
@@ -65,12 +64,12 @@ export class FlowButtonGroupComponent implements OnInit
   saveRadioConfig() {
     if (this.radioGroupForm.valid) {
       this.flowGroup = this.radioGroupForm.value;
-      const metaRGroup = buildV31RadioGroup(this.radioGroupForm.value)
-      console.log('Saved Radio Config:', metaRGroup);
-      this.showConfigs = false
+      const metaRGroup = __buildV31RadioGroup(this.radioGroupForm.value);
+      this._trackerService.updateValue(this.control.id, metaRGroup)
+      this.showConfigs = false;
       
     } else {
-      console.error('Form is invalid');
+      console.log('Form is invalid');
     }
   }
 }

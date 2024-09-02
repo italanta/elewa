@@ -81,7 +81,7 @@ export class WFlowService
     return lastValueFrom(this.getFlowConfig());
   }
 
-  saveWFlow (flowObject: WFlow)
+  createWFlow (flowObject: WFlow)
   {
     return this._flowStore.add(flowObject);
   }

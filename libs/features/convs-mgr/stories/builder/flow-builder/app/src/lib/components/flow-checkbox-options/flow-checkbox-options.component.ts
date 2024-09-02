@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
@@ -7,13 +7,14 @@ import { OptionGroupFormService } from '../../services/input-options-group-form.
 import { FEFlowOptionGroup } from '../../models/fe-flow-option-element.model';
 import { buildV31CheckboxGroup } from '../../utils/build-checkbox-group.util';
 import { ChangeTrackerService } from '@app/state/convs-mgr/wflows';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'lib-flow-checkbox-options',
   templateUrl: './flow-checkbox-options.component.html',
   styleUrl: './flow-checkbox-options.component.scss',
 })
-export class FlowCheckboxOptionsComponent implements OnInit
+export class FlowCheckboxOptionsComponent implements OnInit, OnDestroy
 {
   /** The type of input, for text inputs */
   type: FlowControlType
@@ -27,19 +28,16 @@ export class FlowCheckboxOptionsComponent implements OnInit
   /** Toggle view state */
   showConfigs = true;
 
+  private _sBS = new SubSink()
+
   constructor(private optionGroupFormService: OptionGroupFormService,
               private fb: FormBuilder,
               private _trackerService: ChangeTrackerService
   ) {}
 
   ngOnInit(): void {
-    if (this.flowGroup) {
-      this.checkboxGroupForm = this.optionGroupFormService.createRadioGroupForm(this.flowGroup);
-    } else {
-      this.checkboxGroupForm = this.optionGroupFormService.createEmptyRadioGpForm();
-    }
-    this.checkboxGroupForm.valueChanges.subscribe((value) => {
-      console.log(value);
+    this.checkboxGroupForm = this.optionGroupFormService.createRadioGroupForm(this.flowGroup);
+    this._sBS.sink = this.checkboxGroupForm.valueChanges.subscribe(() => {
       this.saveRadioConfig();
     })
   }
@@ -72,13 +70,16 @@ export class FlowCheckboxOptionsComponent implements OnInit
       this.flowGroup = this.checkboxGroupForm.value;      
       const metaRGroup = buildV31CheckboxGroup(this.checkboxGroupForm.value)
 
-      console.log('Saved Radio Config:', metaRGroup);
       // this.showConfigs = false;
       this._trackerService.updateValue(this.control.id, metaRGroup);
       
     } else {
       console.error('Form is invalid');
     }
+  }
+
+  ngOnDestroy(): void {
+      this._sBS.unsubscribe()
   }
 
 }

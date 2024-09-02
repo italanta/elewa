@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewContainerRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as ___guid } from 'uuid';
 import { SubSink } from 'subsink';
 import { ChangeTrackerService, FlowEditorStateProvider } from '@app/state/convs-mgr/wflows';
 
@@ -29,7 +29,7 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   ) { }
 
   ngOnInit(): void {
-    this.trackerService.change$.subscribe((events: Array<{ controlId: string; newValue: any }>) => {
+   this._sbS.sink = this.trackerService.change$.subscribe((events: Array<{ controlId: string; newValue: any }>) => {
       events.forEach(({ controlId, newValue }) => {
         console.log(`Control ${controlId} changed to ${newValue}`);
         
@@ -44,11 +44,10 @@ export class FlowEditorComponent implements OnInit, OnDestroy
     if (draggedData) {
       // Push the dragged item to the flowEls array
       this.flowEls.push(draggedData);
-      
       const index = this.flowEls.length - 1;
-
+      
       // Assign a unique ID using UUID
-      draggedData.id = uuidv4(); 
+      draggedData.id = ___guid(); 
       draggedData.dropped = true;
       
       if (index !== -1) {
@@ -60,10 +59,9 @@ export class FlowEditorComponent implements OnInit, OnDestroy
         this.cdr.detectChanges();
         this.flowStateProvider.setControls(this.flowEls); // Update the state provider
       }
-
-      debugger
     }
   }
+
   /** Opening an editable field when user clicks on a dropped element */
   funcClick(element: FlowControl, id: string) {
     if (element.dropped) {
@@ -80,7 +78,7 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   }   
 
   ngOnDestroy(): void {
-    console.log("destroyed")
+    this._sbS.unsubscribe()
    }
 }
 

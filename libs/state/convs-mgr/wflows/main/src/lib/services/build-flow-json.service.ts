@@ -17,6 +17,10 @@ export class FlowJsonBuilderService {
 
   constructor() {}
 
+  emitMetaJson(jsonData: any): void {
+    this.metaJsonSubject.next(jsonData);
+  }
+
   /** Public method to build the JSON from FlowControls */
   buildJson(flowControls: FlowControl[]): void {
     const metaJson: any[] = [];

@@ -1,8 +1,5 @@
-// import { Injectable } from "@angular/core";
-import { Inject, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-
-import { ChangeTrackerService } from "../services/track-changes.service";
 
 import { FlowJsonBuilderService } from "../services/build-flow-json.service";
 import { FLOW_CONTROLS, FlowControl } from "./flow-controls.const";
@@ -20,11 +17,8 @@ export class FlowEditorStateProvider {
   private _controls$$ = new BehaviorSubject<FlowControl[]>([]);
 
   constructor(
-    private changeTrackerService: ChangeTrackerService,
     private flowJsonBuilderService: FlowJsonBuilderService
-  ) {
-    this.initializeAutoSave();
-  }
+  ) { }
 
   /**
    * Gets the current list of controls.
@@ -59,29 +53,12 @@ export class FlowEditorStateProvider {
     this.setControls(updatedControls);
   }
 
-  private initializeAutoSave(): void {
-    this.changeTrackerService.change$.subscribe((changes) => {
-      if (changes.length > 0) {
-        // Update controls based on the change
-        changes.forEach(change => {
-          const control = this._controls.find(c => c.id === change.controlId);
-          if (control) {
-            control.value = change.newValue;
-            this.updateComponent(control);
-          }
-        });
-
-        // Pass FlowControl[] to FlowJsonBuilderService for mapping
-        this.flowJsonBuilderService.buildJson(this.getControls());    
-      }
-    });
-  }
-
+  /**
+   * Save the json object
+   * Make API call to Meta with object
+   * Update the json data
+   */
   saveJson () {
-    // Save the generated JSON
-    this.flowJsonBuilderService.getMetaJson$().subscribe( (savedJson) => {
-      console.log("Updated JSON:", savedJson);
-    })
+    this.flowJsonBuilderService.getMetaJson$()
   }
 }
-

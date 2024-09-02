@@ -1252,6 +1252,19 @@
       "FIRST-STORY":"First Story"
       
   }
+},
+
+"WHATSAPP-FLOWS": {
+  "CONFIGURATIONS": {
+    "ACTION-DESCRIPTION": "Configure List of Options here",
+    "LABELS": {
+      "NAME": "Name",
+      "LABEL": "Label",
+      "REQUIRED": "Required"
+    },
+    "BUTTON-DESC": "Add or Delete Options",
+    "BUTTON-SAVE": "Save"
+  }
 }
 
 }
