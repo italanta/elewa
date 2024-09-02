@@ -1,13 +1,15 @@
 <form [formGroup]="locationMessageForm" class="form-wrapper" [class.edit_form_wrapper] = "isEdit">
 
   <div class="input-wrapper" formGroupName="locationInput">
-    <input formControlName="name" [class.edit_input] = "isEdit" type="text" placeholder="Name" />
+    <input formControlName="name" [class.edit_input] = "isEdit" type="text" placeholder="Location Name" />
 
     <input formControlName="latitude" [ngModel]="latitude" type="text" placeholder="Address" hidden />
     <input formControlName="longitude" [ngModel]="longitude" type="text" placeholder="Address" hidden />
 
     <input (change)="addressChanged($event)" [class.edit_input] = "isEdit" formControlName="address" [ngModel]="currentAddress" #mapsSearchField
-      type="text" />
+      type="text"
+       placeholder="Enter location address"
+      />
   </div>
 
   <div class="map-wrapper">
