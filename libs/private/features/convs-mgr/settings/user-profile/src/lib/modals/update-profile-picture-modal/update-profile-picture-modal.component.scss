@@ -1,3 +1,35 @@
 .file-upload {
     display: flex;
 }
+
+input[type="file"]{
+    border: none;
+}
+
+input[type="file"]::-webkit-file-upload-button, .enabled,  .apply-btn{
+    border: none;
+    padding: 8px 12px;
+    border-radius: 1rem;
+    color: var(--convs-mgr-color-text-white);
+    background-color: var( --convs-mgr-color-bright-teal);
+}
+
+.buttons {
+    display: flex;
+    padding: 10px 20px;
+    justify-content: space-between;
+
+    .btn {
+        border-radius: 1.2rem;
+        padding: 8px 18px;
+    }
+
+    .disabled{
+        opacity: 0.4;
+    }
+
+    .cancel-btn{
+        color: var(--convs-mgr-color-bright-teal);
+        border: 1px solid var(--convs-mgr-color-bright-teal);
+    }
+}

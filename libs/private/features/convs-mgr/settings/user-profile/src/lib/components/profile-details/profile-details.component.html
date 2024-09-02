@@ -3,8 +3,14 @@
   <div class="section-one" [formGroup]="userFormGroup">
     <div class="user-data" fxLayout="row" fxLayoutAlign="space-between start">
 
-      <div fxLayout="column" fxLayoutAlign="start start" class="user-profile-picture">
-        <img [src]="user.photoUrl" alt="" (click)="newProfileImg()">
+      <div fxLayout="column" fxLayoutAlign="start start" class="user-profile-picture-holder">
+        <div fxLayout="column" fxLayoutAlign="start start" class="user-profile-picture">
+          <img [src]="user.photoUrl" alt="" (click)="newProfileImg()">
+        </div>
+        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start" *ngIf="showButtons" class="mainButtons">
+          <button (click)="newProfileImg()">{{ 'PROFILE-DETAILS.BUTTON.UPLOAD' | transloco }}</button>
+          <button (click)="removePhoto()">{{ 'PROFILE-DETAILS.BUTTON.REMOVE' | transloco }}</button>
+        </div>
       </div>
 
       <div fxLayout="column" fxLayoutAlign="start start" class="user-info" fxFlex="40%">
