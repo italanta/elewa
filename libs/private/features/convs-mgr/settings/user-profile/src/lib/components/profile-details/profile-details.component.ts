@@ -100,4 +100,8 @@ export class ProfileDetailsComponent implements OnInit {
     this._dialog.open(UpdateProfilePictureModalComponent, {
       data: this.user}).afterClosed().subscribe();
   }
+
+  removePhoto(){
+    this._userService.updateUserPhotoUrl(this.user, '');
+  }
 }
