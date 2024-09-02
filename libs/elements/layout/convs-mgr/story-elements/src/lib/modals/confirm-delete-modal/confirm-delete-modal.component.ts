@@ -52,6 +52,8 @@ export class ConfirmDeleteModalComponent {
 
 
   getElementToDelete() {
+    this.snackBar.open("Deleting...");
+    
     switch (this.mode) {
       case DeleteElementsEnum.Bot:
         return this._botServ$
