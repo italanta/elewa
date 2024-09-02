@@ -6,18 +6,20 @@
 <div class="new-clm-user" fxLayout="column" fxLayoutAlign="start" [formGroup]="newUserFormGroup"  mat-dialog-content>
  
     
-
-    <div fxLayout="column" fxLayoutAlign="start start" class="names">
+    <div class="email">
       <p class="label">*Email</p>
-      
-      <input matInput type="email" formControlName="email">
-      
+      <mat-form-field appearance="outline" fxLayout="column" fxLayoutAlign="start start" class="names">
+        <input matInput type="email" formControlName="email">
+      </mat-form-field>
     </div>
-    <div fxLayout="column" fxLayoutAlign="start start" class="names">
+
+    <div>
       <p class="label">Role</p>
-      <select name="roles" formControlName="roles">
-        <option *ngFor="let role of reversedRoles" [value]="role">{{ role | formatRole }}</option>
-      </select>
+      <mat-form-field appearance="outline" fxLayout="column" fxLayoutAlign="start start" class="names">
+        <mat-select name="roles" formControlName="roles" class="rolesSelect">
+          <mat-option *ngFor="let role of reversedRoles" [value]="role">{{ role | formatRole }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
 
