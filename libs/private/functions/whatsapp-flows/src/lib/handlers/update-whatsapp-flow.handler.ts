@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { WFlow } from "@app/model/convs-mgr/stories/flows";
 import { HandlerTools } from '@iote/cqrs';
-import { FunctionContext, FunctionHandler } from '@ngfi/functions/v2';
+import { FunctionContext, FunctionHandler } from '@ngfi/functions';
 
 
 const GRAPH_API = process.env['graphAPI'];

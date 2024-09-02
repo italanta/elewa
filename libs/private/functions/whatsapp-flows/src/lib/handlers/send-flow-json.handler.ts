@@ -1,13 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+
 import { WFlow } from "@app/model/convs-mgr/stories/flows";
 import { HandlerTools } from '@iote/cqrs';
-import { FunctionContext, FunctionHandler } from '@ngfi/functions/v2';
+import { FunctionContext, FunctionHandler } from '@ngfi/functions';
 
 
-@Injectable({
-  providedIn: 'root',
-})
+
 export class SendWhatsAppJsonHandler extends FunctionHandler<any, any> {
   public override execute(data: WFlow, context: FunctionContext, tools: HandlerTools): Promise<any> 
   {
