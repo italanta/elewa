@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 
 export function formatDuration(seconds: number): string {
   const duration = moment.duration(seconds, 'seconds');
