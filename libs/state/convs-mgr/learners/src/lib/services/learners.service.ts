@@ -16,6 +16,8 @@ import { Classroom } from "@app/model/convs-mgr/classroom";
   providedIn: 'root',
 })
 export class EnrolledLearnersService {
+  readonly ACTIVE_THRESHOLD = 48;
+  
   constructor(
     private _enrolledLearners$$: LearnersStore,
     private _classroomService:ClassroomService, 
@@ -40,7 +42,7 @@ export class EnrolledLearnersService {
                 if(lastActiveOn){
                   const currentDateTime = new Date();
                   const hourDifference = (currentDateTime.getTime() - lastActiveOn.getTime()) / (1000 * 3600);
-                  user.status = hourDifference <= 48 ? EnrolledEndUserStatus.Active : EnrolledEndUserStatus.Inactive;
+                  user.status = hourDifference <= this.ACTIVE_THRESHOLD ? EnrolledEndUserStatus.Active : EnrolledEndUserStatus.Inactive;
                 }
                 else{
                   user.status = EnrolledEndUserStatus.Inactive;
