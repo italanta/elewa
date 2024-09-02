@@ -12,7 +12,7 @@
     margin: 0.1rem 0;
     .custom-radio {
       appearance: none;
-      border: 2px solid #ccc;
+      border: 2px solid var(--convs-mgr-field-border-color);
       border-radius: 50%;
       width: 20px;
       height: 20px;
@@ -23,7 +23,7 @@
     }
 
     .custom-radio.red-radio:checked{
-      border-color: red;
+      border-color: var(--micro-apps-warning-red);
     }
     
     .custom-radio:checked {
@@ -34,7 +34,7 @@
       content: '';
       width: 12px;
       height: 12px;
-      background-color:red;
+      background-color:var(--micro-apps-warning-red);
       border-radius: 50%;
       position: absolute;
       top: 50%;
@@ -60,7 +60,7 @@
       margin: 0;
       padding-left: 1.9%;
       font-size: smaller;
-      color: grey;
+      color: var( --textarea-outline-color);
     }
   }
 

@@ -15,7 +15,7 @@
     .__xBtn{
       cursor: pointer;
       border: none;
-      background-color: white;
+      background-color: var(--convs-mgr-color-text-white);
     }
   }
 
@@ -31,7 +31,7 @@
       font-size: large;
     }
     .filled{
-      color: white;
+      color: var(--convs-mgr-color-text-white);
       background-color: var(--micro-apps-teal-primary);
       border: none;
     }
@@ -43,7 +43,7 @@
 
   .modal-body{
     .modal-info{
-      color: grey;
+      color: var(--convs-mgr-input-color-two);
       display: flex;
       gap: 1rem;
       align-items: start;

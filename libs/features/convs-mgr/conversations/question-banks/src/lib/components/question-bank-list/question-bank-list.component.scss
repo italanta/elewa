@@ -1,5 +1,6 @@
 .question-page{
   padding: 1.4rem;
+  background-color: var(--convs-mgr-color-F6F6F6);
 
   .select-tab{
     display: flex;
@@ -50,7 +51,7 @@
         padding: 1rem 2rem;
         width: 23%;
         border-radius: 20px;
-        background-color: white;
+        background-color: var(--convs-mgr-color-text-white);
         input{
           border: none;
           outline: none;
@@ -66,7 +67,7 @@
       width: 15%;
       padding: 1rem;
       border-radius: 20px;
-      background-color: white;
+      background-color:var(--convs-mgr-color-text-white);
       cursor: pointer;
     }
   }
@@ -99,7 +100,7 @@
     width: 100%;
     height: 100%;
     border-radius: 4px;
-    background-color: #fff;
+    background-color: var(--convs-mgr-color-text-white);
   }
   
   /* Style for the checked state */
@@ -120,7 +121,7 @@
     left: 0.35rem;
     width: 0.5rem;
     height: 1rem;
-    border: solid white;
+    border: solid var(--convs-mgr-color-text-white);
     border-width: 0 0.2rem 0.2rem 0;
     transform: rotate(45deg);
   }

@@ -1,18 +1,18 @@
 .mdc-data-table__header-cell {
-	color: #7C7C7C;
+	color: var(--convs-mgr-input-color-two);
 	font-weight: 300;
 	font-size: 1rem;
 }
 
 .mat-mdc-row {
-	color: #101010;
+	color: var(--convs-mgr-color-101010);
 	font-size: 1rem;
 	font-weight: 400;
-	border-bottom: 1px solid rgba($color: #707070, $alpha: 0.25);
+	border-bottom: 1px solid rgba($color: var(--convs-mgr-input-color), $alpha: 0.25);
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
-	background-color: rgba(31, 122, 140, 0.1);
+	background-color: rgba($color: var(--convs-mgr-input-color), $alpha: 0.1);
 	cursor: pointer;
 }
 
@@ -27,14 +27,14 @@
   vertical-align: baseline;
   border-radius: 0.25rem;
   color: black;
-  background-color: #DAE0F0;
+  background-color: var(--convs-mgr-color-text-background);
   width: 60%;
   border-radius: 16px;
 
   &.active {
-    background-color: #3E788A;
+    background-color: var(--convs-mgr-color-primary-blue);
     padding:10px;
-    color: #fff;
+    color: var(--convs-mgr-color-text-white);
   }
 }
 
@@ -53,11 +53,11 @@
     }
     .__gray_text{
       font-weight: 300;
-      color: grey;
+      color: var(--convs-mgr-input-color-two);
     }
     .__teal_text{
-      color: #3E788A;
-      border-bottom: 1px solid #3E788A;
+      color: var(--convs-mgr-color-primary-blue);
+      border-bottom: 1px solid var(--convs-mgr-color-primary-blue);
       cursor: pointer;
       width: fit-content;
     }
@@ -75,7 +75,7 @@
     font-size: large;
   }
   .filled{
-    color: white;
+    color: var(--convs-mgr-color-medium-contrast);
     border: none;
   }
   .disabled{
@@ -108,7 +108,7 @@ input[type="checkbox"]:not(:checked)::before {
   width: 100%;
   height: 100%;
   border-radius: 4px;
-  background-color: #fff;
+  background-color: var(--convs-mgr-color-text-white);
   border: 0.5px solid rgba(31, 122, 140, 0.1);
 }
 /* Style for the checked state */
@@ -129,7 +129,7 @@ input[type="checkbox"]:checked::after {
   left: 0.35rem;
   width: 0.5rem;
   height: 1rem;
-  border: solid white;
+  border: solid var(--convs-mgr-color-text-white);
   border-width: 0 0.2rem 0.2rem 0;
   transform: rotate(45deg);
 }
