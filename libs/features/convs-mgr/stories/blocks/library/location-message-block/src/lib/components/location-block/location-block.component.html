@@ -1,7 +1,7 @@
 <div class="wide" [id]="id" *ngIf="locationMessageForm">
-	<form [formGroup]="locationMessageForm" fxLayout="column" fxLayoutALign="start center">
+	<form [formGroup]="locationMessageForm" class="form-wrapper">
 
-		<div fxLayout="column" formGroupName="locationInput">
+		<div class="input-wrapper" formGroupName="locationInput">
 			<input formControlName="name" type="text" placeholder="Name" />
 
 			<input formControlName="latitude" [ngModel]="latitude" type="text" placeholder="Address" hidden />
@@ -11,9 +11,11 @@
 				type="text" />
 		</div>
 
-		<google-map height="200px" width="200px" [zoom]="10" (mapClick)="addMarker($event)">
-			<map-marker [position]="markerPositions" [options]="markerOptions"></map-marker>
-		</google-map>
+		<div class="map-wrapper">
+			<google-map height="200px" width="100%" [zoom]="10" (mapClick)="addMarker($event)">
+				<map-marker [position]="markerPositions" [options]="markerOptions"></map-marker>
+			</google-map>
+		</div>
 
 		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationMessageForm">
 		</app-default-option-field>

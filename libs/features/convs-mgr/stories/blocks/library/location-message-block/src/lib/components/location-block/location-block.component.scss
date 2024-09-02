@@ -7,21 +7,44 @@ mat-card-title {
   color: var(--convs-mgr-color-primary-purple);
 }
 
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+}
+
+.map-wrapper {
+  width: 100%;
+  background-color: var(--convs-mgr-placeholder-color);
+  align-self: center;
+  border: none;
+  border-radius: 0.6rem;
+}
+
 input {
-  max-width: 100%;
-  height: fit-content !important;
-  padding: 10px;
-  margin: 5px 0;
-  border-radius: 5px;
-  caret-color: var(--convs-mgr-color-text-black);
-  color: var(--convs-mgr-color-text-black);
-  outline: none;
-  border: 1px solid var(--convs-mgr-color-primary-purple);
+  box-sizing: border-box;
+	width: 100%;
+	padding: 10px;
+	resize: none;
+	outline: none;
+  border: none;
+	border-radius: 0.6rem;
+	background-color: var(--convs-mgr-placeholder-color);
 }
 
 input:focus-visible {
-	border: 1px solid var(--convs-mgr-color-primary-purple);
-	outline-color: var(--convs-mgr-color-primary-purple);
+	border: 1px solid var(--convs-mgr-color-primary-black);
+	outline-color: var(--convs-mgr-color-primary-black);
 }
 
 .block {
@@ -65,6 +88,14 @@ input:focus-visible {
 
 .fa-clone {
   padding-right: 10px;
+}
+
+app-default-option-field {
+  width: 100%;
+}
+
+::ng-deep .map-container {
+  border-radius: 0.6rem !important;
 }
 
 .fa-clone,
