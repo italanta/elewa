@@ -8,6 +8,9 @@ export interface FileMessageBlock extends StoryBlock
   /** Message to accompany file */
   message?: string;
 
+  /**This is store the file name that has been retrieved when uploading the file */
+  fileName?: string;
+  
   /** File source of the message block */
   fileSrc?: string;
 
