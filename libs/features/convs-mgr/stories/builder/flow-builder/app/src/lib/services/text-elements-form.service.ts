@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 
 import { FlowPageLayoutElementTypesV31, FlowPageTextSizesV31, FlowPageTextV31 } from "@app/model/convs-mgr/stories/flows";
-import { FeTextElement } from "../models/fe-flow-text-element.model";
+import { EditableTextElement} from "../models/fe-flow-text-element.model";
 import { FlowControlType } from "../providers/flow-controls.const";
 
 
@@ -47,7 +47,7 @@ export class TextElementFormService
    * @param textType Basic interface for use on F.E only, simplifies a flow control
    * @returns FlowPageTextV31
    */
-  transformElement(textType: FeTextElement): FlowPageTextV31
+  transformElement(textType: EditableTextElement): FlowPageTextV31
   {
     let textSize = FlowPageTextSizesV31.Body; // Default size
   

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, debounceTime, distinctUntilChanged } from 'rxjs';
-import { FlowsStore } from '../stores/wflow.store';
+import { BehaviorSubject } from 'rxjs';
+import { WhatsappFlowsStore } from '../stores/whatsapp-flow.store';
+import { WFlow, FlowJSONV31, FlowScreenV31 } from '@app/model/convs-mgr/stories/flows';
 
 @Injectable({
   providedIn: 'root',
@@ -9,30 +10,78 @@ import { FlowsStore } from '../stores/wflow.store';
  * Service tracking user interactions
  */
 export class ChangeTrackerService {
-
-  private jsonArray: { controlId: string; newValue: any }[] = []
-
+  private jsonArray: { controlId: string; newValue: any }[] = []; // Tracks changes
   private changeSubject = new BehaviorSubject<{ controlId: string; newValue: any }[]>([]);
 
-  constructor(private _wFlowStore: FlowsStore) {}
+  constructor(private _wFlowStore: WhatsappFlowsStore) {}
 
-  public change$ = this.changeSubject.asObservable().pipe(
-    debounceTime(1000), 
-    distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)) // Prevent redundant saves
-  );
+  public change$ = this.changeSubject.asObservable();
 
-  setJsonArray(jsonArray: { controlId: string; newValue: any }[]) {
-    this.jsonArray = jsonArray;
+  /**
+   * Update value and trigger save
+   */
+  updateValue(controlId: string, newValue: any) {
+    this.jsonArray.push({ controlId, newValue });
+    this.changeSubject.next(this.jsonArray);
+
+    // Step 1: Build WFlow object and post to wFlowStore
+    const wflow: WFlow = {
+      flow: this.buildFlowJSON(), 
+      name: `Flow_${Date.now()}`,
+      validation_errors: [],  
+    };
+
+    return this._wFlowStore.add(wflow);  
   }
 
-  updateValue(controlId: string, newValue: any): void {
-   this.jsonArray.push({ controlId, newValue })
-   this.changeSubject.next(this.jsonArray);
-   console.log(this.changeSubject.getValue())
+  /**
+   * Build the FlowJSONV31 object
+   */
+  private buildFlowJSON(): FlowJSONV31 {
+    const screens = this.jsonArray.map((change) => {
+      return this.createScreen(change.controlId, change.newValue);
+    });
 
+    return {
+      version: '3.1',
+      screens: screens,  // Screens built from user interactions
+      data_api_version: '3.0',
+      routing_model: this.buildRoutingModel(screens),  // Define screen routing
+    };
   }
 
+  /**
+   * Create a single screen from a controlId and its new value
+   */
+  private createScreen(controlId: string, newValue: any): FlowScreenV31 {
+    return {
+      id: controlId,  // Unique ID for the screen
+      layout: {
+        type: 'SingleColumnLayout',
+        children: [newValue],  // The form element for the screen
+      },
+      title: `Screen for ${controlId}`,
+    };
+  }
+
+  /**
+   * Build routing model for screen navigation
+   */
+  private buildRoutingModel(screens: FlowScreenV31[]): { [screen_name: string]: string[] } {
+    const routing: { [screen_name: string]: string[] } = {};
+    screens.forEach((screen, index) => {
+      if (index < screens.length - 1) {
+        routing[screen.id] = [screens[index + 1].id];  // Link to next screen
+      }
+    });
+    return routing;
+  }
+
+  /**
+   * Clear all changes
+   */
   clearChanges(): void {
     this.changeSubject.next([]);
+    this.jsonArray = [];
   }
 }

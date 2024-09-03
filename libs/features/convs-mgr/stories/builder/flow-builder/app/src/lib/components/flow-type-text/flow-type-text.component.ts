@@ -4,11 +4,11 @@ import { SubSink } from 'subsink';
 import { debounceTime } from 'rxjs/operators';
 
 import { FlowPageLayoutElementTypesV31, FlowPageTextV31 } from '@app/model/convs-mgr/stories/flows';
-import { ChangeTrackerService, FlowEditorStateProvider } from '@app/state/convs-mgr/wflows';
+import { ChangeTrackerService, WhatsappFlowsStore } from '@app/state/convs-mgr/wflows';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
 import { TextElementFormService } from '../../services/text-elements-form.service';
-import { FeTextElement } from '../../models/fe-flow-text-element.model';
+import { EditableTextElement } from '../../models/fe-flow-text-element.model';
 
 @Component({
   selector: 'lib-flow-header-text',
@@ -33,8 +33,8 @@ export class FlowTypeTextComponent implements OnInit {
 
   constructor(
     private trackerService: ChangeTrackerService,
-    private flowStateProvider: FlowEditorStateProvider,
-    private textFormService: TextElementFormService
+    private textFormService: TextElementFormService, 
+    private _wFlowStore: WhatsappFlowsStore
   ) {}
 
   ngOnInit(): void {
@@ -42,21 +42,10 @@ export class FlowTypeTextComponent implements OnInit {
     this.buildForm();
 
     // Subscribe to form value changes
-    this._sbS.sink = this.textInputForm.valueChanges
-    .pipe(debounceTime(2000))  // 2000 milliseconds = 2 seconds
-    .subscribe(formValues => {
-
-      this.buildV31Element();
-      
-      // Update component state
-      this.flowStateProvider.updateComponent({
-        group: this.control.group,
-        label: this.control.label,
-        icon: this.control.icon,
-        id: this.control.id,
-        type: FlowControlType.Text, 
-        value: formValues.text
-      });
+    this._sbS.sink = this.textInputForm.get('text')?.valueChanges
+      .pipe(debounceTime(10000))  //10 seconds
+      .subscribe(value=> {
+      this.buildV31Element(value);
     });
   }
 
@@ -68,15 +57,19 @@ export class FlowTypeTextComponent implements OnInit {
     }
   }
 
-  buildV31Element() {
-    const formValues = {text: this.textInputForm.get('text')?.value,
+  buildV31Element(value: string) {
+    const formValue = {
+      text: value,
       size: this.control.type,
       type: FlowPageLayoutElementTypesV31.TEXT,
-    } as FeTextElement;
+    } as EditableTextElement;
 
-    const textElement = this.textFormService.transformElement(formValues);
+    const textElement = this.textFormService.transformElement(formValue);
 
-    this.trackerService.updateValue(this.control.id, textElement);
+    this.trackerService.updateValue(this.control.id, textElement).subscribe((_res) =>{
+      console.log(_res)
+    });
+    
   }
 }
 

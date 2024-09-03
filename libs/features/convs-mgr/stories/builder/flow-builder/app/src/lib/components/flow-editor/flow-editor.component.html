@@ -10,13 +10,14 @@
 
         <!-- Target for custom elements-->
         <div id="flow-container-drop" 
+          *ngIf="droppedElements | async as droppedItems"
           cdkDropList 
-          [cdkDropListData]="flowEls" 
+          [cdkDropListData]="droppedItems" 
           [cdkDropListConnectedTo]="['libraryDropList']" 
           (cdkDropListDropped)="drop($event)">
-          @for(item of flowEls; track item)
+          @for(item of droppedItems; track item)
           {
-            <app-flow-library-item [control]="item" (click)="funcClick(item, item.id)" cdkDrag>  </app-flow-library-item>
+            <app-flow-library-item [control]="item" (click)="createField(item)" cdkDrag>  </app-flow-library-item>
           }
         </div>
 

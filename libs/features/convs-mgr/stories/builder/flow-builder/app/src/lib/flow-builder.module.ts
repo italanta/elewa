@@ -20,7 +20,7 @@ import { BlocksLibraryModule } from '@app/features/convs-mgr/stories/builder/blo
 import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/builder/blocks/library/anchor-block';
 import { BuilderNavbarModule } from '@app/features/convs-mgr/stories/builder/nav';
 import { FlowBuilderStateModule } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
-import {FlowEditorStateProvider, FlowsStore } from '@app/state/convs-mgr/wflows';
+import { FlowEditorStateProvider, WhatsappFlowsStore } from '@app/state/convs-mgr/wflows';
 
 import { FlowBuilderPageComponent } from './pages/story-editor/flow-builder.page';
 import { FlowEditorComponent } from './components/flow-editor/flow-editor.component';
@@ -76,6 +76,6 @@ import { ImageTypeInputComponent } from './components/image-type-input/image-typ
     TextAreaInputComponent,
     ImageTypeInputComponent,
   ],
-  providers: [FlowEditorStateProvider, FlowsStore],
+  providers: [FlowEditorStateProvider, WhatsappFlowsStore],
 })
 export class FlowBuilderModule {}

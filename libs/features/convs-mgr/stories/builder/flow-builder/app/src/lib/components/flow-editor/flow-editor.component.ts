@@ -1,8 +1,10 @@
+import { v4 as ___guid } from 'uuid';
 import { Component, OnInit, OnDestroy, ViewContainerRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
-import { v4 as ___guid } from 'uuid';
 import { SubSink } from 'subsink';
+import { Observable } from 'rxjs';
+
 import { ChangeTrackerService, FlowEditorStateProvider } from '@app/state/convs-mgr/wflows';
 
 import { FlowControl } from '../../providers/flow-controls.const';
@@ -17,7 +19,7 @@ import { EditorComponentFactory } from '../../services/editor-component-factory.
 export class FlowEditorComponent implements OnInit, OnDestroy 
 {
   private _sbS = new SubSink();
-  flowEls: FlowControl[] = [];
+  droppedElements: Observable<FlowControl[]>;
 
   @ViewChild('vcr', { static: true, read: ViewContainerRef })
   vcr!: ViewContainerRef;
@@ -25,8 +27,10 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   constructor( private flowStateProvider: FlowEditorStateProvider,
                private editorComponentFactory: EditorComponentFactory,
                private trackerService: ChangeTrackerService,
-               private cdr: ChangeDetectorRef
-  ) { }
+               private cdr: ChangeDetectorRef,
+  ) { 
+    this.droppedElements = this.flowStateProvider.get();
+  }
 
   ngOnInit(): void {
    this._sbS.sink = this.trackerService.change$.subscribe((events: Array<{ controlId: string; newValue: any }>) => {
@@ -42,28 +46,33 @@ export class FlowEditorComponent implements OnInit, OnDestroy
     const draggedData = event.item.data;
 
     if (draggedData) {
-      // Push the dragged item to the flowEls array
-      this.flowEls.push(draggedData);
-      const index = this.flowEls.length - 1;
-      
       // Assign a unique ID using UUID
       draggedData.id = ___guid(); 
       draggedData.dropped = true;
       
-      if (index !== -1) {
-        // Handle array item transfers
-        if (event.previousContainer === event.container) {
-          moveItemInArray(this.flowEls, index, event.currentIndex);
-        }
+      // Handle array item transfers
+        // if (event.previousContainer === event.container) {
+          // this.droppedElements.subscribe((_val) => {
+          //   moveItemInArray(_val, event.previousIndex, event.currentIndex)
+          //   console.log(_val, event.previousIndex, event.currentIndex, 'move items')
+          // })
+          
+        // }else {
+        //   transferArrayItem(
+        //     event.previousContainer.data,
+        //     event.container.data,
+        //     event.previousIndex,
+        //     event.currentIndex,
+        //   );
+        // }
 
         this.cdr.detectChanges();
-        this.flowStateProvider.setControls(this.flowEls); // Update the state provider
-      }
+        this.flowStateProvider.setControls(draggedData); // Update the state provider
     }
   }
 
   /** Opening an editable field when user clicks on a dropped element */
-  funcClick(element: FlowControl, id: string) {
+  createField(element: FlowControl) {
     if (element.dropped) {
       const componentRef = this.editorComponentFactory.createEditorComponent(element, this.vcr);
 

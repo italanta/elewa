@@ -16,19 +16,14 @@ import { WFlow } from '@app/model/convs-mgr/stories/flows';
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 
 @Injectable({providedIn: 'root'})
-export class FlowsStore extends DataStore<WFlow>
+export class WhatsappFlowsStore extends DataStore<WFlow>
 {
-  protected store = 'stories-store';
+  protected store = 'flows-store';
   protected _activeRepo: Repository<WFlow>;
 
   private _activeOrg: Organisation;
   private _activeStory: Story;
   
-  // Question to dev's reviewing:
-  //   Will this always get all the organisations?
-  //     i.e. Even if no organisations need to be loaded for a specific piece of functionaly e.g. invites, do we still load all organisations?
-  //
-  // Answer: No, as Angular's DI engine is lazy, meaning it will only initialise services the first time they are called.
   constructor(_org$$: ActiveOrgStore,
               _repoFac: DataService,
               _logger: Logger,
@@ -55,9 +50,9 @@ export class FlowsStore extends DataStore<WFlow>
     });
   }
 
-  saveWFlow(story: WFlow){
-    console.log(story);
-    // story.publishedOn = new Date();
-    return this._activeRepo.write(story, story.id!);
-  }
+  // saveWFlow(story: WFlow){
+  //   console.log(story);
+  //   // story.publishedOn = new Date();
+  //   return this._activeRepo.write(story, story.id!);
+  // }
 }

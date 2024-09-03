@@ -8,7 +8,8 @@ import { ActiveStoryStore } from "@app/state/convs-mgr/stories";
 
 import { StoryModuleTypes } from "@app/model/convs-mgr/stories/main";
 import { FlowStory, WFlow } from "@app/model/convs-mgr/stories/flows";
-import { FlowsStore } from "../stores/wflow.store";
+import { WhatsappFlowsStore } from "../stores/whatsapp-flow.store";
+
 
 
 // @Injectable({ providedIn: 'root' })
@@ -22,7 +23,7 @@ export class WFlowService
 
   constructor(_activeStory$$: ActiveStoryStore,
               private _dataService: DataService,
-              private _flowStore: FlowsStore
+              private _flowStore: WhatsappFlowsStore
             ) 
   { 
     this._storyFlowTracker$ 

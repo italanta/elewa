@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 
 import { FLOW_CONTROLS, FlowControl } from "./flow-controls.const";
 
@@ -17,37 +17,22 @@ export class FlowEditorStateProvider {
 
   constructor() { }
 
-  /**
-   * Gets the current list of controls.
+   /**
+   * Gets the BehaviorSubject for controls.
    */
-  getControls(): FlowControl[] {
-    return [...this._controls]; // Return a copy to avoid external mutation
+   get(): Observable<FlowControl[]> {
+    return this._controls$$.asObservable();
   }
 
   /**
    * Updates the list of controls and notifies subscribers.
    * @param controls - The new list of controls.
    */
-  setControls(controls: FlowControl[]) {
-    this._controls = [...controls];
-    this._controls$$.next(this._controls);
+  setControls(control: FlowControl) {
+    const current = this._controls$$.getValue()
+    current.push(control)
+    this._controls$$.next(current);
   }
 
-  /**
-   * Gets the BehaviorSubject for controls.
-   */
-  getControls$$(): BehaviorSubject<FlowControl[]> {
-    return this._controls$$;
-  }
-
-  /**
-   * Updates a specific control component.
-   * @param comp - The control component to update.
-   */
-  updateComponent(comp: FlowControl) {
-    const updatedControls = this._controls.filter(c => c.id !== comp.id);
-    updatedControls.push(comp);
-    this.setControls(updatedControls);
-  }
 
 }

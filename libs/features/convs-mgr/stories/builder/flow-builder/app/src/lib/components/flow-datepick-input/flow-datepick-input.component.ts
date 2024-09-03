@@ -2,7 +2,7 @@ import { Component, inject, OnInit, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { debounceTime, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs';
 
 import { ChangeTrackerService } from '@app/state/convs-mgr/wflows';
 import { FlowDatePickerInput, FlowPageLayoutElementTypesV31, FlowTextAreaInput, FlowTextInput } from '@app/model/convs-mgr/stories/flows';
@@ -35,7 +35,6 @@ export class FlowDatepickInputComponent implements OnInit
 
   /** View Container */
   vrc = inject(ViewContainerRef)
-  private autosaveSubject = new Subject<any>();
 
   private _sbS = new SubSink ()
 
@@ -45,8 +44,13 @@ export class FlowDatepickInputComponent implements OnInit
 
   ngOnInit(): void {
     this.inputId = `input-${this.type}`;
-
     this.buildForms()
+
+    this.textInputForm.valueChanges
+    .pipe(debounceTime(10000))  //10 seconds
+      .subscribe(value=> {
+      this.saveInputConfig(value);
+    });
   }
 
   buildForms(element?: FeTextInput): void {
@@ -55,15 +59,14 @@ export class FlowDatepickInputComponent implements OnInit
       : this._formService.buildEmptyDateForm();
   }
   
-  saveInputConfig(): void {
+  saveInputConfig(_values: FlowDatePickerInput): void {
     if (this.textInputForm.valid) {
-      const formValues = this.textInputForm.value;  // Capture form values
-
+    
       const metaDateInput: FlowDatePickerInput = {
-        name: formValues.name,
-        label: formValues.label,
-        required: formValues.required,
-        "helper-text": formValues['helper-text'] || '',  // Optional
+        name: _values.name,
+        label: _values.label,
+        required: _values.required,
+        "helper-text": _values['helper-text'] || '', 
         type: FlowPageLayoutElementTypesV31.DATE_PICKER_INPUT,
       };
       this.showConfigs = false;  
@@ -76,4 +79,8 @@ export class FlowDatepickInputComponent implements OnInit
     this.trackerService.updateValue(this.control.id, newValue);
   }
 
+  toggleView()
+  {
+    this.showConfigs != this.showConfigs
+  }
 }

@@ -1,7 +1,7 @@
 /**
  * Form interface that maps into a v31 element type text
  */
-export interface FeTextElement
+export interface EditableTextElement
 {
   /** The actual text */
   text: string;
