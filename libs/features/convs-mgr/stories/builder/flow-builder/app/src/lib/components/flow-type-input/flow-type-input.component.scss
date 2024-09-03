@@ -1,4 +1,4 @@
-.__inputDesc {
+.inputDesc {
   width: 98%;
   padding: 1rem 0 1rem 1rem;
   border-radius: 4px;
@@ -13,10 +13,10 @@
   align-items: center;
 }
 
-.__groupForm{
+.groupForm{
   width: 100%;
 
-  .__saveBtn{
+  .saveBtn{
     button{
       outline: none;
       border: none;
@@ -27,8 +27,8 @@
   }
 
 }
-.__configs{
-  .__inputConfigs{
+.configs{
+  .inputConfigs{
     display: flex;
     justify-content: start;
     gap: 1rem;
