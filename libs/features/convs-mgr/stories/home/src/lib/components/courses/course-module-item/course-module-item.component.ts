@@ -38,7 +38,7 @@ export class CourseModuleItemComponent implements OnDestroy {
               private _fileStorageService: FileStorageService) {}
 
   specificBot: Bot | undefined; /**adding undefined here since it is described that way in the store service, removing might break something, check on this */
-
+  
   openModule(id: string) {
     this._router$.navigate(['modules', id]);
   }

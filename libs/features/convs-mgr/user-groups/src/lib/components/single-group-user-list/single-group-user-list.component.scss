@@ -81,7 +81,7 @@
         background-color: white;
         color: black !important;
         transition: 0.25s all ease;
-        pointer-events: none;
+        pointer-events: auto;
       }
 
       /* Transition */
@@ -267,10 +267,10 @@
             padding: 0.5rem;
             height: 42px;
             border-radius: 20px;
-            background-color: white;
+            background-color: white;  
             color: black !important;
             transition: 0.25s all ease;
-            pointer-events: none;
+            pointer-events: auto;
           }
   
           /* Transition */

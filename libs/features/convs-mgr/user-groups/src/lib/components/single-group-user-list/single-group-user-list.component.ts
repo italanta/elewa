@@ -27,7 +27,10 @@ import { DeleteUserFromGroupModalComponent } from '../../modals/delete-user-from
 })
 export class SingleGroupUserListComponent implements OnInit, OnDestroy
 {
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) set matSort(sort: MatSort){
+    this.dataSource.sort = sort;
+  }
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   @Input() classroom: Classroom;
@@ -67,6 +70,7 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
   ngOnInit()
   {
     this.loadClassroomLearners();
+    console.log(this.dataSource)
   }
 
   loadClassroomLearners()
@@ -78,6 +82,7 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
         this.dataSource.data = learners;
         this.allLearners = learners;
         this.dataSource.paginator = this.paginator;
+        // this.dataSource.sort = this.sort;
       });
   }
 
@@ -118,9 +123,9 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
 
   sortData(sortState: Sort)
   {
-    if (sortState.direction) {
+    if (sortState.direction == 'asc') {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction} ending`);
-    } else {
+    } else if(sortState.direction == 'desc'){
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
