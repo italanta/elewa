@@ -5,7 +5,7 @@ import { SubSink } from 'subsink';
 import { debounceTime, Subject } from 'rxjs';
 
 import { ChangeTrackerService } from '@app/state/convs-mgr/wflows';
-import { FlowDatePickerInput, FlowTextAreaInput, FlowTextInput } from '@app/model/convs-mgr/stories/flows';
+import { FlowDatePickerInput, FlowPageLayoutElementTypesV31, FlowTextAreaInput, FlowTextInput } from '@app/model/convs-mgr/stories/flows';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
 import { TextInputElementsService } from '../../services/text-inputs-elements.service';
@@ -55,18 +55,25 @@ export class FlowDatepickInputComponent implements OnInit
       : this._formService.buildEmptyDateForm();
   }
   
-  /** Trigger autosave */
-  private triggerAutosave(newValue: any): void {
+  saveInputConfig(): void {
+    if (this.textInputForm.valid) {
+      const formValues = this.textInputForm.value;  // Capture form values
+
+      const metaDateInput: FlowDatePickerInput = {
+        name: formValues.name,
+        label: formValues.label,
+        required: formValues.required,
+        "helper-text": formValues['helper-text'] || '',  // Optional
+        type: FlowPageLayoutElementTypesV31.DATE_PICKER_INPUT,
+      };
+      this.showConfigs = false;  
+      this.triggerAutosave(metaDateInput);
+    }
+  } 
+
+   /** Trigger autosave servie */
+   private triggerAutosave(newValue: FlowDatePickerInput): void {
     this.trackerService.updateValue(this.control.id, newValue);
   }
 
-  saveInputConfig(): void {
-    if (this.textInputForm.valid) {
-      this.element = this.textInputForm.value;  // Capture form values
-      this.showConfigs = false;  // Hide configuration form
-      //TODO: COnvert to  meta json format before sending to service
-      // All text inputs should be part of a form
-      this.triggerAutosave(this.element);
-    }
-  } 
 }
