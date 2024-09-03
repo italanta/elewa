@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 
-import { FlowJsonBuilderService } from "../services/build-flow-json.service";
 import { FLOW_CONTROLS, FlowControl } from "./flow-controls.const";
 
 /**
@@ -16,9 +15,7 @@ export class FlowEditorStateProvider {
   /** BehaviorSubject to track changes in control state */
   private _controls$$ = new BehaviorSubject<FlowControl[]>([]);
 
-  constructor(
-    private flowJsonBuilderService: FlowJsonBuilderService
-  ) { }
+  constructor() { }
 
   /**
    * Gets the current list of controls.
@@ -53,12 +50,4 @@ export class FlowEditorStateProvider {
     this.setControls(updatedControls);
   }
 
-  /**
-   * Save the json object
-   * Make API call to Meta with object
-   * Update the json data
-   */
-  saveJson () {
-    this.flowJsonBuilderService.getMetaJson$()
-  }
 }
