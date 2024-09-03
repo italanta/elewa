@@ -2,7 +2,7 @@ import { Component, inject, OnInit, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { debounceTime, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import { ChangeTrackerService, FlowEditorStateProvider } from '@app/state/convs-mgr/wflows';
 import { FlowDatePickerInput, FlowTextAreaInput, FlowTextInput } from '@app/model/convs-mgr/stories/flows';
@@ -48,35 +48,12 @@ export class FlowTypeInputComponent implements OnInit
     this.inputId = `input-${this.type}`;
 
     this.buildForms()
-    // Setup autosave with debounce
-    this.autosaveSubject.pipe(debounceTime(300)).subscribe((value) => {
-      this.triggerAutosave(value);
-    });
   }
 
   buildForms(element?: FeTextInput): void {
-    console.log(this.type)
-    switch (this.type) {
-      case this.flowControlType.TextInput:
-        console.log(this.type)
-        this.textInputForm = element
-          ? this._formService.buildTextForm(element)
-          : this._formService.buildEmptyTextForm();
-        break;
-      case this.flowControlType.TextArea:
-        this.textInputForm = element
-          ? this._formService.buildTextAreaForm(element)
-          : this._formService.buildEmptyTextAreaForm();
-        break;
-      case this.flowControlType.Datepick:
-        this.textInputForm = element
-          ? this._formService.buildDateForm(element)
-          : this._formService.buildEmptyDateForm();
-        break;
-      default:
-        this.textInputForm = this._formService.buildEmptyTextForm(); // Fallback
-        break;
-    }
+    this.textInputForm = element
+      ? this._formService.buildTextForm(element)
+      : this._formService.buildEmptyTextForm();
 
     // Autosave on form value changes
     this._sbS.sink = this.textInputForm.valueChanges.subscribe((formValue) => {
@@ -84,16 +61,16 @@ export class FlowTypeInputComponent implements OnInit
     });
   }
   
-  /** Trigger autosave */
-  private triggerAutosave(newValue: any): void {
-    this.trackerService.updateValue(this.control.id, newValue);
-  }
-
   saveInputConfig(): void {
     if (this.textInputForm.valid) {
       this.element = this.textInputForm.value;  // Capture form values
       this.showConfigs = false;  // Hide configuration form
+      this.triggerAutosave(this.element)
     }
   }
-  
+
+  /** Trigger autosave */
+  private triggerAutosave(newValue: any): void {
+    this.trackerService.updateValue(this.control.id, newValue);
+  }
 }

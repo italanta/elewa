@@ -1,6 +1,31 @@
-<div class="wrapper">
-  <div class="__inputDesc">
-    <span>Date From</span>
-  <input type="date" value=" " class="__dateEntry"/>
-  </div>
+<div class="configs" *ngIf="showConfigs">
+  <form *ngIf="textInputForm && control " [formGroup]="textInputForm">
+    <div class="inputConfigs">
+      <label for="name">Name:</label>
+      <input type="text" id="name" formControlName="name">
+    </div>
+    <div class="inputConfigs">
+      <label for="label">Label:</label>
+      <input type="text" id="label" formControlName="label">
+    </div>
+    <div class="inputConfigs">
+      <label for="required">Required:</label>
+      <input type="checkbox" id="required" formControlName="required">
+    </div>
+    <div class="saveBtn">
+      <button type="submit" (click)="saveInputConfig()"> Save </button>
+    </div>
+  </form>
 </div>
+
+<div class="flex-container" *ngIf="!showConfigs">
+  <div class="column">
+    <label [for]="element.name">{{ element.label }}</label>
+    <input type="date"
+      class="text-area-input"
+      [name]="element.name"
+      [id]="element.name"
+      [required]="element.required"
+    />
+  </div>
+</div> 

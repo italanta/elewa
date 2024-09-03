@@ -6,6 +6,8 @@ import { FlowTypeInputComponent } from '../components/flow-type-input/flow-type-
 import { FlowDatepickInputComponent } from '../components/flow-datepick-input/flow-datepick-input.component';
 import { FlowButtonGroupComponent } from '../components/flow-button-group/flow-button-group.component';
 import { FlowCheckboxOptionsComponent } from '../components/flow-checkbox-options/flow-checkbox-options.component';
+import { ImageTypeInputComponent } from '../components/image-type-input/image-type-input.component';
+import { TextAreaInputComponent } from '../components/text-area-input/text-area-input.component';
 
 
 @Injectable({
@@ -24,17 +26,27 @@ export class EditorComponentFactory {
             componentType = FlowTypeTextComponent;
             break;
         }
-        // case 'image': {
-        //     componentType = FlowImageComponent;
-        //     break;
-        // }
-        case FlowControlType.TextArea:
+        case FlowControlType.Image: {
+            componentType = ImageTypeInputComponent;
+            break;
+        }
+        case FlowControlType.TextArea:{
+          componentType = TextAreaInputComponent;
+            break;
+        }
+        case FlowControlType.Datepick: {
+          componentType = FlowDatepickInputComponent;
+            break;
+        }
         case FlowControlType.OptIn:
-        case FlowControlType.Link:
-        case FlowControlType.Datepick:   {
+          {
             componentType = FlowTypeInputComponent;
             break;
         }
+        // case FlowControlType.Link: {
+        //   componentType = FlowTypeLinkComponent;
+        //   break;
+        // }
         case FlowControlType.Radio: {
           componentType = FlowButtonGroupComponent;
           break;

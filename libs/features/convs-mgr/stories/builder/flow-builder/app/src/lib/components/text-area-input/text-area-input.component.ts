@@ -57,10 +57,6 @@ export class TextAreaInputComponent
     this.textInputForm = element
       ? this._formService.buildTextAreaForm(element)
       : this._formService.buildEmptyTextAreaForm();
-    // Autosave on form value changes
-    this._sbS.sink = this.textInputForm.valueChanges.subscribe((formValue) => {
-      this.autosaveSubject.next(formValue);
-    });
   }
   
   /** Trigger autosave */
@@ -72,6 +68,9 @@ export class TextAreaInputComponent
     if (this.textInputForm.valid) {
       this.element = this.textInputForm.value;  // Capture form values
       this.showConfigs = false;  // Hide configuration form
+      //TODO: COnvert to  meta json format before sending to service
+      // All text inputs should be part of a form
+      this.triggerAutosave(this.element)
     }
   }
 }
