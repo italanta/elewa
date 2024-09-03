@@ -59,6 +59,12 @@
   background: transparent;
   height: 3rem;
 }
+:host::ng-deep.mat-mdc-select-value{
+  padding-top: 14px !important;
+}
+:host::ng-deep.mat-mdc-select-arrow-wrapper{
+  padding-top: 10px !important;
+}
 
 :host::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
   border-radius: 25px!important;
