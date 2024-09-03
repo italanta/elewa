@@ -1,6 +1,10 @@
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { ImageOutputBlockEditComponent, ListBlockEditComponent, LocationOutputBlockEditComponent, QuestionButtonsEditFormsComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { DocumentOutputBlockEditComponent, 
+         ImageOutputBlockEditComponent, 
+         ListBlockEditComponent, 
+         LocationOutputBlockEditComponent, 
+         QuestionButtonsEditFormsComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { LocationInputBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { KeywordJumpBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { OpenEndedQuestionEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
@@ -35,7 +39,7 @@ export function getActiveBlock(type: StoryBlockTypes) {
     case StoryBlockTypes.List:
       return ListBlockEditComponent;
     case StoryBlockTypes.Document:
-      return DefaultComponent;
+      return DocumentOutputBlockEditComponent;
     case StoryBlockTypes.Audio:
       return DefaultComponent;
     case StoryBlockTypes.Video:

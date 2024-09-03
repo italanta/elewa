@@ -1,14 +1,14 @@
-<form [formGroup]="documentMessageForm" fxLayout="column" fxLayoutALign="start center">
-  <div [id]="docInputId" class="doc_bg" [ngClass]="byPassedLimits.length ? 'error' : ''">
+<form [formGroup]="documentMessageForm" fxLayout="column" fxLayoutALign="start center" [class.edit_form_wrapper] = "isEdit">
+  <div [id]="docInputId" class="doc_bg" [class.edit_form] = "isEdit"  [ngClass]="byPassedLimits.length ? 'error' : ''">
 
     <input (change)="processDocs($event)" [id]="docInputUpload" accept=".pdf" type="file" class="fileSrc" />
     <label *ngIf="!isDocLoading" [for]="docInputUpload">
       <div *ngIf="!docName; else inputHasDoc" class="block-media-placeholder">
-          <img [src]="svgIcon" width="30px" class="placeholder-icon">
+          <img src="assets/svgs/blocks/system-uicons_document.svg" width="30px" class="placeholder-icon">
           <span class="media-placeholder-text" >{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-UPLOAD' | transloco }}</span>
       </div>
       <ng-template #inputHasDoc>
-          <img [src]="svgIcon" width="30px" class="placeholder-icon">
+          <img src="assets/svgs/blocks/system-uicons_document.svg" width="30px" class="placeholder-icon">
           <span class="media-placeholder-text doc-name" >{{ docName }}</span>
       </ng-template>
     </label>
@@ -23,9 +23,9 @@
     <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.DOCUMENT.MESSAGE-TWO' | transloco }}</span>
   </div>
 
-  <input formControlName="message" type="text"
+  <input formControlName="message" type="text" [class.edit_input] = "isEdit" 
     [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco" />
-  <input formControlName="fileSrc" type="text"
-    [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-LINK' | transloco " />
+  <input formControlName="fileSrc" type="text" [class.edit_input] = "isEdit" 
+    [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-LINK' | transloco " readonly/>
   <input formControlName="fileName" type="text" hidden/>
   </form>

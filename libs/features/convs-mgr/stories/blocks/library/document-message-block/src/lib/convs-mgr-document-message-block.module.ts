@@ -21,7 +21,7 @@ import { DocumentBlockFormComponent } from './components/document-block-form/doc
 
 @NgModule({
   declarations: [DocumentBlockComponent, DocumentBlockFormComponent],
-  exports: [DocumentBlockComponent],
+  exports: [DocumentBlockComponent, DocumentBlockFormComponent],
   imports: [
     CommonModule,
     MultiLangModule,

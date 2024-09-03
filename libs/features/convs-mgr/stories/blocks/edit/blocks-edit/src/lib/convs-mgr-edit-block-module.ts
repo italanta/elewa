@@ -13,6 +13,7 @@ import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/bloc
 import { ConvsMgrReusableTextAreaModule } from '@app/features/convs-mgr/stories/blocks/library/reusable-text-area';
 import { ConvsMgrImageMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/image-message-block';
 import { ConvsMgrLocationMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/location-message-block';
+import { ConvsMgrDocumentMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/document-message-block';
 
 import { QuestionButtonsEditFormsComponent } from './components/question-buttons-edit-forms/question-buttons-edit-forms.component';
 import { LocationInputBlockEditComponent } from './components/location-input-block-edit/location-input-block-edit.component';
@@ -31,6 +32,7 @@ import { DefaultComponent } from './components/default/default.component';
 import { ListBlockEditComponent } from './components/list-block-edit/list-block-edit.component';
 import { ImageOutputBlockEditComponent } from './components/image-output-block-edit/image-output-block-edit.component';
 import { LocationOutputBlockEditComponent } from './components/location-output-block-edit/location-output-block-edit.component';
+import { DocumentOutputBlockEditComponent } from './components/document-output-edit/document-output-block-edit.component';
 
 @NgModule({
   imports: [
@@ -45,7 +47,8 @@ import { LocationOutputBlockEditComponent } from './components/location-output-b
     ConvsMgrBlockOptionsModule,
     ConvsMgrReusableTextAreaModule,
     ConvsMgrImageMessageBlockModule,
-    ConvsMgrLocationMessageBlockModule
+    ConvsMgrLocationMessageBlockModule,
+    ConvsMgrDocumentMessageBlockModule
   ],
   
   declarations: [
@@ -65,7 +68,8 @@ import { LocationOutputBlockEditComponent } from './components/location-output-b
     DefaultComponent,
     ListBlockEditComponent,
     ImageOutputBlockEditComponent,
-    LocationOutputBlockEditComponent
+    LocationOutputBlockEditComponent,
+    DocumentOutputBlockEditComponent
   ],
 })
 export class ConvsMgrEditBlockModule {}

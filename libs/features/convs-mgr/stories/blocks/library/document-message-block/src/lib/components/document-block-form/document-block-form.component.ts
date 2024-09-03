@@ -7,8 +7,6 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { FileStorageService } from '@app/state/file';
 import { DocumentMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { ICONS_AND_TITLES } from '../../../../../main/src/lib/assets/icons-and-titles';
-
 @Component({
   selector: 'app-document-block-form',
   templateUrl: './document-block-form.component.html',
@@ -19,6 +17,7 @@ export class DocumentBlockFormComponent implements OnInit, OnDestroy {
   @Input() block: DocumentMessageBlock;
   @Input() documentMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+  @Input() isEdit: boolean;
 
   file: File;
   docInputId: string;
@@ -31,8 +30,6 @@ export class DocumentBlockFormComponent implements OnInit, OnDestroy {
 
   docInputUpload = '';
 
-  svgIcon: string
-
   private _sBs = new SubSink();
 
   constructor(private _docUploadService: FileStorageService) {}
@@ -41,8 +38,6 @@ export class DocumentBlockFormComponent implements OnInit, OnDestroy {
     this.docInputId = `docs-${this.id}`;
     this.docInputUpload = `doc-${this.id}-upload`;
 
-    this.svgIcon = this.getBlockIconAndTitle(this.block.type).svgIcon
-
     const fileSize = this.documentMessageForm.get('fileSize')?.value;
 
     this.docName = this.documentMessageForm.get('message')?.value || this.documentMessageForm.get('fileName')?.value || "";
@@ -50,10 +45,6 @@ export class DocumentBlockFormComponent implements OnInit, OnDestroy {
     if (fileSize) {
       this._checkSizeLimit(fileSize);
     }
-  }
-
-  getBlockIconAndTitle(type: number) {
-    return ICONS_AND_TITLES[type];
   }
 
   async processDocs(event: any) {
