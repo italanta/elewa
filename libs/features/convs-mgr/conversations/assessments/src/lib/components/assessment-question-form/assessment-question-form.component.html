@@ -1,4 +1,4 @@
-<div class="question-form" *ngIf="featureMode">
+<div class="question-form" *ngIf="formEditMode === 1">
 	<div [ngClass]="activeCard === index ? ['card' , 'active-card'] : ['card']"
 		(click)="activeQuestionChanged.emit(index)">
 

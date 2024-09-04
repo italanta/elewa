@@ -5,15 +5,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { SubSink } from 'subsink';
 import { Observable, tap } from 'rxjs';
 
-import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+import { AssessmentQuestion, QuestionFormMode } from '@app/model/convs-mgr/conversations/assessments';
 import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
+import { MediaUploadModalComponent } from '@app/elements/layout/modals';
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
-import { AssessmentMediaUploadComponent } from '../assessment-media-upload/assessment-media-upload.component';
-import { getMediaType } from '../../utils/check-media-type.util'
-import { FeatureViewMode } from '../../model/feature-type.enum';
 
+import { getMediaType } from '../../utils/check-media-type.util'
 
 @Component({
   selector: 'app-assessment-question-form',
@@ -32,9 +31,10 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   @Input() assessmentFormGroup: FormGroup;
   @Input() questionFormGroupName: number | string;
   @Input() activeCard$: Observable<number>;
-  @Input() featureMode: FeatureViewMode;
   @Input() questionBankForm: FormGroup;
-  @Output() addNewQuestion = new EventEmitter<FormGroup>();
+  /** Mode between assessments and question banks */
+  @Input()formEditMode: QuestionFormMode
+  @Output() addNewQuestion = new EventEmitter<FormGroup>(); //emits form 
   @Output() activeQuestionChanged = new EventEmitter();
   
   activeCard: number;
@@ -63,7 +63,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
 
   private _sBS = new SubSink()
   ngOnInit(): void {
-    if(this.featureMode){
+    if(this.formEditMode){
       this.activeCard$.pipe(tap((activeId) => {
         this.activeCard = activeId;
       })).subscribe();
@@ -72,7 +72,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   }
 
   get questionsList() {
-    if(this.featureMode !== FeatureViewMode.AssessmentQuestion) return;
+    if(this.formEditMode !== QuestionFormMode.AssessmentMode) return;
     return this.assessmentFormGroup.get('questions') as FormArray;
   }
 
@@ -120,13 +120,15 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   /** Uploading an image or video and setting hte form control value to the value of the file */
   openUploadModal(type: 'image' | 'video'): void 
   {
-    const dialogRef = this.dialog.open(AssessmentMediaUploadComponent, {
+    const dialogRef = this.dialog.open(MediaUploadModalComponent, {
       data: { 
               fileType: type,
               assessmentFormGroup: this.assessmentFormGroup,
               index: this.index,
               questions: this.questionsList,
-              questionFormGroup: this.questionFormGroup
+              questionFormGroup: this.questionFormGroup,
+              questionBankForm: this.questionBankForm,
+              formViewMode: this.formEditMode
             },
       panelClass: 'media-modal'
     });
@@ -135,6 +137,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
       if (file) {
         this.mediaSrc =file
         this.uploadType = type;
+        this.isImage = type === 'image';
         this.mediaPath?.setValue(file);
       }
     });

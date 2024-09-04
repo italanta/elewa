@@ -36,7 +36,8 @@
       <app-assessment-question-form
         *ngIf="isAddingQuestion" 
         [questionBankForm]="questionsFormGroup"
-        (questionActionCompleted)="onQuestionActionCompleted()">
+        (questionActionCompleted)="onQuestionActionCompleted()"
+        [formEditMode]="formViewMode">
       </app-assessment-question-form>
     </div>
 

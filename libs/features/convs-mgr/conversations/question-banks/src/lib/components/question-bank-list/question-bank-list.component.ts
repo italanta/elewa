@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 
-import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+import { AssessmentQuestion, QuestionFormMode } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
 
 import { AddQuestionToAssessmentComponent } from '../add-question-to-assessment/add-question-to-assessment.component';
@@ -29,6 +29,7 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
   searchTerm = '';
   /** Number of selected questions */
   selectedQuestions: string[] = []
+  formViewMode: QuestionFormMode
   private _sBS = new SubSink ()
 
   constructor(private questionStore: AssessmentQuestionBankStore,

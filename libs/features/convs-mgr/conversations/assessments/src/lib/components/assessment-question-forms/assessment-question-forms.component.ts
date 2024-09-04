@@ -5,10 +5,9 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { Subject } from 'rxjs';
 
-import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+import { AssessmentQuestion, QuestionFormMode } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
-import { FeatureViewMode } from '../../model/feature-type.enum';
 
 @Component({
   selector: 'app-assessment-question-forms',
@@ -20,16 +19,14 @@ export class AssessmentQuestionFormsComponent implements AfterViewInit, OnDestro
   @Input() previewMode: boolean;
   @Input() assessmentMode: number;
   @Input() questions: AssessmentQuestion[];
-
   @Input() assessmentFormGroup: FormGroup;
   /** Feature using the question form */
-  assessmentFeatureMode = FeatureViewMode.AssessmentQuestion
+  assessmentFeatureMode = QuestionFormMode.AssessmentMode
 
   count = 0;
   formDataIsReady = false;
 
   activeCard$ = new Subject<number>();
-
   constructor(private _router$$: Router,
               private _assessmentForm: AssessmentFormService
   ) {}

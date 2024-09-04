@@ -14,6 +14,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import {
   AssessmentPublishService,
+  AssessmentQuestionBankStore,
   AssessmentService,
   AssessmentsStore,
 } from '@app/state/convs-mgr/conversations/assessments';
@@ -22,7 +23,7 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { ItalBreadCrumbModule } from '@app/elements/layout/ital-bread-crumb';
 import { ClmMicroAppLayoutModule } from '@app/elements/layout/clm-micro-app';
 import { CustomComponentsModule } from '@app/elements/layout/convs-mgr/custom-components';
-
+import { ElementsLayoutModalsModule } from '@app/elements/layout/modals';
 import { AssessmentsRouterModule } from './assessments.router.module';
 
 import { AssessmentsHomeComponent } from './pages/assessments-home/assessments-home.component';
@@ -80,7 +81,8 @@ import { AssessmentUsersTableComponent } from './components/assessment-results-c
     DragDropModule,
     ItalBreadCrumbModule,
     ClmMicroAppLayoutModule,
-    CustomComponentsModule
+    CustomComponentsModule,
+    ElementsLayoutModalsModule
   ],
   declarations: [
     AssessmentsHomeComponent,
@@ -126,11 +128,13 @@ import { AssessmentUsersTableComponent } from './components/assessment-results-c
     AssessmentFormService,
     AssessmentsStore,
     AssessmentPublishService,
+    AssessmentQuestionBankStore,
   ],
-  exports: [ContentSectionComponent, 
-            AssessmentLandingPageComponent,
-            AssessmentQuestionFormComponent,
-            AssessmentAnswersComponent
+  exports: [
+    ContentSectionComponent, 
+    AssessmentLandingPageComponent,
+    AssessmentQuestionFormComponent,
+    AssessmentAnswersComponent
           ],
 })
 export class ConvsMgrAssessmentsModule {}

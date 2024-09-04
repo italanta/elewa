@@ -13,11 +13,11 @@ import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/
 
 import { QuestionBankListComponent } from './components/question-bank-list/question-bank-list.component';
 import { QuestionBankHeaderComponent } from './components/question-bank-header/question-bank-header.component';
-import { QuestionBankMediaUploadComponent } from './components/question-bank-media-upload/question-bank-media-upload.component';
 import { QuestionCardComponent } from './components/question-card/question-card.component';
 import { DeleteQuestionModalComponent } from './components/delete-question-modal/delete-question-modal.component';
 import { AddQuestionToAssessmentComponent } from './components/add-question-to-assessment/add-question-to-assessment.component';
 import { QuestionBankRouterModule } from './question-banks.router.module';
+import { ElementsLayoutModalsModule } from '@app/elements/layout/modals';
 
 
 @NgModule({
@@ -31,7 +31,7 @@ import { QuestionBankRouterModule } from './question-banks.router.module';
     MaterialDesignModule,
     FormsModule,
     MatSnackBarModule,
-
+    ElementsLayoutModalsModule,
     QuestionBankRouterModule,
     ConvlPageModule,
 
@@ -40,7 +40,6 @@ import { QuestionBankRouterModule } from './question-banks.router.module';
   declarations: [
     QuestionBankListComponent,
     QuestionBankHeaderComponent,
-    QuestionBankMediaUploadComponent,
     QuestionCardComponent,
     DeleteQuestionModalComponent,
     AddQuestionToAssessmentComponent,
