@@ -58,7 +58,12 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
 
   selectQuestion(questionId: string)
   {
-    this.selectedQuestions.push(questionId)
+    this.selectedQuestions.push(questionId);
+  }
+
+  onViewModeChanged(formViewMode: QuestionFormMode)
+  {
+    this.formViewMode = formViewMode
   }
 
   /** Opening the add question to assessment  */

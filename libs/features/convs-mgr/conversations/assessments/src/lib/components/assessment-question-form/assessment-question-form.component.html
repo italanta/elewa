@@ -1,4 +1,4 @@
-<div class="question-form" *ngIf="formEditMode === 1">
+<div class="question-form" *ngIf="formEditMode === questionFormMode.AssessmentMode">
 	<div [ngClass]="activeCard === index ? ['card' , 'active-card'] : ['card']"
 		(click)="activeQuestionChanged.emit(index)">
 
@@ -24,8 +24,8 @@
 									<div fxLayout="column" >
 										<div appearance="fill" fxFlex="60" *ngIf="mediaSrc" class="media-display">
 											<div class="media-div">
-												<img *ngIf="isImage" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
-  											<video *ngIf="!isImage" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
+												<img *ngIf="mediaType" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
+  											<video *ngIf="!mediaType" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
 											</div>
 											<button class="img-elipsis" [matMenuTriggerFor]="menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
 										</div>
@@ -76,7 +76,7 @@
 	<button mat-menu-item (click)="uploadType === 'image'? openUploadModal('image') : openUploadModal('video')" ><span> <i class="fa-solid fa-align-left"></i></span> <span> {{ uploadType === 'image'? "Replace Image" : "Replace Video" }}</span></button>
 </mat-menu>
 
-<div>
+<div *ngIf="formEditMode === questionFormMode.QuestionBankMode">
   <div class="question-form" *ngIf="isAddingQuestion">
     <div class="card">
     <i style="width: 100%; margin: auto; color: #B2B2B2;" class="fas fa-grip-horizontal"></i>
@@ -89,8 +89,8 @@
               <div fxLayout="column" >
                 <div appearance="fill" fxFlex="60" *ngIf="mediaSrc" class="media-display">
                   <div class="media-div">
-                    <img *ngIf="isImage" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
-                    <video *ngIf="!isImage" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
+                    <img *ngIf="mediaType" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
+                    <video *ngIf="!mediaType" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
                   </div>
   
                 </div>

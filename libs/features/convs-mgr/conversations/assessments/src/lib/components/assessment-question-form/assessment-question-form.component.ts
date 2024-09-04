@@ -8,11 +8,13 @@ import { Observable, tap } from 'rxjs';
 import { AssessmentQuestion, QuestionFormMode } from '@app/model/convs-mgr/conversations/assessments';
 import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
-import { MediaUploadModalComponent } from '@app/elements/layout/modals';
+
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
 
 import { getMediaType } from '../../utils/check-media-type.util'
+import { MediaUploadModalComponent } from '../../modals/media-upload-modal/media-upload.component';
+import { QuestionSectionType } from '../../model/question-section-type.enum';
 
 @Component({
   selector: 'app-assessment-question-form',
@@ -33,7 +35,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   @Input() activeCard$: Observable<number>;
   @Input() questionBankForm: FormGroup;
   /** Mode between assessments and question banks */
-  @Input()formEditMode: QuestionFormMode
+  @Input()  formEditMode: QuestionFormMode
   @Output() addNewQuestion = new EventEmitter<FormGroup>(); //emits form 
   @Output() activeQuestionChanged = new EventEmitter();
   
@@ -41,10 +43,11 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   mediaSrc = '';
   uploadType: 'image' | 'video';
   addMedia: true;
-  isImage: boolean
+  mediaType: boolean
   /** Form state when user clicks add */
   isAddingQuestion = true;
   addClicked = false
+  questionFormMode = QuestionFormMode
   @Output() questionActionCompleted = new EventEmitter<void>();
 
   @ViewChild('videoPlayer') video: ElementRef<HTMLVideoElement>;
@@ -63,7 +66,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
 
   private _sBS = new SubSink()
   ngOnInit(): void {
-    if(this.formEditMode){
+    if(this.formEditMode === QuestionFormMode.AssessmentMode){
       this.activeCard$.pipe(tap((activeId) => {
         this.activeCard = activeId;
       })).subscribe();
@@ -128,7 +131,8 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
               questions: this.questionsList,
               questionFormGroup: this.questionFormGroup,
               questionBankForm: this.questionBankForm,
-              formViewMode: this.formEditMode
+              formViewMode: this.formEditMode,
+              questionSectionType: QuestionSectionType
             },
       panelClass: 'media-modal'
     });
@@ -137,7 +141,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
       if (file) {
         this.mediaSrc =file
         this.uploadType = type;
-        this.isImage = type === 'image';
+        this.mediaType = type === 'image';
         this.mediaPath?.setValue(file);
       }
     });
@@ -149,7 +153,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     if (mediaPath) {
       this._updateMediaState(mediaPath);
     } else {
-      this.isImage = false;
+      this.mediaType = false;
     }
   }
  /** Get media type when a user clicks update media button */
@@ -162,7 +166,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     } else {
       this.uploadType = 'image'; 
     }
-    this.isImage = this.uploadType === 'image';
+    this.mediaType = this.uploadType === 'image';
   
     if (this.uploadType === 'video' && this.video) {
       this.video.nativeElement.load();
@@ -174,7 +178,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   {
     this.addClicked = true
     const questionToAdd = this.questionBankForm.value as AssessmentQuestion;
-    if(questionToAdd.id !== ''){
+    if(questionToAdd.id){
       this._sBS.sink = this.questionBankService.update(questionToAdd ).subscribe(()=> {
         this.questionActionCompleted.emit(); 
         this.addClicked = false

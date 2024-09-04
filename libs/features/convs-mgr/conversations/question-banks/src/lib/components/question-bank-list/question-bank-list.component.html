@@ -2,7 +2,9 @@
   <div class="question-page">
     <lib-question-bank-header 
       (addNewQuestion)="onNewQuestionAdded($event)" 
-      (addMode)="onAddModeChanged($event)">
+      (addMode)="onAddModeChanged($event)"
+      (viewMode)="onViewModeChanged($event)"
+      >
     </lib-question-bank-header>
     <div class="select-tab" *ngIf="selectedQuestions.length">
       <div class="text">
