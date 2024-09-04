@@ -3,18 +3,20 @@
     <div class="details-wrapper">
       <div class="form-group">
         <div class="options-wrapper">
-          <select class="assess-label" name="assessmentlabel" required id="assessmentlabel" [attr.disabled]="isTyped.value ? true : null">
-            <option disabled selected>{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</option>
+          <select name="assessmentlabel" required [attr.disabled]="isTyped.value ? true : null">
             <option *ngFor="let variable of (vars$ | async)" [value]="variable">{{ variable }}</option>
+            <option [value]="null" [selected]="true">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</option>
           </select>
           
           <span class="custom-dropdown-arrow"></span>
         </div>
       </div>
-      <div class="select-variable">
+      <label class="custom-variable-checkbox">
         <input type="checkbox" class="custom-checkbox" formControlName="isTyped" name="check" id="isTyped">
-        <label class="custom-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</label>
-      </div>
+        <span class="checkmark"></span>
+        <div class="checkbox-text">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</div>
+      </label>
+    
       <div class="type-variable">
         <input class="input" type="text" formControlName="typedVar" placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CONDITIONAL-BLOCK.INPUT-VARIABLE' | transloco }}" id="variableToCheck">
       </div>
@@ -27,8 +29,8 @@
         </div>
       </div>
       <button (click)="addNewOption()" mat-flat-button class="add-button">{{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}</button>
-      <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm"></app-default-option-field>
     </div>
   </form>
+  <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm"></app-default-option-field>
 </div>
 
