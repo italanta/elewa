@@ -21,7 +21,7 @@ import { AudioBlockFormComponent } from './components/audio-block-form/audio-blo
 
 @NgModule({
   declarations: [AudioBlockComponent, AudioBlockFormComponent],
-  exports: [AudioBlockComponent],
+  exports: [AudioBlockComponent, AudioBlockFormComponent],
   imports: [
     CommonModule,
     MultiLangModule,

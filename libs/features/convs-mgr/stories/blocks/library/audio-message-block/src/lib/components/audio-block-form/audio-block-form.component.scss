@@ -65,39 +65,6 @@ input {
   font-size: small;
 }
 
-
-.svg-inline--fa.fa-w-12 {
-    width: 1.875em;
-    border-color: var(--convs-mgr-color-primary-white) !important;
-    border-radius: 0.9375em;
-    background-color: var(--convs-mgr-color-primary-white) !important;
-}
-
-.audio-icon {
-    text-align: center;
-    width: 13.75em;
-    height: 5em;
-    opacity: 1;
-
-    .fa-file-audio {
-        color: var(--convs-mgr-color-primary-purple) !important;
-        border: none;
-    }
-
-    .fa-spin {
-        color: var(--convs-mgr-color-text-inactive-bolder) !important;
-        border: none;
-    }
-
-    .svgIcon {
-        height: 1.875em;
-        padding-top: 1.25em;
-        padding-bottom: 0.625em;
-        filter: invert(49%) sepia(21%) saturate(13%) hue-rotate(314deg) brightness(94%) contrast(87%);
-
-    }
-}
-
 .audio_bg {
     display: flex;
     align-items: center;
@@ -123,43 +90,4 @@ input {
     span {
         color: red;
     }
-}
-
-.svg-inline--fa {
-    height: 2.5em;
-    margin-top: 13%;
-    overflow: hidden;
-}
-
-.svg-inline--fa.fa-w-16 {
-    width: 2.5em;
-    height: 2.5em;
-    color: var(--convs-mgr-color-primary-white) !important;
-}
-
-.wave.show {
-    width: 100%;
-
-    #waveform {
-        width: 100%;
-    }
-}
-
-.waveform-container {
-    display: flex;
-    align-items: center;
-
-    &.hide {
-        height: 0;
-    }
-
-    &.show {
-        height: auto;
-    }
-}
-
-.play-button {
-    cursor: pointer;
-    height: 1.5em;
-    width: 1.5em;
 }

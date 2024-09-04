@@ -1,4 +1,4 @@
-<form [formGroup]="documentMessageForm" fxLayout="column" fxLayoutALign="start center" [class.edit_form_wrapper] = "isEdit">
+<form [formGroup]="documentMessageForm" [class.edit_form_wrapper] = "isEdit">
   <div [id]="docInputId" class="doc_bg" [class.edit_form] = "isEdit"  [ngClass]="byPassedLimits.length ? 'error' : ''">
 
     <input (change)="processDocs($event)" [id]="docInputUpload" accept=".pdf" type="file" class="fileSrc" />

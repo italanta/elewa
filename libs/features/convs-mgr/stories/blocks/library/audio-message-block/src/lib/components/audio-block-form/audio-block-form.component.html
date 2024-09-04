@@ -1,27 +1,9 @@
-<form [formGroup]="audioMessageForm">
-
-  <!-- <div [id]="audioInputId" class="audio_bg"  [ngClass]="byPassedLimits.length ? 'error' : ''">
-
-      <div *ngIf="this.block.fileSrc && !isLoadingAudio">
-          <audio controls>
-              <source [src]="this.block.fileSrc!" class="audio" (click)="audioInput.click()">
-          </audio>
-      </div>
-      <div *ngIf="isLoadingAudio" class="audio-icon">
-          <i class="fas fa-circle-notch fa-spin"></i>
-      </div>
-      <div *ngIf="!this.block.fileSrc && !isLoadingAudio" class="audio-icon" (click)="audioInput.click()">
-          <img src="assets/svgs/blocks/audio.svg" (click)="audioInput.click()"  class="svgIcon" >
-      </div>
-      <div>
-          <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc">
-      </div>
-  </div> -->
+<form [formGroup]="audioMessageForm" [class.edit_form_wrapper] = "isEdit">
 
   <div [id]="audioInputId" class="audio_bg" [class.edit_form] = "isEdit"  [ngClass]="byPassedLimits.length ? 'error' : ''">
 
     <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc">
-    <label *ngIf="!isLoadingAudio" [for]="isLoadingAudio">
+    <label *ngIf="!isLoadingAudio" [for]="audioInput" (click)="audioInput.click()" >
       <div *ngIf="!audioName; else inputHasAudio" class="block-media-placeholder">
           <img src="assets/svgs/blocks/audio.svg" (click)="audioInput.click()" class="placeholder-icon">
           <span class="media-placeholder-text" >{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-UPLOAD' | transloco }}</span>
@@ -42,7 +24,8 @@
       <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-TWO' | transloco }}</span>
   </div>
 
-  <input type="text" formControlName="fileSrc"
+  <input type="text" formControlName="fileSrc" [class.edit_input] = "isEdit"
       [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco " name="audio-link "
-      id="audio-link ">
+      id="audio-link" readonly>
+  <input formControlName="fileName" type="text" hidden/>
 </form>
