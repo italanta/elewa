@@ -510,7 +510,7 @@
       "ACTION-BUTTONS": {
         "SAVE":"Save",
         "CANCEL": "Cancel",
-        "CONTINUE": "Continue"
+        "APPLY": "Apply"
       }
     }
   },

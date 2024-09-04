@@ -32,6 +32,17 @@ p {
     .btn {
       outline: none;
       padding: 0.5rem 0.9rem;
+      border-radius: 1.2rem;
+      border: none;
+    }
+    .cancel-btn{
+      background-color: var(--convs-mgr-color-text-white);
+      color: var(--convs-mgr-color-bright-teal);
+      border: 1px solid var(--convs-mgr-color-bright-teal);
+    }
+    .apply-btn {
+      color: var(--convs-mgr-color-text-white);
+      background-color: var( --convs-mgr-color-bright-teal);
     }
   }
 }
