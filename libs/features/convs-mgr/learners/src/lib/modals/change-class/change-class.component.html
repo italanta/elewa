@@ -8,10 +8,11 @@
 
   <!-- Change Class -->
   <div class="middle-section" *ngIf="(classrooms$ | async) as classrooms">
-    <div class="class" *ngFor="let classroom of classrooms">
-      <input type="radio" name="classroom" id="classroom" [value]="classroom.id" (change)="onChange($event)">
-      <label for="classroom">{{ classroom.className | titlecase }}</label>
-    </div>
+    <mat-form-field appearance="fill">
+      <mat-select (selectionChange)="onChange($event)">
+        <mat-option *ngFor="let classroom of classrooms" [value]="classroom.id">{{ classroom.className | titlecase }}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <div class="action-btns">

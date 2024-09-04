@@ -24,6 +24,10 @@ p {
     }
   }
 
+  mat-form-field {
+    width: 100%;
+  }
+
   .action-btns {
     display: flex;
     justify-content: space-between;

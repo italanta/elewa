@@ -49,7 +49,7 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
   }
 
   onChange(e: any) {
-    this.selectedClass = e.target.value;
+    this.selectedClass = e.value;
   }
 
   submitAction() {
