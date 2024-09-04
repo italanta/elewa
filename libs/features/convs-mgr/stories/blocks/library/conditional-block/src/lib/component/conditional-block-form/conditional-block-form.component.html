@@ -2,12 +2,11 @@
   <div class="details-wrapper">
     <div class="form-group">
       <div class="options-wrapper">
+        <label class="edit-panel-label" *ngIf="isEdit">Variable</label>
         <select class="select-variable" [class.edit_form_select] = "isEdit" required [attr.disabled]="isTyped.value ? true : null">
           <option *ngFor="let variable of (vars$ | async)" [value]="variable">{{ variable }}</option>
           <option [value]="null" [selected]="true">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</option>
         </select>
-        
-        <span class="custom-dropdown-arrow"></span>
       </div>
     </div>
     <label class="custom-variable-checkbox">

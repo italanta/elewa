@@ -53,8 +53,9 @@ input {
 
 .options-wrapper {
   display: flex;
-  position: relative;
+  flex-direction: column;
   width: 100%;
+  gap: 0.5rem;
 }
 
 .btns-wrapper {
