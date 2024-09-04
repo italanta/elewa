@@ -3,13 +3,8 @@ import {
   OnInit,
   Input,
   OnDestroy,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-
-import WaveSurfer from 'wavesurfer.js';
 
 import { SubSink } from 'subsink';
 import { take } from 'rxjs';
@@ -23,18 +18,14 @@ import { VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging
   templateUrl: './audio-block-form.component.html',
   styleUrl: './audio-block-form.component.scss',
 })
-export class AudioBlockFormComponent implements OnInit, OnDestroy, AfterViewInit {
+export class AudioBlockFormComponent implements OnInit, OnDestroy {
   @Input() id: string;
   @Input() block: VoiceMessageBlock;
   @Input() audioMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
   @Input() isEdit: boolean;
 
-
-  @ViewChild('waveform') waveformElement!: ElementRef;
-
   private _sBs = new SubSink();
-  private wavesurfer!: WaveSurfer;
 
   audioName: string;
 
@@ -87,7 +78,6 @@ export class AudioBlockFormComponent implements OnInit, OnDestroy, AfterViewInit
 
       //Step 3 - PatchValue to Block
       this._sBs.sink = response.pipe(take(1)).subscribe((url) => {
-        this.wavesurfer ? this.wavesurfer.load(url) : '';
         this._autofillUrl(url, fileSizeInKB);
       });
     }
@@ -113,37 +103,6 @@ export class AudioBlockFormComponent implements OnInit, OnDestroy, AfterViewInit
     this.block.fileSrc = url;
     this.isLoadingAudio = false;
     this._checkSizeLimit(fileSizeInKB);
-  }
-
-  /**Initializes a WaveSurfer instance for audio waveform visualization. */
-  private initializeWaveSurfer(): void {
-    this.wavesurfer = WaveSurfer.create({
-      container: this.waveformElement.nativeElement,
-      waveColor: '#E9E7F4',
-      progressColor: '#1F7A8C',
-      barWidth: 3,
-      height: 30,
-      normalize: true,
-    });
-  }
-
-  /**setting up and initializing the WaveSurfer component.
-   */
-  ngAfterViewInit() {
-    this.initializeWaveSurfer();
-
-    if (this.block.fileSrc) {
-      this.wavesurfer.load(this.block.fileSrc);
-    }
-  }
-
-  /**Toggles the play and pause state of the Wavesurfer audio player. */
-  togglePlayPause(): void {
-    if (!this.wavesurfer) return;
-
-    if (this.wavesurfer.isPlaying()) {
-      this.wavesurfer.pause();
-    } else this.wavesurfer.play();
   }
 
   ngOnDestroy() {
