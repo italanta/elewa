@@ -24,7 +24,7 @@ import { VideoBlockFormComponent } from './components/video-block-form/video-blo
     VideoBlockComponent,
     VideoBlockFormComponent,
   ],
-  exports: [VideoBlockComponent],
+  exports: [VideoBlockComponent, VideoBlockFormComponent],
   imports: [
     CommonModule,
     MultiLangModule,

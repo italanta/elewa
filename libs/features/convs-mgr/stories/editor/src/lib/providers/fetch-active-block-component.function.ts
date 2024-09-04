@@ -19,6 +19,7 @@ import { PhoneBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/
 import { WebhookEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { DefaultComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { AudioOutputBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { VideoOutputBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 
 
 export function getActiveBlock(type: StoryBlockTypes) {
@@ -44,7 +45,7 @@ export function getActiveBlock(type: StoryBlockTypes) {
     case StoryBlockTypes.Audio:
       return AudioOutputBlockEditComponent;
     case StoryBlockTypes.Video:
-      return DefaultComponent;
+      return VideoOutputBlockEditComponent;
     case StoryBlockTypes.Sticker:
       return DefaultComponent;
     case StoryBlockTypes.Reply:

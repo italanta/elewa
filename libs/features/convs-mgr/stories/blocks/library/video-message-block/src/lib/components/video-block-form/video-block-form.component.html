@@ -1,4 +1,4 @@
-<form [formGroup]="videoMessageForm">
+<form [formGroup]="videoMessageForm" [class.edit_form_wrapper] = "isEdit">
   <div
     class="video_bg"
     [id]="videoInputId"
@@ -11,7 +11,7 @@
   <label *ngIf="!isLoadingVideo" for="videoUpload">
     <div *ngIf="!hasVideo; else inputHasVideo" class="block-media-placeholder">
       <img src="assets/svgs/blocks/system-uicons_video.svg" class="placeholder-icon" />
-      <span class="media-placeholder-text" >{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-UPLOAD' | transloco }}</span>
+      <span class="media-placeholder-text" >{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-UPLOAD' | transloco }}</span>
   </div>
     <ng-template #inputHasVideo>
       <video
@@ -45,11 +45,13 @@
   <mat-divider *ngIf="isEdit"></mat-divider>
 
   <input
+    [class.edit_input] = "isEdit"
     type="text"
     [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco"
     formControlName="message"
   />
   <input
+    [class.edit_input] = "isEdit"
     type="text"
     [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-LINK' | transloco"
     formControlName="fileSrc"
