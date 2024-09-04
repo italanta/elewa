@@ -41,6 +41,10 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
 
   ngOnInit(): void {
     this.setRetryState();
+
+    if (!this.assessmentFormGroup.get('configs.moveOnCriteria.criteria')?.value) {
+      this.assessmentFormGroup.get('configs.moveOnCriteria.criteria')?.setValue(this.moveOnPass);
+    }
   }
   
   /** get form controll for assessment passed */
@@ -51,75 +55,6 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
   get retryTypeControl() {
     return this.assessmentFormGroup.get('configs.retryConfig.type') as FormControl;
   }
-
-  /** Get the state of the retry toggle */
-  setRetryState(): void {
-    const retryControl = this.assessmentFormGroup.get('configs.retryConfig.type');
-    if (retryControl) {
-      this.retry = !!retryControl.value;
-    }
-  }
-
-  /** Turn retry on or off.  */
-  toggleRetry(event: any): void {
-    const retryControl = this.assessmentFormGroup.get('configs.retryConfig.type');
-    if (retryControl) {
-      this.retry = event.checked;
-      if (!this.retry) {
-        retryControl.setValue('');
-        this.clearControls();
-      }
-    }
-  }
-  onCriteriaChange(criteria: MoveOnCriteriaTypes): void {
-    if (criteria === this.moveOnComplete) {
-      this.clearMoveOnPassControls();
-    } else if (criteria === this.moveOnPass) {
-      this.clearMoveOnCompleteControls();
-    }
-  }
-  
-  onRetryTypeChange(type: RetryType): void {
-    if (type === this.retryOnCount) {
-      this.clearScoreRetryControls();
-    } else if (type === this.scoreRetry) {
-      this.clearDefaultRetry();
-    }
-  }
-  
-  //
-  // SECTION TO CLEAR CONTROLS
-  // 
-  // STORY FLOW CONTROLS
-  clearMoveOnPassControls(): void {
-    this.assessmentFormGroup.get('configs.moveOnCriteria.passMark')?.setValue(null);
-    this.assessmentFormGroup.get('configs.moveOnCriteria.criteria')?.setValue(null);
-  }
-
-  clearMoveOnCompleteControls() {
-    this.assessmentFormGroup.get('configs.moveOnCriteria.criteria')?.setValue(this.moveOnPass);
-  }
-
-  // RETRY CONFIGUARATION CONTROLS
-
-  /** If a user disables retry, clear out previous retry configurations */
-  clearControls(): void {
-    this.assessmentFormGroup.get('configs.retryConfig.type')?.setValue(null);
-    this.assessmentFormGroup.get('configs.retryConfig.onCount')?.setValue(null);
-    this.assessmentFormGroup.get('configs.retryConfig.onScore.minScore')?.setValue(null);
-    this.assessmentFormGroup.get('configs.retryConfig.onScore.count')?.setValue(null);
-  }
-
-  clearScoreRetryControls(): void {
-    this.assessmentFormGroup.get('configs.retryConfig.onScore.minScore')?.setValue(null);
-    this.assessmentFormGroup.get('configs.retryConfig.onScore.count')?.setValue(null);
-  }
-
-  clearDefaultRetry(): void 
-  {
-    this.assessmentFormGroup.get('configs.retryConfig.onCount')?.setValue(null);
-  }
-
 
   // Control to manipulate form UI 
 
@@ -142,6 +77,69 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
   get isScoreRetrySelected(): boolean {
     return this.assessmentFormGroup?.get('configs.retryConfig.type')?.value === this.scoreRetry;
   }
+
+  /** Get the state of the retry toggle */
+  setRetryState(): void {
+    const retryControl = this.assessmentFormGroup.get('configs.retryConfig.type');
+    if (retryControl) {
+      this.retry = !!retryControl.value;
+    }
+  }
+
+  /** Turn retry on or off.  */
+  toggleRetry(event: any): void {
+    const retryControl = this.assessmentFormGroup.get('configs.retryConfig.type');
+    if (retryControl) {
+      this.retry = event.checked;
+      if (!this.retry) {
+        retryControl.setValue('');
+        this.clearControls();
+      }
+    }
+  }
+  
+  onRetryTypeChange(type: RetryType): void {
+    if (type === this.retryOnCount) {
+      this.clearScoreRetryControls();
+    } else if (type === this.scoreRetry) {
+      this.clearDefaultRetry();
+    }
+  }
+  
+  //
+  // SECTION TO CLEAR CONTROLS
+  // 
+  // STORY FLOW CONTROLS
+  clearMoveOnPassControls(): void {
+    this.assessmentFormGroup.get('configs.moveOnCriteria.passMark')?.setValue(null);
+    this.assessmentFormGroup.get('configs.moveOnCriteria.criteria')?.setValue(this.moveOnComplete);
+  }
+
+  clearMoveOnCompleteControls() {
+    this.assessmentFormGroup.get('configs.moveOnCriteria.criteria')?.setValue(this.moveOnPass);
+    this.assessmentFormGroup.get('configs.moveOnCriteria.passMark')?.setValue(null);
+  }
+
+  // RETRY CONFIGUARATION CONTROLS
+
+  /** If a user disables retry, clear out previous retry configurations */
+  clearControls(): void {
+    this.assessmentFormGroup.get('configs.retryConfig.type')?.setValue(null);
+    this.assessmentFormGroup.get('configs.retryConfig.onCount')?.setValue(null);
+    this.assessmentFormGroup.get('configs.retryConfig.onScore.minScore')?.setValue(null);
+    this.assessmentFormGroup.get('configs.retryConfig.onScore.count')?.setValue(null);
+  }
+
+  clearScoreRetryControls(): void {
+    this.assessmentFormGroup.get('configs.retryConfig.onScore.minScore')?.setValue(null);
+    this.assessmentFormGroup.get('configs.retryConfig.onScore.count')?.setValue(null);
+  }
+
+  clearDefaultRetry(): void 
+  {
+    this.assessmentFormGroup.get('configs.retryConfig.onCount')?.setValue(null);
+  }
+
 
   // Method to handle move on criteria click
   onMoveOnCriteriaClick(value: MoveOnCriteriaTypes)

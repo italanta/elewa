@@ -1,5 +1,7 @@
-import { AfterViewInit, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+
+import { SubSink } from 'subsink';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -14,6 +16,7 @@ import { OptionInputFieldComponent, __FocusCursorOnNextInputOfBlock } from '@app
 })
 export class ListBlockComponent<T> implements AfterViewInit 
 {
+
   @Input() id: string;
   @Input() block: ListMessageBlock;
   @Input() listMessageBlock: FormGroup;
@@ -24,6 +27,7 @@ export class ListBlockComponent<T> implements AfterViewInit
 
   readonly listOptionInputLimit = 24;
   readonly listOptionsArrayLimit = 10;
+  hitLimit: boolean;
 
   constructor(private _fb: FormBuilder) 
   { }
@@ -32,6 +36,8 @@ export class ListBlockComponent<T> implements AfterViewInit
     this.block.options?.forEach((listItem) => {
       this.listItems.push(this.addListOptions(listItem));
     })
+
+    this.hitLimit = this.block.options ? this.block.options?.length >= this.listOptionsArrayLimit : false;
   }
 
   get listItems(): FormArray {
@@ -46,14 +52,27 @@ export class ListBlockComponent<T> implements AfterViewInit
     })
   }
 
+  handleEnterKey(event: any) {
+    // Prevent the default behavior (e.g., form submission)
+    event.preventDefault(); 
+    // Stop the event from propagating to other elements i.e.
+    //  deleteInput button was being triggered instead
+    event.stopPropagation(); 
+
+    this.addNewOption();
+  }
+
   addNewOption() {
     if (this.listItems.length < this.listOptionsArrayLimit) this.listItems.push(this.addListOptions());
     setTimeout(() => {
       this.setFocusOnNextInput();
     });
+
+    this.hitLimit = this.listItems.length >= this.listOptionsArrayLimit;
   }
   deleteInput(i: number) {
     this.listItems.removeAt(i);
+    this.hitLimit = this.listItems.length >= this.listOptionsArrayLimit;
   }
 
   setFocusOnNextInput() {
@@ -62,4 +81,5 @@ export class ListBlockComponent<T> implements AfterViewInit
       this.optionInputFields
     );
 }
+
 }

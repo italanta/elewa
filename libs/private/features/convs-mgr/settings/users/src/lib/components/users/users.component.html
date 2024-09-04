@@ -15,7 +15,7 @@
           <mat-form-field appearance="outline">
             <mat-select formControlName="role" placeholder="All Roles" multiple>
               <mat-option *ngFor="let role of orgRoles" [value]="role">
-                {{ role }}
+                {{ role | formatRole }}
               </mat-option>
             </mat-select>
           </mat-form-field>

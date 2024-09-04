@@ -12,12 +12,12 @@ import { of } from 'rxjs';
 
 import { Organisation } from '@app/model/organisation';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
-import { MessageTemplate } from '@app/model/convs-mgr/functions';
+import { TemplateMessage } from '@app/model/convs-mgr/conversations/messages';
 
 @Injectable()
-export class MessageTemplateStore extends DataStore<MessageTemplate> {
+export class MessageTemplateStore extends DataStore<TemplateMessage> {
   protected store = 'message-templates-store';
-  protected _activeRepo: Repository<MessageTemplate>;
+  protected _activeRepo: Repository<TemplateMessage>;
 
   private _activeOrg: Organisation;
 
@@ -36,14 +36,14 @@ export class MessageTemplateStore extends DataStore<MessageTemplate> {
       .pipe(
         tap((org: Organisation) => (this._activeOrg = org)),
         tap((org: Organisation) => {
-          this._activeRepo = this._repoFac.getRepo<MessageTemplate>(
+          this._activeRepo = this._repoFac.getRepo<TemplateMessage>(
             `orgs/${org.id}/message-templates`
           );
         }),
         switchMap((org: Organisation) =>
           org
             ? this._activeRepo.getDocuments(this.query)
-            : of([] as MessageTemplate[])
+            : of([] as TemplateMessage[])
         ),
         throttleTime(500, undefined, { leading: true, trailing: true })
       );

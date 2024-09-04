@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import axios from "axios";
 
 import { HandlerTools } from "@iote/cqrs";

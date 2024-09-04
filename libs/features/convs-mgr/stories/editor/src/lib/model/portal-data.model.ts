@@ -5,4 +5,5 @@ export interface PortalData {
   form    : FormGroup;
   title   : string;
   icon    : string;
+  id      : string;
 }

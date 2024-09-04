@@ -4,12 +4,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
-import { take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { EventBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { JobTypes, MessageTemplate, MessageTypes, ScheduleOptionType, ScheduleOptions, ScheduledMessage } from '@app/model/convs-mgr/functions';
+import { MessageTypes, ScheduleOptionType, ScheduleOptions, ScheduledMessage } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService, MilestoneTriggersService, ScheduleMessageService } from '@app/private/state/message-templates';
-import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+import { TemplateMessage, TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
 import { MilestoneTriggers } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { AfterInactivityModalComponent } from '../../modals/after-inactivity-modal/after-inactivity-modal.component';
@@ -29,6 +29,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
   selectedMilestone: EventBlock;
   messageTemplateId: string;
   schedules: ScheduledMessage[] = [];
+  messageTemplate: TemplateMessage;
 
   // Milestone schedule
   mtSchedule: ScheduledMessage;
@@ -67,17 +68,22 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
     // TODO: Capture message template id from previous tab
     this.messageTemplateId = this.action.split('?')[0];
     this.getScheduleConditions()
+    this._messageService.getTemplateById(this.messageTemplateId).subscribe((template)=> {
+      if(template) this.messageTemplate = template;
+    })
   }
 
   getScheduleConditions() {
-    this._scheduleMessageService.getScheduledMessages$().subscribe((schedules)=> {
-      this.schedules = schedules;
-    });
+    this._scheduleMessageService.getScheduledMessages$()
+        .pipe(map((sch)=> sch.filter((s)=> s.objectID == this.messageTemplateId)))
+            .subscribe((schedules)=> {
+                this.schedules = schedules;
+              });
   }
 
   openMilestoneModal(schedule?: ScheduledMessage) {
   const dialogRef = this._dialog.open(MilestoneReachedModalComponent, {
-    data: {schedule: schedule, templateId: this.messageTemplateId},
+    data: {schedule: schedule, template: this.messageTemplate},
   });
 
   dialogRef.componentInstance?.milestoneSelected.subscribe((schedule: any) => {
@@ -86,15 +92,8 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
   }
 
   openSpecificTimeModal(schedule?: ScheduledMessage) {
-    const dialogRef = this._dialog.open(SpecificTimeModalComponent, {
-      data: {schedule: schedule, templateId: this.messageTemplateId},
-    });
-
-    dialogRef.componentInstance?.dateTimeSelected.subscribe((schedule: any) => {
-      this.specificTimeSchedule = schedule.data;
-      this.selectedTime = schedule.data.dispatchTime as Date;
-      this.cronSchedule = schedule.data.frequency as string;
-      this.endDate = schedule.data.endDate as Date;
+    this._dialog.open(SpecificTimeModalComponent, {
+      data: {schedule: schedule, template: this.messageTemplate},
     });
   }
 
@@ -115,12 +114,8 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
   }
 
   openInactivityModal(schedule?: ScheduledMessage) {
-    const dialogRef = this._dialog.open(AfterInactivityModalComponent, {
-      data: {schedule: schedule, templateId: this.messageTemplateId},
-    });
-    
-    dialogRef.componentInstance?.timeInHoursSelected.subscribe((schedule: any) => {
-      this.inactivitySchedule = schedule.data;
+    this._dialog.open(AfterInactivityModalComponent, {
+      data: {schedule: schedule, template: this.messageTemplate},
     });
   }
 
@@ -155,51 +150,8 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
         break;
     }
   }
-
-  sendButtonClicked(scheduleMessageOptions: any, action: string){
-
-    scheduleMessageOptions.type = JobTypes.SimpleMessage;
-    scheduleMessageOptions.action = action;
-    scheduleMessageOptions.objectID = scheduleMessageOptions.template.id;
-
-    this._scheduleMessageService.setOptions(scheduleMessageOptions);
-
-    this._route$$.navigate(['/learners']);
-  }
-
-  saveSchedule() {
-    // TODO: Use interface
-    let scheduleMessageOptions: any;
-
-    if (this.selectedOption) {
-      let templateMessage: MessageTemplate;
-      this._messageService.getTemplateById(this.messageTemplateId).subscribe((template: any) => {
-        templateMessage = template;
-        if (templateMessage) {
-          switch (this.selectedOption) {
-            case 'specific-time':
-              scheduleMessageOptions = this._getSpecificTimeOptions(templateMessage);
-
-              this.sendButtonClicked(scheduleMessageOptions, 'specific-time');
-              break;
-            case 'milestone':
-              this.saveMilestone(template);
-              break;
-            case 'inactivity':
-              scheduleMessageOptions = this._getInactivityOptions(templateMessage);
-
-              this.sendButtonClicked(scheduleMessageOptions, 'inactivity');
-              break;
-            default:
-              this.openSpecificTimeModal();
-              break;
-          }
-        }
-      });
-    }
-  }
   
-  saveMilestone(template: MessageTemplate) {
+  saveMilestone(template: TemplateMessage) {
     const event:string = this.selectedMilestone.eventName as string;
     const milestoneTriggerRequest: MilestoneTriggers = {
         id: this.mtSchedule.id as string,
@@ -216,23 +168,6 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
     this._sBS.sink= this._milestoneTriggerService.addMilestoneTrigger(milestoneTriggerRequest).subscribe()
 
     // TODO: save scheduled messages
-  }
-
-  _getInactivityOptions(templateMessage: MessageTemplate) {
-    return {
-      id: this.inactivitySchedule.id,
-      template: templateMessage,
-      inactivityTime: this.inactivityTime,
-    }
-  }
-  _getSpecificTimeOptions(templateMessage: MessageTemplate) {
-    return {
-      id: this.specificTimeSchedule.id,
-      template: templateMessage,
-      dispatchDate: this.selectedTime,
-      frequency: this.cronSchedule,
-      endDate: this.endDate ? this.endDate : null,
-    }
   }
 
   ngOnDestroy(): void {

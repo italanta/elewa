@@ -136,9 +136,9 @@ export class BlockComponent implements OnInit
     // Normal case - open side menu
     this.sideMenu.toggleExpand(false)
     this.sideScreen.toggleSideScreen(true)
-    this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle, this.iconClass);  
+    this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle, this.iconClass, this.id);  
   }
-
+  
   copyMe() {
     this.copyBlock.emit(this.block);
   }
@@ -148,6 +148,8 @@ export class BlockComponent implements OnInit
 
   deleteMe() 
   {
+    this._blockPortalBridge.detachComponent(this.id);
+
     this.deleteBlock.emit(this.block);
   }
 

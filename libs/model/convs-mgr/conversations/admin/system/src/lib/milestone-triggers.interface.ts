@@ -11,5 +11,5 @@ export interface MilestoneTriggers extends IObject
 	/** The time this milestone trigger was executed */
 	lastRun?: Date;
 
-	usersSent: number | 0;
+	usersSent: number;
 }

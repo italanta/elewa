@@ -14,6 +14,7 @@
   --convs-mgr-color-primary-dark-blue: #151B4A;
   --convs-mgr-color-primary-blue: #3e788a;
   --convs-mgr-color-bright-teal: #1F7A8C;
+  --convs-mgr-color-extra-bright-teal: #d1e3e7;
   --convs-mgr-color-primary-grey: #666;
   --convs-mgr-color-primary-light-grey: #f6f6f6;
   --convs-mgr-color-text-black: #263446;
@@ -53,6 +54,7 @@
   --convs-mgr-option-input-success: #19b016;
   --convs-mgr-option-input-failure: #d11717;
   --convs-mgr-icon-color: #1f7a8c;
+  --convs-mgr-warning-color: orange;
 
   --convs-mgr-text-color:#7c7c7c;
 
@@ -127,7 +129,9 @@
   --convs-mgr-color-pop-contrast-rgb: 157, 157, 157;
   --convs-mgr-color-pop-shade: #d7d8da;
   --convs-mgr-color-pop-tint: #f5f6f9;
-  
+
+  /** hover **/
+  --convs-mgr-color-hover: rgba(31, 122, 140, 0.1);
 
   /** Font family **/
   --convs-mgr-font-poppins-family: 'Poppins';

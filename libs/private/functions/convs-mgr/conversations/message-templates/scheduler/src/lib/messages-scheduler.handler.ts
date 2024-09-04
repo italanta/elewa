@@ -25,18 +25,18 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
 
       const communicationChannel = await channelService.getChannelInfo(cmd.channelId);
 
-      const endUserIds = await this.__getEndUsers(communicationChannel.type, communicationChannel.orgId, tools);
+      const enroledEndUsers = await this.__getEndUsers(communicationChannel.type, communicationChannel.orgId, tools);
 
       const scheduledMessage = {
         ...cmd,
         n: communicationChannel.n,
         plaform: communicationChannel.type,
-        endUserIds: endUserIds,
+        enroledEndUsers,
         dispatchTime: new Date(cmd.dispatchTime),
         endDate: cmd.endDate ? new Date(cmd.endDate) : null
       };
 
-      const payload = _getPayload(cmd, communicationChannel, endUserIds, cmd.message);
+      const payload = _getPayload(cmd, communicationChannel, enroledEndUsers, cmd.message);
 
       // If frequency is specified, then it is a recurring job
       if (scheduledMessage.frequency) {
@@ -61,13 +61,18 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
       return { success: false, error } as any;
     }
   }
-
+  
   private async _updateScheduledMessage(id: string, task: any, orgId: string, tools: HandlerTools)
   {
     
     const scheduledMessages$ = tools.getRepository<ScheduledMessage>(`orgs/${orgId}/scheduled-messages`);
     
     const scheduledMessage  = await scheduledMessages$.getDocumentById(id);
+    
+    if(!scheduledMessage) {
+      tools.Logger.log(() => `[ScheduleMessageTemplatesHandler]._updateScheduledMessage - ScheduledMessage not found: ${id}`);
+      return;
+    }
     
     const schedule = {
       ...scheduledMessage,
@@ -87,8 +92,6 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
 
     const enrolledEndUsers = await enrolledUserService.getEnrolledUsers();
 
-    const endUsersIds = enrolledEndUsers.filter((user)=> user.platformDetails).map((user) => user.platformDetails[platform].endUserId);
-
-    return endUsersIds;
+    return enrolledEndUsers;
   }
 }

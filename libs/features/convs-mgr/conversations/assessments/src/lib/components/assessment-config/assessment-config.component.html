@@ -53,44 +53,31 @@
                 </h5>
             </div>
             <span>
-                {{
-                'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.DETAIL-TEXT' | transloco
-                }}</span>
+                {{ 'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.DETAIL-TEXT' | transloco }}
+            </span>
             <div class="retrial-allowed" formGroupName="moveOnCriteria">
                 <hr />
                 <mat-radio-group formControlName="criteria" fxLayout="column" fxLayoutAlign="start">
                     <mat-radio-button 
-                    [value]="moveOnPass"
-                    (click)="onMoveOnCriteriaClick(moveOnPass)">
-                        {{
-                        'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.UPON-PASSING'
-                        | transloco
-                        }}
+                        [value]="moveOnPass"
+                        (click)="onMoveOnCriteriaClick(moveOnPass)">
+                        {{'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.UPON-PASSING'| transloco }}
                     </mat-radio-button>
-                    <div class="retry-configs" *ngIf="
-              assessmentFormGroup.get('configs.moveOnCriteria.criteria')
-                ?.value === moveOnPass
-            ">
+                    <div class="retry-configs" *ngIf="assessmentFormGroup.get('configs.moveOnCriteria.criteria')?.value === moveOnPass">
                         <div class="on-pass">
-                            <span>{{
-                                'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.PASS-SCORE'
-                                | transloco
-                                }}</span>
+                            <span>{{ 'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.PASS-SCORE'| transloco }}</span>
                             <input formControlName="passMark" type="number" min="0" max="100" />
                         </div>
                     </div>
                     <mat-radio-button 
-                    [value]="moveOnComplete"
-                    (click)="onMoveOnCriteriaClick(moveOnComplete)"
-                    >
-                        {{
-                        'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.UPON-COMPLETION'
-                        | transloco
-                        }}
+                        [value]="moveOnComplete"
+                        (click)="onMoveOnCriteriaClick(moveOnComplete)">
+                        {{'ASSESSMENTS.ASSESSMENT-CONFIGS.STORY-FLOW.UPON-COMPLETION'| transloco }}
                     </mat-radio-button>
                 </mat-radio-group>
             </div>
         </div>
+
         <!-- Retry configs -->
         <div class="assessment-config" formGroupName="retryConfig">
             <div class="enable-retrial">

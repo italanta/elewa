@@ -25,7 +25,6 @@ export function CREATE_EMPTY_ASSESSMENT_FORM(_fb: FormBuilder) {
       questionsDisplay: [''],
       moveOnCriteria: _fb.group({
         criteria: [MoveOnCriteriaTypes.OnComplete],
-        passMark: ['']
       }),
     }),
 
@@ -53,8 +52,7 @@ export function DEFAULT_ASSESSMENT(): Assessment {
       },
       questionsDisplay: 1,
       moveOnCriteria: {
-        criteria: MoveOnCriteriaTypes.OnPassMark,
-        passMark: 0
+        criteria: MoveOnCriteriaTypes.OnComplete,
       },
     },
     type: MicroAppTypes.Assessment, 

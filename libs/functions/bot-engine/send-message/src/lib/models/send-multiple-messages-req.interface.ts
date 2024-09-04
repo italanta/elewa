@@ -17,4 +17,8 @@ export interface SendMultipleMessagesReq extends IObject
    * This is an array of the endusers ids who we are about to send the messsage to
    */
   enroledEndUsers: EnrolledEndUser[];
+
+  orgId: string;
+
+  scheduleId?: string;
 }

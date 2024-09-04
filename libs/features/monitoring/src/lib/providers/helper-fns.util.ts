@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { __DateFromStorage } from '@iote/time';
 
@@ -33,9 +33,9 @@ export function formatDate(time: number, period: Periodicals): string {
 
   switch (period) {
     case "Daily":
-      return momentDate.format('ddd DD/MM/YY')
+      return momentDate.format('DD MMM')
     case "Weekly":
-      return momentDate.format("[Week] W");
+      return momentDate.startOf('week').format("ddd DD/MM/YY");
     case "Monthly":
       return momentDate.format("MMMM [']YY");
     default:

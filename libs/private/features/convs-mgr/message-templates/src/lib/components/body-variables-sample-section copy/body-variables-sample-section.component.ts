@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
-import { MessageTemplate, VariableExample } from '@app/model/convs-mgr/functions';
+import { TemplateMessage, TemplateVariableExample } from '@app/model/convs-mgr/conversations/messages';
 
 @Component({
   selector: 'app-body-variables-sample-section',
@@ -10,10 +10,10 @@ import { MessageTemplate, VariableExample } from '@app/model/convs-mgr/functions
 })
 export class BodyVariablesSampleSectionComponent {
   @Input() templateForm: FormGroup;
-  @Input() template: MessageTemplate;
+  @Input() template: TemplateMessage;
   section = 'body';
 
-  samplesArray: VariableExample[] = [];
+  samplesArray: TemplateVariableExample[] = [];
 
   constructor(private _fb: FormBuilder) {}
 
@@ -22,7 +22,7 @@ export class BodyVariablesSampleSectionComponent {
     return this.templateForm.controls['bodyExamples'] as FormArray;
   }
 
-  createExampleFB(example?: VariableExample)
+  createExampleFB(example?: TemplateVariableExample)
   {
     return this._fb.group({
       name: [example?.name ?? ''],
@@ -37,7 +37,7 @@ export class BodyVariablesSampleSectionComponent {
 
   removeExample(name: string)
   {
-    const index = this.bodyExamples.value.findIndex((exm: VariableExample) => {
+    const index = this.bodyExamples.value.findIndex((exm: TemplateVariableExample) => {
       return exm.name === name;
     });
     if(index !== -1) this.bodyExamples.removeAt(index);

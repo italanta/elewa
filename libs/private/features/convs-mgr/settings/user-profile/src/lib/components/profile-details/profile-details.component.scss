@@ -91,12 +91,33 @@ div{
     margin-bottom: 1vh;
     border-bottom: solid #C7CDD7 1px;
     .user-data{
-      .user-profile-picture{
-        .top-butons{
-          margin-top: 10px;
+      .user-profile-picture-holder {
+        margin-bottom: 2rem;
+
+        .user-profile-picture{
+          .top-butons{
+            margin-top: 10px;
+          }
+        }
+      
+        .mainButtons {
+          position: absolute;
+          margin-top: 16.25rem;
+          margin-left: 4.25rem;
+
+          button {
+            background: var(--convs-mgr-color-button);
+            border-radius: 1.5625rem;
+            color: var(--convs-mgr-color-text-white);
+            font-size: medium;
+            font-weight: 400;
+            word-wrap: break-word;
+            margin-top: 2rem;
+            cursor: pointer;
+            border: none;
+          }
         }
       }
-     
       div{
         button{
           border-radius: 25px;
@@ -135,7 +156,7 @@ div{
           }
         }
         .bottom-buttons{
-          margin-top: 346px;
+          margin-top: 366px;
           right: 1px;
           position: absolute;
           display: flex;

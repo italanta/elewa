@@ -44,7 +44,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     // { id: 'io-block', type: StoryBlockTypes.IO, message: 'IO', blockIcon: this.getBlockIcon(StoryBlockTypes.IO) } as QuestionMessageBlock,
     { id: 'input-location-block', type: StoryBlockTypes.Location, message: 'Location', blockIcon: this.getBlockIcon(StoryBlockTypes.Location), blockCategory: 'messages-block' } as LocationMessageBlock,
     { id: 'input-image-block', type: StoryBlockTypes.Image, message: 'Image', blockIcon: this.getBlockIcon(StoryBlockTypes.Image), blockCategory: 'messages-block' } as ImageMessageBlock,
-    { id: 'input-question-block', type: StoryBlockTypes.QuestionBlock, message: 'Question', blockIcon: this.getBlockIcon(StoryBlockTypes.QuestionBlock), blockCategory: 'questions-block' } as QuestionMessageBlock,
+    { id: 'input-question-block', type: StoryBlockTypes.QuestionBlock, message: 'Buttons', blockIcon: this.getBlockIcon(StoryBlockTypes.QuestionBlock), blockCategory: 'questions-block' } as QuestionMessageBlock,
     { id: 'input-docs-block', type: StoryBlockTypes.Document, message: 'Document', blockIcon: this.getBlockIcon(StoryBlockTypes.Document), blockCategory: 'messages-block' } as DocumentMessageBlock,
     { id: 'input-audio-block', type: StoryBlockTypes.Audio, message: 'Audio', blockIcon: this.getBlockIcon(StoryBlockTypes.Audio), blockCategory: 'messages-block' } as VoiceMessageBlock,
     // { id: 'io-structural-block', type: StoryBlockTypes.Structural, message: 'Structural', blockIcon: this.getBlockIcon(StoryBlockTypes.Structural) } as TextMessageBlock,
@@ -70,7 +70,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'assessment-brick', type:StoryBlockTypes.Assessment, message: 'Assessment', blockIcon:this.getBlockIcon(StoryBlockTypes.Assessment),  blockCategory: 'bricks' } as AssessmentBrick,
     { id: 'conditional-block', type:StoryBlockTypes.Conditional, message: 'Conditional', blockIcon:this.getBlockIcon(StoryBlockTypes.Conditional), blockCategory: 'operation-block' } as ConditionalBlock,
     // { id: 'end-anchor-block', type:StoryBlockTypes.EndStoryAnchorBlock, message: 'End Story', blockIcon:this.getBlockIcon(StoryBlockTypes.EndStoryAnchorBlock), blockCategory: 'end-block'} as EndStoryAnchorBlock
-    { id: 'CMI5-block', type:StoryBlockTypes.CMI5Block, message: 'CMI5 Block', blockIcon:this.getBlockIcon(StoryBlockTypes.CMI5Block), blockCategory: 'bricks' } as CMI5Block,
+    // { id: 'CMI5-block', type:StoryBlockTypes.CMI5Block, message: 'CMI5 Block', blockIcon:this.getBlockIcon(StoryBlockTypes.CMI5Block), blockCategory: 'bricks' } as CMI5Block,
     { id: 'micro-app', type: StoryBlockTypes.MicroAppBlock, message: 'General', blockIcon: this. getBlockIcon(StoryBlockTypes.MicroAppBlock), blockCategory: 'Micro-apps'} as MicroAppBlock,
     { id: 'assessment-micro-app', type: StoryBlockTypes.AssessmentMicroAppBlock, message: 'Assessments', blockIcon: this. getBlockIcon(StoryBlockTypes.AssessmentMicroAppBlock), blockCategory: 'Micro-apps'} as AssessmentMicroAppBlock,
   ];

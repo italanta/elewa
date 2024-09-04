@@ -44,6 +44,7 @@
       "@app/elements/convs-mgr/controls/input-fields": [
         "libs/elements/convs-mgr/controls/input-fields/src/index.ts"
       ],
+      "@app/elements/custom-pipes": ["libs/elements/custom-pipes/src/index.ts"],
       "@app/elements/layout/clm-micro-app": [
         "libs/elements/layout/clm-micro-app/src/index.ts"
       ],
@@ -254,6 +255,7 @@
       "@app/functions/bot-process-handler": [
         "libs/functions/bot-process-handler/src/index.ts"
       ],
+      "@app/functions/convs-mgr/bots": ["libs/functions/convs-mgr/bots/src/index.ts"],
       "@app/functions/convs-mgr/story-editor/check-story-for-errors": [
         "libs/functions/convs-mgr/story-editor/check-story-for-errors/src/index.ts"
       ],

@@ -1,8 +1,6 @@
-import { Component, Input, SimpleChanges, OnChanges, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges, OnInit, OnDestroy } from '@angular/core';
 
 import { SubSink } from 'subsink';
-
-import { combineLatest, tap } from 'rxjs';
 
 import { __DateFromStorage } from '@iote/time';
 
@@ -19,7 +17,7 @@ import { GET_RANDOM_COLOR, GET_USER_AVATAR } from '../../providers/avatar.provid
   templateUrl: './chat-card.component.html',
   styleUrls:  ['./chat-card.component.scss']
 })
-export class ChatCardComponent implements OnChanges, AfterViewInit, OnDestroy
+export class ChatCardComponent implements OnChanges, OnInit, OnDestroy
 {
   private _sbs = new SubSink()
   @Input() chat: Chat;
@@ -33,7 +31,7 @@ export class ChatCardComponent implements OnChanges, AfterViewInit, OnDestroy
               private _msgsQuery$: MessagesQuery
   ) {}
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     if (this.chat) {
       this.getChatName();
     }
@@ -72,7 +70,7 @@ export class ChatCardComponent implements OnChanges, AfterViewInit, OnDestroy
     }
   }
 
-  getUserName = (name: string) => GET_USER_AVATAR(name);
+  getUserAvatar = (name: string) => GET_USER_AVATAR(name);
 
   ngOnDestroy() {
     this._sbs.unsubscribe();

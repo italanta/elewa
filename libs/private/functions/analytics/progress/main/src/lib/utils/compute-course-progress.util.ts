@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { __DateFromStorage } from "@iote/time";
 
@@ -93,7 +93,7 @@ export function getCompletionDuration(enrolledUser: EnrolledEndUser, courseId: s
   const startedOn = __DateFromStorage(courseInfo.enrollmentDate || enrolledUser.createdOn);
   const completedOn = __DateFromStorage(completedCourseInfo.completionDate);
 
-  return startedOn.diff(completedOn, 'seconds');
+  return completedOn.diff(startedOn, 'seconds');
 }
 
 export function enrolledUsersInCourse(enrolledEndUsers: EnrolledEndUser[], courseId: string)
@@ -101,7 +101,7 @@ export function enrolledUsersInCourse(enrolledEndUsers: EnrolledEndUser[], cours
   return enrolledEndUsers.filter((user) => {
     if(!user.courses) return undefined;
     return user.courses.find((course) => course.courseId == courseId)
-  }).map((user) => user.id);
+  }).map((user) => {return {phoneNumber: user.phoneNumber || '', id: user.id}});
 }
 
 export function getAllCoursesTotals(courseProgress: { [key: string]: CourseProgress }, enrolledUsers: EnrolledEndUser[]) {

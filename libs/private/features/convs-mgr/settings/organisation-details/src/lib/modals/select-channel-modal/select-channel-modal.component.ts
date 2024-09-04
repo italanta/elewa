@@ -21,6 +21,7 @@ export class SelectChannelModalComponent {
   selectedChannelId: string;
   whatsappValue: PlatformType = PlatformType.WhatsApp;
   messengerValue: PlatformType = PlatformType.Messenger;
+  platformNotSelected: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -29,7 +30,12 @@ export class SelectChannelModalComponent {
 
   onPlatformSelected()
   {
-    this.selectedPlatformOutput.emit({ selectedPlatform: this.selectedPlatform });
+    if(this.selectedPlatform){
+      this.selectedPlatformOutput.emit({ selectedPlatform: this.selectedPlatform});
+    }
+    else{
+      this.platformNotSelected = true;
+    }
   }
 
   closeDialog()

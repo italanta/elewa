@@ -4,12 +4,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
-import { Observable, combineLatest, map, of } from 'rxjs';
+import { Observable, combineLatest, concatMap, forkJoin, map, mergeMap, of, switchMap, toArray } from 'rxjs';
 
-import { MessageTemplate, ScheduledMessage, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
+import { ScheduledMessage } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService, MessageStatusRes, ScheduleMessageService } from '@app/private/state/message-templates';
 
 import { SnackbarService } from '../../services/snackbar.service';
+import { TemplateHeaderTypes, TemplateMessage, TextHeader } from '@app/model/convs-mgr/conversations/messages';
 
 @Component({
   selector: 'app-message-template-list',
@@ -19,11 +20,11 @@ import { SnackbarService } from '../../services/snackbar.service';
 export class MessageTemplateListComponent implements OnInit, OnDestroy {
   private _sBS = new SubSink();
 
-  messageTemplates$: Observable<MessageTemplate[]>;
+  messageTemplates$: Observable<TemplateMessage[]>;
   templateStatus$: Observable<MessageStatusRes>;
   scheduledMessages$: Observable<ScheduledMessage[]>;
 
-  template:MessageTemplate;
+  template:TemplateMessage;
 
   dataFound = true;
   
@@ -55,16 +56,28 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy {
   getTemplates() {
     this.isSaving = true;
 
-    this._sBS.sink = this._messageTemplateService.getMessageTemplates$().subscribe(
-        (templates) => {
-          this.isSaving = false;
-          this.dataSource.data = templates
-          this.getTemplateStatus(templates);
-        }
-      );
+    this._sBS.sink = this._messageTemplateService.getMessageTemplates$().pipe(switchMap((templates)=> {
+
+      const updatedTemplates$ = templates.map((temp)=> {
+         return this._scheduleMessageService.getScheduleByTemplate$(temp.id as string).pipe(
+          map((sch)=> {
+          if(sch) (temp as any).messageCount = sch.successful?.length;
+          
+          return temp;
+         }),
+        )
+      })
+
+      return combineLatest(updatedTemplates$)
+    })).subscribe((templates)=> {
+        this.isSaving = false;
+        this.dataSource.data = templates
+        this.getTemplateStatus(templates);
+    })
+
   }
 
-  getTemplateStatus(templates: MessageTemplate[]) {
+  getTemplateStatus(templates: TemplateMessage[]) {
     const firstTemplate = templates[0];
 
     if (!templates || templates.length === 0 || !firstTemplate.channelId) {
@@ -74,7 +87,6 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy {
     const channelId = firstTemplate ? firstTemplate.channelId : '';
 
     this.templateStatus$ = this._messageTemplateService.getTemplateStatus(channelId);
-    this.scheduledMessages$ = this._scheduleMessageService.getScheduledMessages$();
 
     this._sBS.sink = combineLatest([of(templates), this.templateStatus$])
       .pipe(
@@ -104,30 +116,31 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy {
     this._router.navigate(['/messaging', templateId], { queryParams: { selectedTab: 3 }});
   }
 
-  sendButtonClicked(template: MessageTemplate){
-    this._router.navigate(['/learners'], {queryParams: {templateId: template.id}});
+  sendButtonClicked(template: TemplateMessage){
+    this._router.navigate(['/users'], {queryParams: {templateId: template.id}});
   }
 
-  duplicateTemplate(template: MessageTemplate){
-    // const duplicatedTemplate: MessageTemplate = {...template};
+  duplicateTemplate(template: TemplateMessage){
 
     // reset the template stats
     const header: TextHeader = {
       "type": TemplateHeaderTypes.TEXT,
-      "text": (template.content.header as TextHeader).text,
+      "text": (template.content?.header as TextHeader).text,
     }
     this.template = {
       "name": `${template.name}_copy`,
       "category": template.category,
+      "type": template.type,
+      "templateType": template.templateType,
       "language": template.language,
       "channelId": template.channelId,
       "content": {
         "header": header,
         "body": {
-          "text": template.content.body.text,
+          "text": template.content?.body.text as string,
           "examples": [],
         },
-        "footer": template.content.footer,
+        "footer": template.content?.footer,
       },
     };
     this.isSaving = true;
@@ -155,7 +168,7 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy {
     )
     
   }
-  deleteTemplate(template: MessageTemplate){
+  deleteTemplate(template: TemplateMessage){
     this.isSaving = true;
     this._sBS.sink =this._messageTemplateService.deleteTemplateMeta(template).subscribe(
       (response) => {

@@ -45,7 +45,7 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
     ActionSortingOptions.Newest
   );
 
-  displayedColumns: string[] = ['name', 'lastEdited', 'channel', 'actions'];
+  displayedColumns: string[] = ['name', 'lastEdited', 'status', 'channel', 'actions'];
 
   dataSource: MatTableDataSource<Bot> = new MatTableDataSource();
 
@@ -176,10 +176,10 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
     });
   }
 
-  deleteBot(bot:Bot) {
+  deleteBot(bot:Bot){
     this._dialog.open(ConfirmDeleteModalComponent, {
       data: { 
-        mode: DeleteElementsEnum.BotModule, element: bot,
+        mode: DeleteElementsEnum.Bot, element: bot,
       }
     });
   } 

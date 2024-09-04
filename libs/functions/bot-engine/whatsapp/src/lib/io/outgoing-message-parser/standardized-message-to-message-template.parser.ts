@@ -4,13 +4,12 @@ import
   RecepientType,
   WhatsAppMessageType,
   WhatsAppTemplateMessage,
-  WhatsappSendBodyTemplateComponent,
   WhatsappSendHeaderTemplateComponent,
   WhatsappSendImageTemplateParameter,
-  WhatsappSendTemplateParameter,
 } from '@app/model/convs-mgr/functions';
 
-import { ImageTemplateMessage, OutgoingMessagePayload,TemplateMessage, TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+import { ImageTemplateMessage, OutgoingMessagePayload, TemplateMessage, TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+import { MapParamsToGeneratedMessage } from '../../utils/map-params-to-generated-message.util';
 
 /**
  * Interprets our standardized template messages @see {Message} to a whatsapp template message.
@@ -38,7 +37,7 @@ export class WhatsappTemplateMessageParser
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
       to: phone,
-      
+
       type: WhatsAppMessageType.TEMPLATE,
       template: {
         name: message.name,
@@ -48,82 +47,41 @@ export class WhatsappTemplateMessageParser
       }
     };
 
-    // If the message has parameters which can be variables, then we include them
-    //  in the whatsapp message
-    if(message.params) {
-      const templateParams: WhatsappSendTemplateParameter[] = message.params.map((param) =>
-      {
-        return {
-          type: WhatsAppMessageType.TEXT,
-          text: param.value,
-        };
-      });
-
-      const templateComponents = [
-        {
-          type: "body",
-          parameters: templateParams,
-        }
-      ] as WhatsappSendBodyTemplateComponent[];
-
-      generatedMessage.template.components = templateComponents;
-    }
-
     return generatedMessage;
   }
 
-  private _getImageTemplateMessage(message: ImageTemplateMessage, phone: string): any
+  private _getImageTemplateMessage(message: TemplateMessage, phone: string): any
   {
+    const imageTemplateMessage = message as ImageTemplateMessage;
     // Create the text payload which will be sent to api
     const generatedMessage: WhatsAppTemplateMessage = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
       to: phone,
-      
+
       type: WhatsAppMessageType.TEMPLATE,
       template: {
-        name: message.name,
+        name: imageTemplateMessage.name,
         language: {
-          code: message.language
+          code: imageTemplateMessage.language
         }
       }
     };
-
-    // If the message has parameters which can be variables, then we include them
-    //  in the whatsapp message
-    if(message.params) {
-      const templateParams: WhatsappSendTemplateParameter[] = message.params.map((param) =>
-      {
-        return {
-          type: WhatsAppMessageType.TEXT,
-          text: param.value,
-        };
-      });
-
-      const templateComponents = [
-        {
-          type: "body",
-          parameters: templateParams,
-        }
-      ] as WhatsappSendBodyTemplateComponent[];
-
-      generatedMessage.template.components = templateComponents;
-    }
-
+    
     const headerComponent = {
       type: 'header',
       parameters: [
         {
           type: 'image',
           image: {
-            link: message.url
-          } 
+            link: imageTemplateMessage.url
+          }
         } as WhatsappSendImageTemplateParameter
       ]
     } as WhatsappSendHeaderTemplateComponent;
 
-    if(generatedMessage.template.components && generatedMessage.template.components.length > 0) {
-      generatedMessage.template.components.unshift(headerComponent)
+    if (generatedMessage.template.components && generatedMessage.template.components.length > 0) {
+      generatedMessage.template.components.unshift(headerComponent);
 
     } else {
       generatedMessage.template.components = [headerComponent];
@@ -135,15 +93,38 @@ export class WhatsappTemplateMessageParser
   /** Gets the appropriate template based on the templateType - @TemplateMessageTypes */
   parse(message: TemplateMessage, phone: string): OutgoingMessagePayload
   {
-    let parser!: (message: TemplateMessage, phone: string) => OutgoingMessagePayload;
+    let outgoingMessage: OutgoingMessagePayload;
 
     switch (message.templateType) {
-      case TemplateMessageTypes.Text:                parser = this._getTextTemplateMessage; break;
-      case TemplateMessageTypes.Image:               parser = this._getImageTemplateMessage; break;
+      case TemplateMessageTypes.Text: outgoingMessage = this._getTextTemplateMessage(message, phone); break;
+      case TemplateMessageTypes.Image: outgoingMessage = this._getImageTemplateMessage(message, phone); break;
       default:
-        parser = this._getTextTemplateMessage;
+        outgoingMessage = this._getTextTemplateMessage(message, phone);
     }
 
-    return parser(message, phone);
+    // If the message has parameters which can be variables, then we include them
+    //  in the whatsapp message
+    if (message.params?.length) {
+      // Map message parameters to WhatsApp template components
+      const templateComponents = MapParamsToGeneratedMessage(message);
+    
+      // If template components were successfully created
+      if (templateComponents.length > 0) {
+        // Ensure that 'outgoingMessage' has a 'template.components' array
+        const outgoingTemplate = (outgoingMessage as any).template;
+        
+        if (outgoingTemplate.components?.length > 0) {
+          // Append new components to the existing array
+          outgoingTemplate.components.push(...templateComponents);
+        } else {
+          // Initialize the components array with the new template components
+          outgoingTemplate.components = templateComponents;
+        }
+
+        (outgoingMessage as any).template.components = outgoingTemplate.components;
+      }
+    }
+
+    return outgoingMessage;
   }
 }

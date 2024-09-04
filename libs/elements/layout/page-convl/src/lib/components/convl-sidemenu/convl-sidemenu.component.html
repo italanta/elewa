@@ -233,7 +233,7 @@
       <div *ngIf="!isExpanded" style="width: 100%;" fxLayout="row" fxLayoutAlign="center center" fxFlex>
         <img *ngIf="user.photoUrl; else avatar" class="user-photo" [src]="user.photoUrl" alt="">
         <ng-template #avatar>
-          <i class="far fa-user-circle user-photo"></i>
+           <img src="assets/icons/circle-user.svg" class="img" alt="">
         </ng-template>
       </div>
       <div *ngIf="isExpanded">

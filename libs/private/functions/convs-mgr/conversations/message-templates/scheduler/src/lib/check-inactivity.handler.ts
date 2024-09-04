@@ -1,8 +1,9 @@
 import { HandlerTools } from "@iote/cqrs";
+import { __DateFromStorage } from "@iote/time";
 import { FunctionHandler, FunctionContext } from "@ngfi/functions";
 
 import { JobTypes } from "@app/model/convs-mgr/functions";
-import { EndUserDataService } from "@app/functions/bot-engine";
+import { EndUserDataService, EnrolledUserDataService } from "@app/functions/bot-engine";
 import { SendSurveyHandler } from "@app/private/functions/micro-apps/surveys";
 import { SendMultipleMessagesHandler } from "@app/functions/bot-engine/send-message";
 
@@ -21,9 +22,11 @@ export class CheckInactivityHandler extends FunctionHandler<CheckInactivityReq, 
     const orgId = cmd.channel.orgId;
 
     const endUsersService = new EndUserDataService(tools, orgId);
+    const enrolledUsersService = new EnrolledUserDataService(tools, orgId);
 
     try {
       const endUsers = await endUsersService.getAllEndUsers();
+      const enrolledUsers = await enrolledUsersService.getEnrolledUsers();
 
       // Convert the hours to milliseconds
       const INACTIVE_THRESHOLD = cmd.scheduleOptions.inactivityTime * 60 * 60 * 1000;
@@ -31,9 +34,9 @@ export class CheckInactivityHandler extends FunctionHandler<CheckInactivityReq, 
       // Get users whose have met the inactivity threshold
       const inactiveUsers = endUsers.filter((endUser) =>
       {
-        const lastActiveTime = endUser.lastActiveTime.getTime();
+        if(!endUser.lastActiveTime) return false;
+        const lastActiveTime = __DateFromStorage(endUser.lastActiveTime).unix() * 1000;
         const timeDifference = new Date().getTime() - lastActiveTime;
-
         return timeDifference > INACTIVE_THRESHOLD;
       }).map((user) => user.id);
 
@@ -41,7 +44,11 @@ export class CheckInactivityHandler extends FunctionHandler<CheckInactivityReq, 
         return { success: false, message: "No inactive users found" };
       }
 
-      const payload = _getPayload(cmd.scheduleOptions, cmd.channel, inactiveUsers, cmd.message);
+      tools.Logger.log(() => `[CheckInactivityHandler].execute - Inactive users: ${JSON.stringify(inactiveUsers)}`);
+      // Get the enrolled users who are inactive
+      const filteredInactiveUsers = enrolledUsers.filter((eu)=> inactiveUsers.includes(eu.whatsappUserId));
+
+      const payload = _getPayload(cmd.scheduleOptions, cmd.channel, filteredInactiveUsers, cmd.message);
 
       tools.Logger.log(() => `[CheckInactivityHandler].execute - Payload to send: ${JSON.stringify(payload)}`);
 

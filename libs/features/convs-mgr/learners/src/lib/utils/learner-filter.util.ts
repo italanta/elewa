@@ -26,8 +26,7 @@ export function filterLearnersByCourse(learners: EnrolledEndUser[], selectedCour
 /** filter learners by platform */
 export function filterLearnersByPlatform(learners: EnrolledEndUser[], selectedPlatform: string) {
   const filteredLearners = learners.filter((learner) => {
-    // TODO: add Platform filter
-    return learner;
+    return learner.platformDetails && learner.platformDetails[selectedPlatform.toLowerCase()]
   });
 
   return filteredLearners

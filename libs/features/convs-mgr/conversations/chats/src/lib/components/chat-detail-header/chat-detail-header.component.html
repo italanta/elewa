@@ -9,7 +9,7 @@
     </div>
 
     <div class="chat-title-txt">
-      <span *ngIf="chat.name" class="chat-name"> {{ chat.name.toLowerCase() }} </span>
+      <span *ngIf="chat.name" class="chat-name"> {{ chat.name.toLowerCase() | slice:0:20}} </span>
       <span title="phoneNumber" class="chat-number"> +{{ chat.phoneNumber }} </span>
     </div>
    

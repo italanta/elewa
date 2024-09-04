@@ -10,8 +10,6 @@ export interface ScheduledMessage extends ScheduleOptions
 
   /** 
    * Ids of the end users who are yet to receive the message
-   * 
-   * TODO: Implement logic to check the read receipt of the template messages
    */
   pending?: string[];
 
