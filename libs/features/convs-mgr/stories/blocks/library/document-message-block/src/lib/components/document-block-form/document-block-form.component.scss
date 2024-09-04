@@ -59,24 +59,6 @@ input {
 	background-color: var(--convs-mgr-color-primary-white) !important;
 }
 
-.image_bg {
-	display: flex;
-  align-items: center;
-	text-align: center;
-	color: var(--convs-mgr-color-primary-black);
-	min-width: calc(100% - 20px) !important; 
-	padding: 10px;
-	height: 8rem;
-	background-color: var(--convs-mgr-placeholder-color);
-	border-radius: 0.6rem;
-	opacity: 1;
-	overflow: hidden;
-	cursor: pointer;
-	&.error {
-		border: 0.1875rem solid red !important;
-	}
-}
-
 .block-media-placeholder {
 	display: flex;
 	justify-content: center;
