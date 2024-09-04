@@ -158,6 +158,7 @@
         "IMAGE-UPLOAD": "Click here to upload image from your computer",
         "DOCUMENT-UPLOAD": "Click here to upload a document from your computer",
         "AUDIO-UPLOAD": "Click here to upload an audio from your computer",
+        "VIDEO-UPLOAD": "Click here to upload a video from your computer",
         "NAME": "Name",
         "EMAIL": "Email",
         "PHONE-NUMBER": "Phone",

@@ -17,7 +17,7 @@
           </div>
 
           <div class="media" [ngClass]="byPassedLimits.length ? 'error' : ''">
-            <input type="file" accept=".mp4" #inputUpload (change)="onVideoSelected($event)" hidden id="videoUpload">
+
             <label for="videoUpload">
               <button type="button" (click)="openFileExplorer()" class="upload-button" *ngIf="videoPath">{{'PAGE-CONTENT.BLOCK.LABELS.VIDEO-MODAL.UPDATE' | transloco}}</button>
               <ng-container *ngIf="!videoPath">
@@ -27,9 +27,7 @@
             </label>
           </div>
 
-          <div class="error-message" *ngIf="whatsappLimit">
-            <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.VIDEO.MESSAGE-ONE' | transloco }}</span>
-          </div>
+
         </div>
 
         <!-- TODO: uncomment after media encoding is implemented -->
