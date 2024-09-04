@@ -4,8 +4,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 
-import { FileStorageService } from '@app/state/file';
 import { QuestionFormMode } from '@app/model/convs-mgr/conversations/assessments';
+import { FileStorageService } from '@app/state/file';
 
 
 @Component({
@@ -46,20 +46,19 @@ export class MediaUploadModalComponent implements OnInit
                private _uploadService: FileStorageService,          
   ) {
     this.assessmentFormGroup = this.data.assessmentFormGroup;
-    this.index = data.index
-    this.questionFormGroup = data.questionFormGroup
-    this.questions = data.questions
+    this.index = data.index;
+    this.questionFormGroup = data.questionFormGroup;
+    this.questions = data.questions;
     this.fileAccept = data.fileType === 'image' ? 'image/*' : 'video/*';
-    this.questionBankForm = data.questionBankForm
-    this.formViewMode = data.formViewMode
+    this.questionBankForm = data.questionBankForm;
+    this.formViewMode = data.formViewMode;
   }
 
   ngOnInit()
   {
-    if(this.formViewMode === 1){
+    if(this.formViewMode === QuestionFormMode.AssessmentMode){
       this.path = this.questionFormGroup.get('mediaPath')?.value 
     }
-    
   }
 
   /** Track files when upload type is drag and drop */
@@ -123,14 +122,11 @@ export class MediaUploadModalComponent implements OnInit
     let mediaName: string;
 
     // Determine which form is being used (questionFormGroup or questionBankForm)
-    if (this.questionFormGroup) {
+    if (this.formViewMode === QuestionFormMode.AssessmentMode) {
       mediaName = this.questionFormGroup.controls['mediaPath'].value || this.selectedFile.name;
-    } else if (this.questionBankForm) {
+    } else{
       mediaName = this.questionBankForm.controls['mediaPath'].value || this.selectedFile.name;
-    } else {
-      return; // Exit if neither form is present
     }
-
     const upload$ = await this._uploadService.uploadSingleFileAndPercentage(this.selectedFile, `assessmentMedia/${mediaName}`);
 
     this._sBS.sink = upload$.subscribe(({ progress, downloadURL, filePath }) => {

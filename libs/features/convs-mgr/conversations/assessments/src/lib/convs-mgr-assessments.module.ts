@@ -63,6 +63,7 @@ import { CompletionTimeComponent } from './components/assessment-results-compone
 import { ProgressPieChartComponent } from './components/assessment-results-components/progress-pie-chart/progress-pie-chart.component';
 import { DistributionBarChartComponent } from './components/assessment-results-components/distribution-bar-chart/distribution-bar-chart.component';
 import { AssessmentUsersTableComponent } from './components/assessment-results-components/assessment-users-table/assessment-users-table.component';
+import { MediaUploadModalComponent } from './modals/media-upload-modal/media-upload.component';
 
 
 @NgModule({
@@ -103,6 +104,7 @@ import { AssessmentUsersTableComponent } from './components/assessment-results-c
     AssessmentsGridViewComponent,
     AssessmentsListViewComponent,
     AssessmentResultsComponent,
+    MediaUploadModalComponent,
 
     //Micro-App Assessments
     AssessmentCardComponent,
