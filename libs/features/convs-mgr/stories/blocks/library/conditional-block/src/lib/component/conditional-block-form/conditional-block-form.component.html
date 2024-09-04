@@ -1,0 +1,32 @@
+<form [formGroup]="conditionalBlockForm" fxLayout="column" fxLayoutAlign="start center">
+  <div class="details-wrapper">
+    <div class="form-group">
+      <div class="options-wrapper">
+        <select name="assessmentlabel" required [attr.disabled]="isTyped.value ? true : null">
+          <option *ngFor="let variable of (vars$ | async)" [value]="variable">{{ variable }}</option>
+          <option [value]="null" [selected]="true">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</option>
+        </select>
+        
+        <span class="custom-dropdown-arrow"></span>
+      </div>
+    </div>
+    <label class="custom-variable-checkbox">
+      <input type="checkbox" class="custom-checkbox" formControlName="isTyped" name="check" id="isTyped">
+      <span class="checkmark"></span>
+      <div class="checkbox-text">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</div>
+    </label>
+  
+    <div class="type-variable">
+      <input class="input" type="text" formControlName="typedVar" placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CONDITIONAL-BLOCK.INPUT-VARIABLE' | transloco }}" id="variableToCheck">
+    </div>
+  </div>
+  <div formArrayName="options" fxFlexFill class="btns-wrapper">
+    <div *ngFor="let option of options.controls; let i = index">
+      <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutAlign="start center" fxFlex="100">
+        <button (click)="deleteInput(i)" class="listgone"><i class="fa-solid fa-xmark fa-lg"></i></button>
+        <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm" [formGroupNameInput]="i" class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field>
+      </div>
+    </div>
+    <button (click)="addNewOption()" mat-flat-button class="add-button">{{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}</button>
+  </div>
+</form>

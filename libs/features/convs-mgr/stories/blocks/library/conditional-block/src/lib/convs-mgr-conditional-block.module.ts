@@ -12,6 +12,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { ConditionalBlockComponent } from './component/conditional-block/conditional-block.component';
+import { ConditionalBlockFormComponent } from './component/conditional-block-form/conditional-block-form.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import { ConditionalBlockComponent } from './component/conditional-block/conditi
     MaterialDesignModule,
     ConvsMgrBlockOptionsModule,
   ],
-  declarations: [ConditionalBlockComponent],
+  declarations: [ConditionalBlockComponent, ConditionalBlockFormComponent],
   exports: [ConditionalBlockComponent],
 })
 export class ConvsMgrConditionalBlockModule {}
