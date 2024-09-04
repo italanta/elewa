@@ -3,7 +3,7 @@
   <div [id]="audioInputId" class="audio_bg" [class.edit_form] = "isEdit"  [ngClass]="byPassedLimits.length ? 'error' : ''">
 
     <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc">
-    <label *ngIf="!isLoadingAudio" [for]="audioInput" (click)="audioInput.click()" >
+    <label id="mediaUploadLabel" *ngIf="!isLoadingAudio" [for]="audioInput" (click)="audioInput.click()" >
       <div *ngIf="!audioName; else inputHasAudio" class="block-media-placeholder">
           <img src="assets/svgs/blocks/audio.svg" (click)="audioInput.click()" class="placeholder-icon">
           <span class="media-placeholder-text" >{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-UPLOAD' | transloco }}</span>
@@ -26,8 +26,11 @@
 
   <mat-divider *ngIf="isEdit"></mat-divider>
 
-  <input type="text" formControlName="fileSrc" [class.edit_input] = "isEdit"
-      [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco " name="audio-link "
-      id="audio-link" readonly>
-  <input formControlName="fileName" type="text" hidden/>
+  <div class="inputs-wrapper">
+    <label class="edit-panel-label" *ngIf="isEdit">{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco}}</label>
+    <input type="text" formControlName="fileSrc" [class.edit_input] = "isEdit"
+        [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco " name="audio-link "
+        id="audio-link" readonly>
+    <input formControlName="fileName" type="text" hidden/>
+  </div>
 </form>

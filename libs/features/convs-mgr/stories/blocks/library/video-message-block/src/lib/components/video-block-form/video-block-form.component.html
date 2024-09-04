@@ -8,7 +8,7 @@
   >
   <input *ngIf="!isLoadingVideo" (change)="processVideo($event)" type="file" class="video-file" accept=".mp4" id="videoUpload" hidden />
 
-  <label *ngIf="!isLoadingVideo" for="videoUpload">
+  <label id="mediaUploadLabel" *ngIf="!isLoadingVideo" for="videoUpload">
     <div *ngIf="!hasVideo; else inputHasVideo" class="block-media-placeholder">
       <img src="assets/svgs/blocks/system-uicons_video.svg" class="placeholder-icon" />
       <span class="media-placeholder-text" >{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-UPLOAD' | transloco }}</span>
@@ -44,12 +44,15 @@
 
   <mat-divider *ngIf="isEdit"></mat-divider>
 
-  <input
+  <div class="inputs-wrapper">
+    <label class="edit-panel-label" *ngIf="isEdit">{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco}}</label>
+    <input
     [class.edit_input] = "isEdit"
     type="text"
     [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco"
     formControlName="message"
   />
+  <label class="edit-panel-label" *ngIf="isEdit">{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-LINK' | transloco}}</label>
   <input
     [class.edit_input] = "isEdit"
     type="text"
@@ -59,4 +62,6 @@
   />
 
   <input formControlName="fileName" type="text" hidden/>
+  </div>
+
 </form>

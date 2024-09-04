@@ -2,7 +2,7 @@
   <div [id]="docInputId" class="doc_bg" [class.edit_form] = "isEdit"  [ngClass]="byPassedLimits.length ? 'error' : ''">
 
     <input (change)="processDocs($event)" [id]="docInputUpload" accept=".pdf" type="file" class="fileSrc" />
-    <label *ngIf="!isDocLoading" [for]="docInputUpload">
+    <label id="mediaUploadLabel" *ngIf="!isDocLoading" [for]="docInputUpload">
       <div *ngIf="!docName; else inputHasDoc" class="block-media-placeholder">
           <img src="assets/svgs/blocks/system-uicons_document.svg" width="30px" class="placeholder-icon">
           <span class="media-placeholder-text" >{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-UPLOAD' | transloco }}</span>
@@ -24,10 +24,14 @@
   </div>
 
   <mat-divider *ngIf="isEdit"></mat-divider>
+  <div class="inputs-wrapper">
+    <label class="edit-panel-label" *ngIf="isEdit">{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco}}</label>
+    <input formControlName="message" type="text" [class.edit_input] = "isEdit" 
+      [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco" />
 
-  <input formControlName="message" type="text" [class.edit_input] = "isEdit" 
-    [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco" />
-  <input formControlName="fileSrc" type="text" [class.edit_input] = "isEdit" 
-    [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-LINK' | transloco " readonly/>
-  <input formControlName="fileName" type="text" hidden/>
+    <label class="edit-panel-label" *ngIf="isEdit">{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-LINK' | transloco}}</label>
+    <input formControlName="fileSrc" type="text" [class.edit_input] = "isEdit" 
+      [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-LINK' | transloco" readonly/>
+    <input formControlName="fileName" type="text" hidden/>
+  </div>
   </form>
