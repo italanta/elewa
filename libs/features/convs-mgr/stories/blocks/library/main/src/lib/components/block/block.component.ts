@@ -10,7 +10,6 @@ import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks
 
 import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 import { SideScreenToggleService } from '@app/features/convs-mgr/stories/editor';
-import { VideoUploadModalComponent } from '@app/features/convs-mgr/stories/blocks/library/video-message-block'
 
 import { ICONS_AND_TITLES } from '../../assets/icons-and-titles';
 import { _DetermineBlockType } from '../../utils/block-inheritance.util';
@@ -129,14 +128,6 @@ export class BlockComponent implements OnInit
   // TODO: Use proper inheritance instead of firing from here
   editBlock() 
   {
-    if (this.type === this.videoType) {
-      this.matdialog.open(VideoUploadModalComponent, {
-        data: { videoMessageForm: this.blockFormGroup },
-      });
-
-      return
-    }
-
     // Normal case - open side menu
     this.sideMenu.toggleExpand(false)
     this.sideScreen.toggleSideScreen(true)
