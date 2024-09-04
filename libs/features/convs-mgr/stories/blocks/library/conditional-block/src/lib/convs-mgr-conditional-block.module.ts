@@ -25,6 +25,6 @@ import { ConditionalBlockFormComponent } from './component/conditional-block-for
     ConvsMgrBlockOptionsModule,
   ],
   declarations: [ConditionalBlockComponent, ConditionalBlockFormComponent],
-  exports: [ConditionalBlockComponent],
+  exports: [ConditionalBlockComponent, ConditionalBlockFormComponent],
 })
 export class ConvsMgrConditionalBlockModule {}

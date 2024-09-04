@@ -1,6 +1,7 @@
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { DocumentOutputBlockEditComponent, 
+import { ConditionalBlockEditComponent, 
+         DocumentOutputBlockEditComponent, 
          ImageOutputBlockEditComponent, 
          ListBlockEditComponent, 
          LocationOutputBlockEditComponent, 
@@ -64,6 +65,8 @@ export function getActiveBlock(type: StoryBlockTypes) {
       return VideoInputBlockEditComponent;
     case StoryBlockTypes.WebhookBlock:
       return WebhookEditComponent;
+    case StoryBlockTypes.Conditional:
+      return ConditionalBlockEditComponent;
     case StoryBlockTypes.EndStoryAnchorBlock:
       return DefaultComponent;
     case StoryBlockTypes.OpenEndedQuestion:

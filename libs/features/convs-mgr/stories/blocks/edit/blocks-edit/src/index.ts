@@ -20,3 +20,4 @@ export * from './lib/components/location-output-block-edit/location-output-block
 export * from './lib/components/document-output-edit/document-output-block-edit.component';
 export * from './lib/components/audio-output-block-edit/audio-output-block-edit.component';
 export * from './lib/components/video-output-block-edit/video-output-block-edit.component';
+export * from './lib/components/conditional-block-edit/conditional-block-edit.component';

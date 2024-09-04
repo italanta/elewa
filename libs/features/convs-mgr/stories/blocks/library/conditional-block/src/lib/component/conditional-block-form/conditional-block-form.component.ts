@@ -21,6 +21,7 @@ export class ConditionalBlockFormComponent implements OnInit, AfterViewInit, OnD
   @Input() block: ConditionalBlock;
   @Input() conditionalBlockForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+  @Input() isEdit: boolean;
 
   @ViewChildren('optionInputFields') optionInputFields: QueryList<OptionInputFieldComponent>;
 

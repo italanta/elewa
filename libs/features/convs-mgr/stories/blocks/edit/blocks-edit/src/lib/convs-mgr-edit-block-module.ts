@@ -16,6 +16,7 @@ import { ConvsMgrLocationMessageBlockModule } from '@app/features/convs-mgr/stor
 import { ConvsMgrDocumentMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/document-message-block';
 import { ConvsMgrAudioMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/audio-message-block';
 import { ConvsMgrVideoMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/video-message-block';
+import { ConvsMgrConditionalBlockModule } from '@app/features/convs-mgr/stories/blocks/library/conditional-block';
 
 import { QuestionButtonsEditFormsComponent } from './components/question-buttons-edit-forms/question-buttons-edit-forms.component';
 import { LocationInputBlockEditComponent } from './components/location-input-block-edit/location-input-block-edit.component';
@@ -37,6 +38,7 @@ import { LocationOutputBlockEditComponent } from './components/location-output-b
 import { DocumentOutputBlockEditComponent } from './components/document-output-edit/document-output-block-edit.component';
 import { AudioOutputBlockEditComponent } from './components/audio-output-block-edit/audio-output-block-edit.component';
 import { VideoOutputBlockEditComponent } from './components/video-output-block-edit/video-output-block-edit.component';
+import { ConditionalBlockEditComponent } from './components/conditional-block-edit/conditional-block-edit.component';
 
 @NgModule({
   imports: [
@@ -54,7 +56,8 @@ import { VideoOutputBlockEditComponent } from './components/video-output-block-e
     ConvsMgrLocationMessageBlockModule,
     ConvsMgrDocumentMessageBlockModule,
     ConvsMgrAudioMessageBlockModule,
-    ConvsMgrVideoMessageBlockModule
+    ConvsMgrVideoMessageBlockModule,
+    ConvsMgrConditionalBlockModule
   ],
   
   declarations: [
@@ -77,7 +80,8 @@ import { VideoOutputBlockEditComponent } from './components/video-output-block-e
     LocationOutputBlockEditComponent,
     DocumentOutputBlockEditComponent,
     AudioOutputBlockEditComponent,
-    VideoOutputBlockEditComponent
+    VideoOutputBlockEditComponent,
+    ConditionalBlockEditComponent
   ],
 })
 export class ConvsMgrEditBlockModule {}
