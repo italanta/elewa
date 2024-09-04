@@ -11,6 +11,7 @@ p {
 
   .title-section {
     display: flex;
+    flex-direction: column;
     gap: 2rem;
 
     .mode {
@@ -19,6 +20,7 @@ p {
 
     .name {
       font-size: 1rem;
+      font-weight: 500;
     }
   }
 

@@ -2,7 +2,7 @@
   <div *ngFor="let user of enrolledUsers">
     <div class="title-section">
       <p class="mode">{{ getMode(user) | titlecase }}</p>
-      <span class="name">{{ user.name || 'No Name' | titlecase }}</span>
+      <span>Add <span class="name">{{ user.name || 'No Name' | titlecase }}</span> to:</span>
     </div>
   </div>
 
