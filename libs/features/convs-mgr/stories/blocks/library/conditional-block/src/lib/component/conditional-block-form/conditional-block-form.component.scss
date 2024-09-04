@@ -21,11 +21,12 @@ form {
 }
 
 .edit_add_button {
-  width: 100%;
+  width: 100% !important;
   color: white !important;
-  border-radius: 30px;
+  border-radius: 25px !important;
   background: #3E788A 0% 0% no-repeat padding-box !important;
-  height: 2.5rem;
+  height: 3rem !important;
+  justify-content: center !important; 
 }
 
 input {
@@ -60,6 +61,10 @@ input {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.edit_btns_wrapper {
+  gap: 1rem !important;
 }
 
 .add-button {

@@ -20,15 +20,16 @@
       <input class="input" [class.edit_input] = "isEdit" type="text" formControlName="typedVar" placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CONDITIONAL-BLOCK.INPUT-VARIABLE' | transloco }}" id="variableToCheck">
     </div>
   </div>
-  <div formArrayName="options" fxFlexFill class="btns-wrapper">
+
+  
+  <div formArrayName="options" fxFlexFill class="btns-wrapper" [class.edit_btns_wrapper] = "isEdit">
+    <mat-divider *ngIf="isEdit"></mat-divider>
     <div *ngFor="let option of options.controls; let i = index">
       <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutAlign="start center" fxFlex="100">
         <button (click)="deleteInput(i)" class="listgone"><i class="fa-solid fa-xmark fa-lg"></i></button>
         <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm" [formGroupNameInput]="i" class="input" [charMaxlength]="listOptionInputLimit" [isEditSection]="isEdit"></app-option-input-field>
       </div>
     </div>
-    
-    <mat-divider *ngIf="isEdit"></mat-divider>
 
     <button (click)="addNewOption()" mat-flat-button class="add-button" [class.edit_add_button] = "isEdit">{{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}</button>
   </div>
