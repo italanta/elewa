@@ -23,6 +23,8 @@
     <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.DOCUMENT.MESSAGE-TWO' | transloco }}</span>
   </div>
 
+  <mat-divider *ngIf="isEdit"></mat-divider>
+
   <input formControlName="message" type="text" [class.edit_input] = "isEdit" 
     [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco" />
   <input formControlName="fileSrc" type="text" [class.edit_input] = "isEdit" 

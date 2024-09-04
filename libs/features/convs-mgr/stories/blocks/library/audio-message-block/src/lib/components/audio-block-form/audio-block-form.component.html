@@ -24,6 +24,8 @@
       <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-TWO' | transloco }}</span>
   </div>
 
+  <mat-divider *ngIf="isEdit"></mat-divider>
+
   <input type="text" formControlName="fileSrc" [class.edit_input] = "isEdit"
       [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco " name="audio-link "
       id="audio-link" readonly>
