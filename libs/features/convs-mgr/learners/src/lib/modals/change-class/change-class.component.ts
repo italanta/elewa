@@ -41,7 +41,7 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
   getMode(enrolledUser: EnrolledEndUser) {
     return enrolledUser.classId
       ? ClassroomUpdateEnum.ChangeClass
-      : ClassroomUpdateEnum.AddToClass;
+      : ClassroomUpdateEnum.AddToGroup;
   }
 
   onCancel() {
