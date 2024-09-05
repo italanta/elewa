@@ -2,23 +2,23 @@
 <div class="modal">
   <!-- Modal Header -->
   <div class="modal-header">
-    <span class="__delete"> <img src="assets/icons/trash-can-outline.svg"/> Delete Question</span>
+    <span class="__delete"> <img src="assets/icons/trash-can-outline.svg"/> {{"QUESTION-BANK.MODAL-TEXT.DELETE-QUESTION" | transloco}}</span>
     <button class="__xBtn" (click)="closeDialog()"> <img src="assets/icons/x-icon.svg"/> </button>
   </div>
   
   <!-- Modal Body -->
   <div class="modal-body">
-    <p>You are about to delete a question from the question bank. Are you sure you want to continue?</p>
+    <p>{{"QUESTION-BANK.MODAL_TEXT.WARNING-MESSAGE" | transloco}}</p>
     <div class="modal-info">
       <img src="assets/icons/information-outline.svg"/>
-      <span>Deleting this question from the question bank does not delete it from assessments it has been added to.</span>
+      <span>{{"QUESTION-BANK.MODAL-TEXT.INFO-TEXT" | transloco}}</span>
     </div>
   </div>
   
   <!-- Modal Footer -->
   <div class="__buttons">
-    <button class="bank__button filled" (click)="closeDialog()">Cancel</button>
-    <button class="bank__button outline" (click)="deleteQuestion()">Confirm</button>
+    <button class="bank__button filled" (click)="closeDialog()">{{"QUESTION-BANK.MODAL-TEXT.CANCEL" | transloco}}</button>
+    <button class="bank__button outline" (click)="deleteQuestion()">{{"QUESTION-BANK.MODAL-TEXT.INFO-TEXT.CONFIRM" | transloco}}</button>
   </div>
 </div>
 
