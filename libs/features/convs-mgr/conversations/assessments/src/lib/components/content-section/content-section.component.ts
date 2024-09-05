@@ -1,11 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { combineLatest, map, take } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { Assessment, AssessmentOptionValue, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
-import { MicroAppStatus, MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
+import { MicroAppProgress, MicroAppStatus, MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
 import { AssessmentProgress, AssessmentProgressUpdate, QuestionResponse, QuestionResponseMap } from '@app/model/convs-mgr/micro-app/assessments';
 import { MicroAppManagementService } from '@app/state/convs-mgr/micro-app';
 import { AssessmentQuestionStore, AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
@@ -155,44 +155,17 @@ export class ContentSectionComponent implements OnInit, OnDestroy
    *  Track the answered questions and store them in a responses array
    *  When on the last question, redirect them back to platform
    */
-
   saveProgress(i?: number) {
     const isLastStep = this.stepperForm 
       ? this.currentStep === this.totalSteps - 1 
       : true; // If not stepper mode, treat the form as if it's the last step
-    
+  
     const questionResponses: QuestionResponse[] = this.questionResponses || [];
-    
-    // If in all-questions mode, iterate through all questions
-    if (!this.stepperForm) {
-      this.assessmentFormArray?.controls.forEach((control, index) => {
-        control.get('selectedOption')?.markAsTouched();
   
-        if (!control.get('selectedOption')?.valid) return;
-  
-        const selectedOptionId = control.get('selectedOption')?.value;
-        const questionId = control.get('id')?.value;
-        const questionMarks = control.get('marks')?.value;
-        const textAnswer = control.get('textAnswer')?.value;
-  
-        const question = this.assessmentQuestions.find((q) => q.id === questionId);
-        const correctAnswer = question?.options?.find((op) => op.accuracy === AssessmentOptionValue.Correct);
-        const selectedOption = question?.options?.find((op) => op.id === selectedOptionId);
-  
-        const questionResponse: QuestionResponse = {
-          questionId: questionId,
-          answerId: selectedOption?.id,
-          answerText: selectedOption ? selectedOption.text : textAnswer,
-          marks: parseInt(questionMarks),
-          correctAnswer: correctAnswer?.id,
-        };
-  
-        questionResponses.push(questionResponse);
-      });
-    } else {
-      // For stepper mode, handle only the current step
-      const control = this.assessmentFormArray?.controls[i!];
+    const processQuestion = (control: AbstractControl) => {
       control.get('selectedOption')?.markAsTouched();
+  
+      if (!control.get('selectedOption')?.valid) return;
   
       const selectedOptionId = control.get('selectedOption')?.value;
       const questionId = control.get('id')?.value;
@@ -212,6 +185,14 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       };
   
       questionResponses.push(questionResponse);
+    };
+  
+    // Handle stepper mode or all-questions mode
+    if (!this.stepperForm) {
+      this.assessmentFormArray?.controls.forEach(processQuestion);
+    } else {
+      const control = this.assessmentFormArray?.controls[i!];
+      processQuestion(control);
     }
   
     const progressMilestones: AssessmentProgressUpdate = {
@@ -231,20 +212,20 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       hasSubmitted: isLastStep,
     };
   
-    if (isLastStep) {
-      this.isSubmitting = true;
-      this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe((updatedProgress) => {
-        if (updatedProgress) {
-          this.assessmentProgress = updatedProgress.result as AssessmentProgress;
-          this.isSubmitting = false;
-          this.pageViewMode = AssessmentPageViewMode.ResultsMode;
-        }
-      });
-    } else {
-      this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe();
-    }
-  }  
+    this.isSubmitting = isLastStep;
+    this.subscribeToProgress(progressMilestones);
+  }
   
+   private subscribeToProgress (milestones: MicroAppProgress)
+  {
+    this._microAppService.progressCallBack(this.app, milestones)?.subscribe((updatedProgress) => {
+      if (updatedProgress) {
+        this.assessmentProgress = updatedProgress.result as AssessmentProgress;
+        this.isSubmitting = false;
+        this.pageViewMode = AssessmentPageViewMode.ResultsMode;
+      }
+    });
+  }
   ngOnDestroy()
    {
     this._sBS.unsubscribe();
