@@ -156,66 +156,95 @@ export class ContentSectionComponent implements OnInit, OnDestroy
    *  When on the last question, redirect them back to platform
    */
 
-  saveProgress(i: number)
-  {
-    const isLastStep = this.currentStep === this.totalSteps - 1;
+  saveProgress(i?: number) {
+    const isLastStep = this.stepperForm 
+      ? this.currentStep === this.totalSteps - 1 
+      : true; // If not stepper mode, treat the form as if it's the last step
     
-    if(!this.stepperForm) this.assessmentFormArray?.controls[i].get('selectedOption')?.markAsTouched();
+    const questionResponses: QuestionResponse[] = this.questionResponses || [];
+    
+    // If in all-questions mode, iterate through all questions
+    if (!this.stepperForm) {
+      this.assessmentFormArray?.controls.forEach((control, index) => {
+        control.get('selectedOption')?.markAsTouched();
   
-    const selectedOptionId = this.assessmentFormArray?.controls[i].get('selectedOption')?.value
-    const questionResponses: QuestionResponse[] = this.questionResponses || []
-    const questionId = this.assessmentFormArray?.controls[i].get('id')?.value
-    const questionMarks = this.assessmentFormArray?.controls[i].get('marks')?.value
-    const textAnswer = this.assessmentFormArray?.controls[i].get('textAnswer')?.value
-
-    const question = this.assessmentQuestions.find((q)=> q.id === questionId);
-    const correctAnswer =  question?.options?.find((op)=> op.accuracy === AssessmentOptionValue.Correct)
-
-    const selectedOption = question?.options?.find((op)=> op.id === selectedOptionId);
-    
-    // Calculate total marks using the reducer
-    const questionResponse: QuestionResponse = {
-      questionId: questionId,
-      answerId: selectedOption?.id,
-      answerText: selectedOption ? selectedOption.text : textAnswer,
-      marks: parseInt(questionMarks),
-      correctAnswer: correctAnswer?.id
+        if (!control.get('selectedOption')?.valid) return;
+  
+        const selectedOptionId = control.get('selectedOption')?.value;
+        const questionId = control.get('id')?.value;
+        const questionMarks = control.get('marks')?.value;
+        const textAnswer = control.get('textAnswer')?.value;
+  
+        const question = this.assessmentQuestions.find((q) => q.id === questionId);
+        const correctAnswer = question?.options?.find((op) => op.accuracy === AssessmentOptionValue.Correct);
+        const selectedOption = question?.options?.find((op) => op.id === selectedOptionId);
+  
+        const questionResponse: QuestionResponse = {
+          questionId: questionId,
+          answerId: selectedOption?.id,
+          answerText: selectedOption ? selectedOption.text : textAnswer,
+          marks: parseInt(questionMarks),
+          correctAnswer: correctAnswer?.id,
+        };
+  
+        questionResponses.push(questionResponse);
+      });
+    } else {
+      // For stepper mode, handle only the current step
+      const control = this.assessmentFormArray?.controls[i!];
+      control.get('selectedOption')?.markAsTouched();
+  
+      const selectedOptionId = control.get('selectedOption')?.value;
+      const questionId = control.get('id')?.value;
+      const questionMarks = control.get('marks')?.value;
+      const textAnswer = control.get('textAnswer')?.value;
+  
+      const question = this.assessmentQuestions.find((q) => q.id === questionId);
+      const correctAnswer = question?.options?.find((op) => op.accuracy === AssessmentOptionValue.Correct);
+      const selectedOption = question?.options?.find((op) => op.id === selectedOptionId);
+  
+      const questionResponse: QuestionResponse = {
+        questionId: questionId,
+        answerId: selectedOption?.id,
+        answerText: selectedOption ? selectedOption.text : textAnswer,
+        marks: parseInt(questionMarks),
+        correctAnswer: correctAnswer?.id,
+      };
+  
+      questionResponses.push(questionResponse);
     }
-
-    questionResponses.push(questionResponse);
+  
     const progressMilestones: AssessmentProgressUpdate = {
-      appId: this.app.appId, 
+      appId: this.app.appId,
       endUserId: this.app.endUserId,
       orgId: this.app.config.orgId,
       questionResponses: questionResponses,
-      // Will need to be calculated
       timeSpent: new Date().getTime() - this.app.startedOn!,
       type: MicroAppTypes.Assessment,
       assessmentDetails: {
         maxScore: this.assessment.maxScore,
         questionCount: this.totalSteps,
         moveOnCriteria: this.assessment.configs?.moveOnCriteria,
-        title: this.assessment.title
+        title: this.assessment.title,
       },
-      endUserName:this.app.endUserName,
-      hasSubmitted: isLastStep
-    }
-
-    if(isLastStep ) {
+      endUserName: this.app.endUserName,
+      hasSubmitted: isLastStep,
+    };
+  
+    if (isLastStep) {
       this.isSubmitting = true;
-      this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe((updatedProgress)=> {
-        if(updatedProgress) {
+      this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe((updatedProgress) => {
+        if (updatedProgress) {
           this.assessmentProgress = updatedProgress.result as AssessmentProgress;
-          // this.assessmentProgress.attempts[this.assessmentProgress.attemptCount]
           this.isSubmitting = false;
           this.pageViewMode = AssessmentPageViewMode.ResultsMode;
         }
-      }); 
+      });
     } else {
       this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe();
     }
-  }
-
+  }  
+  
   ngOnDestroy()
    {
     this._sBS.unsubscribe();
