@@ -256,9 +256,9 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
     this.isUnblocking = true;
 
     this._sbs.sink = this.checkIfChannelExist(this.chat).subscribe((val) => {
-      if (val.length) {
+      if (val?.length > 0) {
         const { storyId, blockId } = this.currentPosition;
-        const req = { storyId, endUserId: this.chat.id, blockId };
+        const req = { storyId, endUserId: this.chat.id, blockId, channel: val[0] };
         this._sbs.sink = this._afsF
           .httpsCallable('moveChat')(req)
           .subscribe(() => {
