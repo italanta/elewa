@@ -1,0 +1,9 @@
+<div class="block-edit-form-wrapper">
+  <div  class="block-form-edit">
+    <div class="block-edit-header">
+      <i [class]="icon" class="icon-color"></i>
+      <span class="title">{{ title | transloco }}</span>
+    </div>
+    <app-audio-block-form [id]="id" [block]="block" [isEdit]='true' [audioMessageForm]="form" [jsPlumb]="jsPlumb"></app-audio-block-form>
+  </div>
+</div>

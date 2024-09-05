@@ -1,0 +1,37 @@
+<form [formGroup]="documentMessageForm" [class.edit_form_wrapper] = "isEdit">
+  <div [id]="docInputId" class="doc_bg" [class.edit_form] = "isEdit"  [ngClass]="byPassedLimits.length ? 'error' : ''">
+
+    <input (change)="processDocs($event)" [id]="docInputUpload" accept=".pdf" type="file" class="fileSrc" />
+    <label id="mediaUploadLabel" *ngIf="!isDocLoading" [for]="docInputUpload">
+      <div *ngIf="!docName; else inputHasDoc" class="block-media-placeholder">
+          <img src="assets/svgs/blocks/system-uicons_document.svg" width="30px" class="placeholder-icon">
+          <span class="media-placeholder-text" >{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-UPLOAD' | transloco }}</span>
+      </div>
+      <ng-template #inputHasDoc>
+          <img src="assets/svgs/blocks/system-uicons_document.svg" width="30px" class="placeholder-icon">
+          <span class="media-placeholder-text doc-name" >{{ docName }}</span>
+      </ng-template>
+    </label>
+
+    <div *ngIf="isDocLoading" class="doc-icon">
+      <i class="fas fa-circle-notch fa-spin fa-3x"></i>
+    </div>
+  </div>
+
+  <div class="error-message" *ngIf="whatsappLimit">
+    <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.DOCUMENT.MESSAGE-ONE' | transloco }}</span><br>
+    <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.DOCUMENT.MESSAGE-TWO' | transloco }}</span>
+  </div>
+
+  <mat-divider *ngIf="isEdit"></mat-divider>
+  <div class="inputs-wrapper">
+    <label class="edit-panel-label" *ngIf="isEdit">{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco}}</label>
+    <input formControlName="message" type="text" [class.edit_input] = "isEdit" 
+      [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco" />
+
+    <label class="edit-panel-label" *ngIf="isEdit">{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-LINK' | transloco}}</label>
+    <input formControlName="fileSrc" type="text" [class.edit_input] = "isEdit" 
+      [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-LINK' | transloco" readonly/>
+    <input formControlName="fileName" type="text" hidden/>
+  </div>
+  </form>

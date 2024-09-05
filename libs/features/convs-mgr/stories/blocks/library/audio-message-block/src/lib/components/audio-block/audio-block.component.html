@@ -1,39 +1,4 @@
 <div class="wide" [id]="id" *ngIf="audioMessageForm">
-    <form [formGroup]="audioMessageForm" fxLayout="column" fxLayoutALign="start center">
-
-        <div [id]="audioInputId" class="audio_bg"  [ngClass]="byPassedLimits.length ? 'error' : ''">
-
-            <div *ngIf="this.block.fileSrc && !isLoadingAudio">
-                <audio controls>
-                    <source [src]="this.block.fileSrc!" class="audio" (click)="audioInput.click()">
-                </audio>
-            </div>
-            <div *ngIf="isLoadingAudio" class="audio-icon">
-                <i class="fas fa-circle-notch fa-spin"></i>
-            </div>
-            <div *ngIf="!this.block.fileSrc && !isLoadingAudio" class="audio-icon" (click)="audioInput.click()">
-                <img [src]="svgIcon" (click)="audioInput.click()"  class="svgIcon" >
-            </div>
-            <div>
-                <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc">
-            </div>
-        </div>
-
-        <div class="error-message" *ngIf="whatsappLimit">
-            <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-ONE' | transloco }}</span><br>
-            <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-TWO' | transloco }}</span>
-        </div>
-
-        <input type="text" formControlName="fileSrc"
-            [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco " name="audio-link "
-            id="audio-link ">
-
-        <div class="waveform-container" [ngClass]="getClassObject(block.fileSrc ?? '')">
-            <img *ngIf="this.block.fileSrc && !isLoadingAudio"  (click)="togglePlayPause()" src="assets/svgs/blocks/play.svg" class="play-button" alt="">
-            <div class="wave" [ngClass]="getClassObject(block.fileSrc ?? '')">
-                <div #waveform></div>
-            </div>
-        </div>
-        <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="audioMessageForm"></app-default-option-field>
-    </form>
+    <app-audio-block-form [id]="id" [block]="block" [audioMessageForm]="audioMessageForm" [jsPlumb]="jsPlumb"></app-audio-block-form>
+    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="audioMessageForm"></app-default-option-field>
 </div>
