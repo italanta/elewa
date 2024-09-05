@@ -84,16 +84,6 @@ export class FileStorageService
     // Return null if no violations are found
     return null;
   }
-  
-  checkFileSizeLimits(size: number, type: string) { 
-    const filelimits = FILE_LIMITS[type as keyof typeof FILE_LIMITS] as unknown as unknown[];
-
-    const limitsViolated = filelimits.filter((limit: any) => {
-      return size > this.__convertedSize(limit.size, limit.unit);
-    })
-
-    return limitsViolated;
-  }
 
   private __convertedSize(size: number, unit: string) {
     if (unit === 'KB') {
