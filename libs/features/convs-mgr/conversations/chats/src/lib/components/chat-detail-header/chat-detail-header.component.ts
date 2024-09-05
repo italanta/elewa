@@ -22,7 +22,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
 import { EndUserPosition, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
-import { SpinnerService } from '@app/features/convs-mgr/conversations/messaging';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
@@ -58,6 +57,8 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
   moveChatDialogRef: MatDialogRef<MoveChatModal>;
   agentPaused = true;
   loading = true;
+  isUnblocking: boolean;
+
   user: iTalUser;
 
   avatarBgColor: string;
@@ -69,7 +70,6 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
               private _toastService: ToastService,
               private _afsF: AngularFireFunctions,
               private _dialog: MatDialog,
-              private _spinner: SpinnerService,
               private _enrolledLearners: EnrolledLearnersService,
               private _router$$: Router,
               private _classRoomService$ :ClassroomService,
@@ -253,24 +253,25 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
         verticalPosition: 'top',
       });
     } 
+    this.isUnblocking = true;
 
     this._sbs.sink = this.checkIfChannelExist(this.chat).subscribe((val) => {
       if (val.length) {
         const { storyId, blockId } = this.currentPosition;
         const req = { storyId, endUserId: this.chat.id, blockId };
-
-        this._spinner.show();
         this._sbs.sink = this._afsF
           .httpsCallable('moveChat')(req)
-          .pipe(tap(() => this._spinner.hide()))
-          .subscribe(() =>
+          .subscribe(() => {
+            this.isUnblocking = false;
             this._snackBar.open('User unblocked!', 'OK', {
               duration: 3000,
               verticalPosition: 'top',
             })
+          }
           );
 
       } else {
+        this.isUnblocking = false;
         this._snackBar.open('Communication channel does not exist!', 'OK', {
           duration: 3000,
           verticalPosition: 'top',
