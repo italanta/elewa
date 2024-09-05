@@ -23,7 +23,7 @@
 
   <div class="action-btns">
     <button class="btn cancel-btn" (click)="onCancel()">{{'CLASSESS.MODALS.ACTION-BUTTONS.CANCEL' | transloco }}</button>
-    <button class="btn apply-btn" (click)="submitAction()">
+    <button class="btn apply-btn" (click)="submitAction()" [ngClass]="selectedClass? '' : 'disabled'">
       <span *ngIf="isUpdatingClass; else notCreating">
         <i class="spin_tooltip fas fa-circle-notch fa-spin"></i>
       </span>
