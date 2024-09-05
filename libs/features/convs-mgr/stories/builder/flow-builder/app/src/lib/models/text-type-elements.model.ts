@@ -3,6 +3,11 @@ export interface FeTextInput {
   label: string;
   required: boolean;
   type: FlowPageLayoutElementTypesV31;
+  inputType: string;
+  minChars: number,
+  maxChars: number,
+  disabled: boolean,
+  helperText: string
 }
 
 

@@ -13,6 +13,34 @@
         <label for="required">Required:</label>
         <input type="checkbox" id="required" formControlName="required">
       </div>
+      <div class="inputConfigs">
+        <label for="helperText">Helper Text:</label>
+        <input type="text" id="helperText" formControlName="helperText">
+      </div>
+      <div class="inputConfigs">
+        <label for="visible">Disabled?:</label>
+        <input type="checkbox" id="visible" formControlName="visible">
+      </div>
+      <div class="inputConfigs">
+        <label for="minChars">Min Characters:</label>
+        <input type="number" id="minChars" formControlName="minChars">
+      </div>
+      <div class="inputConfigs">
+        <label for="maxChars">Max Characters:</label>
+        <input type="number" id="maxChars" formControlName="maxChars">
+      </div>
+      <div class="inputConfigs">
+        <label for="inputType">Input type:</label>
+        <select id="inputType" formControlName="inputType">
+          @for(htmlElement of htmlElementTypes; track htmlElement)
+          {
+            <option>{{htmlElement}}</option>
+          }
+          <option>
+
+          </option>
+        </select>
+      </div>
       <div class="saveBtn">
         <button type="submit" (click)="saveInputConfig()"> Save </button>
       </div>
@@ -20,7 +48,7 @@
     <div class="flex-container" *ngIf="!showConfigs">
       <div class="column">
         <label [for]="element.name">{{ element.label }}</label>
-        <input type="text"
+        <input [type]="element.inputType"
           class="text-area-input"
           [name]="element.name"
           [id]="element.name"

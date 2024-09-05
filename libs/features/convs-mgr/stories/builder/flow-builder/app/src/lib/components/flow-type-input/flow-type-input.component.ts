@@ -4,12 +4,11 @@ import { FormGroup } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { Subject } from 'rxjs';
 
-import { ChangeTrackerService, FlowEditorStateProvider } from '@app/state/convs-mgr/wflows';
-import { FlowDatePickerInput, FlowTextAreaInput, FlowTextInput } from '@app/model/convs-mgr/stories/flows';
+import { ChangeTrackerService } from '@app/state/convs-mgr/wflows';
 
-import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
-import { TextInputElementsService } from '../../services/text-inputs-elements.service';
 import { FeTextInput } from '../../models/text-type-elements.model';
+import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
+import { __transformToFlowTextInput, TextInputElementsService, } from '../../services/text-inputs-elements.service';
 
 
 @Component({
@@ -31,9 +30,12 @@ export class FlowTypeInputComponent implements OnInit
   /** Form fields for inputs */
   textInputForm: FormGroup;
 
-  element: FlowTextInput | FlowDatePickerInput | FlowTextAreaInput
+  element: FeTextInput
   showConfigs = true;
 
+  /** Array of allowed html input types */
+  htmlElementTypes = ['text', 'number', 'email', 'password', 'passcode', 'phone'];
+  
   /** View Container */
   vrc = inject(ViewContainerRef)
   private autosaveSubject = new Subject<any>();
@@ -65,7 +67,9 @@ export class FlowTypeInputComponent implements OnInit
     if (this.textInputForm.valid) {
       this.element = this.textInputForm.value;  // Capture form values
       this.showConfigs = false;  // Hide configuration form
-      this.triggerAutosave(this.element)
+      // Transform FeTextInput to FlowTextInput for API
+      const flowTextInput = __transformToFlowTextInput(this.element);
+      this.triggerAutosave(flowTextInput)
     }
   }
 

@@ -38,7 +38,7 @@ export class EditorComponentFactory {
           componentType = FlowDatepickInputComponent;
             break;
         }
-        case FlowControlType.OptIn:
+        case FlowControlType.TextInput:
           {
             componentType = FlowTypeInputComponent;
             break;
