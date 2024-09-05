@@ -69,7 +69,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     if(this.app) {
       this.getAssessment();
       this.getAssessmentQuestions(this.app.config.orgId);
-      this.startTime = this.app.startedOn as number;
+      this.startTime = new Date().getTime() as number;
     }    
     // Subscribe to changes when the navigation buttons are clicked for the stepper assessment form
     this._sBS.sink = this.stepService.currentStep$.subscribe(step => {
