@@ -18,10 +18,10 @@ p {
       font-size: 1rem;
     }
 
-    .name {
-      font-size: 1rem;
-      font-weight: 500;
-    }
+  }
+  .name {
+    font-size: 1rem;
+    font-weight: 500;
   }
 
   mat-form-field {
@@ -39,6 +39,10 @@ p {
       border-radius: 1.2rem;
       border: none;
     }
+    .disabled {
+      opacity: 0.4;
+    }
+    
     .cancel-btn{
       background-color: var(--convs-mgr-color-text-white);
       color: var(--convs-mgr-color-bright-teal);
@@ -49,5 +53,9 @@ p {
       background-color: var( --convs-mgr-color-bright-teal);
     }
   }
+}
+
+::ng-deep.mat-mdc-select-panel .mat-mdc-option:hover {
+  background-color: var(--convs-mgr-color-extra-bright-teal);
 }
 

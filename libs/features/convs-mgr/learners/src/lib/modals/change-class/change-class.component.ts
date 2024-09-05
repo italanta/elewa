@@ -19,6 +19,7 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
   selectedClass: string;
   classrooms$: Observable<Classroom[]>;
   isUpdatingClass: boolean;
+  classIds : string[] = [];
 
   private _sBs = new SubSink();
 
@@ -32,6 +33,11 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.classrooms$ = this._classroom$.getAllClassrooms();
+    this.data.enrolledUsrs.map((user) => {
+      if(!this.classIds.includes(user.classId)){
+        this.classIds.push(user.classId)
+      }
+    })
   }
 
   get enrolledUsers() {
