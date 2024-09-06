@@ -108,6 +108,12 @@
   }
 
 }
+
+.invite-btn {
+  &:hover {
+    cursor: pointer;
+  }
+}
   
   .user-table{
     .table-container{
@@ -198,8 +204,6 @@
   background-color: var(--convs-mgr-color-primary-white);
   padding: 10px;
 }
-
-
 
 :host ::ng-deep .ng-start-inserted{
   padding-right: 10px;
