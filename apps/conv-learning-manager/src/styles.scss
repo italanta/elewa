@@ -39,6 +39,9 @@ body {
 .wide {
   padding: 1rem;
   width: 15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .frame-connector {

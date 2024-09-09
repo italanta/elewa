@@ -33,6 +33,8 @@ export class AssessmentBrickComponent implements OnInit, AfterViewInit, OnDestro
 
   type: StoryBlockTypes;
   assessmentBrickType = StoryBlockTypes.Assessment;
+  selectedAssessmentId: string;
+
   blockFormGroup: FormGroup;
   assessments: Assessment[];
 
@@ -40,6 +42,15 @@ export class AssessmentBrickComponent implements OnInit, AfterViewInit, OnDestro
 
   ngOnInit() {
     this.getAssessments();
+
+    if(this.assessmentBrickForm) {
+      this.selectedAssessmentId = this.assessmentBrickForm.value.assessmentId;
+    }
+  }
+
+  onAssessmentSelected(assessment: Assessment) {
+    this.selectedAssessmentId = assessment.id as string;
+    this.assessmentBrickForm.patchValue({assessmentId: this.selectedAssessmentId});
   }
 
   ngAfterViewInit(): void

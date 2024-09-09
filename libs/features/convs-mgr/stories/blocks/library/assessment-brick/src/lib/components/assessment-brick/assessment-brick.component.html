@@ -3,15 +3,7 @@
     <div fxLayout="row">
       <div class="form-group">
         <div class="assess-select-wrapper">
-        <select class="assess-select" name="assessmentId" required id="assessmentId">
-          <option disabled selected>{{ 'PAGE-CONTENT.BLOCK.LABELS.ASSESSMENTS-NAME' | transloco }}</option>
-          <option>--</option>
-          <option *ngFor="let assessment of assessments" [value]="assessment.id">
-            {{ assessment.title }}
-            <!-- Display all available assessments for the active organization -->
-          </option>
-        </select>
-        <span class="custom-dropdown-arrow"></span>
+        <app-custom-drop-down *ngIf="assessments" [options]="assessments" [selectedOptionId]="selectedAssessmentId" (selectionChanged)="onAssessmentSelected($event)"> </app-custom-drop-down>
         </div>
       </div>
     </div>

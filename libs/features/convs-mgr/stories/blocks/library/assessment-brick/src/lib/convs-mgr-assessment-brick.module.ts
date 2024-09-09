@@ -7,10 +7,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialDesignModule, MaterialBricksModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
+import { AssessmentService, StateAssessmentsModule } from '@app/state/convs-mgr/conversations/assessments';
+import { CustomComponentsModule } from '@app/elements/layout/convs-mgr/custom-components';
+
 import { AssessmentBrickComponent } from './components/assessment-brick/assessment-brick.component';
 
 import { ConvsMgrBlockOptionsModule } from '../../../block-options/src';
-import { AssessmentService, StateAssessmentsModule } from '@app/state/convs-mgr/conversations/assessments';
 
 @NgModule({ declarations: [AssessmentBrickComponent],
     exports: [AssessmentBrickComponent], imports: [CommonModule,
@@ -21,5 +23,6 @@ import { AssessmentService, StateAssessmentsModule } from '@app/state/convs-mgr/
         FormsModule,
         ReactiveFormsModule,
         ConvsMgrBlockOptionsModule,
+        CustomComponentsModule,
         StateAssessmentsModule], providers: [AssessmentService, provideHttpClient(withInterceptorsFromDi())] })
 export class ConvsMgrAssessmentBrickModule {}
