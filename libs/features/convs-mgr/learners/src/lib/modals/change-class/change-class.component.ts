@@ -68,8 +68,7 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
   
         if (classRoom) {
           const userIds = this.enrolledUsers.map(user => user.id as string);
-
-          classRoom.users = classRoom.users ? [...classRoom.users, ...userIds] : userIds;
+          classRoom.users = classRoom.users ? [...new Set([...classRoom.users, ...userIds])] : userIds;
           return this._classroom$.updateClassroom(classRoom);
         }
 
