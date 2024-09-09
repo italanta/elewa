@@ -79,16 +79,16 @@ export class BlockComponent implements OnInit
     return ICONS_AND_TITLES[type];
   }
 
-  highLight() {
+  // highLight() {
     // const endpoint = document.querySelector('.jtk-endpoint');
-    const comp = document.getElementById(this.id) as HTMLElement
-    this._renderer.setStyle(comp, 'z-index', '2')
-  }
+    // const comp = document.getElementById(this.id) as HTMLElement
+    // this._renderer.setStyle(comp, 'z-index', '2')
+  // }
 
-  removeHighlight(){
-    const comp = document.getElementById(this.id) as HTMLElement
-    this._renderer.setStyle(comp, 'z-index', '1')
-  }
+  // removeHighlight(){
+  //   const comp = document.getElementById(this.id) as HTMLElement
+  //   this._renderer.setStyle(comp, 'z-index', '1')
+  // }÷\
   /**
    * Track and update coordinates of block and update them in data model.
    */
