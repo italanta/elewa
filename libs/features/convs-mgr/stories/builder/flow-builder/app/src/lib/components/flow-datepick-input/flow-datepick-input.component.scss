@@ -52,4 +52,15 @@
 
 .column {
   width: 100%;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.text-area-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
 }

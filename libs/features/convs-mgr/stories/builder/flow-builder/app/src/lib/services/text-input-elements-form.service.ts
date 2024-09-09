@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { FlowPageLayoutElementTypesV31, FlowTextAreaInput, FlowTextInput } from "@app/model/convs-mgr/stories/flows";
+import { FlowDatePickerInput, FlowPageLayoutElementTypesV31, FlowTextAreaInput, FlowTextInput } from "@app/model/convs-mgr/stories/flows";
 
 @Injectable({ providedIn: "root" })
 /**
@@ -9,7 +9,12 @@ import { FlowPageLayoutElementTypesV31, FlowTextAreaInput, FlowTextInput } from 
 export class InputElementsFormService {
   constructor(private _formBuilder: FormBuilder) {}
 
-  buildTextForm(textElement?: FlowTextInput | null ): FormGroup 
+  /**
+   * 
+   * @param textElement FlowTextInput element, Meta Compatible
+   * @returns A form group for use with text inputs eg email, phone number etc
+   */
+  buildTextForm(textElement?: FlowTextInput): FormGroup 
   {
     return this._formBuilder.group({
       name: [textElement?.name ?? "", Validators.required],
@@ -24,6 +29,11 @@ export class InputElementsFormService {
     });
   }
 
+  /**
+   * 
+   * @param textElement FlowTextAreaInput element, Meta Compatible
+   * @returns  A form group for use with long text inputs if element is available
+   */
   buildTextAreaForm(textElement?: FlowTextAreaInput): FormGroup {
     return this._formBuilder.group({
       name: [textElement?.name ?? "", Validators.required],
@@ -32,26 +42,48 @@ export class InputElementsFormService {
       visible: [textElement?.visible ?? ''],
       enabled: [textElement?.enabled ?? ''],
       type: FlowPageLayoutElementTypesV31.TEXT_AREA_INPUT,
-       "helper-text": [textElement?.["helper-text"] ?? null]
+      helperText: [textElement?.["helper-text"] ?? null]
     })
   }
 
+  /**
+   * 
+   * @param textElement FlowDatePicker element, Meta Compatible
+   * @returns A form group for use with date inputs when element is present
+   */
+  buildDateForm(textElement?: FlowDatePickerInput): FormGroup {
+    return this._formBuilder.group({
+      name: [textElement?.name ?? "", Validators.required],
+      label: [textElement?.label ?? "", Validators.required],
+      required: [textElement?.required ?? "", Validators.required],
+      helperText: [textElement?.["helper-text"] ?? null],
+      type: FlowPageLayoutElementTypesV31.DATE_PICKER_INPUT});
+  }
+
+  // SECTION: EMPTY FORMS
+
+  /**
+   * 
+   * @returns A form group for use with date inputs
+   */
+  buildEmptyDateForm(): FormGroup {
+    return this.buildDateForm();
+  }
+
+  /**
+   * 
+   * @returns A form group for use with long text inputs
+   */
   buildEmptyTextAreaForm(): FormGroup {
     return this.buildTextAreaForm();
   }
 
-
+  /**
+   * 
+   * @returns A form group for use with single line text inputs
+   */
   buildEmptyTextForm(): FormGroup {
     return this.buildTextForm();
   }
-
-  // buildDateForm(textElement: FeTextInput): FormGroup {
-  //   return this.buildForm(textElement, FlowPageLayoutElementTypesV31.DATE_PICKER_INPUT);
-  // }
-
-  // buildEmptyDateForm(): FormGroup {
-  //   return this.buildForm(null, FlowPageLayoutElementTypesV31.DATE_PICKER_INPUT);
-  // }
-
 }
 

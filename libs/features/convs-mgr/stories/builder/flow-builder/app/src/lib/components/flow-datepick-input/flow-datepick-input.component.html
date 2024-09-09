@@ -12,8 +12,12 @@
       <label for="required">Required:</label>
       <input type="checkbox" id="required" formControlName="required">
     </div>
+    <div class="inputConfigs">
+      <label for="'helper-text'">Helper Text:</label>
+      <input type="text" id="'helper-text'" formControlName="helperText">
+    </div>
     <div class="saveBtn">
-      <button type="submit" (click)="toggleView()"> Save </button>
+      <button type="submit" (click)="saveInputConfig(textInputForm.value)"> Save </button>
     </div>
   </form>
 </div>
