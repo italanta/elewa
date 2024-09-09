@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MultiLangModule } from '@ngfi/multi-lang';
 import { MaterialDesignModule, MaterialBricksModule } from '@iote/bricks-angular';
 
+import { CustomComponentsModule } from '@app/elements/layout/convs-mgr/custom-components';
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { JumpBlockComponent } from './components/jump-block/jump-block.component';
@@ -21,7 +22,7 @@ import { JumpBlockComponent } from './components/jump-block/jump-block.component
 
     FormsModule,
     ReactiveFormsModule,
-
+    CustomComponentsModule,
     ConvsMgrBlockOptionsModule
   ],
 
