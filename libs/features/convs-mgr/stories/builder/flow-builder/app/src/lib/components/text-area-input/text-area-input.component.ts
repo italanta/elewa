@@ -5,11 +5,10 @@ import { SubSink } from 'subsink';
 import { debounceTime, Subject } from 'rxjs';
 
 import { ChangeTrackerService } from '@app/state/convs-mgr/wflows';
-import { FlowDatePickerInput, FlowTextAreaInput, FlowTextInput } from '@app/model/convs-mgr/stories/flows';
+import { FlowTextAreaInput } from '@app/model/convs-mgr/stories/flows';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
-import { TextInputElementsService } from '../../services/text-inputs-elements.service';
-import { FeTextInput } from '../../models/text-type-elements.model';
+import { InputElementsFormService } from '../../services/text-input-elements-form.service';
 
 @Component({
   selector: 'lib-text-area-input',
@@ -30,7 +29,7 @@ export class TextAreaInputComponent
   /** Form fields for inputs */
   textInputForm: FormGroup;
 
-  element: FlowTextInput | FlowDatePickerInput | FlowTextAreaInput
+  element: FlowTextAreaInput
   showConfigs = true;
 
   /** View Container */
@@ -40,7 +39,7 @@ export class TextAreaInputComponent
   private _sbS = new SubSink ()
 
   constructor(private trackerService: ChangeTrackerService,
-              private _formService: TextInputElementsService
+              private _formService: InputElementsFormService
 ) {}
 
   ngOnInit(): void {
@@ -53,7 +52,7 @@ export class TextAreaInputComponent
     });
   }
 
-  buildForms(element?: FeTextInput): void {
+  buildForms(element?: FlowTextAreaInput): void {
     this.textInputForm = element
       ? this._formService.buildTextAreaForm(element)
       : this._formService.buildEmptyTextAreaForm();
@@ -66,10 +65,10 @@ export class TextAreaInputComponent
 
   saveInputConfig(): void {
     if (this.textInputForm.valid) {
-      this.element = this.textInputForm.value;  // Capture form values
+      const inputConfigs = this.textInputForm.value;  // Capture form values
+      this.element = inputConfigs
       this.showConfigs = false;  // Hide configuration form
-      //TODO: COnvert to  meta json format before sending to service
-      // All text inputs should be part of a form
+      console.log(this.element)
       this.triggerAutosave(this.element)
     }
   }
