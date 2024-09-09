@@ -37,9 +37,6 @@ export class FlowCheckboxOptionsComponent implements OnInit, OnDestroy
 
   ngOnInit(): void {
     this.checkboxGroupForm = this.optionGroupFormService.createRadioGroupForm(this.flowGroup);
-    this._sBS.sink = this.checkboxGroupForm.valueChanges.subscribe(() => {
-      this.saveRadioConfig();
-    })
   }
   
   /** Options controls */
@@ -70,7 +67,7 @@ export class FlowCheckboxOptionsComponent implements OnInit, OnDestroy
       this.flowGroup = this.checkboxGroupForm.value;      
       const metaRGroup = buildV31CheckboxGroup(this.checkboxGroupForm.value)
 
-      // this.showConfigs = false;
+      this.showConfigs = false;
       this._trackerService.updateValue(this.control.id, metaRGroup);
       
     } else {

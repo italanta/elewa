@@ -33,9 +33,10 @@
     <!-- Display saved checkbox buttons -->
     <div *ngIf="!showConfigs && flowGroup" class="__labelDiv">
       <h6>{{ flowGroup.label }}</h6>
-      <div *ngFor="let option of flowGroup.options" class="__inputConfigs">
-        <input class=".__checkbox " type="checkbox" [name]="flowGroup.name" [id]="option.label" [required]="flowGroup.required">
-        <label [for]="option.label">{{ option.label }}</label>
+      <div class="__inputConfigs">
+        <select  [required]="flowGroup.required" [name]="flowGroup.name">
+          <option *ngFor="let option of flowGroup.options" type="checkbox"  [id]="option.label">{{option.label}}</option>
+        </select>
       </div>
     </div>
   </form>

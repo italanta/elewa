@@ -5,10 +5,10 @@ import { SubSink } from 'subsink';
 import { Subject } from 'rxjs';
 
 import { ChangeTrackerService } from '@app/state/convs-mgr/wflows';
+import { FlowTextInput } from '@app/model/convs-mgr/stories/flows';
 
-import { FeTextInput } from '../../models/text-type-elements.model';
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
-import { __transformToFlowTextInput, TextInputElementsService, } from '../../services/text-inputs-elements.service';
+import { InputElementsFormService } from '../../services/text-input-elements-form.service';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class FlowTypeInputComponent implements OnInit
   /** Form fields for inputs */
   textInputForm: FormGroup;
 
-  element: FeTextInput
+  element: FlowTextInput
   showConfigs = true;
 
   /** Array of allowed html input types */
@@ -43,7 +43,7 @@ export class FlowTypeInputComponent implements OnInit
   private _sbS = new SubSink ()
 
   constructor(private trackerService: ChangeTrackerService,
-              private _formService: TextInputElementsService
+              private _formService: InputElementsFormService
 ) {}
 
   ngOnInit(): void {
@@ -52,7 +52,7 @@ export class FlowTypeInputComponent implements OnInit
     this.buildForms()
   }
 
-  buildForms(element?: FeTextInput): void {
+  buildForms(element?: FlowTextInput): void {
     this.textInputForm = element
       ? this._formService.buildTextForm(element)
       : this._formService.buildEmptyTextForm();
@@ -67,10 +67,12 @@ export class FlowTypeInputComponent implements OnInit
     if (this.textInputForm.valid) {
       this.element = this.textInputForm.value;  // Capture form values
       this.showConfigs = false;  // Hide configuration form
-      // Transform FeTextInput to FlowTextInput for API
-      const flowTextInput = __transformToFlowTextInput(this.element);
-      this.triggerAutosave(flowTextInput)
+      this.triggerAutosave(this.element)
     }
+  }
+
+  getInputType(element: FlowTextInput): string {
+    return element['input-type'] || 'text';
   }
 
   /** Trigger autosave */

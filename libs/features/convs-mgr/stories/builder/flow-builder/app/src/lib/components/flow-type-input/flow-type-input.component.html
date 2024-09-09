@@ -48,7 +48,7 @@
     <div class="flex-container" *ngIf="!showConfigs">
       <div class="column">
         <label [for]="element.name">{{ element.label }}</label>
-        <input [type]="element.inputType"
+        <input [type]="getInputType(element)"
           class="text-area-input"
           [name]="element.name"
           [id]="element.name"

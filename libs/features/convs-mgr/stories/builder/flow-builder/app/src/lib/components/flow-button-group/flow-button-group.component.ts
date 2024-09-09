@@ -46,7 +46,7 @@ export class FlowButtonGroupComponent implements OnInit
   /** Adding another option */
   addOption() {
     const optionGroup = this.fb.group({
-      id: Math.random().toString(),
+      optionId:[ Math.random().toString()] ,
       label: ['', Validators.required]
     });
     this.options.push(optionGroup);
@@ -63,10 +63,10 @@ export class FlowButtonGroupComponent implements OnInit
    */
   saveRadioConfig() {
     if (this.radioGroupForm.valid) {
+      this.showConfigs = false;
       this.flowGroup = this.radioGroupForm.value;
       const metaRGroup = __buildV31RadioGroup(this.radioGroupForm.value);
       this._trackerService.updateValue(this.control.id, metaRGroup)
-      this.showConfigs = false;
       
     } else {
       console.log('Form is invalid');
