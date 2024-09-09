@@ -134,9 +134,9 @@ export class MediaUploadModalComponent implements OnInit
       
       if (this.uploadProgress === 100 && downloadURL) {
         // Apply media source to the correct form
-        if (this.questionFormGroup) {
+        if (this.formViewMode === QuestionFormMode.AssessmentMode) {
           this.questionFormGroup.patchValue({ mediaSrc: downloadURL, mediaPath: filePath });
-        } else if (this.questionBankForm) {
+        } else if (this.formViewMode === QuestionFormMode.QuestionBankMode) {
           this.questionBankForm.patchValue({ mediaSrc: downloadURL, mediaPath: filePath });
         }
         

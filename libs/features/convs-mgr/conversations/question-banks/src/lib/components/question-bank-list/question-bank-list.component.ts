@@ -46,7 +46,7 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
 
   /** Sending form group to event */
   onNewQuestionAdded(questionFormGroup: FormGroup)
-   {
+  {
     this.questionsFormGroup = questionFormGroup;
   }
 
@@ -67,7 +67,8 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
   }
 
   /** Opening the add question to assessment  */
-  addQuestion() {
+  addQuestion() 
+  {
     const dialogRef = this._dialog.open(AddQuestionToAssessmentComponent, {
       data: { question: this.questions.filter(question => this.selectedQuestions.includes(question.id!)) },
     });
@@ -77,8 +78,9 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
   
 
   /** Seach for specific question text */
-  searchQuestion() {
-    if (this.searchTerm.trim() === '') {
+  searchQuestion() 
+  {
+    if (!this.searchTerm.trim()) {
       this.filteredQuestions = this.questions; // If no search term, show all questions
     } else {
       this.filteredQuestions = this.questions.filter((question) =>
@@ -97,11 +99,13 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
     });
   }
 
-  onQuestionActionCompleted() {
+  onQuestionActionCompleted() 
+  {
     this.isAddingQuestion = false
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(): void 
+  {
     this._sBS.unsubscribe()
   }
 }

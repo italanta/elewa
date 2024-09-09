@@ -62,19 +62,30 @@ export class AssessmentQuestionStore extends DataStore<AssessmentQuestion> {
                                   switchMap((question) => this._activeRepo.write(question, questionId))).subscribe();
   }
 
-  createAssessmentQuestions(assessmentIds: string[], questions: AssessmentQuestion[]){
-    return from(assessmentIds).pipe(
-      concatMap(assessmentId =>
-        from(questions).pipe(
-          map(question => ({...question, assessmentId})),
-          tap(question => {
-            this._org$$.get().pipe(
-              map(org => this._repoFac.getRepo<AssessmentQuestion>(`orgs/${org.id}/assessments/${assessmentId}/questions`))
-            ).subscribe(repo => this._activeRepo = repo);
-          }),
-          switchMap(question => this._activeRepo.write(question, question.id as string))
+  /**
+   * We need to fetch the organization first.
+   * Then we need to get the repository for the specific assessment.
+   * Finally, we need to create the question and write it to the repository.
+   * @param assessmentIds IDs of selected assessments
+   * @param questions Questions to be added to the various assessments
+   * @returns 
+   */
+
+  createAssessmentQuestions(assessmentIds: string[], questions: AssessmentQuestion[]) {
+    return this._org$$.get().pipe(
+      switchMap(org =>
+        from(assessmentIds).pipe(
+          concatMap(assessmentId =>
+            from(questions).pipe(
+              map(question => ({ ...question, assessmentId })),
+              switchMap(question => {
+                const repo = this._repoFac.getRepo<AssessmentQuestion>(`orgs/${org.id}/assessments/${assessmentId}/questions`);
+                return repo.write(question, question.id as string); 
+              })
+            )
+          )
         )
       )
     );
-  }
+  }    
 }

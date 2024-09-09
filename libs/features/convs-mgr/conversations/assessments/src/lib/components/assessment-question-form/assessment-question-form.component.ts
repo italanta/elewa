@@ -183,11 +183,6 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
         this.questionActionCompleted.emit(); 
         this.addClicked = false
       })
-    }else{
-      this._sBS.sink = this.questionBankService.add(questionToAdd ).subscribe(()=> {
-        this.questionActionCompleted.emit(); 
-        this.addClicked = false
-      })
     } 
   }
 
