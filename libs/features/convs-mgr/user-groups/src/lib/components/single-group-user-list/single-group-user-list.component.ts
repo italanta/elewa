@@ -1,6 +1,6 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
+import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -12,6 +12,8 @@ import { SubSink } from 'subsink';
 import { Timestamp } from '@firebase/firestore-types';
 import { __DateFromStorage } from '@iote/time';
 
+import { orderBy as __orderBy } from 'lodash';
+
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { Classroom } from '@app/model/convs-mgr/classroom';
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
@@ -20,17 +22,14 @@ import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { AddUserToGroupModalComponent } from '../../modals/add-user-to-group-modal/add-user-to-group-modal.component';
 import { MoveUsersToGroupModalComponent } from '../../modals/move-users-to-group-modal/create-bot-modal/move-users-to-group-modal.component';
 import { DeleteUserFromGroupModalComponent } from '../../modals/delete-user-from-group-modal/delete-user-from-group-modal.component';
+
 @Component({
   selector: 'app-single-group-user-list',
   templateUrl: './single-group-user-list.component.html',
   styleUrls: ['./single-group-user-list.component.scss'],
 })
-export class SingleGroupUserListComponent implements OnInit, OnDestroy
+export class SingleGroupUserListComponent implements OnInit, AfterViewInit, OnDestroy
 {
-  @ViewChild(MatSort) set matSort(sort: MatSort){
-    this.dataSource.sort = sort;
-  }
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   @Input() classroom: Classroom;
@@ -59,18 +58,21 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
   selection = new SelectionModel<EnrolledEndUser>(true, []);
 
   destinationClass: Classroom;
+  originalDataset: EnrolledEndUser[];
 
-  constructor(
-    private _dialog: MatDialog,
-    private classroomService: ClassroomService,
-    private _learnerService: EnrolledLearnersService,
-    private _liveAnnouncer: LiveAnnouncer,
+  constructor(private _dialog: MatDialog,
+              private classroomService: ClassroomService,
+              private _learnerService: EnrolledLearnersService,
+              private _liveAnnouncer: LiveAnnouncer,
   ) { }
 
   ngOnInit()
   {
     this.loadClassroomLearners();
-    console.log(this.dataSource)
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   loadClassroomLearners()
@@ -79,10 +81,10 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
 
     this._sbs.sink = this._learnerService.getLearnersFromClass(classId)
       .subscribe((learners) => {
+        this.originalDataset = learners
         this.dataSource.data = learners;
         this.allLearners = learners;
         this.dataSource.paginator = this.paginator;
-        // this.dataSource.sort = this.sort;
       });
   }
 
@@ -123,11 +125,15 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
 
   sortData(sortState: Sort)
   {
-    if (sortState.direction == 'asc') {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction} ending`);
-    } else if(sortState.direction == 'desc'){
-      this._liveAnnouncer.announce('Sorting cleared');
+    if (sortState.direction == "" as any) {
+      this.dataSource.data = this.originalDataset;
+      return
     }
+  
+    this.dataSource.data = __orderBy(this.originalDataset,
+                                  sortState.active != 'date-enrolled' ? sortState.active 
+                                                                      : (d: any) => __DateFromStorage(d.createdOn!).unix(),
+                                      sortState.direction as 'asc' | 'desc');
   }
 
   searchTable(event: Event) {
@@ -185,7 +191,7 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
 
   formatDate(date: Timestamp) 
   {
-    return __DateFromStorage(date).format('MMM DD, YYYY');
+    return !date ? "-" : __DateFromStorage(date).format('MMM DD, YYYY');
   }
 
   getStatus(status: number)
