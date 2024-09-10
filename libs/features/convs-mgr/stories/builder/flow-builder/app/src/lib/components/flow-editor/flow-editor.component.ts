@@ -33,12 +33,7 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   }
 
   ngOnInit(): void {
-   this._sbS.sink = this.trackerService.change$.subscribe((events: Array<{ controlId: string; newValue: any }>) => {
-      events.forEach(({ controlId, newValue }) => {
-        console.log(`Control ${controlId} changed to ${newValue}`);
-        
-      });
-    });
+   this._sbS.sink = this.trackerService.change$.subscribe();
   }
   
   /** Function handling drag and drop functionality for a component */
@@ -75,9 +70,7 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   createField(element: FlowControl) {
     if (element.dropped) {
       const componentRef = this.editorComponentFactory.createEditorComponent(element, this.vcr);
-
-      console.log('Component Created:', componentRef.componentType);
-
+      
       componentRef.instance.control = element
 
       componentRef.instance.type = element.type;  // Pass the value to the component
