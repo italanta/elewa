@@ -3,35 +3,69 @@ import axios from 'axios';
 import { WFlow } from "@app/model/convs-mgr/stories/flows";
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionContext, FunctionHandler } from '@ngfi/functions';
+import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { Query } from '@ngfi/firestore-qbuilder';
 
 
 const GRAPH_API = process.env['GRAPH_API'];
 const API_VERSION: string = process.env['MESSENGER_VERSION'] || 'v18.0';
-const GRAPH_ACCESS_TOKEN = process.env['GRAPH_ACCESS_TOKEN'];
-const WABA_ID = process.env['WABA_ID'];
 
-export class CreateWhatsappFlowHandler extends FunctionHandler<any, any> {
-  public override execute(data: WFlow, context: FunctionContext, tools: HandlerTools): Promise<WFlow> 
+/** 
+ * @see https://developers.facebook.com/docs/whatsapp/flows/reference/flowsapi/
+ */
+export class CreateWhatsappFlowHandler extends FunctionHandler<{flow: WFlow, orgId: string}, any> {
+  async execute(data: {flow: WFlow, orgId: string}, context: FunctionContext, tools: HandlerTools): Promise<any> 
   {
-    const base_url= `${GRAPH_API}/${API_VERSION}/${WABA_ID}/flows`;
+    try {
+      const channel = await this._getChannel(data.orgId, tools);
 
-    const formData = this._prepareData(data);
-    // Update the flow ID
-    return axios.post(base_url, formData, {
-      headers: {
-        'Content-Type': `multipart/form-data`,
-        'Authorization': `Bearer ${GRAPH_ACCESS_TOKEN}`
+      if(!channel && channel.length < 1) {
+        throw 'Channel does not exist for org: ' + data.orgId;
       }
-    })
+      
+      const whatsappChannel = channel[0];
+  
+      const WABA_ID = whatsappChannel.businessAccountId;
+      const GRAPH_ACCESS_TOKEN = whatsappChannel.accessToken;
+  
+      const base_url= `${GRAPH_API}/${API_VERSION}/${WABA_ID}/flows`;
+  
+      const payload = this._prepareData(data.flow);
+  
+      // Update the flow ID
+      const resp = await axios.post(base_url, payload, {
+        headers: {
+          'Content-Type': `application/json`,
+          'Authorization': `Bearer ${GRAPH_ACCESS_TOKEN}`
+        }
+      })
+  
+      if(resp.data && resp.data.id) {
+        const flowId = resp.data.id;
+    
+        return {flowId, success: true};
+      } else {
+        tools.Logger.error(()=> `Error when creating flow :: ${JSON.stringify(resp.data || "")}`)
+        return {success: false};
+      }
+      
+    } catch (error) {
+      tools.Logger.error(()=> `Error when creating flow :: ${error}`)
+      return {success: false};
+    }
   }
 
-  private _prepareData(data: WFlow){
-    const formData = new FormData();
-    formData.append('flow', JSON.stringify(data.flow));
-    formData.append('name', data.name as string);
-    formData.append('preview', JSON.stringify(data.preview));
-    formData.append('endpoint_uri', data.endpoint_uri as string);
-    formData.append('clone_flow_id', data.clone_flow_id as string);
-    return formData;
+  private _getChannel(orgId: string, tools: HandlerTools) {
+    const channelRepo$ = tools.getRepository<WhatsAppCommunicationChannel>(`channels`);
+
+    return channelRepo$.getDocuments(new Query().where("orgId", "==", orgId));
+  }
+
+  private _prepareData(flowConfig: WFlow){
+    return {
+      flow: flowConfig.flow,
+      name: flowConfig.name,
+      // endpoint_uri: flowConfig.endpoint_uri
+    };
   }
 }
