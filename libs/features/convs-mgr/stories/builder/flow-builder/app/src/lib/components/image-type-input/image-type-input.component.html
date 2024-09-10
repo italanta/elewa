@@ -1,12 +1,14 @@
-<div class="configs" *ngIf="imageInputForm">
+<div class="configs" *ngIf="imageInputForm && showForm" >
   <form [formGroup]="imageInputForm">
     <div class="inputConfigs">
       <label for="alt-text">Alt Text:</label>
       <input type="text" id="alt-text" formControlName="alt-text">
     </div>
+    <p>{{fileAccept | json}}</p>
     <div class="inputConfigs">
       <label for="src">Image Source:</label>
-      <input type="file" id="src" (change)="onFileSelected($event)">
+      <!-- Button to trigger file selection -->
+      <button mat-raised-button (click)="openFileExplorer(fileAccept)" class="media-btn">Choose File</button>
     </div>
     <div class="inputConfigs">
       <label for="width">Width:</label>
@@ -31,4 +33,7 @@
   </form>
   <button (click)="saveConfigurations()">Save</button>
 </div>
-
+<div *ngIf="!showForm">
+  <p>{{element.src}}</p>
+  <img [src]="element.src" />
+</div>
