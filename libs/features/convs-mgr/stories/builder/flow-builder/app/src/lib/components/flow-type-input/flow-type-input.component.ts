@@ -52,7 +52,8 @@ export class FlowTypeInputComponent implements OnInit
     this.buildForms()
   }
 
-  buildForms(element?: FlowTextInput): void {
+  buildForms(element?: FlowTextInput): void 
+  {
     this.textInputForm = element
       ? this._formService.buildTextForm(element)
       : this._formService.buildEmptyTextForm();
@@ -63,7 +64,8 @@ export class FlowTypeInputComponent implements OnInit
     });
   }
   
-  saveInputConfig(): void {
+  saveInputConfig(): void 
+  {
     if (this.textInputForm.valid) {
       this.element = this.textInputForm.value;  // Capture form values
       this.showConfigs = false;  // Hide configuration form

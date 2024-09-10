@@ -1,20 +1,34 @@
-<div class="configs">
+<div class="configs" *ngIf="imageInputForm">
   <form [formGroup]="imageInputForm">
     <div class="inputConfigs">
-      <label for="name">Name:</label>
-      <input type="text" id="name" formControlName="name">
+      <label for="alt-text">Alt Text:</label>
+      <input type="text" id="alt-text" formControlName="alt-text">
     </div>
     <div class="inputConfigs">
-      <label for="label">Label:</label>
-      <input type="text" id="label" formControlName="label">
+      <label for="src">Image Source:</label>
+      <input type="file" id="src" (change)="onFileSelected($event)">
     </div>
     <div class="inputConfigs">
-      <label for="required">Required:</label>
-      <input type="checkbox" id="required" formControlName="required">
+      <label for="width">Width:</label>
+      <input type="number" id="width" formControlName="width">
     </div>
     <div class="inputConfigs">
-      <label for="required">Required:</label>
-      <input type="file" id="required" formControlName="image">
+      <label for="height">Height:</label>
+      <input type="number" id="height" formControlName="height">
+    </div>
+    <div class="inputConfigs">
+      <label for="scale-type">Scale Type:</label>
+      <select id="scale-type" formControlName="scale-type">
+        <option value="contain">Contain</option>
+        <option value="cover">Cover</option>
+        <option value="fill">Fill</option>
+      </select>
+    </div>
+    <div class="inputConfigs">
+      <label for="aspect-ratio">Aspect Ratio:</label>
+      <input type="number" id="aspect-ratio" formControlName="aspect-ration" step="0.1">
     </div>
   </form>
+  <button (click)="saveConfigurations()">Save</button>
 </div>
+

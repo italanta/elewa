@@ -1,12 +1,13 @@
+import { Injectable } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { FlowImage } from "@app/model/convs-mgr/stories/flows";
 
+@Injectable({providedIn: 'root'})
 export class ImageInputFormService
-
 {
   constructor( private _fb: FormBuilder){}
 
-  buildImageForm(element: FlowImage)
+  buildImageForm(element?: FlowImage)
   {
     return this._fb.group({
       'alt-text': [element?.['alt-text'] || ''],
