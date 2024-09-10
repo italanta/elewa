@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { Repository, DataService } from '@ngfi/angular';
-import { DataStore }  from '@ngfi/state';
-
 import { of } from 'rxjs'
 import { tap, throttleTime, switchMap } from 'rxjs/operators';
 
+import { Repository, DataService } from '@ngfi/angular';
+import { DataStore }  from '@ngfi/state';
 import { Logger } from '@iote/bricks-angular';
 
 import { Organisation } from '@app/model/organisation';
@@ -32,27 +31,19 @@ export class WhatsappFlowsStore extends DataStore<WFlow>
   {
     super("always", _logger);
 
-    const story = _story$$.get().pipe(
-      tap((story: Story) => this._activeStory = story)
-    )
+    const story$ = _story$$.get();
+    const org$ = _org$$.get();
 
-    const data$ = _org$$.get()
-                    .pipe(
-                      tap((org: Organisation) => this._activeOrg  = org),
-                      
-                      tap((org: Organisation) => this._activeRepo = _repoFac.getRepo<WFlow>(`orgs/${org.id}/stories/${this._activeStory.id}/flows`)),
-                      switchMap((org: Organisation) => 
-                        org ? this._activeRepo.getDocuments() : of([] as WFlow[])),
-                      throttleTime(500, undefined, { leading: true, trailing: true }));
+    const data$ = story$.pipe(tap((story: Story)=> this._activeStory = story), 
+                switchMap(()=> org$),
+                tap((org: Organisation)=> this._activeOrg = org),
+                tap((org: Organisation)=> this._activeRepo = _repoFac.getRepo<WFlow>(`orgs/${org.id}/stories/${this._activeStory.id}/flows`)),
+
+                switchMap((org) => org ? this._activeRepo.getDocuments() : of([] as WFlow[])),
+                throttleTime(500, undefined, { leading: true, trailing: true }));
 
     this._sbS.sink = data$.subscribe(properties => {
       this.set(properties, 'UPDATE - FROM DB');
     });
   }
-
-  // saveWFlow(story: WFlow){
-  //   console.log(story);
-  //   // story.publishedOn = new Date();
-  //   return this._activeRepo.write(story, story.id!);
-  // }
 }
