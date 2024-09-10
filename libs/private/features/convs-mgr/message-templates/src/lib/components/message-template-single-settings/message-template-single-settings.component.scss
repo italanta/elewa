@@ -13,18 +13,20 @@
         .schedule-list{
           display: flex;
           margin: 0.8rem 0;
+          gap: 0.5rem;
           input{
             font-size: medium;
-            width:90%; 
+            width: 85%; 
             height: 100%; 
             border-radius: 1rem; 
             border: 0.0625rem var(--convs-mgr-input-color) solid;
             padding: 1rem 1rem;
           }
           .buttons{
+            display: flex;
+            gap: 0.5rem;
             text-align: center;
             img{
-              padding: 0.5rem 0.5rem 0 0.5rem;
               cursor: pointer;
               
             }
@@ -176,9 +178,8 @@
 }
 
 .schedule-status {
-  padding: 0.6rem 0.5rem;
   display: flex;
-  align-self: baseline;
+  align-self: center;
   font-weight: 600;
 }
 

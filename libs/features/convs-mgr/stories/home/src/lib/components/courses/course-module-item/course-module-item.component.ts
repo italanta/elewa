@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatDialog  } from '@angular/material/dialog';
@@ -23,7 +23,7 @@ import { ConnectToChannelModalComponent } from '../../../modals/connect-to-chann
   templateUrl: './course-module-item.component.html',
   styleUrls: ['./course-module-item.component.scss'],
 })
-export class CourseModuleItemComponent implements OnDestroy {
+export class CourseModuleItemComponent implements OnDestroy, OnInit {
   @Input() botModule: BotModule;
   @Input() story: Story;
 
@@ -38,7 +38,12 @@ export class CourseModuleItemComponent implements OnDestroy {
               private _fileStorageService: FileStorageService) {}
 
   specificBot: Bot | undefined; /**adding undefined here since it is described that way in the store service, removing might break something, check on this */
-  
+
+  ngOnInit(): void {
+      this._botsService$.getBotById(this.botModule.parentBot).subscribe((bot) => {
+        this.specificBot = bot;
+      })
+  }
   openModule(id: string) {
     this._router$.navigate(['modules', id]);
   }

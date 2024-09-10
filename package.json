@@ -9,6 +9,8 @@
     "postinstall": "node ./decorate-angular-cli.js",
     "start": "nx serve",
     "build": "nx build",
+    "build:stats-main": "nx build conv-learning-manager --skip-nx-cache --prod --stats-json",
+    "analyze:main": "webpack-bundle-analyzer dist/apps/conv-learning-manager/stats.json",
     "test": "nx test"
   },
   "private": true,
@@ -120,7 +122,8 @@
     "ts-jest": "29.1.5",
     "ts-node": "10.9.1",
     "tslib": "^2.4.0",
-    "typescript": "5.4.5"
+    "typescript": "5.4.5",
+    "webpack-bundle-analyzer": "^4.10.2"
   },
   "firebase-functions-dependencies": [
     "firebase-functions",

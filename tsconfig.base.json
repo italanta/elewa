@@ -252,7 +252,9 @@
       "@app/functions/bot-process-handler": [
         "libs/functions/bot-process-handler/src/index.ts"
       ],
-      "@app/functions/convs-mgr/bots": ["libs/functions/convs-mgr/bots/src/index.ts"],
+      "@app/functions/convs-mgr/bots": [
+        "libs/functions/convs-mgr/bots/src/index.ts"
+      ],
       "@app/functions/convs-mgr/story-editor/check-story-for-errors": [
         "libs/functions/convs-mgr/story-editor/check-story-for-errors/src/index.ts"
       ],

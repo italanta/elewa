@@ -12,6 +12,9 @@
 
   .story-name {
     color: #101010;
+    word-wrap: break-word;
+    word-break: break-all;
+    width: 12.5rem;
   }
 
   .btn {

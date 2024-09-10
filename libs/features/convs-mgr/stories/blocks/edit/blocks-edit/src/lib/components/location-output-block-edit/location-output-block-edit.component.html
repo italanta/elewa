@@ -1,0 +1,9 @@
+<div class="block-edit-form-wrapper">
+  <div  class="block-form-edit">
+    <div class="block-edit-header">
+      <i [class]="icon" class="icon-color"></i>
+      <span class="title">{{ title | transloco }}</span>
+    </div>
+		<app-location-block-form [id]="id" [block]="block" [locationMessageForm]="form" [jsPlumb]="jsPlumb" [isEdit]='true'></app-location-block-form>
+  </div>
+</div>
