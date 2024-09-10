@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, switchMap } from 'rxjs';
 import { WhatsappFlowsStore } from '../stores/whatsapp-flow.store';
 import { WFlow, FlowJSONV31, FlowScreenV31 } from '@app/model/convs-mgr/stories/flows';
+import { WFlowService } from '../providers/wflow.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class ChangeTrackerService {
   private jsonArray: { controlId: string; newValue: any }[] = []; // Tracks changes
   private changeSubject = new BehaviorSubject<{ controlId: string; newValue: any }[]>([]);
 
-  constructor(private _wFlowStore: WhatsappFlowsStore) {}
+  constructor(private _wFlowService: WFlowService) {}
 
   public change$ = this.changeSubject.asObservable();
 
@@ -31,7 +32,15 @@ export class ChangeTrackerService {
       validation_errors: [],  
     };
 
-    return this._wFlowStore.add(wflow);  
+    return this._wFlowService.activeFlow$.pipe(switchMap((config)=> {
+      if(config && config.flow.id) {
+        wflow.flow.id = config.flow.id;
+        return this._wFlowService.add(wflow); 
+      } else {
+        return this._wFlowService.initFlow(wflow);
+      }
+    }))
+ 
   }
 
   /**
@@ -43,6 +52,7 @@ export class ChangeTrackerService {
     });
 
     return {
+      id: '',
       version: '3.1',
       screens: screens,  // Screens built from user interactions
       data_api_version: '3.0',

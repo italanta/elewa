@@ -8,6 +8,10 @@ import { FlowPageLayoutElementV31 } from "./elements/flow-element.interface";
  */
 export interface FlowJSONV31
 {
+
+  /** Id of the flow provided by whatsapp */
+  id: string;
+  
   /** 
    * The flow version being used. Constant set at 3.1.
    * When updating the flow, copy this folder to create the new version as seperate types.
