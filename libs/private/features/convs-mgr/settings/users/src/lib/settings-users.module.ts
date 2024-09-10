@@ -11,6 +11,8 @@ import { UsersComponent } from './components/users/users.component';
 
 import { NewUserDialogComponent } from './modals/new-user-dialog/new-user-dialog.component';
 import { UpdateUserModalComponent } from './modals/update-user-modal/update-user-modal.component';
+import { RolePipe } from './custom-pipes/role.pipe';
+
 
 @NgModule({
   imports: [
@@ -29,7 +31,8 @@ import { UpdateUserModalComponent } from './modals/update-user-modal/update-user
   declarations: [
     UsersComponent,
     NewUserDialogComponent,
-    UpdateUserModalComponent
+    UpdateUserModalComponent,
+    RolePipe
   ],
   exports: [
     UsersComponent

@@ -1,7 +1,6 @@
 import { Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
-
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
@@ -35,6 +34,8 @@ export class QuestionsBlockComponent implements OnInit
   questiontype = StoryBlockTypes.QuestionBlock;
   blockFormGroup: FormGroup;
 
+  hitLimit: boolean;
+
   readonly questionOptionInputLimit = questionOptionInputLimit;
 
   constructor(private _fb: FormBuilder) { }
@@ -43,6 +44,7 @@ export class QuestionsBlockComponent implements OnInit
     this.block.options?.forEach((option) => {
       this.options.push(this.addQuestionOptions(option));
     })
+    this.hitLimit = this.block.options ? this.block.options?.length >= questionOptionsArrayLimit : false;
   }
 
   get options(): FormArray {
@@ -62,6 +64,7 @@ export class QuestionsBlockComponent implements OnInit
     setTimeout(() => {
       this.setFocusOnNextInput();
     });
+    this.hitLimit = this.options.length >= questionOptionsArrayLimit;
   }
 
   deleteInput(i: number) {
@@ -74,6 +77,18 @@ export class QuestionsBlockComponent implements OnInit
     this.jsPlumb.deleteConnectionsForElement(optionElement)
     
     this.options.removeAt(i);
+
+    this.hitLimit = this.options.length >= questionOptionsArrayLimit;
+  }
+
+  handleEnterKey(event: any) {
+    // Prevent the default behavior (e.g., form submission)
+    event.preventDefault(); 
+    // Stop the event from propagating to other elements i.e.
+    //  deleteInput button was being triggered instead
+    event.stopPropagation(); 
+
+    this.addNewOption();
   }
 
   setFocusOnNextInput() {
@@ -82,4 +97,5 @@ export class QuestionsBlockComponent implements OnInit
       this.optionInputFields
     );
   }
+
 }

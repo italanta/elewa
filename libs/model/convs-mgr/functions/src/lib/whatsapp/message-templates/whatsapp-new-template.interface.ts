@@ -1,4 +1,4 @@
-import { TemplateCategoryTypes } from "../../base/message-template.interface";
+import { WhatsappTemplateCategoryTypes } from "./whatsapp-template-categories.enum";
 import { WhatsappNewTemplateComponent } from "./whatsapp-template-components.interface";
 
 export interface WhatsappCreateTemplate
@@ -6,7 +6,6 @@ export interface WhatsappCreateTemplate
   allow_category_change?: boolean;
   name: string,
   language: string,
-  category: TemplateCategoryTypes,
+  category: WhatsappTemplateCategoryTypes,
   components: WhatsappNewTemplateComponent[];
-
 }

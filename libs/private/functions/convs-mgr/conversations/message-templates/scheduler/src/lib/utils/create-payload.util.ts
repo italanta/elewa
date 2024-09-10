@@ -2,38 +2,43 @@ import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/s
 import { JobTypes, ScheduleOptions } from "@app/model/convs-mgr/functions";
 
 import { TemplateMessage } from "@app/model/convs-mgr/conversations/messages";
+import { EnrolledEndUser } from "@app/model/convs-mgr/learners";
 
-export function CreateTemplateMessagePayload (options: ScheduleOptions, channel: CommunicationChannel, endUserIds: string[], msg: TemplateMessage) 
+export function CreateTemplateMessagePayload (options: ScheduleOptions, channel: CommunicationChannel, inactiveUsers: EnrolledEndUser[], msg: TemplateMessage) 
 {
   return {
     message: msg,
     functionName: 'sendMultipleMessages',
     n: channel.n,
     plaform: channel.type,
-    endUserIds: endUserIds,
+    orgId: channel.orgId,
+    enroledEndUsers: inactiveUsers,
+    scheduleId: options.id,
     dispatchTime: new Date(options.dispatchTime)
   };
 }
 
-export function CreateSurveyPayload (options: ScheduleOptions,channel: CommunicationChannel, endUserIds: string[], msg: TemplateMessage) 
+export function CreateSurveyPayload (options: ScheduleOptions,channel: CommunicationChannel, inactiveUsers: EnrolledEndUser[], msg: TemplateMessage) 
 {
   return {
     functionName: 'sendSurvey',
-    endUserIds: endUserIds,
+    enroledEndUsers: inactiveUsers,
     surveyId: options.id,
     messageTemplateId: msg.id,
-    channelId: channel.id
+    channelId: channel.id,
+    scheduleId: options.id,
+    orgId: channel.orgId,
   };
 }
 
-export function _getPayload(options: ScheduleOptions,channel: CommunicationChannel, endUserIds: string[], msg: TemplateMessage)
+export function _getPayload(options: ScheduleOptions,channel: CommunicationChannel, inactiveUsers: EnrolledEndUser[], msg: TemplateMessage)
 {
   switch (options.type) {
     case JobTypes.Survey:
-      return CreateSurveyPayload(options, channel, endUserIds, msg);
+      return CreateSurveyPayload(options, channel, inactiveUsers, msg);
     case JobTypes.SimpleMessage:
-      return CreateTemplateMessagePayload(options, channel, endUserIds, msg);
+      return CreateTemplateMessagePayload(options, channel, inactiveUsers, msg);
     default:
-      return CreateTemplateMessagePayload(options, channel, endUserIds, msg);
+      return CreateTemplateMessagePayload(options, channel, inactiveUsers, msg);
   }
 }

@@ -115,7 +115,7 @@ export class BotsListLatestCoursesComponent implements OnInit, OnDestroy
   deleteBot(bot:Bot){
     this._dialog.open(ConfirmDeleteModalComponent, {
       data: { 
-        mode: DeleteElementsEnum.BotModule, element: bot,
+        mode: DeleteElementsEnum.Bot, element: bot,
       }
     });
   } 

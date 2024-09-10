@@ -45,15 +45,23 @@ export class MessagesDataService extends BotDataService<Message> {
     return latestMessage[0];
   }
 
-  async getLatestUserMessage(endUserId: string, orgId: string): Promise<Message> {
+  async getLatestUserMessage(endUserId: string, orgId: string): Promise<Message | null> {
     this._docPath = `orgs/${orgId}/end-users/${endUserId}/messages`
 
-    const latestMessage = await this.getDocuments(this._docPath);
+    const messages = await this.getDocuments(this._docPath);
+
+    if(!messages || messages.length < 1) {
+      return null;
+    }
 
     // Filter out the messages that are not from the user
-    const userMessages = latestMessage.filter(msg => 
+    const userMessages = messages.filter(msg => 
        (msg.direction === MessageDirection.FROM_ENDUSER_TO_AGENT ||
         msg.direction === MessageDirection.FROM_END_USER_TO_CHATBOT));
+
+    if(!userMessages || userMessages.length < 1) {
+      return null;
+    }
 
     // Return the latest message using createdOn timestamp
     const latestUserMessage = userMessages.reduce((prev, current) => {

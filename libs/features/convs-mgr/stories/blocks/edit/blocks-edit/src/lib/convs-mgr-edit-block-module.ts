@@ -11,6 +11,12 @@ import {
 import { ConvsMgrProcessInputsModule } from '@app/features/convs-mgr/stories/blocks/process-inputs';
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import { ConvsMgrReusableTextAreaModule } from '@app/features/convs-mgr/stories/blocks/library/reusable-text-area';
+import { ConvsMgrImageMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/image-message-block';
+import { ConvsMgrLocationMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/location-message-block';
+import { ConvsMgrDocumentMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/document-message-block';
+import { ConvsMgrAudioMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/audio-message-block';
+import { ConvsMgrVideoMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/video-message-block';
+import { ConvsMgrConditionalBlockModule } from '@app/features/convs-mgr/stories/blocks/library/conditional-block';
 
 import { QuestionButtonsEditFormsComponent } from './components/question-buttons-edit-forms/question-buttons-edit-forms.component';
 import { LocationInputBlockEditComponent } from './components/location-input-block-edit/location-input-block-edit.component';
@@ -27,6 +33,12 @@ import { NameBlockEditComponent } from './components/name-block-edit/name-block-
 import { WebhookEditComponent } from './components/webhook-edit/webhook-edit.component';
 import { DefaultComponent } from './components/default/default.component';
 import { ListBlockEditComponent } from './components/list-block-edit/list-block-edit.component';
+import { ImageOutputBlockEditComponent } from './components/image-output-block-edit/image-output-block-edit.component';
+import { LocationOutputBlockEditComponent } from './components/location-output-block-edit/location-output-block-edit.component';
+import { DocumentOutputBlockEditComponent } from './components/document-output-edit/document-output-block-edit.component';
+import { AudioOutputBlockEditComponent } from './components/audio-output-block-edit/audio-output-block-edit.component';
+import { VideoOutputBlockEditComponent } from './components/video-output-block-edit/video-output-block-edit.component';
+import { ConditionalBlockEditComponent } from './components/conditional-block-edit/conditional-block-edit.component';
 
 @NgModule({
   imports: [
@@ -39,7 +51,13 @@ import { ListBlockEditComponent } from './components/list-block-edit/list-block-
     MaterialDesignModule,
     ConvsMgrProcessInputsModule,
     ConvsMgrBlockOptionsModule,
-    ConvsMgrReusableTextAreaModule
+    ConvsMgrReusableTextAreaModule,
+    ConvsMgrImageMessageBlockModule,
+    ConvsMgrLocationMessageBlockModule,
+    ConvsMgrDocumentMessageBlockModule,
+    ConvsMgrAudioMessageBlockModule,
+    ConvsMgrVideoMessageBlockModule,
+    ConvsMgrConditionalBlockModule
   ],
   
   declarations: [
@@ -57,7 +75,13 @@ import { ListBlockEditComponent } from './components/list-block-edit/list-block-
     PhoneBlockEditComponent,
     WebhookEditComponent,
     DefaultComponent,
-    ListBlockEditComponent
+    ListBlockEditComponent,
+    ImageOutputBlockEditComponent,
+    LocationOutputBlockEditComponent,
+    DocumentOutputBlockEditComponent,
+    AudioOutputBlockEditComponent,
+    VideoOutputBlockEditComponent,
+    ConditionalBlockEditComponent
   ],
 })
 export class ConvsMgrEditBlockModule {}

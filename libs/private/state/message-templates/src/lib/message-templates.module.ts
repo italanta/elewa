@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MessageTemplateStore } from './store/message-template.store';
 import { ScheduledMessageStore } from './store/scheduled-message.store';
 import { MilestoneTriggersStore } from './store/milestone-trigger.store';
+import { ActiveMessageTemplateStore } from './store/active-message-template.store';
 
 @NgModule({
   imports: [CommonModule],
@@ -15,7 +16,8 @@ export class MessageTemplatesModule {
       providers: [
         MessageTemplateStore,
         ScheduledMessageStore,
-        MilestoneTriggersStore
+        MilestoneTriggersStore,
+        ActiveMessageTemplateStore
       ]
     };
   }

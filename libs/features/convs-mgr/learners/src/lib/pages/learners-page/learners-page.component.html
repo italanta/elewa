@@ -3,58 +3,57 @@
 
     <!-- top actions and filter container -->
     <div class="top-wrapper">
-      <div class="top-actions">
-        <span class="learners-title"> {{ "LEARNERS.LEARNERS" | transloco }} </span>
-        <div>
+      <span class="learners-title"> {{ "LEARNERS.LEARNERS" | transloco }} </span>
+      <div class="filters-actions-holder">
+        <div class="table-filters">
+          <div class="search">
+            <i class="fas fa-search search_tooltip"></i>
+            <input class="search_input" type="text" name="search table"
+              placeholder="{{'LEARNERS.PLACEHOLDERS.SEARCH-PLACEHOLDER'| transloco }}" id=""
+              (keyup)="searchTable($event)">
+          </div>
+
+          <div class="dropdown">
+            <div class="select">
+              <select (change)="filterTable($event, 'class')">
+                <option value="allClasses" selected>{{ 'All Classes' | titlecase  }}</option>
+                <option *ngFor="let class of allClasses" [value]="class.id">{{ class.className | titlecase }}</option>
+              </select>
+            </div>
+
+            <div class="select">
+              <select (change)="filterTable($event, 'course')">
+                <option value="allCourses" selected>All Courses</option>
+                <option *ngFor="let course of allCourses" [value]="course.id">{{ course.name | titlecase }}</option>
+              </select>
+            </div>
+
+            <div class="select">
+              <select (change)="filterTable($event, 'status')">
+                <option value="allStatus" selected> All Status </option>
+                <option *ngFor="let status of allStatus" [value]="EnrolledEndUserStatus[status]">{{ EnrolledEndUserStatus[status] | titlecase }}</option>
+              </select>
+            </div>
+
+            <div class="select">
+              <select (change)="filterTable($event, 'platform')">
+                <option value="allPlatforms" selected>All Platforms</option>
+                <option *ngFor="let platform of allPlatforms" [value]="platform">{{ platform | titlecase }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="top-actions">
           <!-- <button mat-raised-button class="btn add-to-class"
             (click)="openCreateClassModal()">{{'LEARNERS.BUTTONS.CREATE-CLASS'| transloco }}</button> -->
 
           <button mat-raised-button color="primary" class="btn add-to-class" (click)="openChangeClassModal($event)">
             {{'LEARNERS.BUTTONS.ADD-TO-GROUP'| transloco }}
           </button>
-
           <button mat-raised-button  class="btn send-message-btn" (click)="sendMessageButtonClicked()">
             {{'LEARNERS.BUTTONS.SEND-MESSAGE'| transloco }}
           </button>
-        </div>
-      </div>
-
-      <div class="table-filters">
-        <div class="search">
-          <i class="fas fa-search search_tooltip"></i>
-          <input class="search_input" type="text" name="search table"
-            placeholder="{{'LEARNERS.PLACEHOLDERS.SEARCH-PLACEHOLDER'| transloco }}" id=""
-            (keyup)="searchTable($event)">
-        </div>
-
-        <div class="dropdown">
-          <div class="select">
-            <select (change)="filterTable($event, 'class')">
-              <option value="allClasses" selected>{{ 'All Classes' | titlecase  }}</option>
-              <option *ngFor="let class of allClasses" [value]="class.id">{{ class.className | titlecase }}</option>
-            </select>
-          </div>
-
-          <div class="select">
-            <select (change)="filterTable($event, 'course')">
-              <option value="allCourses" selected>All Courses</option>
-              <option *ngFor="let course of allCourses" [value]="course.id">{{ course.name | titlecase }}</option>
-            </select>
-          </div>
-
-          <div class="select">
-            <select (change)="filterTable($event, 'status')">
-              <option value="allStatus" selected> All Status </option>
-              <option *ngFor="let status of allStatus" [value]="EnrolledEndUserStatus[status]">{{ EnrolledEndUserStatus[status] | titlecase }}</option>
-            </select>
-          </div>
-
-          <div class="select">
-            <select (change)="filterTable($event, 'platform')">
-              <option value="allPlatform" selected>All Platforms</option>
-              <option *ngFor="let platform of allPlatforms" [value]="platform">{{ platform | titlecase }}</option>
-            </select>
-          </div>
         </div>
       </div>
     </div>
@@ -129,9 +128,9 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
       </table>
 
-      <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" [length]="dataSource.data.length" [pageSize]="10"
-        [ariaLabel]="'ASSESSMENTS.RESULTS.ACCESSIBILITY.SELECT-RESULTS-PAGE' | transloco "></mat-paginator>
     </div>
+    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" [length]="dataSource.data.length" [pageSize]="10"
+      [ariaLabel]="'ASSESSMENTS.RESULTS.ACCESSIBILITY.SELECT-RESULTS-PAGE' | transloco "></mat-paginator>
     <!-- end mat-table -->
     <convl-empty-page-illustration *ngIf="!dataSource.data.length" text="No users yet"></convl-empty-page-illustration>
   </div>

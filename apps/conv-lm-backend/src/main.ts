@@ -25,6 +25,9 @@ export * from './app/bot/main/schedule/schedule-message-templates.function';
 export * from './app/bot/main/schedule/check-inactivity.function';
 export * from './app/bot/main/schedule/set-inactivity.function';
 export * from './app/bot/main/schedule/run-schedule.function';
+export * from './app/bot/main/delete-bot.function';
+export * from './app/bot/main/delete-module.function';
+export * from './app/bot/main/delete-story.function';
 
 export * from './app/micro-apps/cmi5/fetch-token.function';
 export * from './app/micro-apps/cmi5/cmi5-zip-parser.function';

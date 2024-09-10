@@ -30,7 +30,7 @@
             <th class="table-header" mat-header-cell *matHeaderCellDef 
               >
               {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.TABLE.TABLE-HEADER.MESSAGES-SENT'| transloco }}</th>
-              <td mat-cell *matCellDef="let template">  {{ template.content.sent ? template.content.sent : 0 }} </td>
+              <td mat-cell *matCellDef="let template">  {{ template.messageCount ? template.messageCount : 0 }} </td>
           </ng-container>
       
           <ng-container matColumnDef="lastUpdated">
