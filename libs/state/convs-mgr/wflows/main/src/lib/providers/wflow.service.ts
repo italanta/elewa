@@ -1,18 +1,18 @@
+import { Injectable } from "@angular/core";
+
 import { lastValueFrom, map, Observable, switchMap, take } from "rxjs";
 
 import { DataService } from "@ngfi/angular";
 import { Query } from "@ngfi/firestore-qbuilder";
 
-// import { Injectable } from "@angular/core";
 import { ActiveStoryStore } from "@app/state/convs-mgr/stories";
 
 import { StoryModuleTypes } from "@app/model/convs-mgr/stories/main";
 import { FlowStory, WFlow } from "@app/model/convs-mgr/stories/flows";
+
 import { WhatsappFlowsStore } from "../stores/whatsapp-flow.store";
 
-
-
-// @Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: 'root' })
 export class WFlowService
 {
   /** 

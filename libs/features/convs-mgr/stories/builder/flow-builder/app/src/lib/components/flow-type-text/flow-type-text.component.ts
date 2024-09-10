@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, OnInit, Output, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { debounceTime } from 'rxjs/operators';
@@ -16,6 +16,8 @@ import { EditableTextElement } from '../../models/fe-flow-text-element.model';
   styleUrls: ['./flow-type-text.component.scss'],
 })
 export class FlowTypeTextComponent implements OnInit {
+  @Input() elementForm: FormGroup;
+
   /** The type of input, for text inputs */
   type: FlowControlType;
   flowControlType = FlowControlType;
@@ -39,7 +41,8 @@ export class FlowTypeTextComponent implements OnInit {
 
   ngOnInit(): void {
     this.inputId = `input-${this.control.type}`;
-    this.buildForm();
+    // this.buildForm();
+    this.textInputForm = this.elementForm;
 
     // Subscribe to form value changes
     this._sbS.sink = this.textInputForm.get('text')?.valueChanges
@@ -49,13 +52,13 @@ export class FlowTypeTextComponent implements OnInit {
     });
   }
 
-  buildForm(): void {
-    if (this.control && this.textElement) {
-      this.textInputForm = this.textFormService.createTextForm(this.textElement);
-    } else {
-      this.textInputForm = this.textFormService.createEmptyForm();
-    }
-  }
+  // buildForm(): void {
+  //   if (this.control && this.textElement) {
+  //     this.textInputForm = this.textFormService.createTextForm(this.textElement);
+  //   } else {
+  //     this.textInputForm = this.textFormService.createEmptyForm();
+  //   }
+  // }
 
   buildV31Element(value: string) {
     const formValue = {
