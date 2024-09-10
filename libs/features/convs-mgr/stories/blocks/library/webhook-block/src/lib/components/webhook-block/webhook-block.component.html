@@ -4,16 +4,11 @@
 		<div class="webhook-select-wrapper">
 			<div class="webhook-select-inputs">
 
-			<select class="webhook-select" name="webhookselect" required id="webhookselectId">
-				<option *ngFor="let  http of httpCategories ; let
-                	i=index" [value]="http.method" [selected]="i === 0">{{http.name}}
-            	</option>
-			</select>
+			<app-custom-drop-down class="webhook-select" *ngIf="httpCategories" [options]="httpCategories" [selectedOptionId]="selectedCategoryId" (selectionChanged)="onhttpMethosSelected($event)"> </app-custom-drop-down>
+			<div class="vertical-line-select"></div>
 			<input placeholder="URL input" class="webhook-input" name="webhookinput" formControlName="httpUrl" required id="webhookInputId"/>
 
 			</div>
-			<span class="custom-dropdown-arrow"></span>
-			<div class="vertical-line-select"></div>
 		</div>
 
 		<div class="second-block">
