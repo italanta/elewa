@@ -1,10 +1,10 @@
 <div class="message-template-settings">
     
-    <div class="btn-cont">
-        <button [ngClass]="{'gray-out': !action}" mat-raised-button class="send-btn" (click)="saveSchedule()">
-            <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.BTN-CONT.SAVE-BUTTON.SAVE'| transloco }}  </span>
+    <!-- <div class="btn-cont">
+        <button [ngClass]="{'gray-out': !action}" mat-raised-button class="send-btn" (click)="setSchedule()">
+            <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.BTN-CONT.SEND-BUTTON.SEND'| transloco }}  </span>
         </button>
-    </div>
+    </div> -->
 
     <div class="form-group head">
         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.MESSAGE-CONDITIONS'| transloco }}</p>
@@ -17,6 +17,10 @@
             <div class="buttons">
               <img src="assets/icons/edit-item.svg" alt="edit" (click)="editModal(schedule)">
               <img src="assets/icons/delete-item.svg" alt="delete" (click)="deleteSchedule(schedule)">
+            </div>
+            <div class="schedule-status">
+              <i alt="Incomplete configuration" matTooltip="Incomplete configuration" class="fas fa-exclamation fa-lg warning" *ngIf="!schedule.scheduledOn"></i>
+              <i alt="Schedule ready" matTooltip="Schedule ready"  class="far fa-check-circle fa-lg ready"  *ngIf="schedule.scheduledOn"></i>
             </div>
           </div>
         </div>

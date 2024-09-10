@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SubSink } from 'subsink';
 import { Observable, of, switchMap, tap } from 'rxjs';
 
-import { ConfirmDeleteModalComponent, CreateLessonModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
+import { ConfirmDeleteModalComponent, CreateLessonModalComponent, DeleteElementsEnum } from '@app/elements/layout/convs-mgr/story-elements';
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { FileStorageService } from '@app/state/file';
 
@@ -97,7 +97,9 @@ export class CoursesListComponent implements OnDestroy {
 
   deleteBot(bot:Bot){
     this._dialog.open(ConfirmDeleteModalComponent, {
-      data: { bot }
+      data: { 
+        mode: DeleteElementsEnum.Bot, element: bot,
+      }
     });
   } 
 

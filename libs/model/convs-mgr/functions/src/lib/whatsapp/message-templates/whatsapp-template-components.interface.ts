@@ -1,4 +1,4 @@
-import { TemplateButtonType } from "../../base/message-template.interface";
+import { WhatsappTemplateButtonType } from "./whatsapp-template-button-type.enum";
 import { WhatsappTemplateComponentTypes } from "./whatsapp-template-component-type.enum";
 
 export interface WhatsappNewTemplateComponent 
@@ -23,7 +23,7 @@ export interface WhatsappButtonsTemplateComponent extends WhatsappNewTemplateCom
 
 export interface WhatsappTemplateButtons
 {
-  type: TemplateButtonType;
+  type: WhatsappTemplateButtonType;
   text: string;
 }
 

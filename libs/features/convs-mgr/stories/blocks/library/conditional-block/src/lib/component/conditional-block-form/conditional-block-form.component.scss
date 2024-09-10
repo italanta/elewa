@@ -1,0 +1,195 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.select-variable {
+  border: none;
+  border-radius: 10px;
+  resize: none;
+  padding: 10px;
+  max-width: 24rem;
+  background-color: #F3F3F3;
+  color: #7C7C7C;
+  width: 100%;
+  cursor: pointer;
+}
+
+.edit_form_select {
+  background-color: #fff !important;
+}
+
+.edit_add_button {
+  width: 100% !important;
+  color: white !important;
+  border-radius: 25px !important;
+  background: #3E788A 0% 0% no-repeat padding-box !important;
+  height: 3rem !important;
+  justify-content: center !important; 
+}
+
+input {
+	box-sizing: border-box;
+	min-width: calc(100% - 20px) !important; // minus the padding
+	padding: 10px;
+	border: none;
+	resize: none;
+    outline: none;
+	border-radius: 0.6rem;
+	background-color: var(--convs-mgr-placeholder-color);
+}
+
+.details-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  width: 100%;
+}
+
+.checkbox-text {
+  color: var(--convs-mgr-color-101010 );
+}
+
+.options-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.btns-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.edit_btns_wrapper {
+  gap: 1rem !important;
+}
+
+.add-button {
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center; 
+  width: 100%;
+  background-color: var(--convs-mgr-placeholder-color);
+  color: var(--convs-mgr-input-color);
+  border-radius: 0.6rem;
+}
+
+//* Container styles */
+.select-variable {
+  display: flex;
+  align-items: center; /* Center vertically */
+  padding: 10px;
+}
+/* Checkbox styles */
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-right: 10px; /* Adjust margin to prevent overlap */
+  vertical-align: middle; /* Adjust vertical alignment if needed */
+  background-color: white;
+  box-shadow: 0 0 0.5px var(--convs-mgr-text-color);
+  cursor: pointer;
+  border-radius: None;
+  transition: background-color 0.2s;
+
+  &::checked {
+    background-color: var(
+      --convs-mgr-placeholder-color
+    ); /* Add a different color when checked */
+  }
+  
+  &:active {
+    background-color: var(
+      --convs-mgr-placeholder-color
+    ); /* Change color on click for feedback */
+  }
+}
+
+/* Label styles */
+.custom-label {
+  color: var(--convs-mgr-input-color);
+  font-family: 'Roboto', sans-serif; /* Make sure to import the Roboto font if not already imported */
+  font-size: 0.625rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  vertical-align: middle; /* Adjust vertical alignment if needed */
+}
+
+.listgone {
+  border: none;
+  background-color: transparent;
+}
+
+.input {
+  margin: 0;
+  width: 100%;
+}
+
+.inputList {
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+
+/* Customize the label (the container) */
+.custom-variable-checkbox {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  font-size: small;
+  height: 1.2rem;
+}
+
+/* Hide the default checkbox */
+.custom-variable-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create the custom checkmark */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0.875rem;
+  width: 0.875rem;
+  background-color: transparent;
+  border: 2px solid teal;
+  border-radius: 4px;
+}
+
+/* White checkmark (hidden by default) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 1px;
+  width: 3px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Show the checkmark when the checkbox is checked */
+.custom-variable-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Teal background when the checkbox is checked */
+.custom-variable-checkbox input:checked ~ .checkmark {
+  background-color: teal;
+  border: 2px solid teal;
+}

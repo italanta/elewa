@@ -1,101 +1,112 @@
-import { HandlerTools } from "@iote/cqrs";
-
-import { MessageTemplate, 
-         WhatsappNewTemplateComponent, 
-         TemplateBody, 
+import { isMediaHeader, TemplateBody, TemplateHeader, TemplateHeaderTypes, TemplateMessage, TextHeader } from "@app/model/convs-mgr/conversations/messages";
+import { WhatsappNewTemplateComponent, 
          WhatsappBodyTemplateComponent, 
          WhatsappTemplateComponentTypes, 
-         TemplateHeader, 
          WhatsappHeaderTemplateComponent, 
          WhatsappTemplateButtons, 
          WhatsappButtonsTemplateComponent, 
-         TemplateHeaderTypes, 
-         WhatsappMediaTemplateComponent, 
          WhatsappTextHeaderTemplateComponent, 
-         isMediaHeader, 
-         TextHeader} from "@app/model/convs-mgr/functions";
+         WhatsappMediaTemplateComponent, 
+         WhatsappTemplateHeaderTypes } from "@app/model/convs-mgr/functions";
 
-export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTools) 
+import { HandlerTools } from "@iote/cqrs";
+
+
+export function mapComponents(messageTemplate: TemplateMessage, tools: HandlerTools) 
 {
   const components = Object.keys(messageTemplate.content);
 
-  const filteredComponents = components.filter((com)=> messageTemplate.content[com]);
+  const filteredComponents = components.filter((com) => messageTemplate.content[com]);
 
-  const templateComponents: WhatsappNewTemplateComponent[] = filteredComponents.map((comp) =>
-  {
+  const templateComponents: WhatsappNewTemplateComponent[] = [];
+
+  for (const comp of filteredComponents) {
     switch (comp) {
       case "body": {
         const rawBody = messageTemplate.content[comp] as TemplateBody;
-        const bodyExamples = messageTemplate.bodyExamples.map((exmp)=> exmp.value);
-
+        const bodyExamples = rawBody.examples.map((exmp) => exmp.value);
         const parsedText = parseVariables(rawBody.text);
-
+  
         const bodyComponent: WhatsappBodyTemplateComponent = {
           type: WhatsappTemplateComponentTypes.Body,
           text: parsedText.newText,
         };
-
+  
         if (parsedText.varCount > 0) {
           if (parsedText.varCount === bodyExamples.length) {
             bodyComponent.example = {
-              // For some reason, whatsapp requires the examples to be inside anotehr array
-              //   if they are more than one
+              // For some reason, WhatsApp requires the examples to be inside another array if they are more than one
               body_text: parsedText.varCount > 1 ? [bodyExamples] : bodyExamples
-            }
+            };
           } else {
             tools.Logger.error(() => `Error parsing template body - Variable count mismatch`);
           }
         }
-        return bodyComponent;
+  
+        templateComponents.push(bodyComponent);
+        break;
       }
-
+  
       case "footer": {
         const footerComponent: WhatsappBodyTemplateComponent = {
           type: WhatsappTemplateComponentTypes.Footer,
           text: messageTemplate.content[comp],
         };
-        return footerComponent;
+        templateComponents.push(footerComponent);
+        break;
       }
-
+  
       case "header": {
         const rawHeader = messageTemplate.content[comp] as TemplateHeader;
-        const headerExample = messageTemplate.headerExamples.map((exmp)=> exmp.value);
-
+        const headerExample = rawHeader.examples.map((exmp) => exmp.value);
+  
         let headerComponent: WhatsappHeaderTemplateComponent = {
-          format: rawHeader.type,
+          format: rawHeader.type as unknown as WhatsappTemplateHeaderTypes,
           type: WhatsappTemplateComponentTypes.Header,
         };
-
+  
         headerComponent = mapHeaders(headerComponent, rawHeader);
-
-        if(headerExample) {
+  
+        if (!headerComponent) {
+          break;
+        }
+  
+        if (headerExample) {
           headerComponent = addExampleToHeader(headerComponent, headerExample[0], tools);
         }
-        return headerComponent;
+  
+        templateComponents.push(headerComponent);
+        break;
       }
-
+  
       case "buttons": {
-        const rawButtons = messageTemplate.content[comp] as WhatsappTemplateButtons[];
+        const rawButtons = messageTemplate.content[comp] as unknown as WhatsappTemplateButtons[];
         const buttonsComponent: WhatsappButtonsTemplateComponent = {
           type: WhatsappTemplateComponentTypes.Buttons,
           buttons: rawButtons,
         };
-        return buttonsComponent;
+        templateComponents.push(buttonsComponent);
+        break;
       }
-
+  
       default:
         // Handle other cases or throw an error if needed
-        return {} as WhatsappNewTemplateComponent;
+        templateComponents.push({} as WhatsappNewTemplateComponent);
+        break;
     }
-  });
-
+  }
+  
   return templateComponents;
 }
 
-function mapHeaders(header: WhatsappHeaderTemplateComponent, template: TemplateHeader) {
+function mapHeaders(header: WhatsappHeaderTemplateComponent, template: TemplateHeader)
+{
   // TODO -- Add other header types
-  if(template.type == TemplateHeaderTypes.TEXT) {
+  if (template.type == TemplateHeaderTypes.TEXT) {
     const textTemplate = template as TextHeader;
+
+    if(!textTemplate.text) return null;
+
     header.text = textTemplate.text;
   }
   return header;
@@ -105,7 +116,7 @@ function addExampleToHeader(header: WhatsappHeaderTemplateComponent, headerExamp
 {
   tools.Logger.log(() => `[ManageTemplateService]._addExampleToHeader - Adding example content to header...`);
 
-  if (header.format == TemplateHeaderTypes.TEXT) {
+  if (header.format == "TEXT") {
     const textHeader = header as WhatsappTextHeaderTemplateComponent;
     const parsedText = parseVariables(textHeader.text);
 
@@ -113,7 +124,7 @@ function addExampleToHeader(header: WhatsappHeaderTemplateComponent, headerExamp
     // Because the header only allows one variable
     if (parsedText.varCount == 1) {
       textHeader.example = {
-        header_text : [headerExample]
+        header_text: [headerExample]
       };
       textHeader.text = parsedText.newText;
     }
@@ -130,12 +141,14 @@ function addExampleToHeader(header: WhatsappHeaderTemplateComponent, headerExamp
   }
 }
 
-function parseVariables(text: string): { newText: string; varCount: number } {
+function parseVariables(text: string): { newText: string; varCount: number; }
+{
   const varExp = new RegExp(/\{\{([^}]+)\}\}/g);
 
   let count = 0;
 
-  const replacedText = text.replace(varExp, (_, match) => {
+  const replacedText = text.replace(varExp, (_, match) =>
+  {
     count++;
     return `{{${count.toString()}}}`;
   });

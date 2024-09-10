@@ -155,6 +155,10 @@
         "END-ANCHOR": "End",
         "CAPTION": "Caption",
         "IMAGE-LINK": "Image Url",
+        "IMAGE-UPLOAD": "Click here to upload an image from your computer",
+        "DOCUMENT-UPLOAD": "Click here to upload a document from your computer",
+        "AUDIO-UPLOAD": "Click here to upload an audio from your computer",
+        "VIDEO-UPLOAD": "Click here to upload a video from your computer",
         "NAME": "Name",
         "EMAIL": "Email",
         "PHONE-NUMBER": "Phone",
@@ -163,11 +167,11 @@
         "FILE-NAME": "File name",
         "DOCUMENT-LINK": "Document link",
         "STICKER-LINK": "Sticker link",
-        "LOCATION-INPUT": "Location input",
+        "LOCATION-INPUT": "Add message",
         "OPEN-ENDED-QUESTION": "Open ended question",
-        "IMAGE-INPUT": "Image Input",
-        "VIDEO-INPUT": "Video Input",
-        "AUDIO-INPUT": "Audio Input",
+        "IMAGE-INPUT": "Add message",
+        "VIDEO-INPUT": "Add message",
+        "AUDIO-INPUT": "Add message",
         "WEBHOOK": "Url Input",
         "EVENT-NAME": "Event Name",
         "0PTIONAL-PAYLOAD": "Optional - Payload",
@@ -960,7 +964,7 @@
     "MAX-CHARACTERS": "maximum characters reached"
   },
   "ADMIN-SETTINGS": {
-    "MAIN_TITLE": "Admin Settings",
+    "MAIN_TITLE": "Settings",
     "TEAM-SECTION" : {
       "TITLE": "Team",
       "DESCRIPTION": "Invite and/or manage Team Members within your organization",
@@ -995,7 +999,9 @@
     "DELETE-TEXT":"You will receive an email to confirm your decision. This will not end your subscription or payments and you will continue to be charged.You can cancel your subscription, or switch payment methods to keep the team active",
     "FETCH-USER-DATA":"Fetching user data",
     "BUTTON":{
-      "PASSWORD-RESET":"Get Password Reset Link"
+      "PASSWORD-RESET":"Get Password Reset Link",
+      "UPLOAD":"Upload",
+      "REMOVE":"Remove"
     }
   },    
 
@@ -1065,6 +1071,9 @@
       "BTN-CONT": {
         "SAVE-BUTTON": {
           "SAVE": "Save"
+        },
+        "SEND-BUTTON": {
+          "SEND": "Send"
         }
       },
       "FORM-GROUP": {
@@ -1292,17 +1301,24 @@
       "Messenger":"Messenger",
       "GENERAL-DETAILS":"General Details",
       "BOT-DETAILS":"Channel Details",
+      "BOT-DETAILS-PLACEHOLDER":"e.g. Agriculture 101 - Messenger - English",
       "WHATSAPP-CHANNEL-DETAILS":"WhatsApp Channel Details",
       "ACCESS-TOKEN":"Access Token",
+      "ACCESS-TOKEN-PLACEHOLDER":"e.g. xSugbbJHSjHHJSjSbshiooalSikSOjAS56s",
       "BOT-PHONE-NUMBER":"Bot Phone Number",
+      "BOT-PHONE-NUMBER-PLACEHOLDER":"e.g. 254701234567",
       "BOT-PHONE-NUMBER-ID":"Bot Phone Number ID",
+      "BOT-PHONE-NUMBER-ID-PLACEHOLDER":"e.g. 454621761902172",
       "BUSINESS-ACCOUNT-ID":"Business Account ID",
+      "BUSINESS-ACCOUNT-ID-PLACEHOLDER":"e.g. 567897890099986",
       "PAGE-ID":"Page ID",
+      "PAGE-ID-PLACEHOLDER":"e.g. 4634156788919012",
       "MESSENGER-CHANNEL-DETAILS":"Messenger Channel Details",
       "CHANNEL-NAME":"Channel Name",
+      "CHANNEL-NAME-PLACEHOLDER":"e.g. Agriculture Course - English",
       "PLATFORM":"Platform",
-      "FIRST-STORY":"First Story"
-      
+      "FIRST-STORY":"First Story",
+      "CHANNEL-FIRST":"Please select a channel first"
   }
 },
   "ASSESSMENT-MICROAPP": {

@@ -1,6 +1,11 @@
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { ListBlockEditComponent, QuestionButtonsEditFormsComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { ConditionalBlockEditComponent, 
+         DocumentOutputBlockEditComponent, 
+         ImageOutputBlockEditComponent, 
+         ListBlockEditComponent, 
+         LocationOutputBlockEditComponent, 
+         QuestionButtonsEditFormsComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { LocationInputBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { KeywordJumpBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { OpenEndedQuestionEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
@@ -14,6 +19,8 @@ import { NameBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/e
 import { PhoneBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { WebhookEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { DefaultComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { AudioOutputBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { VideoOutputBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 
 
 export function getActiveBlock(type: StoryBlockTypes) {
@@ -21,7 +28,7 @@ export function getActiveBlock(type: StoryBlockTypes) {
     case StoryBlockTypes.TextMessage:
       return MessageBlockEditComponent;
     case StoryBlockTypes.Image:
-      return DefaultComponent;
+      return ImageOutputBlockEditComponent;
     case StoryBlockTypes.Name:
       return NameBlockEditComponent;
     case StoryBlockTypes.Email:
@@ -31,15 +38,15 @@ export function getActiveBlock(type: StoryBlockTypes) {
     case StoryBlockTypes.QuestionBlock:
       return QuestionButtonsEditFormsComponent;
     case StoryBlockTypes.Location:
-      return DefaultComponent;
+      return LocationOutputBlockEditComponent;
     case StoryBlockTypes.List:
       return ListBlockEditComponent;
     case StoryBlockTypes.Document:
-      return DefaultComponent;
+      return DocumentOutputBlockEditComponent;
     case StoryBlockTypes.Audio:
-      return DefaultComponent;
+      return AudioOutputBlockEditComponent;
     case StoryBlockTypes.Video:
-      return DefaultComponent;
+      return VideoOutputBlockEditComponent;
     case StoryBlockTypes.Sticker:
       return DefaultComponent;
     case StoryBlockTypes.Reply:
@@ -58,6 +65,8 @@ export function getActiveBlock(type: StoryBlockTypes) {
       return VideoInputBlockEditComponent;
     case StoryBlockTypes.WebhookBlock:
       return WebhookEditComponent;
+    case StoryBlockTypes.Conditional:
+      return ConditionalBlockEditComponent;
     case StoryBlockTypes.EndStoryAnchorBlock:
       return DefaultComponent;
     case StoryBlockTypes.OpenEndedQuestion:

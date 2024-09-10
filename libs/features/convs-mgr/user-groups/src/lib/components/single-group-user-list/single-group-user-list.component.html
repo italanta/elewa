@@ -1,10 +1,4 @@
 <div class="container">
-    <div class="buttons">
-      <button class="btn add-user" *ngIf="selection.selected.length < 1" (click)="openAddModal()" transloco="LEARNERS.USER-GROUPS.BUTTONS.ADD-USER-TO-GROUP"></button>
-      <button class="btn delete-users" *ngIf="selection.selected.length > 0" (click)="deleteSelectedUsers()" transloco="LEARNERS.USER-GROUPS.BUTTONS.DELETE-USERS"></button>
-      <button class="btn move-users" *ngIf="selection.selected.length > 0" (click)="moveUsersModal()" transloco="LEARNERS.USER-GROUPS.BUTTONS.MOVE-USERS"></button>
-      <!-- <button class="btn" >Add User to Group</button> -->
-    </div>
     <div class="table-filters" *ngIf="dataSource.data.length">
 
         <div class="search"> 
@@ -28,6 +22,13 @@
               </select>
             </div>
             </div>
+            
+        <div class="buttons">
+          <button class="btn add-user" *ngIf="selection.selected.length < 1" (click)="openAddModal()" transloco="LEARNERS.USER-GROUPS.BUTTONS.ADD-USER-TO-GROUP"></button>
+          <button class="btn delete-users" *ngIf="selection.selected.length > 0" (click)="deleteSelectedUsers()" transloco="LEARNERS.USER-GROUPS.BUTTONS.DELETE-USERS"></button>
+          <button class="btn move-users" *ngIf="selection.selected.length > 0" (click)="moveUsersModal()" transloco="LEARNERS.USER-GROUPS.BUTTONS.MOVE-USERS"></button>
+          <!-- <button class="btn" >Add User to Group</button> -->
+        </div>
     </div>
 
     <convl-empty-page-illustration *ngIf="!dataSource.data.length" text="No users yet" [customStyle]="emptyPageStyle"></convl-empty-page-illustration>
@@ -98,10 +99,10 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
       </table>
-
-      <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" [length]="dataSource.data.length" [pageSize]="10"
-        [ariaLabel]="'ASSESSMENTS.RESULTS.ACCESSIBILITY.SELECT-RESULTS-PAGE' | transloco "></mat-paginator>
     </div>
+    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" [length]="dataSource.data.length" [pageSize]="10"
+      [ariaLabel]="'ASSESSMENTS.RESULTS.ACCESSIBILITY.SELECT-RESULTS-PAGE' | transloco "></mat-paginator>
+    
 </div>
 
 

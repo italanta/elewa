@@ -4,8 +4,10 @@ import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
-import { ScheduleOptionType, ScheduleOptions, ScheduledMessage } from '@app/model/convs-mgr/functions';
+import { JobTypes, ScheduleOptionType, ScheduledMessage } from '@app/model/convs-mgr/functions';
 import { ScheduleMessageService } from '@app/private/state/message-templates';
+import { Router } from '@angular/router';
+import { TemplateMessage } from '@app/model/convs-mgr/conversations/messages';
 
 @Component({
   selector: 'app-after-inactivity-modal',
@@ -20,8 +22,9 @@ export class AfterInactivityModalComponent {
   @Output() timeInHoursSelected = new EventEmitter<{data: ScheduledMessage}>();
 
   constructor(private _dialog: MatDialog, 
+              private _route$$: Router,
               private _scheduleMessageService: ScheduleMessageService,
-              @Inject(MAT_DIALOG_DATA) public data: {schedule: ScheduledMessage, templateId: string}
+              @Inject(MAT_DIALOG_DATA) public data: {schedule: ScheduledMessage, template: TemplateMessage}
               ){
     this.selectedTime = new FormControl(1)
     
@@ -38,9 +41,11 @@ export class AfterInactivityModalComponent {
 
     const schedule: ScheduledMessage = {
       id: uuid(),
-      objectID: this.data.templateId,
+      objectID: this.data.template.id,
+      channelId: this.data.template.channelId as string,
       inactivityTime: timeInHours,
       scheduleOption: ScheduleOptionType.Inactivity,
+      type: JobTypes.SimpleMessage,
       scheduledOn: new Date()
     }
 
@@ -53,7 +58,22 @@ export class AfterInactivityModalComponent {
       this._scheduleMessageService.addScheduledMesssage(schedule).subscribe();
     }
 
+    const optionsPayload = {
+      schedule,
+      template: this.data.template
+    }
+    
+    // Set the schedule configuration so that it can be accessed from the 
+    //  learners page
+    this._scheduleMessageService.setOptions(optionsPayload);
+    
+    this._dialog.afterAllClosed.subscribe(() => this.goToLearnersPage());
+
     this._dialog.closeAll();
+  }
+
+  goToLearnersPage(){
+    this._route$$.navigate(['/users']);
   }
 
   patchValues() {

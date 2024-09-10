@@ -4,13 +4,13 @@
     <div *ngIf="!chat.name">
      <span style="color: white;">UU</span>
     </div>
-    <span class="user-char" *ngIf="chat.name">{{getUserName(chat.name)}}</span>
+    <span class="user-char" *ngIf="chat.name">{{getUserAvatar(chat.name)}}</span>
   </div>
   <div class="text-section" fxLayout="column" fxFlex>
     <div class="top-section" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="name-section">
-        <div class="name-section">
-          {{ chat.name || '+' + chat.phoneNumber }}
+        <div class="name-section">    
+          {{ chat.name || '+' + chat.phoneNumber | slice:0:20 }} 
         </div>
         <div *ngIf="chat.phoneNumber && chat.name" class="name-section number">
           {{ '+' + chat.phoneNumber }}

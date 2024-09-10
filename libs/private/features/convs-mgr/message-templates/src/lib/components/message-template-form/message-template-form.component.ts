@@ -1,12 +1,11 @@
-import { Component, ElementRef, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
-import { Observable, map } from 'rxjs';
+import { Observable, map, of, switchMap, take } from 'rxjs';
 
-import { MessageTemplate, VariableExample } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService } from '@app/private/state/message-templates';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
@@ -21,6 +20,8 @@ import { SnackbarService } from '../../services/snackbar.service';
 import { categoryOptions, languageOptions } from '../../utils/constants';
 import { HeaderVariablesSampleSectionComponent } from '../header-variables-sample-section/header-variables-sample-section.component';
 import { BodyVariablesSampleSectionComponent } from '../body-variables-sample-section copy/body-variables-sample-section.component';
+import { TemplateMessage, TemplateVariableExample } from '@app/model/convs-mgr/conversations/messages';
+import { CleanPayload } from '../../utils/clean-form-payload.util';
 @Component({
   selector: 'app-message-template-form',
   templateUrl: './message-template-form.component.html',
@@ -35,10 +36,10 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
   @ViewChild('bodySection')
   bodySection: BodyVariablesSampleSectionComponent;
 
-  template$: Observable<MessageTemplate | undefined>;
-  template: MessageTemplate;
+  template$: Observable<TemplateMessage | undefined>;
+  template: TemplateMessage;
   channels$: Observable<CommunicationChannel[]>;
-  deletedExamples: VariableExample[] = [];
+  deletedExamples: TemplateVariableExample[] = [];
 
   templateForm: FormGroup;
   content: FormGroup;
@@ -70,7 +71,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
 
   constructor(
     private fb: FormBuilder,
-    private _messageTemplatesService: MessageTemplatesService,
+    private _templateMessagesService: MessageTemplatesService,
     private _route: ActivatedRoute,
     private _route$$: Router,
     private _snackbar: SnackbarService,
@@ -83,6 +84,8 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
   ngOnInit()
   {
     this.templateForm = createTemplateForm(this.fb);
+
+    this.initPage();
 
     // Set listeners for value changes on body and header
     //  We use this to detect and update the variables added
@@ -97,22 +100,26 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
   initPage()
   {
     this._sbS.sink = this._route.params
-      .pipe(map((params) => params['id'] as string))
-      .subscribe((templateId) =>
+      .pipe(switchMap((params) =>
       {
+        const templateId = params['id'] as string;
         if (templateId) {
-          this.template$ = this._messageTemplatesService.getTemplateById(templateId);
+          return this._templateMessagesService.getTemplateById(templateId);
+        } else {
+          return of(null);
+        }
+      })).subscribe((template) =>
+      {
+        if (template) {
+          this.template = template;
+          this.templateForm = createTemplateForm(this.fb, template);
 
-          this._sbS.sink = this.template$.subscribe((template) =>
-          {
-            if (template) {
-              this.template = template;
-              this.templateForm = createTemplateForm(this.fb, template);
+          this.showHeaderExampleSection = this.templateForm.controls['headerExamples'].value.length > 0;
+          this.showBodyExampleSection = this.templateForm.controls['bodyExamples'].value.length > 0;
 
-              this.showHeaderExampleSection = this.templateForm.controls['headerExamples'].value.length > 0;
-              this.showBodyExampleSection = this.templateForm.controls['bodyExamples'].value.length > 0;
-            }
-          });
+          this.onBodyChange();
+          this.onHeaderChange();
+          this.onExamplesChange();
         }
       });
   }
@@ -153,36 +160,31 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
   removeOnChange(change: string, section: 'body' | 'header')
   {
 
-    if(section == 'body') {
+    if (section == 'body') {
+      const examplesArray = this.templateForm.get('bodyExamples')?.value as TemplateVariableExample[];
 
-      const examplesArray = this.templateForm.get('bodyExamples')?.value as VariableExample[];
-  
       examplesArray.forEach((exmp) =>
       {
         const variable = `{{${exmp.name}}}`;
-  
+
         if (!change.includes(variable)) {
-          exmp.section = section;
           this.removeExample(exmp.name as string, section);
           this.deletedExamples.push(exmp);
         }
       });
     } else {
-      const examplesArray = this.templateForm.get('headerExamples')?.value as VariableExample[];
-      
+      const examplesArray = this.templateForm.get('headerExamples')?.value as TemplateVariableExample[];
+
       examplesArray.forEach((exmp) =>
       {
         const variable = `{{${exmp.name}}}`;
-        
+
         if (!change.includes(variable)) {
-          exmp.section = section;
           this.removeExample(exmp.name as string, section);
           this.deletedExamples.push(exmp);
         }
       });
-
     }
-
   }
 
   restoreOnChange(change: string, section: 'body' | 'header')
@@ -193,7 +195,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
       {
         const variable = `{{${exmp.name}}}`;
 
-        if (exmp.section === section && change.includes(variable)) {
+        if (change.includes(variable)) {
           this.addExample(exmp.name as string, section, true);
 
           this.deletedExamples = this.deletedExamples.filter((dExmp) => dExmp.name !== exmp.name);
@@ -281,17 +283,23 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
   {
     this.isSaving = true;
 
-    this._sbS.sink = this._messageTemplatesService
-      .updateTemplateMeta(this.templateForm.value)
-      .subscribe((response) => {
+    const payload = CleanPayload(this.templateForm.value);
+
+    this._sbS.sink = this._templateMessagesService
+      .updateTemplateMeta(payload)
+      .subscribe((response) =>
+      {
         if (response.success) {
-          this._sbS.sink = this._messageTemplatesService
-            .updateTemplate(this.templateForm.value)
+          this._sbS.sink = this._templateMessagesService
+            .updateTemplate(payload)
             .subscribe(() =>
             {
               this._snackbar.showSuccess('Template updated successfully');
               this.isSaving = false;
             });
+          } else {
+            this._snackbar.showSuccess('Template failed to update. Invalid changes made');
+            this.isSaving = false;
         }
       });
   }
@@ -309,22 +317,24 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy
       return;
     }
 
+    const payload = CleanPayload(this.templateForm.value);
+
     this.isSaving = true;
-    this._sbS.sink = this._messageTemplatesService
-      .createTemplateMeta(this.templateForm.value)
+    this._sbS.sink = this._templateMessagesService
+      .createTemplateMeta(payload)
       .subscribe((response) =>
       {
         if (!response.success) {
           this.isSaving = false;
-          this._snackbar.showError(response);
+          this._snackbar.showError(response.message);
         }
 
-        this.templateForm.value.templateId = response.data.id;
+        this.templateForm.value.externalId = response.data.id;
 
-        const templateId = `${this.templateForm.value.name}${this.templateForm.value.language}`;
+        const templateId = `${this.templateForm.value.name}_${this.templateForm.value.language}`;
 
-        this._sbS.sink = this._messageTemplatesService
-          .addMessageTemplate(this.templateForm.value, templateId)
+        this._sbS.sink = this._templateMessagesService
+          .addMessageTemplate(payload, templateId)
           .subscribe(() =>
           {
             this.isSaving = false;

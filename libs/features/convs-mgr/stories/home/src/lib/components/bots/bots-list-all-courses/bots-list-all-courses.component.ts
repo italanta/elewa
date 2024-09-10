@@ -176,10 +176,10 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDes
     });
   }
 
-  deleteBot(bot:Bot) {
+  deleteBot(bot:Bot){
     this._dialog.open(ConfirmDeleteModalComponent, {
       data: { 
-        mode: DeleteElementsEnum.BotModule, element: bot,
+        mode: DeleteElementsEnum.Bot, element: bot,
       }
     });
   } 

@@ -13,18 +13,20 @@
         .schedule-list{
           display: flex;
           margin: 0.8rem 0;
+          gap: 0.5rem;
           input{
             font-size: medium;
-            width:90%; 
+            width: 85%; 
             height: 100%; 
             border-radius: 1rem; 
             border: 0.0625rem var(--convs-mgr-input-color) solid;
             padding: 1rem 1rem;
           }
           .buttons{
+            display: flex;
+            gap: 0.5rem;
             text-align: center;
             img{
-              padding: 0.5rem 0.5rem 0 0.5rem;
               cursor: pointer;
               
             }
@@ -173,5 +175,19 @@
  .gray-out {
   cursor: not-allowed!important;
   opacity: .5;
+}
+
+.schedule-status {
+  display: flex;
+  align-self: center;
+  font-weight: 600;
+}
+
+.schedule-status > .warning {
+  color: var(--convs-mgr-warning-color);
+}
+
+.schedule-status > .ready  {
+  color: var(--convs-mgr-button-color);
 }
 
