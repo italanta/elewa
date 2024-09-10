@@ -18,25 +18,30 @@ import { BotMediaProcessService } from '../services/media/process-media-service'
 import { BotEngineJump } from '../services/bot-engine-jump.service';
 import { EnrolledUserDataService } from '../services/data-services/enrolled-user.service';
 
-export class MoveChatHandler extends FunctionHandler<{ storyId: string, orgId: string, endUserId: string, blockId?: string}, RestResult>
+export class MoveChatHandler extends FunctionHandler<{ storyId: string, orgId: string, endUserId: string, blockId?: string, channel?: CommunicationChannel}, RestResult>
 {
   jumpBlockService$: JumpStoryBlockService;
   sideOperations: Promise<any>[] = [];
   orgId: string;
   /**
    * Put a break on execution and halt the system to talk to a Human agent. */
-  public async execute(req: { storyId: string, endUserId: string, blockId?: string}, context: FunctionContext, tools: HandlerTools)
+  public async execute(req: { storyId: string, endUserId: string, blockId?: string, channel?: CommunicationChannel}, context: FunctionContext, tools: HandlerTools)
   {
     tools.Logger.log(() => `[MoveChatHandler].execute: Attempting to jump user to story: ${req.storyId}`);
     tools.Logger.log(() => JSON.stringify(req));
 
+    let communicationChannel: CommunicationChannel;
     const splitEndUserId = req.endUserId.split('_');
     const n = parseInt(splitEndUserId[1]);
     const phoneNumber = splitEndUserId[2];
 
-    const _channelService$ = new ChannelDataService(tools);
-
-    const communicationChannel: CommunicationChannel = await _channelService$.getChannelByConnection(n) as CommunicationChannel;
+    if(!req.channel) {
+      const _channelService$ = new ChannelDataService(tools);
+  
+      communicationChannel = await _channelService$.getChannelByConnection(n) as CommunicationChannel;
+    } else {
+      communicationChannel = req.channel;
+    }
 
     tools.Logger.log(()=>(`[MoveChatHandler].execute: Communication Channel: ${JSON.stringify(communicationChannel)}`));
 

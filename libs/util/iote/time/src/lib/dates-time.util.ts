@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import { Timestamp } from '@firebase/firestore-types';
 
 export type AppDate = moment.Moment;

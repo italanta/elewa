@@ -875,18 +875,24 @@
         "Messenger":"Messenger",
         "GENERAL-DETAILS":"Détails Généraux",
         "BOT-DETAILS":"Détails du canal",
+        "BOT-DETAILS-PLACEHOLDER":"par ex. Agriculture 101 - Messenger - Anglais",
         "WHATSAPP-CHANNEL-DETAILS":"Détails de la chaîne WhatsApp",
         "ACCESS-TOKEN":"Jeton d'accès",
+        "ACCESS-TOKEN-PLACEHOLDER":"par ex. xSugbbJHSjHHJSjSbshiooalSikSOjAS56s",
         "BOT-PHONE-NUMBER":"Numéro de téléphone du canal",
+        "BOT-PHONE-NUMBER-PLACEHOLDER":"e.g. 254701234567",
         "BOT-PHONE-NUMBER-ID":"ID du numéro de téléphone du canal",
+        "BOT-PHONE-NUMBER-ID-PLACEHOLDER":"e.g. 454621761902172",
         "BUSINESS-ACCOUNT-ID":"ID de compte professionnel",
+        "BUSINESS-ACCOUNT-ID-PLACEHOLDER":"e.g. 567897890099986",
         "PAGE-ID":"Identifiant de la page",
+        "PAGE-ID-PLACEHOLDER":"par ex. 4634156788919012",
         "MESSENGER-CHANNEL-DETAILS":"Détails du canal Messenger",
         "CHANNEL-NAME":"Nom du canal",
         "PLATFORM":"Plate-forme",
         "FIRST-STORY":"Première histoire",
-        "EDIT-CHANNEL":"Modifier la chaîne"
-        
+        "EDIT-CHANNEL":"Modifier la chaîne",
+        "CHANNEL-FIRST":"Veuillez d'abord sélectionner une chaîne"
     }
   }
 }

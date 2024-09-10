@@ -1,0 +1,84 @@
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+mat-card-title {
+    font-size: 1.2em !important;
+    color: var(--convs-mgr-color-primary-purple);
+}
+
+audio {
+    max-width: 100%;
+}
+
+input {
+	box-sizing: border-box;
+	min-width: calc(100% - 20px) !important; // minus the padding
+	padding: 10px;
+	border: none;
+	resize: none;
+    outline: none;
+	border-radius: 0.6rem;
+	background-color: var(--convs-mgr-placeholder-color);
+}
+
+.fileSrc {
+    display: none;
+}
+
+.doc-name {
+	text-wrap: auto;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.placeholder-icon {
+	width: 8% !important;
+	margin: auto;
+}
+
+.block-media-placeholder {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	flex-direction: column;
+	width: 100%;
+  gap: 0.5rem;
+  margin: auto;
+	cursor: pointer;
+}
+
+.media-placeholder-text {
+	color: var(--convs-mgr-color-101010);
+	font-weight: 200;
+  font-size: small;
+}
+
+.audio_bg {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--convs-mgr-color-primary-black);
+    min-width: calc(100% - 20px) !important; 
+    padding: 10px;
+    height: 8rem;
+    background-color: var(--convs-mgr-placeholder-color);
+    border-radius: 0.6rem;
+    opacity: 1;
+    overflow: hidden;
+    cursor: pointer;
+    &.error {
+        border: 0.1875rem solid red !important;
+    }
+}
+
+.error-message {
+    font-size: 0.7em;
+    word-wrap: break-word;
+
+    span {
+        color: red;
+    }
+}

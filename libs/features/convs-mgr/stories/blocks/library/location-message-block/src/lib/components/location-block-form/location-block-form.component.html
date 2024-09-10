@@ -1,0 +1,23 @@
+<form [formGroup]="locationMessageForm" class="form-wrapper" [class.edit_form_wrapper] = "isEdit">
+
+  <div class="input-wrapper" formGroupName="locationInput">
+    <label class="edit-panel-label" *ngIf="isEdit">Location Name</label>
+    <input formControlName="name" [class.edit_input] = "isEdit" type="text" placeholder="Location Name" />
+
+    <input formControlName="latitude" [ngModel]="latitude" type="text" placeholder="Address" hidden />
+    <input formControlName="longitude" [ngModel]="longitude" type="text" placeholder="Address" hidden />
+
+    <label class="edit-panel-label" *ngIf="isEdit">Enter location address</label>
+    <input (change)="addressChanged($event)" [class.edit_input] = "isEdit" formControlName="address" [ngModel]="currentAddress" #mapsSearchField
+      type="text"
+       placeholder="Enter location address"
+      />
+  </div>
+
+  <div class="map-wrapper">
+    <google-map height="200px" width="100%" [zoom]="10" (mapClick)="addMarker($event)">
+      <map-marker [position]="markerPositions" [options]="markerOptions"></map-marker>
+    </google-map>
+  </div>
+
+</form>
