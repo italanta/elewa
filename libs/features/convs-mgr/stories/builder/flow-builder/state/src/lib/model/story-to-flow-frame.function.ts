@@ -22,6 +22,7 @@ function _initFrame(story: Story): WFlow
 {
   return {
     flow: {
+      id: '',
       version: '3.1',
       data_api_version: '3.0',
       routing_model: {
@@ -37,6 +38,7 @@ function _initFrame(story: Story): WFlow
         terminal: true
       }]
     },
-    validation_errors: []
+    validation_errors: [],
+    timestamp: new Date().getTime()
   };
 }

@@ -6,6 +6,9 @@ import { _CreateFlowTextForm } from "./flow-forms/flow-text-form-build.model";
 
 export function _GetFlowComponentForm(_fb: FormBuilder, componentData: FlowPageLayoutElementV31)
 {
+  if (!componentData) {
+    return _CreateFlowTextForm(_fb); // Calls the form creation without data
+  }
   switch (componentData.type) 
   {
     case FlowPageLayoutElementTypesV31.TEXT:
