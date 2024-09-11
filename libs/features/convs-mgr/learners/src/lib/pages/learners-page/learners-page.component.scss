@@ -114,8 +114,8 @@
       }
 
       .top-actions {
+        justify-content: flex-end;
         display: flex;
-        justify-content: space-around;
 
         .btn {
           outline: none;
