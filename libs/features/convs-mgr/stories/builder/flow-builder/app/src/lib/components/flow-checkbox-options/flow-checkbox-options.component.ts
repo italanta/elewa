@@ -6,7 +6,7 @@ import { OptionGroupFormService } from '../../services/input-options-group-form.
 
 import { FEFlowOptionGroup } from '../../models/fe-flow-option-element.model';
 import { buildV31CheckboxGroup } from '../../utils/build-checkbox-group.util';
-import { ChangeTrackerService } from '@app/state/convs-mgr/wflows';
+import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 import { SubSink } from 'subsink';
 
 @Component({

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, switchMap } from 'rxjs';
-import { WhatsappFlowsStore } from '../stores/whatsapp-flow.store';
+// import { FlowBuilderStateFrame, FlowBuilderStateProvider } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 import { WFlow, FlowJSONV31, FlowScreenV31 } from '@app/model/convs-mgr/stories/flows';
-import { WFlowService } from '../providers/wflow.service';
+import { WFlowService } from '@app/state/convs-mgr/wflows';
+import { FlowBuilderStateProvider } from './flow-builder-state.provider';
+// import { WFlowService } from '../providers/wflow.service';
 
 
 @Injectable({
@@ -15,7 +17,7 @@ export class ChangeTrackerService {
   private jsonArray: { controlId: string; newValue: any }[] = []; // Tracks changes
   private changeSubject = new BehaviorSubject<{ controlId: string; newValue: any }[]>([]);
 
-  constructor(private _wFlowService: WFlowService) {}
+  constructor(private _wFlowService: WFlowService, private _flowBuilderState: FlowBuilderStateProvider) {}
 
   public change$ = this.changeSubject.asObservable();
 
@@ -27,13 +29,15 @@ export class ChangeTrackerService {
     this.changeSubject.next(this.jsonArray);
     // Step 1: Build WFlow object and post to wFlowStore
     const wflow: WFlow = {
+      // TODO: @Beulah-Matt - Save elements per screen
       flow: this.buildFlowJSON(), 
       name: `Flow_${Date.now()}`,
       validation_errors: [],  
       timestamp: new Date().getTime()
     };
     console.log(wflow)
-    return this._wFlowService.activeFlow$.pipe(switchMap((config)=> {
+    return this._flowBuilderState.get().pipe(switchMap((state)=> {
+      const config = state.flow;
       if(config && config.flow.id) {
         wflow.flow.id = config.flow.id;
         return this._wFlowService.add(wflow); 
@@ -41,7 +45,6 @@ export class ChangeTrackerService {
         return this._wFlowService.initFlow(wflow);
       }
     }))
- 
   }
 
   /**

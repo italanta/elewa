@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { SubSink } from 'subsink';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
-import { ChangeTrackerService } from '@app/state/convs-mgr/wflows';
+import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 import { ImageInputFormService } from '../../utils/build-image-input-form.service';
 import { FlowImage } from '@app/model/convs-mgr/stories/flows';
 import { FileStorageService } from '@app/state/file';

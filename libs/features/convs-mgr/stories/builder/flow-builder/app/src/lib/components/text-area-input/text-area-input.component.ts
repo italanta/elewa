@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { debounceTime, Subject } from 'rxjs';
 
-import { ChangeTrackerService } from '@app/state/convs-mgr/wflows';
+import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 import { FlowTextAreaInput } from '@app/model/convs-mgr/stories/flows';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';

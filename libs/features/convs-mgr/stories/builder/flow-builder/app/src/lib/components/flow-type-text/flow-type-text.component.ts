@@ -4,7 +4,8 @@ import { SubSink } from 'subsink';
 import { debounceTime } from 'rxjs/operators';
 
 import { FlowPageLayoutElementTypesV31, FlowPageTextV31 } from '@app/model/convs-mgr/stories/flows';
-import { ChangeTrackerService, WhatsappFlowsStore } from '@app/state/convs-mgr/wflows';
+import { WhatsappFlowsStore } from '@app/state/convs-mgr/wflows';
+import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
 import { TextElementFormService } from '../../services/text-elements-form.service';

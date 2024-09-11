@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChangeTrackerService } from '@app/state/convs-mgr/wflows';
+
+import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
 import { OptionGroupFormService } from '../../services/input-options-group-form.service';
