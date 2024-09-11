@@ -1,6 +1,7 @@
 .story {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1.5fr 1.5fr 0.5fr 0.5fr 0.5fr; 
+  gap: 2rem;
   padding: 1rem 0;
   border-bottom: 1px solid rgba(112, 112, 112, 0.3);
   padding-left: 2rem;
@@ -10,11 +11,15 @@
     align-items: center;
   }
 
+  .story-name, .btn-module {
+    white-space: normal; 
+    overflow-wrap: break-word; 
+    word-break: break-all;
+    max-width: 100%; 
+  }
+
   .story-name {
     color: #101010;
-    word-wrap: break-word;
-    word-break: break-all;
-    width: 12.5rem;
   }
 
   .btn {
@@ -25,6 +30,9 @@
     justify-self: center;
     cursor: pointer;
     transition: ease;
+    display: flex;          
+    justify-content: center; 
+    align-items: center;
 
     &:active {
       transform: scale(0.98);
@@ -43,11 +51,13 @@
     &.btn-story {
       background-color: teal;
       color: white;
+      width: 100%;
     }
   }
 
   .status {
     justify-self: center;
+    width: 100%;
   }
 
   :last-child {
