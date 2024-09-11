@@ -122,9 +122,4 @@ export class WFlowService
   {
     return lastValueFrom(this.getFlowConfig());
   }
-
-  createWFlow (flowObject: WFlow)
-  {
-    return this._flowStore.add(flowObject);
-  }
 }
