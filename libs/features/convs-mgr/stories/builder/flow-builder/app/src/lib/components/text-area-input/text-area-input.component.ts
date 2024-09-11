@@ -68,7 +68,6 @@ export class TextAreaInputComponent
       const inputConfigs = this.textInputForm.value;  // Capture form values
       this.element = inputConfigs
       this.showConfigs = false;  // Hide configuration form
-      console.log(this.element)
       this.triggerAutosave(this.element)
     }
   }

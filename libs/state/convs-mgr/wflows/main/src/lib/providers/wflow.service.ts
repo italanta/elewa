@@ -59,6 +59,7 @@ export class WFlowService
           flow: flow,
           orgId: org.id
         }
+        console.log(payload)
         return this._aff.httpsCallable('createWhatsappFlow')(payload)
       }), 
       switchMap((resp)=> {
