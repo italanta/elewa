@@ -158,6 +158,13 @@
   }
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px var(--convs-mgr-color-text-white) inset !important;
+}
+
 :host ::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input{
     color: var(--convs-mgr-color-C3C3C3);
 } 
