@@ -1,6 +1,6 @@
 import { Story } from "@app/model/convs-mgr/stories/main";
 import { FlowBuilderStateFrame } from "./flow-builder-state-frame.interface";
-import { FlowStory, WFlow } from "@app/model/convs-mgr/stories/flows";
+import { FlowScreenV31, FlowStory, WFlow } from "@app/model/convs-mgr/stories/flows";
 
 /**
  * Function to load in a new story
@@ -27,18 +27,28 @@ function _initFrame(story: Story): WFlow
       data_api_version: '3.0',
       routing_model: {
       },
-      screens: [{
-        id: story.id as string,
-        layout: {
-          type: 'SingleColumnLayout',
-          children: []
-        },
-        data: { },
-        title: 'Screen I',
-        terminal: true
-      }]
+      screens: [_CreateScreen(story.id as string, 1)]
     },
     validation_errors: [],
     timestamp: new Date().getTime()
+  };
+}
+
+/**
+ * @param storyId - The id of the story the flow screen is being created
+ * @param n - The number of the screen added. e.g. 
+ *              Screen 1. If it is the first screen pass 1.
+ * @returns FlowScreenV31
+ */
+export function _CreateScreen(storyId: string, n: number): FlowScreenV31 {
+  return {
+    id: `${storyId}_${n}`,
+    layout: {
+      type: 'SingleColumnLayout',
+      children: []
+    },
+    data: { },
+    title: `SCREEN ${n}`,
+    terminal: true
   };
 }

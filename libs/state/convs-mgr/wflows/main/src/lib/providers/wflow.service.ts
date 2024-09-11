@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AngularFireFunctions } from "@angular/fire/compat/functions";
 
-import { lastValueFrom, map, Observable, of, switchMap, take } from "rxjs";
+import { BehaviorSubject, lastValueFrom, map, Observable, of, switchMap, take } from "rxjs";
 
 import { DataService } from "@ngfi/angular";
 import { Query } from "@ngfi/firestore-qbuilder";
@@ -79,19 +79,18 @@ export class WFlowService
    * 
    * - Not a store, please call at the load of each flow editor - 
    * 
-   * @returns {Promise<FlowStory>}
+   * @returns {Observable<FlowStory>}
    * @throws if current active story is not a flow
    */
-  async get() : Promise<FlowStory>
+  get() : Observable<FlowStory>
   { 
-    return lastValueFrom(
-      this._storyFlowTracker$
+    return this._storyFlowTracker$
       .pipe(
         map(s => 
         {
           if(!s) throw new Error('Active story is not a flow story');
           return s;
-        })));
+        }));
   }
 
   /**
@@ -111,7 +110,9 @@ export class WFlowService
         return repo.getDocuments(
                   new Query().orderBy('timestamp', 'desc')
                              .limit(1))
-                    .pipe(map(f => (f && f.length > 0) ? f[0] : undefined));
+                    .pipe(map(f => {
+                      return (f && f.length > 0) ? f[0] : undefined
+                    }));
       }));
   }
 

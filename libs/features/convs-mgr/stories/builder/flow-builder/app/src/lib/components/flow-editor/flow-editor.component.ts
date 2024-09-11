@@ -4,9 +4,11 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 
-import { ChangeTrackerService, FlowEditorStateProvider, WFlowService } from '@app/state/convs-mgr/wflows';
+import { FlowBuilderStateFrame, FlowBuilderStateProvider } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
+import { FlowEditorStateProvider, WFlowService } from '@app/state/convs-mgr/wflows';
+import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 
 import { FlowControl } from '../../providers/flow-controls.const';
 import { EditorComponentFactory } from '../../services/editor-component-factory.service';
@@ -27,7 +29,10 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   @ViewChild('vcr', { static: true, read: ViewContainerRef })
   vcr!: ViewContainerRef;
 
+  private _state$$: Observable<FlowBuilderStateFrame>;
+
   constructor( private flowStateProvider: FlowEditorStateProvider,
+               private _flowBuilderState: FlowBuilderStateProvider,
                private editorComponentFactory: EditorComponentFactory,
                private _fb: FormBuilder,
                private trackerService: ChangeTrackerService,
@@ -40,22 +45,29 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   ngOnInit(): void {
    this._sbS.sink = this.trackerService.change$.subscribe();
 
-   this.load();
+   this.initEditor();
   }
 
-  load() {
-    this._wFlowService.getFlowConfig().subscribe((fConfig)=> {
-      if(fConfig) {
-        const allElementsData = fConfig.flow.screens[0].layout.children;
+  async initEditor() {
+   this._state$$  = this._flowBuilderState.initialize();
 
-        for(const elem of allElementsData) {
-          // Map elem to flow control
-          const flowControlElem = _MapToFlowControl(elem) as FlowControl;
-          // Build form
-          const elementForm  = _GetFlowComponentForm(this._fb, elem);
+   const activeScreen$ = this._flowBuilderState.activeScreen$;
 
-          // use the flow control to load the component
-          this.createField(flowControlElem, elementForm);
+    this._sbS.sink = combineLatest([this._state$$, activeScreen$]).subscribe(([state, screen])=> {
+      if(state) {
+        const allElementsData = state.flow.flow.screens[screen].layout.children;
+
+        if(allElementsData && allElementsData.length > 0) {
+
+          for(const elem of allElementsData) {
+            // Map elem to flow control
+            const flowControlElem = _MapToFlowControl(elem) as FlowControl;
+            // Build form
+            const elementForm  = _GetFlowComponentForm(this._fb, elem);
+
+            // use the flow control to load the component
+            this.createField(flowControlElem, elementForm);
+          }
         }
       }
     })

@@ -7,3 +7,9 @@
   border: 1px solid #101010;
   border-top-left-radius: 5px;
 }
+
+.screen-list {
+  display: flex;
+  gap: 0.6rem;
+  cursor: pointer;
+}
