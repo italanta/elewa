@@ -785,7 +785,8 @@
       "REMOVE":"Supprimer",
       "DEACTIVATE":"Désactiver",
       "LOADING-USERS":"Chargement des utilisateurs"
-    }
+    },
+    "SEND-INVITE":"Envoyer une invitation"
 }
 },
   "PERMISSIONS" :{

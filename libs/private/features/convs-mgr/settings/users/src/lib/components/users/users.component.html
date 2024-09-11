@@ -22,7 +22,7 @@
         </div>
 
         <div fxLayout="column" class="inviteMember">
-          <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="inviteMember()">
+          <button class="invite-btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="inviteMember()">
             {{ 'MEMBERS.INVITE-BUTTON' | transloco }}
           </button>
         </div>
