@@ -188,7 +188,7 @@ a:hover {
       color: #707070;
     }
     &.Active {
-      color: #19b016;
+      color: var(--convs-mgr-color-active);
     }
     &.Stuck {
       color: red;
