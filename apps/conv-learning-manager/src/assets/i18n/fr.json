@@ -237,7 +237,7 @@
       "DESCRIPTION": "Description",
       "ACTION-BUTTONS": {
         "CANCEL": "Annuler",
-        "CONTINUE": "Continuer"
+        "APPLY": "Appliquer"
       }
     }
   },

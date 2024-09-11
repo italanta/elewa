@@ -19,6 +19,7 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
   selectedClass: string;
   classrooms$: Observable<Classroom[]>;
   isUpdatingClass: boolean;
+  classIds : string[] = [];
 
   private _sBs = new SubSink();
 
@@ -32,6 +33,11 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.classrooms$ = this._classroom$.getAllClassrooms();
+    this.data.enrolledUsrs.map((user) => {
+      if(!this.classIds.includes(user.classId)){
+        this.classIds.push(user.classId)
+      }
+    })
   }
 
   get enrolledUsers() {
@@ -41,7 +47,7 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
   getMode(enrolledUser: EnrolledEndUser) {
     return enrolledUser.classId
       ? ClassroomUpdateEnum.ChangeClass
-      : ClassroomUpdateEnum.AddToClass;
+      : ClassroomUpdateEnum.AddToGroup;
   }
 
   onCancel() {
@@ -49,7 +55,7 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
   }
 
   onChange(e: any) {
-    this.selectedClass = e.target.value;
+    this.selectedClass = e.value;
   }
 
   submitAction() {
@@ -62,8 +68,7 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
   
         if (classRoom) {
           const userIds = this.enrolledUsers.map(user => user.id as string);
-
-          classRoom.users = classRoom.users ? [...classRoom.users, ...userIds] : userIds;
+          classRoom.users = classRoom.users ? [...new Set([...classRoom.users, ...userIds])] : userIds;
           return this._classroom$.updateClassroom(classRoom);
         }
 
