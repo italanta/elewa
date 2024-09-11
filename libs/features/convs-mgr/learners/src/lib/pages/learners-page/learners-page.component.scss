@@ -95,9 +95,9 @@
 
           /* Arrow */
           .select::after {
-            content: '\25BC';
+            content: url('../../../../../../../../apps/conv-learning-manager/src/assets/favicons/dropdown.svg');
             position: absolute;
-            top: 7px;
+            top: 3px;
             right: 5px;
             padding: 0.5rem;
             height: 42px;
