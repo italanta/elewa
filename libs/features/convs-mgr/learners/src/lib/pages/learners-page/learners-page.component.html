@@ -96,9 +96,9 @@
           <td mat-cell *matCellDef="let enrolledUsr">{{ getLearnersCourse(enrolledUsr) | titlecase }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="class">
+        <ng-container matColumnDef="user-group">
           <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="class">
-            {{'LEARNERS.TABLE-HEADER.CLASS'| transloco }}</th>
+            {{'LEARNERS.TABLE-HEADER.USER-GROUP'| transloco }}</th>
           <td mat-cell *matCellDef="let enrolledUsr" [class.unassigned-class]="!getClassName(enrolledUsr.classId)">{{ getClassName(enrolledUsr.classId) || 'None' | titlecase }}</td>
         </ng-container>
 
