@@ -25,6 +25,7 @@ export class CreateWhatsappFlowHandler extends FunctionHandler<{flow: WFlow, org
       
       const whatsappChannel = channel[0];
   
+      // TODO @Beulah-Matt - Add error handling
       const WABA_ID = whatsappChannel.businessAccountId;
       const GRAPH_ACCESS_TOKEN = whatsappChannel.accessToken;
   
