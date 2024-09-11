@@ -38,4 +38,5 @@ export interface WFlow extends IObject
     /** Date time the flow will become deprecated. (ISO date string e.g. "2023-05-21T11:18:09+0000") */
     expires_at: string;
   }
+  timestamp: number
 }

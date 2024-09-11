@@ -11,6 +11,7 @@ import { ChangeTrackerService, FlowEditorStateProvider, WFlowService } from '@ap
 import { FlowControl } from '../../providers/flow-controls.const';
 import { EditorComponentFactory } from '../../services/editor-component-factory.service';
 import { _GetFlowComponentForm } from '../../providers/flow-forms-build-factory.util';
+import { _MapToFlowControl } from '../../utils/map-to-flow-element.util';
 
 
 @Component({
@@ -44,14 +45,12 @@ export class FlowEditorComponent implements OnInit, OnDestroy
 
   load() {
     this._wFlowService.getFlowConfig().subscribe((fConfig)=> {
-
       if(fConfig) {
         const allElementsData = fConfig.flow.screens[0].layout.children;
 
         for(const elem of allElementsData) {
           // Map elem to flow control
-          const flowControlElem = _MapToFlowControl(elem);
-
+          const flowControlElem = _MapToFlowControl(elem) as FlowControl;
           // Build form
           const elementForm  = _GetFlowComponentForm(this._fb, elem);
 

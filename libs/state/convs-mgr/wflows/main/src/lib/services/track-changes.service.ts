@@ -4,6 +4,7 @@ import { WhatsappFlowsStore } from '../stores/whatsapp-flow.store';
 import { WFlow, FlowJSONV31, FlowScreenV31 } from '@app/model/convs-mgr/stories/flows';
 import { WFlowService } from '../providers/wflow.service';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -24,14 +25,14 @@ export class ChangeTrackerService {
   updateValue(controlId: string, newValue: any) {
     this.jsonArray.push({ controlId, newValue });
     this.changeSubject.next(this.jsonArray);
-
     // Step 1: Build WFlow object and post to wFlowStore
     const wflow: WFlow = {
       flow: this.buildFlowJSON(), 
       name: `Flow_${Date.now()}`,
       validation_errors: [],  
+      timestamp: new Date().getTime()
     };
-
+    console.log(wflow)
     return this._wFlowService.activeFlow$.pipe(switchMap((config)=> {
       if(config && config.flow.id) {
         wflow.flow.id = config.flow.id;
@@ -52,7 +53,7 @@ export class ChangeTrackerService {
     });
 
     return {
-      id: '',
+      id: Math.random.toString(),
       version: '3.1',
       screens: screens,  // Screens built from user interactions
       data_api_version: '3.0',
