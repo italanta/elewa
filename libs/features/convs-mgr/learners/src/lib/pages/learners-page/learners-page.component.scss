@@ -36,11 +36,11 @@
           height: 5px;
           width: 90%;
           background-color: white;
-          border-radius: 18px;
+          border-radius: 1.35rem;
           display: flex;
           align-items: center;
           padding: 20px;
-
+          
           &_tooltip {
             color: gray;
             transform: rotate(90deg);
