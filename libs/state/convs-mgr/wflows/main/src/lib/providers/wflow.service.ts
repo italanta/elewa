@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AngularFireFunctions } from "@angular/fire/compat/functions";
 
-import { BehaviorSubject, lastValueFrom, map, Observable, of, switchMap, take } from "rxjs";
+import { lastValueFrom, map, Observable, of, switchMap, take } from "rxjs";
 
 import { DataService } from "@ngfi/angular";
 import { Query } from "@ngfi/firestore-qbuilder";

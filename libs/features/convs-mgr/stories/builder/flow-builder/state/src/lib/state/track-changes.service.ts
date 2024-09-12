@@ -1,3 +1,4 @@
+import { v4 as guid } from 'uuid';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, switchMap } from 'rxjs';
 // import { FlowBuilderStateFrame, FlowBuilderStateProvider } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
@@ -14,8 +15,8 @@ import { FlowBuilderStateProvider } from './flow-builder-state.provider';
  * Service tracking user interactions
  */
 export class ChangeTrackerService {
-  private jsonArray: { controlId: string; newValue: any }[] = []; // Tracks changes
-  private changeSubject = new BehaviorSubject<{ controlId: string; newValue: any }[]>([]);
+  private jsonArray: { controlId: string; newValue: any}[] = []; // Tracks changes
+  private changeSubject = new BehaviorSubject<{ controlId: string; newValue: any, screenId?: string }[]>([]);
 
   constructor(private _wFlowService: WFlowService, private _flowBuilderState: FlowBuilderStateProvider) {}
 
@@ -24,60 +25,74 @@ export class ChangeTrackerService {
   /**
    * Update value and trigger save
    */
-  updateValue(controlId: string, newValue: any) {
-    this.jsonArray.push({ controlId, newValue });
-    this.changeSubject.next(this.jsonArray);
-    // Step 1: Build WFlow object and post to wFlowStore
-    const wflow: WFlow = {
-      // TODO: @Beulah-Matt - Save elements per screen
-      flow: this.buildFlowJSON(), 
-      name: `Flow_${Date.now()}`,
-      validation_errors: [],  
-      timestamp: new Date().getTime()
-    };
-    console.log(wflow)
-    return this._flowBuilderState.get().pipe(switchMap((state)=> {
-      const config = state.flow;
-      if(config && config.flow.id) {
-        wflow.flow.id = config.flow.id;
-        return this._wFlowService.add(wflow); 
-      } else {
-        return this._wFlowService.initFlow(wflow);
-      }
-    }))
-  }
+  updateValue(controlId: string, newValue: any, screenId: string ) {
+      const activeScreenId = this._flowBuilderState.activeScreen$.getValue();
+      this.jsonArray.push({ controlId, newValue, screenId: activeScreenId });
+      this.changeSubject.next(this.jsonArray);
+    
+      // Build and post the updated flow with all screens and controls
+      const wflow: WFlow = {
+        flow: this.buildFlowJSON(),
+        name: `Flow_${Date.now()}`,
+        validation_errors: [],
+        timestamp: new Date().getTime(),
+        id: guid()
+      };
+    
+      return this._flowBuilderState.get().pipe(switchMap((state) => {
+        const config = state.flow;
+        if (config && config.flow.id) {
+          wflow.flow.id = config.flow.id;
+          return this._wFlowService.initFlow(wflow);
+        } else {
+          return this._wFlowService.add(wflow);
+        }
+      }));
+    }
+  
 
   /**
    * Build the FlowJSONV31 object
    */
   private buildFlowJSON(): FlowJSONV31 {
-    const screens = this.jsonArray.map((change) => {
-      return this.createScreen(change.controlId, change.newValue);
+    // Group controls by screen
+    const screenMap: { [screenId: string]: any[] } = {};
+    this.jsonArray.forEach(change => {
+      if (!screenMap[change.screenId]) {
+        screenMap[change.screenId] = [];
+      }
+      screenMap[change.screenId].push(change.newValue);
     });
-
+  
+    // Create screens with grouped controls
+    const screens = Object.keys(screenMap).map(screenId => {
+      return this.createScreen(screenId, screenMap[screenId]);
+    });
+  
     return {
-      id: Math.random.toString(),
+      id: guid(),
       version: '3.1',
-      screens: screens,  // Screens built from user interactions
+      screens: screens,
       data_api_version: '3.0',
-      routing_model: this.buildRoutingModel(screens),  // Define screen routing
+      routing_model: this.buildRoutingModel(screens),
     };
   }
+  
 
   /**
    * Create a single screen from a controlId and its new value
    */
-  private createScreen(controlId: string, newValue: any): FlowScreenV31 {
+  private createScreen(screenId: string, controls: any[]): FlowScreenV31 {
     return {
-      id: controlId,  // Unique ID for the screen
+      id: screenId,
       layout: {
         type: 'SingleColumnLayout',
-        children: [newValue],  // The form element for the screen
+        children: controls,  // Grouped controls for this screen
       },
-      title: `Screen for ${controlId}`,
+      title: `Screen for ${screenId}`,
     };
   }
-
+  
   /**
    * Build routing model for screen navigation
    */
