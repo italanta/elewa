@@ -152,7 +152,6 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   private _updateMediaState(mediaPath: string): void {
     this.mediaSrc = mediaPath;
     const mediaType = getMediaType(mediaPath);
-    console.log(mediaType)
     if(mediaType)
     this.currentMediaType = MediaUploadType.Image || MediaUploadType.Video ? mediaType : MediaUploadType.Video ;
     this.isImageMedia = this.currentMediaType === MediaUploadType.Image
