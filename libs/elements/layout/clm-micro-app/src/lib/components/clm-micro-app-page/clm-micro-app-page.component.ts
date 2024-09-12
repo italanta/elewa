@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Organisation } from '@app/model/organisation';
-import { OrganisationService } from '@app/private/state/organisation/main';
+import {  MicroAppStore } from '@app/state/convs-mgr/micro-app';
+import { subscribe } from 'diagnostics_channel';
 
 @Component({
   selector: 'app-clm-micro-app-page',
@@ -9,19 +9,13 @@ import { OrganisationService } from '@app/private/state/organisation/main';
 })
 export class ClmMicroAppPageComponent implements OnInit
 {
-  organization: Organisation;
   logoUrl = ''
 
-  constructor(private _orgService$$: OrganisationService,) {}
+  constructor (private _microApp$$: MicroAppStore){}
 
   ngOnInit()
   {
-    this._orgService$$.getActiveOrg().subscribe((org: Organisation) => {
-      if (org) {
-        this.organization = org;
-        this.logoUrl = this.organization.logoUrl as string
-        console.log(this.organization)
-      }
-    })
+    // Add method to get microapp logo
+    const app$ = this._microApp$$.get()
   }
 }
