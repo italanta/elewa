@@ -101,7 +101,11 @@
 		border: 1px solid var(--micro-apps-teal-primary);
 	}
 }
-
+._icon{
+	width: 100%; 
+	margin: auto; 
+	color: #B2B2B2;
+}
 :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: white !important;
 }

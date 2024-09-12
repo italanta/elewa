@@ -6,6 +6,7 @@ import { SubSink } from 'subsink';
 
 import { QuestionFormMode } from '@app/model/convs-mgr/conversations/assessments';
 import { FileStorageService } from '@app/state/file';
+import { MediaUploadType } from '../../model/media-upload-type.enum';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class MediaUploadModalComponent implements OnInit
 {
   @Output() fileUploaded = new EventEmitter<File>();
   fileAccept: string;
+  mediaType = MediaUploadType
   uploadProgress = 0;
   selectedFile: File;
   questionFormGroup: FormGroup;
@@ -34,7 +36,7 @@ export class MediaUploadModalComponent implements OnInit
   @ViewChild('mediaUpload') input: ElementRef<HTMLInputElement>;
 
   constructor(public dialogRef: MatDialogRef<MediaUploadModalComponent >,
-               @Inject(MAT_DIALOG_DATA) public data: { fileType: string, 
+               @Inject(MAT_DIALOG_DATA) public data: { fileType: MediaUploadType, 
                                                        assessmentFormGroup: FormGroup, 
                                                        index: number,
                                                        questionFormGroup: FormGroup;
@@ -49,7 +51,7 @@ export class MediaUploadModalComponent implements OnInit
     this.index = data.index;
     this.questionFormGroup = data.questionFormGroup;
     this.questions = data.questions;
-    this.fileAccept = data.fileType === 'image' ? 'image/*' : 'video/*';
+    this.fileAccept = data.fileType === this.mediaType.Image ? 'image/*' : 'video/*';
     this.questionBankForm = data.questionBankForm;
     this.formViewMode = data.formViewMode;
   }

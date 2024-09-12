@@ -9,12 +9,12 @@ import { AssessmentQuestion, QuestionFormMode } from '@app/model/convs-mgr/conve
 import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
 
-
 import { AssessmentFormService } from '../../services/assessment-form.service';
 
 import { getMediaType } from '../../utils/check-media-type.util'
 import { MediaUploadModalComponent } from '../../modals/media-upload-modal/media-upload.component';
 import { QuestionSectionType } from '../../model/question-section-type.enum';
+import { MediaUploadType } from '../../model/media-upload-type.enum';
 
 @Component({
   selector: 'app-assessment-question-form',
@@ -23,7 +23,7 @@ import { QuestionSectionType } from '../../model/question-section-type.enum';
 })
 export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
 
-  private _sBs = new SubSink();
+  private _subs = new SubSink();
 
   @Input() questions: AssessmentQuestion[];
   @Input() questionNo: number;
@@ -34,29 +34,25 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   @Input() questionFormGroupName: number | string;
   @Input() activeCard$: Observable<number>;
   @Input() questionBankForm: FormGroup;
-  /** Mode between assessments and question banks */
-  @Input()  formEditMode: QuestionFormMode
-  @Output() addNewQuestion = new EventEmitter<FormGroup>(); //emits form 
-  @Output() activeQuestionChanged = new EventEmitter();
+  @Input() formEditMode: QuestionFormMode;
   
-  activeCard: number;
-  mediaSrc = '';
-  uploadType: 'image' | 'video';
-  addMedia: true;
-  mediaType: boolean
-  /** Form state when user clicks add */
-  isAddingQuestion = true;
-  addClicked = false
-  questionFormMode = QuestionFormMode
+  @Output() addNewQuestion = new EventEmitter<FormGroup>(); // Emits form
+  @Output() activeQuestionChanged = new EventEmitter<number>();
   @Output() questionActionCompleted = new EventEmitter<void>();
 
-  @ViewChild('videoPlayer') video: ElementRef<HTMLVideoElement>;
+  @ViewChild('videoPlayer') videoPlayer: ElementRef<HTMLVideoElement>;
 
-  constructor(
-    private _assessmentForm: AssessmentFormService,
-    private dialog: MatDialog,
-    private questionBankService: AssessmentQuestionBankStore,
-  ) {}
+  activeCard: number;
+
+  mediaSrc = '';
+  currentMediaType: MediaUploadType;
+  allowedMedia = MediaUploadType;
+  addMedia = true;
+  isImageMedia: boolean;
+
+  isAddingQuestion = true;
+  addClicked = false;
+  questionFormMode = QuestionFormMode;
 
   feedBackConditions = [
     FeedbackCondition[1],
@@ -64,134 +60,125 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     FeedbackCondition[3],
   ];
 
-  private _sBS = new SubSink()
+  constructor(
+    private _assessmentFormService: AssessmentFormService,
+    private dialog: MatDialog,
+    private questionBankService: AssessmentQuestionBankStore,
+  ) {}
+
   ngOnInit(): void {
-    if(this.formEditMode === QuestionFormMode.AssessmentMode){
-      this.activeCard$.pipe(tap((activeId) => {
-        this.activeCard = activeId;
-      })).subscribe();
+    if (this.formEditMode === QuestionFormMode.AssessmentMode) {
+      this._subs.sink = this.activeCard$
+        .pipe(tap((activeId) => (this.activeCard = activeId)))
+        .subscribe();
     }
     this._checkMediaOnLoad();
   }
 
   get questionsList() {
-    if(this.formEditMode !== QuestionFormMode.AssessmentMode) return;
+    if (this.formEditMode !== QuestionFormMode.AssessmentMode) return;
     return this.assessmentFormGroup.get('questions') as FormArray;
   }
 
-  get questionFormGroup(){
-    if(!this.questionsList)return
-    return this.questionsList.controls[this.questionFormGroupName as number] as FormGroup;
+  get questionFormGroup() {
+    return this.questionsList?.controls[this.questionFormGroupName as number] as FormGroup;
   }
 
-  get mediaPath(){
-    if(!this.questionFormGroup)return
-    return this.questionFormGroup.get('mediaPath') as FormControl;
+  get mediaPath() {
+    return this.questionFormGroup?.get('mediaPath') as FormControl;
   }
 
-  /** delete Question */
   deleteQuestion() {
-    if(this.questionsList){
+    if (this.questionsList) {
       const question = this.questionsList.at(this.index);
-    const prevQuestion = this.questionsList.at(this.index - 1);
-    const nextQuestion = this.questionsList.at(this.index + 1);
+      const prevQuestion = this.questionsList.at(this.index - 1);
+      const nextQuestion = this.questionsList.at(this.index + 1);
 
-    if (prevQuestion) {
-      prevQuestion.patchValue({ nextQuestionId : question.value.nextQuestionId })
-    }
+      if (prevQuestion) {
+        prevQuestion.patchValue({ nextQuestionId: question.value.nextQuestionId });
+      }
 
-    if (nextQuestion) {
-      nextQuestion.patchValue({ prevQuestionId : question.value.prevQuestionId })
+      if (nextQuestion) {
+        nextQuestion.patchValue({ prevQuestionId: question.value.prevQuestionId });
+      }
+
+      this.questionsList.removeAt(this.index);
     }
-    this.questionsList.removeAt(this.index);
-    }  
   }
 
-  /** duplicate question */
   duplicateQuestion() {
-    if(this.questionsList){
+    if (this.questionsList) {
       const prevQuestion = this.questionsList.at(this.index) as FormGroup;
+      const copiedQuestion = this._assessmentFormService.createQuestionForm(prevQuestion.value);
 
-    const copiedQstn = this._assessmentForm.createQuestionForm(prevQuestion.value);
-  
-    copiedQstn.patchValue({ nextQuestionId : null });
-  
-    this.addNewQuestion.emit(copiedQstn);
+      copiedQuestion.patchValue({ nextQuestionId: null });
+      this.addNewQuestion.emit(copiedQuestion);
     }
   }
 
-  /** Uploading an image or video and setting hte form control value to the value of the file */
-  openUploadModal(type: 'image' | 'video'): void 
-  {
+  openUploadModal(type: MediaUploadType): void {
     const dialogRef = this.dialog.open(MediaUploadModalComponent, {
-      data: { 
-              fileType: type,
-              assessmentFormGroup: this.assessmentFormGroup,
-              index: this.index,
-              questions: this.questionsList,
-              questionFormGroup: this.questionFormGroup,
-              questionBankForm: this.questionBankForm,
-              formViewMode: this.formEditMode,
-              questionSectionType: QuestionSectionType
-            },
+      data: {
+        fileType: type,
+        assessmentFormGroup: this.assessmentFormGroup,
+        index: this.index,
+        questions: this.questionsList,
+        questionFormGroup: this.questionFormGroup,
+        questionBankForm: this.questionBankForm,
+        formViewMode: this.formEditMode,
+        questionSectionType: QuestionSectionType
+      },
       panelClass: 'media-modal'
     });
 
     dialogRef.afterClosed().subscribe((file: string) => {
       if (file) {
-        this.mediaSrc =file
-        this.uploadType = type;
-        this.mediaType = type === 'image';
+        this.mediaSrc = file;
+        this.currentMediaType = type;
         this.mediaPath?.setValue(file);
       }
     });
   }
-  /** Check if media is present when component first loads */
-  private _checkMediaOnLoad()
-  {
+
+  private _checkMediaOnLoad(): void {
     const mediaPath = this.mediaPath?.value as string | undefined;
     if (mediaPath) {
       this._updateMediaState(mediaPath);
     } else {
-      this.mediaType = false;
+      this.isImageMedia = false;
     }
   }
- /** Get media type when a user clicks update media button */
-  private _updateMediaState(mediaPath: string)
-  {
+
+  private _updateMediaState(mediaPath: string): void {
     this.mediaSrc = mediaPath;
     const mediaType = getMediaType(mediaPath);
-    if (mediaType === 'image' || mediaType === 'video') {
-      this.uploadType = mediaType;
-    } else {
-      this.uploadType = 'image'; 
-    }
-    this.mediaType = this.uploadType === 'image';
-  
-    if (this.uploadType === 'video' && this.video) {
-      this.video.nativeElement.load();
+    console.log(mediaType)
+    if(mediaType)
+    this.currentMediaType = MediaUploadType.Image || MediaUploadType.Video ? mediaType : MediaUploadType.Video ;
+    this.isImageMedia = this.currentMediaType === MediaUploadType.Image
+
+    if (this.currentMediaType === MediaUploadType.Video && this.videoPlayer) {
+      this.videoPlayer.nativeElement.load();
     }
   }
 
-  /** Update or create a new question depending on whether a question is new*/
-  addQuestion()
-  {
-    this.addClicked = true
+  addQuestion(): void {
+    this.addClicked = true;
     const questionToAdd = this.questionBankForm.value as AssessmentQuestion;
-    if(questionToAdd.id){
-      this._sBS.sink = this.questionBankService.update(questionToAdd ).subscribe(()=> {
-        this.questionActionCompleted.emit(); 
-        this.addClicked = false
-      })
-    } 
+    if (questionToAdd.id) {
+      this._subs.sink = this.questionBankService.update(questionToAdd).subscribe(() => {
+        this.questionActionCompleted.emit();
+        this.addClicked = false;
+      });
+    }
   }
 
-  discardQuestion()
-  {
-    this.questionActionCompleted.emit(); 
-    this.dialog.closeAll()
+  discardQuestion(): void {
+    this.questionActionCompleted.emit();
+    this.dialog.closeAll();
   }
-  ngOnDestroy() {
-    this._sBs.unsubscribe();
+
+  ngOnDestroy(): void {
+    this._subs.unsubscribe();
   }
 }
