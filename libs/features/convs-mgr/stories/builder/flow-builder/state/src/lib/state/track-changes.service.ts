@@ -15,8 +15,8 @@ import { FlowBuilderStateProvider } from './flow-builder-state.provider';
  * Service tracking user interactions
  */
 export class ChangeTrackerService {
-  private jsonArray: { controlId: string; newValue: any}[] = []; // Tracks changes
-  private changeSubject = new BehaviorSubject<{ controlId: string; newValue: any, screenId?: string }[]>([]);
+  private jsonArray: { controlId: string; newValue: any, screenId: number}[] = []; // Tracks changes
+  private changeSubject = new BehaviorSubject<{ controlId: string; newValue: any, screenId?: number }[]>([]);
 
   constructor(private _wFlowService: WFlowService, private _flowBuilderState: FlowBuilderStateProvider) {}
 
@@ -25,9 +25,10 @@ export class ChangeTrackerService {
   /**
    * Update value and trigger save
    */
-  updateValue(controlId: string, newValue: any, screenId: string ) {
-      const activeScreenId = this._flowBuilderState.activeScreen$.getValue();
-      this.jsonArray.push({ controlId, newValue, screenId: activeScreenId });
+  updateValue(controlId: string, newValue: any) {
+      const activeScreenIndex = 0;
+      // const activeScreenIndex = this._flowBuilderState.activeScreen$.getValue();
+      this.jsonArray.push({ controlId, newValue, screenId: activeScreenIndex });
       this.changeSubject.next(this.jsonArray);
     
       // Build and post the updated flow with all screens and controls
@@ -38,7 +39,7 @@ export class ChangeTrackerService {
         timestamp: new Date().getTime(),
         id: guid()
       };
-    
+
       return this._flowBuilderState.get().pipe(switchMap((state) => {
         const config = state.flow;
         if (config && config.flow.id) {

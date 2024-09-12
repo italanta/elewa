@@ -42,23 +42,14 @@ export class FlowTypeTextComponent implements OnInit {
 
   ngOnInit(): void {
     this.inputId = `input-${this.control.type}`;
-    this.buildForm();
-    // this.textInputForm = this.elementForm;
+    this.textInputForm = this.elementForm;
 
     // Subscribe to form value changes
     this._sbS.sink = this.textInputForm.get('text')?.valueChanges
-      .pipe(debounceTime(10000))  //10 seconds
+      .pipe(debounceTime(1000))  //1 second
       .subscribe(value=> {
       this.buildV31Element(value);
     });
-  }
-
-  buildForm(): void {
-    if (this.control && this.textElement) {
-      this.textInputForm = this.textFormService.createTextForm(this.textElement);
-    } else {
-      this.textInputForm = this.textFormService.createEmptyForm();
-    }
   }
 
   buildV31Element(value: string) {

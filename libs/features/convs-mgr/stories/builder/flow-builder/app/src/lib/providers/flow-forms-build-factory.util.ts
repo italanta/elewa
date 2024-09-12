@@ -4,7 +4,7 @@ import { FlowPageLayoutElementTypesV31, FlowPageLayoutElementV31 } from "@app/mo
 
 import { _CreateFlowTextForm } from "./flow-forms/flow-text-form-build.model";
 
-export function _GetFlowComponentForm(_fb: FormBuilder, componentData: FlowPageLayoutElementV31)
+export function _GetFlowComponentForm(_fb: FormBuilder, componentData?: FlowPageLayoutElementV31)
 {
   if (!componentData) {
     return _CreateFlowTextForm(_fb); // Calls the form creation without data

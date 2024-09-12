@@ -4,9 +4,9 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 
-import { FlowBuilderStateFrame, FlowBuilderStateProvider } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
+import { FlowBuilderStateProvider } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 import { FlowEditorStateProvider, WFlowService } from '@app/state/convs-mgr/wflows';
 import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 
@@ -29,8 +29,6 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   @ViewChild('vcr', { static: true, read: ViewContainerRef })
   vcr!: ViewContainerRef;
 
-  private _state$$: Observable<FlowBuilderStateFrame>;
-
   constructor( private flowStateProvider: FlowEditorStateProvider,
                private _flowBuilderState: FlowBuilderStateProvider,
                private editorComponentFactory: EditorComponentFactory,
@@ -49,16 +47,17 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   }
 
   async initEditor() {
-   this._state$$  = this._flowBuilderState.initialize();
+   const state$$  = this._flowBuilderState.initialize();
 
-   const activeScreen$ = this._flowBuilderState.activeScreen$;
+  //  const activeScreen$ = this._flowBuilderState.activeScreen$;
+   const activeScreen$ = of(0);
 
-    this._sbS.sink = combineLatest([this._state$$, activeScreen$]).subscribe(([state, screen])=> {
+    this._sbS.sink = combineLatest([state$$, activeScreen$]).subscribe(([state, screen])=> {
       if(state) {
         const allElementsData = state.flow.flow.screens[screen].layout.children;
 
         if(allElementsData && allElementsData.length > 0) {
-
+          
           for(const elem of allElementsData) {
             // Map elem to flow control
             const flowControlElem = _MapToFlowControl(elem) as FlowControl;
@@ -112,6 +111,11 @@ export class FlowEditorComponent implements OnInit, OnDestroy
       componentRef.instance.control = element;
 
       componentRef.instance.elementForm = form;
+
+      if(!form) {
+        const elementForm  = _GetFlowComponentForm(this._fb);
+        componentRef.instance.elementForm = elementForm;
+      }
 
       componentRef.instance.type = element.type;  // Pass the value to the component
 
