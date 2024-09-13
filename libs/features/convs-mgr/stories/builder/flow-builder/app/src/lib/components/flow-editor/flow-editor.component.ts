@@ -49,8 +49,8 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   async initEditor() {
    const state$$  = this._flowBuilderState.initialize();
 
-  //  const activeScreen$ = this._flowBuilderState.activeScreen$;
-   const activeScreen$ = of(0);
+   const activeScreen$ = this._flowBuilderState.activeScreen$;
+  //  const activeScreen$ = of(0);
 
     this._sbS.sink = combineLatest([state$$, activeScreen$]).subscribe(([state, screen])=> {
       if(state) {

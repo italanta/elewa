@@ -1,69 +1,67 @@
-import { Component, inject, ViewContainerRef } from '@angular/core';
+import { Component, inject, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { debounceTime, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs';
 
 import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 import { FlowTextAreaInput } from '@app/model/convs-mgr/stories/flows';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
-import { InputElementsFormService } from '../../services/text-input-elements-form.service';
 
 @Component({
   selector: 'lib-text-area-input',
   templateUrl: './text-area-input.component.html',
   styleUrl: './text-area-input.component.scss',
 })
-export class TextAreaInputComponent 
+export class TextAreaInputComponent implements OnInit
 {
+  @Input() elementForm: FormGroup;
   /** The type of input, for text inputs */
-  type: FlowControlType
+  type: FlowControlType;
   /** Type of control enum */
   flowControlType = FlowControlType;
   /** Specific control */
-  control: FlowControl
+  control: FlowControl;
 
   /** Dynamic input id */
   inputId = '';
   /** Form fields for inputs */
   textInputForm: FormGroup;
 
-  element: FlowTextAreaInput
+  element: FlowTextAreaInput;
   showConfigs = true;
 
   /** View Container */
-  vrc = inject(ViewContainerRef)
-  private autosaveSubject = new Subject<any>();
+  vrc = inject(ViewContainerRef);
 
-  private _sbS = new SubSink ()
+  private _sbS = new SubSink ();
 
-  constructor(private trackerService: ChangeTrackerService,
-              private _formService: InputElementsFormService
-) {}
+  constructor(private trackerService: ChangeTrackerService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
     this.inputId = `input-${this.type}`;
+    this.textInputForm = this.elementForm;
 
-    this.buildForms()
     // Setup autosave with debounce
-    this.autosaveSubject.pipe(debounceTime(300)).subscribe((value) => {
+    this.textInputForm.valueChanges.pipe(debounceTime(300)).subscribe((value) => {
       this.triggerAutosave(value);
     });
   }
-
-  buildForms(element?: FlowTextAreaInput): void {
-    this.textInputForm = element
-      ? this._formService.buildTextAreaForm(element)
-      : this._formService.buildEmptyTextAreaForm();
-  }
   
   /** Trigger autosave */
-  private triggerAutosave(newValue: any): void {
+  private triggerAutosave(newValue: any): void 
+  {
     this.trackerService.updateValue(this.control.id, newValue);
   }
 
-  saveInputConfig(): void {
+  /**
+   * Function called to save inputs 
+   * Important to setting view mode as well for forms with multiple inputs for configuration.
+   */
+  saveInputConfig(): void 
+  {
     if (this.textInputForm.valid) {
       const inputConfigs = this.textInputForm.value;  // Capture form values
       this.element = inputConfigs
