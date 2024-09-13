@@ -18,11 +18,6 @@
     </div>
   </div>
 
-  <div class="error-message" *ngIf="whatsappLimit">
-    <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.DOCUMENT.MESSAGE-ONE' | transloco }}</span><br>
-    <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.DOCUMENT.MESSAGE-TWO' | transloco }}</span>
-  </div>
-
   <mat-divider *ngIf="isEdit"></mat-divider>
   <div class="inputs-wrapper">
     <label class="edit-panel-label" *ngIf="isEdit">{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco}}</label>

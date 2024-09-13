@@ -6,6 +6,9 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { FileStorageService } from '@app/state/file';
 import { DocumentMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ErrorBlocksService } from '@app/state/convs-mgr/stories/blocks';
+import { BlockErrorTypes } from '@app/model/convs-mgr/stories/blocks/scenario';
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 @Component({
   selector: 'app-document-block-form',
@@ -32,7 +35,10 @@ export class DocumentBlockFormComponent implements OnInit, OnDestroy {
 
   private _sBs = new SubSink();
 
-  constructor(private _docUploadService: FileStorageService) {}
+  constructor(
+    private _docUploadService: FileStorageService,
+    private _errorBlock: ErrorBlocksService
+  ) {}
 
   ngOnInit(): void {
     this.docInputId = `docs-${this.id}`;
@@ -80,7 +86,9 @@ export class DocumentBlockFormComponent implements OnInit, OnDestroy {
   private _checkSizeLimit(fileSize: number) {
     this.byPassedLimits = this._docUploadService.checkFileSizeLimits(fileSize, 'document');
 
-    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
+    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")){
+      this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.DocumentLimit, isError: true, blockType: StoryBlockTypes.Document})
+    }
     else if (this.byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
   }
 

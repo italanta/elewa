@@ -251,7 +251,7 @@
           },
           "DOCUMENT": {
             "MESSAGE-ONE": "Document cannot be sent to whatsapp,",
-            "MESSAGE-TWO": "document exceeds 100MB file Limit."
+            "MESSAGE-TWO": "Upload a document with a maximum size of 100MB"
           },
           "STICKER": {
             "MESSAGE-ONE": "Sticker cannot be sent to whatsapp,",

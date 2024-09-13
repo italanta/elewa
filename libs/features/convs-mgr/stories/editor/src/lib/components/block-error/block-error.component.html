@@ -1,3 +1,4 @@
+<!-- Image Block Errors -->
 <div *ngIf="blockError.isError && blockError.blockType === blockTypes.Image && blockError.errorType === blockErrorTypes.ImageLimit">
     <p class="error">
         <span><i class="fa-solid fa-exclamation"></i></span>
@@ -8,7 +9,6 @@
         {{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.IMAGE.MESSAGE-TWO' | transloco }}
     </p>
 </div>
-
 <div *ngIf="blockError.isError && blockError.blockType === blockTypes.Image && blockError.errorType === blockErrorTypes.ImageFormat">
     <p class="error">
         <span><i class="fa-solid fa-exclamation"></i></span>
@@ -20,6 +20,7 @@
     </p>
 </div>
 
+<!-- Video Block Errors -->
 <div *ngIf="blockError.isError && blockError.blockType === blockTypes.Video && blockError.errorType === blockErrorTypes.VideoLimit">
     <p class="error">
         <span><i class="fa-solid fa-exclamation"></i></span>
@@ -27,6 +28,7 @@
     </p>
 </div>
 
+<!-- Audio Block Errors -->
 <div *ngIf="blockError.isError && blockError.blockType === blockTypes.Audio && blockError.errorType === blockErrorTypes.AudioLimit">
     <p class="error">
         <span><i class="fa-solid fa-exclamation"></i></span>
@@ -35,5 +37,17 @@
     <p class="error">
         <span><i class="fa-solid fa-exclamation"></i></span>
         {{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-TWO' | transloco }}
+    </p>
+</div>
+
+<!-- Document Block Errors -->
+<div *ngIf="blockError.isError && blockError.blockType === blockTypes.Document && blockError.errorType === blockErrorTypes.DocumentLimit">
+    <p class="error">
+        <span><i class="fa-solid fa-exclamation"></i></span>
+        {{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.DOCUMENT.MESSAGE-ONE' | transloco }}
+    </p>
+    <p class="error">
+        <span><i class="fa-solid fa-exclamation"></i></span>
+        {{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.DOCUMENT.MESSAGE-TWO' | transloco }}
     </p>
 </div>

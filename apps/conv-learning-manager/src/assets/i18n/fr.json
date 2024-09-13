@@ -148,7 +148,7 @@
           },
           "DOCUMENT": {
             "MESSAGE-ONE": "Le document ne peut pas être envoyé à WhatsApp",
-            "MESSAGE-TWO": "Le document dépasse la limite de fichier de 100 Mo."
+            "MESSAGE-TWO": "Téléchargez un document d'une taille maximale de 100 Mo"
           },
           "STICKER": {
             "MESSAGE-ONE": "L'autocollant ne peut pas être envoyé à WhatsApp,",
