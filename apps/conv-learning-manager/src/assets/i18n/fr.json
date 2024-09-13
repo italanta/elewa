@@ -144,7 +144,7 @@
             "MESSAGE-TWO": "l'audio dépasse la limite de fichier de 16 Mo"
           }, 
           "VIDEO": {
-            "MESSAGE-ONE": "La vidéo ne peut pas être envoyée à WhatsApp, la vidéo dépasse la limite de fichier de 16 Mo."
+            "MESSAGE-ONE": "Téléchargez une vidéo d'une taille maximale de 16 Mo"
           },
           "DOCUMENT": {
             "MESSAGE-ONE": "Le document ne peut pas être envoyé à WhatsApp",

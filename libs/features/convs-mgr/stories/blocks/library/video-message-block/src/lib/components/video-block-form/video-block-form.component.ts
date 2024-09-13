@@ -10,6 +10,9 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { FileStorageService } from '@app/state/file';
+import { ErrorBlocksService } from '@app/state/convs-mgr/stories/blocks';
+import { BlockErrorTypes } from '@app/model/convs-mgr/stories/blocks/scenario';
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 @Component({
   selector: 'app-video-block-form',
@@ -40,7 +43,10 @@ export class VideoBlockFormComponent implements OnInit, OnDestroy  {
 
   file: File;
 
-  constructor(private _videoUploadService: FileStorageService) {}
+  constructor(
+    private _videoUploadService: FileStorageService,
+    private _errorBlock: ErrorBlocksService
+  ) {}
   
   ngOnInit(): void {
     this.videoInputId = `img-${this.id}`;
@@ -68,7 +74,9 @@ export class VideoBlockFormComponent implements OnInit, OnDestroy  {
   private _checkSizeLimit(size:number) {
     this.byPassedLimits = this._videoUploadService.checkFileSizeLimits(size, 'video');
 
-    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
+    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")){
+      this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.VideoLimit, isError: true, blockType: StoryBlockTypes.Video})
+    } 
     else if (this.byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
   }
 

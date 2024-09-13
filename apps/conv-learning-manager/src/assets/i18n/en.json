@@ -247,7 +247,7 @@
             "MESSAGE-TWO": "audio exceeds 16MB file Limit."
           }, 
           "VIDEO": {
-            "MESSAGE-ONE": "Video cannot be sent to whatsapp, Video exceeds 16MB file Limit."
+            "MESSAGE-ONE": "Upload a video with a maximum size of 16MB"
           },
           "DOCUMENT": {
             "MESSAGE-ONE": "Document cannot be sent to whatsapp,",
