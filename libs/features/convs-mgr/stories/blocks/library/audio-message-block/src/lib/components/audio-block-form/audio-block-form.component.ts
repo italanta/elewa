@@ -12,6 +12,9 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { FileStorageService } from '@app/state/file';
 import { VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ErrorBlocksService } from '@app/state/convs-mgr/stories/blocks';
+import { BlockErrorTypes } from '@app/model/convs-mgr/stories/blocks/scenario';
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 @Component({
   selector: 'app-audio-block-form',
@@ -36,7 +39,10 @@ export class AudioBlockFormComponent implements OnInit, OnDestroy {
   whatsappLimit: boolean;
   messengerLimit: boolean;
 
-  constructor(private _audioUploadService: FileStorageService) {}
+  constructor(
+    private _audioUploadService: FileStorageService,
+    private _errorBlock: ErrorBlocksService
+  ) {}
 
   ngOnInit(): void {
     this.audioInputId = `aud-${this.id}`;
@@ -90,8 +96,9 @@ export class AudioBlockFormComponent implements OnInit, OnDestroy {
       'audio'
     );
 
-    if (this.byPassedLimits.find((limit) => limit.platform === 'WhatsApp'))
-      this.whatsappLimit = true;
+    if (this.byPassedLimits.find((limit) => limit.platform === 'WhatsApp')){
+      this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.AudioLimit, isError: true, blockType: StoryBlockTypes.Audio})
+    }
     else if (
       this.byPassedLimits.find((limit) => limit.platform === 'messenger')
     )

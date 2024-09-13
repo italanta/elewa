@@ -244,7 +244,7 @@
         "WHATSAPP" : {
           "AUDIO": {
             "MESSAGE-ONE": "Audio cannot be sent to whatsapp,",
-            "MESSAGE-TWO": "audio exceeds 16MB file Limit."
+            "MESSAGE-TWO": "Upload an audio with a maximum of 16MB"
           }, 
           "VIDEO": {
             "MESSAGE-ONE": "Upload a video with a maximum size of 16MB"
