@@ -26,5 +26,5 @@ export * from './lib/library/v3.1/elements/input-options.interface';
 export * from './lib/library/v3.1/elements/input-radio-btns.interface';
 export * from './lib/library/v3.1/elements/input-text-area.interface';
 export * from './lib/library/v3.1/elements/input-text.interface';
-
+export * from './lib/library/v3.1/elements/input-datepicker.interface'
 export * from './lib/library/v3.1/flow-json.interface';

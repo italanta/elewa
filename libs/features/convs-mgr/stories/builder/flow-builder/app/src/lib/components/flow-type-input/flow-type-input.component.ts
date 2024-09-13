@@ -8,7 +8,6 @@ import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/fl
 import { FlowTextInput } from '@app/model/convs-mgr/stories/flows';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
-import { InputElementsFormService } from '../../services/text-input-elements-form.service';
 
 
 @Component({
@@ -42,26 +41,11 @@ export class FlowTypeInputComponent implements OnInit
 
   private _sbS = new SubSink ()
 
-  constructor(private trackerService: ChangeTrackerService,
-              private _formService: InputElementsFormService
+  constructor(private trackerService: ChangeTrackerService
 ) {}
 
   ngOnInit(): void {
     this.inputId = `input-${this.type}`;
-
-    this.buildForms()
-  }
-
-  buildForms(element?: FlowTextInput): void 
-  {
-    this.textInputForm = element
-      ? this._formService.buildTextForm(element)
-      : this._formService.buildEmptyTextForm();
-
-    // Autosave on form value changes
-    this._sbS.sink = this.textInputForm.valueChanges.subscribe((formValue) => {
-      this.autosaveSubject.next(formValue);
-    });
   }
   
   saveInputConfig(): void 

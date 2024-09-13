@@ -8,7 +8,6 @@ import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/fl
 import { FlowDatePickerInput, FlowPageLayoutElementTypesV31, FlowTextAreaInput, FlowTextInput } from '@app/model/convs-mgr/stories/flows';
 
 import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
-import { InputElementsFormService } from '../../services/text-input-elements-form.service';
 
 @Component({
   selector: 'lib-flow-datepick-input',
@@ -37,25 +36,16 @@ export class FlowDatepickInputComponent implements OnInit
 
   private _sbS = new SubSink ()
 
-  constructor(private trackerService: ChangeTrackerService,
-              private _formService: InputElementsFormService
-) {}
+  constructor(private trackerService: ChangeTrackerService ) {}
 
   ngOnInit(): void {
     this.inputId = `input-${this.type}`;
-    this.buildForms()
 
     this.textInputForm.valueChanges
     .pipe(debounceTime(10000))  //10 seconds
       .subscribe(value=> {
       this.triggerAutosave(value);
     });
-  }
-
-  buildForms(element?: FlowDatePickerInput): void {
-    this.textInputForm = element
-      ? this._formService.buildDateForm(element)
-      : this._formService.buildEmptyDateForm();
   }
   
   saveInputConfig(_values: FlowDatePickerInput): void {
