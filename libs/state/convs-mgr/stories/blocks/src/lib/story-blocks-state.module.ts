@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { StoryBlocksStore } from './stores/story-blocks.store';
 import { AnchorBlockService } from './services/anchor-story-blocks.service';
+import { ErrorBlocksService } from './services/error-blocks.service';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ export class StoryBlocksStateModule
       ngModule: StoryBlocksStateModule,
       providers: [
         StoryBlocksStore,
-        AnchorBlockService
+        AnchorBlockService,
+        ErrorBlocksService
       ]
     };
   }

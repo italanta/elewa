@@ -259,7 +259,15 @@
           },
           "IMAGE": {
             "MESSAGE-ONE": "Image cannot be sent to whatsapp,",
-            "MESSAGE-TWO": "image exceeds 5MB file Limit."
+            "MESSAGE-TWO": "Upload an image with a maximum size of 5MB"
+          }
+        }
+      },
+      "INPUT-TYPE-MESSAGE":{
+        "WHATSAPP": {
+          "IMAGE": {
+            "MESSAGE-ONE": "Image format is not supported", 
+            "MESSAGE-TWO": "Please select an image file (.jpg, .jpeg, .png) only."
           }
         }
       }

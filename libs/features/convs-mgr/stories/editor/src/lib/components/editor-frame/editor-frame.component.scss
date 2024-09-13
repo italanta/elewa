@@ -4,8 +4,11 @@
   overflow: auto;  
   overflow-y: scroll;
   overflow-x: scroll;
-
   background-color: darkgray;
+}
+
+.frame-bg {
+  position: relative;
 }
 
   #scroll {
@@ -26,6 +29,13 @@
     transform-origin: 0 0;
   }
 
+.error-message{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 3rem;
+  right: 2rem;
+}
 
 #loader {
   height: 100%;

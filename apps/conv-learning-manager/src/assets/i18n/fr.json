@@ -136,6 +136,37 @@
           "SELECT-VARIABLE": "Sélectionnez Variable",
           "CHECKBOX": "variable personnalisée"
         }
+      },
+      "SIZE-LIMIT-MESSAGE": {
+        "WHATSAPP" : {
+          "AUDIO": {
+            "MESSAGE-ONE": "L'audio ne peut pas être envoyé à WhatsApp,",
+            "MESSAGE-TWO": "l'audio dépasse la limite de fichier de 16 Mo"
+          }, 
+          "VIDEO": {
+            "MESSAGE-ONE": "La vidéo ne peut pas être envoyée à WhatsApp, la vidéo dépasse la limite de fichier de 16 Mo."
+          },
+          "DOCUMENT": {
+            "MESSAGE-ONE": "Le document ne peut pas être envoyé à WhatsApp",
+            "MESSAGE-TWO": "Le document dépasse la limite de fichier de 100 Mo."
+          },
+          "STICKER": {
+            "MESSAGE-ONE": "L'autocollant ne peut pas être envoyé à WhatsApp,",
+            "MESSAGE-TWO": "l’autocollant dépasse la limite de fichier de 500 Ko."
+          },
+          "IMAGE": {
+            "MESSAGE-ONE": "L'image ne peut pas être envoyée à WhatsApp,",
+            "MESSAGE-TWO": "Téléchargez une image d'une taille maximale de 5 Mo"
+          }
+        }
+      },
+      "INPUT-TYPE-MESSAGE":{
+        "WHATSAPP": {
+          "IMAGE": {
+            "MESSAGE-ONE": "Le format d'image n'est pas pris en charge", 
+            "MESSAGE-TWO": "Veuillez sélectionner un fichier image (.jpg, .jpeg, .png) uniquement."
+          }
+        }
       }
     },
     "COMPONENTS": {

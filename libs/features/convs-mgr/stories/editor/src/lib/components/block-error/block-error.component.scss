@@ -1,0 +1,10 @@
+.error {
+    text-align: left;
+    border-radius: 1rem;
+    padding: 1rem;
+    background: var(--convs-mgr-color-block-error);
+
+    span {
+        margin-right: 0.4rem;
+    }
+}
