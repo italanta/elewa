@@ -19,7 +19,10 @@
       </div>
 
       <ng-template #library>
-        <convl-blocks-library *ngIf="frame" [frame]="frame">
+        <convl-blocks-library 
+        *ngIf="frame" 
+        [frame]="frame"
+        [isInteractiveVoiceResponseModule]="isInteractiveVoiceResponseModule">
         </convl-blocks-library>
       </ng-template>
     </div>
