@@ -12,6 +12,7 @@ import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 
 import { BOT_MODULE_FORM } from '../../providers/forms/bot-module-form.provider';
+import { BooleanOption } from '../../model/boolean-options.type';
 
 @Component({
   selector: 'app-create-module-modal',
@@ -36,6 +37,11 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
   isCreateMode: boolean;
   isSavingModule: boolean;
   bots: Bot[];
+
+  isInteractiveVoiceResponse: BooleanOption[] = [
+    { value: true, viewValue: 'True' },
+    { value: false, viewValue: 'False' }
+  ];
 
   constructor(
     private _botModulesServ: BotModulesStateService,
@@ -81,7 +87,8 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
       description: this.moduleForm.value.moduleDesc,
       stories: this.moduleForm.value.stories,
       parentBot : this.moduleForm.value.parentBot.id,
-      type: this.moduleForm.value.type
+      type: this.moduleForm.value.type,
+      isInteractiveVoiceResponse: this.moduleForm.value.isInteractiveVoiceResponse
     };
 
     if (this.isCreateMode) {
