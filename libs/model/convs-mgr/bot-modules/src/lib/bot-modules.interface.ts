@@ -25,4 +25,7 @@ export interface BotModule extends IObject {
   agent?: string;
   flow?: string;
   page?: string;
+
+  /** Interactive voice response flag. */
+  isInteractiveVoiceResponse?: boolean;
 }
