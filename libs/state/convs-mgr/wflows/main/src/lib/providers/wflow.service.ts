@@ -106,7 +106,7 @@ export class WFlowService
       {
         if(!s) throw new Error('Active story is not a flow story');
 
-        const repo = this._dataService.getRepo<WFlow>(`orgs/${s.orgId}/stories/${s.id}/flow`);
+        const repo = this._dataService.getRepo<WFlow>(`orgs/${s.orgId}/stories/${s.id}/flows`);
         return repo.getDocuments(
                   new Query().orderBy('timestamp', 'desc')
                              .limit(1))
