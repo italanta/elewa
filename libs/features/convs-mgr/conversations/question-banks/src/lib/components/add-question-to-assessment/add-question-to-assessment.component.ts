@@ -100,12 +100,20 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
   /** Adding questins to an assessment */
   addToAssessment(): void {
     if (this.selectedAssessmentIds.size === 0 || this.questions.length === 0) return;
-
+    const selectedAssessmentIds = Array.from(this.selectedAssessmentIds); 
     this._questionService.addMultipleQuestionsToAssessment$(Array.from(this.selectedAssessmentIds), this.questions)
       .subscribe({
         next: () => {
-          this.showSuccessToast();
-          this._dialog.closeAll();
+          this._assessmentService.updateMaxScore$(selectedAssessmentIds, this.questions)
+            .subscribe({
+              next: () => {
+                this.showSuccessToast();
+                this._dialog.closeAll();
+              },
+              error: (err) => {
+                this._snackBar.open(`Error updating assessment: ${err.message}`, 'Close', { duration: 3000 });
+              }
+            });
         },
       });
   }
