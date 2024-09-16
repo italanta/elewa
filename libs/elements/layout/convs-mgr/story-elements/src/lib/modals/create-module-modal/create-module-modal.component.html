@@ -38,6 +38,18 @@
       </mat-form-field>
     </div>
 
+    <div>
+      <h4 class="label">{{ 'MODULES.CREATE-MODAL.FIELDS.INTERACTIVE-VOICE-RESPONSE' | transloco }}</h4>
+
+      <mat-form-field>
+        <mat-select formControlName="parentBot">
+          <mat-option *ngFor="let option of isInteractiveVoiceResponse" [value]="option.value">
+            {{ option.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <div fxLayout="row" fxLayoutAlign="space-between center" class="bot-buttons">
       <div>
         <button mat-stroked-button mat-dialog-close class="cancel-btn">
