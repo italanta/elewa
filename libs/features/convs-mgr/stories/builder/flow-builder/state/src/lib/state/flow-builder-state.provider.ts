@@ -15,14 +15,13 @@ export class FlowBuilderStateProvider
   private _activeInstance?: FlowBuilderStateFrame;
 
   /** Index of the active screen. For now it will only show the first screen */
-  activeScreen$ = new BehaviorSubject<number>(0);
-  screens$: Observable<FlowScreenV31[]>;
+  private activeScreen = new BehaviorSubject<number>(0);
+  activeScreen$ = this.activeScreen.asObservable();
 
   /** BehaviorSubject to track changes in control state */
   private _controls$$ = new BehaviorSubject<FlowControl[]>([]);
 
   private _state$$ = new BehaviorSubject<FlowBuilderStateFrame>(null as any);
-  _state = this._state$$.asObservable();
 
   constructor(private _flow$$: WFlowService)
   { this.init().subscribe(); }
@@ -59,7 +58,7 @@ export class FlowBuilderStateProvider
   addScreen()
   {
     const state = this._state$$.getValue();
-    const currentScreen = this.activeScreen$.getValue();
+    const currentScreen = this.activeScreen.getValue();
     const newScreenIndex = currentScreen + 1;
 
     const newScreen = _CreateScreen(state.story.id as string, newScreenIndex + 1);
@@ -69,7 +68,11 @@ export class FlowBuilderStateProvider
     this._state$$.next(state);
 
     // Move the user to the new screen
-    this.activeScreen$.next(newScreenIndex);
+    this.changeScreen(newScreenIndex);
+  }
+
+  changeScreen(i: number) {
+    this.activeScreen.next(i);
   }
 
   /**

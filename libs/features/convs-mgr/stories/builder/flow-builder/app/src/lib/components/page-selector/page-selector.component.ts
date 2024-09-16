@@ -23,7 +23,7 @@ export class FlowPageSelectorComponent
   }
 
   changeScreen(i: number) {
-    this.flowBuilderState$$.activeScreen$.next(i);
+    this.flowBuilderState$$.changeScreen(i);
   }
   addScreen() {
     this.flowBuilderState$$.addScreen();
