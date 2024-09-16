@@ -95,7 +95,7 @@ export class ChangeTrackerService {
         type: 'SingleColumnLayout',
         children: controls,  // Grouped controls for this screen
       },
-      title: `Screen for ${screenId}`,
+      title: `SCREEN ${screenId +1}`,
     };
   }
   
