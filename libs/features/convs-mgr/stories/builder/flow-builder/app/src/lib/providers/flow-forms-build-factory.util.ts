@@ -9,22 +9,23 @@ import { _CreateFlowDatePickerInputForm} from './flow-forms/flow-date-input-buil
 
 export function _GetFlowComponentForm(_fb: FormBuilder, componentData?: FlowPageLayoutElementV31)
 {
-  if(componentData){
-    switch (componentData.type) 
-  {
-    case FlowPageLayoutElementTypesV31.TEXT:
-      return  _CreateFlowTextForm(_fb, componentData)
+  return  _CreateFlowTextForm(_fb, componentData);
+  // if(componentData){
+  //   switch (componentData.type) 
+  // {
+  //   case FlowPageLayoutElementTypesV31.TEXT:
+  //     return  _CreateFlowTextForm(_fb, componentData)
 
-    // case FlowPageLayoutElementTypesV31.TEXT_AREA_INPUT:
-    //   return  _CreateFlowTextAreaInputForm(_fb, componentData)
+  //   // case FlowPageLayoutElementTypesV31.TEXT_AREA_INPUT:
+  //   //   return  _CreateFlowTextAreaInputForm(_fb, componentData)
 
-    // case FlowPageLayoutElementTypesV31.DATE_PICKER_INPUT:
-    //   return  _CreateFlowDatePickerInputForm(_fb, componentData)
+  //   // case FlowPageLayoutElementTypesV31.DATE_PICKER_INPUT:
+  //   //   return  _CreateFlowDatePickerInputForm(_fb, componentData)
 
-    // case FlowPageLayoutElementTypesV31.TEXT_INPUT:
-    //   return  _CreateFlowTextInputForm(_fb, componentData)
-  }
-  }
-  // Default return null
-  return undefined;
+  //   // case FlowPageLayoutElementTypesV31.TEXT_INPUT:
+  //   //   return  _CreateFlowTextInputForm(_fb, componentData)
+  // }
+  // }
+  // // Default return null
+  // return undefined;
 }

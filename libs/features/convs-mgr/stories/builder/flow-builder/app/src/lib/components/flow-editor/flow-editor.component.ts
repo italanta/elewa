@@ -6,8 +6,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { combineLatest, Observable, of } from 'rxjs';
 
-import { FlowBuilderStateProvider } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
-import { FlowEditorStateProvider, WFlowService } from '@app/state/convs-mgr/wflows';
+import { FlowBuilderStateFrame, FlowBuilderStateProvider, FlowBuilderStateService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
+import { WFlowService } from '@app/state/convs-mgr/wflows';
 import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 
 import { FlowControl } from '../../providers/flow-controls.const';
@@ -28,31 +28,33 @@ export class FlowEditorComponent implements OnInit, OnDestroy
 
   @ViewChild('vcr', { static: true, read: ViewContainerRef })
   vcr!: ViewContainerRef;
+  flowBuilderState$$: FlowBuilderStateProvider;
+  state$$: Observable<FlowBuilderStateFrame>;
 
-  constructor( private flowStateProvider: FlowEditorStateProvider,
-               private _flowBuilderState: FlowBuilderStateProvider,
+  constructor( private _flowBuilderState: FlowBuilderStateService,
                private editorComponentFactory: EditorComponentFactory,
                private _fb: FormBuilder,
                private trackerService: ChangeTrackerService,
                private _wFlowService: WFlowService,
                private cdr: ChangeDetectorRef,
   ) { 
-    this.droppedElements = this.flowStateProvider.get();
+    this.flowBuilderState$$ = this._flowBuilderState.getFlowState();
+    this.droppedElements = this.flowBuilderState$$.getControls();
   }
 
   ngOnInit(): void {
    this._sbS.sink = this.trackerService.change$.subscribe();
+   this.state$$  = this.flowBuilderState$$.get();
 
    this.initEditor();
   }
 
   async initEditor() {
-   const state$$  = this._flowBuilderState.initialize();
 
-   const activeScreen$ = this._flowBuilderState.activeScreen$;
+   const activeScreen$ = this.flowBuilderState$$.activeScreen$;
   //  const activeScreen$ = of(0);
 
-    this._sbS.sink = combineLatest([state$$, activeScreen$]).subscribe(([state, screen])=> {
+    this._sbS.sink = combineLatest([this.state$$, activeScreen$]).subscribe(([state, screen])=> {
       if(state) {
         const allElementsData = state.flow.flow.screens[screen].layout.children;
 
@@ -68,6 +70,7 @@ export class FlowEditorComponent implements OnInit, OnDestroy
             this.createField(flowControlElem, elementForm);
           }
         }
+
       }
     })
   }
@@ -98,7 +101,7 @@ export class FlowEditorComponent implements OnInit, OnDestroy
         // }
 
         this.cdr.detectChanges();
-        this.flowStateProvider.setControls(draggedData); // Update the state provider
+        this.flowBuilderState$$.setControls(draggedData); // Update the state provider
     }
   }
 

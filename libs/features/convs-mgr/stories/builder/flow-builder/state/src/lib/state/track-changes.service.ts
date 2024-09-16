@@ -4,7 +4,9 @@ import { BehaviorSubject, switchMap } from 'rxjs';
 // import { FlowBuilderStateFrame, FlowBuilderStateProvider } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 import { WFlow, FlowJSONV31, FlowScreenV31 } from '@app/model/convs-mgr/stories/flows';
 import { WFlowService } from '@app/state/convs-mgr/wflows';
+
 import { FlowBuilderStateProvider } from './flow-builder-state.provider';
+import { FlowBuilderStateService } from '../services/flow-builder-state-service';
 // import { WFlowService } from '../providers/wflow.service';
 
 
@@ -17,8 +19,11 @@ import { FlowBuilderStateProvider } from './flow-builder-state.provider';
 export class ChangeTrackerService {
   private jsonArray: { controlId: string; newValue: any, screenId: number}[] = []; // Tracks changes
   private changeSubject = new BehaviorSubject<{ controlId: string; newValue: any, screenId?: number }[]>([]);
+  private flowBuilderState$$: FlowBuilderStateProvider;
 
-  constructor(private _wFlowService: WFlowService, private _flowBuilderState: FlowBuilderStateProvider) {}
+  constructor(private _wFlowService: WFlowService, private _flowBuilderState: FlowBuilderStateService) {
+    this.flowBuilderState$$ = _flowBuilderState.getFlowState();
+  }
 
   public change$ = this.changeSubject.asObservable();
 
@@ -40,7 +45,7 @@ export class ChangeTrackerService {
         id: guid()
       };
 
-      return this._flowBuilderState.get().pipe(switchMap((state) => {
+      return this.flowBuilderState$$.get().pipe(switchMap((state) => {
         const config = state.flow;
         if (config && config.flow.id) {
           wflow.flow.id = config.flow.id;

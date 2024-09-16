@@ -1,16 +1,12 @@
-import { Injectable } from "@angular/core";
 import { SubSink } from "subsink";
-import { BehaviorSubject, combineLatest, filter, map, Observable, of } from "rxjs";
+import { BehaviorSubject, combineLatest, filter, map, Observable } from "rxjs";
 
 import { FlowBuilderStateFrame } from "../model/flow-builder-state-frame.interface";
 import { __StoryToFlowFrame, _CreateScreen } from "../model/story-to-flow-frame.function";
 
 import { WFlowService } from "@app/state/convs-mgr/wflows";
-import { FlowScreenV31 } from "@app/model/convs-mgr/stories/flows";
+import { FlowControl, FlowScreenV31 } from "@app/model/convs-mgr/stories/flows";
 
-@Injectable({
-  providedIn: 'root'
-})
 export class FlowBuilderStateProvider
 {
   private _sbS = new SubSink();
@@ -22,6 +18,9 @@ export class FlowBuilderStateProvider
   activeScreen$ = new BehaviorSubject<number>(0);
   screens$: Observable<FlowScreenV31[]>;
 
+  /** BehaviorSubject to track changes in control state */
+  private _controls$$ = new BehaviorSubject<FlowControl[]>([]);
+
   private _state$$ = new BehaviorSubject<FlowBuilderStateFrame>(null as any);
 
   constructor(private _flow$$: WFlowService)
@@ -31,34 +30,35 @@ export class FlowBuilderStateProvider
    * Initialise a new flow builder state. 
    * This is done on loading of the flow page (ngOnInit).
    */
-   initialize()
-  { 
+  get()
+  {
     const flow$ = this._flow$$.get();
     const flowConfig$ = this._flow$$.getFlowConfig();
 
-    return combineLatest([flow$, flowConfig$]).pipe(map(([story, flow])=> {
+    return combineLatest([flow$, flowConfig$]).pipe(map(([story, flow]) =>
+    {
       this._activeInstance = __StoryToFlowFrame(story, flow);
       this._state$$.next(this._activeInstance);
-
       return this._activeInstance;
-    }))           
+    }));
 
     // const story = await this._flow$$.get();
 
     // const [story, flow] = await Promise.all([this._flow$$.get(), 
     //                                          this._flow$$.getLatestFlowConfig()]);    
-           
+
     // this._activeInstance = __StoryToFlowFrame(story, flow);
-    
+
     // this._state$$.next(this._activeInstance);
 
     // return this._state$$.asObservable();
   }
 
-  addScreen() {
+  addScreen()
+  {
     const state = this._state$$.getValue();
     const currentScreen = this.activeScreen$.getValue();
-    const newScreenIndex = currentScreen+1;
+    const newScreenIndex = currentScreen + 1;
 
     const newScreen = _CreateScreen(state.story.id as string, newScreenIndex + 1);
 
@@ -73,16 +73,38 @@ export class FlowBuilderStateProvider
   /**
    * @returns The active instance, if set.
    */
-  get() {
-    return this._state$$.asObservable().pipe(filter(s => s != null));
+  // get()
+  // {
+  //   return this._state$$.asObservable();
+  // }
+
+  /**
+  * Gets the BehaviorSubject for controls.
+  */
+  getControls(): Observable<FlowControl[]>
+  {
+    return this._controls$$.asObservable();
+  }
+
+  /**
+   * Updates the list of controls and notifies subscribers.
+   * @param controls - The new list of controls.
+   */
+  setControls(control: FlowControl)
+  {
+    const current = this._controls$$.getValue();
+    current.push(control);
+    this._controls$$.next(current);
   }
 
 
+
   /** Done at ngOnDelete of Flow builder page. Used to avoid memory leaks at the flow level. */
-  unset() {
+  unset()
+  {
     this._isLoaded = false;
     this._activeInstance = undefined;
-    this._state$$ =  new BehaviorSubject<FlowBuilderStateFrame>(null as any);  
+    this._state$$ = new BehaviorSubject<FlowBuilderStateFrame>(null as any);
 
     this._sbS.unsubscribe();
     this._sbS = new SubSink();
