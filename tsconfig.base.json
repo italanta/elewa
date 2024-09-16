@@ -506,6 +506,9 @@
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
       "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
+      "interactive-voice-response": [
+        "libs/functions/bot-engine/interactive-voice-response/src/index.ts"
+      ],
       "intercom": ["libs/util/ngfi/intercom/src/index.ts"],
       "micro-apps-auth": ["libs/elements/base/micro-apps-auth/src/index.ts"]
     }
