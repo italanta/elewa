@@ -418,7 +418,8 @@
         "DESC-PLACEHOLDER": "Module description",
         "COPY": "Copy",
         "DELETE": "Delete",
-        "COURSE":"Course"
+        "COURSE":"Course",
+        "INTERACTIVE-VOICE-RESPONSE": "Is an interactive voice response (IVR)?. "
       },
       "CREATE": "Create Module",
       "UPDATE": "Update Module",
