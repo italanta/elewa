@@ -34,6 +34,8 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
   private _sbS = new SubSink();
 
   @Input() frame: StoryEditorFrame;
+  @Input() isInteractiveVoiceResponseModule: boolean;
+
   filterInput$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   isSideScreenOpen:boolean;
 
