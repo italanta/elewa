@@ -46,4 +46,7 @@ export interface StoryBlock extends IObject
 
   /** The variable tagged to the input story block. This variable is used to store the user response to that particular block */
   variable?: StoryBlockVariable;
+
+  /** Can the block be used in  an interactive voice response (IVR). These are the blocks that can be provided as feedback in an IVR */
+  isInteractiveVoiceResponseBlock? :boolean;
 }
