@@ -12,4 +12,6 @@ export interface HttpMethods {
    * A placeholder for the value of the variable
    */
   method: HttpMethodTypes;
+
+  id: string;
 }

@@ -1,5 +1,5 @@
 <mat-card  class="card" [id]="id" class="block-card">
-    <div [id]="id" [ngSwitch]="type" (mouseenter)="highLight()" (mouseleave)="removeHighlight()">
+    <div [id]="id" [ngSwitch]="type">
         <div *ngIf="type !== endStoryAnchor" class="outer">
             <div class="block-title-container"> 
                 <ng-container *ngIf="svgIcon; else showIcon">
@@ -12,7 +12,7 @@
             </div>
 
             <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="editBlock()">
+                <button *ngIf="!editDisabled" mat-menu-item (click)="editBlock()">
                     <i class="far fa-edit"></i>
                     <span class="icon-with-text">{{ 'PAGE-CONTENT.BLOCK.MENU.EDIT' | transloco }}</span>
                 </button>

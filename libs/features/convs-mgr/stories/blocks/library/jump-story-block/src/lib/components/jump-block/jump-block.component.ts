@@ -46,6 +46,8 @@ export class JumpBlockComponent implements OnInit, OnDestroy
   jumpType = StoryBlockTypes.JumpBlock;
   blockFormGroup: FormGroup;
 
+  selectedStoryId: string;
+
   constructor(private _stories$$: StoriesStore,
     private _fb: FormBuilder,
     private _storyBlockStore$$: StoryBlocksStore,
@@ -57,7 +59,16 @@ export class JumpBlockComponent implements OnInit, OnDestroy
   {
     this.setJumpBlockOptions();
 
+    if(this.jumpBlockForm) {
+      this.selectedStoryId = this.jumpBlockForm.value.targetStoryId;
+    }
+
     this.getStories();
+  }
+
+  onStorySelected(story: Story) {
+    this.selectedStoryId = story.id as string;
+    this.jumpBlockForm.patchValue({targetStoryId: this.selectedStoryId});
   }
 
   get options(): FormArray

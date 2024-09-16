@@ -1,7 +1,7 @@
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 
 import { Subscription, Observable } from 'rxjs';
 
@@ -31,10 +31,12 @@ export class WebhookBlockComponent implements OnInit {
   allVars$: Observable<string[]>;
   variablesToPost: string[];
 
+  selectedCategoryId: string;
+
   httpCategories: HttpMethods[] = [
-    { method: HttpMethodTypes.POST, name: 'POST' },
-    { method: HttpMethodTypes.GET, name: 'GET' },
-    { method: HttpMethodTypes.DELETE, name: 'DELETE' }
+    { method: HttpMethodTypes.POST, name: 'POST', id: '1' },
+    { method: HttpMethodTypes.GET, name: 'GET', id: '2' },
+    { method: HttpMethodTypes.DELETE, name: 'DELETE', id: '3' }
   ];
 
   webhookInputId: string;
@@ -60,6 +62,11 @@ export class WebhookBlockComponent implements OnInit {
     this.block.variablesToSave?.forEach((varToSave) => {
       this.variablesToSave.push(this.addVariablesToSave(varToSave));
     })
+
+    if(this.webhookForm) {
+      const method = this.webhookForm.value.httpMethod;
+      this.selectedCategoryId = this.httpCategories.find((cat)=> cat.method === method)?.id as string;
+    }
   }
 
   addVariablesToSave(varToSave?: VariablesToSave) {
@@ -68,6 +75,12 @@ export class WebhookBlockComponent implements OnInit {
       value: [varToSave?.value ?? '']
     })
   }
+
+  onhttpMethosSelected(httpCategory: HttpMethods) {
+    this.selectedCategoryId = httpCategory.id as string;
+    this.webhookForm.patchValue({httpMethod: httpCategory.method});
+  }
+
 
   onChanged(variable: string, event: any) {
     const variablesToPost = this.webhookForm.get('variablesToPost')?.value as string[];

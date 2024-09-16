@@ -15,10 +15,11 @@ export class WebhookEditComponent {
   @Input() title: string;
   
   httpCategories: HttpMethods[] = [
-    { method: HttpMethodTypes.POST, name: 'POST' },
-    { method: HttpMethodTypes.GET, name: 'GET' },
-    { method: HttpMethodTypes.DELETE, name: 'DELETE' }
+    { method: HttpMethodTypes.POST, name: 'POST', id: '1' },
+    { method: HttpMethodTypes.GET, name: 'GET', id: '2' },
+    { method: HttpMethodTypes.DELETE, name: 'DELETE', id: '3' }
   ];
+
 
   variables = new FormControl();
   variables$: Observable<Variable[]>;

@@ -10,10 +10,10 @@ import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks
 
 import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 import { SideScreenToggleService } from '@app/features/convs-mgr/stories/editor';
-import { VideoUploadModalComponent } from '@app/features/convs-mgr/stories/blocks/library/video-message-block'
 
 import { ICONS_AND_TITLES } from '../../assets/icons-and-titles';
 import { _DetermineBlockType } from '../../utils/block-inheritance.util';
+import { isEditDisabled } from '../../utils/isEditDisabled.util';
 
 
 /**
@@ -38,6 +38,8 @@ export class BlockComponent implements OnInit
   type: StoryBlockTypes;
   blockFormGroup: FormGroup;
 
+  editDisabled: boolean;
+
   iconClass = ''
   blockTitle = ''
   svgIcon = ''
@@ -59,6 +61,7 @@ export class BlockComponent implements OnInit
 
   ngOnInit(): void {
     this.type = this.block.type;
+    this.editDisabled = isEditDisabled(this.block.type);
 
     this.iconClass = this.getBlockIconAndTitle(this.type).icon;
     this.blockTitle = this.getBlockIconAndTitle(this.type).title;
@@ -76,16 +79,16 @@ export class BlockComponent implements OnInit
     return ICONS_AND_TITLES[type];
   }
 
-  highLight() {
+  // highLight() {
     // const endpoint = document.querySelector('.jtk-endpoint');
-    const comp = document.getElementById(this.id) as HTMLElement
-    this._renderer.setStyle(comp, 'z-index', '2')
-  }
+    // const comp = document.getElementById(this.id) as HTMLElement
+    // this._renderer.setStyle(comp, 'z-index', '2')
+  // }
 
-  removeHighlight(){
-    const comp = document.getElementById(this.id) as HTMLElement
-    this._renderer.setStyle(comp, 'z-index', '1')
-  }
+  // removeHighlight(){
+  //   const comp = document.getElementById(this.id) as HTMLElement
+  //   this._renderer.setStyle(comp, 'z-index', '1')
+  // }÷\
   /**
    * Track and update coordinates of block and update them in data model.
    */
@@ -125,14 +128,6 @@ export class BlockComponent implements OnInit
   // TODO: Use proper inheritance instead of firing from here
   editBlock() 
   {
-    if (this.type === this.videoType) {
-      this.matdialog.open(VideoUploadModalComponent, {
-        data: { videoMessageForm: this.blockFormGroup },
-      });
-
-      return
-    }
-
     // Normal case - open side menu
     this.sideMenu.toggleExpand(false)
     this.sideScreen.toggleSideScreen(true)

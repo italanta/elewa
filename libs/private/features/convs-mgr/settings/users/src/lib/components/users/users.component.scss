@@ -108,6 +108,12 @@
   }
 
 }
+
+.invite-btn {
+  &:hover {
+    cursor: pointer;
+  }
+}
   
   .user-table{
     .table-container{
@@ -165,6 +171,10 @@
   justify-content: center;
 }
 
+.mat-mdc-option.mdc-list-item:hover {
+  background-color: var(--convs-mgr-color-extra-bright-teal);
+}
+
 :host ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined 
 .mat-mdc-form-field-infix {
   padding-top: 8px!important;
@@ -198,8 +208,6 @@
   background-color: var(--convs-mgr-color-primary-white);
   padding: 10px;
 }
-
-
 
 :host ::ng-deep .ng-start-inserted{
   padding-right: 10px;

@@ -1,26 +1,33 @@
 <div class="modal-wrapper">
-  <div *ngFor="let user of enrolledUsers">
+  <div *ngIf="enrolledUsers.length === 1">
     <div class="title-section">
-      <p class="mode">{{ getMode(user) | titlecase }}</p>
-      <span class="name">{{ user.name || 'No Name' | titlecase }}</span>
+      <p class="mode">{{ getMode(enrolledUsers[0]) | titlecase }}</p>
+      <span>Add <span class="name">{{ enrolledUsers[0].name || 'No Name' | titlecase }}</span> to:</span>
     </div>
+  </div>
+
+  <div *ngIf="enrolledUsers.length > 1">
+    <span>Add <span class="name">{{ enrolledUsers.length }} students</span> to:</span>
   </div>
 
   <!-- Change Class -->
   <div class="middle-section" *ngIf="(classrooms$ | async) as classrooms">
-    <div class="class" *ngFor="let classroom of classrooms">
-      <input type="radio" name="classroom" id="classroom" [value]="classroom.id" (change)="onChange($event)">
-      <label for="classroom">{{ classroom.className | titlecase }}</label>
-    </div>
+    <mat-form-field appearance="fill">
+      <mat-select (selectionChange)="onChange($event)">
+        <mat-option *ngFor="let classroom of classrooms" [value]="classroom.id" 
+          [disabled]="classroom.id && classIds.includes(classroom.id)">{{ classroom.className | titlecase }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <div class="action-btns">
-    <button class="btn" (click)="onCancel()">{{'CLASSESS.MODALS.ACTION-BUTTONS.CANCEL' | transloco }}</button>
-    <button class="btn" (click)="submitAction()">
+    <button class="btn cancel-btn" (click)="onCancel()">{{'CLASSESS.MODALS.ACTION-BUTTONS.CANCEL' | transloco }}</button>
+    <button class="btn apply-btn" (click)="submitAction()" [ngClass]="selectedClass? '' : 'disabled'">
       <span *ngIf="isUpdatingClass; else notCreating">
         <i class="spin_tooltip fas fa-circle-notch fa-spin"></i>
       </span>
-      <ng-template #notCreating>{{'CLASSESS.MODALS.ACTION-BUTTONS.CONTINUE' | transloco }}</ng-template>
+      <ng-template #notCreating>{{'CLASSESS.MODALS.ACTION-BUTTONS.APPLY' | transloco }}</ng-template>
     </button>
   </div>
 </div>

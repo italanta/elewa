@@ -9,4 +9,5 @@ import { FormGroup } from '@angular/forms';
 export class ImageInputBlockEditComponent {
   @Input() form: FormGroup;
   @Input() title: string;
+  @Input() icon: string;
 }

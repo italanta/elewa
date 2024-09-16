@@ -33,15 +33,11 @@ export class LocationBlockMapComponent implements OnInit{
         center: gfg_office,
       });
     
-      const marker = new google.maps.Marker({
+      const marker = new google.maps.marker.AdvancedMarkerElement({
         position: gfg_office,
         map: map,
       });
     }
-
-
-
-  
   }
 
 

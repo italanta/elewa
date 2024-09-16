@@ -1,0 +1,89 @@
+/* Dropdown container */
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+/* Dropdown button */
+.dropdown-button {
+  background-color: var(--convs-mgr-placeholder-color);
+  color: #101010;
+  padding: 10px;
+  font-size: small;
+  border-radius: 15px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 2.5rem;
+  align-items: center;
+  border: none;
+}
+
+/* Dropdown options container */
+.dropdown-options {
+  display: none;
+  position: absolute;
+  color: #101010;
+  background-color: white;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+  width: 100%;
+  border: none;
+  border-radius: 15px;
+  margin-top: 0.5rem;
+  z-index: 9999;
+}
+
+/* Show options when dropdown is open */
+.dropdown-options.show {
+  display: block;
+  z-index: 9999;
+}
+
+/* Each dropdown option */
+.dropdown-option {
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 16px;
+  font-size: small;
+}
+
+.dropdown-option:first-child {
+  padding-top: 0.8rem;
+}
+
+.dropdown-option:last-child {
+  padding-bottom: 0.8rem;
+}
+
+/* Style for radio button */
+.dropdown-option input[type="radio"] {
+  margin-right: 10px;
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+}
+
+/* Hover effect for options */
+.dropdown-option:hover {
+  background-color: rgba(#1F7A8C,0.3);
+}
+
+.dropdown-option:first-child:hover {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.dropdown-option:last-child:hover {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+/* Active option styling */
+.dropdown-option input[type="radio"]:checked + span {
+  font-weight: bold;
+}

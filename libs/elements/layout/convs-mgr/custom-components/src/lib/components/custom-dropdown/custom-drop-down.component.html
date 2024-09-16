@@ -1,0 +1,19 @@
+<div class="dropdown-container">
+  <button class="dropdown-button" (click)="toggleDropdown()">
+    <span>{{ selectedOption?.name ||  selectedOption?.title || 'Select an option' }} </span>
+    <i class="fas fa-caret-down"></i>
+  </button>
+
+  <div class="dropdown-options" [class.show]="dropdownOpen">
+    <label *ngFor="let option of options" class="dropdown-option">
+      <input 
+        type="radio" 
+        name="customDropdown" 
+        [value]="option.id" 
+        [(ngModel)]="selectedOption" 
+        (ngModelChange)="onOptionSelected(option)"
+      />
+      {{ option.name || option.title }}
+    </label>
+  </div>
+</div>

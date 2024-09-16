@@ -39,6 +39,9 @@ body {
 .wide {
   padding: 1rem;
   width: 15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .frame-connector {
@@ -83,15 +86,17 @@ svg.frame-connector path {
 
 .doc-icon {
 	text-align: center;
-	color: var(--convs-mgr-color-primary-purple) !important;
 	background-color: var(--convs-mgr-color-primary-white) !important;
 	opacity: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-
+  color: var(--convs-mgr-color-bright-teal) !important;
+	align-self: center;
+	width: 100%;
+  
 	.fa-spin {
-		color: var(--convs-mgr-color-primary-purple) !important;
+    color: var(--convs-mgr-color-bright-teal) !important;
 		border: none;
 	}
 }
@@ -187,6 +192,10 @@ mat-form-field.full-field{
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.edit-panel-label {
+  font-size: small;
 }
 
 // ---- Customize validation ----- //
@@ -302,3 +311,32 @@ mat-form-field.full-field{
   gap: 5px;
 }
 
+.edit_form {
+	background: white !important;
+	background-color: white !important;
+	color: var(--convs-mgr-color-101010) !important;
+}
+
+.edit_form_wrapper {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 1.3rem !important;
+}
+
+.edit_input {
+	background: white !important;
+}
+
+.inputs-wrapper {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 0.5rem !important;
+}
+
+#mediaUploadLabel {
+	width: 100%;
+	height: 4rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

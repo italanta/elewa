@@ -1,34 +1,5 @@
 <div [id]="id" class="wide" *ngIf="conditionalBlockForm">
-  <form [formGroup]="conditionalBlockForm" fxLayout="column" fxLayoutAlign="start center">
-    <div class="details-wrapper">
-      <div class="form-group">
-        <div class="options-wrapper">
-          <select class="assess-label" name="assessmentlabel" required id="assessmentlabel" [attr.disabled]="isTyped.value ? true : null">
-            <option disabled selected>{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</option>
-            <option *ngFor="let variable of (vars$ | async)" [value]="variable">{{ variable }}</option>
-          </select>
-          
-          <span class="custom-dropdown-arrow"></span>
-        </div>
-      </div>
-      <div class="select-variable">
-        <input type="checkbox" class="custom-checkbox" formControlName="isTyped" name="check" id="isTyped">
-        <label class="custom-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</label>
-      </div>
-      <div class="type-variable">
-        <input class="input" type="text" formControlName="typedVar" placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CONDITIONAL-BLOCK.INPUT-VARIABLE' | transloco }}" id="variableToCheck">
-      </div>
-    </div>
-    <div formArrayName="options" fxFlexFill class="btns-wrapper">
-      <div *ngFor="let option of options.controls; let i = index">
-        <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutAlign="start center" fxFlex="100">
-          <button (click)="deleteInput(i)" class="listgone"><i class="fa-solid fa-xmark fa-lg"></i></button>
-          <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm" [formGroupNameInput]="i" class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field>
-        </div>
-      </div>
-      <button (click)="addNewOption()" mat-flat-button class="add-button">{{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}</button>
-      <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm"></app-default-option-field>
-    </div>
-  </form>
+  <app-conditional-block-form  [id]="id" [block]="block" [conditionalBlockForm]="conditionalBlockForm" [jsPlumb]="jsPlumb"></app-conditional-block-form>
+  <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm"></app-default-option-field>
 </div>
 
