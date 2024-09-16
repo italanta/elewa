@@ -14,14 +14,7 @@ export class FlowBuilderStateService
 {
   constructor(private _flow$$: WFlowService) {}
 
-  /**
-   * @returns all milestones for all users
-   */
-  getFlow(): Observable<FlowStory> {
-    return this._flow$$.get();
-  }
-
-  getFlowState() {
+  get() {
     return new FlowBuilderStateProvider(this._flow$$);
   }
 

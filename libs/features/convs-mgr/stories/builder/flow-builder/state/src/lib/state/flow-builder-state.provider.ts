@@ -22,15 +22,16 @@ export class FlowBuilderStateProvider
   private _controls$$ = new BehaviorSubject<FlowControl[]>([]);
 
   private _state$$ = new BehaviorSubject<FlowBuilderStateFrame>(null as any);
+  _state = this._state$$.asObservable();
 
   constructor(private _flow$$: WFlowService)
-  { }
+  { this.init().subscribe(); }
 
   /** 
    * Initialise a new flow builder state. 
    * This is done on loading of the flow page (ngOnInit).
    */
-  get()
+  init()
   {
     const flow$ = this._flow$$.get();
     const flowConfig$ = this._flow$$.getFlowConfig();
@@ -39,6 +40,7 @@ export class FlowBuilderStateProvider
     {
       this._activeInstance = __StoryToFlowFrame(story, flow);
       this._state$$.next(this._activeInstance);
+      // debugger
       return this._activeInstance;
     }));
 
@@ -73,10 +75,10 @@ export class FlowBuilderStateProvider
   /**
    * @returns The active instance, if set.
    */
-  // get()
-  // {
-  //   return this._state$$.asObservable();
-  // }
+  get()
+  {
+    return this._state$$.pipe(filter(s => s != null));
+  }
 
   /**
   * Gets the BehaviorSubject for controls.

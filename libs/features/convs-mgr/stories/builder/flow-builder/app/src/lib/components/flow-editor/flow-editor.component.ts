@@ -38,7 +38,7 @@ export class FlowEditorComponent implements OnInit, OnDestroy
                private _wFlowService: WFlowService,
                private cdr: ChangeDetectorRef,
   ) { 
-    this.flowBuilderState$$ = this._flowBuilderState.getFlowState();
+    this.flowBuilderState$$ = this._flowBuilderState.get();
     this.droppedElements = this.flowBuilderState$$.getControls();
   }
 
@@ -55,7 +55,6 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   //  const activeScreen$ = of(0);
 
     this._sbS.sink = combineLatest([this.state$$, activeScreen$]).subscribe(([state, screen])=> {
-      if(state) {
         const allElementsData = state.flow.flow.screens[screen].layout.children;
 
         if(allElementsData && allElementsData.length > 0) {
@@ -65,13 +64,10 @@ export class FlowEditorComponent implements OnInit, OnDestroy
             const flowControlElem = _MapToFlowControl(elem) as FlowControl;
             // Build form
             const elementForm  = _GetFlowComponentForm(this._fb, elem);
-
             // use the flow control to load the component
             this.createField(flowControlElem, elementForm);
           }
         }
-
-      }
     })
   }
   

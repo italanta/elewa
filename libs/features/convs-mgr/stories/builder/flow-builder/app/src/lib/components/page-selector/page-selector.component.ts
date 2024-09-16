@@ -18,7 +18,7 @@ export class FlowPageSelectorComponent
 
   constructor(private _flowBuilderState: FlowBuilderStateService) 
   { 
-    this.flowBuilderState$$ = this._flowBuilderState.getFlowState();
+    this.flowBuilderState$$ = this._flowBuilderState.get();
     this.state$ = this.flowBuilderState$$.get();
   }
 

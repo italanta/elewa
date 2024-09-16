@@ -22,7 +22,7 @@ export class ChangeTrackerService {
   private flowBuilderState$$: FlowBuilderStateProvider;
 
   constructor(private _wFlowService: WFlowService, private _flowBuilderState: FlowBuilderStateService) {
-    this.flowBuilderState$$ = _flowBuilderState.getFlowState();
+    this.flowBuilderState$$ = _flowBuilderState.get();
   }
 
   public change$ = this.changeSubject.asObservable();
