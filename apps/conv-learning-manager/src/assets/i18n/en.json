@@ -265,6 +265,10 @@
       },
       "INPUT-TYPE-MESSAGE":{
         "WHATSAPP": {
+          "VIDEO": {
+            "MESSAGE-ONE": "Video format is not supported.",
+            "MESSAGE-TWO": "Please select a video file (.mp4, .3gp) only."
+          },
           "IMAGE": {
             "MESSAGE-ONE": "Image format is not supported", 
             "MESSAGE-TWO": "Please select an image file (.jpg, .jpeg, .png) only."

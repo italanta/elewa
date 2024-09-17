@@ -6,7 +6,7 @@
     [class.edit_form]="isEdit"
     [ngClass]="byPassedLimits.length ? 'error' : ''"
   >
-  <input *ngIf="!isLoadingVideo" (change)="processVideo($event)" type="file" class="video-file" accept=".mp4" id="videoUpload" hidden />
+  <input *ngIf="!isLoadingVideo" (change)="processVideo($event)" type="file" class="video-file"  id="videoUpload" hidden />
 
   <label id="mediaUploadLabel" *ngIf="!isLoadingVideo" for="videoUpload">
     <div *ngIf="!hasVideo; else inputHasVideo" class="block-media-placeholder">

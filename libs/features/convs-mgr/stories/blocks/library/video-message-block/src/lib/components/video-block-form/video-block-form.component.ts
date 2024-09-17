@@ -82,11 +82,12 @@ export class VideoBlockFormComponent implements OnInit, OnDestroy  {
 
 
   async processVideo(event: any) {   
-    const allowedFileTypes = ['video/mp4']
+    const allowedFileTypes = ['video/mp4', 'video/3gp']
     this.file = event.target.files[0]
 
     if (!allowedFileTypes.includes(event.target.files[0].type)) {
-      this._videoUploadService.openErrorModal("Invalid File Type", "Please select an video file (.mp4) only.");
+      this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.VideoFormat, isError: true, blockType: StoryBlockTypes.Video})
+      // this._videoUploadService.openErrorModal("Invalid File Type", "Please select an video file (.mp4) only.");
       return;
     }
 
