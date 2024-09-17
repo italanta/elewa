@@ -273,6 +273,10 @@
             "MESSAGE-ONE": "Video format is not supported.",
             "MESSAGE-TWO": "Please select a video file (.mp4, .3gp) only."
           },
+          "DOCUMENT": {
+            "MESSAGE-ONE": "Document format is not supported.",
+            "MESSAGE-TWO": "Please select a document file (.txt, .xls, .xlsx, .doc, .docx, .ppt, .pptx, .pdf) only."
+          },
           "IMAGE": {
             "MESSAGE-ONE": "Image format is not supported", 
             "MESSAGE-TWO": "Please select an image file (.jpg, .jpeg, .png) only."

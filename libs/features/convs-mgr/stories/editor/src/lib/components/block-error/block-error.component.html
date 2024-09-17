@@ -71,3 +71,13 @@
         {{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.DOCUMENT.MESSAGE-TWO' | transloco }}
     </p>
 </div>
+<div *ngIf="blockError.isError && blockError.blockType === blockTypes.Document && blockError.errorType === blockErrorTypes.DocumentFormat">
+    <p class="error">
+        <span><i class="fa-solid fa-exclamation"></i></span>
+        {{ 'PAGE-CONTENT.BLOCK.INPUT-TYPE-MESSAGE.WHATSAPP.DOCUMENT.MESSAGE-ONE' | transloco }}
+    </p>
+    <p class="error">
+        <span><i class="fa-solid fa-exclamation"></i></span>
+        {{ 'PAGE-CONTENT.BLOCK.INPUT-TYPE-MESSAGE.WHATSAPP.DOCUMENT.MESSAGE-TWO' | transloco }}
+    </p>
+</div>

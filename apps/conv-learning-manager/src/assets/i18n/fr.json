@@ -170,6 +170,10 @@
             "MESSAGE-ONE": "Le format vidéo n'est pas pris en charge.",
             "MESSAGE-TWO": "Veuillez sélectionner un fichier vidéo (.mp4, .3gp) uniquement."
           },
+          "DOCUMENT": {
+            "MESSAGE-ONE": "Le format de document n'est pas pris en charge.",
+            "MESSAGE-TWO": "Veuillez sélectionner un fichier de document (.txt, .xls, .xlsx, .doc, .docx, .ppt, .pptx, .pdf) uniquement."
+          },
           "IMAGE": {
             "MESSAGE-ONE": "Le format d'image n'est pas pris en charge", 
             "MESSAGE-TWO": "Veuillez sélectionner un fichier image (.jpg, .jpeg, .png) uniquement."

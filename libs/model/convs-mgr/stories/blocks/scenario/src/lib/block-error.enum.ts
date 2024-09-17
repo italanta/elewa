@@ -6,4 +6,5 @@ export enum BlockErrorTypes {
     DocumentLimit = 5,
     VideoFormat = 6,
     AudioFormat = 7,
+    DocumentFormat = 8
 }

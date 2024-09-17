@@ -54,11 +54,12 @@ export class DocumentBlockFormComponent implements OnInit, OnDestroy {
   }
 
   async processDocs(event: any) {
-    const allowedFileTypes = ['application/pdf'];
+    const allowedFileTypes = ['text/plain','application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.ms-powerpoint','application/vnd.openxmlformats-officedocument.presentationml.presentation','application/pdf']
     this.file = event.target.files[0];
 
     if (!allowedFileTypes.includes(event.target.files[0].type)) {
-      this._docUploadService.openErrorModal("Invalid File Type", "Please select a .pdf only.");
+      this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.DocumentFormat, isError: true, blockType: StoryBlockTypes.Document})
+      // this._docUploadService.openErrorModal("Invalid File Type", "Please select a .pdf only.");
       return;
     }
 
