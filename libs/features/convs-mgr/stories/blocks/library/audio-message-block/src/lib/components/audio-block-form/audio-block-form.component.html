@@ -2,7 +2,7 @@
 
   <div [id]="audioInputId" class="audio_bg" [class.edit_form] = "isEdit"  [ngClass]="byPassedLimits.length ? 'error' : ''">
 
-    <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc">
+    <input #audioInput (change)="processAudio($event)" type="file" class="fileSrc">
     <label id="mediaUploadLabel" *ngIf="!isLoadingAudio" [for]="audioInput" (click)="audioInput.click()" >
       <div *ngIf="!audioName; else inputHasAudio" class="block-media-placeholder">
           <img src="assets/svgs/blocks/audio.svg" (click)="audioInput.click()" class="placeholder-icon">

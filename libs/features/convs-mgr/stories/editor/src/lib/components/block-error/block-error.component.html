@@ -49,6 +49,16 @@
         {{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-TWO' | transloco }}
     </p>
 </div>
+<div *ngIf="blockError.isError && blockError.blockType === blockTypes.Audio && blockError.errorType === blockErrorTypes.AudioFormat">
+    <p class="error">
+        <span><i class="fa-solid fa-exclamation"></i></span>
+        {{ 'PAGE-CONTENT.BLOCK.INPUT-TYPE-MESSAGE.WHATSAPP.AUDIO.MESSAGE-ONE' | transloco }}
+    </p>
+    <p class="error">
+        <span><i class="fa-solid fa-exclamation"></i></span>
+        {{ 'PAGE-CONTENT.BLOCK.INPUT-TYPE-MESSAGE.WHATSAPP.AUDIO.MESSAGE-TWO' | transloco }}
+    </p>
+</div>
 
 <!-- Document Block Errors -->
 <div *ngIf="blockError.isError && blockError.blockType === blockTypes.Document && blockError.errorType === blockErrorTypes.DocumentLimit">

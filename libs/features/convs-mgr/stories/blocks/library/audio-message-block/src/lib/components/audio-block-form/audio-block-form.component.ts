@@ -62,7 +62,13 @@ export class AudioBlockFormComponent implements OnInit, OnDestroy {
   }
 
   async processAudio(event: any) {
+    const allowedFileTypes = ['audio/aac','audio/amr','audio/mpeg','audio/mp4']
     this.file = event.target.files[0];
+
+    if (!allowedFileTypes.includes(event.target.files[0].type)){
+      this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.AudioFormat, isError: true, blockType: StoryBlockTypes.Audio})
+      return;
+    }
 
     if (this.file) {
       this.isLoadingAudio = true;

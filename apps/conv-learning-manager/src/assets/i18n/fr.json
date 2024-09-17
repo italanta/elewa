@@ -162,6 +162,10 @@
       },
       "INPUT-TYPE-MESSAGE":{
         "WHATSAPP": {
+          "AUDIO": {
+            "MESSAGE-ONE": "Le format audio n'est pas pris en charge.",
+            "MESSAGE-TWO": "Veuillez sélectionner un fichier audio (.aac, .amr, .mpeg, .mp4) uniquement."
+          }, 
           "VIDEO": {
             "MESSAGE-ONE": "Le format vidéo n'est pas pris en charge.",
             "MESSAGE-TWO": "Veuillez sélectionner un fichier vidéo (.mp4, .3gp) uniquement."
