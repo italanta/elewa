@@ -152,7 +152,7 @@
           },
           "STICKER": {
             "MESSAGE-ONE": "L'autocollant ne peut pas être envoyé à WhatsApp,",
-            "MESSAGE-TWO": "l’autocollant dépasse la limite de fichier de 500 Ko."
+            "MESSAGE-TWO": "l’autocollant dépasse la limite de fichier de 500 Ko"
           },
           "IMAGE": {
             "MESSAGE-ONE": "L'image ne peut pas être envoyée à WhatsApp,",
@@ -163,20 +163,20 @@
       "INPUT-TYPE-MESSAGE":{
         "WHATSAPP": {
           "AUDIO": {
-            "MESSAGE-ONE": "Le format audio n'est pas pris en charge.",
-            "MESSAGE-TWO": "Veuillez sélectionner un fichier audio (.aac, .amr, .mpeg, .mp4) uniquement."
+            "MESSAGE-ONE": "Le format audio n'est pas pris en charge",
+            "MESSAGE-TWO": "Veuillez sélectionner un fichier audio (.aac, .amr, .mpeg, .mp4) uniquement"
           }, 
           "VIDEO": {
-            "MESSAGE-ONE": "Le format vidéo n'est pas pris en charge.",
-            "MESSAGE-TWO": "Veuillez sélectionner un fichier vidéo (.mp4, .3gp) uniquement."
+            "MESSAGE-ONE": "Le format vidéo n'est pas pris en charge",
+            "MESSAGE-TWO": "Veuillez sélectionner un fichier vidéo (.mp4, .3gp) uniquement"
           },
           "DOCUMENT": {
-            "MESSAGE-ONE": "Le format de document n'est pas pris en charge.",
-            "MESSAGE-TWO": "Veuillez sélectionner un fichier de document (.txt, .xls, .xlsx, .doc, .docx, .ppt, .pptx, .pdf) uniquement."
+            "MESSAGE-ONE": "Le format de document n'est pas pris en charge",
+            "MESSAGE-TWO": "Veuillez sélectionner un fichier de document (.txt, .xls, .xlsx, .doc, .docx, .ppt, .pptx, .pdf) uniquement"
           },
           "IMAGE": {
             "MESSAGE-ONE": "Le format d'image n'est pas pris en charge", 
-            "MESSAGE-TWO": "Veuillez sélectionner un fichier image (.jpg, .jpeg, .png) uniquement."
+            "MESSAGE-TWO": "Veuillez sélectionner un fichier image (.jpg, .jpeg, .png) uniquement"
           }
         }
       }
