@@ -3,11 +3,12 @@ import { FormArray, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 
-import { Subject } from 'rxjs';
+import { Subject, take } from 'rxjs';
 
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
+import { QuestionDisplayMode } from '../../model/question-display-mode.enum';
 
 @Component({
   selector: 'app-assessment-question-forms',
@@ -21,7 +22,8 @@ export class AssessmentQuestionFormsComponent implements AfterViewInit, OnDestro
   @Input() questions: AssessmentQuestion[];
 
   @Input() assessmentFormGroup: FormGroup;
-
+  /** Is the question in view mode or edit mode */
+  questionMode: QuestionDisplayMode;
   count = 0;
   formDataIsReady = false;
 

@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 
-import { Observable, tap } from 'rxjs';
+import { Observable, take, tap } from 'rxjs';
 
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
@@ -12,6 +12,7 @@ import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessment
 import { AssessmentFormService } from '../../services/assessment-form.service';
 import { AssessmentMediaUploadComponent } from '../assessment-media-upload/assessment-media-upload.component';
 import { getMediaType } from '../../utils/check-media-type.util'
+import { QuestionDisplayMode } from '../../model/question-display-mode.enum';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   @Input() index: number;
 
   @Input() assessmentMode: number;
+  @Input() questionMode: QuestionDisplayMode
   
   @Input() assessmentFormGroup: FormGroup;
   @Input() questionFormGroupName: number | string;
@@ -37,6 +39,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
 
   @Output() addNewQuestion = new EventEmitter<FormGroup>();
   @Output() activeQuestionChanged = new EventEmitter();
+
   
   activeCard: number;
   mediaSrc = '';
@@ -60,6 +63,11 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.activeCard$.pipe(tap((activeId) => {
       this.activeCard = activeId;
+      if (this.index === activeId) {
+        this.questionMode = QuestionDisplayMode.EDITING;
+      } else {
+        this.questionMode = QuestionDisplayMode.VIEWING;
+      }
     })).subscribe();
     this._checkMediaOnLoad();
   }
