@@ -11,21 +11,30 @@
 	}
 	h5 {
 		font-size: 1.1rem;
-		font-weight: 400;
+		font-weight: 500;
 	}
 	span {
 		font-size: 1rem;
 		font-weight: 400;
+		padding-top: 0.8rem;
 	}
 
 	.enable-retrial{
 		display: flex;
+		flex-direction: column;
 		justify-content: space-between;
-		align-items: center;
-		max-height: 40px;
-		padding: 0;
-		p{
-			margin: none;
+		align-items: start;
+		h5 {
+			font-size: 1.1rem;
+			font-weight: 500;
+			margin: 0 !important;
+		}
+
+		.flex-header{
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
+			padding-bottom: 0.8rem;
 		}
 	}
 
