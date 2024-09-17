@@ -27,7 +27,7 @@ export class AssessmentAnswerComponent implements OnInit  {
 
   ngOnInit()
   {
-    if(!this.questionBankForm) this.questionMode = QuestionDisplayMode.EDITING
+    // if(!this.questionBankForm) this.questionMode = QuestionDisplayMode.EDITING
   }
   setFeedback() {
     this.showFeedback = !this.showFeedback;

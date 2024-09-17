@@ -36,7 +36,7 @@
           <div class="circle none"></div>
         </div>
 
-        <div  class="feedback-item" fxLayout="column">
+        <div *ngIf="questionMode === modeToDisplay.EDITING" class="feedback-item" fxLayout="column">
           <div class="feedback-checkbox">
             <span class="title" *ngIf="true">{{'ASSESSMENTS.QUESTIONS.FIELDS.FEEDBACK' | transloco}}</span>
             <input type="checkbox" name="showFeedback" [checked]="showFeedback" (click)="setFeedback()">

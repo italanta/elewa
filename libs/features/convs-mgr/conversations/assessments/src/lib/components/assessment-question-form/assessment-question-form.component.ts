@@ -33,7 +33,6 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   @Input() index: number;
   @Input() assessmentMode: number;
   @Input() questionMode: QuestionDisplayMode;
-  modeToDisplay = QuestionDisplayMode;
   @Input() assessmentFormGroup: FormGroup;
   @Input() questionFormGroupName: number | string;
   @Input() activeCard$: Observable<number>;
@@ -54,10 +53,10 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   allowedMedia = MediaUploadType;
   addMedia = true;
   isImageMedia: boolean;
-
   isAddingQuestion = true;
   addClicked = false;
   questionFormMode = QuestionFormMode;
+  modeToDisplay = QuestionDisplayMode;
 
   feedBackConditions = [
     FeedbackCondition[1],
