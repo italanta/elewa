@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { AssessmentOptionValue } from '@app/model/convs-mgr/conversations/assessments';
+import { QuestionDisplayMode } from '../../model/question-display-mode.enum';
 
 @Component({
   selector: 'app-assessment-answer',
@@ -11,11 +12,13 @@ import { AssessmentOptionValue } from '@app/model/convs-mgr/conversations/assess
 export class AssessmentAnswerComponent  {
   @Input() questionFormGroup: FormGroup;
   @Input() answerFormGroupName: number;
-
+  @Input() questionMode: QuestionDisplayMode;
   @Output() deleteChoice = new EventEmitter<number>();
   @Output() answerClicked = new EventEmitter();
 
   showFeedback = false;
+
+  modeToDisplay = QuestionDisplayMode
 
   correct = AssessmentOptionValue.Correct;
   wrong = AssessmentOptionValue.Wrong;

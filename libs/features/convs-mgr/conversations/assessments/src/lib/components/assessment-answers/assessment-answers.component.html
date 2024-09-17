@@ -5,7 +5,9 @@
         <app-assessment-answer (deleteChoice)="deleteChoice($event)" 
                               (answerClicked)="generateAnswerForm($event)"
                                [questionFormGroup]="questionFormGroup"
-                               [answerFormGroupName]="i">
+                               [answerFormGroupName]="i"
+                               [questionMode]="questionMode"
+                               >
         </app-assessment-answer>
       </div>
     </div>

@@ -34,7 +34,9 @@
                                     [isLastQuestion]="i + 1 === questionsList.controls.length"
                                     [assessmentMode]="assessmentMode" (addNewQuestion)="addQuestion($event)" 
                                     [activeCard$]="activeCard$.asObservable()"
-                                    (activeQuestionChanged)="activeQuestionChanged($event)" fxFlex>
+                                    (activeQuestionChanged)="activeQuestionChanged($event)"
+                                    [questionMode]="questionMode"
+                                     fxFlex>
       </app-assessment-question-form>
     </div>
   </div>

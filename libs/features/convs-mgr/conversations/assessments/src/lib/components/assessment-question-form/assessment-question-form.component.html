@@ -48,8 +48,13 @@
 								</div>
 							</div>
 
-							<app-assessment-answers [questionId]="questionFormGroup.value.id" [questionFormGroup]="questionFormGroup"
-								[assessmentMode]="assessmentMode"></app-assessment-answers>
+							<app-assessment-answers 
+								[questionId]="questionFormGroup.value.id" 
+								[questionFormGroup]="questionFormGroup"
+								[assessmentMode]="assessmentMode"
+								[questionMode]="questionMode"
+								>
+							</app-assessment-answers>
 
 							<div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1%">
 								<mat-form-field appearance="fill">
