@@ -8,9 +8,13 @@
           <div class="circle"></div>
         </div>
 
-        <mat-form-field appearance="fill" class="full-field">
+        <mat-form-field appearance="fill" class="full-field" *ngIf="questionMode === modeToDisplay.EDITING">
           <input type="text" placeholder="{{'ASSESSMENTS.QUESTIONS.FIELDS.ANSWER' | transloco}}" matInput formControlName="text">
         </mat-form-field>
+
+        <div *ngIf="questionMode === modeToDisplay.VIEWING" class="view-div">
+          <input type="text" placeholder="{{'ASSESSMENTS.QUESTIONS.FIELDS.ANSWER' | transloco}}" matInput formControlName="text">
+        </div>
   
         <mat-form-field appearance="fill" *ngIf="questionMode === modeToDisplay.EDITING">
           <mat-select formControlName="accuracy" [value]="correct">
@@ -27,12 +31,12 @@
       <!-- end first row -->
       
       <!-- second row -->
-      <div class="feedback">
+      <div class="feedback" *ngIf="questionMode === modeToDisplay.EDITING">
         <div class="circle-wrapper">
           <div class="circle none"></div>
         </div>
 
-        <div *ngIf="questionMode === modeToDisplay.EDITING" class="feedback-item" fxLayout="column">
+        <div  class="feedback-item" fxLayout="column">
           <div class="feedback-checkbox">
             <span class="title" *ngIf="true">{{'ASSESSMENTS.QUESTIONS.FIELDS.FEEDBACK' | transloco}}</span>
             <input type="checkbox" name="showFeedback" [checked]="showFeedback" (click)="setFeedback()">

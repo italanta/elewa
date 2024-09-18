@@ -31,7 +31,8 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   @Input() index: number;
 
   @Input() assessmentMode: number;
-  @Input() questionMode: QuestionDisplayMode
+  @Input() questionMode: QuestionDisplayMode;
+  modeToDisplay = QuestionDisplayMode
   
   @Input() assessmentFormGroup: FormGroup;
   @Input() questionFormGroupName: number | string;

@@ -2,9 +2,9 @@
 	<div [ngClass]="activeCard === index ? ['card' , 'active-card'] : ['card']"
 		(click)="activeQuestionChanged.emit(index)">
 
-		<i style="width: 100%; margin: auto; color: #B2B2B2;" class="fas fa-grip-horizontal"></i>
+		<i style="width: 100%; margin: auto; color: #B2B2B2;" class="fas fa-grip-horizontal" *ngIf="questionMode === modeToDisplay.EDITING"></i>
 
-		<div class="mini-btns">
+		<div class="mini-btns" *ngIf="questionMode === modeToDisplay.EDITING">
 			<button mat-flat-button (click)="duplicateQuestion()">
 				<img src="assets/icons/duplicate-item.svg" alt="">
 			</button>
@@ -34,7 +34,7 @@
 										</mat-form-field>
 									</div>
 
-									<div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+									<div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px" *ngIf="questionMode === modeToDisplay.EDITING">
 										<button mat-flat-button>
 											<i class="fa-solid fa-a"></i>
 										</button>
