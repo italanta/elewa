@@ -340,3 +340,24 @@ mat-form-field.full-field{
 	justify-content: center;
 	align-items: center;
 }
+
+//----- Snack bar -----//
+.mat-mdc-snack-bar-container {
+  &.blue-snackbar {
+    --mdc-snackbar-container-color: #2196f3;
+    --mat-mdc-snack-bar-button-color: #fff;
+  }
+
+  &.wrapper_success {
+    --mdc-snackbar-container-color: var(--convs-mgr-color-bright-teal);
+  }
+  
+  &.wrapper_error {
+    --mdc-snackbar-container-color: var(--convs-mgr-option-input-failure);
+  }
+  
+  &.wrapper_warning {
+    --mdc-snackbar-container-color: var(--convs-mgr-color-secondary);
+    --mdc-snackbar-supporting-text-color: #000;
+  }
+}
