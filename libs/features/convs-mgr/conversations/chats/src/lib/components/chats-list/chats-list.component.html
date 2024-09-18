@@ -56,8 +56,12 @@
 
   <a class="current-page">{{currentPage}}</a>
 
-  <a (click)="move('future')"><i class="pagination-nav fa-solid fa-angle-right"></i></a>
-  <a (click)="goToPage(totalPageCount)"><i class="pagination-nav fa-solid fa-angle-double-right"></i></a>
+  <button (click)="move('future')" class="pagination-btn" [disabled]="currentPage >= totalPageCount + 1">
+    <i class="pagination-nav fa-solid fa-angle-right"></i>
+  </button>
+  <button (click)="goToPage(totalPageCount)" class="pagination-btn" [ngClass]="" [disabled]="currentPage >= totalPageCount + 1">
+    <i class="pagination-nav fa-solid fa-angle-double-right"></i>
+  </button>
 </div>
 
 </div>
