@@ -106,12 +106,6 @@ svg.frame-connector path {
   }
 }
 
-.media_upload_label {
-	display: flex;
-	flex-direction: column;
-  gap: 0.7rem;
-}
-
 .wrapper {
   padding: 1.875rem;
 }
@@ -350,6 +344,9 @@ mat-form-field.full-field{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+  cursor: pointer;
+	flex-direction: column;
+  gap: 0.7rem;
 }
 
 //----- Snack bar -----//
