@@ -1,5 +1,7 @@
+import { MediaUploadType } from "../model/media-upload-type.enum";
+
 /** Determine the media type based on the file extension */
-export function getMediaType(fileUrl?: string): string | undefined {
+export function getMediaType(fileUrl?: string): MediaUploadType | undefined{
   if (!fileUrl) {
     return undefined;
   }
@@ -11,14 +13,14 @@ export function getMediaType(fileUrl?: string): string | undefined {
   }
 
   if (isImageExtension(fileExtension)) {
-    return 'image';
+    return MediaUploadType.Image;
   }
 
   if (isVideoExtension(fileExtension)) {
-    return 'video';
+    return MediaUploadType.Video;
   }
 
-  return 'unknown';
+  return;
 }
 
 function isImageExtension(extension: string): boolean {

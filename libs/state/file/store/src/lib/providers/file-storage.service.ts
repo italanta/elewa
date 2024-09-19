@@ -84,7 +84,6 @@ export class FileStorageService
     // Return null if no violations are found
     return null;
   }
-  
 
   private __convertedSize(size: number, unit: string) {
     if (unit === 'KB') {

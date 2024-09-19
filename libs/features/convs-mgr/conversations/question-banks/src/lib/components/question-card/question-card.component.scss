@@ -1,0 +1,86 @@
+.question-feedback{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.5rem;
+
+  .option-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0.1rem 0;
+    .custom-radio {
+      appearance: none;
+      border: 2px solid var(--convs-mgr-field-border-color);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      position: relative;
+      margin-right: 8px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .custom-radio.red-radio:checked{
+      border-color: var(--micro-apps-warning-red);
+    }
+    
+    .custom-radio:checked {
+      border-color: var(--micro-apps-teal-primary);
+    }
+
+    .custom-radio.red-radio:checked::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background-color:var(--micro-apps-warning-red);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  
+    
+    .custom-radio:checked::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background-color:var(--micro-apps-teal-primary);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .radio-text{
+    .feedback-text{
+      margin: 0;
+      padding-left: 1.9%;
+      font-size: smaller;
+      color: var( --textarea-outline-color);
+    }
+  }
+
+}
+
+.header__wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  .mini-btns{
+    display: flex;
+    justify-content: end;
+    max-height: 30px;
+
+    .__actionBtn{
+      padding: 3px 0.5rem;
+      border: none;
+      cursor: pointer;
+      background: none;
+    }
+  }
+}

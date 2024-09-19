@@ -76,6 +76,36 @@
 	max-height: 30px;
 	margin-bottom: 1rem;
 }
+
+//
+//  // //
+// QUESTION BANK FORM
+//
+.__buttons{
+	display: flex;
+	justify-content: space-between;
+	padding: 2rem;
+	.bank__button{
+		padding: 1.5rem;
+		border-radius: 40px;
+		width: 30%;
+		font-size: large;
+	}
+	.filled{
+		color: var(--convs-mgr-color-text-white);
+		background-color: var(--micro-apps-teal-primary);
+		border: none;
+	}
+	.outline{
+		color: var(--micro-apps-teal-primary);
+		border: 1px solid var(--micro-apps-teal-primary);
+	}
+}
+._icon{
+	width: 100%; 
+	margin: auto; 
+	color: #B2B2B2;
+}
 :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: white !important;
 }

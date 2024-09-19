@@ -1,0 +1,19 @@
+{
+  "name": "question-banks-model",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/model/convs-mgr/conversations/question-banks-model/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/model/convs-mgr/conversations/question-banks-model/jest.config.ts"
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+<mat-card class="question-card">
+  <div *ngIf="question && !addAQuestion">
+    <mat-card-header>
+      <div class="header__wrapper">
+        <div class="question-header">
+          <p> {{ question.message}}</p>
+        </div>
+        <div class="mini-btns">
+          <button class="__actionBtn" (click)="editQuestion()">
+            <img src="assets/icons/edit-item.svg" alt="">
+          </button>
+          <button class="__actionBtn" (click)="deleteQuestion()">
+            <img src="assets/icons/delete-item.svg" alt="">
+          </button>
+        </div>
+      </div>
+    </mat-card-header>
+    <mat-card-content class="question-content">
+      <div class="question-feedback" *ngFor="let option of question.options">
+        <div class="option-details">
+          <input
+            type="radio">
+          <label [for]="'option-' + option.id">{{ option.text }}</label>
+        </div>
+        <div class="radio-text">
+          <p class="feedback-text">
+            <span [ngClass]="{'red-text': option.accuracy !== 1, 'teal-text': option.accuracy === 1}">
+              {{ option.accuracy === 1 ? 'Correct: ' : 'Wrong: ' }}
+            </span>
+            {{ option.feedback }}
+          </p>
+        </div>
+      </div>
+    </mat-card-content>
+  </div>
+</mat-card>

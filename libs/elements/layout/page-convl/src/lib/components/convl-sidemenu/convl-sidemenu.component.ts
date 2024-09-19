@@ -40,6 +40,7 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
 
   isMessagingDropdownOpen: boolean;
   isManageUsersDropdownOpen: boolean;
+  isAssessmentDropdownOpen: boolean;
 
   isExpanded: boolean;
 
@@ -67,6 +68,7 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
     this._sbS.sink = this._mMenuState.menuState$.subscribe((isOpen) => {
       this.isMessagingDropdownOpen = isOpen.messaging;
       this.isManageUsersDropdownOpen = isOpen.manageUsers;
+      this.isAssessmentDropdownOpen = isOpen.assessments;
     });
     this._sbS.sink = this.featureFlagsService.init(); 
     
@@ -141,7 +143,8 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
   toggleDropdown(section: string) {
     const newState = {
       messaging: this.isMessagingDropdownOpen,
-      manageUsers: this.isManageUsersDropdownOpen
+      manageUsers: this.isManageUsersDropdownOpen,
+      assessments: this.isAssessmentDropdownOpen,
     }
 
     switch (section) {
@@ -151,6 +154,9 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
       case 'manage-users':
         newState.manageUsers = !this.isManageUsersDropdownOpen;
         break;
+      case 'assessments':
+        newState.assessments = !this.isAssessmentDropdownOpen;
+        break;  
       default:
         break;
     }
