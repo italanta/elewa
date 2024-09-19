@@ -59,6 +59,7 @@
               </div>
             </mat-card-header>
             <mat-card-content class="question-content">
+              <p>{{question.get('question')?.value}}</p>
               <div class="question-feedback" *ngFor="let option of question.get('options')?.value">
                 <div class="option-details">
                   <input
