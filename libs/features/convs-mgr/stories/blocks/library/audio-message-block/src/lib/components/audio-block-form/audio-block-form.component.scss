@@ -28,6 +28,11 @@ input {
     display: none;
 }
 
+#mediaUploadLabel {
+    display: flex;
+    flex-direction: column;
+}
+
 .doc-name {
 	text-wrap: auto;
   overflow-wrap: break-word;
