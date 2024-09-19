@@ -55,12 +55,13 @@ export class ImageBlockFormComponent {
   }
 
   async processImage(event: any) {   
-    const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']
     this.file = event.target.files[0]
 
-    if (!allowedFileTypes.includes(event.target.files[0].type)) {
+    const limits = this._imageUploadService.checkSupportedLimits(this.file.size, this.file.type, 'image');
+    const { typeNotAllowed } = limits || {};
+
+    if(typeNotAllowed){
       this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.ImageFormat, isError: true, blockType: StoryBlockTypes.Image})
-      // this._imageUploadService.openErrorModal("Invalid File Type", "Please select an image file (.jpg, .jpeg, .png) only.");
       return;
     }
 
