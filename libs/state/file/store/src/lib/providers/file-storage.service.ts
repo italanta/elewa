@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { MatDialog } from '@angular/material/dialog';
 
-import { catchError, combineLatest, last, map, of, startWith, switchMap } from 'rxjs';
+import { BehaviorSubject, catchError, combineLatest, last, map, of, startWith, switchMap } from 'rxjs';
 
 import { Bot } from '@app/model/convs-mgr/bots';
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
@@ -17,6 +17,8 @@ import { FileLimits } from '../model/file-limits.interface';
 })
 export class FileStorageService
 {
+  private isLoading = new BehaviorSubject<Map<string, boolean>>(new Map());
+  isLoading$ = this.isLoading.asObservable();
 
   constructor(private _afS$$: AngularFireStorage,
     private dialog: MatDialog,
@@ -46,6 +48,18 @@ export class FileStorageService
         message
       }
     });
+  }
+
+  setIsLoading(id: string, isLoading: boolean) {
+    const current = this.isLoading.getValue();
+    if(!isLoading) {
+      // Delete the key when its done loading
+      current.delete(id);
+    } else {
+      current.set(id, isLoading);
+    }
+
+    this.isLoading.next(current);
   }
 
   checkFileSizeLimits(size: number, type: string) { 

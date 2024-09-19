@@ -40,6 +40,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   activeBlockForm: FormGroup;
   activeBlockTitle: string;
   activeBlockIcon: string;
+  activeBlockId: string;
 
   errors: StoryError[] = [];
   shownErrors: StoryError[] = [];
@@ -116,6 +117,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
           this.activeBlockForm = blockDetails.form
           this.activeBlockTitle = blockDetails.title
           this.activeBlockIcon = blockDetails.icon
+          this.activeBlockId = blockDetails.id
           this.activeComponent = new ComponentPortal(comp);
           this._blockPortalService.setActiveComponent(this.activeComponent, blockDetails.id);
           this._blockPortalService.setOpened(true);
@@ -132,6 +134,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     ref.instance['form'] = this.activeBlockForm;
     ref.instance['title'] = this.activeBlockTitle;
     ref.instance['icon'] = this.activeBlockIcon;
+    ref.instance['id'] = this.activeBlockId;
   }
 
   /**  Detach and close Block Edit form */

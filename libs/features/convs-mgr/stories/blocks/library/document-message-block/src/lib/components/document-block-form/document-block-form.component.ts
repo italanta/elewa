@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
+import { Observable } from 'rxjs';
+
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { FileStorageService } from '@app/state/file';
@@ -21,13 +23,13 @@ export class DocumentBlockFormComponent implements OnInit, OnDestroy {
 
   file: File;
   docInputId: string;
-  isDocLoading = false;
   byPassedLimits: any[] = []
   whatsappLimit: boolean;
   messengerLimit: boolean;
 
   docName: string;
-
+  isLoading$: Observable<Map<string, boolean>>;
+  
   docInputUpload = '';
 
   private _sBs = new SubSink();
@@ -37,7 +39,7 @@ export class DocumentBlockFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.docInputId = `docs-${this.id}`;
     this.docInputUpload = `doc-${this.id}-upload`;
-
+    this.isLoading$ = this._docUploadService.isLoading$;
     const fileSize = this.documentMessageForm.get('fileSize')?.value;
 
     this.docName = this.documentMessageForm.get('message')?.value || this.documentMessageForm.get('fileName')?.value || "";
@@ -57,8 +59,7 @@ export class DocumentBlockFormComponent implements OnInit, OnDestroy {
     }
 
     if (this.file) {
-      this.isDocLoading = true;
-
+      this._docUploadService.setIsLoading(this.id, true);
       //Step 1 - Create the file path that will be in firebase storage
       const docFilePath = `docs/${this.file.name}_${new Date().getTime()}`;
 
@@ -86,7 +87,7 @@ export class DocumentBlockFormComponent implements OnInit, OnDestroy {
 
   private _autofillDocUrl(url: string, fileSizeInKB: number) {
     this.documentMessageForm.patchValue({ fileSrc: url, fileSize: fileSizeInKB });
-    this.isDocLoading = false;
+    this._docUploadService.setIsLoading(this.id, false);
     this._checkSizeLimit(fileSizeInKB);
   }
 

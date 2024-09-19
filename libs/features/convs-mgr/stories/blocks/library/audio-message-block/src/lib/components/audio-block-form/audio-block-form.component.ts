@@ -7,7 +7,7 @@ import {
 import { FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { take } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { FileStorageService } from '@app/state/file';
@@ -31,7 +31,8 @@ export class AudioBlockFormComponent implements OnInit, OnDestroy {
 
   file: File;
   audioInputId: string;
-  isLoadingAudio: boolean;
+  isLoading$: Observable<Map<string, boolean>>;
+  
   byPassedLimits: any[] = [];
   whatsappLimit: boolean;
   messengerLimit: boolean;
@@ -41,7 +42,7 @@ export class AudioBlockFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.audioInputId = `aud-${this.id}`;
     const fileSize = this.audioMessageForm.get('fileSize')?.value;
-
+    this.isLoading$ = this._audioUploadService.isLoading$;
     this.audioName = this.audioMessageForm.get('message')?.value || this.audioMessageForm.get('fileName')?.value || "";
 
     if (fileSize) {
@@ -59,7 +60,7 @@ export class AudioBlockFormComponent implements OnInit, OnDestroy {
     this.file = event.target.files[0];
 
     if (this.file) {
-      this.isLoadingAudio = true;
+      this._audioUploadService.setIsLoading(this.id, true);
 
       //Step 1 - Create the file path that will be in firebase storage
       const audioFilePath = `audios/${this.file.name}_${new Date().getTime()}`;
@@ -101,7 +102,7 @@ export class AudioBlockFormComponent implements OnInit, OnDestroy {
   private _autofillUrl(url: string, fileSizeInKB: number) {
     this.audioMessageForm.patchValue({ fileSrc: url, fileSize: fileSizeInKB });
     this.block.fileSrc = url;
-    this.isLoadingAudio = false;
+    this._audioUploadService.setIsLoading(this.id, false);
     this._checkSizeLimit(fileSizeInKB);
   }
 

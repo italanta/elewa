@@ -6,16 +6,15 @@
     [class.edit_form]="isEdit"
     [ngClass]="byPassedLimits.length ? 'error' : ''"
   >
-  <input *ngIf="!isLoadingVideo" (change)="processVideo($event)" type="file" class="video-file" accept=".mp4" id="videoUpload" hidden />
+  <input *ngIf="!(isLoading$ | async)?.get(id)" (change)="processVideo($event)" type="file" class="video-file" accept=".mp4" id="videoUpload" hidden />
 
-  <label id="mediaUploadLabel" *ngIf="!isLoadingVideo" for="videoUpload" class="media_upload_label">
+  <label id="mediaUploadLabel" *ngIf="!(isLoading$ | async)?.get(id)" for="videoUpload" class="media_upload_label">
     <img *ngIf="!videoMessageForm.get('fileSrc')?.value" src="assets/svgs/blocks/system-uicons_video.svg" class="placeholder-icon" />
     <span *ngIf="!videoMessageForm.get('fileSrc')?.value"class="media-placeholder-text" >{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-UPLOAD' | transloco }}</span>
     <video 
       id="video"
       #video
-      (load)="isLoadingVideo = true"
-      *ngIf="!isLoadingVideo && videoMessageForm.get('fileSrc')?.value"
+      *ngIf="videoMessageForm.get('fileSrc')?.value"
       class="upload-video"
       alt=""
       controls
@@ -25,7 +24,7 @@
     </video>
   </label>
   
-  <div *ngIf="isLoadingVideo" class="doc-icon">
+  <div *ngIf="(isLoading$ | async)?.get(id)" class="doc-icon">
     <i class="fas fa-circle-notch fa-spin fa-3x"></i>
   </div>
 

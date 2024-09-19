@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -26,7 +27,6 @@ export class VideoBlockFormComponent implements OnInit, OnDestroy  {
   @ViewChild('video') video: ElementRef<HTMLVideoElement>;
 
   private _sBs = new SubSink();
-  isLoadingVideo: boolean;
   videoLink: string;
   videoInputId: string;
 
@@ -35,7 +35,7 @@ export class VideoBlockFormComponent implements OnInit, OnDestroy  {
   whatsappLimit: boolean;
   messengerLimit: boolean;
   hasVideo = false;
-
+  isLoading$: Observable<Map<string, boolean>>;
   videoName: string;
 
   file: File;
@@ -45,7 +45,7 @@ export class VideoBlockFormComponent implements OnInit, OnDestroy  {
   ngOnInit(): void {
     this.videoInputId = `img-${this.id}`;
     this.checkIfVideoExists();
-
+    this.isLoading$ = this._videoUploadService.isLoading$;
     const fileSize = this.videoMessageForm.get('fileSize')?.value;
 
     this.videoName = this.videoMessageForm.get('message')?.value || this.videoMessageForm.get('fileName')?.value || "";
@@ -83,7 +83,7 @@ export class VideoBlockFormComponent implements OnInit, OnDestroy  {
     }
 
     if (this.file) {
-      this.isLoadingVideo = true;
+      this._videoUploadService.setIsLoading(this.id, true);
       this.hasVideo = true;
 
       //Step 1 - Create the file path that will be in firebase storage
@@ -105,7 +105,7 @@ export class VideoBlockFormComponent implements OnInit, OnDestroy  {
 
   private _autofillUrl(url: string, fileSizeInKB: number) {
     this.videoMessageForm.patchValue({ fileSrc: url, fileSize: fileSizeInKB });
-    this.isLoadingVideo = false;
+    this._videoUploadService.setIsLoading(this.id, false);
     this.checkIfVideoExists();
     this._checkSizeLimit(fileSizeInKB);
   }
