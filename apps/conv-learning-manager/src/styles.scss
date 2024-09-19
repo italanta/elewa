@@ -84,6 +84,7 @@ svg.frame-connector path {
 }
 
 
+// Media upload 
 .doc-icon {
 	text-align: center;
 	background-color: var(--convs-mgr-color-primary-white) !important;
@@ -99,6 +100,15 @@ svg.frame-connector path {
     color: var(--convs-mgr-color-bright-teal) !important;
 		border: none;
 	}
+
+  .svg-inline--fa {
+    margin-top: 0 !important;
+  }
+}
+
+.media_upload_label {
+	display: flex;
+	flex-direction: column;
 }
 
 .wrapper {
