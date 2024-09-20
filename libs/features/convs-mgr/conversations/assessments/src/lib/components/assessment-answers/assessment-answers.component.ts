@@ -16,6 +16,7 @@ export class AssessmentAnswersComponent implements OnInit {
   @Input() questionId: string
   @Input() questionMode: QuestionDisplayMode;
   @Input() questionFormGroup: FormGroup;
+  @Input() questionBankForm: FormGroup;
 
   constructor(private _router$$: Router,
               private _assessmentForm: AssessmentFormService

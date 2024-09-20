@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { AssessmentOptionValue } from '@app/model/convs-mgr/conversations/assessments';
@@ -9,10 +9,11 @@ import { QuestionDisplayMode } from '../../model/question-display-mode.enum';
   templateUrl: './assessment-answer.component.html',
   styleUrls: ['./assessment-answer.component.scss'],
 })
-export class AssessmentAnswerComponent  {
+export class AssessmentAnswerComponent implements OnInit  {
   @Input() questionFormGroup: FormGroup;
   @Input() answerFormGroupName: number;
   @Input() questionMode: QuestionDisplayMode;
+  @Input() questionBankForm: FormGroup;
   @Output() deleteChoice = new EventEmitter<number>();
   @Output() answerClicked = new EventEmitter();
 
@@ -24,6 +25,10 @@ export class AssessmentAnswerComponent  {
   wrong = AssessmentOptionValue.Wrong;
   fiftyFifty = AssessmentOptionValue.FiftyFifty;
 
+  ngOnInit()
+  {
+    if(!this.questionBankForm) this.questionMode = QuestionDisplayMode.EDITING
+  }
   setFeedback() {
     this.showFeedback = !this.showFeedback;
   }
