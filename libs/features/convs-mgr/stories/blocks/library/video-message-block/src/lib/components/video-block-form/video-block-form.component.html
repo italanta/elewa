@@ -6,7 +6,7 @@
     [class.edit_form]="isEdit"
     [ngClass]="byPassedLimits.length ? 'error' : ''"
   >
-  <input *ngIf="!(isLoading$ | async)?.get(id)" (change)="processVideo($event)" type="file" class="video-file" accept=".mp4" id="videoUpload" hidden />
+  <input *ngIf="!(isLoading$ | async)?.get(id)" (change)="processVideo($event)" type="file" class="video-file"  id="videoUpload" hidden />
 
   <label id="mediaUploadLabel" *ngIf="!(isLoading$ | async)?.get(id)" for="videoUpload" class="media_upload_label">
     <img *ngIf="!videoMessageForm.get('fileSrc')?.value" src="assets/svgs/blocks/system-uicons_video.svg" class="placeholder-icon" />
@@ -29,13 +29,6 @@
   </div>
 
  </div>
-
-  <div class="error-message" *ngIf="whatsappLimit">
-    <span>{{
-      'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.VIDEO.MESSAGE-ONE'
-        | transloco
-    }}</span>
-  </div>
 
   <mat-divider *ngIf="isEdit"></mat-divider>
 

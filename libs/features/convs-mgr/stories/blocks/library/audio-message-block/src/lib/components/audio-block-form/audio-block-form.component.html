@@ -2,7 +2,7 @@
 
   <div [id]="audioInputId" class="audio_bg" [class.edit_form] = "isEdit"  [ngClass]="byPassedLimits.length ? 'error' : ''">
 
-    <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc">
+   <input #audioInput (change)="processAudio($event)" type="file" class="fileSrc">
     <label id="mediaUploadLabel" *ngIf="!(isLoading$ | async)?.get(id)" [for]="audioInput" (click)="audioInput.click()" class="media_upload_label">
       <img src="assets/svgs/blocks/audio.svg" (click)="audioInput.click()" class="placeholder-icon">
       <span *ngIf="!audioMessageForm.get('fileName')?.value" class="media-placeholder-text" >{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-UPLOAD' | transloco }}</span>
@@ -12,11 +12,6 @@
     <div *ngIf="(isLoading$ | async)?.get(id)" class="doc-icon">
       <i class="fas fa-circle-notch fa-spin fa-3x"></i>
     </div>
-  </div>
-
-  <div class="error-message" *ngIf="whatsappLimit">
-      <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-ONE' | transloco }}</span><br>
-      <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-TWO' | transloco }}</span>
   </div>
 
   <mat-divider *ngIf="isEdit"></mat-divider>

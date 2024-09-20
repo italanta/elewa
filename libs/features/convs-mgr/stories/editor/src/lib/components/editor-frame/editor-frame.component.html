@@ -26,3 +26,7 @@
                             [viewport$]="viewportBounds$"
                             [zoomFactor]="_zoom">
 </convl-story-editor-minimap>
+
+<div *ngIf="blockError$ | async as blockError" class="error-message">
+  <convl-block-error [blockError]="blockError"></convl-block-error>
+</div>

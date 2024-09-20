@@ -10,6 +10,9 @@ import { take } from 'rxjs/operators';
 
 import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { FileStorageService } from '@app/state/file';
+import { ErrorBlocksService } from '@app/state/convs-mgr/stories/blocks';
+import { BlockErrorTypes } from '@app/model/convs-mgr/stories/blocks/scenario';
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 @Component({
   selector: 'app-image-block-form',
@@ -36,7 +39,10 @@ export class ImageBlockFormComponent implements OnInit {
 
   private _sBs = new SubSink();
 
-  constructor(private _imageUploadService: FileStorageService) {}
+  constructor(
+    private _imageUploadService: FileStorageService,
+    private _errorBlock: ErrorBlocksService,
+  ) {}
 
   ngOnInit(): void {
     this.imageInputId = `img-${this.id}`;
@@ -49,15 +55,16 @@ export class ImageBlockFormComponent implements OnInit {
   
     if (fileSize) {
       this._checkSizeLimit(fileSize);
-    };
+    }
   }
 
   async processImage(event: any) {   
-    const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']
     this.file = event.target.files[0]
 
-    if (!allowedFileTypes.includes(event.target.files[0].type)) {
-      this._imageUploadService.openErrorModal("Invalid File Type", "Please select an image file (.jpg, .jpeg, .png) only.");
+    const limits = this._imageUploadService.checkSupportedLimits(this.file.size, this.file.type, 'image');
+
+    if(limits?.typeNotAllowed){
+      this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.ImageFormat, isError: true, blockType: StoryBlockTypes.Image})
       return;
     }
 
@@ -82,7 +89,9 @@ export class ImageBlockFormComponent implements OnInit {
   private _checkSizeLimit(fileSize: number) {
     this.byPassedLimits = this._imageUploadService.checkFileSizeLimits(fileSize, 'image');
 
-    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
+    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")){
+      this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.ImageLimit, isError: true, blockType: StoryBlockTypes.Image})
+    }
     else if (this.byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
   }
 

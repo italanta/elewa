@@ -243,23 +243,43 @@
       "SIZE-LIMIT-MESSAGE": {
         "WHATSAPP" : {
           "AUDIO": {
-            "MESSAGE-ONE": "Audio cannot be sent to whatsapp,",
-            "MESSAGE-TWO": "audio exceeds 16MB file Limit."
+            "MESSAGE-ONE": "Audio cannot be sent to WhatsApp",
+            "MESSAGE-TWO": "Upload an audio with a maximum of 16MB"
           }, 
           "VIDEO": {
-            "MESSAGE-ONE": "Video cannot be sent to whatsapp, Video exceeds 16MB file Limit."
+            "MESSAGE-ONE": "Upload a video with a maximum size of 16MB"
           },
           "DOCUMENT": {
-            "MESSAGE-ONE": "Document cannot be sent to whatsapp,",
-            "MESSAGE-TWO": "document exceeds 100MB file Limit."
+            "MESSAGE-ONE": "Document cannot be sent to WhatsApp",
+            "MESSAGE-TWO": "Upload a document with a maximum size of 100MB"
           },
           "STICKER": {
-            "MESSAGE-ONE": "Sticker cannot be sent to whatsapp,",
-            "MESSAGE-TWO": "sticker exceeds 500kB file Limit."
+            "MESSAGE-ONE": "Sticker cannot be sent to WhatsApp",
+            "MESSAGE-TWO": "Sticker exceeds 500kB file Limit"
           },
           "IMAGE": {
-            "MESSAGE-ONE": "Image cannot be sent to whatsapp,",
-            "MESSAGE-TWO": "image exceeds 5MB file Limit."
+            "MESSAGE-ONE": "Image cannot be sent to WhatsApp",
+            "MESSAGE-TWO": "Upload an image with a maximum size of 5MB"
+          }
+        }
+      },
+      "INPUT-TYPE-MESSAGE":{
+        "WHATSAPP": {
+          "AUDIO": {
+            "MESSAGE-ONE": "Audio format is not supported",
+            "MESSAGE-TWO": "Please select an audio file (.aac, .amr, .mpeg, .mp4) only"
+          }, 
+          "VIDEO": {
+            "MESSAGE-ONE": "Video format is not supported",
+            "MESSAGE-TWO": "Please select a video file (.mp4, .3gp) only"
+          },
+          "DOCUMENT": {
+            "MESSAGE-ONE": "Document format is not supported",
+            "MESSAGE-TWO": "Please select a document file (.txt, .xls, .xlsx, .doc, .docx, .ppt, .pptx, .pdf) only"
+          },
+          "IMAGE": {
+            "MESSAGE-ONE": "Image format is not supported", 
+            "MESSAGE-TWO": "Please select an image file (.jpg, .jpeg, .png) only"
           }
         }
       }

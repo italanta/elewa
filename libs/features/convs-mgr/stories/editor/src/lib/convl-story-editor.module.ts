@@ -33,6 +33,7 @@ import { TrackCursorDirective } from './directives/track-cursor.directive';
 import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
 import { StoryEditorMiniMapComponent } from './components/minimap/minimap.component';
 import { SaveStoryService } from './providers/save-story.service';
+import { BlockErrorComponent } from './components/block-error/block-error.component';
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import { SaveStoryService } from './providers/save-story.service';
     PinchZoomDirective,
     TrackCursorDirective,
     BlockCategoryPipe,
-    StoryEditorMiniMapComponent
+    StoryEditorMiniMapComponent,
+    BlockErrorComponent
   ],
 
   providers: [StoryEditorInitialiserService, SaveStoryService, ManageChannelStoryLinkService],
