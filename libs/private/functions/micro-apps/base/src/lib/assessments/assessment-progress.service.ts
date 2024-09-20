@@ -143,6 +143,7 @@ export class AssessmentProgressService
       newProgress = currentProgress;
     } else {
       newProgress = this._initProgress(progressUpdate, 1);
+      if(progressUpdate.hasSubmitted) newProgress.attempts[newProgress.attemptCount].finishedOn = Date.now();
     }
 
     newProgress = this._updateOutcome(newProgress);
