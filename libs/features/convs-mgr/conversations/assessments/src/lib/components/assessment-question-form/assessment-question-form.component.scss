@@ -76,6 +76,13 @@
 	max-height: 30px;
 	margin-bottom: 1rem;
 }
+
+.horizontalIcon{
+	width: 100% !important; 
+	margin: auto !important; 
+	color: #B2B2B2 !important;
+}
+
 :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: white !important;
 }
