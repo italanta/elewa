@@ -13,7 +13,7 @@
         [(ngModel)]="selectedOption" 
         (ngModelChange)="onOptionSelected(option)"
       />
-      {{ option.name || option.title | slice:0:70}}
+      {{ option.name || option.title | slice:0:50}}
     </label>
   </div>
 </div>
