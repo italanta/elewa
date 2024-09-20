@@ -19,6 +19,8 @@
   height: 2.5rem;
   align-items: center;
   border: none;
+  word-break: break-all;
+  overflow-wrap: break-word;
 }
 
 /* Dropdown options container */
