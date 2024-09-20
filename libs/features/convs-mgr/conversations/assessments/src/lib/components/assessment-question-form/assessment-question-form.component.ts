@@ -3,7 +3,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
-import { Observable, tap } from 'rxjs';
+import { Observable, take, tap } from 'rxjs';
 
 import { AssessmentQuestion, QuestionFormMode } from '@app/model/convs-mgr/conversations/assessments';
 import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
@@ -12,6 +12,8 @@ import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/
 import { AssessmentFormService } from '../../services/assessment-form.service';
 
 import { getMediaType } from '../../utils/check-media-type.util'
+import { QuestionDisplayMode } from '../../model/question-display-mode.enum';
+
 import { MediaUploadModalComponent } from '../../modals/media-upload-modal/media-upload.component';
 import { QuestionSectionType } from '../../model/question-section-type.enum';
 import { MediaUploadType } from '../../model/media-upload-type.enum';
@@ -30,6 +32,8 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   @Input() isLastQuestion: boolean;
   @Input() index: number;
   @Input() assessmentMode: number;
+  @Input() questionMode: QuestionDisplayMode;
+  modeToDisplay = QuestionDisplayMode;
   @Input() assessmentFormGroup: FormGroup;
   @Input() questionFormGroupName: number | string;
   @Input() activeCard$: Observable<number>;
@@ -41,6 +45,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   @Output() questionActionCompleted = new EventEmitter<void>();
 
   @ViewChild('videoPlayer') videoPlayer: ElementRef<HTMLVideoElement>;
+
 
   activeCard: number;
 
@@ -69,8 +74,15 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.formEditMode === QuestionFormMode.AssessmentMode) {
       this._subs.sink = this.activeCard$
-        .pipe(tap((activeId) => (this.activeCard = activeId)))
-        .subscribe();
+        .pipe(tap((activeId) => {
+          this.activeCard = activeId;
+
+          if (this.index === activeId) {
+            this.questionMode = QuestionDisplayMode.EDITING;
+          } else {
+            this.questionMode = QuestionDisplayMode.VIEWING;
+          }
+        })).subscribe();
     }
     this._checkMediaOnLoad();
   }
