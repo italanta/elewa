@@ -1,0 +1,132 @@
+.question-page{
+  padding: 1.4rem;
+  background-color: var(--convs-mgr-color-F6F6F6);
+
+  .select-tab{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 3rem;
+
+    .text{
+      color: var(--micro-apps-teal-primary);
+      width: 100%;
+      .__teal-text{
+        font-size: large;
+        font-weight: 400;
+      }
+    }
+    .__add{
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      padding-right: 2rem;
+      gap: 0.5rem;
+      width: 100%;
+      .__blackText{
+        font-size: larger;
+        cursor: pointer;
+      }
+      img{
+        width: 30px;
+        cursor: pointer;
+      }
+    }
+  }
+  .search-tab{
+    .questions-number{
+      span{
+        font-weight: 400;
+        font-size: 2.5rem;
+      }
+    }
+    .search-content{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .search-details{
+        display: flex;
+        align-items: start;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1rem 2rem;
+        width: 23%;
+        border-radius: 20px;
+        background-color: var(--convs-mgr-color-text-white);
+        input{
+          border: none;
+          outline: none;
+          font-size: medium;
+          width: 100%;
+        }
+      }
+    }
+    .sort-tab{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 15%;
+      padding: 1rem;
+      border-radius: 20px;
+      background-color:var(--convs-mgr-color-text-white);
+      cursor: pointer;
+    }
+  }
+  .questions-number{
+    padding: 2rem 0;
+    
+  }
+}
+
+.displayedQuestions{
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  input[type="checkbox"] {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    -webkit-appearance: none; 
+    appearance: none; 
+  }
+  
+  /* Style for the unchecked state */
+  input[type="checkbox"]:not(:checked)::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    background-color: var(--convs-mgr-color-text-white);
+  }
+  
+  /* Style for the checked state */
+  input[type="checkbox"]:checked::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    background-color: var(--micro-apps-teal-primary); 
+  }
+  /* Add the white checkmark */
+  input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    left: 0.35rem;
+    width: 0.5rem;
+    height: 1rem;
+    border: solid var(--convs-mgr-color-text-white);
+    border-width: 0 0.2rem 0.2rem 0;
+    transform: rotate(45deg);
+  }
+  .__card{
+    width: 100%;
+  }
+}
+

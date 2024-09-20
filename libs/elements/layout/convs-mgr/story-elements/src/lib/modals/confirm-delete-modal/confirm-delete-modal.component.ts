@@ -3,6 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogRef } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { CustomSnackbarComponent } from '@app/elements/layout/convs-mgr/custom-components';
+
 import { SubSink } from 'subsink';
 
 import { Bot } from '@app/model/convs-mgr/bots';
@@ -60,13 +62,23 @@ export class ConfirmDeleteModalComponent {
           .deleteBot(this.element as Bot)
           .subscribe((response) => {
             if(response.status === 200) {
-              this.snackBar.open(response.message,"Dismiss",{
-                duration: 3000
-              });
+              this.snackBar.openFromComponent(CustomSnackbarComponent, {
+                data: {
+                    status: "Success",
+                    text: "Bot deleted"
+                  },
+                panelClass: ['wrapper_success'],
+                duration: 4000
+              })
             } else {
-              this.snackBar.open(response.message,"Dismiss",{
-                duration: 3000
-              });
+              this.snackBar.openFromComponent(CustomSnackbarComponent, {
+                data: {
+                    status: "Error",
+                    text: response.message
+                  },
+                panelClass: ['wrapper_error'],
+                duration: 4000
+              })
             }
             this._dialog.close()
           });
@@ -75,13 +87,23 @@ export class ConfirmDeleteModalComponent {
           .removeStory(this.element as Story, this.parentElement as BotModule)
           .subscribe((response) => {
             if(response.status === 200) {
-              this.snackBar.open(response.message,"Dismiss",{
-                duration: 3000
-              });
+              this.snackBar.openFromComponent(CustomSnackbarComponent, {
+                data: {
+                    status: "Success",
+                    text: "Story deleted"
+                  },
+                panelClass: ['wrapper_success'],
+                duration: 4000
+              })
             } else {
-              this.snackBar.open(response.message,"Dismiss",{
-                duration: 3000
-              });
+              this.snackBar.openFromComponent(CustomSnackbarComponent, {
+                data: {
+                    status: "Error",
+                    text: response.message
+                  },
+                panelClass: ['wrapper_error'],
+                duration: 4000
+              })
             }
             this._dialog.close()
           });
@@ -90,13 +112,23 @@ export class ConfirmDeleteModalComponent {
           .deleteBotModules(this.element as BotModule)
           .subscribe((response) => {
             if(response.status === 200) {
-              this.snackBar.open(response.message,"Dismiss",{
-                duration: 3000
-              });
+              this.snackBar.openFromComponent(CustomSnackbarComponent, {
+                data: {
+                    status: "Success",
+                    text: "Module deleted"
+                  },
+                panelClass: ['wrapper_success'],
+                duration: 4000
+              })
             } else {
-              this.snackBar.open(response.message,"Dismiss",{
-                duration: 3000
-              });
+              this.snackBar.openFromComponent(CustomSnackbarComponent, {
+                data: {
+                    status: "Error",
+                    text: response.message
+                  },
+                panelClass: ['wrapper_error'],
+                duration: 4000
+              })
             }
             this._dialog.close()
           });

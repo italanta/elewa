@@ -1,0 +1,26 @@
+.snackbar-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: medium;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.status {
+  font-weight: bold;
+}
+
+.text {
+  font-weight: normal;
+}
+.dismiss {
+  text-decoration: underline;
+  cursor: pointer;
+}

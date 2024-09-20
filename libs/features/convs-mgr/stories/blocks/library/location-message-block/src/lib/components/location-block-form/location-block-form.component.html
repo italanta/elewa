@@ -16,7 +16,9 @@
 
   <div class="map-wrapper">
     <google-map height="200px" width="100%" [zoom]="10" (mapClick)="addMarker($event)">
-      <map-marker [position]="markerPositions" [options]="markerOptions"></map-marker>
+      <ng-container *ngIf="(markerPositions$ | async)?.get(id) as marker">
+        <map-marker [position]="marker" [options]="markerOptions"></map-marker>
+      </ng-container>
     </google-map>
   </div>
 

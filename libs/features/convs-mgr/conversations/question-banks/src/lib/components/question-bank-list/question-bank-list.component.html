@@ -1,0 +1,55 @@
+<convl-page>
+  <div class="question-page">
+    <lib-question-bank-header 
+      (addNewQuestion)="onNewQuestionAdded($event)" 
+      (addMode)="onAddModeChanged($event)"
+      (viewMode)="onViewModeChanged($event)"
+      >
+    </lib-question-bank-header>
+    <div class="select-tab" *ngIf="selectedQuestions.length">
+      <div class="text">
+        <span class="__teal-text">
+          {{selectedQuestions.length}} selected
+        </span>
+      </div>
+
+      <div class="__add" (click)="addQuestion()">
+        <img src="assets/icons/icons8-add-new-50.png"/>
+        <span class="__blackText">Add to</span>
+      </div>
+    </div>
+    <div class="search-tab">
+      <div class="questions-number">
+        <span>{{ "ASSESSMENTS.QUESTION-BANK.QUESTIONS" | transloco }}</span>
+      </div>
+      <div class="search-content">
+        <div class="search-details">
+          <img src="assets/icons/ellipse-search.svg"/>
+          <input [(ngModel)]="searchTerm" (input)="searchQuestion()" [placeholder]="'ASSESSMENTS.QUESTION-BANK.QUESTIONS-SEARCH' | transloco" />
+        </div>
+
+        <div class="sort-tab" (click)="sortDates()">
+          <span>{{ "ASSESSMENTS.QUESTION-BANK.SORTING" | transloco }}</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+      </div>
+    </div>
+    <div class="question-content">
+      <app-assessment-question-form
+        *ngIf="isAddingQuestion" 
+        [questionBankForm]="questionsFormGroup"
+        (questionActionCompleted)="onQuestionActionCompleted()"
+        [formEditMode]="formViewMode">
+      </app-assessment-question-form>
+    </div>
+
+    <div class="displayedQuestions" *ngFor="let question of filteredQuestions">
+      <div *ngIf="!isAddingQuestion"><input type="checkbox" (click)="selectQuestion(question.id!)"/></div>
+      <app-question-card [question]="question" class="__card"
+                          (addNewQuestion)="onNewQuestionAdded($event)" 
+                          (addMode)="onAddModeChanged($event)"
+      ></app-question-card>
+    </div>    
+  </div>
+</convl-page>
+

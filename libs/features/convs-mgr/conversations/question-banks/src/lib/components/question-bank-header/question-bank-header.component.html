@@ -1,0 +1,27 @@
+<h1 class="title"> {{ "ASSESSMENTS.QUESTION-BANK.HEADER" | transloco }} </h1>
+<div class="header">
+  
+  <img src="assets/images/assessments-header-bg.jpg">
+
+  <div class="white-overlay"></div>
+
+  <div class="bottom-left" fxLayout="row" fxLayoutAlign="start center">
+
+   <div class="banner">
+    <span class="circle">
+      <button mat-fab class="btn-add" (click)="addQuestion()">
+        <i class="fas fa-plus"></i>
+      </button>
+    </span>
+
+    <div class="description-banner"> 
+      <h1>
+        {{"ASSESSMENTS.QUESTION-BANK.DESC-HEADER" | transloco }}
+      </h1>
+      <span class="description-text">
+       {{ "ASSESSMENTS.QUESTION-BANK.DESCRIPTION" | transloco }}
+      </span>
+    </div>
+   </div>
+  </div>
+</div>

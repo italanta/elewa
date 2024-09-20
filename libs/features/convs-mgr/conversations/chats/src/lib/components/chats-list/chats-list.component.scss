@@ -151,11 +151,11 @@ app-chat-card{
 	background-color: white;
 }
 
-.pagination a {
+.pagination a, .pagination-btn {
 	color: grey;
-  float: left;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
+	float: left;
+	padding: 0.5rem 1rem;
+	text-decoration: none;
 	border-radius: 15px;
 	cursor: pointer;
 }
@@ -165,9 +165,14 @@ app-chat-card{
   color: white;
 }
 
-.pagination a:hover {
+.pagination a:hover, .pagination-btn:hover {
   background-color: var(--convs-mgr-color-primary-blue);
   color: white;
+}
+.pagination-btn {
+	font-size: 1rem;
+	border: none;
+	background: none;
 }
 
 .pagination-nav {

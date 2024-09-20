@@ -1,0 +1,13 @@
+<div class="snackbar-wrapper">
+  <div class="content">
+    <div class="icon">
+      <i *ngIf="data.status === 'Success'" class="far fa-check-circle"></i>
+      <i *ngIf="data.status === 'Warning'" class="fas fa-exclamation-circle"></i>
+      <i *ngIf="data.status === 'Error'" class="fas fa-exclamation-triangle"></i>
+    </div>
+    <div class="status">{{data.status}}.</div>
+    <span class="text">{{data.text}}</span>
+  </div>
+
+  <div class="dismiss" (click)="snackBarRef.dismissWithAction()">Dismiss</div>
+</div>

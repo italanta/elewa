@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { OnOffButtonComponent } from './components/on-off-button/on-off-button.component';
 import { ScoreCardComponent } from './components/score-card/score-card.component';
 import { CustomDropDownComponent } from './components/custom-dropdown/custom-drop-down.component';
+import { CustomSnackbarComponent } from './components/custom-snackbar/custom-snackbar.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule],
@@ -12,6 +13,7 @@ import { CustomDropDownComponent } from './components/custom-dropdown/custom-dro
     OnOffButtonComponent,
     ScoreCardComponent,
     CustomDropDownComponent,
+    CustomSnackbarComponent
   ],
   exports: [OnOffButtonComponent, ScoreCardComponent, CustomDropDownComponent],
 })

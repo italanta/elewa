@@ -2,10 +2,13 @@ import { AfterViewInit, Component, ElementRef, Input, NgZone, OnInit, Renderer2,
 import { FormGroup } from '@angular/forms';
 import { GoogleMap } from '@angular/google-maps';
 
+import { Observable } from 'rxjs';
+
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { LocationMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { LocationBlockService } from '../../services/location-service';
 
 @Component({
   selector: 'app-location-block-form',
@@ -38,10 +41,12 @@ export class LocationBlockFormComponent implements OnInit, AfterViewInit {
   zoom: number = 5;
   address: string;
 
-  markerPositions: google.maps.LatLng;
-  markerOptions: google.maps.MarkerOptions = { draggable: false };
+  markerPositions$: Observable<Map<string, google.maps.LatLng>>;
+  bounds$: Observable<Map<string, google.maps.LatLngBounds>>;
 
-  constructor(private ngZone: NgZone, private el: ElementRef, private renderer: Renderer2) { }
+  markerOptions: google.maps.MarkerOptions = { draggable: true };
+
+  constructor(private ngZone: NgZone, private el: ElementRef, private renderer: Renderer2, private _locationBlockService: LocationBlockService) { }
 
   ngOnInit(): void {
     if (this.locationMessageForm) {
@@ -49,6 +54,9 @@ export class LocationBlockFormComponent implements OnInit, AfterViewInit {
       this.longitude = this.locationMessageForm.value.locationInput.longitude;
       this.currentAddress = this.locationMessageForm.value.locationInput.address;
     }
+
+    this.markerPositions$ = this._locationBlockService.markerPositions$;
+    this.bounds$ = this._locationBlockService.bounds$;
   }
 
   ngAfterViewInit(): void {
@@ -73,9 +81,12 @@ export class LocationBlockFormComponent implements OnInit, AfterViewInit {
       this.latitude = address.latitude;
       this.longitude = address.longitude;
       this.currentAddress = address.address;
-      this.markerPositions = new google.maps.LatLng(this.latitude, this.longitude);
-      let b = new google.maps.LatLngBounds(this.markerPositions);
-      this.map.fitBounds(b);
+      const markerPositions = new google.maps.LatLng(this.latitude, this.longitude);
+      this._locationBlockService.setMarkerPositions(this.id, markerPositions);
+      let b = new google.maps.LatLngBounds(markerPositions);
+      this._locationBlockService.setBounds(this.id, b);
+      this.bounds$.subscribe((b)=> this.map.fitBounds(b.get(this.id) as google.maps.LatLngBounds));
+      
     }
   }
 
@@ -104,19 +115,32 @@ export class LocationBlockFormComponent implements OnInit, AfterViewInit {
 
         this.zoom = 12;
 
+        
         if (place.geometry.location!.lat() && place.geometry.location!.lng()) {
           this.latitude = place.geometry.location!.lat();
           this.longitude = place.geometry.location!.lng();
-  
-          this.map.fitBounds(bounds)
-          this.markerPositions = new google.maps.LatLng(this.latitude, this.longitude)
+          
+          // Patch the new address to the form
+          const newAddress = {
+            address: place.formatted_address,
+            latitude: this.latitude,
+            longitude: this.longitude,
+          };
+
+          this.locationMessageForm.patchValue({locationInput: {...newAddress}});
+
+          
+          const markerPositions = new google.maps.LatLng(this.latitude, this.longitude);
+          this._locationBlockService.setMarkerPositions(this.id, markerPositions);
+          this._locationBlockService.setBounds(this.id, bounds);
         }
       });
     });
   }
 
   addMarker(event: google.maps.MapMouseEvent) {
-    this.markerPositions = event.latLng!;
+    const markerPositions = event.latLng!;
+    this._locationBlockService.setMarkerPositions(this.id, markerPositions); 
   }
 
   addressChanged(address: any) {

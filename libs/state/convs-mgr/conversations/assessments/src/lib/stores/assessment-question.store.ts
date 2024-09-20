@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { DataStore } from "@ngfi/state";
 import { DataService, Repository } from "@ngfi/angular";
 
-import { map, of, switchMap, tap, throttleTime } from "rxjs";
+import { concatMap, from, map, of, switchMap, tap, throttleTime } from "rxjs";
 
 import { Logger } from "@iote/bricks-angular";
 import { Query } from '@ngfi/firestore-qbuilder';
@@ -61,4 +61,31 @@ export class AssessmentQuestionStore extends DataStore<AssessmentQuestion> {
                                   tap((question) => {this._activeRepo = this._repoFac.getRepo<AssessmentQuestion>(`orgs/${question.orgId}/assessments/${assessmentId}/questions`)}),
                                   switchMap((question) => this._activeRepo.write(question, questionId))).subscribe();
   }
+
+  /**
+   * We need to fetch the organization first.
+   * Then we need to get the repository for the specific assessment.
+   * Finally, we need to create the question and write it to the repository.
+   * @param assessmentIds IDs of selected assessments
+   * @param questions Questions to be added to the various assessments
+   * @returns 
+   */
+
+  createAssessmentQuestions(assessmentIds: string[], questions: AssessmentQuestion[]) {
+    return this._org$$.get().pipe(
+      switchMap(org =>
+        from(assessmentIds).pipe(
+          concatMap(assessmentId =>
+            from(questions).pipe(
+              map(question => ({ ...question, assessmentId })),
+              switchMap(question => {
+                const repo = this._repoFac.getRepo<AssessmentQuestion>(`orgs/${org.id}/assessments/${assessmentId}/questions`);
+                return repo.write(question, question.id as string); 
+              })
+            )
+          )
+        )
+      )
+    );
+  }    
 }

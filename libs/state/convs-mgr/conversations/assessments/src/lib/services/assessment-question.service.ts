@@ -35,4 +35,9 @@ export class AssessmentQuestionService {
   deleteQuestion$(oldQuestion: AssessmentQuestion) {
     return this._assessmentQuestion$$.remove(oldQuestion);
   }
+
+  addQuestionsToAssessments(assessmentIds: string[], questions: AssessmentQuestion[])
+  {
+    return this._assessmentQuestion$$.createAssessmentQuestions(assessmentIds, questions)
+  }
 }

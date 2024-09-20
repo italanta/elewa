@@ -1,4 +1,4 @@
-<div class="question-form">
+<div class="question-form" *ngIf="formEditMode === questionFormMode.AssessmentMode">
 	<div [ngClass]="activeCard === index ? ['card' , 'active-card'] : ['card']"
 		(click)="activeQuestionChanged.emit(index)">
 
@@ -17,15 +17,15 @@
 			<div *ngIf="assessmentFormGroup">
 				<div [formGroup]="assessmentFormGroup">
 					<div formArrayName="questions">
-						<div [formGroup]="questionFormGroup">
+						<div *ngIf="questionFormGroup" [formGroup]="questionFormGroup">
 
 							<div fxLayout="row" fxLayoutAlign="space-between center">
 								<div class="question-type-conf">
 									<div fxLayout="column" >
 										<div appearance="fill" fxFlex="60" *ngIf="mediaSrc" class="media-display">
 											<div class="media-div">
-												<img *ngIf="uploadType === 'image'" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
-  											<video *ngIf="uploadType === 'video'" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
+												<img *ngIf="isImageMedia" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
+  											<video *ngIf="!isImageMedia" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
 											</div>
 											<button class="img-elipsis" [matMenuTriggerFor]="menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
 										</div>
@@ -38,10 +38,10 @@
 										<button mat-flat-button>
 											<i class="fa-solid fa-a"></i>
 										</button>
-										<button mat-flat-button (click)="openUploadModal('image')">
+										<button mat-flat-button (click)="openUploadModal(allowedMedia.Image)">
 											<i class="fa-regular fa-image"></i>
 										</button>
-										<button mat-flat-button (click)="openUploadModal('video')">
+										<button mat-flat-button (click)="openUploadModal(allowedMedia.Video)">
 											<i class="fa-solid fa-video"></i>
 										</button>
 									</div>
@@ -73,5 +73,61 @@
   <button mat-menu-item><span> <i class="fa-solid fa-align-center"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-CENTER' | transloco }} </span> </button>
   <button mat-menu-item><span> <i class="fa-solid fa-align-right"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-RIGHT' | transloco }}  </span></button>
 	<button mat-menu-item><span> <i class="fa-solid fa-align-left"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-LEFT' | transloco }} </span></button>
-	<button mat-menu-item (click)="uploadType === 'image'? openUploadModal('image') : openUploadModal('video')" ><span> <i class="fa-solid fa-align-left"></i></span> <span> {{ uploadType === 'image'? "Replace Image" : "Replace Video" }}</span></button>
+	<button mat-menu-item (click)="allowedMedia.Image? openUploadModal(allowedMedia.Image) : openUploadModal(allowedMedia.Video)" >
+		<span> <i class="fa-solid fa-align-left"></i></span> 
+		<span> {{ currentMediaType === allowedMedia.Image? "Replace Image" : "Replace Video" }}</span>
+	</button>
 </mat-menu>
+
+<div *ngIf="formEditMode === questionFormMode.QuestionBankMode">
+  <div class="question-form" *ngIf="isAddingQuestion">
+    <div class="card">
+    <i class="fas fa-grip-horizontal _icon"></i>
+  
+      <div class="card-content">
+        <div [formGroup]="questionBankForm">
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <div class="question-type-conf">
+              <div fxLayout="column" >
+                <div appearance="fill" fxFlex="60" *ngIf="mediaSrc" class="media-display">
+                  <div class="media-div">
+                    <img *ngIf="allowedMedia.Image" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
+                    <video *ngIf="!allowedMedia.Video" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
+                  </div>
+                </div>
+                <mat-form-field appearance="fill">
+                  <input type="text" matInput formControlName="message" placeholder="Type your question">
+                </mat-form-field>
+              </div>
+  
+              <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+                <button mat-flat-button>
+                  <i class="fa-solid fa-a"></i>
+                </button>
+                <button mat-flat-button (click)="openUploadModal(allowedMedia.Image)">
+                  <i class="fa-regular fa-image"></i>
+                </button>
+                <button mat-flat-button (click)="openUploadModal(allowedMedia.Video)">
+                  <i class="fa-solid fa-video"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+  
+          <app-assessment-answers [questionId]="questionBankForm.value.id" [questionFormGroup]="questionBankForm"></app-assessment-answers>
+  
+          <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1%">
+            <mat-form-field appearance="fill">
+              <mat-label> Marks </mat-label>
+              <input type="number" matInput formControlName="marks">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="__buttons">
+        <button class="bank__button filled" (click)="addQuestion()" [disabled]="addClicked">Save</button>
+        <button class="bank__button outline" (click)="discardQuestion()">Discard</button>
+      </div>
+    </div>
+  </div>
+</div>

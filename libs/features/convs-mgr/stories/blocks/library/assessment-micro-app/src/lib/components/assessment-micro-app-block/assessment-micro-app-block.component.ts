@@ -106,7 +106,6 @@ export class AssessmentMicroAppBlockComponent implements OnInit {
   private _decorateInput()
   {
     const inputs = document.getElementsByClassName('assessment-option');
-    console.log("Input:",inputs)
     if (this.jsPlumb) {
       for (let i = 0; i < inputs.length; i++) {
         let input = inputs[i];

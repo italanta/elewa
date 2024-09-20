@@ -1,19 +1,15 @@
 <form [formGroup]="imageMessageForm" [class.edit_form_wrapper] = "isEdit">
   <div [id]="imageInputId" class="image_bg" [class.edit_form] = "isEdit" [ngClass]="byPassedLimits.length ? 'error' : ''">
 
-    <input *ngIf="!isLoadingImage" (change)="processImage($event)" type="file" class="image-file" [id]="imageInputUpload" hidden />
+    <input *ngIf="!(isLoading$ | async)?.get(id)" (change)="processImage($event)" type="file" class="image-file" [id]="imageInputUpload" hidden />
 
-    <label id="mediaUploadLabel" *ngIf="!isLoadingImage" [for]="imageInputUpload">
-      <div *ngIf="!hasImage; else inputHasImage" class="block-media-placeholder">
-        <img type="image" class="placeholder-icon" src="assets/svgs/blocks/ph_image-light.svg" alt="" />
-        <span class="media-placeholder-text" >{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-UPLOAD' | transloco }}</span>
-      </div>
-      <ng-template #inputHasImage>
-        <img type="image" class="upload-image" [src]="imageLink" alt="" />
-      </ng-template>
+    <label id="mediaUploadLabel" *ngIf="!(isLoading$ | async)?.get(id)" [for]="imageInputUpload" class="media_upload_label">
+      <img *ngIf="!imageMessageForm.get('fileSrc')?.value" type="image" class="placeholder-icon" src="assets/svgs/blocks/ph_image-light.svg" alt="" />
+      <span *ngIf="!imageMessageForm.get('fileSrc')?.value" class="media-placeholder-text" >{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-UPLOAD' | transloco }}</span>
+      <img *ngIf="imageMessageForm.get('fileSrc')?.value" type="image" class="upload-image" [src]="imageMessageForm.get('fileSrc')?.value" alt="" />
     </label>
 
-    <div *ngIf="isLoadingImage" class="doc-icon">
+    <div *ngIf="(isLoading$ | async)?.get(id)" class="doc-icon">
       <i class="fas fa-circle-notch fa-spin fa-3x"></i>
     </div>
 

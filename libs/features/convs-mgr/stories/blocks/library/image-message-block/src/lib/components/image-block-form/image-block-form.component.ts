@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { SubSink } from 'subsink';
 
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
@@ -18,7 +19,7 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
   templateUrl: './image-block-form.component.html',
   styleUrl: './image-block-form.component.scss'
 })
-export class ImageBlockFormComponent {
+export class ImageBlockFormComponent implements OnInit {
   @Input() id: string;
   @Input() block: ImageMessageBlock;
   @Input() imageMessageForm: FormGroup;
@@ -28,12 +29,13 @@ export class ImageBlockFormComponent {
   file: File;
   imageInputId: string;
   imageInputUpload = '';
-  isLoadingImage = false;
   imageLink: string;
   hasImage = false;
   byPassedLimits: any[] = []
   whatsappLimit: boolean;
   messengerLimit: boolean;
+
+  isLoading$: Observable<Map<string, boolean>>;
 
   private _sBs = new SubSink();
 
@@ -46,6 +48,8 @@ export class ImageBlockFormComponent {
     this.imageInputId = `img-${this.id}`;
     this.imageInputUpload = `img-${this.id}-upload`;
     this._checkIfImageExists();
+
+    this.isLoading$ = this._imageUploadService.isLoading$;
   
     const fileSize = this.imageMessageForm.get('fileSize')?.value;
   
@@ -65,7 +69,7 @@ export class ImageBlockFormComponent {
     }
 
     if (this.file) {
-      this.isLoadingImage = true;
+      this._imageUploadService.setIsLoading(this.id, true);
       this.hasImage = true;
 
       //Step 1 - Create the file path that will be in firebase storage
@@ -98,7 +102,7 @@ export class ImageBlockFormComponent {
 
   private _autofillUrl(url: string, fileSizeInKB: number) {
     this.imageMessageForm.patchValue({ fileSrc: url, fileSize: fileSizeInKB });
-    this.isLoadingImage = false;
+    this._imageUploadService.setIsLoading(this.id, false);
     this._checkIfImageExists();
     this._checkSizeLimit(fileSizeInKB);
   }
