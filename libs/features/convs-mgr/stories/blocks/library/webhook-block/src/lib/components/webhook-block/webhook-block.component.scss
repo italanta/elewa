@@ -23,7 +23,6 @@ mat-card {
 .webhook-select{
   background-color: var(--convs-mgr-placeholder-color);
   border:none;
-  border-right: 0.1rem solid var(--convs-mgr-placeholder-color);
   width:35%;
   appearance: none;
 
@@ -34,7 +33,6 @@ mat-card {
   padding: 0.5rem;
   background-color: var(--convs-mgr-placeholder-color);
   border:none;
-  border-right: 0.1rem solid var(--convs-mgr-placeholder-color);
   width:60%;
   font-weight: 300;
   text-align: center;
@@ -42,29 +40,9 @@ mat-card {
 
 }
 
-.custom-dropdown-arrow {
-  position: absolute;
-  top: 50%;
-  left: 25%;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  flex-shrink: 0;
-  color: var(--convs-mgr-input-color-two);
-  border-left: 0.3125rem solid transparent;
-  border-right: 0.3125rem solid transparent;
-  border-top: 0.3125rem solid var(--convs-mgr-input-color-two);
-  pointer-events: none;
-}
-
 .vertical-line-select {
-  position: absolute;
-  left: 35%;
-  transform: translateY(-100%);
-  width: 0.0125rem;
-  height: 100%;
-  background-color: var(--convs-mgr-input-color-two);
-
+  position: relative;
+  border-left: 1px solid var(--convs-mgr-input-color-two);
 }
 
 select:focus, input:focus{
