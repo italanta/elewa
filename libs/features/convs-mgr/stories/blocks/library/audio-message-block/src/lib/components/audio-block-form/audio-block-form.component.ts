@@ -64,10 +64,8 @@ export class AudioBlockFormComponent implements OnInit, OnDestroy {
   async processAudio(event: any) {
     this.file = event.target.files[0];
     const limits = this._audioUploadService.checkSupportedLimits(this.file.size, this.file.type, 'audio');
-    
-    const { typeNotAllowed } = limits || {};
 
-    if (typeNotAllowed){
+    if (limits?.typeNotAllowed){
       this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.AudioFormat, isError: true, blockType: StoryBlockTypes.Audio})
       return;
     }

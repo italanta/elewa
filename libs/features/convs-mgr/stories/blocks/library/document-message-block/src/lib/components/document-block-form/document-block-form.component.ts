@@ -57,9 +57,8 @@ export class DocumentBlockFormComponent implements OnInit, OnDestroy {
     this.file = event.target.files[0];
 
     const limits = this._docUploadService.checkSupportedLimits(this.file.size, this.file.type, 'document');
-    const { typeNotAllowed } = limits || {};
 
-    if(typeNotAllowed){
+    if(limits?.typeNotAllowed){
       this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.DocumentFormat, isError: true, blockType: StoryBlockTypes.Document});
       return;
     }

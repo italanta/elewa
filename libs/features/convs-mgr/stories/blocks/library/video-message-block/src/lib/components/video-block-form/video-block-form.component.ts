@@ -85,9 +85,8 @@ export class VideoBlockFormComponent implements OnInit, OnDestroy  {
     this.file = event.target.files[0]
 
     const limits = this._videoUploadService.checkSupportedLimits(this.file.size, this.file.type, 'video');
-    const { typeNotAllowed } = limits || {};
 
-    if(typeNotAllowed){
+    if(limits?.typeNotAllowed){
       this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.VideoFormat, isError: true, blockType: StoryBlockTypes.Video})
       return;
     }

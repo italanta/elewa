@@ -51,16 +51,15 @@ export class ImageBlockFormComponent {
   
     if (fileSize) {
       this._checkSizeLimit(fileSize);
-    };
+    }
   }
 
   async processImage(event: any) {   
     this.file = event.target.files[0]
 
     const limits = this._imageUploadService.checkSupportedLimits(this.file.size, this.file.type, 'image');
-    const { typeNotAllowed } = limits || {};
 
-    if(typeNotAllowed){
+    if(limits?.typeNotAllowed){
       this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.ImageFormat, isError: true, blockType: StoryBlockTypes.Image})
       return;
     }
