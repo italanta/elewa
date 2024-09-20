@@ -53,7 +53,8 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
   {
     this.assessments$ = this._assessmentService.getAssessments$();
     this._sBS.sink = this.assessments$.subscribe((assessments) => { 
-      this.dataSource.data = assessments;
+      const draftAssesments = assessments.filter(_assess => !_assess.isPublished)
+      this.dataSource.data = draftAssesments;
       this.hasData = true
     })  
   }
