@@ -9,10 +9,13 @@
 
   .logo{
     width: 15%;
+    height: 40%;
     border: var(--convs-mgr-color-bright-teal);
     border-radius: 4px;
     img{
       border-radius: 4px;
+      max-width: 80%;
+      max-height: 80%;
     }
   }
 }
