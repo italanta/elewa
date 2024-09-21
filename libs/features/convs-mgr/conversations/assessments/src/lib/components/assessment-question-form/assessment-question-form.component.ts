@@ -148,6 +148,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
         this.mediaSrc = file;
         this.currentMediaType = type;
         this.mediaPath?.setValue(file);
+        this._checkMediaOnLoad();
       }
     });
   }
