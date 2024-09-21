@@ -6,4 +6,5 @@ export * from './lib/components/assessment-question-form/assessment-question-for
 export * from './lib/services/assessment-form.service'
 export * from './lib/utils/check-media-type.util'
 export * from './lib/modals/media-upload-modal/media-upload.component'
+export * from './lib/model/question-display-mode.enum'
 
