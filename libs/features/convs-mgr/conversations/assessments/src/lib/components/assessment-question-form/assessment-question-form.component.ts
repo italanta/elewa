@@ -186,6 +186,8 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
 
   discardQuestion(): void {
     this.questionActionCompleted.emit();
+    this.addClicked = false;
+    
     this.dialog.closeAll();
   }
 

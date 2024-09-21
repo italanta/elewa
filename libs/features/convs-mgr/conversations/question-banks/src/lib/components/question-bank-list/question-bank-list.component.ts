@@ -81,7 +81,14 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
       data: { question: this.questions.filter(question => this.selectedQuestions.includes(question.id!)) },
     });
   
-    dialogRef.afterClosed().subscribe(() => this.selectedQuestions = []);
+    dialogRef.afterClosed().subscribe(() => {
+      this.selectedQuestions.forEach(id => {
+        const checkbox = document.querySelector(`input[type="checkbox"][value="${id}"]`) as HTMLInputElement;
+        if (checkbox) checkbox.checked = false; // Uncheck the checkbox
+      });
+      this.selectedQuestions = [];
+      this.isAddingQuestion = false;
+    });
   }
   
 
