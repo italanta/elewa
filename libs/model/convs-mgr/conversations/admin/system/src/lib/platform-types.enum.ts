@@ -18,6 +18,8 @@ export enum PlatformType
   Telegram  =  'telegram',
   /** Messenger API */
   Messenger =  'messenger',
+  /** IVR API */
+  IVR =  'ivr',
 }
 
 /**
@@ -39,6 +41,8 @@ export function __PlatformTypeToPrefix (t: PlatformType)
       return 't';
     case PlatformType.Messenger:
       return 'm';
+    case PlatformType.IVR:
+      return 'i';
     default:
       throw new Error('Platform type is undefined.')
   }
@@ -63,6 +67,8 @@ export function __PlatformTypeToPrefix (t: PlatformType)
        return PlatformType.Telegram;
      case 'm':
        return PlatformType.Messenger;
+     case 'i':
+       return PlatformType.IVR;
      default:
        throw new Error('Cannot find prefix for platform type.')
    }
