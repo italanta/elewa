@@ -12,13 +12,7 @@
 
   <!-- Change Class -->
   <div class="middle-section" *ngIf="(classrooms$ | async) as classrooms">
-    <mat-form-field appearance="outline">
-      <mat-select (selectionChange)="onChange($event)" placeholder="Select user group">
-        <mat-option *ngFor="let classroom of classrooms" [value]="classroom.id" 
-          [disabled]="classroom.id && classIds.includes(classroom.id)">{{ classroom.className | titlecase }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <app-custom-drop-down *ngIf="classrooms" [options]="filteredClassRooms" (selectionChanged)="onChange($event)"> </app-custom-drop-down>
   </div>
 
   <div class="action-btns">

@@ -9,6 +9,7 @@ import {
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { CustomComponentsModule } from '@app/elements/layout/convs-mgr/custom-components';
 
 import { LearnersPageComponent } from './pages/learners-page/learners-page.component';
 
@@ -31,6 +32,7 @@ import { LearnersRouterModule } from './learners.router';
     MaterialBricksModule,
     MaterialDesignModule,
     ReactiveFormsModule,
+    CustomComponentsModule
   ],
   declarations: [
     LearnersPageComponent,

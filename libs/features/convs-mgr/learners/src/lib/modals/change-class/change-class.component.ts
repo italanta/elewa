@@ -20,6 +20,8 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
   classrooms$: Observable<Classroom[]>;
   isUpdatingClass: boolean;
   classIds : string[] = [];
+  classrooms: any[];
+  filteredClassRooms: any[];
 
   private _sBs = new SubSink();
 
@@ -38,6 +40,11 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
         this.classIds.push(user.classId)
       }
     })
+    this._sBs.sink = this.classrooms$.subscribe((classrooms) => {
+      this.filteredClassRooms = classrooms.filter(classroom => 
+        classroom.id && !this.classIds.includes(classroom.id)
+      );
+    });
   }
 
   get enrolledUsers() {
@@ -55,7 +62,7 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
   }
 
   onChange(e: any) {
-    this.selectedClass = e.value;
+    this.selectedClass = e.id;
   }
 
   submitAction() {
