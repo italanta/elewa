@@ -22,39 +22,57 @@
 
   <div fxLayout="column" *ngIf="blockTemplate$ | async as blocks" fxFlex>
     <!-- message block -->
-    <div class="block-list" *ngIf="blocks | blockCategoryPipe: 'messages-block' as groupedBlocks">
+    <div 
+      class="block-list" 
+      *ngIf="!isInteractiveVoiceResponseModule && (blocks | blockCategoryPipe: 'messages-block') as groupedBlocks"
+    >
       <h6 class="first-title" *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.MESSAGE-BLOCK' | transloco }}</h6>
       <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
     </div>
 
     <!-- questions block -->
-    <div class="block-list" *ngIf="blocks | blockCategoryPipe: 'questions-block' as groupedBlocks">
+    <div 
+      class="block-list" 
+      *ngIf="blocks | blockCategoryPipe: 'questions-block' as groupedBlocks"
+    >
       <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.QUESTION-BLOCKS' | transloco }}</h6>
       <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
     </div>
 
-      <!-- Operations block -->
-      <div class="block-list" *ngIf="blocks | blockCategoryPipe: 'operation-block' as groupedBlocks">
-        <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.OPERATION-BLOCKS' | transloco }}</h6>
-        <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
-      </div>
+    <!-- Operations block -->
+    <div 
+      class="block-list" 
+      *ngIf="!isInteractiveVoiceResponseModule && (blocks | blockCategoryPipe: 'operation-block') as groupedBlocks"
+    >
+      <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.OPERATION-BLOCKS' | transloco }}</h6>
+      <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
+    </div>
 
     <!-- bricks -->
-    <div class="block-list" *ngIf="blocks | blockCategoryPipe: 'bricks' as groupedBlocks">
+    <div 
+      class="block-list" 
+      *ngIf="!isInteractiveVoiceResponseModule && (blocks | blockCategoryPipe: 'bricks') as groupedBlocks"
+    >
       <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.BRICKS' | transloco }}</h6>
       <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
     </div>
 
     <!-- micro-apps -->
-    <div class="block-list" *ngIf="blocks | blockCategoryPipe: 'Micro-apps' as groupedBlocks">
+    <div 
+      class="block-list" 
+      *ngIf="!isInteractiveVoiceResponseModule && (blocks | blockCategoryPipe: 'Micro-apps') as groupedBlocks"
+    >
       <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.MICRO-APPS' | transloco }}</h6>
       <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
     </div>
 
     <!-- end block -->
-    <div class="block-list" *ngIf="blocks | blockCategoryPipe: 'end-block' as groupedBlocks">
+    <div 
+      class="block-list" 
+      *ngIf="!isInteractiveVoiceResponseModule && (blocks | blockCategoryPipe: 'end-block') as groupedBlocks"
+    >
       <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.END-BLOCK' | transloco }}</h6>
       <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
     </div>
-  </div>
+</div>
 </div>
