@@ -19,6 +19,7 @@ import { DragDropService } from '../../providers/drag-drop.service';
 export class GroupedBlocksComponent implements OnInit, OnDestroy {
   @Input() groupedBlocks: StoryBlock[];
   @Input() frame: StoryEditorFrame;
+  @Input() isInteractiveVoiceResponseModule: boolean;
   private _sBs = new SubSink();
 
   coordinates: Coordinate;
