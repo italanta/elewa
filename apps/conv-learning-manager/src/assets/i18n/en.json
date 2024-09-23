@@ -419,7 +419,7 @@
         "COPY": "Copy",
         "DELETE": "Delete",
         "COURSE":"Course",
-        "INTERACTIVE-VOICE-RESPONSE": "Is an interactive voice response (IVR)?. "
+        "INTERACTIVE-VOICE-RESPONSE": "Is an interactive voice response module (IVR)?. "
       },
       "CREATE": "Create Module",
       "UPDATE": "Update Module",
