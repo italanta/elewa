@@ -26,6 +26,6 @@ export interface BotModule extends IObject {
   flow?: string;
   page?: string;
 
-  /** Interactive voice response flag. */
-  isInteractiveVoiceResponse?: boolean;
+  /** Interactive voice response module. */
+  isInteractiveVoiceResponseModule?: boolean;
 }
