@@ -12,8 +12,8 @@
 
   <!-- Change Class -->
   <div class="middle-section" *ngIf="(classrooms$ | async) as classrooms">
-    <mat-form-field appearance="fill">
-      <mat-select (selectionChange)="onChange($event)">
+    <mat-form-field appearance="outline">
+      <mat-select (selectionChange)="onChange($event)" placeholder="Select user group">
         <mat-option *ngFor="let classroom of classrooms" [value]="classroom.id" 
           [disabled]="classroom.id && classIds.includes(classroom.id)">{{ classroom.className | titlecase }}
         </mat-option>

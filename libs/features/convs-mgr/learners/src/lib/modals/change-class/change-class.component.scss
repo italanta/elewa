@@ -58,4 +58,10 @@ p {
 ::ng-deep.mat-mdc-select-panel .mat-mdc-option:hover {
   background-color: var(--convs-mgr-color-extra-bright-teal);
 }
+:host ::ng-deep .mdc-text-field--outlined {
+  --mdc-outlined-text-field-container-shape: 1.125rem;
+}
 
+:host ::ng-deep .mat-mdc-select-placeholder{
+  font-weight: 400;
+}
