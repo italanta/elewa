@@ -64,6 +64,9 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   //TODO @CHESA LInk boolean to existence of story in DB
   storyHasBeenSaved = false;
 
+  // Is the story module an IVR
+  isInteractiveVoiceResponseModule: boolean;
+
   zoomLevel: FormControl = new FormControl({ value: 100, disabled: true});
 
   constructor(private _editorStateService: StoryEditorStateService,
@@ -94,6 +97,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
         this.pageName = `Story overview :: ${state.story.name}`;
 
         const story = state.story;
+        this.isInteractiveVoiceResponseModule = story.isInteractiveVoiceResponseStory ? story.isInteractiveVoiceResponseStory : false;
         this.breadcrumbs$ = this._breadCrumbServ$.setStoryBreadcrumbs(story);
 
         this.loading.next(false);
