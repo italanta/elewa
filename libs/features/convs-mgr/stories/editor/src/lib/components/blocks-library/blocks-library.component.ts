@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 
 import { Logger } from '@iote/bricks-angular';
 
@@ -30,7 +30,7 @@ import { SideScreenToggleService } from '../../providers/side-screen-toggle.serv
   templateUrl: './blocks-library.component.html',
   styleUrls: ['./blocks-library.component.scss']
 })
-export class BlocksLibraryComponent implements OnInit, OnDestroy {
+export class BlocksLibraryComponent implements OnInit, OnDestroy, OnChanges {
   private _sbS = new SubSink();
 
   @Input() frame: StoryEditorFrame;
@@ -81,6 +81,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
   constructor(private _logger: Logger, private dragService: DragDropService, private sideScreen: SideScreenToggleService,) {}
 
   ngOnInit(): void {
+    console.log("the story so far", this.isInteractiveVoiceResponseModule)
     this._sbS.sink 
     = this.sideScreen.sideScreen$
         .subscribe((isOpen) => this.isSideScreenOpen = isOpen);
@@ -90,6 +91,15 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
       this._logger.warn(() => `Blocks library loaded yet frame not yet loaded.`);
     this.filterBlockTemplates();
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['isInteractiveVoiceResponseModule']) {
+      console.log('isInteractiveVoiceResponseModule changed:', changes['isInteractiveVoiceResponseModule'].currentValue);
+      // Perform any logic needed when this value changes
+      this.isInteractiveVoiceResponseModule = changes['isInteractiveVoiceResponseModule'].currentValue;
+    }
+  }
+
 
   getBlockIcon(type: number) {
     return ICONS_AND_TITLES[type].icon;
