@@ -43,4 +43,7 @@ export interface Story extends IObject
 
   /** total number of blocks in the story */
   blocksCount?: number;
+
+  /**Ivr Flag */
+  isInteractiveVoiceResponseStory?: boolean;
 }
