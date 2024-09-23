@@ -38,9 +38,9 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
   isSavingModule: boolean;
   bots: Bot[];
 
-  isInteractiveVoiceResponse: BooleanOption[] = [
-    { value: true, viewValue: 'True' },
-    { value: false, viewValue: 'False' }
+  isInteractiveVoiceResponseModule: BooleanOption[] = [
+    { value: true, viewValue: 'Yes' },
+    { value: false, viewValue: 'No' }
   ];
 
   constructor(
@@ -88,7 +88,7 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
       stories: this.moduleForm.value.stories,
       parentBot : this.moduleForm.value.parentBot.id,
       type: this.moduleForm.value.type,
-      isInteractiveVoiceResponse: this.moduleForm.value.isInteractiveVoiceResponse
+      isInteractiveVoiceResponseModule: this.moduleForm.value.isInteractiveVoiceResponseModule ? this.moduleForm.value.isInteractiveVoiceResponseModule: false
     };
 
     if (this.isCreateMode) {
