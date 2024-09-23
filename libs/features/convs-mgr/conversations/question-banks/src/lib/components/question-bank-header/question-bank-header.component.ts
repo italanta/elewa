@@ -1,8 +1,9 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { AssessmentFormService } from '@app/features/convs-mgr/conversations/assessments';
+import { AssessmentFormService, QuestionDisplayMode } from '@app/features/convs-mgr/conversations/assessments';
 import { QuestionFormMode } from '@app/model/convs-mgr/conversations/assessments';
+
 
 
 
@@ -16,9 +17,11 @@ export class QuestionBankHeaderComponent
   questionsFormGroup: FormGroup;
   addAQuestion: boolean;
   formViewMode: QuestionFormMode
+  questionDisplayMode: QuestionDisplayMode;
   @Output() viewMode = new EventEmitter<QuestionFormMode>();
   @Output() addNewQuestion = new EventEmitter<FormGroup>();
   @Output() addMode = new EventEmitter<boolean>();
+  @Output() questionDisplayModeChange = new EventEmitter<QuestionDisplayMode>();
 
   constructor(private _assessmentForm: AssessmentFormService) {}
 
@@ -32,6 +35,8 @@ export class QuestionBankHeaderComponent
     this.addNewQuestion.emit(this.questionsFormGroup);
     this.addMode.emit(this.addAQuestion);
     this.viewMode.emit(this.formViewMode)
+    this.questionDisplayMode = QuestionDisplayMode.EDITING;
+    this.questionDisplayModeChange.emit(this.questionDisplayMode);
   }
 
 }

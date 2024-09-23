@@ -51,28 +51,5 @@ export class AssessmentService {
       map((assessments: Assessment[]) => assessments.filter(assessment => assessment.isPublished))
     );
   }
-
-  updateMaxScore$(assessmentIds: string[], questions: AssessmentQuestion[])
-  {
-    const totalMarks = questions.reduce((acc, question) => acc + (question.marks || 0), 0);
-  
-    // For each assessment ID, we retrieve the assessment and update its maxScore
-    return from(assessmentIds).pipe(
-      switchMap((assessmentId: string) => 
-        this.getAssessment$(assessmentId).pipe(
-          take(1),
-          map((assessment) => {
-            if (!assessment) {
-              throw new Error(`Assessment with ID ${assessmentId} not found.`);
-            }
-            assessment.maxScore = totalMarks; // Update maxScore
-            return assessment;
-          }),
-          switchMap((updatedAssessment: Assessment) => this.updateAssessment$(updatedAssessment))
-        )
-      ),
-      toArray() // Collect the results into an array to handle multiple assessments
-    );
-  }
   
 }
