@@ -15,6 +15,6 @@ export function BOT_MODULE_FORM(_fb: FormBuilder, botModule: BotModule) {
     parentBot: [botModule ? botModule.parentBot : '', Validators.required],
     stories: [botModule ? botModule.stories : []],
     type: ['BotModule'],
-    isInteractiveVoiceResponse: [botModule ? botModule.isInteractiveVoiceResponse : false]
+    isInteractiveVoiceResponseModule: [botModule ? botModule.isInteractiveVoiceResponseModule : false]
   });
 }
