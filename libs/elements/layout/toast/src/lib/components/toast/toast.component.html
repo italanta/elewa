@@ -3,7 +3,7 @@
   <i [class]="iconClass" class="prefix"></i>
 
   <div class="mid" (click)="scrollToClick()">
-    <ng-container *ngIf="messageType is errorToast; else successTemplate">
+    <ng-container *ngIf="isErrorToast() else successTemplate">
       {{'TOAST.ERROR' | transloco}}
       <br>
       <span class="error-type">{{ errorType }}</span>
@@ -16,7 +16,6 @@
   <div class="button" (click)="dismissSnackbar()">
     <i class="fas fa-times suffix"></i>
   </div>
-
 </div>
 
   
