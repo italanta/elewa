@@ -20,6 +20,7 @@ export class GroupedBlocksComponent implements OnInit, OnChanges, OnDestroy{
   @Input() groupedBlocks: StoryBlock[];
   @Input() frame: StoryEditorFrame;
   @Input() isInteractiveVoiceResponseModule: boolean;
+  
   private _sBs = new SubSink();
 
   coordinates: Coordinate;
@@ -42,6 +43,7 @@ export class GroupedBlocksComponent implements OnInit, OnChanges, OnDestroy{
     const svgPath = icon.split('.').pop();
     return svgPath === 'svg';
   }
+
   /**
    * Responds to changes in @Input properties.
    */
