@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
 import { StoryError, StoryErrorType } from "@app/model/convs-mgr/stories/main";
-import { StoryBlock, StoryBlockConnection, isMediaBlock, isOptionBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { StoryBlock, StoryBlockConnection, StoryBlockTypes, isMediaBlock, isOptionBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { StoryEditorState, StoryEditorStateService } from "@app/state/convs-mgr/story-editor";
 
@@ -119,8 +119,12 @@ export class SaveStoryService
         }
       }
       else {
-        const hasEmptyConnectionOnOption = this._hasMissingConnection(connections, `defo-${block.id}`, block.id);
-        if(hasEmptyConnectionOnOption) this.validator.push(hasEmptyConnectionOnOption);
+
+        if(block.type !== StoryBlockTypes.EndStoryAnchorBlock) {
+         const hasEmptyConnectionOnOption =  this._hasMissingConnection(connections, `defo-${block.id}`, block.id);
+         if(hasEmptyConnectionOnOption) this.validator.push(hasEmptyConnectionOnOption);
+        }
+        
       }
     }
     return this.validator;

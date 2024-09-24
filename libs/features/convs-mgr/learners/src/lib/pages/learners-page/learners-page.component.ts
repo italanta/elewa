@@ -234,6 +234,8 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
       data: { enrolledUsrs: this.selection.selected },
       width: '400px',
     });
+
+    this._dialog.afterAllClosed.subscribe(() => this.selection.clear())
   }
 
   openCreateClassModal() {

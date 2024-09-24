@@ -11,15 +11,21 @@ p {
 
   .title-section {
     display: flex;
+    flex-direction: column;
     gap: 2rem;
 
     .mode {
       font-size: 1rem;
     }
 
-    .name {
-      font-size: 1rem;
-    }
+  }
+  .name {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  mat-form-field {
+    width: 100%;
   }
 
   .action-btns {
@@ -30,7 +36,26 @@ p {
     .btn {
       outline: none;
       padding: 0.5rem 0.9rem;
+      border-radius: 1.2rem;
+      border: none;
+    }
+    .disabled {
+      opacity: 0.4;
+    }
+    
+    .cancel-btn{
+      background-color: var(--convs-mgr-color-text-white);
+      color: var(--convs-mgr-color-bright-teal);
+      border: 1px solid var(--convs-mgr-color-bright-teal);
+    }
+    .apply-btn {
+      color: var(--convs-mgr-color-text-white);
+      background-color: var( --convs-mgr-color-bright-teal);
     }
   }
+}
+
+::ng-deep.mat-mdc-select-panel .mat-mdc-option:hover {
+  background-color: var(--convs-mgr-color-extra-bright-teal);
 }
 

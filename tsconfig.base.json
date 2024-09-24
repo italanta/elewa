@@ -87,6 +87,9 @@
       "@app/features/convs-mgr/conversations/messaging": [
         "libs/features/convs-mgr/conversations/messaging/src/index.ts"
       ],
+      "@app/features/convs-mgr/conversations/question-banks": [
+        "libs/features/convs-mgr/conversations/question-banks/src/index.ts"
+      ],
       "@app/features/convs-mgr/conversations/surveys": [
         "libs/features/convs-mgr/conversations/surveys/src/index.ts"
       ],
@@ -291,6 +294,9 @@
       ],
       "@app/model/convs-mgr/conversations/messages": [
         "libs/model/convs-mgr/conversations/messages/src/index.ts"
+      ],
+      "@app/model/convs-mgr/conversations/question-banks-model": [
+        "libs/model/convs-mgr/conversations/question-banks-model/src/index.ts"
       ],
       "@app/model/convs-mgr/conversations/surveys": [
         "libs/model/convs-mgr/conversations/surveys/src/index.ts"
@@ -506,6 +512,9 @@
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
       "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
+      "app/state/convs-mgr/conversationsquestions-banks": [
+        "libs/state/convs-mgr/conversations/question-banks/src/index.ts"
+      ],
       "intercom": ["libs/util/ngfi/intercom/src/index.ts"],
       "micro-apps-auth": ["libs/elements/base/micro-apps-auth/src/index.ts"]
     }

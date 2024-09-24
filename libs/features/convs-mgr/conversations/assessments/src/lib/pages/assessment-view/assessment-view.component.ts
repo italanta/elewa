@@ -38,7 +38,6 @@ export class AssessmentViewComponent implements OnInit, AfterViewInit, OnDestroy
     }else{
       this.stepperForm = true
     }
-    console.log(displayMode)
     
     this._sBS.sink =  this.assessmentForm.valueChanges.subscribe(() => {
       //Communicate progress to parent component and update progress UI

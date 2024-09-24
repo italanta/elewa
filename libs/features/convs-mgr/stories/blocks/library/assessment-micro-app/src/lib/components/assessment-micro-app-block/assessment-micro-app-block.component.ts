@@ -37,6 +37,8 @@ export class AssessmentMicroAppBlockComponent implements OnInit {
 
   assessmentBlockOptions: any[];
 
+  selectedAssessmentId: string;
+
   assessments: Assessment[];
 
   constructor(private _assessmentService$: AssessmentService,
@@ -48,6 +50,10 @@ export class AssessmentMicroAppBlockComponent implements OnInit {
     this.getAssessments();
     this.getAssessmentName();
     this.setAssessmentBlockOptions();
+
+    if(this.assessmentMicroAppForm) {
+      this.selectedAssessmentId = this.assessmentMicroAppForm.value.appId;
+    }
   }
 
   /** Get all assessments */
@@ -57,6 +63,12 @@ export class AssessmentMicroAppBlockComponent implements OnInit {
         this.assessments = _assess
     });
   }
+
+  onAssessmentSelected(assessment: Assessment) {
+    this.selectedAssessmentId = assessment.id as string;
+    this.assessmentMicroAppForm.patchValue({appId: this.selectedAssessmentId});
+  }
+
 
   getAssessmentName() 
   {
@@ -106,7 +118,6 @@ export class AssessmentMicroAppBlockComponent implements OnInit {
   private _decorateInput()
   {
     const inputs = document.getElementsByClassName('assessment-option');
-    console.log("Input:",inputs)
     if (this.jsPlumb) {
       for (let i = 0; i < inputs.length; i++) {
         let input = inputs[i];

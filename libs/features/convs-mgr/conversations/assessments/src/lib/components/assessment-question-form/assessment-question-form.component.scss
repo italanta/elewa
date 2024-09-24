@@ -43,7 +43,9 @@
 	gap: 1rem;
 
 	.media-div{
-		max-height: 70%;
+		max-height: 50%;
+		max-width: 80%;
+		padding-left: 2rem;
 		img{
 			width: 100%;
 			border-radius: 4px;
@@ -75,6 +77,43 @@
 	gap: 1rem;
 	max-height: 30px;
 	margin-bottom: 1rem;
+}
+
+.horizontalIcon{
+	width: 100% !important; 
+	margin: auto !important; 
+	color: #B2B2B2 !important;
+}
+
+
+//
+//  // //
+// QUESTION BANK FORM
+//
+.__buttons{
+	display: flex;
+	justify-content: space-between;
+	padding: 2rem;
+	.bank__button{
+		padding: 1.5rem;
+		border-radius: 40px;
+		width: 30%;
+		font-size: large;
+	}
+	.filled{
+		color: var(--convs-mgr-color-text-white);
+		background-color: var(--micro-apps-teal-primary);
+		border: none;
+	}
+	.outline{
+		color: var(--micro-apps-teal-primary);
+		border: 1px solid var(--micro-apps-teal-primary);
+	}
+}
+._icon{
+	width: 100%; 
+	margin: auto; 
+	color: #B2B2B2;
 }
 :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: white !important;

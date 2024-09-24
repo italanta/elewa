@@ -136,6 +136,49 @@
           "SELECT-VARIABLE": "Sélectionnez Variable",
           "CHECKBOX": "variable personnalisée"
         }
+      },
+      "SIZE-LIMIT-MESSAGE": {
+        "WHATSAPP" : {
+          "AUDIO": {
+            "MESSAGE-ONE": "L'audio ne peut pas être envoyé à WhatsApp,",
+            "MESSAGE-TWO": "Téléchargez un fichier audio d'une taille maximale de 16 Mo"
+          }, 
+          "VIDEO": {
+            "MESSAGE-ONE": "Téléchargez une vidéo d'une taille maximale de 16 Mo"
+          },
+          "DOCUMENT": {
+            "MESSAGE-ONE": "Le document ne peut pas être envoyé à WhatsApp",
+            "MESSAGE-TWO": "Téléchargez un document d'une taille maximale de 100 Mo"
+          },
+          "STICKER": {
+            "MESSAGE-ONE": "L'autocollant ne peut pas être envoyé à WhatsApp,",
+            "MESSAGE-TWO": "l’autocollant dépasse la limite de fichier de 500 Ko"
+          },
+          "IMAGE": {
+            "MESSAGE-ONE": "L'image ne peut pas être envoyée à WhatsApp,",
+            "MESSAGE-TWO": "Téléchargez une image d'une taille maximale de 5 Mo"
+          }
+        }
+      },
+      "INPUT-TYPE-MESSAGE":{
+        "WHATSAPP": {
+          "AUDIO": {
+            "MESSAGE-ONE": "Le format audio n'est pas pris en charge",
+            "MESSAGE-TWO": "Veuillez sélectionner un fichier audio (.aac, .amr, .mpeg, .mp4) uniquement"
+          }, 
+          "VIDEO": {
+            "MESSAGE-ONE": "Le format vidéo n'est pas pris en charge",
+            "MESSAGE-TWO": "Veuillez sélectionner un fichier vidéo (.mp4, .3gp) uniquement"
+          },
+          "DOCUMENT": {
+            "MESSAGE-ONE": "Le format de document n'est pas pris en charge",
+            "MESSAGE-TWO": "Veuillez sélectionner un fichier de document (.txt, .xls, .xlsx, .doc, .docx, .ppt, .pptx, .pdf) uniquement"
+          },
+          "IMAGE": {
+            "MESSAGE-ONE": "Le format d'image n'est pas pris en charge", 
+            "MESSAGE-TWO": "Veuillez sélectionner un fichier image (.jpg, .jpeg, .png) uniquement"
+          }
+        }
       }
     },
     "COMPONENTS": {
@@ -237,7 +280,7 @@
       "DESCRIPTION": "Description",
       "ACTION-BUTTONS": {
         "CANCEL": "Annuler",
-        "CONTINUE": "Continuer"
+        "APPLY": "Appliquer"
       }
     }
   },
@@ -785,7 +828,8 @@
       "REMOVE":"Supprimer",
       "DEACTIVATE":"Désactiver",
       "LOADING-USERS":"Chargement des utilisateurs"
-    }
+    },
+    "SEND-INVITE":"Envoyer une invitation"
 }
 },
   "PERMISSIONS" :{

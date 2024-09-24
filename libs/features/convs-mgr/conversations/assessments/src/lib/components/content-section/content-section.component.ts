@@ -1,11 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { combineLatest, map, take } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { Assessment, AssessmentOptionValue, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
-import { MicroAppStatus, MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
+import { MicroAppProgress, MicroAppStatus, MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
 import { AssessmentProgress, AssessmentProgressUpdate, QuestionResponse, QuestionResponseMap } from '@app/model/convs-mgr/micro-app/assessments';
 import { MicroAppManagementService } from '@app/state/convs-mgr/micro-app';
 import { AssessmentQuestionStore, AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
@@ -69,7 +69,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     if(this.app) {
       this.getAssessment();
       this.getAssessmentQuestions(this.app.config.orgId);
-      this.startTime = this.app.startedOn as number;
+      this.startTime = new Date().getTime() as number;
     }    
     // Subscribe to changes when the navigation buttons are clicked for the stepper assessment form
     this._sBS.sink = this.stepService.currentStep$.subscribe(step => {
@@ -155,67 +155,77 @@ export class ContentSectionComponent implements OnInit, OnDestroy
    *  Track the answered questions and store them in a responses array
    *  When on the last question, redirect them back to platform
    */
-
-  saveProgress(i: number)
-  {
-    const isLastStep = this.currentStep === this.totalSteps - 1;
-    
-    if(!this.stepperForm) this.assessmentFormArray?.controls[i].get('selectedOption')?.markAsTouched();
+  saveProgress(i?: number) {
+    const isLastStep = this.stepperForm 
+      ? this.currentStep === this.totalSteps - 1 
+      : true; // If not stepper mode, treat the form as if it's the last step
   
-    const selectedOptionId = this.assessmentFormArray?.controls[i].get('selectedOption')?.value
-    const questionResponses: QuestionResponse[] = this.questionResponses || []
-    const questionId = this.assessmentFormArray?.controls[i].get('id')?.value
-    const questionMarks = this.assessmentFormArray?.controls[i].get('marks')?.value
-    const textAnswer = this.assessmentFormArray?.controls[i].get('textAnswer')?.value
-
-    const question = this.assessmentQuestions.find((q)=> q.id === questionId);
-    const correctAnswer =  question?.options?.find((op)=> op.accuracy === AssessmentOptionValue.Correct)
-
-    const selectedOption = question?.options?.find((op)=> op.id === selectedOptionId);
-    
-    // Calculate total marks using the reducer
-    const questionResponse: QuestionResponse = {
-      questionId: questionId,
-      answerId: selectedOption?.id,
-      answerText: selectedOption ? selectedOption.text : textAnswer,
-      marks: parseInt(questionMarks),
-      correctAnswer: correctAnswer?.id
+    const questionResponses: QuestionResponse[] = this.questionResponses || [];
+  
+    const processQuestion = (control: AbstractControl) => {
+      control.get('selectedOption')?.markAsTouched();
+  
+      if (!control.get('selectedOption')?.valid) return;
+  
+      const selectedOptionId = control.get('selectedOption')?.value;
+      const questionId = control.get('id')?.value;
+      const questionMarks = control.get('marks')?.value;
+      const textAnswer = control.get('textAnswer')?.value;
+  
+      const question = this.assessmentQuestions.find((q) => q.id === questionId);
+      const correctAnswer = question?.options?.find((op) => op.accuracy === AssessmentOptionValue.Correct);
+      const selectedOption = question?.options?.find((op) => op.id === selectedOptionId);
+  
+      const questionResponse: QuestionResponse = {
+        questionId: questionId,
+        answerId: selectedOption?.id,
+        answerText: selectedOption ? selectedOption.text : textAnswer,
+        marks: parseInt(questionMarks),
+        correctAnswer: correctAnswer?.id,
+      };
+  
+      questionResponses.push(questionResponse);
+    };
+  
+    // Handle stepper mode or all-questions mode
+    if (!this.stepperForm) {
+      this.assessmentFormArray?.controls.forEach(processQuestion);
+    } else {
+      const control = this.assessmentFormArray?.controls[i!];
+      processQuestion(control);
     }
-
-    questionResponses.push(questionResponse);
+  
     const progressMilestones: AssessmentProgressUpdate = {
-      appId: this.app.appId, 
+      appId: this.app.appId,
       endUserId: this.app.endUserId,
       orgId: this.app.config.orgId,
       questionResponses: questionResponses,
-      // Will need to be calculated
       timeSpent: new Date().getTime() - this.app.startedOn!,
       type: MicroAppTypes.Assessment,
       assessmentDetails: {
         maxScore: this.assessment.maxScore,
         questionCount: this.totalSteps,
         moveOnCriteria: this.assessment.configs?.moveOnCriteria,
-        title: this.assessment.title
+        title: this.assessment.title,
       },
-      endUserName:this.app.endUserName,
-      hasSubmitted: isLastStep
-    }
-
-    if(isLastStep ) {
-      this.isSubmitting = true;
-      this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe((updatedProgress)=> {
-        if(updatedProgress) {
-          this.assessmentProgress = updatedProgress.result as AssessmentProgress;
-          // this.assessmentProgress.attempts[this.assessmentProgress.attemptCount]
-          this.isSubmitting = false;
-          this.pageViewMode = AssessmentPageViewMode.ResultsMode;
-        }
-      }); 
-    } else {
-      this._microAppService.progressCallBack(this.app, progressMilestones)?.subscribe();
-    }
+      endUserName: this.app.endUserName,
+      hasSubmitted: isLastStep,
+    };
+  
+    this.isSubmitting = isLastStep;
+    this.subscribeToProgress(progressMilestones);
   }
-
+  
+   private subscribeToProgress (milestones: MicroAppProgress)
+  {
+    this._microAppService.progressCallBack(this.app, milestones)?.subscribe((updatedProgress) => {
+      if (updatedProgress) {
+        this.assessmentProgress = updatedProgress.result as AssessmentProgress;
+        this.isSubmitting = false;
+        this.pageViewMode = AssessmentPageViewMode.ResultsMode;
+      }
+    });
+  }
   ngOnDestroy()
    {
     this._sBS.unsubscribe();

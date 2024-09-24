@@ -6,41 +6,29 @@
     [class.edit_form]="isEdit"
     [ngClass]="byPassedLimits.length ? 'error' : ''"
   >
-  <input *ngIf="!isLoadingVideo" (change)="processVideo($event)" type="file" class="video-file" accept=".mp4" id="videoUpload" hidden />
+  <input *ngIf="!(isLoading$ | async)?.get(id)" (change)="processVideo($event)" type="file" class="video-file"  id="videoUpload" hidden />
 
-  <label id="mediaUploadLabel" *ngIf="!isLoadingVideo" for="videoUpload">
-    <div *ngIf="!hasVideo; else inputHasVideo" class="block-media-placeholder">
-      <img src="assets/svgs/blocks/system-uicons_video.svg" class="placeholder-icon" />
-      <span class="media-placeholder-text" >{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-UPLOAD' | transloco }}</span>
-  </div>
-    <ng-template #inputHasVideo>
-      <video
-        id="video"
-        #video
-        (load)="isLoadingVideo = true"
-        *ngIf="!isLoadingVideo && hasVideo"
-        class="upload-video"
-        alt=""
-        controls
-        autoplay
-      >
-        <source [src]="videoLink" type="video/mp4" />
-      </video>
-    </ng-template>
+  <label id="mediaUploadLabel" *ngIf="!(isLoading$ | async)?.get(id)" for="videoUpload" class="media_upload_label">
+    <img *ngIf="!videoMessageForm.get('fileSrc')?.value" src="assets/svgs/blocks/system-uicons_video.svg" class="placeholder-icon" />
+    <span *ngIf="!videoMessageForm.get('fileSrc')?.value"class="media-placeholder-text" >{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-UPLOAD' | transloco }}</span>
+    <video 
+      id="video"
+      #video
+      *ngIf="videoMessageForm.get('fileSrc')?.value"
+      class="upload-video"
+      alt=""
+      controls
+      autoplay
+    >
+      <source [src]="videoMessageForm.get('fileSrc')?.value" type="video/mp4" />
+    </video>
   </label>
   
-  <div *ngIf="isLoadingVideo" class="doc-icon">
+  <div *ngIf="(isLoading$ | async)?.get(id)" class="doc-icon">
     <i class="fas fa-circle-notch fa-spin fa-3x"></i>
   </div>
 
  </div>
-
-  <div class="error-message" *ngIf="whatsappLimit">
-    <span>{{
-      'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.VIDEO.MESSAGE-ONE'
-        | transloco
-    }}</span>
-  </div>
 
   <mat-divider *ngIf="isEdit"></mat-divider>
 

@@ -249,6 +249,9 @@ export function isOptionBlock(blockType: StoryBlockTypes) {
       return true
     case StoryBlockTypes.JumpBlock:
       return true
+    case StoryBlockTypes.AssessmentMicroAppBlock:
+    case StoryBlockTypes.AssessmentQuestionBlock:
+      return true
     default:
       return false
   }

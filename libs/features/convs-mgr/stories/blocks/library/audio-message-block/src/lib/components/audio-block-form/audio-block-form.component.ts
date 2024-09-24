@@ -7,11 +7,14 @@ import {
 import { FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { take } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { FileStorageService } from '@app/state/file';
 import { VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ErrorBlocksService } from '@app/state/convs-mgr/stories/blocks';
+import { BlockErrorTypes } from '@app/model/convs-mgr/stories/blocks/scenario';
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 @Component({
   selector: 'app-audio-block-form',
@@ -31,17 +34,21 @@ export class AudioBlockFormComponent implements OnInit, OnDestroy {
 
   file: File;
   audioInputId: string;
-  isLoadingAudio: boolean;
+  isLoading$: Observable<Map<string, boolean>>;
+  
   byPassedLimits: any[] = [];
   whatsappLimit: boolean;
   messengerLimit: boolean;
 
-  constructor(private _audioUploadService: FileStorageService) {}
+  constructor(
+    private _audioUploadService: FileStorageService,
+    private _errorBlock: ErrorBlocksService
+  ) {}
 
   ngOnInit(): void {
     this.audioInputId = `aud-${this.id}`;
     const fileSize = this.audioMessageForm.get('fileSize')?.value;
-
+    this.isLoading$ = this._audioUploadService.isLoading$;
     this.audioName = this.audioMessageForm.get('message')?.value || this.audioMessageForm.get('fileName')?.value || "";
 
     if (fileSize) {
@@ -57,9 +64,15 @@ export class AudioBlockFormComponent implements OnInit, OnDestroy {
 
   async processAudio(event: any) {
     this.file = event.target.files[0];
+    const limits = this._audioUploadService.checkSupportedLimits(this.file.size, this.file.type, 'audio');
+
+    if (limits?.typeNotAllowed){
+      this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.AudioFormat, isError: true, blockType: StoryBlockTypes.Audio})
+      return;
+    }
 
     if (this.file) {
-      this.isLoadingAudio = true;
+      this._audioUploadService.setIsLoading(this.id, true);
 
       //Step 1 - Create the file path that will be in firebase storage
       const audioFilePath = `audios/${this.file.name}_${new Date().getTime()}`;
@@ -90,8 +103,9 @@ export class AudioBlockFormComponent implements OnInit, OnDestroy {
       'audio'
     );
 
-    if (this.byPassedLimits.find((limit) => limit.platform === 'WhatsApp'))
-      this.whatsappLimit = true;
+    if (this.byPassedLimits.find((limit) => limit.platform === 'WhatsApp')){
+      this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.AudioLimit, isError: true, blockType: StoryBlockTypes.Audio})
+    }
     else if (
       this.byPassedLimits.find((limit) => limit.platform === 'messenger')
     )
@@ -101,7 +115,7 @@ export class AudioBlockFormComponent implements OnInit, OnDestroy {
   private _autofillUrl(url: string, fileSizeInKB: number) {
     this.audioMessageForm.patchValue({ fileSrc: url, fileSize: fileSizeInKB });
     this.block.fileSrc = url;
-    this.isLoadingAudio = false;
+    this._audioUploadService.setIsLoading(this.id, false);
     this._checkSizeLimit(fileSizeInKB);
   }
 

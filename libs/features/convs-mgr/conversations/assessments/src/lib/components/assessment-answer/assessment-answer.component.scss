@@ -61,3 +61,11 @@ mat-label.answer {
 :host ::ng-deep .mdc-text-field--filled .mdc-text-field--underline {
   background-color: white!important;
 }
+
+.view-div{
+  margin-bottom: 3.3%;
+  input{
+    outline: none;
+    border: none;
+  }
+}

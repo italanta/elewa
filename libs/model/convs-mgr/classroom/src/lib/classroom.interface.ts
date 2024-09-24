@@ -21,5 +21,5 @@ export interface Classroom extends IObject {
 /** classroom mode enum - has the different classroom mutations you can perfom on a user */
 export enum ClassroomUpdateEnum {
   ChangeClass = 'Change Class',
-  AddToClass = 'Add To Class',
+  AddToGroup = 'Add To Group',
 }

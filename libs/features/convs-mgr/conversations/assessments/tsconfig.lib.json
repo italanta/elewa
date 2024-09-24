@@ -14,5 +14,5 @@
     "jest.config.ts",
     "**/*.test.ts"
   ],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../../../../model/convs-mgr/conversations/assessments/src/lib/question-form-mode.enum.ts"]
 }

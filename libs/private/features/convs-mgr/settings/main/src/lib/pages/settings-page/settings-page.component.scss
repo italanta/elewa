@@ -5,6 +5,10 @@
 :host ::ng-deep .settings-page .mat-mdc-tab-group {
   border-radius: 5px;
   background-color: #F6F6F6;
+
+  .mdc-tab {
+    width: 6.25rem;
+  }
 }
 
 :host ::ng-deep .mat-mdc-tab .mdc-tab__text-label{

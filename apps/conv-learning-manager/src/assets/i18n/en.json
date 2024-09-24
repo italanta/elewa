@@ -243,23 +243,43 @@
       "SIZE-LIMIT-MESSAGE": {
         "WHATSAPP" : {
           "AUDIO": {
-            "MESSAGE-ONE": "Audio cannot be sent to whatsapp,",
-            "MESSAGE-TWO": "audio exceeds 16MB file Limit."
+            "MESSAGE-ONE": "Audio cannot be sent to WhatsApp",
+            "MESSAGE-TWO": "Upload an audio with a maximum of 16MB"
           }, 
           "VIDEO": {
-            "MESSAGE-ONE": "Video cannot be sent to whatsapp, Video exceeds 16MB file Limit."
+            "MESSAGE-ONE": "Upload a video with a maximum size of 16MB"
           },
           "DOCUMENT": {
-            "MESSAGE-ONE": "Document cannot be sent to whatsapp,",
-            "MESSAGE-TWO": "document exceeds 100MB file Limit."
+            "MESSAGE-ONE": "Document cannot be sent to WhatsApp",
+            "MESSAGE-TWO": "Upload a document with a maximum size of 100MB"
           },
           "STICKER": {
-            "MESSAGE-ONE": "Sticker cannot be sent to whatsapp,",
-            "MESSAGE-TWO": "sticker exceeds 500kB file Limit."
+            "MESSAGE-ONE": "Sticker cannot be sent to WhatsApp",
+            "MESSAGE-TWO": "Sticker exceeds 500kB file Limit"
           },
           "IMAGE": {
-            "MESSAGE-ONE": "Image cannot be sent to whatsapp,",
-            "MESSAGE-TWO": "image exceeds 5MB file Limit."
+            "MESSAGE-ONE": "Image cannot be sent to WhatsApp",
+            "MESSAGE-TWO": "Upload an image with a maximum size of 5MB"
+          }
+        }
+      },
+      "INPUT-TYPE-MESSAGE":{
+        "WHATSAPP": {
+          "AUDIO": {
+            "MESSAGE-ONE": "Audio format is not supported",
+            "MESSAGE-TWO": "Please select an audio file (.aac, .amr, .mpeg, .mp4) only"
+          }, 
+          "VIDEO": {
+            "MESSAGE-ONE": "Video format is not supported",
+            "MESSAGE-TWO": "Please select a video file (.mp4, .3gp) only"
+          },
+          "DOCUMENT": {
+            "MESSAGE-ONE": "Document format is not supported",
+            "MESSAGE-TWO": "Please select a document file (.txt, .xls, .xlsx, .doc, .docx, .ppt, .pptx, .pdf) only"
+          },
+          "IMAGE": {
+            "MESSAGE-ONE": "Image format is not supported", 
+            "MESSAGE-TWO": "Please select an image file (.jpg, .jpeg, .png) only"
           }
         }
       }
@@ -280,6 +300,7 @@
       "USERS": "Users",    
       "USER-GROUPS": "User Groups",    
       "ASSESSMENTS": "Assessments",
+      "QUESTION-BANKS": "Question Banks",
       "MANAGE-USERS": "Manage Users",
       "SURVEYS": "Surveys",
       "LOG-OUT": "Logout",
@@ -514,7 +535,7 @@
       "ACTION-BUTTONS": {
         "SAVE":"Save",
         "CANCEL": "Cancel",
-        "CONTINUE": "Continue"
+        "APPLY": "Apply"
       }
     }
   },
@@ -697,6 +718,22 @@
         "PASS-SCORE": "Pass score",
         "UPON-COMPLETION": "Upon completion of the assessment"
       }
+    },
+    "QUESTION-BANK": {
+      "HEADER": "Question bank",
+      "DESCRIPTION": "Our intuitive platform empowers you to organise, customise and reuse questions, thus simplifying the process of delivering comprehensive and engaging assessments.",
+      "DESC-HEADER": "Build a question bank with ease",
+      "QUESTIONS": "Questions",
+      "QUESTIONS-SEARCH": "Search questions",
+      "SORTING": "Date created(Newest)", 
+      "MODAL-TEXT": {
+        "DELETE-QUESTION": "Delete Question",
+        "WARNING-MESSAGE": "You are about to delete a question from the question bank. Are you sure you want to continue?",
+        "INFO-TEXT": "Deleting this question from the question bank does not delete it from assessments it has been added to.",
+        "CANCEL": "Cancel",
+        "CONFIRM": "Confirm"
+      }
+      
     }
   },
   "SURVEYS": {
@@ -1214,7 +1251,8 @@
       "REMOVE":"Remove",
       "DEACTIVATE":"De-activate",
       "LOADING-USERS":"Loading Users"
-    }
+    },
+    "SEND-INVITE":"Send Invite"
   },
 "PERMISSIONS" :{
   "BUTTON":{

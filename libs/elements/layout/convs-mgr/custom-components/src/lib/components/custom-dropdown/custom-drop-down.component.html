@@ -1,6 +1,6 @@
 <div class="dropdown-container">
   <button class="dropdown-button" (click)="toggleDropdown()">
-    <span>{{ selectedOption?.name ||  selectedOption?.title || 'Select an option' }} </span>
+    <span>{{ selectedOption?.name ||  selectedOption?.title || 'Select an option' | slice:0:35}} </span>
     <i class="fas fa-caret-down"></i>
   </button>
 
@@ -13,7 +13,7 @@
         [(ngModel)]="selectedOption" 
         (ngModelChange)="onOptionSelected(option)"
       />
-      {{ option.name || option.title }}
+      {{ option.name || option.title | slice:0:50}}
     </label>
   </div>
 </div>

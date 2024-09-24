@@ -7,6 +7,8 @@ import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { StoryEditorInitialiserService } from '../../providers/story-editor-initialiser.service';
 import { SubSink } from 'subsink';
 import { STORY_EDITOR_HEIGHT, STORY_EDITOR_WIDTH } from '../../utils/frame-size';
+import { ErrorBlocksService } from '@app/state/convs-mgr/stories/blocks';
+import { BlockError } from '@app/model/convs-mgr/stories/blocks/scenario';
 
 @Component({
   selector: 'convl-story-editor-frame',
@@ -29,6 +31,8 @@ export class StoryEditorFrameComponent implements AfterViewInit, OnDestroy //imp
   /** Observable bounding box of the viewport */
   public viewportBounds$: Observable<DOMRect> = this._viewportBounds$$.pipe(filter(f => !!f));
 
+  blockError$: Observable<BlockError>; 
+
   // Set frame width and height at minimum on load.
   _zoom = 1;
   frameWidth = STORY_EDITOR_WIDTH;
@@ -40,7 +44,10 @@ export class StoryEditorFrameComponent implements AfterViewInit, OnDestroy //imp
 
   loading = true;
 
-  constructor(private _frameInitialiser: StoryEditorInitialiserService) { }
+  constructor(
+    private _frameInitialiser: StoryEditorInitialiserService,
+    private _blockErrorService: ErrorBlocksService
+  ) { }
 
 
   ngAfterViewInit() {
@@ -67,6 +74,11 @@ export class StoryEditorFrameComponent implements AfterViewInit, OnDestroy //imp
 
     this.frameLoaded.emit(this._frame);
     this._applyZoom();
+    this.setBlockError();
+  }
+
+  setBlockError(){
+    this.blockError$ = this._blockErrorService.getErrorBlock()
   }
 
   viewPortScrolled(): void 

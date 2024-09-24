@@ -7,7 +7,7 @@ import { Chat } from "@app/model/convs-mgr/conversations/chats";
 import { ChatsStore } from "../chats.store";
 
 /** Number of pages to load per backend call. */
-const PAGES_TO_LOAD_PER_CALL = 2;
+// const PAGES_TO_LOAD_PER_CALL = 2;
 
 /**
  * State holder for the @see {ChatsListComponent}. 
@@ -111,7 +111,7 @@ export class ChatsListState
       // Trigger a viewmodel update. Since we add n (=PAGES_TO_LOAD_PER_CALL) pages before the
       //  previously last boundary, we need to move the cursor to the previous page which is at location
       //  PAGES_TO_LOAD_PER_CALL - 1.
-      this._pageCursor = PAGES_TO_LOAD_PER_CALL - 1;
+      // this._pageCursor = PAGES_TO_LOAD_PER_CALL - 1;
 
       this._page$$.next(this._pageCursor);
     }

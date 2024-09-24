@@ -129,7 +129,9 @@ export class AssessmentProgressService
         currentProgress.attempts[currentProgress.attemptCount] = newAttempt;
       } else {
         const {score, questionResponses} = this._getScore(progressUpdate.questionResponses);
-        currentAttempt.score+= score
+
+        // Based on questions
+        currentAttempt.score = score
 
         if(progressUpdate.hasSubmitted) currentAttempt.finishedOn = Date.now();
 
@@ -141,6 +143,7 @@ export class AssessmentProgressService
       newProgress = currentProgress;
     } else {
       newProgress = this._initProgress(progressUpdate, 1);
+      if(progressUpdate.hasSubmitted) newProgress.attempts[newProgress.attemptCount].finishedOn = Date.now();
     }
 
     newProgress = this._updateOutcome(newProgress);

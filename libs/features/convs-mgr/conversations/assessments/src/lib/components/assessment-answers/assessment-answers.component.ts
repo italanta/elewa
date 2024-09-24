@@ -3,6 +3,7 @@ import { FormArray, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
+import { QuestionDisplayMode } from '../../model/question-display-mode.enum';
 
 
 @Component({
@@ -13,8 +14,9 @@ import { AssessmentFormService } from '../../services/assessment-form.service';
 export class AssessmentAnswersComponent implements OnInit {
   @Input() assessmentMode: number;
   @Input() questionId: string
-
+  @Input() questionMode: QuestionDisplayMode;
   @Input() questionFormGroup: FormGroup;
+  @Input() questionBankForm: FormGroup;
 
   constructor(private _router$$: Router,
               private _assessmentForm: AssessmentFormService

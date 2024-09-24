@@ -14,6 +14,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import {
   AssessmentPublishService,
+  AssessmentQuestionBankStore,
   AssessmentService,
   AssessmentsStore,
 } from '@app/state/convs-mgr/conversations/assessments';
@@ -22,7 +23,7 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { ItalBreadCrumbModule } from '@app/elements/layout/ital-bread-crumb';
 import { ClmMicroAppLayoutModule } from '@app/elements/layout/clm-micro-app';
 import { CustomComponentsModule } from '@app/elements/layout/convs-mgr/custom-components';
-
+import { ElementsLayoutModalsModule } from '@app/elements/layout/modals';
 import { AssessmentsRouterModule } from './assessments.router.module';
 
 import { AssessmentsHomeComponent } from './pages/assessments-home/assessments-home.component';
@@ -62,6 +63,7 @@ import { CompletionTimeComponent } from './components/assessment-results-compone
 import { ProgressPieChartComponent } from './components/assessment-results-components/progress-pie-chart/progress-pie-chart.component';
 import { DistributionBarChartComponent } from './components/assessment-results-components/distribution-bar-chart/distribution-bar-chart.component';
 import { AssessmentUsersTableComponent } from './components/assessment-results-components/assessment-users-table/assessment-users-table.component';
+import { MediaUploadModalComponent } from './modals/media-upload-modal/media-upload.component';
 
 
 @NgModule({
@@ -80,7 +82,8 @@ import { AssessmentUsersTableComponent } from './components/assessment-results-c
     DragDropModule,
     ItalBreadCrumbModule,
     ClmMicroAppLayoutModule,
-    CustomComponentsModule
+    CustomComponentsModule,
+    ElementsLayoutModalsModule
   ],
   declarations: [
     AssessmentsHomeComponent,
@@ -101,6 +104,7 @@ import { AssessmentUsersTableComponent } from './components/assessment-results-c
     AssessmentsGridViewComponent,
     AssessmentsListViewComponent,
     AssessmentResultsComponent,
+    MediaUploadModalComponent,
 
     //Micro-App Assessments
     AssessmentCardComponent,
@@ -126,7 +130,13 @@ import { AssessmentUsersTableComponent } from './components/assessment-results-c
     AssessmentFormService,
     AssessmentsStore,
     AssessmentPublishService,
+    AssessmentQuestionBankStore,
   ],
-  exports: [ContentSectionComponent, AssessmentLandingPageComponent],
+  exports: [
+    ContentSectionComponent, 
+    AssessmentLandingPageComponent,
+    AssessmentQuestionFormComponent,
+    AssessmentAnswersComponent
+          ],
 })
 export class ConvsMgrAssessmentsModule {}

@@ -8,12 +8,13 @@ export class MenuStateToggleService {
   private initVal = {
     messaging: true,
     manageUsers: true,
+    assessments: true,
   }
 
   private _showChildren = new BehaviorSubject(this.initVal);
   menuState$ = this._showChildren.asObservable();
 
-  toggleMenuState(value: {messaging: boolean, manageUsers: boolean}) {
+  toggleMenuState(value: {messaging: boolean, manageUsers: boolean, assessments: boolean}) {
     this._showChildren.next(value);
   }
 }

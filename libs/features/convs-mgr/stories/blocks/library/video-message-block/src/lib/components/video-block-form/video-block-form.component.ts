@@ -4,12 +4,16 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { FileStorageService } from '@app/state/file';
+import { ErrorBlocksService } from '@app/state/convs-mgr/stories/blocks';
+import { BlockErrorTypes } from '@app/model/convs-mgr/stories/blocks/scenario';
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 @Component({
   selector: 'app-video-block-form',
@@ -26,7 +30,6 @@ export class VideoBlockFormComponent implements OnInit, OnDestroy  {
   @ViewChild('video') video: ElementRef<HTMLVideoElement>;
 
   private _sBs = new SubSink();
-  isLoadingVideo: boolean;
   videoLink: string;
   videoInputId: string;
 
@@ -35,17 +38,20 @@ export class VideoBlockFormComponent implements OnInit, OnDestroy  {
   whatsappLimit: boolean;
   messengerLimit: boolean;
   hasVideo = false;
-
+  isLoading$: Observable<Map<string, boolean>>;
   videoName: string;
 
   file: File;
 
-  constructor(private _videoUploadService: FileStorageService) {}
+  constructor(
+    private _videoUploadService: FileStorageService,
+    private _errorBlock: ErrorBlocksService
+  ) {}
   
   ngOnInit(): void {
     this.videoInputId = `img-${this.id}`;
     this.checkIfVideoExists();
-
+    this.isLoading$ = this._videoUploadService.isLoading$;
     const fileSize = this.videoMessageForm.get('fileSize')?.value;
 
     this.videoName = this.videoMessageForm.get('message')?.value || this.videoMessageForm.get('fileName')?.value || "";
@@ -68,22 +74,25 @@ export class VideoBlockFormComponent implements OnInit, OnDestroy  {
   private _checkSizeLimit(size:number) {
     this.byPassedLimits = this._videoUploadService.checkFileSizeLimits(size, 'video');
 
-    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
+    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")){
+      this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.VideoLimit, isError: true, blockType: StoryBlockTypes.Video})
+    } 
     else if (this.byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
   }
 
 
   async processVideo(event: any) {   
-    const allowedFileTypes = ['video/mp4']
     this.file = event.target.files[0]
 
-    if (!allowedFileTypes.includes(event.target.files[0].type)) {
-      this._videoUploadService.openErrorModal("Invalid File Type", "Please select an video file (.mp4) only.");
+    const limits = this._videoUploadService.checkSupportedLimits(this.file.size, this.file.type, 'video');
+
+    if(limits?.typeNotAllowed){
+      this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.VideoFormat, isError: true, blockType: StoryBlockTypes.Video})
       return;
     }
 
     if (this.file) {
-      this.isLoadingVideo = true;
+      this._videoUploadService.setIsLoading(this.id, true);
       this.hasVideo = true;
 
       //Step 1 - Create the file path that will be in firebase storage
@@ -105,7 +114,7 @@ export class VideoBlockFormComponent implements OnInit, OnDestroy  {
 
   private _autofillUrl(url: string, fileSizeInKB: number) {
     this.videoMessageForm.patchValue({ fileSrc: url, fileSize: fileSizeInKB });
-    this.isLoadingVideo = false;
+    this._videoUploadService.setIsLoading(this.id, false);
     this.checkIfVideoExists();
     this._checkSizeLimit(fileSizeInKB);
   }

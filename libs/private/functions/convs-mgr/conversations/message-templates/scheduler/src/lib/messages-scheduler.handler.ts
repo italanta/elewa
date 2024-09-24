@@ -3,7 +3,8 @@ import { FunctionHandler, FunctionContext } from "@ngfi/functions";
 
 import { ChannelDataService, EnrolledUserDataService } from "@app/functions/bot-engine";
 import { PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
-import { ScheduledMessage, ScheduledMessageStatus } from "@app/model/convs-mgr/functions";
+import { ScheduledMessage, ScheduledMessageStatus, ScheduleOptionType } from "@app/model/convs-mgr/functions";
+import { EnrolledEndUser } from "@app/model/convs-mgr/learners";
 
 import { ScheduleMessagesReq } from "./model/schedule-message-req";
 import CloudSchedulerService from "./model/services/cloud-scheduler.service";
@@ -18,6 +19,8 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
     const schedulerService = new CloudSchedulerService(tools);
     const cloudTaskService = new CloudTasksService(tools);
 
+    let filteredLearners: EnrolledEndUser[];
+
     let task: any;
     
     try {
@@ -27,16 +30,22 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
 
       const enroledEndUsers = await this.__getEndUsers(communicationChannel.type, communicationChannel.orgId, tools);
 
+      if(cmd.scheduleOption === ScheduleOptionType.SpecificTime) {
+        filteredLearners = enroledEndUsers.filter((user)=> cmd.enrolledEndUsers.includes(user.id));
+      } else {
+        filteredLearners = enroledEndUsers;
+      }
+
       const scheduledMessage = {
         ...cmd,
         n: communicationChannel.n,
         plaform: communicationChannel.type,
-        enroledEndUsers,
+        enroledEndUsers: filteredLearners,
         dispatchTime: new Date(cmd.dispatchTime),
         endDate: cmd.endDate ? new Date(cmd.endDate) : null
       };
 
-      const payload = _getPayload(cmd, communicationChannel, enroledEndUsers, cmd.message);
+      const payload = _getPayload(cmd, communicationChannel, filteredLearners, cmd.message);
 
       // If frequency is specified, then it is a recurring job
       if (scheduledMessage.frequency) {

@@ -1,21 +1,25 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { SubSink } from 'subsink';
 
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { FileStorageService } from '@app/state/file';
+import { ErrorBlocksService } from '@app/state/convs-mgr/stories/blocks';
+import { BlockErrorTypes } from '@app/model/convs-mgr/stories/blocks/scenario';
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 @Component({
   selector: 'app-image-block-form',
   templateUrl: './image-block-form.component.html',
   styleUrl: './image-block-form.component.scss'
 })
-export class ImageBlockFormComponent {
+export class ImageBlockFormComponent implements OnInit {
   @Input() id: string;
   @Input() block: ImageMessageBlock;
   @Input() imageMessageForm: FormGroup;
@@ -25,40 +29,47 @@ export class ImageBlockFormComponent {
   file: File;
   imageInputId: string;
   imageInputUpload = '';
-  isLoadingImage = false;
   imageLink: string;
   hasImage = false;
   byPassedLimits: any[] = []
   whatsappLimit: boolean;
   messengerLimit: boolean;
 
+  isLoading$: Observable<Map<string, boolean>>;
+
   private _sBs = new SubSink();
 
-  constructor(private _imageUploadService: FileStorageService) {}
+  constructor(
+    private _imageUploadService: FileStorageService,
+    private _errorBlock: ErrorBlocksService,
+  ) {}
 
   ngOnInit(): void {
     this.imageInputId = `img-${this.id}`;
     this.imageInputUpload = `img-${this.id}-upload`;
     this._checkIfImageExists();
+
+    this.isLoading$ = this._imageUploadService.isLoading$;
   
     const fileSize = this.imageMessageForm.get('fileSize')?.value;
   
     if (fileSize) {
       this._checkSizeLimit(fileSize);
-    };
+    }
   }
 
   async processImage(event: any) {   
-    const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']
     this.file = event.target.files[0]
 
-    if (!allowedFileTypes.includes(event.target.files[0].type)) {
-      this._imageUploadService.openErrorModal("Invalid File Type", "Please select an image file (.jpg, .jpeg, .png) only.");
+    const limits = this._imageUploadService.checkSupportedLimits(this.file.size, this.file.type, 'image');
+
+    if(limits?.typeNotAllowed){
+      this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.ImageFormat, isError: true, blockType: StoryBlockTypes.Image})
       return;
     }
 
     if (this.file) {
-      this.isLoadingImage = true;
+      this._imageUploadService.setIsLoading(this.id, true);
       this.hasImage = true;
 
       //Step 1 - Create the file path that will be in firebase storage
@@ -78,7 +89,9 @@ export class ImageBlockFormComponent {
   private _checkSizeLimit(fileSize: number) {
     this.byPassedLimits = this._imageUploadService.checkFileSizeLimits(fileSize, 'image');
 
-    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
+    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")){
+      this._errorBlock.setErrorBlock({errorType: BlockErrorTypes.ImageLimit, isError: true, blockType: StoryBlockTypes.Image})
+    }
     else if (this.byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
   }
 
@@ -89,7 +102,7 @@ export class ImageBlockFormComponent {
 
   private _autofillUrl(url: string, fileSizeInKB: number) {
     this.imageMessageForm.patchValue({ fileSrc: url, fileSize: fileSizeInKB });
-    this.isLoadingImage = false;
+    this._imageUploadService.setIsLoading(this.id, false);
     this._checkIfImageExists();
     this._checkSizeLimit(fileSizeInKB);
   }
