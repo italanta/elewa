@@ -27,7 +27,8 @@ export async function textToSpeech(
       (result: sdk.SpeechSynthesisResult) => {
         if (result.reason === sdk.ResultReason.SynthesizingAudioCompleted) {
           resolve(result.audioData); // Resolve with the synthesized audio data
-        } else {
+        } 
+        else {
           reject(new Error(`Speech synthesis failed: ${sdk.ResultReason[result.reason]}`));
         }
         synthesizer.close(); // Always close the synthesizer after completion
