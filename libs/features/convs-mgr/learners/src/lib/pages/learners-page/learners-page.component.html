@@ -19,6 +19,7 @@
                 <option value="allClasses" selected>{{ 'All Classes' | titlecase  }}</option>
                 <option *ngFor="let class of allClasses" [value]="class.id">{{ class.className | titlecase }}</option>
               </select>
+              <img src="assets/svgs/learners/dropdown.svg" class="dropdown-arrow" alt="">
             </div>
 
             <div class="select">
@@ -26,20 +27,23 @@
                 <option value="allCourses" selected>All Courses</option>
                 <option *ngFor="let course of allCourses" [value]="course.id">{{ course.name | titlecase }}</option>
               </select>
+              <img src="assets/svgs/learners/dropdown.svg" class="dropdown-arrow" alt="">
             </div>
-
+            
             <div class="select">
               <select (change)="filterTable($event, 'status')">
                 <option value="allStatus" selected> All Status </option>
                 <option *ngFor="let status of allStatus" [value]="EnrolledEndUserStatus[status]">{{ EnrolledEndUserStatus[status] | titlecase }}</option>
               </select>
+              <img src="assets/svgs/learners/dropdown.svg" class="dropdown-arrow" alt="">
             </div>
-
+            
             <div class="select">
               <select (change)="filterTable($event, 'platform')">
                 <option value="allPlatforms" selected>All Platforms</option>
                 <option *ngFor="let platform of allPlatforms" [value]="platform">{{ platform | titlecase }}</option>
               </select>
+              <img src="assets/svgs/learners/dropdown.svg" class="dropdown-arrow" alt="">
             </div>
           </div>
         </div>
@@ -96,9 +100,9 @@
           <td mat-cell *matCellDef="let enrolledUsr">{{ getLearnersCourse(enrolledUsr) | titlecase }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="class">
+        <ng-container matColumnDef="user-group">
           <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="class">
-            {{'LEARNERS.TABLE-HEADER.CLASS'| transloco }}</th>
+            {{'LEARNERS.TABLE-HEADER.USER-GROUP'| transloco }}</th>
           <td mat-cell *matCellDef="let enrolledUsr" [class.unassigned-class]="!getClassName(enrolledUsr.classId)">{{ getClassName(enrolledUsr.classId) || 'None' | titlecase }}</td>
         </ng-container>
 

@@ -45,7 +45,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     'name',
     'phone',
     'course',
-    'class',
+    'user-group',
     'status',
   ];
 
