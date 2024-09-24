@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 
 import { SubSink } from 'subsink';
 
@@ -16,7 +16,7 @@ import { DragDropService } from '../../providers/drag-drop.service';
   templateUrl: './grouped-blocks.component.html',
   styleUrls: ['./grouped-blocks.component.scss'],
 })
-export class GroupedBlocksComponent implements OnInit, OnDestroy {
+export class GroupedBlocksComponent implements OnInit, OnChanges, OnDestroy{
   @Input() groupedBlocks: StoryBlock[];
   @Input() frame: StoryEditorFrame;
   @Input() isInteractiveVoiceResponseModule: boolean;
@@ -24,10 +24,16 @@ export class GroupedBlocksComponent implements OnInit, OnDestroy {
 
   coordinates: Coordinate;
 
+  filteredBlocks: StoryBlock[] = [];
+
   constructor(private dragService: DragDropService) {}
 
   ngOnInit() {
     this._sBs.sink = this.dragService.coord$.subscribe((position) => (this.coordinates = position));
+
+    // Filter blocks based on the IVR module flag
+    this.filterBlocks();
+
   }
 
   /** check icon type */
@@ -35,6 +41,32 @@ export class GroupedBlocksComponent implements OnInit, OnDestroy {
   getIcon(icon: string) {
     const svgPath = icon.split('.').pop();
     return svgPath === 'svg';
+  }
+  /**
+   * Responds to changes in @Input properties.
+   */
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['groupedBlocks'] || changes['isInteractiveVoiceResponseModule']) {
+      this.filterBlocks();
+    }
+  }
+
+  /**
+   * Filters the available blocks based on the isInteractiveVoiceResponseModule flag.
+   */
+  filterBlocks() {
+    console.log("grouped blocks flag", this.isInteractiveVoiceResponseModule);
+    if (this.isInteractiveVoiceResponseModule) {
+      // Only show TextMessage and QuestionBlock types for IVR
+      this.filteredBlocks = this.groupedBlocks.filter(
+        block =>
+          block.type === StoryBlockTypes.TextMessage ||
+          block.type === StoryBlockTypes.QuestionBlock
+      );
+    } else {
+      // Show all blocks when IVR is not active
+      this.filteredBlocks = [...this.groupedBlocks];
+    }
   }
 
   addBlock(type: number, coordinates?: Coordinate) {

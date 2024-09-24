@@ -24,10 +24,10 @@
     <!-- message block -->
     <div 
       class="block-list" 
-      *ngIf="!isInteractiveVoiceResponseModule && (blocks | blockCategoryPipe: 'messages-block') as groupedBlocks"
+      *ngIf="(blocks | blockCategoryPipe: 'messages-block') as groupedBlocks"
     >
       <h6 class="first-title" *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.MESSAGE-BLOCK' | transloco }}</h6>
-      <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
+      <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame" [isInteractiveVoiceResponseModule]="isInteractiveVoiceResponseModule"></convl-grouped-blocks>
     </div>
 
     <!-- questions block -->
@@ -36,7 +36,7 @@
       *ngIf="blocks | blockCategoryPipe: 'questions-block' as groupedBlocks"
     >
       <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.QUESTION-BLOCKS' | transloco }}</h6>
-      <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
+      <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame" [isInteractiveVoiceResponseModule]="isInteractiveVoiceResponseModule"></convl-grouped-blocks>
     </div>
 
     <!-- Operations block -->
