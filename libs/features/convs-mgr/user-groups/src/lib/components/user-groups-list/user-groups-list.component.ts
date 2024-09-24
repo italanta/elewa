@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
@@ -42,11 +42,13 @@ export class UserGroupsListComponent implements OnInit {
     this._classroomService.getAllClassrooms().subscribe(
      (data: Classroom[]) => {
        this.dataSource = new MatTableDataSource<Classroom>(data);
-       this.dataSource.sort = this.sort;
        this.dataSource.paginator = this.paginator;
- }
+      }
     );
-   }
+  }
+  
+  sortData(sortState: Sort){
+    this.dataSource.sort = this.sort;  }
 
   openEditModal(group: Classroom) {
     const dialogRef = this._dialog.open(CreateUserGroupComponent, {
