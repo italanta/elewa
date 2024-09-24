@@ -95,7 +95,6 @@
 
           /* Arrow */
           .select::after {
-            content: url('../../../../../../../../apps/conv-learning-manager/src/assets/svgs/learners/dropdown.svg');
             position: absolute;
             top: 3px;
             right: 5px;
@@ -138,6 +137,13 @@
       }
     }
   }
+}
+
+.dropdown-arrow {
+  right: 10px;
+  top: 16px;
+  width: 16px;
+  position: absolute;
 }
 
 a {
