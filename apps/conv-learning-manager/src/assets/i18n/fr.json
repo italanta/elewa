@@ -525,7 +525,7 @@
       "NAME": "Nom",
       "PHONE-NUMBER": "Numéro de téléphone",
       "COURSE": "Cours",
-      "CLASS": "Classe",
+      "USER-GROUP": "Groupe d'utilisateurs",
       "STATUS": "Statut"
     },
     "PLACEHOLDERS": {

@@ -894,7 +894,7 @@
       "NAME": "Name",
       "DATE-ENROLLED": "Date Enrolled",
       "COURSE": "Course",
-      "CLASS": "Class",
+      "USER-GROUP": "User group",
       "STATUS": "Status",
       "USERNAME":"UserName",
       "PHONE-NUMBER": "Phone number"

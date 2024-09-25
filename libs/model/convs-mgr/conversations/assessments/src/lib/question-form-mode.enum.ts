@@ -4,6 +4,8 @@
  */
 export enum QuestionFormMode 
 {
+  /** Form belongs to an assessment */
   AssessmentMode = 1,
+  /** Form belongs to a question bank  */
   QuestionBankMode = 2
 }

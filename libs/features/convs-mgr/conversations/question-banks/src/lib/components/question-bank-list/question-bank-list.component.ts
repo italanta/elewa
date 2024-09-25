@@ -8,6 +8,7 @@ import { AssessmentQuestion, QuestionFormMode } from '@app/model/convs-mgr/conve
 import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
 
 import { AddQuestionToAssessmentComponent } from '../add-question-to-assessment/add-question-to-assessment.component';
+import { QuestionDisplayMode } from '@app/features/convs-mgr/conversations/assessments';
 
 
 @Component({
@@ -22,15 +23,18 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
   /** Editor mode */
   isAddingQuestion = false;
   /** List of questions */
-  questions: AssessmentQuestion[] = []
+  questions: AssessmentQuestion[] = [];
   /** Filtered questions on search */
   filteredQuestions: AssessmentQuestion[] = [];
   /** Text written on search */
   searchTerm = '';
   /** Number of selected questions */
-  selectedQuestions: string[] = []
-  formViewMode: QuestionFormMode
-  private _sBS = new SubSink ()
+  selectedQuestions: string[] = [];
+  /** Assessment or question bank */
+  formViewMode: QuestionFormMode;
+  /** Editing or viewing a questiion */
+  questionDisplayMode: QuestionDisplayMode;
+  private _sBS = new SubSink ();
 
   constructor(private questionStore: AssessmentQuestionBankStore,
               private _dialog: MatDialog,
@@ -65,6 +69,10 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
   {
     this.formViewMode = formViewMode
   }
+  /** handle question display mode changes */
+  onQuestionDisplayModeChanged(displayMode: QuestionDisplayMode) {
+    this.questionDisplayMode = displayMode;
+  }
 
   /** Opening the add question to assessment  */
   addQuestion() 
@@ -73,7 +81,14 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
       data: { question: this.questions.filter(question => this.selectedQuestions.includes(question.id!)) },
     });
   
-    dialogRef.afterClosed().subscribe(() => this.selectedQuestions = []);
+    dialogRef.afterClosed().subscribe(() => {
+      this.selectedQuestions.forEach(id => {
+        const checkbox = document.querySelector(`input[type="checkbox"][value="${id}"]`) as HTMLInputElement;
+        if (checkbox) checkbox.checked = false; // Uncheck the checkbox
+      });
+      this.selectedQuestions = [];
+      this.isAddingQuestion = false;
+    });
   }
   
 

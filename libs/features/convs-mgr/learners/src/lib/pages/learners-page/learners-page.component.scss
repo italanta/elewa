@@ -36,16 +36,17 @@
           height: 5px;
           width: 90%;
           background-color: white;
-          border-radius: 18px;
+          border-radius: 1.35rem;
           display: flex;
           align-items: center;
           padding: 20px;
-
+          
           &_tooltip {
             color: gray;
             transform: rotate(90deg);
             font-size: 20px;
             font-weight: 500;
+            transform: rotate(6deg);
           }
 
           &_input {
@@ -62,6 +63,7 @@
           display: grid;
           gap: 2rem;  
           grid-template-columns: 1fr 1fr 1fr 1fr;
+          margin-left: 4rem;
 
           select {
             appearance: none;
@@ -93,9 +95,8 @@
 
           /* Arrow */
           .select::after {
-            content: '\25BC';
             position: absolute;
-            top: 7px;
+            top: 3px;
             right: 5px;
             padding: 0.5rem;
             height: 42px;
@@ -114,8 +115,8 @@
       }
 
       .top-actions {
+        justify-content: flex-end;
         display: flex;
-        justify-content: space-around;
 
         .btn {
           outline: none;
@@ -136,6 +137,13 @@
       }
     }
   }
+}
+
+.dropdown-arrow {
+  right: 10px;
+  top: 16px;
+  width: 16px;
+  position: absolute;
 }
 
 a {
@@ -188,7 +196,7 @@ a:hover {
       color: #707070;
     }
     &.Active {
-      color: #19b016;
+      color: var(--convs-mgr-color-active);
     }
     &.Stuck {
       color: red;

@@ -23,6 +23,7 @@ export class AssessmentQuestionFormsComponent implements AfterViewInit, OnDestro
   @Input() assessmentFormGroup: FormGroup;
   /** Is the question in view mode or edit mode */
   questionMode: QuestionDisplayMode = QuestionDisplayMode.VIEWING;  /** Feature using the question form */
+  /** Form is either an assessment or a question bank form */
   assessmentFeatureMode = QuestionFormMode.AssessmentMode
 
   count = 0;
