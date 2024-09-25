@@ -73,6 +73,7 @@
 
       <div class="error-count" *ngIf="errors.length>0" fxFlex fxLayout="row" fxLayoutAlign="end center">
         <div class="error-msg">{{'TOAST.ERROR-COUNT' | transloco}} <span class="error-count-length">{{errors.length}}</span> {{'TOAST.ERRORS' | transloco}}</div>
+        <!-- Stories of type ivr should not have a save any way since flow and text are required for the ivr to work correctly -->
         <div class="save-msg"><a class="save-anyway" *ngIf="!isInteractiveVoiceResponseModule" (click)="saveWithErrors()">{{'PAGE-CONTENT.TOP-BAR.SAVE-WITH-ERRORS' | transloco }}</a></div>
       </div>
 
