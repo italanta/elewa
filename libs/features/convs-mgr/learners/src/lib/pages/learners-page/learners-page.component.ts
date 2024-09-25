@@ -131,11 +131,11 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   getStatus(status: number) {
     switch (status) {
-      case 1:
+      case EnrolledEndUserStatus.Active:
         return "Active"
-      case 2:
+      case EnrolledEndUserStatus.Inactive:
         return "Inactive"
-      case 3:
+      case EnrolledEndUserStatus.Stuck:
         return "Stuck"
       default:
         return "Unknown";
