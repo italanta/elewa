@@ -40,6 +40,8 @@
 
 /* Show options when dropdown is open */
 .dropdown-options.show {
+  height: 200px;
+  overflow-y: auto;
   display: block;
   z-index: 9999;
 }
