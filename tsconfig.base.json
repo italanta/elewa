@@ -510,6 +510,7 @@
         "libs/functions/bot-engine/interactive-voice-response/src/index.ts"
       ],
       "intercom": ["libs/util/ngfi/intercom/src/index.ts"],
+      "ivr": ["libs/state/convs-mgr/stories/ivr/src/index.ts"],
       "micro-apps-auth": ["libs/elements/base/micro-apps-auth/src/index.ts"]
     }
   },
