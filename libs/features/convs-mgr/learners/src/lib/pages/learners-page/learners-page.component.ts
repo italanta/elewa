@@ -130,7 +130,16 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   }
 
   getStatus(status: number) {
-    return "Active";
+    switch (status) {
+      case EnrolledEndUserStatus.Active:
+        return "Active"
+      case EnrolledEndUserStatus.Inactive:
+        return "Inactive"
+      case EnrolledEndUserStatus.Stuck:
+        return "Stuck"
+      default:
+        return "Unknown";
+    }
   }
 
   getIcon(status: number) {
