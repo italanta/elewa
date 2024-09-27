@@ -3,7 +3,8 @@ import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Assessment, AssessmentQuestion, AssessmentQuestionOptions, 
   AssessmentQuestionType, 
-  MoveOnCriteriaTypes} from '@app/model/convs-mgr/conversations/assessments';
+  MoveOnCriteriaTypes,
+  QuestionDisplayed} from '@app/model/convs-mgr/conversations/assessments';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ export class AssessmentFormService {
           criteria: [assessment.configs?.moveOnCriteria?.criteria ?? MoveOnCriteriaTypes.OnComplete],
           passMark: [assessment.configs?.moveOnCriteria?.passMark ?? '']
         }),
-        questionsDisplay: [assessment.configs?.questionsDisplay ?? ''],
+        questionsDisplay: [assessment.configs?.questionsDisplay ?? QuestionDisplayed.Single],
       }),
       questions: this._formBuilder.array([])
     });

@@ -42,6 +42,10 @@ export class AssessmentConfigComponent implements OnInit, OnDestroy
   ngOnInit(): void {
     this.setRetryState();
 
+    if (!this.assessmentFormGroup.get('configs.questionsDisplay')?.value) {
+      this.assessmentFormGroup.get('configs.questionsDisplay')?.setValue(this.singleDisplay);
+    }
+
     if (!this.assessmentFormGroup.get('configs.moveOnCriteria.criteria')?.value) {
       this.assessmentFormGroup.get('configs.moveOnCriteria.criteria')?.setValue(this.moveOnPass);
     }
