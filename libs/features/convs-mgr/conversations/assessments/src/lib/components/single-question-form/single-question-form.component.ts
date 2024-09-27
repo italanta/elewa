@@ -46,6 +46,8 @@ export class SingleQuestionFormComponent implements OnInit
                                             this.stepDataLoaded = true;
                                           })
                             ).subscribe();
+
+                            console.log(this.assessmentFormArray)
   }
 
   /** Get media type for the current question */

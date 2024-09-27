@@ -44,3 +44,25 @@
     border-color: var(--micro-apps-teal-primary);
   }
 
+// ------------- Media Alignment ------------- //
+
+.media-div {
+  display: flex;
+  max-width: 100%;
+}
+
+.uploaded-media {
+  max-width: 70%;
+}
+
+.media_center {
+	justify-content: center;
+}
+
+.media_left {
+	justify-content: left;
+}
+
+.media_right {
+	justify-content: right;
+}

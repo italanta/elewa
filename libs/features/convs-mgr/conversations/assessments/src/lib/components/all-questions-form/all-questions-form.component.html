@@ -8,13 +8,13 @@
         <mat-card-content class="question-content">
           <p>{{ question.get('message')?.value }}</p> 
           <p *ngIf="question.get('question')?.value">{{ question.get('question')?.value }}</p>
-              <ng-container *ngIf="question.get('mediaPath')?.value as mediaPath">
-                <img *ngIf="getMediaTypeForQuestion(mediaPath) === 'image'" class="media-div" [src]="mediaPath" />
-                <video *ngIf="getMediaTypeForQuestion(mediaPath) === 'video'" class="media-div" controls>
+              <div *ngIf="question.get('mediaPath')?.value as mediaPath" class="media-div" [ngClass]="question.get('mediaAlign')?.value">
+                <img *ngIf="getMediaTypeForQuestion(mediaPath) === 'image'" class="uploaded-media" [src]="mediaPath" />
+                <video *ngIf="getMediaTypeForQuestion(mediaPath) === 'video'" class="uploaded-media" controls>
                   <source [src]="mediaPath" type="video/mp4">
                   Your browser does not support the video tag.
                 </video> 
-              </ng-container>
+              </div>
           <mat-radio-group aria-label="Select an option" class="column-radios" formControlName="selectedOption">
             <mat-radio-button *ngFor="let option of question.get('options')?.value" [value]="option.id">{{option.text}}</mat-radio-button>
           </mat-radio-group>  

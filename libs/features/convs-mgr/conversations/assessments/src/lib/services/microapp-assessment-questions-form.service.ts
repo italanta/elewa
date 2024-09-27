@@ -24,6 +24,7 @@ export class MicroAppAssessmentQuestionFormService
       question: [assessmentQuestion?.message ?? ""],
       marks: [assessmentQuestion?.marks ?? ""],
       mediaPath: [assessmentQuestion?.mediaPath ?? ""],
+      mediaAlign: [assessmentQuestion?.mediaAlign ?? 'media_left'],
       options: this._fb.array(assessmentQuestion?.options?.map(option => new FormControl(option)) || []),
       selectedOption: [selectedOption ?? "", Validators.required], //tracking the selected option
       textAnswer: this._fb.group({
