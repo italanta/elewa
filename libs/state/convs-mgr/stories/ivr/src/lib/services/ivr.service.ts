@@ -39,8 +39,8 @@ export class IvrService {
      * @param {AzureStorageConfig} config - The configuration object for Azure Storage
      */
     this.config = {
-      "connectionString" : "",
-      "containerName" : ""
+      "connectionString" : environment.AZURE.AZURE_BLOB_CONNECTION_STRING,
+      "containerName" : environment.AZURE.AZURE_BLOB_CONTAINER_NAME
     };
     const blobServiceClient = BlobServiceClient.fromConnectionString(this.config.connectionString);
     this.containerClient = blobServiceClient.getContainerClient(this.config.containerName);
