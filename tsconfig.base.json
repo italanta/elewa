@@ -511,7 +511,8 @@
       ],
       "intercom": ["libs/util/ngfi/intercom/src/index.ts"],
       "ivr": ["libs/state/convs-mgr/stories/ivr/src/index.ts"],
-      "micro-apps-auth": ["libs/elements/base/micro-apps-auth/src/index.ts"]
+      "micro-apps-auth": ["libs/elements/base/micro-apps-auth/src/index.ts"],
+      "@env/*": ["apps/conv-learning-manager/src/environments/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
