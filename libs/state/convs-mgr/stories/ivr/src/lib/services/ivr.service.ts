@@ -12,6 +12,7 @@ import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { AzureAudioUploadService, TextToSpeechService } from 'interactive-voice-response';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
+import { environment } from '@env/environment';
 
 @Injectable()
 export class IvrService {
@@ -25,8 +26,8 @@ export class IvrService {
     private _logger: Logger
   ) {
     this.speechConfig = sdk.SpeechConfig.fromSubscription(
-        process.env.AZURE_SPEECH_KEY, 
-        process.env.AZURE_SPEECH_REGION
+        environment.AZURE.AZURE_SPEECH_KEY, 
+        environment.AZURE.AZURE_SPEECH_REGION
     );
   }
 
