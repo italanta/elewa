@@ -58,8 +58,6 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   questionFormMode = QuestionFormMode;
   modeToDisplay = QuestionDisplayMode;
 
-  mediaAlign: 'media_center' | 'media_right' | 'media_left';
-
   feedBackConditions = [
     FeedbackCondition[1],
     FeedbackCondition[2],
@@ -98,6 +96,10 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   }
 
   get mediaPath() {
+    return this.questionFormGroup?.get('mediaPath') as FormControl;
+  }
+
+  get mediaAlign() {
     return this.questionFormGroup?.get('mediaPath') as FormControl;
   }
 
@@ -176,7 +178,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   }
 
   alignMedia(position: 'media_center' | 'media_right' | 'media_left') {
-    this.mediaAlign = position;
+    this.questionFormGroup?.get('mediaAlign')?.setValue(position);
   }
 
   addQuestion(): void {

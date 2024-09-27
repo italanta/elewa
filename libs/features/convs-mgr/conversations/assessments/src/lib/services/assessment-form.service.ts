@@ -47,6 +47,7 @@ export class AssessmentFormService {
       marks: [question?.marks ?? ''],
       message: [question?.message ?? ''],
       mediaPath: [question?.mediaPath ?? ''],
+      mediaAlign: [question?.mediaAlign ?? 'media_left'],
       options: question?.options ? this._prefillOptions(question?.options) : this._formBuilder.array([
         this.createDefaultChoice()
       ]),
