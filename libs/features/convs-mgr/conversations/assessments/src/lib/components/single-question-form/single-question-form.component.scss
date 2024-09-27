@@ -9,6 +9,7 @@
   }
   .question-content{
     padding-top: 8px;
+    width: 100%;
     .column-radios{
       display: flex;
       flex-direction: column;
@@ -55,7 +56,7 @@
 
 .media-div {
   display: flex;
-  max-width: 100%;
+  width: 100%;
 }
 
 .uploaded-media {
