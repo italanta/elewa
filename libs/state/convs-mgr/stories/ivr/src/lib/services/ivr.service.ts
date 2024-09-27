@@ -13,22 +13,37 @@ import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messag
 import { AzureAudioUploadService, TextToSpeechService } from 'interactive-voice-response';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { environment } from '@env/environment';
+import { AzureStorageConfig } from 'libs/functions/bot-engine/interactive-voice-response/src/lib/models/azure-storage-config.interface';
+import { BlobServiceClient, ContainerClient } from '@azure/storage-blob';
 
 @Injectable()
 export class IvrService {
   protected _activeRepo: Repository<StoryBlock>;
   private speechConfig: sdk.SpeechConfig; 
+  private containerClient: ContainerClient;
 
   constructor(
     private _blocksStore: StoryBlocksStore,
     private _ttsService: TextToSpeechService,
     private _azureBlobService: AzureAudioUploadService,
-    private _logger: Logger
-  ) {
+    private _logger: Logger,
+    private config: AzureStorageConfig
+  ) 
+  {
     this.speechConfig = sdk.SpeechConfig.fromSubscription(
         environment.AZURE.AZURE_SPEECH_KEY, 
         environment.AZURE.AZURE_SPEECH_REGION
     );
+    /**
+     * Creates an instance of AzureAudioUploadService.
+     * @param {AzureStorageConfig} config - The configuration object for Azure Storage
+     */
+    this.config = {
+      "connectionString" : "",
+      "containerName" : ""
+    };
+    const blobServiceClient = BlobServiceClient.fromConnectionString(this.config.connectionString);
+    this.containerClient = blobServiceClient.getContainerClient(this.config.containerName);
   }
 
   /**
@@ -42,7 +57,7 @@ export class IvrService {
       this._generateAudioForBlock(block).pipe(
         switchMap(audioBlob =>
           // Upload audio to Azure Blob Storage and get the URL
-          this._azureBlobService.uploadAudio(audioBlob, storyBlock.story.id, block.id, 'male')
+          this._azureBlobService.uploadAudio(this.containerClient, audioBlob, storyBlock.story.id, block.id, 'male')
         ),
         switchMap(audioUrl => {
           // Append audio URL to the current block
