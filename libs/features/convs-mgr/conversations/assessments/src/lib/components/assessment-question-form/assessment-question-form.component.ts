@@ -58,6 +58,8 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   questionFormMode = QuestionFormMode;
   modeToDisplay = QuestionDisplayMode;
 
+  mediaAlign: 'media_center' | 'media_right' | 'media_left';
+
   feedBackConditions = [
     FeedbackCondition[1],
     FeedbackCondition[2],
@@ -171,6 +173,10 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     if (this.currentMediaType === MediaUploadType.Video && this.videoPlayer) {
       this.videoPlayer.nativeElement.load();
     }
+  }
+
+  alignMedia(position: 'media_center' | 'media_right' | 'media_left') {
+    this.mediaAlign = position;
   }
 
   addQuestion(): void {

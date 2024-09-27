@@ -22,9 +22,9 @@
 							<div fxLayout="row" fxLayoutAlign="space-between center">
 								<div class="question-type-conf">
 									<div fxLayout="column" >
-										<div appearance="fill" fxFlex="60" *ngIf="mediaSrc" class="media-display">
+										<div appearance="fill" fxFlex="60" *ngIf="mediaSrc" class="media-display" [ngClass]="mediaAlign">
 											<div class="media-div">
-												<img *ngIf="isImageMedia" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
+												<img *ngIf="isImageMedia"  [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
   											<video *ngIf="!isImageMedia" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
 											</div>
 											<button class="img-elipsis" [matMenuTriggerFor]="menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
@@ -75,9 +75,9 @@
 </div>
 
 <mat-menu #menu="matMenu" xPosition="after">
-  <button mat-menu-item><span> <i class="fa-solid fa-align-center"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-CENTER' | transloco }} </span> </button>
-  <button mat-menu-item><span> <i class="fa-solid fa-align-right"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-RIGHT' | transloco }}  </span></button>
-	<button mat-menu-item><span> <i class="fa-solid fa-align-left"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-LEFT' | transloco }} </span></button>
+  <button mat-menu-item (click)="alignMedia('media_center')"><span> <i class="fa-solid fa-align-center"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-CENTER' | transloco }} </span> </button>
+  <button mat-menu-item (click)="alignMedia('media_right')"><span> <i class="fa-solid fa-align-right"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-RIGHT' | transloco }}  </span></button>
+	<button mat-menu-item (click)="alignMedia('media_left')"><span> <i class="fa-solid fa-align-left"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-LEFT' | transloco }} </span></button>
 	<button mat-menu-item (click)="allowedMedia.Image? openUploadModal(allowedMedia.Image) : openUploadModal(allowedMedia.Video)" >
 		<span> <i class="fa-solid fa-align-left"></i></span> 
 		<span> {{ currentMediaType === allowedMedia.Image? "Replace Image" : "Replace Video" }}</span>
