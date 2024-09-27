@@ -22,12 +22,12 @@ export class IvrService {
   private speechConfig: sdk.SpeechConfig; 
   private containerClient: ContainerClient;
 
-  constructor(
+  constructor
+  (
     private _blocksStore: StoryBlocksStore,
     private _ttsService: TextToSpeechService,
     private _azureBlobService: AzureAudioUploadService,
-    private _logger: Logger,
-    private config: AzureStorageConfig
+    private _logger: Logger  
   ) 
   {
     this.speechConfig = sdk.SpeechConfig.fromSubscription(
@@ -38,12 +38,12 @@ export class IvrService {
      * Creates an instance of AzureAudioUploadService.
      * @param {AzureStorageConfig} config - The configuration object for Azure Storage
      */
-    this.config = {
+    const config: AzureStorageConfig = {
       "connectionString" : environment.AZURE.AZURE_BLOB_CONNECTION_STRING,
       "containerName" : environment.AZURE.AZURE_BLOB_CONTAINER_NAME
     };
-    const blobServiceClient = BlobServiceClient.fromConnectionString(this.config.connectionString);
-    this.containerClient = blobServiceClient.getContainerClient(this.config.containerName);
+    const blobServiceClient = BlobServiceClient.fromConnectionString(config.connectionString);
+    this.containerClient = blobServiceClient.getContainerClient(config.containerName);
   }
 
   /**
