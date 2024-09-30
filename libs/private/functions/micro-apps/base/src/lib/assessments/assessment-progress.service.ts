@@ -126,7 +126,12 @@ export class AssessmentProgressService
         // The end of the attempt and start a new attempt
         const newAttempt = this._getNewAttempt(progressUpdate);
         currentProgress.attemptCount++;
+
+        // If the assessment has been submitted mark as finished
+        if(progressUpdate.hasSubmitted) newAttempt.finishedOn = Date.now();
+
         currentProgress.attempts[currentProgress.attemptCount] = newAttempt;
+
       } else {
         const {score, questionResponses} = this._getScore(progressUpdate.questionResponses);
 
