@@ -184,7 +184,7 @@ export class StoryEditorFrame
         uuids: [conn.id, ''],
         source: sourceElement as Element,
         target: targetElement as Element,
-        anchors: ['Right', 'Left'],
+        anchors: [[1, 0.5, 0, 0, 16, 0], 'Left'],
         endpoints: ['Dot', 'Rectangle'],
         connector: {
           type: 'Flowchart',

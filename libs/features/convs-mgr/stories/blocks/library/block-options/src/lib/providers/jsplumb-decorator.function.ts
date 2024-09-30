@@ -25,7 +25,7 @@ export function _JsPlumbInputOptionDecorator(sourceElement: Element, jsPlumb: Br
     cssClass:"block_endpoint",
     endpoint: 'Dot',
     // Where to position the anchor
-    anchor: "Right",
+    anchor: [1, 0.5, 0, 0, 16, 0],
     connector: {
       type: 'Flowchart',
       options: {
