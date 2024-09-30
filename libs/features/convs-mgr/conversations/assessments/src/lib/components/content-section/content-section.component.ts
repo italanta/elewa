@@ -211,7 +211,6 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       endUserName: this.app.endUserName,
       hasSubmitted: isLastStep,
     };
-  
     this.isSubmitting = isLastStep;
     this.subscribeToProgress(progressMilestones);
   }
@@ -221,11 +220,16 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     this._microAppService.progressCallBack(this.app, milestones)?.subscribe((updatedProgress) => {
       if (updatedProgress) {
         this.assessmentProgress = updatedProgress.result as AssessmentProgress;
-        this.isSubmitting = false;
-        this.pageViewMode = AssessmentPageViewMode.ResultsMode;
+
+        // Only change the view to results page if the whole assessment has been submitted
+        if(this.isSubmitting) {
+          this.isSubmitting = false;
+          this.pageViewMode = AssessmentPageViewMode.ResultsMode;
+        }
       }
     });
   }
+
   ngOnDestroy()
    {
     this._sBS.unsubscribe();
