@@ -1,15 +1,8 @@
 import { BlobServiceClient, BlockBlobClient, ContainerClient } from "@azure/storage-blob";
-import { v4 as uuidv4 } from 'uuid';
-import { AzureStorageConfig } from "../models/azure-storage-config.interface";
-import { Injectable } from "@angular/core";
-
 
 /**
  * Service for uploading audio files to Azure Blob Storage
 */
-@Injectable({
-  providedIn: 'root', 
-})
 export class AzureAudioUploadService {
   
   constructor() 
