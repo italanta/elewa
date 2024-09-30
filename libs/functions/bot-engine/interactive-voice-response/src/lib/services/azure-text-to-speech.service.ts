@@ -1,12 +1,7 @@
-import { Injectable } from '@angular/core';
 import * as sdk from "microsoft-cognitiveservices-speech-sdk";
-
 /**
  * Service for converting text to speech using Azure's Text-to-Speech service.
  */
-@Injectable({
-  providedIn: 'root',
-})
 export class TextToSpeechService {
 
   /**
