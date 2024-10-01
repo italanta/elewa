@@ -119,10 +119,12 @@ export class AssessmentFeedbackSectionComponent implements OnInit
     const assessment = {...this.assessment}
     if(this.retryType === RetryType.onCount){
       if(assessment.configs.retryConfig) {
-        this.allowedAttempts = assessment.configs.retryConfig.onCount as number;
+        const attempts = assessment.configs.retryConfig.onCount as number;
+        this.allowedAttempts = attempts - this.attemptCount;
       }
     } else {
-      this.allowedAttempts = assessment?.configs?.retryConfig?.onScore?.count as number;
+      const attempts = assessment?.configs?.retryConfig?.onScore?.count as number;
+      this.allowedAttempts = attempts - this.attemptCount;
     }
   }
  

@@ -11,10 +11,12 @@ export class AssessmentHeaderComponent implements OnInit, OnDestroy
 {
   @Input() startTime: number;
   @Input() assessmentTitle: string;
+  @Input() logoUrl: string;
   elapsedTime: string;
   private intervalId: any;
 
-  ngOnInit() {
+  ngOnInit() 
+  {
     this.intervalId = setInterval(() => {
       this.elapsedTime = UpdateElapsedTime(this.startTime);
     }, 1000);
