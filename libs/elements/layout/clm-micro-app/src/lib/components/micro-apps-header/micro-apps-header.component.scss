@@ -1,6 +1,5 @@
-.wrapper{
-  height: 100px;
-  width: 100%;
+.app-header-wrapper{
+  height: 10%;
   background-color: var(--convs-mgr-color-bright-teal);
   display: flex;
   justify-content: start;
@@ -8,6 +7,7 @@
   padding-left: 10%;
 
   .logo{
+    padding-top: 5%;
     width: 15%;
     height: 40%;
     border: var(--convs-mgr-color-bright-teal);
