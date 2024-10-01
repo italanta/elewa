@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Input } from '@angular/core';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { _JsPlumbInputOptionDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { _JsPlumbAnchorDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
   selector: 'app-anchor-block',
@@ -39,7 +39,8 @@ export class AnchorBlockComponent implements AfterViewInit
 
     if (this.jsPlumb) {
       //Step 2 - Call the jsplumb decorator function
-      _JsPlumbInputOptionDecorator(input, this.jsPlumb);
+      _JsPlumbAnchorDecorator(input, this.jsPlumb);
+
     }
   }
 }
