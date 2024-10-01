@@ -26,6 +26,7 @@ export class AssessmentProgressService
   async sendPDF(app: MicroAppStatus, tools: HandlerTools, n: number) {
     const assessmentConfig = app.config as AssessmentMicroApp;
     const pdfMessage: DocumentMessage = {
+      caption: `Feedback on ${assessmentConfig.pdf.name.split("-")[0]}`,
       endUserPhoneNumber: app.endUserId.split('_')[2],
       receipientId: app.endUserId.split('_')[2],
       type: MessageTypes.DOCUMENT,
