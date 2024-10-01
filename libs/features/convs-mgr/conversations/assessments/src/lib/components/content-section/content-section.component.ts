@@ -24,9 +24,8 @@ import { StepService } from '../../services/set-steps.service';
 export class ContentSectionComponent implements OnInit, OnDestroy 
 {
   @Input() app: MicroAppStatus;
-
+  logoUrl: string;
   /** Whether a user is viewing assessment content or general page content */
-  // pageView: Observable<PageViewMode>;
   pageViewMode = AssessmentPageViewMode.AssessmentMode;
   assessmentProgress: AssessmentProgress;
 
@@ -67,6 +66,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
   ngOnInit() {
     
     if(this.app) {
+      this.logoUrl = this.app.config.orgLogoUrl as string;
       this.getAssessment();
       this.getAssessmentQuestions(this.app.config.orgId);
       this.startTime = new Date().getTime() as number;
