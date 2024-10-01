@@ -1,7 +1,7 @@
-<ng-container class="micro-app-content">
-  <ng-container class="micro-app-content">
+<div class="micro-app-content">
+  <div class="micro-app-content">
         <!-- If the view mode is Feedback -->
-    <ng-container *ngIf="pageViewMode === 2" >
+    <div *ngIf="pageViewMode === 2" >
       <app-assessment-feedback-section
         [app]="app"
         [assessment]="assessment"
@@ -10,11 +10,11 @@
         [assessmentQuestions]="assessmentQuestions"
         [assessmentFormArray]="assessmentFormArray">
     </app-assessment-feedback-section>
-    </ng-container>
+    </div>
     <!-- If the view mode is assessment -->
-  <ng-container *ngIf="pageViewMode === 1">
+  <div *ngIf="pageViewMode === 1">
     <!-- Header with details about assessment -->
-    <app-assessment-header [startTime]="startTime" [assessmentTitle]="assessmentTitle"></app-assessment-header>
+    <app-assessment-header [startTime]="startTime" [assessmentTitle]="assessmentTitle" [logoUrl]="logoUrl"></app-assessment-header>
 
     <!-- Banner with grade details -->
     <!-- <app-assessment-result-banner *ngIf="pageViewMode === 3 || pageViewMode === 2"></app-assessment-result-banner> -->
@@ -52,5 +52,5 @@
       </div>
     </div>
     <app-micro-apps-footer></app-micro-apps-footer>
-  </ng-container>
-</ng-container>
+  </div>
+</div>

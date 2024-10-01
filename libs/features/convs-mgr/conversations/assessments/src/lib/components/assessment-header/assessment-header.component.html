@@ -1,6 +1,6 @@
 <div class="heading-wrapper" *ngIf="startTime">
   <div class="logo">
-    <img src="/assets/icons/goomza-icon-transparent.png">
+    <img [src]=" logoUrl? logoUrl : '/assets/icons/goomza-icon-transparent.png' ">
   </div>
   <!-- TODO: Pick Heading from a microapp assessment when published -->
   <div class="heading">
