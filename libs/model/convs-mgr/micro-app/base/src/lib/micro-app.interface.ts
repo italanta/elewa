@@ -24,6 +24,15 @@ export interface MicroApp
   pos: EndUserPosition;
 
   orgLogoUrl?: string;
+
+  /** The story the micro-app is linked in */
+  storyId?: string;
+
+  /** The module the micro-app is linked in */
+  moduleId?: string;
+
+  /** The bot the micro-app is linked in */
+  botId?: string;
 }
  
 /**
