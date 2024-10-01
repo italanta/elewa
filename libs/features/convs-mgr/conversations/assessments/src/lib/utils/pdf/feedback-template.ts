@@ -23,6 +23,7 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
       flex-direction: row;
       justify-content: center;
       text-align: center;
+      margin: auto;
     }
     
     .header-details {
