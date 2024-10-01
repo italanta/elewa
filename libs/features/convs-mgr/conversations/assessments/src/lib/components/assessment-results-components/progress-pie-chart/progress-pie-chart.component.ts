@@ -47,7 +47,7 @@ export class ProgressPieChartComponent implements OnInit, AfterViewInit,OnDestro
         labels: ['Done', 'In progress'],
         datasets: [
           {
-            data: [data.done, data.inProgress, 0],
+            data: [data.done, data.inProgress, data.notStarted || 0],
             backgroundColor: ["#3E788A","#50BEA5", "#F3F3F3"],
             borderWidth: 0
           },
