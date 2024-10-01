@@ -21,7 +21,7 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
       padding: 0.8rem;
       display: flex;
       flex-direction: row;
-      justify-content: space-around;
+      justify-content: center;
       text-align: center;
     }
     
@@ -41,6 +41,7 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
 
     .company-logo {
       align-self: center;
+      padding-right: 0.5rem;
     }
 
     .company-logo > img {
@@ -49,7 +50,6 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
     }
 
     .learner-name {
-      font-size: small;
       color: #101010;
     }
 

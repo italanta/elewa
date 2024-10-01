@@ -71,7 +71,7 @@ export const Option = (optionText: string, checked: string, feedback: string, op
   `<div class="option">
       <div class="option-details">
         <input type="radio" ${checked} class="${optionClass}"/>
-        <label><span class="${optionClass}">${optionOutcome}</span>: ${optionText}</label>
+        <label>${optionText}</label>
       </div>
-      <span class="feedback">${feedback}</span>
+      <span class="feedback"><span class="${optionClass}">${optionOutcome}</span>:${feedback}</span>
     </div>`
