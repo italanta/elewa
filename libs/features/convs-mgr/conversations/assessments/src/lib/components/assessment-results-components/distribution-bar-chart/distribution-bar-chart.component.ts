@@ -86,7 +86,13 @@ export class DistributionBarChartComponent implements OnInit, AfterViewInit {
             grid: {color: '#F0F0F0'},  
             ticks: { 
               maxTicksLimit: 6, 
-              autoSkip: true 
+              autoSkip: true,
+              callback: function(value) {
+                if (Number.isInteger(value)) {
+                  return value;
+                }
+                return null; 
+              } 
             },
             title: {
               display: true,
