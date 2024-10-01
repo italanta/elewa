@@ -60,18 +60,19 @@ export function OptionsToHTML(question: AssessmentQuestion, currentAttempt: Atte
 
       const checked = isSelected ? `checked="checked"` : '';
       const feedback = (isSelected || questionResponse.correct) ? option.feedback : '';
-      optionsHTML += Option(option.text, checked, feedback, optionClass, optionOutcome);
+      const optionOutcomeTag = isSelected ? `<span class="${optionClass}">${optionOutcome}</span>:` : '';
+      optionsHTML += Option(option.text, checked, feedback, optionClass, optionOutcomeTag);
     }
   }
 
   return optionsHTML;
 }
 
-export const Option = (optionText: string, checked: string, feedback: string, optionClass: string, optionOutcome: string) => 
+export const Option = (optionText: string, checked: string, feedback: string, optionClass: string, optionOutcomeTag: string) => 
   `<div class="option">
       <div class="option-details">
         <input type="radio" ${checked} class="${optionClass}"/>
         <label>${optionText}</label>
       </div>
-      <span class="feedback"><span class="${optionClass}">${optionOutcome}</span>:${feedback}</span>
+      <span class="feedback">${optionOutcomeTag}${feedback}</span>
     </div>`
