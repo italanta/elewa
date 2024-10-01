@@ -1,25 +1,38 @@
 .heading-wrapper{
-  padding: 36px 4rem;
-  display: flex;
-  justify-content: space-around;
+  padding: 5% 2%;
+  display: grid;
+  grid-template-columns: 0.8fr 2.5fr 2fr;
   align-items: center;
   background-color: var(--micro-apps-colour-white);
   margin-bottom: 1rem;
 
+  .logo,
+  .heading,
+  .timer {
+    height: 100%;
+  }
+
   .logo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     img{
-      width: 20%;
-      height: 12%;
+      width: 50%;
       border-radius: 4px;
     }
   }
   .heading{
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
   }
   .timer{
-    width: 10%;
-    height: 10%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .countDown{
       padding: 0.5rem;
       border-radius: 2.5rem;
@@ -28,35 +41,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      span{
+        padding: 0 0.8rem;
+      }
     }
   }
 }
-
-/* Medium Devices (MD) */
-@media (min-width: 375px) and (max-width: 730px) {
-  .heading-wrapper{
-    padding: 8px 1rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: var(--micro-apps-colour-white);
-    margin-bottom: 1rem;
   
-    .logo{
-      width: 40%;
-      img{
-        width: 20%;
-        height: 12%;
-        border-radius: 4px;
-      }
-    }
-    .heading{
-      text-align: center;
-      width: 100%;
-    }
-    .timer{
-      width: 32%;
-      height: 10%;
-    }
-  }
-}  
