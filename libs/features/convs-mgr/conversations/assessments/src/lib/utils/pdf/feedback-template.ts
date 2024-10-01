@@ -103,6 +103,17 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
       gap: 0.4rem;
       margin: 0.1rem 0;
     }
+
+    .correct {
+      accent-color:#1F7A8C;
+      color:#1F7A8C;
+    }
+
+    .wrong {
+      accent-color: #E02222;
+      color: #E02222;
+    }
+
     .feedback {
       padding-left: 0.4rem;
       padding-bottom: 0.2rem;
