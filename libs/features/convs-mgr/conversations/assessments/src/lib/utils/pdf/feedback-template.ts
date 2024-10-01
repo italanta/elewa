@@ -8,46 +8,67 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
   <style>
     body {
       font-family: "Roboto", sans-serif;
-      width: 90%;
       background: white;
       color: black;
-      margin: 1rem;
-      font-weight: 400;
+      font-weight: normal;
       font-style: normal;
+      margin: 0;
+      padding: 0;
     }
+    
     .header-section {
-      width: 100%;
+      background: rgba(31, 122, 140, 0.35);
+      padding: 0.8rem;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin-left: auto;
+      flex-direction: row;
+      justify-content: space-around;
       text-align: center;
     }
+    
+    .header-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .fail {
+      color: #E02222;
+    }
+      
+    .pass {
+      color:  #1F7A8C;;
+    }
+
     .company-logo {
       align-self: center;
     }
+
     .company-logo > img {
-      max-width: 20%;
+      max-width: 30%;
       height: auto;
     }
 
     .learner-name {
       font-size: small;
       color: #101010;
-      font-weight: 300;
     }
+
     .assessment-name {
+      width: 100%;
+      text-align: center;
       font-size: larger;
       color: black;
       font-weight: bold;
     }
-    .question-section {
+    .questions-section {
+      padding: 1rem;
       display: flex;
       flex-direction: column;
       align-content: flex-start;
       color: black;
       font-weight: normal;
     }
+
     .question-header {
       display: flex;
       justify-content: space-between;
@@ -94,11 +115,20 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
   <div class="company-logo">
     <img src="${headerDetails.logoURL}"/>
   </div>
-  <span class="learner-name">${headerDetails.learnerName}</span>
-  <span class="assessment-name">${headerDetails.assessmentTitle}</span>
+  <div class="header-details">
+    <span class="outcome">${headerDetails.outcomeMessage}</span>
+    <span class="learner-name">${headerDetails.learnerName}</span>
+    <div class="assessment-grade"> Grade Received: <span class="grade ${headerDetails.outcomeClass}">${headerDetails.score}%</span> </div>
+  </div>
 </div>
 
 <br />
+<br />
+
+<div class="assessment-name">
+  <span>${headerDetails.assessmentTitle}</span>
+</div>
+
 <br />
 <br />
 

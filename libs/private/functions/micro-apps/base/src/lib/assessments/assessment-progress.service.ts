@@ -171,10 +171,8 @@ export class AssessmentProgressService
     return newAttempt;
   }
 
-  private _getOutcome(score: number, maxScore: number, passMark?: number) {
+  private _getOutcome(score: number, percentageScore: number, passMark?: number) {
     if(!passMark) return AssessmentStatusTypes.Completed;
-
-    const percentageScore = Math.round(score/maxScore * 100);
 
     if(percentageScore <= passMark) {
       return AssessmentStatusTypes.Failed;
@@ -187,8 +185,11 @@ export class AssessmentProgressService
     const currentAttempt = progress.attempts[progress.attemptCount];
 
     if(currentAttempt.finishedOn) {
+      const percentageScore = Math.round(currentAttempt.score/progress.maxScore * 100);
+
       const passMark = progress.moveOnCriteria ? progress.moveOnCriteria.passMark : undefined;
-      currentAttempt.outcome = this._getOutcome(currentAttempt.score, progress.maxScore, passMark)
+      currentAttempt.outcome = this._getOutcome(currentAttempt.score, percentageScore, passMark);
+      currentAttempt.finalScorePercentage = percentageScore;
     } else {
       currentAttempt.outcome = AssessmentStatusTypes.Incomplete;
     }
