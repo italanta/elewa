@@ -84,7 +84,10 @@ export class AssessmentProgressService
       endUserId: newProgress.endUserId,
       title: newProgress.assessmentDetails.title,
       endUserName: newProgress.endUserName,
-      moveOnCriteria: newProgress.assessmentDetails.moveOnCriteria || null
+      moveOnCriteria: newProgress.assessmentDetails.moveOnCriteria || null,
+      storyId: newProgress.assessmentDetails.storyId,
+      moduleId: newProgress.assessmentDetails.moduleId,
+      botId: newProgress.assessmentDetails.botId
     };
 
     return progress;

@@ -27,7 +27,17 @@ export interface AssessmentProgress extends IObject {
      *    order to continue with the flow
      */
     passMark?: number;
-}
+  }
+
+  /** The story the micro-app is linked in */
+  storyId?: string;
+
+  /** The module the micro-app is linked in */
+  moduleId?: string;
+
+  /** The bot the micro-app is linked in */
+  botId?: string;
+  
   orgId: string;
   endUserId: string;
   endUserName: string;
