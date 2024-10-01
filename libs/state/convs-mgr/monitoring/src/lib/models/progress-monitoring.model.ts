@@ -1,4 +1,4 @@
-import moment from 'moment';
+import * as moment from 'moment';
 import { flatten as ___flatten, clone as ___clone } from 'lodash';
 
 import { BehaviorSubject, combineLatest, map, Observable, of, tap } from "rxjs";

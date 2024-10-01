@@ -1,4 +1,4 @@
-import moment from "moment";
+import * as moment from "moment";
 
 import { Query } from "@ngfi/firestore-qbuilder";
 import { HandlerTools, Repository } from "@iote/cqrs";
