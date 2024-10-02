@@ -14,15 +14,14 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
       font-style: normal;
       margin: 0;
       padding: 0;
-      width: 100%;
     }
     
     .header-section {
       background: rgba(31, 122, 140, 0.35);
-      padding: 0.8rem 0;
+      padding: 0.8rem;
       display: flex;
       flex-direction: row;
-      justify-content: center;
+      justify-content: space-around;
       text-align: center;
       margin: auto;
       width: 100%;
@@ -32,8 +31,10 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
       display: flex;
       flex-direction: column;
       gap: 0.4rem;
-      width: fit-content;
-      min-width: 40%;
+      width: 30%;
+      min-width: fit-content;
+      align-self: center;
+      margin-right: -1rem;
     }
 
     .uploaded-media {
@@ -50,12 +51,13 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
 
     .company-logo {
       display: flex;
-
+      width: 25%;
       align-self: center;
+      margin-left: -1rem;
     }
 
     .company-logo > img {
-      max-width: 30%;
+      max-width: 100%;
       height: auto;
     }
 
