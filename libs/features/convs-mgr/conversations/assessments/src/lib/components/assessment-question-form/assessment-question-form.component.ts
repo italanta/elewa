@@ -95,6 +95,10 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     return this.questionsList?.controls[this.questionFormGroupName as number] as FormGroup;
   }
 
+  get mediaType() {
+    return this.questionFormGroup?.get('mediaType') as FormControl;
+  }
+
   get mediaPath() {
     return this.questionFormGroup?.get('mediaPath') as FormControl;
   }
@@ -150,6 +154,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
       if (file) {
         this.mediaSrc = file;
         this.currentMediaType = type;
+        this.mediaType?.setValue(type);
         this.mediaPath?.setValue(file);
         this._checkMediaOnLoad();
       }
