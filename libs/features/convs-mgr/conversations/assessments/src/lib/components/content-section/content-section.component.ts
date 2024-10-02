@@ -147,7 +147,9 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     if (!this.assessmentFormArray.at(i).get('selectedOption')?.valid) return
     if(this.assessmentFormArray.at(i).get('selectedOption')?.valid){
       this.saveProgress(i)
-      this.stepService.nextStep();
+      setTimeout(() => {
+        this.stepService.nextStep();
+      }, 1000);
     }
   }
 
@@ -220,7 +222,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
   
    private subscribeToProgress (milestones: MicroAppProgress)
   {
-    this._microAppService.progressCallBack(this.app, milestones)?.subscribe((updatedProgress) => {
+    this._microAppService.progressCallBack(this.app, milestones)?.pipe(take(1)).subscribe((updatedProgress) => {
       if (updatedProgress) {
         this.assessmentProgress = updatedProgress.result as AssessmentProgress;
         const currentAttempt = this.assessmentProgress.attempts[this.assessmentProgress.attemptCount];
