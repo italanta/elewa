@@ -14,12 +14,10 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
       font-style: normal;
       margin: 0;
       padding: 0;
-      width: 100%;
     }
     
     .header-section {
       background: rgba(31, 122, 140, 0.35);
-      width: 100%;
       padding: 0.8rem;
       display: flex;
       flex-direction: row;
@@ -32,6 +30,10 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
       display: flex;
       flex-direction: column;
       gap: 0.4rem;
+    }
+
+    .uploaded-media {
+      max-width: 50%;
     }
 
     .fail {

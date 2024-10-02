@@ -32,6 +32,7 @@ export const Question = (index: number, points: string, questionDetails: Assessm
 </div>
 <hr/>
 <div class="question-body">
+  ${questionDetails.mediaPath ? `<img class="uploaded-media" src="${questionDetails.mediaPath}" />`: ''}
   <span class="question-text">
     ${questionDetails.message}
   </span>
