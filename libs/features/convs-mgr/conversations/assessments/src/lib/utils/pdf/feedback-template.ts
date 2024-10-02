@@ -14,22 +14,26 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
       font-style: normal;
       margin: 0;
       padding: 0;
+      width: 100%;
     }
     
     .header-section {
       background: rgba(31, 122, 140, 0.35);
-      padding: 0.8rem;
+      padding: 0.8rem 0;
       display: flex;
       flex-direction: row;
       justify-content: center;
       text-align: center;
       margin: auto;
+      width: 100%;
     }
     
     .header-details {
       display: flex;
       flex-direction: column;
       gap: 0.4rem;
+      width: fit-content;
+      min-width: 40%;
     }
 
     .uploaded-media {
@@ -45,6 +49,8 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
     }
 
     .company-logo {
+      display: flex;
+
       align-self: center;
     }
 
