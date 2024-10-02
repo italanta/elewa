@@ -160,7 +160,10 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       ? this.currentStep === this.totalSteps - 1 
       : true; // If not stepper mode, treat the form as if it's the last step
   
-    const questionResponses: QuestionResponse[] = this.questionResponses || [];
+    // Ensure we are using a persistent `this.questionResponses` and not resetting it each time
+    if (!this.questionResponses) {
+      this.questionResponses = []; // Initialize if not already
+    }
   
     const processQuestion = (control: AbstractControl) => {
       control.get('selectedOption')?.markAsTouched();
@@ -184,7 +187,8 @@ export class ContentSectionComponent implements OnInit, OnDestroy
         correctAnswer: correctAnswer?.id,
       };
   
-      questionResponses.push(questionResponse);
+      // Find if the question was already answered, and update it instead of duplicating
+      this.questionResponses[this.questionResponses.findIndex(qr => qr.questionId === questionId)] = questionResponse;
     };
   
     // Handle stepper mode or all-questions mode
@@ -199,7 +203,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
       appId: this.app.appId,
       endUserId: this.app.endUserId,
       orgId: this.app.config.orgId,
-      questionResponses: questionResponses,
+      questionResponses: this.questionResponses,  // Persisting the questionResponses array
       timeSpent: new Date().getTime() - this.app.startedOn!,
       type: MicroAppTypes.Assessment,
       assessmentDetails: {
