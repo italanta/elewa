@@ -34,7 +34,7 @@ export const Question = (index: number, points: string, questionDetails: Assessm
 <hr/>
 <div class="question-body">
   ${ questionDetails.mediaPath && getMediaType(questionDetails.mediaPath) === 'image'  ? `<img class="uploaded-media" src="${questionDetails.mediaPath}" />`: ''}
-  ${ questionDetails.mediaPath && getMediaType(questionDetails.mediaPath) === 'video'  ? `<a class="uploaded-media" href="${questionDetails.mediaPath}">Link</a>`: ''}
+  ${ questionDetails.mediaPath && getMediaType(questionDetails.mediaPath) === 'video'  ? `<a class="uploaded-media" href="${questionDetails.mediaPath}" target="_blank">Click to see video</a>`: ''}
   <span class="question-text">
     ${questionDetails.message}
   </span>
