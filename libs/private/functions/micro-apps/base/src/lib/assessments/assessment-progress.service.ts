@@ -10,6 +10,8 @@ import { DocumentMessage, Message, MessageDirection } from "@app/model/convs-mgr
 import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 import { mapResponses } from "../utils/assessment-responses-map.util";
+import { getQuestionScore } from "../utils/get-question-score.util";
+import { getTotalScore } from "../utils/get-total-score.util";
 
 export class AssessmentProgressService
 {
@@ -94,27 +96,6 @@ export class AssessmentProgressService
     return progress;
   }
 
-  private _getScore(questionResponses: QuestionResponse[]) {
-    let score = 0;
-  
-    for (let i = 0; i < questionResponses.length; i++) {
-      if (questionResponses[i].answerId && questionResponses[i].answerId === questionResponses[i].correctAnswer) {
-        score += questionResponses[i].marks;
-        questionResponses[i].score = questionResponses[i].marks;
-        questionResponses[i].correct = true;
-      } else if (questionResponses[i].answerText === questionResponses[i].correctAnswer) {
-        score += questionResponses[i].marks;
-        questionResponses[i].score = questionResponses[i].marks;
-        questionResponses[i].correct = true;
-      } else {
-        questionResponses[i].score = 0;
-        questionResponses[i].correct = false;
-      }
-    }
-  
-    return { score, questionResponses };
-  }
-
   async trackProgress(progress: MicroAppProgress)
   {
     const progressUpdate = progress as AssessmentProgressUpdate;
@@ -137,11 +118,8 @@ export class AssessmentProgressService
         currentProgress.attempts[currentProgress.attemptCount] = newAttempt;
 
       } else {
-        const {score, questionResponses} = this._getScore(progressUpdate.questionResponses);
-
-        // Based on questions
-        currentAttempt.score = score
-
+        const { questionResponses} = getQuestionScore(progressUpdate.questionResponses);
+        
         if(progressUpdate.hasSubmitted) currentAttempt.finishedOn = Date.now();
 
         currentAttempt.questionResponses = mapResponses(questionResponses, currentAttempt.questionResponses);
@@ -161,9 +139,9 @@ export class AssessmentProgressService
   }
 
   private _getNewAttempt(newProgress: AssessmentProgressUpdate) {
-    const {score, questionResponses} = this._getScore(newProgress.questionResponses);
+    const { questionResponses } = getQuestionScore(newProgress.questionResponses);
     const newAttempt: Attempt = {
-      score: score,
+      score: 0,
       questionResponses: mapResponses(questionResponses),
       startedOn:  Date.now()
     };
@@ -171,7 +149,7 @@ export class AssessmentProgressService
     return newAttempt;
   }
 
-  private _getOutcome(score: number, percentageScore: number, passMark?: number) {
+  private _getOutcome(percentageScore: number, passMark?: number) {
     if(!passMark) return AssessmentStatusTypes.Completed;
 
     if(percentageScore <= passMark) {
@@ -184,11 +162,13 @@ export class AssessmentProgressService
   private _updateOutcome(progress: AssessmentProgress) {
     const currentAttempt = progress.attempts[progress.attemptCount];
 
+    currentAttempt.score = getTotalScore(currentAttempt.questionResponses);
+
     if(currentAttempt.finishedOn) {
       const percentageScore = Math.round(currentAttempt.score/progress.maxScore * 100);
 
       const passMark = progress.moveOnCriteria ? progress.moveOnCriteria.passMark : undefined;
-      currentAttempt.outcome = this._getOutcome(currentAttempt.score, percentageScore, passMark);
+      currentAttempt.outcome = this._getOutcome(percentageScore, passMark);
       currentAttempt.finalScorePercentage = percentageScore;
     } else {
       currentAttempt.outcome = AssessmentStatusTypes.Incomplete;
