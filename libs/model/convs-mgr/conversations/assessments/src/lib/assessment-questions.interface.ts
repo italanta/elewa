@@ -10,6 +10,7 @@ export interface AssessmentQuestion extends StoryBlock, IObject {
   prevQuestionId?: string;
   nextQuestionId?: string;
   mediaPath?: string;
+  mediaType?: 'video' | 'image';
   mediaAlign?: 'media_center' | 'media_right' | 'media_left';
   textAnswer?: AssessmentTextAnswer;
 }
