@@ -1,9 +1,10 @@
 import { Component, Input, OnInit, OnDestroy, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { SubSink } from 'subsink';
-import { Observable, take, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 import { AssessmentQuestion, QuestionFormMode } from '@app/model/convs-mgr/conversations/assessments';
 import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
@@ -17,6 +18,7 @@ import { QuestionDisplayMode } from '../../model/question-display-mode.enum';
 import { MediaUploadModalComponent } from '../../modals/media-upload-modal/media-upload.component';
 import { QuestionSectionType } from '../../model/question-section-type.enum';
 import { MediaUploadType } from '../../model/media-upload-type.enum';
+
 
 @Component({
   selector: 'app-assessment-question-form',
@@ -64,10 +66,13 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     FeedbackCondition[3],
   ];
 
+  /** Question is in question bank */
+  isHighlighted = false;
   constructor(
     private _assessmentFormService: AssessmentFormService,
     private dialog: MatDialog,
     private questionBankService: AssessmentQuestionBankStore,
+    private _snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -197,11 +202,48 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  addToQuestionBank() {
+    this.isHighlighted = !this.isHighlighted;  // Toggle highlight
+  
+    const assessmentQuestion = this.questionFormGroup.value as AssessmentQuestion;
+  
+    if (!this.isHighlighted) {
+      // If unhighlighted, remove from Question Bank
+      this.questionBankService.remove(assessmentQuestion).subscribe(() => {
+        this.showSuccessToast()
+      });
+    } else {
+      // If highlighted, add to Question Bank
+      this.questionBankService.add(assessmentQuestion).subscribe(() => {
+        this.showSuccessToast()
+      });
+    }
+  }
+  
+
   discardQuestion(): void {
     this.questionActionCompleted.emit();
     this.addClicked = false;
     
     this.dialog.closeAll();
+  }
+
+  /** Toasting message */
+  showSuccessToast(): void {
+    let message = '';
+    if (this.isHighlighted) {
+      message = 'Success. Question has been added to the Question Bank';
+    } else {
+      message = 'Success. Question has been removed from the Question Bank';
+    }
+    const snackBarRef = this._snackBar.open(message, 'Close', {
+      duration: 3000, 
+      panelClass: ['success-snackbar']
+    });
+
+    snackBarRef.onAction().subscribe(() => {
+      snackBarRef.dismiss();
+    });
   }
 
   ngOnDestroy(): void {
