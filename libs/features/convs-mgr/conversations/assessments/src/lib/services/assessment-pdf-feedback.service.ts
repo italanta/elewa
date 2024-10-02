@@ -91,6 +91,7 @@ export class AssessmentFeedbackPDFService {
         format: 'A4',
         orientation: 'portrait',
       },
+      enableLinks: true
     };
 
     try {
