@@ -48,7 +48,7 @@
 
     <div class="displayedQuestions" *ngFor="let question of filteredQuestions">
       <div *ngIf="!isAddingQuestion">
-        <input type="checkbox" (click)="selectQuestion(question.id!)" [value]="question.id"/>
+        <input type="checkbox" (click)="selectQuestion(question.id!, $event)" [value]="question.id"/>
       </div>
       <app-question-card [question]="question" class="__card"
                           (addNewQuestion)="onNewQuestionAdded($event)" 

@@ -11,6 +11,9 @@
 			<button mat-flat-button (click)="deleteQuestion()">
 				<img src="assets/icons/delete-item.svg" alt="">
 			</button>
+			<button mat-flat-button (click)="addToQuestionBank()">
+				<img src="assets/icons/catalog-magazine.svg" alt="" class="img" [ngClass]="questionFormGroup.get('isInBank')?.value ? 'highlight' : 'normal'" >
+			</button>
 		</div>
 
 		<div class="card-content">

@@ -60,9 +60,18 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
     this.isAddingQuestion = addMode;
   }
 
-  selectQuestion(questionId: string)
+  selectQuestion(questionId: string, event: Event)
   {
-    this.selectedQuestions.push(questionId);
+    const checkbox = (event.target as HTMLInputElement).checked;
+
+    if (checkbox) {
+      this.selectedQuestions.push(questionId);
+    } else {
+      const index = this.selectedQuestions.indexOf(questionId);
+      if (index !== -1) {
+        this.selectedQuestions.splice(index, 1); // Remove the question ID if unchecked
+      }
+    }
   }
 
   onViewModeChanged(formViewMode: QuestionFormMode)

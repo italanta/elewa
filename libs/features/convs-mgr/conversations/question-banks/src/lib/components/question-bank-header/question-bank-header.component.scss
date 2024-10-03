@@ -11,17 +11,12 @@
   }
 }
 
-.banner{
-  display: grid;
-  grid-template-columns: 2fr 5fr;
-
-  .description-banner{
-    padding: 2rem 0;
-    .description-text{
-      font-size: 1.5rem;
-      font-weight: 300;
-      text-align: start;
-    }
+.description-banner{
+  padding: 2rem 0;
+  .description-text{
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-align: start;
   }
 }
 
@@ -92,6 +87,6 @@ h1 {
   width: 100%;
   height: 100%;
   border-radius: 10px;
-  background-color:  var(--convs-mgr-color-tertiary-tint);
+  background-color:  var(--convs-mgr-white-overlay);
   z-index: 1; 
 }

@@ -5,6 +5,8 @@ export interface AssessmentQuestion extends StoryBlock, IObject {
   questionType: AssessmentQuestionType;
   marks: number;
   message: string;
+  /** Whether the question is to be added into the question bank as well */
+  isInBank?: boolean; 
   feedback?: AssessmentFeedBack;
   options?: AssessmentQuestionOptions[];
   prevQuestionId?: string;
