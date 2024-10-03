@@ -83,6 +83,11 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
     .question-header {
       display: flex;
       justify-content: space-between;
+      padding-bottom: 0.5rem;
+    }
+
+    .question-number {
+      font-weight: bold;
     }
 
     .question-body {
@@ -123,6 +128,10 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
     .wrong {
       accent-color: #E02222;
       color: #E02222;
+    }
+
+    .question-points {
+      font-style: italic;
     }
 
     .feedback {
