@@ -57,12 +57,12 @@ export function OptionsToHTML(question: AssessmentQuestion, currentAttempt: Atte
   if (questionResponse && question.options) {
     for (const option of question.options) {
       const isSelected = questionResponse.answerId === option.id;
-      const isCorrect = questionResponse.answerId === questionResponse.correctAnswer;
+      const isCorrect = (questionResponse.answerId === questionResponse.correctAnswer || option.id === questionResponse.correctAnswer);
       const optionClass = isCorrect ? 'correct' : 'wrong';
       const optionOutcome = isCorrect ? 'Correct' : 'Incorrect';
 
       const checked = isSelected ? `checked="checked"` : '';
-      const feedback = (isSelected || questionResponse.correct) ? option.feedback : '';
+      const feedback = (isSelected || option.id === questionResponse.correctAnswer) ? option.feedback : '';
       const optionOutcomeTag = isSelected ? `<span class="${optionClass}">${optionOutcome}</span>` : '';
       optionsHTML += Option(option.text, checked, feedback, optionClass, optionOutcomeTag);
     }
@@ -77,5 +77,5 @@ export const Option = (optionText: string, checked: string, feedback: string, op
         <input type="radio" ${checked} class="${optionClass}"/>
         <label>${optionText}</label>
       </div>
-      <span class="feedback">${optionOutcomeTag}${feedback ? ":" : ''} ${feedback}</span>
+      <span class="feedback">${optionOutcomeTag}${feedback ? ":" : ''} ${feedback ? feedback : ''}</span>
     </div>`
