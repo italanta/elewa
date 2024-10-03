@@ -4,9 +4,9 @@ import { FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
-import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+import { AssessmentQuestion, QuestionFormMode } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
-import { AssessmentFormService } from '@app/features/convs-mgr/conversations/assessments';
+import { AssessmentFormService, QuestionDisplayMode } from '@app/features/convs-mgr/conversations/assessments';
 
 import { DeleteQuestionModalComponent } from '../delete-question-modal/delete-question-modal.component';
 
@@ -24,9 +24,16 @@ export class QuestionCardComponent implements OnDestroy
   questionsFormGroup: FormGroup;
   /** Adding a question state */
   addAQuestion: boolean;
+  formViewMode: QuestionFormMode;
+  questionDisplayMode: QuestionDisplayMode;
+  /** Editor mode */
+  isAddingQuestion = false;
   /** Emit question form t parent (QuestionsList) */
   @Output() addNewQuestion = new EventEmitter<FormGroup>();
   @Output() addMode = new EventEmitter<boolean>();
+  @Output() viewMode = new EventEmitter<QuestionFormMode>();
+  @Output() questionDisplayModeChange = new EventEmitter<QuestionDisplayMode>();
+
   private _sBS = new SubSink ();
 
   constructor (private _questionStore: AssessmentQuestionBankStore,
@@ -37,15 +44,33 @@ export class QuestionCardComponent implements OnDestroy
   /** Emit form when edit is clicked
    * Build form with existing data
    */
-  editQuestion()
-  {
+  // editQuestion()
+  // {
+  //   this.addAQuestion = true;
+  //   this.questionsFormGroup = this._assessmentForm.createQuestionForm(this.question);
+
+  //   this.addNewQuestion.emit(this.questionsFormGroup);
+  //   this.addMode.emit(this.addAQuestion);
+  // }
+
+  /** Triggering form output for editing an existing question */
+  editQuestion() {
     this.addAQuestion = true;
+    
     this.questionsFormGroup = this._assessmentForm.createQuestionForm(this.question);
-
+    debugger
+    
     this.addNewQuestion.emit(this.questionsFormGroup);
-    this.addMode.emit(this.addAQuestion);
+    
+    this.formViewMode = QuestionFormMode.QuestionBankMode;
+    debugger
+    this.viewMode.emit(this.formViewMode);
+    
+    this.questionDisplayMode = QuestionDisplayMode.EDITING;
+    
+    this.questionDisplayModeChange.emit(this.questionDisplayMode);
   }
-
+  
   /** Function to remove a question from the question banks */
   deleteQuestion()
   {
@@ -55,6 +80,12 @@ export class QuestionCardComponent implements OnDestroy
       }
     )
   }
+
+  onQuestionActionCompleted() 
+  {
+    this.isAddingQuestion = false
+  }
+
   ngOnDestroy(): void
   {
    this._sBS.unsubscribe()   
