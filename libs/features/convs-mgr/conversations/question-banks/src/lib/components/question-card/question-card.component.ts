@@ -41,29 +41,18 @@ export class QuestionCardComponent implements OnDestroy
                private _assessmentForm: AssessmentFormService
   ){}
 
-  /** Emit form when edit is clicked
+  /** Triggering form output for editing an existing question
    * Build form with existing data
-   */
-  // editQuestion()
-  // {
-  //   this.addAQuestion = true;
-  //   this.questionsFormGroup = this._assessmentForm.createQuestionForm(this.question);
-
-  //   this.addNewQuestion.emit(this.questionsFormGroup);
-  //   this.addMode.emit(this.addAQuestion);
-  // }
-
-  /** Triggering form output for editing an existing question */
+  */
   editQuestion() {
     this.addAQuestion = true;
     
     this.questionsFormGroup = this._assessmentForm.createQuestionForm(this.question);
-    debugger
     
     this.addNewQuestion.emit(this.questionsFormGroup);
     
     this.formViewMode = QuestionFormMode.QuestionBankMode;
-    debugger
+
     this.viewMode.emit(this.formViewMode);
     
     this.questionDisplayMode = QuestionDisplayMode.EDITING;
