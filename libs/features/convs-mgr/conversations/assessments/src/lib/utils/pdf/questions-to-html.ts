@@ -63,7 +63,7 @@ export function OptionsToHTML(question: AssessmentQuestion, currentAttempt: Atte
 
       const checked = isSelected ? `checked="checked"` : '';
       const feedback = (isSelected || option.id === questionResponse.correctAnswer) ? option.feedback : '';
-      const optionOutcomeTag = isSelected ? `<span class="${optionClass}">${optionOutcome}</span>` : '';
+      const optionOutcomeTag = (isSelected || option.id === questionResponse.correctAnswer) ? `<span class="${optionClass}">${optionOutcome}</span>` : '';
       optionsHTML += Option(option.text, checked, feedback, optionClass, optionOutcomeTag);
     }
   }
