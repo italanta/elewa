@@ -203,20 +203,20 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   }
 
   addToQuestionBank() {
-    this.isHighlighted = !this.isHighlighted;  // Toggle highlight
-  
     const assessmentQuestion = this.questionFormGroup.value as AssessmentQuestion;
-  
-    if (!this.isHighlighted) {
-      // If unhighlighted, remove from Question Bank
-      this.questionBankService.remove(assessmentQuestion).subscribe(() => {
-        this.showSuccessToast()
+    const currentStatus = this.questionFormGroup.get('isInBank')?.value;
+
+    // Toggle the isInBank status
+    this.questionFormGroup.get('isInBank')?.setValue(!currentStatus);
+
+    if (!currentStatus) {
+      this.questionBankService.add(assessmentQuestion).subscribe(() => {
+        this.showSuccessToast();
       });
     } else {
-      // If highlighted, add to Question Bank
-      this.questionBankService.add(assessmentQuestion).subscribe(() => {
-        this.showSuccessToast()
-      });
+      this.questionBankService.remove(assessmentQuestion).subscribe(() => {
+        this.showSuccessToast();
+      }); 
     }
   }
   
