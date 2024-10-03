@@ -28,7 +28,7 @@ export class AssessmentProgressService
   async sendPDF(app: MicroAppStatus, tools: HandlerTools, n: number) {
     const assessmentConfig = app.config as AssessmentMicroApp;
     const pdfMessage: DocumentMessage = {
-      caption: `Feedback on ${assessmentConfig.pdf.name.split("-")[0]}`,
+      caption: `Congratulations on completing the assessment, {${app.endUserName}}! Attached is a PDF with your test results, including feedback on each question, for your records.`,
       endUserPhoneNumber: app.endUserId.split('_')[2],
       receipientId: app.endUserId.split('_')[2],
       type: MessageTypes.DOCUMENT,
