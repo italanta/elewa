@@ -80,6 +80,7 @@ export class AssessmentFeedbackPDFService {
       margin: [0.5, 0.5, 0.5, 0.5],
       filename: `${title} - ${new Date().toLocaleString()}.pdf`,
       image: { type: 'jpeg', quality: 2 },
+      pagebreak: { mode: 'avoid-all' },
       html2canvas: {
         scale: 2,
         logging: true,
