@@ -26,6 +26,10 @@ export class StepService
     this.totalSteps = totalSteps;
   }
 
+  setStep(step: number) {
+    this.currentStepSubject.next(step);
+  }
+
   /** Get the current step a user is on 
    *  Returns a number
    */

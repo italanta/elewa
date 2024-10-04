@@ -230,6 +230,7 @@ export class ContentSectionComponent implements OnInit, OnDestroy
         // Only change the view to results page if the whole assessment has been submitted
         if(this.isSubmitting && currentAttempt.outcome !== AssessmentStatusTypes.Incomplete) {
           this.isSubmitting = false;
+          this.stepService.setStep(0);
           this.pageViewMode = AssessmentPageViewMode.ResultsMode;
         }
       }
