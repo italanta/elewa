@@ -15,6 +15,7 @@ import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { environment } from '@env/environment';
 import { AzureStorageConfig } from 'libs/functions/bot-engine/interactive-voice-response/src/lib/models/azure-storage-config.interface';
 import { BlobServiceClient, ContainerClient } from '@azure/storage-blob';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 @Injectable()
 export class IvrService {
@@ -27,20 +28,21 @@ export class IvrService {
     private _blocksStore: StoryBlocksStore,
     private _ttsService: TextToSpeechService,
     private _azureBlobService: AzureAudioUploadService,
-    private _logger: Logger  
+    private _logger: Logger ,
+    private _aff: AngularFireFunctions
   ) 
   {
     this.speechConfig = sdk.SpeechConfig.fromSubscription(
-        environment.AZURE.AZURE_SPEECH_KEY, 
-        environment.AZURE.AZURE_SPEECH_REGION
+        process.env['AZURE_SPEECH_KEY']!, 
+        process.env['AZURE_SPEECH_REGION']!
     );
     /**
      * Creates an instance of AzureAudioUploadService.
      * @param {AzureStorageConfig} config - The configuration object for Azure Storage
      */
     const config: AzureStorageConfig = {
-      "connectionString" : environment.AZURE.AZURE_BLOB_CONNECTION_STRING,
-      "containerName" : environment.AZURE.AZURE_BLOB_CONTAINER_NAME
+      "connectionString" : process.env['AZURE_BLOB_CONNECTION_STRING']!,
+      "containerName" : process.env['AZURE_BLOB_CONTAINER_NAME']!
     };
     const blobServiceClient = BlobServiceClient.fromConnectionString(config.connectionString);
     this.containerClient = blobServiceClient.getContainerClient(config.containerName);
@@ -52,30 +54,33 @@ export class IvrService {
    * @returns Observable that emits the saved story block with the audio URL appended
    */
   save(storyBlock: StoryEditorState): Observable<StoryBlock[]> {
-    // Create an array of observables to handle each block's audio generation and upload
     const blockObservables = storyBlock.blocks.map((block: StoryBlock) =>
-      this._generateAudioForBlock(block).pipe(
+      this._generateAudioForBlock(block, storyBlock.story.id!).pipe(
         switchMap(audioBlob =>
-          // Upload audio to Azure Blob Storage and get the URL
-          this._azureBlobService.uploadAudio(this.containerClient, audioBlob, storyBlock.story.id, block.id, 'male')
+          // Upload the generated audio using a Cloud Function (azureAudioUpload)
+          this._scheduleAudioUpload(audioBlob, storyBlock.story.id!, block.id!, 'male')
         ),
         switchMap(audioUrl => {
-          // Append audio URL to the current block
           block.azureTtsAudioUrl = audioUrl;
-  
-          // Save the updated block with the audio URL
           return this._blocksStore.update(block);
         }),
         tap(() => this._logger.log(() => `Block with audio saved: ${block}`))
       )
     );
-  
-    // Use forkJoin to wait for all observables (all blocks) to complete
+
     return forkJoin(blockObservables).pipe(
       tap(() => this._logger.log(() => 'All blocks for the story processed.')),
-      // Return the updated story blocks
       switchMap(() => of(storyBlock.blocks))
     );
+  }
+
+  /**
+   * Calls the cloud function 'azureTts' to convert text to speech.
+   * @param data - The data containing the text and options.
+   * @returns Observable<ArrayBuffer> - The generated audio data.
+   */
+  private _scheduleTtsCall(data: any): Observable<ArrayBuffer> {
+    return this._aff.httpsCallable('azureTts')(data);
   }
   
   /**
@@ -83,14 +88,19 @@ export class IvrService {
    * @param block - The Story block to be converted to audio.
    * @returns  Observable<Blob> - the url of the generated audio.
    */
-  private _generateAudioForBlock(block: StoryBlock): Observable<ArrayBuffer> {
+  private _generateAudioForBlock(block: StoryBlock, storyId: string): Observable<ArrayBuffer> {
     const textToConvert = this._prepareTextForSpeech(block);
   
     if (!textToConvert) {
       return throwError(() => new Error('No valid text to convert for this block.'));
     }
   
-    return from(this._ttsService.convertTextToSpeech(this.speechConfig, textToConvert, 'male'));
+    return this._scheduleTtsCall({
+      text: textToConvert,
+      voice: 'male',
+      storyId: storyId,
+      blockId: block.id
+    });
   }
   
   /**
@@ -122,5 +132,22 @@ export class IvrService {
     // Concatenate the question message with its options (if available)
     const optionsText = block.options?.map(opt => opt.message).join(' ') || '';
     return `${block.message} ${optionsText}`.trim();
+  }
+
+  /**
+   * Calls the cloud function 'azureAudioUpload' to upload audio to Azure Blob Storage.
+   * @param audioBlob - The audio data to upload.
+   * @param storyId - The ID of the story.
+   * @param blockId - The ID of the block.
+   * @param voice - The voice used (e.g., 'male').
+   * @returns Observable<string> - The URL of the uploaded audio.
+   */
+  private _scheduleAudioUpload(audioBlob: ArrayBuffer, storyId: string, blockId: string, voice: string): Observable<string> {
+    return this._aff.httpsCallable('azureAudioUpload')({
+      audioBlob,
+      storyId,
+      blockId,
+      voice
+    });
   }
 }
