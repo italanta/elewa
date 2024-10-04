@@ -13,6 +13,8 @@ export interface AssessmentProgress extends IObject {
   
   // The final score of the assessment based on the attempts
   finalScore: number;
+
+  highestScore?: number;
   
   // A map that represents the question response and score of each attempt. See example below: on how this is set
   attempts: AttemptsMap;
