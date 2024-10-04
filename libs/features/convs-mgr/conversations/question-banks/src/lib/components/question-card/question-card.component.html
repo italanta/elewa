@@ -34,3 +34,11 @@
     </mat-card-content>
   </div>
 </mat-card>
+<app-assessment-question-form
+  *ngIf="addAQuestion" 
+  [questionBankForm]="questionsFormGroup"
+  (questionActionCompleted)="onQuestionActionCompleted()"
+  [formEditMode]="formViewMode"
+  [questionMode]="questionDisplayMode" 
+  >
+</app-assessment-question-form>

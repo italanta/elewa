@@ -53,8 +53,7 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
   {
     this.assessments$ = this._assessmentService.getAssessments$();
     this._sBS.sink = this.assessments$.subscribe((assessments) => { 
-      const draftAssesments = assessments.filter(_assess => !_assess.isPublished)
-      this.dataSource.data = draftAssesments;
+      this.dataSource.data = assessments
       this.hasData = true
     })  
   }
@@ -98,15 +97,27 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
     this.noneSelected = newSelectedAssessmentIds.size === 0;
   }
   
-  /** Adding questins to an assessment */
+ /** Adding questions to an assessment */
   addToAssessment(): void {
     if (this.selectedAssessmentIds.size === 0 || this.questions.length === 0) return;
     const selectedAssessmentIds = Array.from(this.selectedAssessmentIds); 
+
+    // Step 1: Add questions to the assessment
     this._questionService.addMultipleQuestionsToAssessment$(selectedAssessmentIds, this.questions)
       .subscribe({
         next: () => {
-          this.showSuccessToast();
-          this._dialog.closeAll();
+          // Step 2: Update the maxScore after questions are added
+          this._assessmentService.updateMaxScore$(selectedAssessmentIds, this.questions)
+            .subscribe({
+              next: () => {
+                // Show success message when both adding questions and updating maxScore succeed
+                this.showSuccessToast();
+                this._dialog.closeAll();
+              },
+              error: (err) => {
+                this._snackBar.open(`Error updating assessment score: ${err.message}`, 'Close', { duration: 3000 });
+              }
+            });
         },
         error: (err) => {
           this._snackBar.open(`Error updating assessment: ${err.message}`, 'Close', { duration: 3000 });

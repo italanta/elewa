@@ -140,3 +140,16 @@
 .media_right {
 	justify-content: right;
 }
+.img{
+  height: 1.2rem;
+  width: 1.2rem;
+	transition: all 0.3s ease;
+}
+.normal {
+  filter: none;
+}
+
+.highlight {
+  filter: drop-shadow(0 0 5px var(--micro-apps-teal-primary)); 
+  transform: scale(1.1);
+}

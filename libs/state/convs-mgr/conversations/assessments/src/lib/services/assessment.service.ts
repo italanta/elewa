@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { from, map, switchMap, take, toArray } from 'rxjs';
+import { from, map, of, switchMap, take, toArray } from 'rxjs';
 
 import { Assessment, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
@@ -49,6 +49,36 @@ export class AssessmentService {
   getPublishedAssessments$(){
     return this._assessments$$.get().pipe(
       map((assessments: Assessment[]) => assessments.filter(assessment => assessment.isPublished))
+    );
+  }
+  
+  /** Updating max scores when questions are added through question banks */
+  updateMaxScore$(assessmentIds: string[], questions: AssessmentQuestion[]) {
+    const totalMarks = questions.reduce((acc, question) => acc + (question.marks || 0), 0);
+  
+    // For each assessment ID, retrieve the assessment and update its maxScore if it's published
+    return from(assessmentIds).pipe(
+      switchMap((assessmentId: string) => 
+        this.getAssessment$(assessmentId).pipe(
+          take(1),
+          switchMap((assessment) => {
+            if (!assessment) {
+              throw new Error(`Assessment with ID ${assessmentId} not found.`);
+            }
+            // Only update maxScore for published assessments
+            if (assessment.isPublished) {
+              assessment.maxScore += totalMarks; 
+              return this.updateAssessment$(assessment).pipe(
+                map(() => assessment) // Return the updated assessment
+              );
+            } else {
+              // Skip updating maxScore for drasft assessments
+              return of(assessment);
+            }
+          })
+        )
+      ),
+      toArray() // Collect the results into an array to handle multiple assessments
     );
   }
   

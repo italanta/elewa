@@ -55,6 +55,7 @@ export class AssessmentFormService {
       selectedOption: [selectedOption ?? "", Validators.required], //tracking the selected option
       nextQuestionId: [question?.nextQuestionId ?? null],
       prevQuestionId: [question?.prevQuestionId ?? null],
+      isInBank: [question?.isInBank ?? false]
     });
   }
 
