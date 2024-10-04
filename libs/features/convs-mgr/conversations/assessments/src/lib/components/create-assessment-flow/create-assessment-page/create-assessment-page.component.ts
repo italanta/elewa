@@ -100,7 +100,7 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
   calculateMaxScore() {
     let total = 0;
     this.questions.forEach((q)=> {
-      total += q.marks
+      total += parseInt(q.marks as any)
     })
 
     return total
