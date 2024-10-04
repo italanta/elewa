@@ -30,9 +30,6 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
   /** Tracking initialization (loading) */
   isInitializing = true;
   /** Assessment config object */
-  assessmentConfigs: AssessmentConfiguration;
-  /** Number of retries, if any */
-  remainingTries: number;
 
   private _sbS = new SubSink();
 
@@ -51,29 +48,9 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
         this.app = a;
         this.isInitializing = false;
         this.appType = a.config.type
-        this.getAssessmentConfig()
-        // Redirect the user back to whatsapp if they have already completed the app
-        // Check if attempt is present
-        if(this.app.status === MicroAppStatusTypes.Completed) {
-          this._router.navigate(['redirect', this.app.id]); 
-        }
-        // TODO: If app state is already in completed here, what should we do?
        });
   }
 
-    getAssessmentConfig(){
-      this._assessmentStore$.getAssessmentByOrg(this.app.appId, this.app.config.orgId).subscribe((assessment) => {
-        this.assessmentConfigs = assessment.configs
-
-        const retryConfigs = this.assessmentConfigs.retryConfig as RetryConfig
-
-        if(retryConfigs.onCount){
-          this.remainingTries = retryConfigs.onCount
-        }else{
-          this.remainingTries = retryConfigs.onScore?.count as number;
-        }
-      })
-    }
   /** Unsubscribe from all subscriptions to prevent memory leaks */
   ngOnDestroy()
   {

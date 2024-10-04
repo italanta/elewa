@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment, AssessmentConfiguration, RetryConfig } from '@app/model/convs-mgr/conversations/assessments';
 import { MicroAppSectionTypes, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
 import { AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
 import { MicroAppStore } from '@app/state/convs-mgr/micro-app';
@@ -13,9 +13,16 @@ import { AppViewService } from '../../services/content-view-mode.service';
 })
 export class AssessmentLandingPageComponent implements OnInit
 {
-  @Input() app: MicroAppStatus
-  assessment: Assessment
-
+  @Input() app: MicroAppStatus;
+  assessment: Assessment;
+  /** Defining retry parameters */
+  retryState =  {
+    completedAndHasRetry: false,
+    completedAndNoRetry: false
+  }
+  assessmentConfigs: AssessmentConfiguration;
+  /** Number of retries, if any */
+  remainingTries: number;
   constructor( private _assessmentStore$: AssessmentsStore,
                private _microApp$$: MicroAppStore,
                private _router: Router,
@@ -25,7 +32,15 @@ export class AssessmentLandingPageComponent implements OnInit
   ngOnInit ()
   {
     if(this.app)
-     this.getAssessment()
+     this.getAssessment();
+    this.getAssessmentConfig();
+
+    // Redirect the user back to whatsapp if they have already completed the app
+        // Check if attempt is present
+        if(this.app.status === MicroAppStatusTypes.Completed) {
+          this._router.navigate(['redirect', this.app.id]); 
+        }
+        // TODO: If app state is already in completed here, what should we do?
   }
 
   /** Fetch micro-app assessment and use config object to render either stepper form or all questions form
@@ -36,7 +51,31 @@ export class AssessmentLandingPageComponent implements OnInit
       this.assessment = _assessment
     })
   }
+
+  getAssessmentConfig(){
+    this._assessmentStore$.getAssessmentByOrg(this.app.appId, this.app.config.orgId).subscribe((assessment) => {
+      this.assessmentConfigs = assessment.configs
+
+      const retryConfigs = this.assessmentConfigs.retryConfig as RetryConfig
+
+      if(retryConfigs.onCount){
+        this.remainingTries = retryConfigs.onCount
+      }else{
+        this.remainingTries = retryConfigs.onScore?.count as number;
+      }
+    })
+  }
   
+  setRetryState ()
+  {
+    if(this.app.status === MicroAppStatusTypes.Completed && this.remainingTries > 0){
+      this.retryState.completedAndHasRetry = true;
+    }else{
+      if(this.app.status === MicroAppStatusTypes.Completed && this.remainingTries === 0){
+        this.retryState.completedAndNoRetry = true
+      }
+    }
+  }
 
   /**
    * Function called when a user clicks the start button
