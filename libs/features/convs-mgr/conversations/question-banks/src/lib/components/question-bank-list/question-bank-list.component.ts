@@ -4,6 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 
+import { orderBy as __orderBy } from 'lodash';
+
+import { __DateFromStorage } from '@iote/time';
+
 import { AssessmentQuestion, QuestionFormMode } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
 
@@ -35,6 +39,8 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
   /** Editing or viewing a questiion */
   questionDisplayMode: QuestionDisplayMode;
   private _sBS = new SubSink ();
+
+  questionsSorted = false;
 
   constructor(private questionStore: AssessmentQuestionBankStore,
               private _dialog: MatDialog,
@@ -113,14 +119,23 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
     }
   }
   /** Sort according to date added */
+  // sortDates()
+  // {
+  //   this.questions.sort((a, b) => {
+  //     if (a.createdOn && b.createdOn) {
+  //       return new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime();
+  //     }
+  //     return 0; 
+  //   });
+  // }
   sortDates()
   {
-    this.questions.sort((a, b) => {
-      if (a.createdOn && b.createdOn) {
-        return new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime();
-      }
-      return 0; 
-    });
+    console.log("Before",this.questions)
+    this.questionsSorted = !this.questionsSorted;
+    this.filteredQuestions = __orderBy(this.questions, 
+                                      (d: any) => __DateFromStorage(d.createdOn).unix(), 
+                                      this.questionsSorted ? 'desc' : 'asc')
+    console.log("After",this.questions)
   }
 
   onQuestionActionCompleted() 
