@@ -65,7 +65,7 @@ export class AssessmentMicroAppBlockComponent implements OnInit, OnDestroy {
       this.assessmentMicroAppForm.patchValue({
         storyId: story.id,
         moduleId: story.parentModule,
-        botId: story.parentBot
+        botId: story.parentBot || ""
       });
     })
   }

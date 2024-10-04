@@ -27,9 +27,14 @@ export class AssessmentResultHandler extends FunctionHandler<{id: string}, Asses
       const progress = querySnapshot.docs.map(doc => doc.data()) as AssessmentProgress[];
 
       const results = calculateAssessmentResult(progress);
-      
-      const analytics$ = tools.getRepository<GroupProgressModel>(`orgs/${progress[0].orgId}/monitoring`);
-      const latestAnalytics = await analytics$.getDocuments(new Query().orderBy("time", "desc").limit(1));
+
+      const orgId = progress[0].orgId;
+
+      const analytics$ = db.collection(`orgs/${orgId}/monitoring`);
+
+      const latestAnalyticsQuery = await analytics$.orderBy("time", "desc").limit(1).get();
+
+      const latestAnalytics = latestAnalyticsQuery.docs.map(doc => doc.data()) as GroupProgressModel[];
 
       if(latestAnalytics && latestAnalytics.length > 0) {
         const botId = progress[0].botId;
@@ -39,6 +44,8 @@ export class AssessmentResultHandler extends FunctionHandler<{id: string}, Asses
 
           results.pieChartData.notStarted = totalUsersInCourse - (results.pieChartData.done + results.pieChartData.inProgress);
         }
+      } else {
+        tools.Logger.error(() => `[AssessmentResultHandler].execute - No analytics for org ${orgId}. The results might be incomplete`);
       }
       
       return {
@@ -48,7 +55,7 @@ export class AssessmentResultHandler extends FunctionHandler<{id: string}, Asses
       
     } 
     catch (error) {
-      tools.Logger.error(() => `[InitMicroAppHandler].execute - Encountered error :: ${JSON.stringify(error)}`);
+      tools.Logger.error(() => `[AssessmentResultHandler].execute - Encountered error :: ${error}`);
       return {
         success: false,
         error: JSON.stringify(error)
