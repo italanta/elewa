@@ -119,23 +119,12 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
     }
   }
   /** Sort according to date added */
-  // sortDates()
-  // {
-  //   this.questions.sort((a, b) => {
-  //     if (a.createdOn && b.createdOn) {
-  //       return new Date(b.createdOn).getTime() - new Date(a.createdOn).getTime();
-  //     }
-  //     return 0; 
-  //   });
-  // }
   sortDates()
   {
-    console.log("Before",this.questions)
     this.questionsSorted = !this.questionsSorted;
     this.filteredQuestions = __orderBy(this.questions, 
                                       (d: any) => __DateFromStorage(d.createdOn).unix(), 
                                       this.questionsSorted ? 'desc' : 'asc')
-    console.log("After",this.questions)
   }
 
   onQuestionActionCompleted() 
