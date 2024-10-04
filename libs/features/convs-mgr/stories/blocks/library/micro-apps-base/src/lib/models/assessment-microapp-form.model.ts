@@ -18,6 +18,9 @@ export function _CreateAssessmentBlockForm(_fb: FormBuilder, blockData: Assessme
     name: [blockData?.name ?? ''],
     options: _fb.array([]),
     appType: MicroAppTypes.Assessment,
+    storyId: [blockData?.storyId ?? ''],
+    moduleId: [blockData?.moduleId ?? ''],
+    botId: [blockData?.storyId ?? ''],
     defaultTarget: [blockData.defaultTarget ?? ''],
     type: [blockData.type ?? StoryBlockTypes.AssessmentMicroAppBlock],
     position: [blockData.position ?? { x: 200, y: 50 }]

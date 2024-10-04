@@ -13,6 +13,8 @@ export interface AssessmentProgress extends IObject {
   
   // The final score of the assessment based on the attempts
   finalScore: number;
+
+  highestScore?: number;
   
   // A map that represents the question response and score of each attempt. See example below: on how this is set
   attempts: AttemptsMap;
@@ -27,7 +29,17 @@ export interface AssessmentProgress extends IObject {
      *    order to continue with the flow
      */
     passMark?: number;
-}
+  }
+
+  /** The story the micro-app is linked in */
+  storyId?: string;
+
+  /** The module the micro-app is linked in */
+  moduleId?: string;
+
+  /** The bot the micro-app is linked in */
+  botId?: string;
+  
   orgId: string;
   endUserId: string;
   endUserName: string;

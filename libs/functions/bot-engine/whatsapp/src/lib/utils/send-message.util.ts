@@ -1,4 +1,4 @@
-import moment from "moment";
+import * as moment from "moment";
 
 export function check24HoursPassed(lastMessageTime: moment.Moment): boolean {
   // Calculate the difference between now and the input time in hours

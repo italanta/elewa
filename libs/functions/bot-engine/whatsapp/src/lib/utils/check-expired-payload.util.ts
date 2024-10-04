@@ -1,4 +1,4 @@
-import moment from "moment";
+import * as moment from "moment";
 
 import { IncomingWhatsAppMessage } from "@app/model/convs-mgr/functions";
 

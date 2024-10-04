@@ -2,18 +2,20 @@ mat-card {
 	min-width: 200px;
 }
 
-input {
-	max-width: 100%;
-	margin: 5px 0;
-	border: none;
-	border-radius: 0.93rem;
-	background-color: var(--convs-mgr-color-primary-background);
-	resize: none;
-	padding: 10px;
-}
-
 form {
-	padding: 0.313rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+input {
+	box-sizing: border-box;
+	min-width: calc(100% - 20px) !important; 
+	padding: 10px;
+	border: none;
+	resize: none;
+  	outline: none;
+	border-radius: 0.6rem;
+	background-color: var(--convs-mgr-color-primary-background);
 }
 
 input:focus-visible {

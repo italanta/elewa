@@ -8,6 +8,7 @@ export interface Attempt {
    questionResponses: QuestionResponseMap;
    finishedOn?: number;
    outcome?: AssessmentStatusTypes; 
+   finalScorePercentage?: number;
   }
 
 export type QuestionResponseMap = { [key: string]: QuestionResponse };

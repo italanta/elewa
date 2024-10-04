@@ -5,7 +5,7 @@ import {createReadStream} from 'fs';
 import { tmpdir } from 'os';
 import * as mime from 'mime-types';
 import * as FormData from 'form-data';
-import moment from 'moment';
+import * as moment from 'moment';
 
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionHandler, RestResult, HttpsContext } from '@ngfi/functions';

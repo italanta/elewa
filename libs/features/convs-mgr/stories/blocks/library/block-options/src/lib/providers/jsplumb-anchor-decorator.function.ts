@@ -9,7 +9,7 @@ import { FlowchartConnector } from "@jsplumb/connector-flowchart";
  * @param jsPlumb - Active jsPlumb instance
  */
 
-export function _JsPlumbInputOptionDecorator(sourceElement: Element, jsPlumb: BrowserJsPlumbInstance): Element
+export function _JsPlumbAnchorDecorator(sourceElement: Element, jsPlumb: BrowserJsPlumbInstance): Element
 {
   // Clear all endpoints attached to the source element before reattaching an endpoint
   //  Without this, jsPlumb does not calculate the position of an endpoint properly after deleting
@@ -25,7 +25,7 @@ export function _JsPlumbInputOptionDecorator(sourceElement: Element, jsPlumb: Br
     cssClass:"block_endpoint",
     endpoint: 'Dot',
     // Where to position the anchor
-    anchor: [1, 0.5, 0, 0, 16, 0],
+    anchor: "Right",
     connector: {
       type: 'Flowchart',
       options: {

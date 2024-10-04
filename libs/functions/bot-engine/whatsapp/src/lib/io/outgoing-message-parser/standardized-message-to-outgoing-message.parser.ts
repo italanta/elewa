@@ -184,6 +184,8 @@ export class StandardMessageOutgoingMessageParser
       },
     } as WhatsAppDocumentMessage;
 
+    if(message.caption) documentMessage.document.caption = message.caption;
+
     /**
      * Add the required fields for the whatsapp api
      * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages

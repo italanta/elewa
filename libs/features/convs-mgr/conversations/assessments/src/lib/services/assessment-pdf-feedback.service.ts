@@ -6,7 +6,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { switchMap, from, of, Observable, last, mergeMap, map } from 'rxjs';
 
-import { AssessmentProgress } from '@app/model/convs-mgr/micro-app/assessments';
+import { AssessmentProgress, AssessmentStatusTypes } from '@app/model/convs-mgr/micro-app/assessments';
 import { AssessmentMicroApp, MicroAppStatus } from '@app/model/convs-mgr/micro-app/base';
 import { FrontendEnvironment } from '@app/elements/base/frontend-env';
 import { MicroAppManagementService } from '@app/state/convs-mgr/micro-app';
@@ -14,6 +14,8 @@ import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessmen
 
 import { FeedbackTemplateHTML } from '../utils/pdf/feedback-template';
 import { QuestionsToHTML } from '../utils/pdf/questions-to-html';
+import { PDFOutcomeMessage } from '../utils/pdf/score-outcome-text';
+import { getOutcomeClass } from '../utils/pdf/get-outcome-class';
 
 @Injectable({
   providedIn: 'root'
@@ -29,11 +31,16 @@ export class AssessmentFeedbackPDFService {
   /** Returns a list of users that have attempted the assessment */
   generateAndUploadPDF(progress: AssessmentProgress, questions: AssessmentQuestion[], app: MicroAppStatus) {
     const fileName = `${progress.title} - ${new Date().toLocaleString()}.pdf`;
+    const currentAttempt = progress.attempts[progress.attemptCount];
 
     const headerDetails = {
       assessmentTitle: progress.title || '',
       logoURL: app.config.orgLogoUrl || '',
-      learnerName: app.endUserName
+      learnerName: app.endUserName,
+      outcomeMessage: PDFOutcomeMessage(currentAttempt.outcome as AssessmentStatusTypes),
+      score: currentAttempt.finalScorePercentage,
+      highestScore: progress.highestScore,
+      outcomeClass: getOutcomeClass(currentAttempt.outcome as AssessmentStatusTypes)
     };
 
     const questionsHTML = QuestionsToHTML(questions, progress);
@@ -85,6 +92,7 @@ export class AssessmentFeedbackPDFService {
         format: 'A4',
         orientation: 'portrait',
       },
+      enableLinks: true
     };
 
     try {

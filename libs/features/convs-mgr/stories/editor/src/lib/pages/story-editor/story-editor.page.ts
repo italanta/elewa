@@ -191,7 +191,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     catch (e)
     {
       this.errors = e as StoryError[];
-      this.shownErrors = this.errors.length !== 0 ? this.errors.slice(0,2) : []
+
+      this.shownErrors = this.errors.length !== 0  && Array.isArray(this.errors) ? this.errors.slice(0,2) : []
       this.stateSaved = true;
     }
   }

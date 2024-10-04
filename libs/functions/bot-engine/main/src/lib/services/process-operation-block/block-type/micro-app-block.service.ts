@@ -62,7 +62,10 @@ export class MicroAppBlockService implements IProcessOperationBlock
       type: storyBlock.appType,
       channel: this._activeChannel.channel,
       orgId, pos: newPosition,
-      orgLogoUrl: logoUrl || ''
+      orgLogoUrl: logoUrl || '',
+      storyId: storyBlock.storyId,
+      moduleId: storyBlock.moduleId,
+      botId: storyBlock.botId
     } 
 
     // Register the app onto firestore

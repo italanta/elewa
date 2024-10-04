@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
+import { take } from 'rxjs';
+
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { TranslateService } from '@ngfi/multi-lang';
@@ -11,6 +13,8 @@ import { AssessmentMicroAppBlock } from '@app/model/convs-mgr/stories/blocks/mes
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 import { AssessmentStatusTypes } from '@app/model/convs-mgr/micro-app/assessments';
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
+import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
+import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 import { _JsPlumbComponentDecorator } from '../../providers/decorate-jsplumb.provider';
 
@@ -19,7 +23,7 @@ import { _JsPlumbComponentDecorator } from '../../providers/decorate-jsplumb.pro
   templateUrl: './assessment-micro-app-block.component.html',
   styleUrls: ['./assessment-micro-app-block.component.scss']
 })
-export class AssessmentMicroAppBlockComponent implements OnInit {
+export class AssessmentMicroAppBlockComponent implements OnInit, OnDestroy {
 
   @Input() id: string;
   @Input() block: AssessmentMicroAppBlock;
@@ -43,7 +47,9 @@ export class AssessmentMicroAppBlockComponent implements OnInit {
 
   constructor(private _assessmentService$: AssessmentService,
               private _fb: FormBuilder,
-              private _translate: TranslateService
+              private _translate: TranslateService,
+              private _activeStory: ActiveStoryStore,
+              private _botService: BotsStateService
   ) { }
 
   ngOnInit() {
@@ -54,6 +60,14 @@ export class AssessmentMicroAppBlockComponent implements OnInit {
     if(this.assessmentMicroAppForm) {
       this.selectedAssessmentId = this.assessmentMicroAppForm.value.appId;
     }
+
+    this._sBs.sink = this._activeStory.get().pipe(take(1)).subscribe((story)=> {
+      this.assessmentMicroAppForm.patchValue({
+        storyId: story.id,
+        moduleId: story.parentModule,
+        botId: story.parentBot || ""
+      });
+    })
   }
 
   /** Get all assessments */
@@ -126,4 +140,8 @@ export class AssessmentMicroAppBlockComponent implements OnInit {
     }
   }
   
+  ngOnDestroy(): void
+  {
+    this._sBs.unsubscribe();
+  }
 }

@@ -6,7 +6,7 @@ import { SubSink } from 'subsink';
 
 import { Assessment, AssessmentOptionValue, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { MicroAppProgress, MicroAppStatus, MicroAppTypes } from '@app/model/convs-mgr/micro-app/base';
-import { AssessmentProgress, AssessmentProgressUpdate, QuestionResponse, QuestionResponseMap } from '@app/model/convs-mgr/micro-app/assessments';
+import { AssessmentProgress, AssessmentProgressUpdate, AssessmentStatusTypes, QuestionResponse, QuestionResponseMap } from '@app/model/convs-mgr/micro-app/assessments';
 import { MicroAppManagementService } from '@app/state/convs-mgr/micro-app';
 import { AssessmentQuestionStore, AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
 
@@ -147,7 +147,9 @@ export class ContentSectionComponent implements OnInit, OnDestroy
     if (!this.assessmentFormArray.at(i).get('selectedOption')?.valid) return
     if(this.assessmentFormArray.at(i).get('selectedOption')?.valid){
       this.saveProgress(i)
-      this.stepService.nextStep();
+      setTimeout(() => {
+        this.stepService.nextStep();
+      }, 1000);
     }
   }
 
@@ -211,6 +213,9 @@ export class ContentSectionComponent implements OnInit, OnDestroy
         questionCount: this.totalSteps,
         moveOnCriteria: this.assessment.configs?.moveOnCriteria,
         title: this.assessment.title,
+        storyId: this.app.config.storyId,
+        moduleId: this.app.config.moduleId,
+        botId: this.app.config.botId,
       },
       endUserName: this.app.endUserName,
       hasSubmitted: isLastStep,
@@ -221,12 +226,13 @@ export class ContentSectionComponent implements OnInit, OnDestroy
   
    private subscribeToProgress (milestones: MicroAppProgress)
   {
-    this._microAppService.progressCallBack(this.app, milestones)?.subscribe((updatedProgress) => {
+    this._microAppService.progressCallBack(this.app, milestones)?.pipe(take(1)).subscribe((updatedProgress) => {
       if (updatedProgress) {
         this.assessmentProgress = updatedProgress.result as AssessmentProgress;
+        const currentAttempt = this.assessmentProgress.attempts[this.assessmentProgress.attemptCount];
 
         // Only change the view to results page if the whole assessment has been submitted
-        if(this.isSubmitting) {
+        if(this.isSubmitting && currentAttempt.outcome !== AssessmentStatusTypes.Incomplete) {
           this.isSubmitting = false;
           this.pageViewMode = AssessmentPageViewMode.ResultsMode;
         }

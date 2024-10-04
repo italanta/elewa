@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SubSink } from 'subsink';
 
 import { switchMap, take, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { combineLatest, of } from 'rxjs';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
@@ -16,6 +16,7 @@ import { ActiveOrgStore } from '@app/private/state/organisation/main';
 import { StoryStateService } from '@app/state/convs-mgr/stories';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
+import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 /** Service which can create new stories. */
 @Injectable({ providedIn: 'root' })
@@ -28,15 +29,22 @@ export class NewStoryService implements OnDestroy {
     private _blocksStore$$: StoryBlocksStore,
     private _router: Router,
     private _dialog: MatDialog,
-    private _botModulesServ$: BotModulesStateService
+    private _botModulesServ$: BotModulesStateService,
+    private _botService: BotsStateService
   ) {}
 
   /** Save story for the first time */
   saveStory(story: Story, parentModule: BotModule) {
-    return this._org$$.get().pipe(take(1), switchMap((org) => {
+    const bot$ = this._botService.getBotById(parentModule.parentBot);
+    const activeOrg$ = this._org$$.get();
+
+
+    return combineLatest([bot$, activeOrg$]).pipe(take(1), switchMap(([bot, org]) => {
       if (!org) return of(null);
-  
+      if (!bot) return of(null);
+      
       story.orgId = org.id as string;
+      story.parentBot = bot.id as string;
 
       return this._storyServ$.createStory(story).pipe(
         take(1),

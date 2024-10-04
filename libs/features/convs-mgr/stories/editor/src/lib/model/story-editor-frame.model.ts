@@ -4,7 +4,7 @@ import { BehaviorSubject, debounceTime, filter } from 'rxjs';
 import { ElementRef, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 
-import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+import { BrowserJsPlumbInstance, ConnectParams } from '@jsplumb/browser-ui';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
@@ -179,12 +179,12 @@ export class StoryEditorFrame
       //   SetConnectionOverlay(info.connection, conn.id);
 
       // });
-      this._jsPlumb.connect({
+      const jsPlumbConnectConfig = {
         id: conn.id,
         uuids: [conn.id, ''],
         source: sourceElement as Element,
         target: targetElement as Element,
-        anchors: ['Right', 'Left'],
+        anchors: [[1, 0.5, 0, 0, 16, 0], 'Left'],
         endpoints: ['Dot', 'Rectangle'],
         connector: {
           type: 'Flowchart',
@@ -193,7 +193,13 @@ export class StoryEditorFrame
             cornerRadius: 100
           },
         },
-      });
+      } as ConnectParams<Element>;
+
+      if(this._story.id == conn.sourceId) {
+        jsPlumbConnectConfig.anchors = ["Right", "Left"];
+      }
+
+      this._jsPlumb.connect(jsPlumbConnectConfig);
     }
 
     // this._jsPlumb.setSuspendDrawing(false); // End loading drawing

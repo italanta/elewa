@@ -16,6 +16,15 @@ export interface MicroAppBlock extends StoryBlock
   configs?: MicroAppConfig;
   /** Comprehensive micro-app data  */
   status?: MicroAppStatus;
+
+  /** The story the micro-app is linked in */
+  storyId?: string;
+
+  /** The module the micro-app is linked in */
+  moduleId?: string;
+
+  /** The bot the micro-app is linked in */
+  botId?: string;
 }
 
 export interface MicroAppConfig 

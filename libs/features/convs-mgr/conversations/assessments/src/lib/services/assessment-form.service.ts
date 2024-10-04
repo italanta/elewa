@@ -47,6 +47,7 @@ export class AssessmentFormService {
       marks: [question?.marks ?? ''],
       message: [question?.message ?? ''],
       mediaPath: [question?.mediaPath ?? ''],
+      mediaType: [question?.mediaType ?? ''],
       mediaAlign: [question?.mediaAlign ?? 'media_left'],
       options: question?.options ? this._prefillOptions(question?.options) : this._formBuilder.array([
         this.createDefaultChoice()
@@ -54,6 +55,7 @@ export class AssessmentFormService {
       selectedOption: [selectedOption ?? "", Validators.required], //tracking the selected option
       nextQuestionId: [question?.nextQuestionId ?? null],
       prevQuestionId: [question?.prevQuestionId ?? null],
+      isInBank: [question?.isInBank ?? false]
     });
   }
 

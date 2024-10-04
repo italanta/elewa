@@ -120,6 +120,7 @@ export interface ImageMessage extends FileMessage {}
 export interface DocumentMessage extends FileMessage 
 {
   documentName?      : string;
+  caption?           : string;
 }
 
 
