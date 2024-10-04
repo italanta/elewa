@@ -150,6 +150,7 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
     <span class="outcome">${headerDetails.outcomeMessage}</span>
     <span class="learner-name">${headerDetails.learnerName}</span>
     <div class="assessment-grade"> Grade Received: <span class="grade ${headerDetails.outcomeClass}">${headerDetails.score}%</span> </div>
+    <div class="assessment-grade"> Highest Score: <span class="grade">${headerDetails.highestScore}%</span> </div>
   </div>
 </div>
 

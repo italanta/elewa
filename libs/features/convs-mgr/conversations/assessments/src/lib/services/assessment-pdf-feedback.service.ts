@@ -39,6 +39,7 @@ export class AssessmentFeedbackPDFService {
       learnerName: app.endUserName,
       outcomeMessage: PDFOutcomeMessage(currentAttempt.outcome as AssessmentStatusTypes),
       score: currentAttempt.finalScorePercentage,
+      highestScore: progress.highestScore,
       outcomeClass: getOutcomeClass(currentAttempt.outcome as AssessmentStatusTypes)
     };
 
