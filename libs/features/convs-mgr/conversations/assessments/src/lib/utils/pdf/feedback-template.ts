@@ -87,6 +87,7 @@ export const FeedbackTemplateHTML = (headerDetails: any, questions: string) =>
     }
 
     .question-number {
+      text-align: left;
       font-weight: bold;
     }
 
