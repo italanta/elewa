@@ -1,5 +1,6 @@
 {
   "compileOnSave": false,
+  "noPropertyAccessFromIndexSignature": false,
   "compilerOptions": {
     "rootDir": ".",
     "sourceMap": true,
@@ -16,6 +17,7 @@
     "baseUrl": ".",
     "strictPropertyInitialization": false,
     "allowSyntheticDefaultImports": true,
+    "noPropertyAccessFromIndexSignature": false,
     "paths": {
       "@app/admin/config/environment-config": [
         "libs/admin/config/environment-config/src/index.ts"
@@ -251,6 +253,9 @@
       ],
       "@app/functions/bot-process-handler": [
         "libs/functions/bot-process-handler/src/index.ts"
+      ],
+      "@app/functions/bot-engine/interactive-voice-response": [
+        "libs/functions/bot-engine/interactive-voice-response/src/index.ts"
       ],
       "@app/functions/convs-mgr/bots": [
         "libs/functions/convs-mgr/bots/src/index.ts"
