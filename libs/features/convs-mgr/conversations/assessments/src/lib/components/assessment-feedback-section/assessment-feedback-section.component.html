@@ -74,8 +74,9 @@
                 <div class="radio-text">
                   <p *ngIf="question.get('selectedOption')?.value === option.id" class="feedback-text">
                     <span [ngClass]="{'red-text': option.accuracy !== 1, 'teal-text': option.accuracy === 1}">
-                      {{ option.accuracy === 1 ? 'Correct: ' : 'Wrong: ' }}
+                      {{ option.accuracy === 1 ? 'Correct ' : 'Wrong ' }}
                     </span>
+                    <span *ngIf="getOptionFeedback(question) ?? ''">:</span>
                     {{ getOptionFeedback(question) }}
                   </p>
                 </div>
