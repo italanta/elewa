@@ -725,7 +725,8 @@
       "DESC-HEADER": "Build a question bank with ease",
       "QUESTIONS": "Questions",
       "QUESTIONS-SEARCH": "Search questions",
-      "SORTING": "Date created(Newest)", 
+      "SORTING-NEWEST": "Date created(Newest)", 
+      "SORTING-OLDEST": "Date created(Oldest)", 
       "MODAL-TEXT": {
         "DELETE-QUESTION": "Delete Question",
         "WARNING-MESSAGE": "You are about to delete a question from the question bank. Are you sure you want to continue?",

@@ -60,7 +60,7 @@
         }
       }
     }
-    .sort-tab{
+    .sort-tabs{
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -69,6 +69,12 @@
       border-radius: 20px;
       background-color:var(--convs-mgr-color-text-white);
       cursor: pointer;
+
+      .sort-tab {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+      }
     }
   }
   .questions-number{

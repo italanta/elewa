@@ -22,13 +22,13 @@
   .__buttons{
     display: flex;
     justify-content: space-between;
-    padding: 0, 1rem;
     cursor: pointer;
     .bank__button{
-      padding: 1rem;
+      padding: 0.5rem;
       border-radius: 40px;
-      width: 30%;
+      width: 20%;
       font-size: large;
+      margin-top: 1.5rem;
     }
     .filled{
       color: var(--convs-mgr-color-text-white);
