@@ -144,6 +144,8 @@
     "dotenv",
     "@google-cloud/tasks",
     "@google-cloud/scheduler",
-    "@google/generative-ai"
+    "@google/generative-ai",
+    "microsoft-cognitiveservices-speech-sdk",
+    "@azure/storage-blob"
   ]
 }
