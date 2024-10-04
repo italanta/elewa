@@ -11,7 +11,7 @@ declare module 'html2pdf.js' {
     };
     jsPDF?: { unit: string; format: string; orientation: string };
     pagebreak?: {
-      mode: string[] | string;
+      mode?: string[] | string;
       before?: string | string[];
       after?: string | string[];
       avoid?: string | string[];
