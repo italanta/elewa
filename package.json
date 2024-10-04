@@ -146,6 +146,7 @@
     "@google-cloud/scheduler",
     "@google/generative-ai",
     "microsoft-cognitiveservices-speech-sdk",
-    "@azure/storage-blob"
+    "@azure/storage-blob",
+    "twilio"
   ]
 }
