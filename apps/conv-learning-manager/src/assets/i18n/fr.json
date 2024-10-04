@@ -395,6 +395,10 @@
         "WRONG": "Faux",
         "50-50": "50/50"
       }
+    },
+    "QUESTION-BANK":{
+      "SORTING-NEWEST": "Date de création (la plus récente)", 
+      "SORTING-OLDEST": "Date de création (la plus ancienne)" 
     }
   },
   "SURVEYS": {
