@@ -30,7 +30,7 @@ export class AssessmentResultBannerComponent implements OnInit
     this.score = Math.round((this.result.attempts[this.result.attemptCount].score / this.result.maxScore) * 100);
     this.finalScore = Math.round((this.result.finalScore / this.result.maxScore) * 100)
 
-    this.highScore = this.getHighestPercentageScore(this.result)
+    this.highScore = this.getHighestPercentageScore(this.result);
   }
   
   getHighestPercentageScore(assessmentProgress: AssessmentProgress){
@@ -38,7 +38,6 @@ export class AssessmentResultBannerComponent implements OnInit
       const attemptPercentage = Math.min(attempt.score / assessmentProgress.maxScore * 100, 100);
       return Math.max(highestPercentage, attemptPercentage);
     }, 0);
-  
     return Number(highestPercentage.toFixed(2));
   }
 
