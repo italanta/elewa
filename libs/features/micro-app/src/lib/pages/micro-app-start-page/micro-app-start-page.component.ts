@@ -46,8 +46,9 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
         this.appType = a.config.type
 
         // Redirect the user back to whatsapp if they have already completed the app
+        // Check if attempt is present
         if(this.app.status === MicroAppStatusTypes.Completed) {
-          this._router.navigate(['redirect', this.app.id]);
+          this._router.navigate(['redirect', this.app.id]); 
         }
         // TODO: If app state is already in completed here, what should we do?
        });

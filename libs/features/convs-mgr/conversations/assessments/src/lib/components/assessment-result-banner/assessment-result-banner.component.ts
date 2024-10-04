@@ -20,13 +20,13 @@ export class AssessmentResultBannerComponent implements OnInit
 
   /** Learner score on this attempt in percentage */
   score: number
-  /** Final score after all attempts in percentage */
-  finalScore: number
+  /** Highest score attained by user */
+  highScore: number;
 
   ngOnInit(): void 
   {
-    this.score = Math.round((this.result.attempts[this.result.attemptCount].score / this.result.maxScore) * 100);
-    this.finalScore = Math.round((this.result.finalScore / this.result.maxScore) * 100)
+    this.score = this.result.attempts[this.result.attemptCount].score;
+
+    this.highScore = this.result.highestScore as number;
   }
-  
 }
