@@ -12,6 +12,7 @@ import { MessageTypes } from "@app/model/convs-mgr/functions";
 import { mapResponses } from "../utils/assessment-responses-map.util";
 import { getQuestionScore } from "../utils/get-question-score.util";
 import { getTotalScore } from "../utils/get-total-score.util";
+import { getHighestPercentageScore } from "../utils/get-highest-score";
 
 export class AssessmentProgressService
 {
@@ -170,6 +171,12 @@ export class AssessmentProgressService
       const passMark = progress.moveOnCriteria ? progress.moveOnCriteria.passMark : undefined;
       currentAttempt.outcome = this._getOutcome(percentageScore, passMark);
       currentAttempt.finalScorePercentage = percentageScore;
+
+      if(progress.attemptCount === 1) {
+        progress.highestScore = currentAttempt.finalScorePercentage;
+      } else {
+        progress.highestScore = getHighestPercentageScore(progress.attempts);
+      }
     } else {
       currentAttempt.outcome = AssessmentStatusTypes.Incomplete;
     }
