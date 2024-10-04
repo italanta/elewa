@@ -6,6 +6,8 @@ import { SubSink } from 'subsink';
 
 import { MicroAppTypes, MicroApp, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
 import { MicroAppStore } from '@app/state/convs-mgr/micro-app';
+import { AssessmentConfiguration, RetryConfig } from '@app/model/convs-mgr/conversations/assessments';
+import { AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
 
 
 @Component({
@@ -27,11 +29,16 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
   config: MicroApp;
   /** Tracking initialization (loading) */
   isInitializing = true;
+  /** Assessment config object */
+  assessmentConfigs: AssessmentConfiguration;
+  /** Number of retries, if any */
+  remainingTries: number;
 
   private _sbS = new SubSink();
 
   constructor(private _microApp$$: MicroAppStore,
               private _router: Router,
+              private _assessmentStore$: AssessmentsStore,
   ) {}
 
   ngOnInit()
@@ -44,7 +51,7 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
         this.app = a;
         this.isInitializing = false;
         this.appType = a.config.type
-
+        this.getAssessmentConfig()
         // Redirect the user back to whatsapp if they have already completed the app
         // Check if attempt is present
         if(this.app.status === MicroAppStatusTypes.Completed) {
@@ -54,6 +61,19 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
        });
   }
 
+    getAssessmentConfig(){
+      this._assessmentStore$.getAssessmentByOrg(this.app.appId, this.app.config.orgId).subscribe((assessment) => {
+        this.assessmentConfigs = assessment.configs
+
+        const retryConfigs = this.assessmentConfigs.retryConfig as RetryConfig
+
+        if(retryConfigs.onCount){
+          this.remainingTries = retryConfigs.onCount
+        }else{
+          this.remainingTries = retryConfigs.onScore?.count as number;
+        }
+      })
+    }
   /** Unsubscribe from all subscriptions to prevent memory leaks */
   ngOnDestroy()
   {
