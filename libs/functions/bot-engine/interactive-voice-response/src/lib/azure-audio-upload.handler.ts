@@ -36,8 +36,8 @@ export class UploadAudioHandler extends FunctionHandler<any, void> {
     
     try {
       // Initialize Azure Blob Storage client
-      const azureStorageConnectionString = process.env.AZURE_STORAGE_CONNECTION_STRING; 
-      const containerName = process.env.AZURE_STORAGE_MEDIA_URL;
+      const azureStorageConnectionString = process.env['AZURE_STORAGE_CONNECTION_STRING']!; 
+      const containerName = process.env['AZURE_STORAGE_MEDIA_URL']!;
       
       const containerClient = new ContainerClient(azureStorageConnectionString, containerName);
 
