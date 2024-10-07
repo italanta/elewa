@@ -64,7 +64,7 @@ import { ProgressPieChartComponent } from './components/assessment-results-compo
 import { DistributionBarChartComponent } from './components/assessment-results-components/distribution-bar-chart/distribution-bar-chart.component';
 import { AssessmentUsersTableComponent } from './components/assessment-results-components/assessment-users-table/assessment-users-table.component';
 import { MediaUploadModalComponent } from './modals/media-upload-modal/media-upload.component';
-
+import { MicroAppsQuestionFormComponent } from './components/micro-apps-question-form.component';
 
 @NgModule({
   imports: [
@@ -83,7 +83,7 @@ import { MediaUploadModalComponent } from './modals/media-upload-modal/media-upl
     ItalBreadCrumbModule,
     ClmMicroAppLayoutModule,
     CustomComponentsModule,
-    ElementsLayoutModalsModule
+    ElementsLayoutModalsModule,
   ],
   declarations: [
     AssessmentsHomeComponent,
@@ -122,7 +122,8 @@ import { MediaUploadModalComponent } from './modals/media-upload-modal/media-upl
     CompletionTimeComponent,
     ProgressPieChartComponent,
     DistributionBarChartComponent,
-    AssessmentUsersTableComponent
+    AssessmentUsersTableComponent,
+    MicroAppsQuestionFormComponent,
   ],
 
   providers: [
@@ -133,10 +134,10 @@ import { MediaUploadModalComponent } from './modals/media-upload-modal/media-upl
     AssessmentQuestionBankStore,
   ],
   exports: [
-    ContentSectionComponent, 
+    ContentSectionComponent,
     AssessmentLandingPageComponent,
     AssessmentQuestionFormComponent,
-    AssessmentAnswersComponent
-          ],
+    AssessmentAnswersComponent,
+  ],
 })
 export class ConvsMgrAssessmentsModule {}
