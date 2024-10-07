@@ -1,31 +1,13 @@
   <!-- Stepper Form -->
   <div class="single-form" *ngIf="stepDataLoaded">
     <form [formGroup]="assessmentForm" class="single-question-fm">
-      <div formArrayName="questions" class="single-question-div">
-        <div *ngFor="let question of assessmentFormArray.controls; let i = index" [formGroupName]="i">
-          <mat-card class="question-card" *ngIf="i === currentStep">
-            <mat-card-header class="question-header">
-              {{ "ASSESSMENT-PAGE.QUESTION" | transloco }} {{i + 1}}
-            </mat-card-header>
-            <mat-card-content class="question-content">
-              <div *ngIf="question.get('mediaPath')?.value as mediaPath" class="media-div" [ngClass]="question.get('mediaAlign')?.value">
-                <img *ngIf="getMediaTypeForQuestion(mediaPath) === 'image'" class="uploaded-media" [src]="mediaPath" />
-                <video *ngIf="getMediaTypeForQuestion(mediaPath) === 'video'" class="uploaded-media" controls>
-                  <source [src]="mediaPath" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video> 
-              </div>
-              <p>{{ question.get('message')?.value }}</p> 
-              <p *ngIf="question.get('question')?.value">{{ question.get('question')?.value }}</p>
-              <mat-radio-group aria-label="Select an option" class="column-radios" formControlName="selectedOption">
-                <mat-radio-button *ngFor="let option of assessmentFormArray.at(i).get('options')?.value" [value]="option.id">{{ option.text }}</mat-radio-button>
-              </mat-radio-group>
-              <mat-error class="error-text"*ngIf="assessmentFormArray.at(i).get('selectedOption')?.invalid && (assessmentFormArray.at(i).get('selectedOption')?.dirty || assessmentFormArray.at(i).get('selectedOption')?.touched)">
-                {{ "ASSESSMENT-PAGE.NO-ANSWER-ERROR" | transloco }}
-              </mat-error>
-            </mat-card-content>
-          </mat-card>
-        </div>
+      <div *ngFor="let question of assessmentFormArray.controls; let i = index">
+        <app-micro-apps-question-form 
+          [question]="getQuestion(i)"
+          [i]="i"
+          [currentStep]="currentStep"
+          [stepView]="true">
+        </app-micro-apps-question-form>
       </div>
     </form>
   </div>

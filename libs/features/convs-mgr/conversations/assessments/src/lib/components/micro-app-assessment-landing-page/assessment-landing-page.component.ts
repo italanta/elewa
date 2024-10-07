@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment, AssessmentConfiguration, RetryConfig } from '@app/model/convs-mgr/conversations/assessments';
 import { MicroAppSectionTypes, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
 import { AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
 import { MicroAppStore } from '@app/state/convs-mgr/micro-app';
@@ -13,9 +13,17 @@ import { AppViewService } from '../../services/content-view-mode.service';
 })
 export class AssessmentLandingPageComponent implements OnInit
 {
-  @Input() app: MicroAppStatus
-  assessment: Assessment
-
+  @Input() app: MicroAppStatus;
+  assessment: Assessment;
+  /** Defining retry parameters */
+  retryState =  {
+    completedAndHasRetry: false,
+    completedAndNoRetry: false
+  }
+  assessmentConfigs: AssessmentConfiguration;
+  /** Number of retries, if any */
+  remainingTries: number;
+  statusTypes = MicroAppStatusTypes
   constructor( private _assessmentStore$: AssessmentsStore,
                private _microApp$$: MicroAppStore,
                private _router: Router,
@@ -24,8 +32,9 @@ export class AssessmentLandingPageComponent implements OnInit
 
   ngOnInit ()
   {
-    if(this.app)
-     this.getAssessment()
+    if(this.app){
+      this.getAssessment();
+    }
   }
 
   /** Fetch micro-app assessment and use config object to render either stepper form or all questions form
@@ -34,9 +43,28 @@ export class AssessmentLandingPageComponent implements OnInit
   getAssessment(){
     this._assessmentStore$.getAssessmentByOrg(this.app.appId, this.app.config.orgId).subscribe(_assessment => {
       this.assessment = _assessment
+      this.assessmentConfigs = this.assessment.configs
+
+      const retryConfigs = this.assessmentConfigs.retryConfig as RetryConfig
+
+      if(retryConfigs.onCount){
+        this.remainingTries = retryConfigs.onCount
+      }else{
+        this.remainingTries = retryConfigs.onScore?.count as number;
+      }
+      this.setRetryState();
     })
   }
   
+  setRetryState ()
+  {
+    if(this.app.status === MicroAppStatusTypes.Completed && this.remainingTries > 0){
+      this.retryState.completedAndHasRetry = true;
+    } else if (this.app.status === MicroAppStatusTypes.Completed && this.remainingTries === 0) {
+      this.retryState.completedAndNoRetry = true;
+    }
+  }
+
 
   /**
    * Function called when a user clicks the start button
@@ -54,5 +82,10 @@ export class AssessmentLandingPageComponent implements OnInit
                       };
     this._microApp$$.next(updatedApp);
     this._router.navigate(['main', this.app.id]);
+  }
+
+  backToPlatform()
+  {
+    this._router.navigate(['redirect', this.app.id]); 
   }
 }

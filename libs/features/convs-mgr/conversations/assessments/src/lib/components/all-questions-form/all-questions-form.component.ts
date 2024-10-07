@@ -17,4 +17,8 @@ export class AllQuestionsFormComponent{
   getMediaTypeForQuestion(mediaPath: string): 'image' | 'video' {
     return getMediaType(mediaPath) as 'image' | 'video';
   }
+
+  getQuestion(i: number): FormGroup {
+    return this.assessmentFormArray.at(i) as FormGroup;
+  }
 }

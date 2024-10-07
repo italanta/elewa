@@ -6,6 +6,8 @@ import { SubSink } from 'subsink';
 
 import { MicroAppTypes, MicroApp, MicroAppStatus, MicroAppStatusTypes } from '@app/model/convs-mgr/micro-app/base';
 import { MicroAppStore } from '@app/state/convs-mgr/micro-app';
+import { AssessmentConfiguration, RetryConfig } from '@app/model/convs-mgr/conversations/assessments';
+import { AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
 
 
 @Component({
@@ -27,11 +29,13 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
   config: MicroApp;
   /** Tracking initialization (loading) */
   isInitializing = true;
+  /** Assessment config object */
 
   private _sbS = new SubSink();
 
   constructor(private _microApp$$: MicroAppStore,
               private _router: Router,
+              private _assessmentStore$: AssessmentsStore,
   ) {}
 
   ngOnInit()
@@ -44,12 +48,6 @@ export class MicroAppStartPageComponent implements OnInit, OnDestroy
         this.app = a;
         this.isInitializing = false;
         this.appType = a.config.type
-
-        // Redirect the user back to whatsapp if they have already completed the app
-        if(this.app.status === MicroAppStatusTypes.Completed) {
-          this._router.navigate(['redirect', this.app.id]);
-        }
-        // TODO: If app state is already in completed here, what should we do?
        });
   }
 

@@ -1,4 +1,4 @@
-<div *ngIf="assessmentFormArray" >
+<div *ngIf="assessmentFormArray"  class="rendered-form">
   <div [ngSwitch]="stepperForm">
     <!-- Stepper Form Case -->
     <app-single-question-form *ngSwitchCase="true" [assessmentFormArray]="assessmentFormArray" [assessmentForm]="assessmentForm"></app-single-question-form>

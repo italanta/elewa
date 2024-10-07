@@ -1,13 +1,13 @@
 .app-header-wrapper{
   height: 10%;
+  width: 100vw;
   background-color: var(--convs-mgr-color-bright-teal);
   display: flex;
   justify-content: start;
   align-items: center;
-  padding-left: 10%;
 
   .logo{
-    padding-top: 5%;
+    padding-left: 10%;
     width: 15%;
     height: 40%;
     border: var(--convs-mgr-color-bright-teal);

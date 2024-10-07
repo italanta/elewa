@@ -33,8 +33,13 @@
         <div *ngIf="isGettingPDF" class="custom-spinner"></div>
         </button>
 
-        <button class="__retryAssessment" mat-raised-button  (click)="retryAssessment()" *ngIf="resultsMode.failedAndHasRetries || resultsMode.passedAndHasRetries"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-NOW-BUTTON" | transloco}}  </button>
-        <button class="__retryLater" mat-raised-button  (click)="backToApp()" *ngIf="resultsMode.failedAndHasRetries || resultsMode.passedAndHasRetries"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-LATER-BUTTON" | transloco}}  </button>
+        <button class="__retryAssessment" mat-raised-button  (click)="retryAssessment()" *ngIf="resultsMode.failedAndHasRetries || resultsMode.passedAndHasRetries">
+           {{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-NOW-BUTTON" | transloco}} 
+        </button>
+        <button class="__retryLater" mat-raised-button  (click)="backToApp()" *ngIf="resultsMode.failedAndHasRetries || resultsMode.passedAndHasRetries"> 
+          <span *ngIf="!isGettingPDF"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-LATER-BUTTON" | transloco}} </span>
+          <div *ngIf="isGettingPDF" class="custom-spinner"></div>
+        </button>
       </div> 
     </div>
    </div>
@@ -74,8 +79,9 @@
                 <div class="radio-text">
                   <p *ngIf="question.get('selectedOption')?.value === option.id" class="feedback-text">
                     <span [ngClass]="{'red-text': option.accuracy !== 1, 'teal-text': option.accuracy === 1}">
-                      {{ option.accuracy === 1 ? 'Correct: ' : 'Wrong: ' }}
+                      {{ option.accuracy === 1 ? 'Correct ' : 'Wrong ' }}
                     </span>
+                    <span *ngIf="getOptionFeedback(question) ?? ''">:</span>
                     {{ getOptionFeedback(question) }}
                   </p>
                 </div>

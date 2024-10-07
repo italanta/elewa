@@ -27,6 +27,10 @@
     }
 
     .btn-section{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.2rem;
       margin-top: 22%;
       cursor: pointer;
       .teal-btn{
@@ -39,12 +43,22 @@
         border-radius: 4px;
         color: var(--micro-apps-white-button-text);
         font-size: 1.1rem;
-    
+        
         &:disabled{
           background-color: gray;
           pointer-events: none;
-        }
+        } 
       }
+      .outline-btn{
+        cursor: pointer;
+        width: 200px;
+        height: 48px;
+        outline: none;
+        border: 1px solid var(--micro-apps-teal-primary);
+        border-radius: 4px;
+        color: var(--micro-apps-teal-primary);
+        font-size: 1.1rem;
+      } 
     }
     
   }
