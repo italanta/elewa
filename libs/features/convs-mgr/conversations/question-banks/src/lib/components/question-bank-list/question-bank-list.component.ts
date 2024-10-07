@@ -5,12 +5,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { SubSink } from 'subsink';
 
 import { orderBy as __orderBy } from 'lodash';
+import { BehaviorSubject } from 'rxjs';
 
 import { __DateFromStorage } from '@iote/time';
 
 import { AssessmentQuestion, QuestionFormMode } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
 
+import { ActionSortingOptions } from '../../utils/sorting-options.enum';
 import { AddQuestionToAssessmentComponent } from '../add-question-to-assessment/add-question-to-assessment.component';
 import { QuestionDisplayMode } from '@app/features/convs-mgr/conversations/assessments';
 
@@ -40,7 +42,9 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
   questionDisplayMode: QuestionDisplayMode;
   private _sBS = new SubSink ();
 
-  questionsSorted = false;
+  sorting$$ = new BehaviorSubject<ActionSortingOptions>(ActionSortingOptions.Newest);
+
+  sortQuestionsBy = 'newest';                  
 
   constructor(private questionStore: AssessmentQuestionBankStore,
               private _dialog: MatDialog,
@@ -48,10 +52,21 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
+    this.getQuestions();
+    
+    this._sBS.sink = this.sorting$$.subscribe(sort => {
+      this.filteredQuestions = __orderBy(this.questions, 
+        (d: any) => __DateFromStorage(d.createdOn).unix(), 
+        sort === ActionSortingOptions.Newest ? 'desc' : 'asc');
+    });
+  }
+
+  getQuestions() 
+  {
     this._sBS.sink = this.questionStore.get().subscribe(_res => {
       this.questions = _res;
       this.filteredQuestions = _res;
-    })
+    });
   }
 
   /** Sending form group to event */
@@ -119,12 +134,11 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
     }
   }
   /** Sort according to date added */
-  sortDates()
+  sortBy(event: Event)
   {
-    this.questionsSorted = !this.questionsSorted;
-    this.filteredQuestions = __orderBy(this.questions, 
-                                      (d: any) => __DateFromStorage(d.createdOn).unix(), 
-                                      this.questionsSorted ? 'desc' : 'asc')
+    const sortValue = (event.target as HTMLInputElement).value as ActionSortingOptions;
+    this.sortQuestionsBy = sortValue;
+    this.sorting$$.next(sortValue);
   }
 
   onQuestionActionCompleted() 
