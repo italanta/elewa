@@ -1,9 +1,8 @@
 .assessment-mode{
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: 10%;
 
   .progress-tracker{
     display: flex;
@@ -89,7 +88,7 @@ app-micro-apps-footer{
   bottom: 0;
 }
 
-@media (min-width: 375px) and (max-width: 768px){
+@media(max-width: 768px){
   .main-content{
     padding: 3rem 1rem;
     display: flex;

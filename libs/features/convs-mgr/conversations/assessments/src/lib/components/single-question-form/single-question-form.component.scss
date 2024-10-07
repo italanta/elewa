@@ -1,27 +1,8 @@
-.question-card{
-  width: 100%;
-  color: var(--micro-apps-cards-border);
-  background-color: var(--micro-apps-colour-white);
-
-  .question-header{
-    border-bottom: 1px solid var(--micro-apps-border-bottom);
-    padding-bottom: 8px;
-  }
-  .question-content{
-    padding-top: 8px;
-    width: 100%;
-    .column-radios{
-      display: flex;
-      flex-direction: column;
-    }
-  }
-}
 .single-form{
   padding-left: 2%;
-
-
+  width: 100%;
   .single-question-fm{
-    width: 97%;
+    width: 100%;
 
     .single-question-div{
       width: 100%;
@@ -29,48 +10,4 @@
       margin: none;
     }
   }
-}
-
-@media (min-width: 375px) and (max-width: 756px){
-  .single-form{
-    padding-left: 5%;
-  }  
-}
-.error-text{
-  color: red;
-  font-size: smaller;
-}
-
-// Changing the default style of mat-radio-button to match Goomza colours
-:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
-  border-color: var(--micro-apps-teal-primary);
-}
-:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-conßtrol:enabled+.mdc-radio__background .mdc-radio__inner-circle {
-  border-color: var(--micro-apps-teal-primary);
-}
-:host ::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle{
-  border-color: var(--micro-apps-teal-primary);
-}
-
-// ------------- Media Alignment ------------- //
-
-.media-div {
-  display: flex;
-  width: 90%;
-}
-
-.uploaded-media {
-  max-width: 70%;
-}
-
-.media_center {
-	justify-content: center;
-}
-
-.media_left {
-	justify-content: left;
-}
-
-.media_right {
-	justify-content: right;
 }
