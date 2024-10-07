@@ -18,9 +18,9 @@
           <p class="main-text">{{assessment.instructions}}</p>
 
           <p *ngIf="app.status === statusTypes.Completed"  class="main-text">
-            <span> You have </span> 
+            <span> {{"MICROAPPS-SCREENS.CONTENT-SECTION.RETRY-INTRO" | transloco}}</span> 
             <span>{{remainingTries}}</span>
-            <span> attempts remaining for this assessment. </span>
+            <span> {{"MICROAPPS-SCREENS.CONTENT-SECTION.RETRY-OUTRO" | transloco}} </span>
           </p>
       </div>
       <div class="btn-section">
