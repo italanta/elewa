@@ -25,7 +25,7 @@ export class AssessmentResultBannerComponent implements OnInit
 
   ngOnInit(): void 
   {
-    this.score = this.result.attempts[this.result.attemptCount].score;
+    this.score = this.result.attempts[this.result.attemptCount].finalScorePercentage as number;
 
     this.highScore = this.result.highestScore as number;
   }
