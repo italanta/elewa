@@ -1,6 +1,6 @@
 // ivrFunction.ts
 import { TwilioIncomingCallHandler } from "@app/functions/bot-engine/interactive-voice-response";
-import { RestRegistrar } from "@ngfi/functions";
+import { EndpointRegistrar, RestRegistrar } from "@ngfi/functions";
 import { ConvLearnFunction } from "apps/conv-lm-backend/src/conv-learn-func.class";
 
 const handler = new TwilioIncomingCallHandler();
@@ -10,7 +10,7 @@ const handler = new TwilioIncomingCallHandler();
  */
 export const twilioIncomingCall = new ConvLearnFunction(
     'twilioIncomingCall', 
-    new RestRegistrar(),  
+    new EndpointRegistrar(),  
     [], 
     handler
 ).build();
