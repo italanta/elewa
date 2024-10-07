@@ -34,7 +34,6 @@ export class AssessmentLandingPageComponent implements OnInit
   {
     if(this.app){
       this.getAssessment();
-      this.getAssessmentConfig();
     }
   }
 
@@ -44,12 +43,7 @@ export class AssessmentLandingPageComponent implements OnInit
   getAssessment(){
     this._assessmentStore$.getAssessmentByOrg(this.app.appId, this.app.config.orgId).subscribe(_assessment => {
       this.assessment = _assessment
-    })
-  }
-
-  getAssessmentConfig(){
-    this._assessmentStore$.getAssessmentByOrg(this.app.appId, this.app.config.orgId).subscribe((assessment) => {
-      this.assessmentConfigs = assessment.configs
+      this.assessmentConfigs = this.assessment.configs
 
       const retryConfigs = this.assessmentConfigs.retryConfig as RetryConfig
 
