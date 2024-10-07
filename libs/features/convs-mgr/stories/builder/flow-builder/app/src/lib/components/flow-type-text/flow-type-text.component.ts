@@ -3,11 +3,10 @@ import { FormGroup } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { debounceTime } from 'rxjs/operators';
 
-import { FlowPageLayoutElementTypesV31, FlowPageTextV31 } from '@app/model/convs-mgr/stories/flows';
+import { FlowControl, FlowControlType, FlowPageLayoutElementTypesV31, FlowPageTextV31 } from '@app/model/convs-mgr/stories/flows';
 import { WhatsappFlowsStore } from '@app/state/convs-mgr/wflows';
 import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 
-import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
 import { TextElementFormService } from '../../services/text-elements-form.service';
 import { EditableTextElement } from '../../models/fe-flow-text-element.model';
 
@@ -61,7 +60,7 @@ export class FlowTypeTextComponent implements OnInit {
 
     const textElement = this.textFormService.transformElement(formValue);
 
-    this.trackerService.updateValue(this.control.id, textElement).subscribe((_res) =>{
+    this.trackerService.updateValue(this.control.id, textElement).subscribe((_res: any) =>{
       console.log(_res)
     });
     

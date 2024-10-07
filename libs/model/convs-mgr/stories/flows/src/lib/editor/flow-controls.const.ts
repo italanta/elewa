@@ -1,50 +1,5 @@
-/** A single flow control */
-export interface FlowControl 
-{ 
-  /** Group to which the control belongs */
-  group: string;
-
-  /** Label/name of the control */
-  label: string;
-
-  /** Value of the control */
-  type: FlowControlType;
-  
-  /** Control icon */
-  icon: string;
-
-  /** Id */
-  id: string;
-
-  /** dropped */
-  dropped?: boolean
-
-  value?: any | InputsData
-}
-
-export enum FlowControlType
-{
-  Header = 'h1',
-  LightHeader = 'h2',
-  Text = 'text',
-  Caption = 'caption',
-  Image = 'image',
-  Link = 'link',
-  Footer = 'footer',
-  TextInput = 'textInput',
-  TextArea = 'textArea',
-  Select = 'select',
-  Radio = 'radio',
-  OptIn = 'checkbox',
-  Datepick = 'datepick'
-}
-
-export interface InputsData 
-{
-  name: string;
-  dataSource: any[];
-  label: string;
-}
+import { FlowControlType } from "./flow-control-type.enum";
+import { FlowControl } from "./flow-control.interface";
 
 
 /** List of all flow controls (wrapped into a function to avoid direct editing of the list) */

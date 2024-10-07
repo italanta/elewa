@@ -5,9 +5,7 @@ import { SubSink } from 'subsink';
 import { debounceTime } from 'rxjs';
 
 import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
-import { FlowDatePickerInput, FlowPageLayoutElementTypesV31, FlowTextAreaInput, FlowTextInput } from '@app/model/convs-mgr/stories/flows';
-
-import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
+import { FlowControl, FlowControlType, FlowDatePickerInput, FlowPageLayoutElementTypesV31, FlowTextAreaInput, FlowTextInput } from '@app/model/convs-mgr/stories/flows';
 
 @Component({
   selector: 'lib-flow-datepick-input',

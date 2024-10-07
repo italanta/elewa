@@ -1,7 +1,7 @@
 import { SubSink } from 'subsink';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FLOW_CONTROLS, FlowControl, GROUP_FLOW_CONTROL_GROUPS } from '../../providers/flow-controls.const';
+import { FlowControl, FLOW_CONTROLS } from '@app/model/convs-mgr/stories/flows';
 // import { FlowEditorStateProvider } from '@app/state/convs-mgr/wflows';
 
 @Component({

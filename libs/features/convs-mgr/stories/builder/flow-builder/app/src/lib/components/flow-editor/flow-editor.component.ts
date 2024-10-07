@@ -9,11 +9,10 @@ import { combineLatest, Observable, of } from 'rxjs';
 import { FlowBuilderStateFrame, FlowBuilderStateProvider, FlowBuilderStateService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 import { WFlowService } from '@app/state/convs-mgr/wflows';
 import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
+import { FlowControl, FlowPageLayoutElementV31 } from '@app/model/convs-mgr/stories/flows';
 
-import { FlowControl } from '../../providers/flow-controls.const';
 import { EditorComponentFactory } from '../../services/editor-component-factory.service';
 import { _GetFlowComponentForm } from '../../providers/flow-forms-build-factory.util';
-import { _MapToFlowControl } from '../../utils/map-to-flow-element.util';
 
 
 @Component({
@@ -28,47 +27,41 @@ export class FlowEditorComponent implements OnInit, OnDestroy
 
   @ViewChild('vcr', { static: true, read: ViewContainerRef })
   vcr!: ViewContainerRef;
-  flowBuilderState$$: FlowBuilderStateProvider;
-  state$$: Observable<FlowBuilderStateFrame>;
+  state: FlowBuilderStateFrame;
 
-  constructor( private _flowBuilderState: FlowBuilderStateService,
+  constructor( private _flowBuilderState: FlowBuilderStateProvider,
                private editorComponentFactory: EditorComponentFactory,
                private _fb: FormBuilder,
                private trackerService: ChangeTrackerService,
                private _wFlowService: WFlowService,
                private cdr: ChangeDetectorRef,
   ) { 
-    this.flowBuilderState$$ = this._flowBuilderState.get();
-    this.droppedElements = this.flowBuilderState$$.getControls();
+
+    this.droppedElements = this._flowBuilderState.getControls();
   }
 
   ngOnInit(): void {
-   this._sbS.sink = this.trackerService.change$.subscribe();
-   this.state$$  = this.flowBuilderState$$.get();
+    this._flowBuilderState.getElements().subscribe((elements)=> {
+      this.initEditor(elements);
+    })
 
-   this.initEditor();
+   this._sbS.sink = this.trackerService.change$.subscribe();
   }
 
-  async initEditor() {
+  initEditor(elements: FlowPageLayoutElementV31[]) {
+      const allElementsData = elements;
 
-   const activeScreen$ = this.flowBuilderState$$.activeScreen$;
-  //  const activeScreen$ = of(0);
-
-    this._sbS.sink = combineLatest([this.state$$, activeScreen$]).subscribe(([state, screen])=> {
-        const allElementsData = state.flow.flow.screens[screen].layout.children;
-
-        if(allElementsData && allElementsData.length > 0) {
-          
-          for(const elem of allElementsData) {
-            // Map elem to flow control
-            const flowControlElem = _MapToFlowControl(elem) as FlowControl;
-            // Build form
-            const elementForm  = _GetFlowComponentForm(this._fb, elem);
-            // use the flow control to load the component
-            this.createField(flowControlElem, elementForm);
-          }
+      if(allElementsData && allElementsData.length > 0) {
+        
+        for(const elem of allElementsData) {
+          // Map elem to flow control
+          const flowControlElem = _MapToFlowControl(elem) as FlowControl;
+          // Build form
+          const elementForm  = _GetFlowComponentForm(this._fb, elem);
+          // use the flow control to load the component
+          this.createField(flowControlElem, elementForm);
         }
-    })
+      }
   }
   
   /** Function handling drag and drop functionality for a component */
@@ -97,14 +90,13 @@ export class FlowEditorComponent implements OnInit, OnDestroy
         // }
 
         this.cdr.detectChanges();
-        this.flowBuilderState$$.setControls(draggedData); // Update the state provider
+        this._flowBuilderState.setControls(draggedData); // Update the state provider
     }
   }
 
   /** Opening an editable field when user clicks on a dropped element */
   createField(element: FlowControl, form?: FormGroup) {
     if (element.dropped) {
-
       const componentRef = this.editorComponentFactory.createEditorComponent(element, this.vcr);
           
       componentRef.instance.control = element;

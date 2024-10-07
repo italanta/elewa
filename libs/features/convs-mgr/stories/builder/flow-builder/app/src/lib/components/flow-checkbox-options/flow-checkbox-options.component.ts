@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
 import { OptionGroupFormService } from '../../services/input-options-group-form.service';
 
 import { FEFlowOptionGroup } from '../../models/fe-flow-option-element.model';
 import { buildV31CheckboxGroup } from '../../utils/build-checkbox-group.util';
 import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
+import { FlowControlType, FlowControl } from '@app/model/convs-mgr/stories/flows';
 import { SubSink } from 'subsink';
 
 @Component({

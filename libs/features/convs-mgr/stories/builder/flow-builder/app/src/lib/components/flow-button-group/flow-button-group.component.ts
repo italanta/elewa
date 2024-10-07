@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
+import { FlowControlType, FlowControl } from '@app/model/convs-mgr/stories/flows';
 
-import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
 import { OptionGroupFormService } from '../../services/input-options-group-form.service';
 import { __buildV31RadioGroup } from '../../utils/build-radio-options-group.util';
 import { FEFlowOptionGroup } from '../../models/fe-flow-option-element.model';
