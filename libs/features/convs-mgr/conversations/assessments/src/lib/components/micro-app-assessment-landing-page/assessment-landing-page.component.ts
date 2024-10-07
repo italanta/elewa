@@ -32,9 +32,10 @@ export class AssessmentLandingPageComponent implements OnInit
 
   ngOnInit ()
   {
-    if(this.app)
-     this.getAssessment();
-    this.getAssessmentConfig();
+    if(this.app){
+      this.getAssessment();
+      this.getAssessmentConfig();
+    }
   }
 
   /** Fetch micro-app assessment and use config object to render either stepper form or all questions form
@@ -57,6 +58,7 @@ export class AssessmentLandingPageComponent implements OnInit
       }else{
         this.remainingTries = retryConfigs.onScore?.count as number;
       }
+      this.setRetryState();
     })
   }
   
@@ -64,12 +66,11 @@ export class AssessmentLandingPageComponent implements OnInit
   {
     if(this.app.status === MicroAppStatusTypes.Completed && this.remainingTries > 0){
       this.retryState.completedAndHasRetry = true;
-    }else{
-      if(this.app.status === MicroAppStatusTypes.Completed && this.remainingTries === 0){
-        this.retryState.completedAndNoRetry = true
-      }
+    } else if (this.app.status === MicroAppStatusTypes.Completed && this.remainingTries === 0) {
+      this.retryState.completedAndNoRetry = true;
     }
   }
+
 
   /**
    * Function called when a user clicks the start button

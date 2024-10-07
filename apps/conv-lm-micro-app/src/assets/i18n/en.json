@@ -4,7 +4,9 @@
     "CONTENT-SECTION": {
       "INTRODUCTION-TAG": "Welcome to our assessment on",
       "DESCRIPTION-TEXT": "In this assessment, you'll navigate through questions designed to gauge your understanding of",
-      "CLOSING-TEXT": "Test your knowledge and gain valuable insights into managing your "
+      "CLOSING-TEXT": "Test your knowledge and gain valuable insights into managing your ",
+      "RETRY-INTRO": "You have ",
+      "RETRY-OUTRO": "attempt(s) remaining for this assessment."
     },
     "BUTTON-TEXT": "Start Assessment"
   },
@@ -39,6 +41,7 @@
         "RETAKE-TEXT": "Click Retry assignment button below to give it another go!"
       }
     },
-    "NO-ANSWER-ERROR" : " Answer the question before proceeding. Don't worry, you can still come back to it before submitting"
+    "NO-ANSWER-ERROR" : " Answer the question before proceeding. Don't worry, you can still come back to it before submitting",
+    "ASSESSMENT-COMPLETE": "It looks like you have no more trials remaining. Click the go back button below to be redirected to WhatsApp"
   }
 }

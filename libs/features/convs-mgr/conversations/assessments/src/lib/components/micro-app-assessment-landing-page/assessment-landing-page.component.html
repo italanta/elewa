@@ -15,18 +15,25 @@
         <div class="intro">
           <p class="main-text">{{assessment.description}}</p>
         </div>
+         <div class="text-paragraphs">
           <p class="main-text">{{assessment.instructions}}</p>
 
-          <p *ngIf="app.status === statusTypes.Completed"  class="main-text">
-            <span> {{"MICROAPPS-SCREENS.CONTENT-SECTION.RETRY-INTRO" | transloco}}</span> 
-            <span>{{remainingTries}}</span>
-            <span> {{"MICROAPPS-SCREENS.CONTENT-SECTION.RETRY-OUTRO" | transloco}} </span>
+          <p *ngIf="retryState.completedAndHasRetry"  class="main-text">
+            <span> {{ "MICROAPPS-SCREENS.CONTENT-SECTION.RETRY-INTRO" | transloco }}</span> 
+            <span> {{ remainingTries }}</span>
+            <span> {{ "MICROAPPS-SCREENS.CONTENT-SECTION.RETRY-OUTRO" | transloco }} </span>
           </p>
+
+          <p *ngIf="retryState.completedAndNoRetry"  class="main-text">
+            {{ "ASSESSMENT-PAGE.ASSESSMENT-COMPLETE" | transloco}}
+          </p>
+         </div>
       </div>
       <div class="btn-section">
-        <button class="teal-btn" [disabled]="!app" (click)="handleStart()">{{"MICROAPPS-SCREENS.BUTTON-TEXT" | transloco }}</button>
-        <button *ngIf="retryState.completedAndHasRetry" class="teal-btn" [disabled]="!app" (click)="backToPlatform()">{{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-LATER-BUTTON" | transloco}}</button>
-        <button *ngIf="retryState.completedAndNoRetry" class="teal-btn" [disabled]="!app" (click)="backToPlatform()"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-NOW-BUTTON" | transloco}} </button>
+        <button class="teal-btn" [disabled]="!app" *ngIf="app.status !== statusTypes.Completed" (click)="handleStart()">{{"MICROAPPS-SCREENS.BUTTON-TEXT" | transloco }}</button>
+        <button *ngIf="retryState.completedAndHasRetry" class="outline-btn" [disabled]="!app" (click)="backToPlatform()">{{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-LATER-BUTTON" | transloco}}</button>
+        <button *ngIf="retryState.completedAndHasRetry" class="teal-btn" [disabled]="!app" (click)="backToPlatform()"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-NOW-BUTTON" | transloco}} </button>
+        <button *ngIf="retryState.completedAndNoRetry" class="teal-btn" [disabled]="!app" (click)="backToPlatform()"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.WHATSAPP-BUTTON" | transloco}} </button>
       </div>
     </div>
   </div>
