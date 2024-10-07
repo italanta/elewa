@@ -64,7 +64,7 @@ import { ProgressPieChartComponent } from './components/assessment-results-compo
 import { DistributionBarChartComponent } from './components/assessment-results-components/distribution-bar-chart/distribution-bar-chart.component';
 import { AssessmentUsersTableComponent } from './components/assessment-results-components/assessment-users-table/assessment-users-table.component';
 import { MediaUploadModalComponent } from './modals/media-upload-modal/media-upload.component';
-import { MicroAppsQuestionFormComponent } from './components/micro-apps-question-form.component';
+import { MicroAppsQuestionFormComponent } from './components/micro-apps-question-card/micro-apps-question-form.component';
 
 @NgModule({
   imports: [
