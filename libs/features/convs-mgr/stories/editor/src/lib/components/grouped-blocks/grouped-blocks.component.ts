@@ -63,7 +63,9 @@ export class GroupedBlocksComponent implements OnInit, OnChanges, OnDestroy{
       this.filteredBlocks = this.groupedBlocks.filter(
         block =>
           block.type === StoryBlockTypes.TextMessage ||
-          block.type === StoryBlockTypes.QuestionBlock
+          block.type === StoryBlockTypes.QuestionBlock ||
+          block.type === StoryBlockTypes.List ||
+          block.type === StoryBlockTypes.JumpBlock
       );
     } else {
       // Show all blocks when IVR is not active
