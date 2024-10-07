@@ -1,5 +1,4 @@
-import { FlowPageLayoutElementTypesV31, FlowPageLayoutElementV31, FlowPageTextSizesV31 } from "@app/model/convs-mgr/stories/flows";
-import { FLOW_CONTROLS, FlowControlType } from "../providers/flow-controls.const";
+import { FLOW_CONTROLS, FlowControlType, FlowPageLayoutElementTypesV31, FlowPageLayoutElementV31 } from "@app/model/convs-mgr/stories/flows";
 
 export function _MapToFlowControl(element: FlowPageLayoutElementV31)
 {
