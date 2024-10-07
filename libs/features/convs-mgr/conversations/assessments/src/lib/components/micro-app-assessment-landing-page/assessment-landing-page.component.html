@@ -1,9 +1,9 @@
   <div class="main-content" *ngIf="assessment">
     <!-- Image Logo -->
     <div class="img-section">
-      <img src="/assets/icons/content-image.png"/>
+      <img *ngIf="app.status !== statusTypes.Completed" src="/assets/icons/content-image.png"/>
+      <img *ngIf="app.status === statusTypes.Completed" src="/assets/icons/assessment-failed-feedback-img.svg"/>
     </div>
-  
     <!-- Text Description -->
     <div class="text-section">
       <div class="p-text">
@@ -16,9 +16,17 @@
           <p class="main-text">{{assessment.description}}</p>
         </div>
           <p class="main-text">{{assessment.instructions}}</p>
+
+          <p *ngIf="app.status === statusTypes.Completed"  class="main-text">
+            <span> You have </span> 
+            <span>{{remainingTries}}</span>
+            <span> attempts remaining for this assessment. </span>
+          </p>
       </div>
       <div class="btn-section">
         <button class="teal-btn" [disabled]="!app" (click)="handleStart()">{{"MICROAPPS-SCREENS.BUTTON-TEXT" | transloco }}</button>
+        <button *ngIf="retryState.completedAndHasRetry" class="teal-btn" [disabled]="!app" (click)="backToPlatform()">{{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-LATER-BUTTON" | transloco}}</button>
+        <button *ngIf="retryState.completedAndNoRetry" class="teal-btn" [disabled]="!app" (click)="backToPlatform()"> {{"ASSESSMENT-PAGE.BUTTONS-TEXT.RETRY-NOW-BUTTON" | transloco}} </button>
       </div>
     </div>
   </div>

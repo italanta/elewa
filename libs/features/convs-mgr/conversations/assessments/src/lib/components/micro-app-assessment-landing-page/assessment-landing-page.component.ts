@@ -23,6 +23,7 @@ export class AssessmentLandingPageComponent implements OnInit
   assessmentConfigs: AssessmentConfiguration;
   /** Number of retries, if any */
   remainingTries: number;
+  statusTypes = MicroAppStatusTypes
   constructor( private _assessmentStore$: AssessmentsStore,
                private _microApp$$: MicroAppStore,
                private _router: Router,
@@ -34,13 +35,6 @@ export class AssessmentLandingPageComponent implements OnInit
     if(this.app)
      this.getAssessment();
     this.getAssessmentConfig();
-
-    // Redirect the user back to whatsapp if they have already completed the app
-        // Check if attempt is present
-        if(this.app.status === MicroAppStatusTypes.Completed) {
-          this._router.navigate(['redirect', this.app.id]); 
-        }
-        // TODO: If app state is already in completed here, what should we do?
   }
 
   /** Fetch micro-app assessment and use config object to render either stepper form or all questions form
@@ -93,5 +87,10 @@ export class AssessmentLandingPageComponent implements OnInit
                       };
     this._microApp$$.next(updatedApp);
     this._router.navigate(['main', this.app.id]);
+  }
+
+  backToPlatform()
+  {
+    this._router.navigate(['redirect', this.app.id]); 
   }
 }
