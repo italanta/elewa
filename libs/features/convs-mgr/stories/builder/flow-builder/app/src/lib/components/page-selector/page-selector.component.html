@@ -1,6 +1,6 @@
-<div class="page-selector" *ngIf="state$ | async as state">
+<div class="page-selector" *ngIf="screens">
   <div class="screen-list" >
-    <div class="span"*ngFor="let screen of state.flow.flow.screens; index as i" (click)="changeScreen(i)"> {{screen.title}} |</div>
+    <div class="span"*ngFor="let screen of screens; index as i" (click)="changeScreen(i)"> {{screen.title}} |</div>
     <div class="span" (click)="addScreen()"> +</div>
   </div>
 </div>
