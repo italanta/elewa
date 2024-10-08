@@ -29,15 +29,11 @@
           <input [(ngModel)]="searchTerm" (input)="searchQuestion()" [placeholder]="'ASSESSMENTS.QUESTION-BANK.QUESTIONS-SEARCH' | transloco" />
         </div>
 
-        <div class="sort-tabs" (click)="sortDates()">
-          <div *ngIf="questionsSorted" class="sort-tab">
-            <span>{{ "ASSESSMENTS.QUESTION-BANK.SORTING-NEWEST" | transloco }}</span>
-            <i class="fa-solid fa-chevron-down"></i>
-          </div>
-          <div *ngIf="!questionsSorted" class="sort-tab">
-            <span>{{ "ASSESSMENTS.QUESTION-BANK.SORTING-OLDEST" | transloco }}</span>
-            <i class="fa-solid fa-chevron-up"></i>
-          </div>
+        <div class="select">
+          <select [value]="sortQuestionsBy" (change)="sortBy($event)">
+            <option value="newest">{{ "ASSESSMENTS.QUESTION-BANK.SORTING-NEWEST" | transloco }}</option>
+            <option value="oldest">{{ "ASSESSMENTS.QUESTION-BANK.SORTING-OLDEST" | transloco }}</option>
+          </select>
         </div>
       </div>
     </div>
