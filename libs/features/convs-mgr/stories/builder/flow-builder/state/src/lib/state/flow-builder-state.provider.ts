@@ -1,12 +1,15 @@
 import { SubSink } from "subsink";
-import { BehaviorSubject, combineLatest, filter, map, Observable } from "rxjs";
+import { BehaviorSubject, combineLatest, filter, map, Observable, of, switchMap } from "rxjs";
 
 import { FlowBuilderStateFrame } from "../model/flow-builder-state-frame.interface";
 import { __StoryToFlowFrame, _CreateScreen } from "../model/story-to-flow-frame.function";
 
 import { WFlowService } from "@app/state/convs-mgr/wflows";
-import { FlowControl, FlowScreenV31 } from "@app/model/convs-mgr/stories/flows";
+import { FlowControl, FlowControlType, FlowPageLayoutElementV31, FlowScreenV31 } from "@app/model/convs-mgr/stories/flows";
+import { Injectable } from "@angular/core";
+import { _MapToFlowControl } from "../utils/map-to-flow-element.util";
 
+@Injectable()
 export class FlowBuilderStateProvider
 {
   private _sbS = new SubSink();
@@ -20,27 +23,33 @@ export class FlowBuilderStateProvider
 
   /** BehaviorSubject to track changes in control state */
   private _controls$$ = new BehaviorSubject<FlowControl[]>([]);
+  private _screens = new BehaviorSubject<FlowScreenV31[]>([]);
+  screens$ = this._screens.asObservable();
+
+  state: FlowBuilderStateFrame;
 
   private _state$$ = new BehaviorSubject<FlowBuilderStateFrame>(null as any);
+  private _state$: Observable<FlowBuilderStateFrame>;
 
   constructor(private _flow$$: WFlowService)
-  { this.init().subscribe(); }
+  { }
 
   /** 
    * Initialise a new flow builder state. 
    * This is done on loading of the flow page (ngOnInit).
    */
-  init()
+  get()
   {
     const flow$ = this._flow$$.get();
     const flowConfig$ = this._flow$$.getFlowConfig();
 
     return combineLatest([flow$, flowConfig$]).pipe(map(([story, flow]) =>
     {
-      this._activeInstance = __StoryToFlowFrame(story, flow);
-      this._state$$.next(this._activeInstance);
-      // debugger
-      return this._activeInstance;
+      this.state = __StoryToFlowFrame(story, flow);
+
+      this._state$$.next(this.state);
+      // this._elements.next(this.state.flow.flow.screens[screen].layout.children);
+      return this.state;
     }));
 
     // const story = await this._flow$$.get();
@@ -55,17 +64,33 @@ export class FlowBuilderStateProvider
     // return this._state$$.asObservable();
   }
 
+  getScreens() {
+    return this._state$.pipe(switchMap((state)=> {
+      this._screens.next(state.flow.flow.screens);
+
+      return this.screens$;
+    }))
+  }
+
+  getControls() {
+    return this.get().pipe(switchMap((state)=> {
+      const elements  = state.flow.flow.screens[0].layout.children;
+      const controls = elements.map((e)=>  _MapToFlowControl(e))
+      this._controls$$.next(controls);
+      return this._controls$$;
+    }))
+  }
+
   addScreen()
   {
-    const state = this._state$$.getValue();
     const currentScreen = this.activeScreen.getValue();
     const newScreenIndex = currentScreen + 1;
 
-    const newScreen = _CreateScreen(state.story.id as string, newScreenIndex + 1);
+    const newScreen = _CreateScreen(this.state.story.id as string, newScreenIndex + 1);
 
-    state.flow.flow.screens.push(newScreen);
+    this.state.flow.flow.screens.push(newScreen);
     // Update the state with the current screens
-    this._state$$.next(state);
+    // this._state$$.next(this.state);
 
     // Move the user to the new screen
     this.changeScreen(newScreenIndex);
@@ -78,18 +103,18 @@ export class FlowBuilderStateProvider
   /**
    * @returns The active instance, if set.
    */
-  get()
-  {
-    return this._state$$.pipe(filter(s => s != null));
-  }
+  // get()
+  // {
+  //   return this._state$$.asObservable().pipe(filter(s => s != null));
+  // }
 
   /**
   * Gets the BehaviorSubject for controls.
   */
-  getControls(): Observable<FlowControl[]>
-  {
-    return this._controls$$.asObservable();
-  }
+  // getControls(): Observable<FlowControl[]>
+  // {
+  //   return this._controls$$.asObservable();
+  // }
 
   /**
    * Updates the list of controls and notifies subscribers.

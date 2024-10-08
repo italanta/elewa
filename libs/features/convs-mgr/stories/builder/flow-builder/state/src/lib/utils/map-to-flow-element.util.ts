@@ -1,4 +1,4 @@
-import { FLOW_CONTROLS, FlowControlType, FlowPageLayoutElementTypesV31, FlowPageLayoutElementV31 } from "@app/model/convs-mgr/stories/flows";
+import { FLOW_CONTROLS, FlowControl, FlowControlType, FlowPageLayoutElementTypesV31, FlowPageLayoutElementV31 } from "@app/model/convs-mgr/stories/flows";
 
 export function _MapToFlowControl(element: FlowPageLayoutElementV31)
 {
@@ -17,5 +17,5 @@ export function _MapToFlowControl(element: FlowPageLayoutElementV31)
   });
 
   // Return the matched control, or return a default/fallback control if no match is found
-  return control || null;
+  return {...control, ...element} as FlowControl;
 }
