@@ -1,8 +1,10 @@
+import { FlowPageLayoutElementV31 } from "../library/v3.1/elements/flow-element.interface";
 import { FlowControlType } from "./flow-control-type.enum";
 import { InputsData } from "./inputs-data.interface";
 
 /** A single flow control */
-export interface FlowControl 
+// TODO: To extend the layout
+export interface FlowControl extends FlowPageLayoutElementV31
 { 
   /** Group to which the control belongs */
   group: string;
@@ -11,7 +13,7 @@ export interface FlowControl
   label: string;
 
   /** Value of the control */
-  type: FlowControlType;
+  controlType: FlowControlType;
   
   /** Control icon */
   icon: string;

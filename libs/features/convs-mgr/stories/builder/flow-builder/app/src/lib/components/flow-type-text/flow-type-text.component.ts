@@ -40,7 +40,7 @@ export class FlowTypeTextComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.inputId = `input-${this.control.type}`;
+    this.inputId = `input-${this.control.controlType}`;
     this.textInputForm = this.elementForm;
 
     // Subscribe to form value changes
@@ -54,7 +54,7 @@ export class FlowTypeTextComponent implements OnInit {
   buildV31Element(value: string) {
     const formValue = {
       text: value,
-      size: this.control.type,
+      size: this.control.controlType,
       type: FlowPageLayoutElementTypesV31.TEXT,
     } as EditableTextElement;
 

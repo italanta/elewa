@@ -19,7 +19,7 @@ export class EditorComponentFactory {
   createEditorComponent(flowControl: FlowControl, vcr: ViewContainerRef): any {
     let componentType: Type<any>;
 
-    switch (flowControl.type) {
+    switch (flowControl.controlType) {
         case FlowControlType.Header:
         case FlowControlType.LightHeader:
         case FlowControlType.Caption:
