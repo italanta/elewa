@@ -67,7 +67,7 @@ export class FlowButtonGroupComponent implements OnInit
       this.showConfigs = false;
       this.flowGroup = this.radioGroupForm.value;
       const metaRGroup = __buildV31RadioGroup(this.radioGroupForm.value);
-      this._trackerService.updateValue(this.control.id, metaRGroup)
+      this._trackerService.updateValue(metaRGroup)
       
     } else {
       console.log('Form is invalid');

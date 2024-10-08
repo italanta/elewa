@@ -51,7 +51,7 @@ export class TextAreaInputComponent implements OnInit
   /** Trigger autosave */
   private triggerAutosave(newValue: any): void 
   {
-    this.trackerService.updateValue(this.control.id, newValue);
+    this.trackerService.updateValue(newValue);
   }
 
   /**

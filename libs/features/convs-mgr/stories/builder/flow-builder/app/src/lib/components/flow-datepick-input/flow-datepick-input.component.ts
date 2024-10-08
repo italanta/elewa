@@ -64,7 +64,7 @@ export class FlowDatepickInputComponent implements OnInit
 
    /** Trigger autosave servie */
    private triggerAutosave(newValue: FlowDatePickerInput): void {
-    this.trackerService.updateValue(this.control.id, newValue);
+    this.trackerService.updateValue(newValue);
   }
 
 }

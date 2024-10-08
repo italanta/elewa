@@ -68,7 +68,7 @@ export class FlowCheckboxOptionsComponent implements OnInit, OnDestroy
       const metaRGroup = buildV31CheckboxGroup(this.checkboxGroupForm.value)
 
       this.showConfigs = false;
-      this._trackerService.updateValue(this.control.id, metaRGroup);
+      this._trackerService.updateValue(metaRGroup);
       
     } else {
       console.error('Form is invalid');
