@@ -1,69 +1,67 @@
 import { HandlerTools } from '@iote/cqrs';
-import { FunctionContext, FunctionHandler, RestResult } from '@ngfi/functions';
+import { FunctionContext, FunctionHandler, HttpsContext, RestResult } from '@ngfi/functions';
 import twilio from 'twilio';
 import { twiml } from 'twilio';
 
-export class TwilioIncomingCallHandler extends FunctionHandler<any, RestResult> {
+export class TwilioIncomingCallHandler extends FunctionHandler<any, any> {
   private twilioClient: twilio.Twilio;
 
-  constructor() {
-    super();
-    // Initialize Twilio client with credentials (for outbound requests)
-    // this.twilioClient = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-  }
-
-  public async execute(data: any, context: FunctionContext, tools: HandlerTools): Promise<RestResult> {
+  public async execute(data: any, context: HttpsContext, tools: HandlerTools): Promise<RestResult> {
     // Validate the incoming request is from Twilio
-    if (!this.validateRequest(data, context)) {
-      return {
-        status: 400,
-        message: 'Invalid Twilio signature'
-      };
-    }
-
-    return this.handleCall(data);
+    tools.Logger.debug(() => `Twilio handler hit with dat ${JSON.stringify(context.eventContext.request.query)}`);    
+    // if (!this.validateRequest(data, context)) {
+    //   return {
+    //     status: 400,
+    //     message: 'Invalid Twilio signature'
+    //   };
+    // }
+    return this.handleCall(data, tools, context);
   }
 
   private validateRequest(data: any, context: any): boolean {
     const twilioSignature = context.headers['x-twilio-signature'];
-    const url = context.url; // Assume FunctionContext provides the full URL of the request
+    const url = context.url; 
 
     return twilio.validateRequest(
-      process.env.TWILIO_AUTH_TOKEN!,
+      process.env['TWILIO_AUTH_TOKEN']!,
       twilioSignature,
-      url,
+      url, 
       data
     );
   }
 
-  async handleCall(req: any): Promise<RestResult> {
+  async handleCall(req: any, tools: HandlerTools, context: any): Promise<any> {
     const twimlResponse = new twiml.VoiceResponse();
-
+    tools.Logger.debug(() => `Twilio handler hit with dat ${JSON.stringify(req.body)}`);    
     // Check if there's user input
-    const digits = req.body?.Digits;
+    // const digits = req.body.Digits;
+    const digits = context.eventContext.request.query.digits;
 
     if (!digits) {
       // Initial greeting and options
       twimlResponse.say('Welcome to FarmBetter IVR! Please select your preferred voice option to continue:');
       twimlResponse.gather({
         numDigits: 1,
-        action: '/voice-selection', // This should be the URL of your function that handles the selection
+        action: '/voice-selection',
         method: 'POST'
       }).say('Press 1 for Male or Press 2 for Female.');
     } else {
       // Handle user input
       switch (digits) {
         case '1':
+            console.log('we are 1');
           twimlResponse.say({ voice: 'man' }, 'You have selected the male voice. How can I assist you today?');
           break;
         case '2':
           twimlResponse.say({ voice: 'woman' }, 'You have selected the female voice. How can I assist you today?');
           break;
         default:
+        console.log('we are default');
           twimlResponse.say('Invalid selection. Please try again.');
-          twimlResponse.redirect('/voice'); // Redirect to the initial greeting
+          twimlResponse.redirect('/voice');
       }
     }
+    console.log()
 
     // Create and return the RestResult
     const result: RestResult = {
@@ -74,6 +72,6 @@ export class TwilioIncomingCallHandler extends FunctionHandler<any, RestResult> 
       }
     };
 
-    return result;
+    return twimlResponse.toString();
   }
 }
