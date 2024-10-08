@@ -60,7 +60,7 @@ export class FlowTypeTextComponent implements OnInit {
 
     const textElement = this.textFormService.transformElement(formValue);
 
-    this.trackerService.updateValue(this.control.id, textElement).subscribe((_res: any) =>{
+    this.trackerService.updateValue(textElement).subscribe((_res: any) =>{
       console.log(_res)
     });
     
