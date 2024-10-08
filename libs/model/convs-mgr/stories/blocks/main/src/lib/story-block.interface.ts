@@ -49,4 +49,9 @@ export interface StoryBlock extends IObject
 
   /** Can the block be used in  an interactive voice response (IVR). These are the blocks that can be provided as feedback in an IVR */
   isInteractiveVoiceResponseBlock? :boolean;
+    
+  /**
+   * If a block is in a story of type IVR the audio will be processed and uploaded as a link to an azure blob. 
+   */
+  azureTtsAudioUrl?: string
 }

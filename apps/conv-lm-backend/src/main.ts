@@ -55,3 +55,8 @@ export * from './app/micro-apps/base/complete-micro-app.function'
 // Assessment Micro App
 export * from './app/micro-apps/assessments/get-assessment-results.function'
 export * from './app/micro-apps/assessments/get-assessment-users.function'
+
+// Ivr functions
+export * from './app/bot/ivr/azure-file-upload.function';
+export * from './app/bot/ivr/azure-tts.function';
+export * from './app/bot/ivr/twilio-handle-incoming-calls.function';

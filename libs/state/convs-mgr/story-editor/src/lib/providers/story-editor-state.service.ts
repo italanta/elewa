@@ -16,6 +16,7 @@ import { StoryConnectionsStore } from '@app/state/convs-mgr/stories/block-connec
 import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { StoryEditorState } from '../model/story-editor-state.model';
+import { IvrService } from 'ivr';
 
 /** 
  * Service responsible for persisting the state of stories from the editor.
@@ -37,6 +38,7 @@ export class StoryEditorStateService
     private _story$$: ActiveStoryStore,
     private _blocks$$: StoryBlocksStore,
     private _connections$$: StoryConnectionsStore,
+    private ivrService: IvrService,
     // private _blockConnectionsService: BlockConnectionsService,
     private _logger: Logger) 
   { }
@@ -102,11 +104,13 @@ export class StoryEditorStateService
     const blockActions$ = this._determineBlockActions(state.blocks);
     const connectionActions$ = this._determineConnectionActions(state.connections);
 
+
     const actions$ = blockActions$.concat(connectionActions$ as Observable<any>[]) as Observable<StoryBlock | StoryBlockConnection>[];
 
     // Persist the story and all the blocks
     return combineLatest(actions$)
       .pipe(tap(() => this._setLastLoadedState(state)),
+            tap(() => this.ivrService.save(state)),
             tap(() => this._isSaving = false),
             catchError(err => {
               this._logger.log(() => `Error saving story editor state, ${err}`);
@@ -127,7 +131,7 @@ export class StoryEditorStateService
    * @param blocks - The new blocks
    * @returns A list of database actions to take.
    */
-  private _determineBlockActions(blocks: StoryBlock[]) 
+  private _determineBlockActions(blocks: StoryBlock[], story?: StoryBlock) 
   {
     const oldBlocks = (this._lastLoadedState as StoryEditorState).blocks;
 
