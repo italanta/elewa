@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, switchMap } from 'rxjs';
+import { BehaviorSubject, switchMap, take } from 'rxjs';
 // import { FlowBuilderStateFrame, FlowBuilderStateProvider } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 import { WFlow, FlowJSONV31, FlowScreenV31, FlowPageLayoutElementV31 } from '@app/model/convs-mgr/stories/flows';
 import { WFlowService } from '@app/state/convs-mgr/wflows';
@@ -35,7 +35,7 @@ export class ChangeTrackerService {
   updateValue(newValue: FlowPageLayoutElementV31) {
       // Build and post the updated flow with all screens and controls
       
-      return this.flowBuilderState$$.get().pipe(switchMap((state) => {
+      return this.flowBuilderState$$.get().pipe(take(1),switchMap((state) => {
 
         const wflow = this._generateFlow(state, newValue);
 
