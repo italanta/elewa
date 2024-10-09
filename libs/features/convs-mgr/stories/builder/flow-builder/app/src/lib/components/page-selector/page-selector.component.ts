@@ -1,23 +1,26 @@
-import { SubSink } from 'subsink';
+import { Component } from '@angular/core';
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { FlowBuilderStateFrame, FlowBuilderStateProvider } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
 
 @Component({
   selector: 'app-flow-page-selector',
   templateUrl: './page-selector.component.html',
   styleUrls: ['./page-selector.component.scss']
 })
-export class FlowPageSelectorComponent implements OnInit, OnDestroy 
+export class FlowPageSelectorComponent
 {
-  private _sbS = new SubSink();
+  screens = [{title: "SCREEN 1"}];
+  state$: Observable<FlowBuilderStateFrame>;
 
-  constructor() 
+  constructor(private _flowBuilderState: FlowBuilderStateProvider) 
   { }
 
-  ngOnInit(): void { }
-
-
-  ngOnDestroy(): void {
-      
+  changeScreen(i: number) {
+    this._flowBuilderState.changeScreen(i);
+  }
+  addScreen() {
+    this._flowBuilderState.addScreen();
   }
 }

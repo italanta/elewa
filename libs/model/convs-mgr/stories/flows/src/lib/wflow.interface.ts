@@ -19,6 +19,10 @@ export interface WFlow extends IObject
   /** ID of source Flow to clone. You must have permission to access the specified Flow. */
   clone_flow_id?: string;
 
+  /** Flow name */
+  name?: string;
+
+  endpoint_uri?: string;
   /**
    * List of issues meta noticed with the flow. They need to be solved before
    *  flow can be published.
@@ -34,4 +38,5 @@ export interface WFlow extends IObject
     /** Date time the flow will become deprecated. (ISO date string e.g. "2023-05-21T11:18:09+0000") */
     expires_at: string;
   }
+  timestamp: number
 }
