@@ -1,15 +1,17 @@
 .page-selector {
-  background: #F6F6F6;
   color: #101010;
-
-  padding: 10px;
-
-  border: 1px solid #101010;
-  border-top-left-radius: 5px;
 }
 
 .screen-list {
   display: flex;
   gap: 0.6rem;
   cursor: pointer;
+  
+  .screen-title {
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    background-color: var(--convs-mgr-color-F6F6F6);
+    color: var(--convs-mgr-color-bright-teal);
+    border: 1px solid var(--convs-mgr-color-bright-teal);
+  }
 }
