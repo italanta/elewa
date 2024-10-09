@@ -12,6 +12,9 @@
   }
   
   .screen-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     background-color: var(--convs-mgr-color-F6F6F6);
     color: var(--convs-mgr-color-bright-teal);
     border: 1px solid var(--convs-mgr-color-bright-teal);
