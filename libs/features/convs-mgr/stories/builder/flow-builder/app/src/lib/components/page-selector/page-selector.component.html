@@ -1,8 +1,8 @@
 <div class="page-selector" *ngIf="state$ | async as state">
   <div class="screen-list" >
-    <div class="screen-title"*ngFor="let screen of state.flow.flow.screens; index as i" (click)="changeScreen(i)"> 
+    <div class="span screen-title"*ngFor="let screen of state.flow.flow.screens; index as i" (click)="changeScreen(i)"> 
       {{screen.title}} 
     </div>
-    <div class="span" (click)="addScreen()"> +</div>
+    <div class="span add-screen" (click)="addScreen()">+ {{"WHATSAPP-FLOWS.ADD-SCREEN" | transloco}}</div>
   </div>
 </div>
