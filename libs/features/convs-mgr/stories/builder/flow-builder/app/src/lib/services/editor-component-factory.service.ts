@@ -1,6 +1,7 @@
 import { Injectable, Type, ViewContainerRef } from '@angular/core';
 
-import { FlowControl, FlowControlType } from "../providers/flow-controls.const";
+import { FlowControl, FlowControlType } from '@app/model/convs-mgr/stories/flows';
+
 import { FlowTypeTextComponent } from '../components/flow-type-text/flow-type-text.component';
 import { FlowTypeInputComponent } from '../components/flow-type-input/flow-type-input.component';
 import { FlowDatepickInputComponent } from '../components/flow-datepick-input/flow-datepick-input.component';
@@ -18,7 +19,7 @@ export class EditorComponentFactory {
   createEditorComponent(flowControl: FlowControl, vcr: ViewContainerRef): any {
     let componentType: Type<any>;
 
-    switch (flowControl.type) {
+    switch (flowControl.controlType) {
         case FlowControlType.Header:
         case FlowControlType.LightHeader:
         case FlowControlType.Caption:

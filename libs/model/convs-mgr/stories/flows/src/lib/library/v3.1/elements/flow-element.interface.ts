@@ -9,7 +9,7 @@
 export interface FlowPageLayoutElementV31 
 { 
   /** Type of the layout element */
-  type: FlowPageLayoutElementTypesV31;
+  type?: FlowPageLayoutElementTypesV31;
 
 }
 

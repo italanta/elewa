@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-import { FlowBuilderStateService } from './lib/services/flow-builder-state-service';
+import { FlowBuilderStateProvider } from './lib/state/flow-builder-state.provider';
 
 @NgModule({
   imports: [
     CommonModule, MultiLangModule
   ],
   providers: [
-    FlowBuilderStateService
+    FlowBuilderStateProvider
   ],
 })
 export class FlowBuilderStateModule { }

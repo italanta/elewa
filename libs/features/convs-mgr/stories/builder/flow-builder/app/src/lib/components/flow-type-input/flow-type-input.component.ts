@@ -5,9 +5,7 @@ import { SubSink } from 'subsink';
 import { Subject } from 'rxjs';
 
 import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
-import { FlowTextInput } from '@app/model/convs-mgr/stories/flows';
-
-import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
+import { FlowControl, FlowControlType, FlowTextInput } from '@app/model/convs-mgr/stories/flows';
 
 
 @Component({
@@ -63,6 +61,6 @@ export class FlowTypeInputComponent implements OnInit
 
   /** Trigger autosave */
   private triggerAutosave(newValue: any): void {
-    this.trackerService.updateValue(this.control.id, newValue);
+    this.trackerService.updateValue(newValue);
   }
 }

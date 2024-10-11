@@ -1,10 +1,11 @@
 import {
+  FlowControl,
+  FlowControlType,
   FlowPageLayoutElementTypesV31,
   FlowPageLayoutElementV31,
   FlowPageTextSizesV31,
   FlowPageTextV31,
 } from '@app/model/convs-mgr/stories/flows';
-import { FlowControl, FlowControlType } from '../providers/flow-controls.const';
 
 export class BuildMetaElement {
   /** Define text sizes for text controls */
@@ -24,7 +25,7 @@ export class BuildMetaElement {
   }
 
   convertToMetaElement(control: FlowControl) {
-    switch (control.type) {
+    switch (control.controlType) {
       case FlowControlType.Header:
       case FlowControlType.LightHeader:
       case FlowControlType.Text:

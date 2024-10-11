@@ -225,6 +225,15 @@
       "INFO-TEXT1":"Pour créer une nouvelle chaîne, accédez aux paramètres d'administration, puis continuez",
       "INFO-TEXT2":"aux informations sur l'entreprise, puis sélectionnez l'option Ajouter une chaîne"
     },
+    "CREATE-SUBSTORY": {
+      "NAME-TITLE": "Titre du module *",
+      "NAME-PLACEHOLDER": "Titre du module",
+      "DESC-TITLE": "Descriptif des modules",
+      "DESC-PLACEHOLDER": "Descriptif des modules",
+      "MODULE-TYPE": "Type de module *",
+      "CONFIRM": "Confirmer",
+      "CANCEL": "Annuler"
+    },
     "CONNECT-BOT-TO-CHANNEL":"Connecter le bot au canal",
     "PUBLISH-BOT":"Publier le robot",
     "ARCHIVE-BOT":"Bot d’archives",

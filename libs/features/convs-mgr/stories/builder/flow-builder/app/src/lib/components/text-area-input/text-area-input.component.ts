@@ -5,9 +5,7 @@ import { SubSink } from 'subsink';
 import { debounceTime } from 'rxjs';
 
 import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
-import { FlowTextAreaInput } from '@app/model/convs-mgr/stories/flows';
-
-import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
+import { FlowControl, FlowControlType, FlowTextAreaInput } from '@app/model/convs-mgr/stories/flows';
 
 @Component({
   selector: 'lib-text-area-input',
@@ -53,7 +51,7 @@ export class TextAreaInputComponent implements OnInit
   /** Trigger autosave */
   private triggerAutosave(newValue: any): void 
   {
-    this.trackerService.updateValue(this.control.id, newValue);
+    this.trackerService.updateValue(newValue);
   }
 
   /**

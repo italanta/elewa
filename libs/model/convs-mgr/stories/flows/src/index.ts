@@ -33,3 +33,5 @@ export * from './lib/library/v3.1/flow-json.interface';
 export * from './lib/editor/flow-control.interface';
 export * from './lib/editor/flow-control-type.enum';
 export * from './lib/editor/inputs-data.interface';
+export * from './lib/editor/inputs-data.interface';
+export * from './lib/editor/flow-controls.const';

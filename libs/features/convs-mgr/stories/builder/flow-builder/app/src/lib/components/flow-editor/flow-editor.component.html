@@ -10,7 +10,7 @@
 
         <!-- Target for custom elements-->
         <div id="flow-container-drop" 
-          *ngIf="droppedElements | async as droppedItems"
+          *ngIf="droppedElements$ | async as droppedItems"
           cdkDropList 
           [cdkDropListData]="droppedItems" 
           [cdkDropListConnectedTo]="['libraryDropList']" 

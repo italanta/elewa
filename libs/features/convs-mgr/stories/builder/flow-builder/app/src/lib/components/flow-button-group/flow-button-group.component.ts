@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
+import { FlowControlType, FlowControl } from '@app/model/convs-mgr/stories/flows';
 
-import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
 import { OptionGroupFormService } from '../../services/input-options-group-form.service';
 import { __buildV31RadioGroup } from '../../utils/build-radio-options-group.util';
 import { FEFlowOptionGroup } from '../../models/fe-flow-option-element.model';
@@ -67,7 +67,7 @@ export class FlowButtonGroupComponent implements OnInit
       this.showConfigs = false;
       this.flowGroup = this.radioGroupForm.value;
       const metaRGroup = __buildV31RadioGroup(this.radioGroupForm.value);
-      this._trackerService.updateValue(this.control.id, metaRGroup)
+      this._trackerService.updateValue(metaRGroup)
       
     } else {
       console.log('Form is invalid');

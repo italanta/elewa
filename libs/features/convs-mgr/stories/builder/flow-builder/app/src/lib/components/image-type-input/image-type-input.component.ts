@@ -3,11 +3,11 @@ import { FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
-import { FlowControl, FlowControlType } from '../../providers/flow-controls.const';
+
 import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/flow-builder/state';
-import { ImageInputFormService } from '../../utils/build-image-input-form.service';
-import { FlowImage } from '@app/model/convs-mgr/stories/flows';
+import { FlowControl, FlowControlType, FlowImage } from '@app/model/convs-mgr/stories/flows';
 import { FileStorageService } from '@app/state/file';
+import { ImageInputFormService } from '../../utils/build-image-input-form.service';
 
 @Component({
   selector: 'lib-image-type-input',
@@ -133,6 +133,6 @@ export class ImageTypeInputComponent implements OnInit
 
   /** Trigger autosave */
   private triggerAutosave(newValue: any): void {
-    this.trackerService.updateValue(this.control.id, newValue);
+    this.trackerService.updateValue(newValue);
   }
 }
