@@ -16,8 +16,10 @@
   
         <mat-form-field appearance="outline">
           <mat-select formControlName="type" [value]="selectedType">
-            <ng-container *ngFor="let module of selectableChildTypes">
-              <mat-option [value]="module.value">{{ module.label }}</mat-option>
+            <ng-container>
+              @for (module of selectableChildTypes; track module) {
+                <mat-option [value]="module.value">{{ module.label }}</mat-option>
+              }
             </ng-container>
           </mat-select>
         </mat-form-field>
