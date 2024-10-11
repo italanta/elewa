@@ -7,10 +7,18 @@
   padding: 0 10px;
 }
 
+h3 {
+  font-weight: 400;
+}
+
 .icon-button {
-  color: #660066;
-  background-color: #ffffff;
-  margin-right: 10px;
+  background-color: var(--convs-mgr-color-success-contrast);
+}
+
+.label {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
 }
 
 .field-row {
@@ -18,7 +26,7 @@
 }
 
 .detail {
-  border: 1px solid #000;
+  border: 1px solid var(--convs-mgr-color-primary-black);
   border-radius: 5px;
   padding: 16px 5px;
   font-size: 14px;
@@ -28,7 +36,31 @@ mat-select{
   width: 100%;
 }
 
+.create-modal-btns {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+}
+
+.create-modal-cancel {
+  color: var(--convs-mgr-color-bright-teal);
+  border: 1px solid var(--convs-mgr-color-bright-teal);
+}
+
+button {
+  width: 7rem;
+  border-radius: 1.25rem;;
+}
+
 .add-btn {
-  color: white;
-  width: 250px;
+  color: var(--convs-mgr-color-text-white);
+}
+
+:host ::ng-deep .mdc-text-field--outlined {
+  --mdc-outlined-text-field-container-shape: 0.9rem;
+}
+
+:host ::ng-deep .mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input, .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control{
+  font-weight: 300;
+  font-size: 1rem;
 }
