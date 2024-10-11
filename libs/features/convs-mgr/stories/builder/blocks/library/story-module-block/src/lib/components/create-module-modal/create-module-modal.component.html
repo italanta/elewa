@@ -11,7 +11,20 @@
   <div class="section-body" fxLayout="column">
     <form [formGroup]="_form">
 
-
+      <div fxLayout="column" fxLayoutAlign="start">
+        <h4 class="label">{{ 'BOTS.CREATE-SUBSTORY.MODULE-TYPE' | transloco }}</h4>
+  
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="type" [value]="selectedType">
+            <ng-container>
+              @for (module of selectableChildTypes; track module) {
+                <mat-option [value]="module.value">{{ module.label }}</mat-option>
+              }
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
       <div fxLayout="column" fxLayoutAlign="start">
         <h4 class="label">
           {{ 'BOTS.CREATE-SUBSTORY.NAME-TITLE' | transloco }}
@@ -21,6 +34,10 @@
           <input type="text" matInput formControlName="name"
             [placeholder]="'BOTS.CREATE-SUBSTORY.NAME-PLACEHOLDER' | transloco" />
         </mat-form-field>
+
+        <h4 class="label">
+          {{ 'BOTS.CREATE-SUBSTORY.DESC-TITLE' | transloco }}
+        </h4>
       
         <mat-form-field appearance="outline">
           <textarea matInput formControlName="description" [placeholder]="'BOTS.CREATE-SUBSTORY.DESC-PLACEHOLDER' | transloco">
@@ -28,24 +45,18 @@
         </mat-form-field>
       </div>
 
-      <div fxLayout="column" fxLayoutAlign="start">
-        <h4 class="label">{{ 'LESSONS.CREATE-MODAL.FIELDS.MODULE' | transloco }}</h4>
-  
-        <mat-form-field appearance="outline">
-          <mat-select formControlName="type" [value]="selectedType">
-            <ng-container *ngFor="let module of selectableChildTypes">
-              <mat-option [value]="module.value">{{ module.label }}</mat-option>
-            </ng-container>
-          </mat-select>
-        </mat-form-field>
-      </div>
-  
-      <div fxLayout="row" fxLayoutAlign="end">
-        <button [disabled]="_form.invalid || isSaving" mat-raised-button class="add-btn" color="primary"
-          (click)="submit()">
-            {{ 'BOTS.CREATE-SUBSTORY.SUBMIT' | transloco }}
+      <div class="create-modal-btns">
+        <button mat-stroked-button mat-dialog-close class="create-modal-cancel">
+          {{ 'BOTS.CREATE-SUBSTORY.CANCEL' | transloco }}
         </button>
-        <app-spinner *ngIf="isSaving" [diameter]="40" ></app-spinner>
+      
+        <div fxLayout="row" fxLayoutAlign="end">
+          <button [disabled]="_form.invalid || isSaving" mat-raised-button class="add-btn" color="primary"
+            (click)="submit()">
+              {{ 'BOTS.CREATE-SUBSTORY.CONFIRM' | transloco }}
+          </button>
+          <app-spinner *ngIf="isSaving" [diameter]="40" ></app-spinner>
+        </div>
       </div>
     </form>
   </div>
