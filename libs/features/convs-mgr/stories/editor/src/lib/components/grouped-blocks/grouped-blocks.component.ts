@@ -16,18 +16,18 @@ import { DragDropService } from '../../providers/drag-drop.service';
   templateUrl: './grouped-blocks.component.html',
   styleUrls: ['./grouped-blocks.component.scss'],
 })
-export class GroupedBlocksComponent implements OnInit, OnChanges, OnDestroy{
+export class GroupedBlocksComponent implements OnInit, OnChanges, OnDestroy {
   @Input() groupedBlocks: StoryBlock[];
   @Input() frame: StoryEditorFrame;
   @Input() isInteractiveVoiceResponseModule: boolean;
-  
+
   private _sBs = new SubSink();
 
   coordinates: Coordinate;
 
   filteredBlocks: StoryBlock[] = [];
 
-  constructor(private dragService: DragDropService) {}
+  constructor(private dragService: DragDropService) { }
 
   ngOnInit() {
     this._sBs.sink = this.dragService.coord$.subscribe((position) => (this.coordinates = position));
@@ -54,17 +54,29 @@ export class GroupedBlocksComponent implements OnInit, OnChanges, OnDestroy{
   }
 
   /**
+   * Determines if a block is valid for IVR.
+   * @param block - The block to check.
+   * @returns {boolean} - True if the block is valid for IVR, false otherwise.
+   */
+  private isIVRBlock(block: any): boolean {
+    const validIVRBlockTypes = new Set([
+      StoryBlockTypes.TextMessage,
+      StoryBlockTypes.QuestionBlock,
+      StoryBlockTypes.List,
+      StoryBlockTypes.JumpBlock
+    ]);
+
+    return validIVRBlockTypes.has(block.type);
+  }
+
+  /**
    * Filters the available blocks based on the isInteractiveVoiceResponseModule flag.
    */
   filterBlocks() {
     console.log("grouped blocks flag", this.isInteractiveVoiceResponseModule);
     if (this.isInteractiveVoiceResponseModule) {
-      // Only show TextMessage and QuestionBlock types for IVR
-      this.filteredBlocks = this.groupedBlocks.filter(
-        block =>
-          block.type === StoryBlockTypes.TextMessage ||
-          block.type === StoryBlockTypes.QuestionBlock
-      );
+      // Only show blocks valid for IVR
+      this.filteredBlocks = this.groupedBlocks.filter(block => this.isIVRBlock(block));
     } else {
       // Show all blocks when IVR is not active
       this.filteredBlocks = [...this.groupedBlocks];
@@ -165,9 +177,9 @@ export class GroupedBlocksComponent implements OnInit, OnChanges, OnDestroy{
         break;
       case StoryBlockTypes.AssessmentMicroAppBlock:
         this.frame.newBlock(StoryBlockTypes.AssessmentMicroAppBlock, coordinates);
-        break; 
+        break;
       default:
-        break;  
+        break;
     }
   }
 

@@ -69,7 +69,7 @@
     <!-- end block -->
     <div 
       class="block-list" 
-      *ngIf="!isInteractiveVoiceResponseModule && (blocks | blockCategoryPipe: 'end-block') as groupedBlocks"
+      *ngIf="(blocks | blockCategoryPipe: 'end-block') as groupedBlocks"
     >
       <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.END-BLOCK' | transloco }}</h6>
       <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>

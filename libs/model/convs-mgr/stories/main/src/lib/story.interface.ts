@@ -44,11 +44,6 @@ export interface Story extends IObject
   /** total number of blocks in the story */
   blocksCount?: number;
 
-  /**Ivr Flag */
+  /**Ivr Flag */ 
   isInteractiveVoiceResponseStory?: boolean;
-  
-  /**
-   * If a block is in a story of type IVR the audio will be processed and uploaded as a link to an azure blob. 
-   */
-  azureTtsAudioUrl?: string
 }
