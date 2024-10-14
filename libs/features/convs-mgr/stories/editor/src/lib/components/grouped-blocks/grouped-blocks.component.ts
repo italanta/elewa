@@ -56,21 +56,29 @@ export class GroupedBlocksComponent implements OnInit, OnChanges, OnDestroy{
   /**
    * Filters the available blocks based on the isInteractiveVoiceResponseModule flag.
    */
-  filterBlocks() {
+  filterBlocks(): void {
     console.log("grouped blocks flag", this.isInteractiveVoiceResponseModule);
-    if (this.isInteractiveVoiceResponseModule) {
-      // Only show TextMessage and QuestionBlock types for IVR
-      this.filteredBlocks = this.groupedBlocks.filter(
-        block =>
-          block.type === StoryBlockTypes.TextMessage ||
-          block.type === StoryBlockTypes.QuestionBlock ||
-          block.type === StoryBlockTypes.List ||
-          block.type === StoryBlockTypes.JumpBlock
-      );
-    } else {
-      // Show all blocks when IVR is not active
-      this.filteredBlocks = [...this.groupedBlocks];
-    }
+  
+    // Filter based on whether IVR is active
+    this.filteredBlocks = this.isInteractiveVoiceResponseModule
+      ? this.filterForIvrBlocks()
+      : [...this.groupedBlocks];
+  }
+  
+  /**
+   * Filters blocks to include only specific types for IVR.
+   * 
+   * @returns {BlockType[]} - Filtered list of blocks for IVR.
+   */
+  private filterForIvrBlocks(): BlockType[] {
+    const allowedTypes = [
+      StoryBlockTypes.TextMessage,
+      StoryBlockTypes.QuestionBlock,
+      StoryBlockTypes.List,
+      StoryBlockTypes.JumpBlock
+    ];
+  
+    return this.groupedBlocks.filter(block => allowedTypes.includes(block.type));
   }
 
   addBlock(type: number, coordinates?: Coordinate) {
