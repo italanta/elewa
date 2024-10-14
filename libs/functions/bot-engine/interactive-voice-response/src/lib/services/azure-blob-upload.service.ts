@@ -25,27 +25,18 @@ export class AzureAudioUploadService {
    * @returns {Promise<string>} The URL of the uploaded blob
    * @throws {Error} If there's an issue with the upload process
    */
-  async uploadAudio(audioBuffer: ArrayBuffer,orgId?: string, storyId?: string, blockId?: string, voiceGender?: 'male' | 'female'): Promise<string> {
+  async uploadAudio(audioBuffer: ArrayBuffer, orgId?: string, storyId?: string, blockId?: string, voiceGender?: 'male' | 'female'): Promise<string> {
     try {
-      // Create a filename using storyId, voiceGender, and blockId
-      // const blobName = `${storyId}/${voiceGender}/${blockId}.mp3`; 
-      const blobName = `orgs/${orgId}/ivr-audio/${storyId}_${voiceGender}_${blockId}.mp3`;  // or `.wav` based on your format
-      // Ensure the container is initialized
+      const blobName = `orgs/${orgId}/ivr-audio/${storyId}_${voiceGender}_${blockId}.mp3`;
       await this.initializeContainer();
-
-      // Get a block blob client for the specified blob name
       const blockBlobClient: BlockBlobClient = this.containerClient.getBlockBlobClient(blobName);
-
-      // Upload the audio buffer to Azure Blob Storage
       await blockBlobClient.uploadData(audioBuffer, {
         blobHTTPHeaders: { blobContentType: "audio/mpeg" }
       });
-
-      // Return the URL of the uploaded blob
       return blockBlobClient.url;
     } catch (error) {
       console.error("Error uploading audio to Azure Blob Storage:", error);
-      throw new Error("Failed to upload audio to Azure Blob Storage");
+      throw error;  // Return the original error
     }
   }
 
@@ -75,7 +66,7 @@ export class AzureAudioUploadService {
       console.log(`Blob "${blobName}" deleted successfully.`);
     } catch (error) {
       console.error("Error deleting audio from Azure Blob Storage:", error);
-      throw new Error("Failed to delete audio from Azure Blob Storage");
+      throw error;  // Return the original error
     }
   }
 }
