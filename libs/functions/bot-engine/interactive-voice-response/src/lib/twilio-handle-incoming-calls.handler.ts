@@ -1,7 +1,9 @@
-import { HandlerTools } from '@iote/cqrs';
-import { FunctionContext, FunctionHandler, HttpsContext, RestResult } from '@ngfi/functions';
 import twilio from 'twilio';
 import { twiml } from 'twilio';
+
+import { HandlerTools } from '@iote/cqrs';
+import { FunctionContext, FunctionHandler, HttpsContext, RestResult } from '@ngfi/functions';
+
 
 export class TwilioIncomingCallHandler extends FunctionHandler<any, any> {
   private twilioClient: twilio.Twilio;
