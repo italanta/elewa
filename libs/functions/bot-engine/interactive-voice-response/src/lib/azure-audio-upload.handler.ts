@@ -10,6 +10,23 @@ import { AudioData } from './models/audio-data.interface';
  * and interacts with Azure Blob Storage using the AzureAudioUploadService.
  */
 export class UploadAudioHandler extends FunctionHandler<any, { success: boolean; status: number; message: string }> {
+  
+  private containerClient: ContainerClient;
+  private audioUploadService: AzureAudioUploadService;
+
+  /**
+   * Constructor initializes the container client and the upload service.
+   */
+  constructor() {
+    super();
+    
+    // Initialize the ContainerClient and pass it to the AzureAudioUploadService
+    const azureStorageConnectionString = process.env['AZURE_STORAGE_CONNECTION_STRING']!;
+    const containerName = process.env['AZURE_STORAGE_MEDIA_URL']!;
+    
+    this.containerClient = new ContainerClient(azureStorageConnectionString, containerName);
+    this.audioUploadService = new AzureAudioUploadService(this.containerClient);
+  }
 
   /**
    * Executes the handler to upload audio to Azure Blob Storage.
@@ -19,7 +36,6 @@ export class UploadAudioHandler extends FunctionHandler<any, { success: boolean;
    * @returns {Promise<{ success: boolean; status: number; message: string }>} - A structured response indicating the result of the upload operation.
    */
   public async execute(audioData: AudioData, context: FunctionContext, tools: HandlerTools): Promise<{ success: boolean; status: number; message: string }> {
-    tools = tools;
     tools.Logger.debug(() => `Beginning Execution, Uploading Audio`);
 
     return await this.uploadAudioToAzure(audioData, tools);
@@ -33,18 +49,12 @@ export class UploadAudioHandler extends FunctionHandler<any, { success: boolean;
    */
   private async uploadAudioToAzure(audioData: AudioData, tools: HandlerTools): Promise<{ success: boolean; status: number; message: string }> {
     const { audioBuffer, storyId, blockId, voiceGender } = audioData;
-    const audioUploadService = new AzureAudioUploadService();
     
     try {
-      // Initialize Azure Blob Storage client
-      const azureStorageConnectionString = process.env['AZURE_STORAGE_CONNECTION_STRING']!;
-      const containerName = process.env['AZURE_STORAGE_MEDIA_URL']!;
-      
-      const containerClient = new ContainerClient(azureStorageConnectionString, containerName);
-
       tools.Logger.debug(() => `Uploading audio file for storyId: ${storyId}, blockId: ${blockId}, voice: ${voiceGender}`);
 
-      const audioUrl = await audioUploadService.uploadAudio(containerClient, audioBuffer, storyId, blockId, voiceGender);
+      // Use the initialized AzureAudioUploadService to upload the audio
+      const audioUrl = await this.audioUploadService.uploadAudio(audioBuffer, storyId, blockId, voiceGender);
 
       tools.Logger.log(() => `Audio file uploaded successfully: ${audioUrl}`);
 
