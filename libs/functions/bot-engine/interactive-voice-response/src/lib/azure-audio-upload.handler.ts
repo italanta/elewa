@@ -2,7 +2,7 @@ import { FunctionContext, FunctionHandler } from '@ngfi/functions';
 import { HandlerTools } from '@iote/cqrs';
 import { ContainerClient } from '@azure/storage-blob';
 import { AzureAudioUploadService } from './services/azure-blob-upload.service';
-
+import { AudioData } from './models/audio-data.interface';
 /**
  * Handler class for uploading audio to Azure Blob Storage.
  * This handler is designed to be executed as part of a serverless function
@@ -17,7 +17,7 @@ export class UploadAudioHandler extends FunctionHandler<any, void> {
    * @param {HandlerTools} tools - Utility tools including logging and repositories for additional actions.
    * @returns {Promise<void>} - No return value. Throws an error if the upload fails.
    */
-  public async execute(audioData: { audioBuffer: ArrayBuffer, storyId: string, blockId: string, voiceGender: 'male' | 'female' }, context: FunctionContext, tools: HandlerTools): Promise<void> {
+  public async execute(audioData: AudioData, context: FunctionContext, tools: HandlerTools): Promise<void> {
     tools = tools;
     tools.Logger.debug(() => `Beginning Execution, Uploading Audio`);
 
