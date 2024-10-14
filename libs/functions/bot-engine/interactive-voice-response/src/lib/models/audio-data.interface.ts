@@ -16,6 +16,7 @@ enum VoiceGender {
  */
 interface AudioData {
     audioBuffer: ArrayBuffer;
+    orgId?: string;
     storyId: string;
     blockId: string;
     voiceGender: VoiceGender;

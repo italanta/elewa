@@ -18,17 +18,18 @@ export class AzureAudioUploadService {
   /**
    * Uploads an audio buffer to Azure Blob Storage with a structured path.
    * @param {ArrayBuffer} audioBuffer - The audio data as an ArrayBuffer
+   * @param {string} orgId - The ID of the tenant
    * @param {string} storyId - The ID of the story
    * @param {string} blockId - The ID of the block
    * @param {'male' | 'female'} voiceGender - The gender of the voice (used to create folder structure)
    * @returns {Promise<string>} The URL of the uploaded blob
    * @throws {Error} If there's an issue with the upload process
    */
-  async uploadAudio(audioBuffer: ArrayBuffer, storyId?: string, blockId?: string, voiceGender?: 'male' | 'female'): Promise<string> {
+  async uploadAudio(audioBuffer: ArrayBuffer,orgId?: string, storyId?: string, blockId?: string, voiceGender?: 'male' | 'female'): Promise<string> {
     try {
       // Create a filename using storyId, voiceGender, and blockId
-      const blobName = `${storyId}/${voiceGender}/${blockId}.mp3`;  // or `.wav` based on your format
-
+      // const blobName = `${storyId}/${voiceGender}/${blockId}.mp3`; 
+      const blobName = `orgs/${orgId}/ivr-audio/${storyId}_${voiceGender}_${blockId}.mp3`;  // or `.wav` based on your format
       // Ensure the container is initialized
       await this.initializeContainer();
 

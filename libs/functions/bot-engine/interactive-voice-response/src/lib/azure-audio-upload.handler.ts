@@ -48,13 +48,13 @@ export class UploadAudioHandler extends FunctionHandler<any, { success: boolean;
    * @returns {Promise<{ success: boolean; status: number; message: string }>} - A structured response indicating success or failure.
    */
   private async uploadAudioToAzure(audioData: AudioData, tools: HandlerTools): Promise<{ success: boolean; status: number; message: string }> {
-    const { audioBuffer, storyId, blockId, voiceGender } = audioData;
+    const { audioBuffer, orgId, storyId, blockId, voiceGender } = audioData;
     
     try {
       tools.Logger.debug(() => `Uploading audio file for storyId: ${storyId}, blockId: ${blockId}, voice: ${voiceGender}`);
 
       // Use the initialized AzureAudioUploadService to upload the audio
-      const audioUrl = await this.audioUploadService.uploadAudio(audioBuffer, storyId, blockId, voiceGender);
+      const audioUrl = await this.audioUploadService.uploadAudio(audioBuffer, orgId, storyId, blockId, voiceGender);
 
       tools.Logger.log(() => `Audio file uploaded successfully: ${audioUrl}`);
 
