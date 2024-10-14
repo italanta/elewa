@@ -2,18 +2,19 @@ import * as sdk from "microsoft-cognitiveservices-speech-sdk";
 import { FunctionHandler, RestResult, HttpsContext } from '@ngfi/functions';
 import { HandlerTools } from '@iote/cqrs';
 import { TextToSpeechService } from "./services/azure-text-to-speech.service";
+import { TextToSpeechPayload } from './models/text-to-speech-payload.interface';
 
 export class ConvertTextToSpeechHandler extends FunctionHandler<any, RestResult> {
   /**
    * Converts text to speech using Azure's Text-to-Speech service and returns the audio data.
    * 
-   * @param payload - The request payload, which should contain `text` and `voiceGender`.
+   * @param payload<TextToSpeechPayload> - The request payload, which should contain `text` and `voiceGender`.
    * @param context - The HTTPS context, which contains information about the request.
    * @param tools - The handler tools for logging and other utilities.
    * 
    * @returns A REST result with the generated audio data or an error message.
    */
-  public async execute(payload: any, context: HttpsContext, tools: HandlerTools): Promise<RestResult> {
+  public async execute(payload: TextToSpeechPayload, context: HttpsContext, tools: HandlerTools): Promise<RestResult> {
     // Initialize the test to speech service
     const ttsService = new TextToSpeechService();
 
