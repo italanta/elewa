@@ -1,7 +1,7 @@
 /**
  * Represents the incoming request from Twilio for an IVR interaction.
  */
-interface TwilioIVRRequest {
+export interface TwilioIVRRequest {
     /** The unique identifier for this call */
     CallSid: string;
     /** The phone number or client identifier of the caller */

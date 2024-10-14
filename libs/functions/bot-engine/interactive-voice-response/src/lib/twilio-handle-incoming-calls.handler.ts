@@ -4,11 +4,13 @@ import { twiml } from 'twilio';
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionContext, FunctionHandler, HttpsContext, RestResult } from '@ngfi/functions';
 
+import { TwilioIVRRequest } from './models/twilio-ivr-request.interface';
+
 
 export class TwilioIncomingCallHandler extends FunctionHandler<any, any> {
   private twilioClient: twilio.Twilio;
 
-  public async execute(data: any, context: HttpsContext, tools: HandlerTools): Promise<RestResult> {
+  public async execute(data: TwilioIVRRequest, context: HttpsContext, tools: HandlerTools): Promise<RestResult> {
     // Validate the incoming request is from Twilio
     tools.Logger.debug(() => `Twilio handler hit with dat ${JSON.stringify(context.eventContext.request.query)}`);    
     // if (!this.validateRequest(data, context)) {
