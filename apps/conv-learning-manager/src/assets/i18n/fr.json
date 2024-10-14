@@ -237,7 +237,8 @@
     "CONNECT-BOT-TO-CHANNEL":"Connecter le bot au canal",
     "PUBLISH-BOT":"Publier le robot",
     "ARCHIVE-BOT":"Bot d’archives",
-    "DELETE-BOT":"Supprimer le robot"
+    "DELETE-BOT":"Supprimer le robot",
+    "DRAG-ELEMENT": "Faites glisser un élément dans ce cadre"
 
   },
   "CLASSESS": {

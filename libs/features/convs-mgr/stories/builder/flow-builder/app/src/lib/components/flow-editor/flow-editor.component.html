@@ -15,10 +15,17 @@
           [cdkDropListData]="droppedItems" 
           [cdkDropListConnectedTo]="['libraryDropList']" 
           (cdkDropListDropped)="drop($event)">
-          @for(item of droppedItems; track item)
-          {
-            <app-flow-library-item [control]="item" (click)="createField(item)" cdkDrag>  </app-flow-library-item>
-          }
+          <ng-container *ngIf="droppedItems.length > 0; else noDroppedItems">
+            @for(item of droppedItems; track item)
+            {
+              <app-flow-library-item [control]="item" (click)="createField(item)" cdkDrag>  </app-flow-library-item>
+            }
+          </ng-container>
+          <ng-template #noDroppedItems>
+            <div class="placeholder-text">
+              {{ 'BOTS.DRAG-ELEMENT' | transloco}}
+            </div>
+          </ng-template>
         </div>
 
         <!-- Fixed elements such as footer -->
