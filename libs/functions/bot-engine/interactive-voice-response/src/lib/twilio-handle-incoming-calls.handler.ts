@@ -12,7 +12,7 @@ export class TwilioIncomingCallHandler extends FunctionHandler<any, any> {
 
   public async execute(data: TwilioIVRRequest, context: HttpsContext, tools: HandlerTools): Promise<RestResult> {
     // Validate the incoming request is from Twilio
-    tools.Logger.debug(() => `Twilio handler hit with dat ${JSON.stringify(context.eventContext.request.query)}`);    
+    tools.Logger.debug(() => `Twilio handler hit with dat ${JSON.stringify(context.eventContext.request.query)}`);
     // if (!this.validateRequest(data, context)) {
     //   return {
     //     status: 400,
@@ -24,19 +24,19 @@ export class TwilioIncomingCallHandler extends FunctionHandler<any, any> {
 
   private validateRequest(data: any, context: any): boolean {
     const twilioSignature = context.headers['x-twilio-signature'];
-    const url = context.url; 
+    const url = context.url;
 
     return twilio.validateRequest(
       process.env['TWILIO_AUTH_TOKEN']!,
       twilioSignature,
-      url, 
+      url,
       data
     );
   }
 
   async handleCall(req: any, tools: HandlerTools, context: any): Promise<any> {
     const twimlResponse = new twiml.VoiceResponse();
-    tools.Logger.debug(() => `Twilio handler hit with dat ${JSON.stringify(req.body)}`);    
+    tools.Logger.debug(() => `Twilio handler hit with dat ${JSON.stringify(req.body)}`);
     // Check if there's user input
     // const digits = req.body.Digits;
     const digits = context.eventContext.request.query.digits;
@@ -49,32 +49,23 @@ export class TwilioIncomingCallHandler extends FunctionHandler<any, any> {
         action: '/voice-selection',
         method: 'POST'
       }).say('Press 1 for Male or Press 2 for Female.');
-    } else {
+    }
+    else {
       // Handle user input
       switch (digits) {
         case '1':
-            console.log('we are 1');
+          console.log('we are 1');
           twimlResponse.say({ voice: 'man' }, 'You have selected the male voice. How can I assist you today?');
           break;
         case '2':
           twimlResponse.say({ voice: 'woman' }, 'You have selected the female voice. How can I assist you today?');
           break;
         default:
-        console.log('we are default');
+          console.log('we are default');
           twimlResponse.say('Invalid selection. Please try again.');
           twimlResponse.redirect('/voice');
       }
     }
-    console.log()
-
-    // Create and return the RestResult
-    const result: RestResult = {
-      status: 200,
-      data: {
-        twimlResponse: twimlResponse.toString(),
-        contentType: 'text/xml'
-      }
-    };
 
     return twimlResponse.toString();
   }
