@@ -4,14 +4,6 @@ import { HandlerTools } from '@iote/cqrs';
 import { TextToSpeechService } from "./services/azure-text-to-speech.service";
 
 export class ConvertTextToSpeechHandler extends FunctionHandler<any, RestResult> {
-  
-  private ttsService: TextToSpeechService;
-
-  constructor() {
-    super();
-    this.ttsService = new TextToSpeechService();
-  }
-
   /**
    * Converts text to speech using Azure's Text-to-Speech service and returns the audio data.
    * 
@@ -22,6 +14,10 @@ export class ConvertTextToSpeechHandler extends FunctionHandler<any, RestResult>
    * @returns A REST result with the generated audio data or an error message.
    */
   public async execute(payload: any, context: HttpsContext, tools: HandlerTools): Promise<RestResult> {
+    // Initialize the test to speech service
+    const ttsService = new TextToSpeechService();
+
+    // Extract the voice gender and the text from the payload
     const { text, voiceGender } = payload;
 
     // Validate payload
