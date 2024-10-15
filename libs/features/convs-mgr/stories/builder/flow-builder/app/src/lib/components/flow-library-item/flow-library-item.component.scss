@@ -5,11 +5,12 @@
   width: -webkit-calc(100% - 24px);
   width: calc(100% - 24px);
 
-  border: 1px solid gray;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   
   padding: 10px;
   margin-bottom: 5px;
+  font-size: 0.9rem;
+  background: var(--convs-mgr-color-text-white);
 }
   .flow-lib-button:hover {
     background-color: lightgray;
