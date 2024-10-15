@@ -39,8 +39,20 @@
 
   #flow-container-drop {
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
     padding: 12px 5px 12px 12px;
     height: 92%;
+
+    .btn {
+      margin-top: auto;
+      padding: 10px;
+      border-radius: 0.5rem;
+      border: none;
+      text-align: left;
+      width: 100%;
+      background: var(--convs-mgr-color-text-white);
+    }
   }
 
   .config-container{
