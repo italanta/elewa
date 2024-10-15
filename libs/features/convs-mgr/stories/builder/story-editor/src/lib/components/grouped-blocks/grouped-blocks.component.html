@@ -1,5 +1,5 @@
 <div class="blocks">
-  <ng-container *ngFor="let block of groupedBlocks">
+  <ng-container *ngFor="let block of filteredBlocks">
     <div (click)="addBlock(block.type)" draggable="true" (dragend)="onDragEnd(block.type)" class="block">
       <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
           <i class="{{ block.blockIcon}}" class="icon-color"></i>
