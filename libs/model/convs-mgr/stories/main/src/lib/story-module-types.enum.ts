@@ -22,5 +22,8 @@ export enum StoryModuleTypes
   MicroApp = 5,
 
   /** Future feature to experiment with @Jente */
-  CoachingModule = 6
+  CoachingModule = 6,
+
+  /** The story module represents an Ivr module */
+  IvrModule = 7,
 }
