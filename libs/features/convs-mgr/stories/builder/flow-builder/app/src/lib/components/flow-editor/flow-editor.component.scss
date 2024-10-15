@@ -1,3 +1,7 @@
+.flow-editor-container {
+  background-size: 24px 24px;
+  background-image: radial-gradient(circle at 1px 1px, var(--convs-mgr-border-color) 1px, var(--convs-mgr-color-F6F6F6) 0);
+}
 .editor-container 
 {
   min-width: 800px;

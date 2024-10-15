@@ -1,6 +1,12 @@
-<div class="page-selector" *ngIf="screens">
+<div class="page-selector" *ngIf="state$ | async as state">
   <div class="screen-list" >
-    <div class="span"*ngFor="let screen of screens; index as i" (click)="changeScreen(i)"> {{screen.title}} |</div>
-    <div class="span" (click)="addScreen()"> +</div>
+    <div class="span screen-title"*ngFor="let screen of state.flow.flow.screens; index as i" (click)="changeScreen(i)"> 
+      <img src="assets/svgs/blocks/ellipsis.svg" alt="">
+      {{screen.title}} 
+    </div>
+    <div class="span add-screen" (click)="addScreen()">
+      <i class="fa-solid fa-plus"></i>
+      {{"WHATSAPP-FLOWS.ADD-SCREEN" | transloco}}
+    </div>
   </div>
 </div>
