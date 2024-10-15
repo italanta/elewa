@@ -1,7 +1,9 @@
 import { v4 as ___guid } from 'uuid';
-import { Component, OnInit, OnDestroy, ViewContainerRef, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, Component, OnInit, OnDestroy, ViewContainerRef, ViewChild, ChangeDetectorRef, ElementRef, Input } from '@angular/core';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { FormBuilder, FormGroup } from '@angular/forms';
+
+import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
 import { SubSink } from 'subsink';
 import { Observable, of, take } from 'rxjs';
@@ -13,6 +15,8 @@ import { FlowControl } from '@app/model/convs-mgr/stories/flows';
 
 import { EditorComponentFactory } from '../../services/editor-component-factory.service';
 import { _GetFlowComponentForm } from '../../providers/flow-forms-build-factory.util';
+import { _JsPlumbInputOptionDecorator } from '@app/features/convs-mgr/stories/builder/blocks/library/block-options';
+import { connectDivsWithJsPlumb } from '@app/features/convs-mgr/stories/builder/editor-state';
 
 
 @Component({
@@ -20,14 +24,19 @@ import { _GetFlowComponentForm } from '../../providers/flow-forms-build-factory.
   templateUrl: './flow-editor.component.html',
   styleUrls: ['./flow-editor.component.scss']
 })
-export class FlowEditorComponent implements OnInit, OnDestroy 
+export class FlowEditorComponent implements OnInit, OnDestroy, AfterViewInit 
 {
   private _sbS = new SubSink();
   droppedElements$: Observable<FlowControl[]>;
+  jsPlumb: BrowserJsPlumbInstance;
 
   @ViewChild('vcr', { static: true, read: ViewContainerRef })
   vcr!: ViewContainerRef;
   state: FlowBuilderStateFrame;
+  
+  @ViewChild('phone_container') phoneContainer: ElementRef;
+  @ViewChild('config_container') configContainer: ElementRef;
+  @ViewChild('motherDiv') motherDiv: ElementRef;
 
   constructor( private _flowBuilderState: FlowBuilderStateProvider,
                private editorComponentFactory: EditorComponentFactory,
@@ -36,7 +45,7 @@ export class FlowEditorComponent implements OnInit, OnDestroy
                private _wFlowService: WFlowService,
                private cdr: ChangeDetectorRef,
   ) { }
-  
+
   ngOnInit(): void {
     this.droppedElements$ = this._flowBuilderState.getControls();
 
@@ -45,6 +54,36 @@ export class FlowEditorComponent implements OnInit, OnDestroy
     })
 
     this._sbS.sink = this.trackerService.change$.subscribe();
+  }
+
+  // ngAfterViewInit(): void {
+  //   const phoneContainer1 = this.phoneContainer.nativeElement;
+  //   console.log("", phoneContainer1);
+  //   // console.log("jsPlumb", this.jsPlumb);
+  //   if (this.jsPlumb) {
+  //     this._decorateInput();
+  //   }
+  // }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.jsPlumb = newInstance({
+        container: this.motherDiv.nativeElement
+      });
+  
+      this._decorateInput();
+      this.jsPlumb.repaintEverything();  
+    }, 100);  
+  }
+  
+
+  private _decorateInput() {
+    const phoneContainer = this.phoneContainer.nativeElement;
+
+    const configContainer = this.configContainer.nativeElement;
+
+    this.jsPlumb
+    connectDivsWithJsPlumb(phoneContainer, configContainer, this.jsPlumb);
   }
   
   /** Function handling drag and drop functionality for a component */

@@ -1,8 +1,8 @@
 <div fxFlexFill fxLayout="row" fxLayoutAlign="center center">
 
-  <div class="editor-container mat-elevation-z1" >
+  <div class="editor-container mat-elevation-z1"  #motherDiv>
     <!-- Image of the phone -->
-    <div id="phone-container" fxLayoutAlign="center center">
+    <div id="phone-container" fxLayoutAlign="center center" #phone_container>
        <!-- Inner area inside the phone container. Smaller box centered into the phone, 
         making it look it's "behind" the phone image when in fact, it's in front. -->
       <div class="phone-inner">
@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <div class="config-container">
+    <div class="config-container" #config_container>
       <ng-container #vcr> </ng-container>
     </div>
   </div>

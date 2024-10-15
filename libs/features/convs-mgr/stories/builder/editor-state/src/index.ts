@@ -3,5 +3,6 @@ export * from './lib/providers/block-injector.service';
 export * from './lib/providers/story-editor-initialiser.service';
 export * from './lib/providers/save-story.service';
 export * from './lib/providers/side-screen-toggle.service';
+export * from './lib/transformers/flows-jsplumb.util'
 
 export * from './lib/block-injector.module';
