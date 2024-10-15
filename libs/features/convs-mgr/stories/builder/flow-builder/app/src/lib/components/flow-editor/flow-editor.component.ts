@@ -28,6 +28,7 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   @ViewChild('vcr', { static: true, read: ViewContainerRef })
   vcr!: ViewContainerRef;
   state: FlowBuilderStateFrame;
+  droppedItems: any;
 
   constructor( private _flowBuilderState: FlowBuilderStateProvider,
                private editorComponentFactory: EditorComponentFactory,
@@ -41,6 +42,7 @@ export class FlowEditorComponent implements OnInit, OnDestroy
     this.droppedElements$ = this._flowBuilderState.getControls();
 
     this.droppedElements$.pipe(take(1)).subscribe((elements)=> {
+      this.droppedItems = elements;
       elements.forEach(item => this.createField(item));
     })
 

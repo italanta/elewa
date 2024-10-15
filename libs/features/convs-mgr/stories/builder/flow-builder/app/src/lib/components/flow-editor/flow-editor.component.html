@@ -1,6 +1,5 @@
 <div fxFlexFill fxLayout="row" fxLayoutAlign="center center" class="flow-editor-container">
-
-  <div class="editor-container mat-elevation-z1" >
+  <div class="editor-container" >
     <!-- Image of the phone -->
     <div id="phone-container" fxLayoutAlign="center center">
        <!-- Inner area inside the phone container. Smaller box centered into the phone, 
@@ -10,7 +9,7 @@
 
         <!-- Target for custom elements-->
         <div id="flow-container-drop" 
-          *ngIf="droppedElements$ | async as droppedItems"
+          *ngIf="droppedItems"
           cdkDropList 
           [cdkDropListData]="droppedItems" 
           [cdkDropListConnectedTo]="['libraryDropList']" 
@@ -35,7 +34,7 @@
       </div>
     </div>
 
-    <div class="config-container">
+    <div class="config-container" [ngClass]="droppedItems?.length > 0 ? 'edit-background': ''">
       <ng-container #vcr> </ng-container>
     </div>
   </div>

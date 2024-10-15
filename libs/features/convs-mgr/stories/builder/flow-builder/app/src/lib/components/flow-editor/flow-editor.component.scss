@@ -7,11 +7,9 @@
   min-width: 800px;
   height: fit content;
 
-  background: #F6F6F6;
   color: #101010;
   
   padding: 20px;
-  border: 1px solid #101010;
   display: flex;
   gap: 2rem;
 }
@@ -66,7 +64,10 @@
     width: 100%;
     border: 1 px solid black;
     border-radius: 10px;
-    background-color: antiquewhite;
     padding: 1.5rem;  
+    
+    &.edit-background {
+      background-color: var(--convs-mgr-color-text-white);
+    }
   }
   
