@@ -898,5 +898,9 @@
         "EDIT-CHANNEL":"Modifier la chaîne"
         
     }
-  }
+  },
+
+  "WHATSAPP-FLOWS": {
+    "ADD-SCREEN": "Ajouter un écran"
+    }
 }
