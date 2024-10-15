@@ -26,4 +26,9 @@ export interface FlowStoryConfig
    * The URL of the WA Flow Endpoint. Starting from Flow JSON version 3.0 this property should be specified only via API. Do not provide this field if you are cloning a Flow with Flow JSON version below 3.0.
    */
   endpoint_uri: string;
+
+  /**
+   * 
+   */
+  whatsAppFlowId?: string;
 }

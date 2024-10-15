@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { FlowControl } from '../../providers/flow-controls.const';
+
+import { FlowControl } from '@app/model/convs-mgr/stories/flows';
 
 @Component({
   selector: 'app-flow-library-item',

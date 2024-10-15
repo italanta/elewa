@@ -13,7 +13,8 @@
         "tsConfig": "apps/conv-lm-backend/tsconfig.app.json",
         "assets": ["apps/conv-lm-backend/src/assets"],
         "compiler": "tsc",
-        "target": "node"
+        "target": "node",
+        "isolatedConfig": false
       },
       "configurations": {
         "production": {
