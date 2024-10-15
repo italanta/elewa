@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
 import { StoryError, StoryErrorType } from "@app/model/convs-mgr/stories/main";
-import { StoryBlock, StoryBlockConnection, isMediaBlock, isOptionBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { StoryBlock, StoryBlockConnection, StoryBlockTypes, isMediaBlock, isOptionBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { StoryEditorState, StoryEditorStateService } from "@app/state/convs-mgr/story-editor";
 
@@ -89,7 +89,7 @@ export class SaveStoryService
     // Check if the blocks have errors
     for(const block of blocks)
     {
-      if (block.id === 'story-end-anchor' || block.deleted) {
+      if (block.id === 'story-end-anchor' || block.type == StoryBlockTypes.EndStoryAnchorBlock) {
         continue; // Skip checking for errors for end anchor and deleted blocks
       }
   
