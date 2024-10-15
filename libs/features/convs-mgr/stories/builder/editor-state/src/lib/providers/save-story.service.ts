@@ -89,7 +89,7 @@ export class SaveStoryService
     // Check if the blocks have errors
     for(const block of blocks)
     {
-      if (block.id === 'story-end-anchor' || block.type == StoryBlockTypes.EndStoryAnchorBlock) {
+      if (block.deleted || block.type == StoryBlockTypes.EndStoryAnchorBlock) {
         continue; // Skip checking for errors for end anchor and deleted blocks
       }
   
