@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
-import { Story } from '@app/model/convs-mgr/stories/main';
+import { Story, StoryModuleTypes } from '@app/model/convs-mgr/stories/main';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
@@ -91,6 +91,7 @@ export class CreateLessonModalComponent implements OnInit, OnDestroy {
       description: this.lessonForm.value.storyDesc,
       parentModule: this.lessonForm.value.parentModule.id,
       orgId: '',
+      type: this.lessonForm.value.isIvrModule ? StoryModuleTypes.IvrModule : undefined,
     };
 
     const parentModule = this.lessonForm.value.parentModule as BotModule;
