@@ -20,7 +20,7 @@
             {
               <app-flow-library-item [control]="item" (click)="createField(item)" cdkDrag>  </app-flow-library-item>
             }
-            <button class="btn">Button</button>
+            <button (click)="editButton()">Button</button>  
           </ng-container>
 
           <ng-template #noDroppedItems>
@@ -36,6 +36,7 @@
 
     <div class="config-container" [ngClass]="droppedItems?.length > 0 ? 'edit-background': ''">
       <ng-container #vcr> </ng-container>
+      <input class="edit-btn" *ngIf="isEditing" placeholder="Button" />
     </div>
   </div>
 

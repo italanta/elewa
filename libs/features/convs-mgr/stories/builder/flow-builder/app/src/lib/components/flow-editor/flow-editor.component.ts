@@ -29,6 +29,7 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   vcr!: ViewContainerRef;
   state: FlowBuilderStateFrame;
   droppedItems: any;
+  isEditing = false;
 
   constructor( private _flowBuilderState: FlowBuilderStateProvider,
                private editorComponentFactory: EditorComponentFactory,
@@ -47,6 +48,10 @@ export class FlowEditorComponent implements OnInit, OnDestroy
     })
 
     this._sbS.sink = this.trackerService.change$.subscribe();
+  }
+
+  editButton() {
+    this.isEditing = true;
   }
   
   /** Function handling drag and drop functionality for a component */

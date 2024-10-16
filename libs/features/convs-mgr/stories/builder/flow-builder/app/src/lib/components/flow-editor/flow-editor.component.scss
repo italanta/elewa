@@ -11,6 +11,7 @@
   
   padding: 20px;
   display: flex;
+  align-items: flex-start;
   gap: 2rem;
 }
 
@@ -46,14 +47,19 @@
     padding: 12px 5px 12px 12px;
     height: 92%;
 
-    .btn {
+    button {
       margin-top: auto;
       padding: 10px;
       border-radius: 0.5rem;
       border: none;
       text-align: left;
-      width: 100%;
+      width: 98%;
       background: var(--convs-mgr-color-text-white);
+      
+      &:hover {
+        cursor: pointer;
+        background-color: var(--convs-mgr-color-lightgray);
+      }
     }
   }
 
@@ -65,9 +71,21 @@
     border: 1 px solid black;
     border-radius: 10px;
     padding: 1.5rem;  
+    max-height: 490px;
+    overflow-y: auto;
     
     &.edit-background {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       background-color: var(--convs-mgr-color-text-white);
     }
   }
-  
+
+.edit-btn {
+  padding: 1rem 0 1rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  background-color: var(--convs-mgr-color-F6F6F6);
+}
+
