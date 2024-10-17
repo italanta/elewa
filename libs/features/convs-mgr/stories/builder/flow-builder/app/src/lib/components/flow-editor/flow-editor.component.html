@@ -20,7 +20,7 @@
             {
               <app-flow-library-item [control]="item" (click)="createField(item)" cdkDrag>  </app-flow-library-item>
             }
-            <button (click)="editButton()">Button</button>  
+            <button (click)="editButton()">{{ 'BOTS.BUTTON' | transloco}}</button>  
           </ng-container>
 
           <ng-template #noDroppedItems>
