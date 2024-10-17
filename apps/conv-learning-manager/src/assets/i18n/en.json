@@ -397,7 +397,8 @@
     "PUBLISH-BOT":"Publish Bot",
     "ARCHIVE-BOT":"Archive Bot",
     "DELETE-BOT":"Delete Bot",
-    "DRAG-ELEMENT": "Drag an element into this frame"
+    "DRAG-ELEMENT": "Drag an element into this frame",
+    "SCREEN-SETTNGS": "View Screen Settings"
   },
   "MODULES": {
     "FIELDS": {

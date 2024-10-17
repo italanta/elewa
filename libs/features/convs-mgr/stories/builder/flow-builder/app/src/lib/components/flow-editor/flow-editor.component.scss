@@ -81,6 +81,12 @@
       justify-content: space-between;
       background-color: var(--convs-mgr-color-text-white);
     }
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      justify-content:space-between;
+    }
   }
 
 .edit-btn {
