@@ -234,6 +234,7 @@
       "CONFIRM": "Confirmer",
       "CANCEL": "Annuler"
     },
+    "BUTTON":"Bouton",
     "CONNECT-BOT-TO-CHANNEL":"Connecter le bot au canal",
     "PUBLISH-BOT":"Publier le robot",
     "ARCHIVE-BOT":"Bot d’archives",

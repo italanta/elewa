@@ -393,6 +393,7 @@
       "CONFIRM": "Confirm",
       "CANCEL": "Cancel"
     },
+    "BUTTON":"Button",
     "CONNECT-BOT-TO-CHANNEL":"Connect bot to channel",
     "PUBLISH-BOT":"Publish Bot",
     "ARCHIVE-BOT":"Archive Bot",
