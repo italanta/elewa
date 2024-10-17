@@ -41,8 +41,8 @@
   </div>
 
 
-  <div class="screen-config">
-
+  <div class="screen-config" *ngIf="droppedItems?.length > 0">
+    <lib-flow-screen-settings></lib-flow-screen-settings>
   </div>
 
 </div>

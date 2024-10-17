@@ -36,6 +36,7 @@ import { FlowButtonGroupComponent } from './components/flow-button-group/flow-bu
 import { FlowCheckboxOptionsComponent } from './components/flow-checkbox-options/flow-checkbox-options.component';
 import { TextAreaInputComponent } from './components/text-area-input/text-area-input.component';
 import { ImageTypeInputComponent } from './components/image-type-input/image-type-input.component';
+import { FlowScreenSettingsComponent } from './components/flow-screen-settings/flow-screen-settings.component';
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import { ImageTypeInputComponent } from './components/image-type-input/image-typ
 
   declarations: [
     FlowEditorComponent,
+    FlowScreenSettingsComponent,
     FlowLibraryComponent,
     FlowPreviewComponent,
     FlowLibraryItemComponent,

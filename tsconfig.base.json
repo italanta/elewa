@@ -266,6 +266,9 @@
       ],
       "@app/functions/intent": ["libs/functions/intent/src/index.ts"],
       "@app/functions/user": ["libs/functions/user/src/index.ts"],
+      "@app/functions/whatsapp-flows": [
+        "libs/private/functions/whatsapp-flows/src/index.ts"
+      ],
       "@app/libs/private/features/convs-mgr/stories/builder/blocks/library/cmi5-block": [
         "libs/libs/private/features/convs-mgr/stories/builder/blocks/library/cmi5-block/src/index.ts"
       ],
@@ -511,8 +514,7 @@
       "@ngfi/functions/v2": ["libs/util/ngfi/functions-v2/src/index.ts"],
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
-      "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"],
-      "@app/functions/whatsapp-flows": ["libs/private/functions/whatsapp-flows/src/index.ts"]
+      "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
