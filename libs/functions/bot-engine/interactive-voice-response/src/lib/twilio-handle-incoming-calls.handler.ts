@@ -1,5 +1,5 @@
-import twilio from 'twilio';
-import { twiml } from 'twilio';
+import { twiml } from "twilio/lib";
+import { Twilio, validateRequest } from "twilio/lib";
 
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionContext, FunctionHandler, HttpsContext, RestResult } from '@ngfi/functions';
@@ -8,7 +8,7 @@ import { TwilioIVRRequest } from './models/twilio-ivr-request.interface';
 
 
 export class TwilioIncomingCallHandler extends FunctionHandler<any, any> {
-  private twilioClient: twilio.Twilio;
+  private twilioClient: Twilio;
 
   public async execute(data: TwilioIVRRequest, context: HttpsContext, tools: HandlerTools): Promise<RestResult> {
     // Validate the incoming request is from Twilio
@@ -26,7 +26,7 @@ export class TwilioIncomingCallHandler extends FunctionHandler<any, any> {
     const twilioSignature = context.headers['x-twilio-signature'];
     const url = context.url;
 
-    return twilio.validateRequest(
+    return validateRequest(
       process.env['TWILIO_AUTH_TOKEN']!,
       twilioSignature,
       url,
