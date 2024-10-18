@@ -38,6 +38,14 @@
       </mat-form-field>
     </div>
 
+    <div>
+      <h4 class="label">{{ 'LESSONS.CREATE-MODAL.FIELDS.TYPE' | transloco }}</h4>
+    
+      <mat-checkbox formControlName="isIvrModule">
+        {{ 'LESSONS.CREATE-MODAL.FIELDS.IS-IVR' | transloco }}
+      </mat-checkbox>
+    </div>
+
     <div fxLayout="row" fxLayoutAlign="space-between center" class="bot-buttons">
       <div>
         <button mat-stroked-button mat-dialog-close class="cancel-btn">

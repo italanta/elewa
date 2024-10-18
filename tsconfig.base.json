@@ -109,6 +109,9 @@
       "@app/features/convs-mgr/stories/builder/blocks/edit/blocks-edit": [
         "libs/features/convs-mgr/stories/builder/blocks/edit/blocks-edit/src/index.ts"
       ],
+      "@app/functions/bot-engine/interactive-voice-response": [
+        "libs/functions/bot-engine/interactive-voice-response/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/builder/blocks/icons": [
         "libs/features/convs-mgr/stories/builder/blocks/icons/src/index.ts"
       ],
@@ -264,6 +267,7 @@
       "@app/functions/convs-mgr/story-editor/check-story-for-errors": [
         "libs/functions/convs-mgr/story-editor/check-story-for-errors/src/index.ts"
       ],
+      "@app/state/convs-mgr/stories/ivr": ["libs/state/convs-mgr/stories/ivr/src/index.ts"],
       "@app/functions/intent": ["libs/functions/intent/src/index.ts"],
       "@app/functions/user": ["libs/functions/user/src/index.ts"],
       "@app/libs/private/features/convs-mgr/stories/builder/blocks/library/cmi5-block": [

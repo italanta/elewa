@@ -8,5 +8,6 @@ export function STORY_FORM(_fb: FormBuilder, story?: Story) {
     storyName: [story ? story.name : generateName(), Validators.required],
     storyDesc: [story ? story.description : ''],
     parentModule: [story ? story.parentModule : '', Validators.required],
+    isIvrModule: [ false ]
   });
 }

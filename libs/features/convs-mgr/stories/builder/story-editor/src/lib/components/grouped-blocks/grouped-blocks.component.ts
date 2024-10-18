@@ -11,6 +11,10 @@ import { Coordinate } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryEditorFrame } from '@app/features/convs-mgr/stories/builder/editor-state';
 
 import { DragDropService } from '../../providers/drag-drop.service';
+import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
+import { Story, StoryModuleTypes } from '@app/model/convs-mgr/stories/main';
+import { EMPTY, of, switchMap } from 'rxjs';
+import { BlockFilterFactory } from '../../factories/block-library-filter.factory';
 
 @Component({
   selector: 'convl-grouped-blocks',
@@ -23,12 +27,34 @@ export class GroupedBlocksComponent implements OnInit, OnDestroy {
 
   private _sBs = new SubSink();
 
+  filteredBlocks: StoryBlock[] =[];
+
+  story: Story;
+
   coordinates: Coordinate;
 
-  constructor(private dragService: DragDropService) {}
+  constructor(private dragService: DragDropService, private activeStory$: ActiveStoryStore) {}
 
   ngOnInit() {
-    this._sBs.sink = this.dragService.coord$.subscribe((position) => (this.coordinates = position));
+    this._sBs.sink = this.dragService.coord$.subscribe((position) => {
+      this.coordinates = position;
+    });
+  
+    // Use switchMap to handle the active story stream
+    this._sBs.sink = this.activeStory$.get().pipe(
+      switchMap(story => {
+        if (story) {
+          this.story = story; 
+          this.filterBlocks(story);
+          return of(story); 
+        }
+        return EMPTY;
+      })
+    ).subscribe({
+      next: (story) => console.log("The story is", this.activeStory$._activeStory, story),
+      error: (error) => console.error("Error fetching story", error),
+      complete: () => console.log("Story fetch complete")
+    });
   }
 
   /** check icon type */
@@ -36,6 +62,16 @@ export class GroupedBlocksComponent implements OnInit, OnDestroy {
   getIcon(icon: string) {
     const svgPath = icon.split('.').pop();
     return svgPath === 'svg';
+  }
+  /**
+   * Filters the blocks based on the story type.
+   */
+  filterBlocks(story: Story) {
+    const storyType: StoryModuleTypes = story.type ?? StoryModuleTypes.Story;
+
+    const filterStrategy = BlockFilterFactory.getFilterStrategy(storyType);
+
+    this.filteredBlocks = filterStrategy.filterBlocks(this.groupedBlocks);
   }
 
   addBlock(type: number, coordinates?: Coordinate) {

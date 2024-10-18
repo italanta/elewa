@@ -1,7 +1,7 @@
-import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { IVRStoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { ButtonsBlockButton } from "@app/model/convs-mgr/stories/blocks/scenario";
 
-export interface ListMessageBlock extends StoryBlock {
+export interface ListMessageBlock extends IVRStoryBlock {
 
   /** Actual question */
   message?: string;

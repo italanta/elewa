@@ -1,12 +1,12 @@
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
-import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { IVRStoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
  * Block which sends a question message in the form of text and clickable options.
  */
 
-export interface QuestionMessageBlock extends StoryBlock {
+export interface QuestionMessageBlock extends IVRStoryBlock {
 
   /** Actual question */
   message?: string;
