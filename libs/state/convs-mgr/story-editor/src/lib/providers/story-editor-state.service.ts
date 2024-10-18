@@ -13,9 +13,10 @@ import { StoryBlock, StoryBlockConnection } from '@app/model/convs-mgr/stories/b
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { StoryConnectionsStore } from '@app/state/convs-mgr/stories/block-connections';
-import { Story } from '@app/model/convs-mgr/stories/main';
+import { Story, StoryModuleTypes } from '@app/model/convs-mgr/stories/main';
 
 import { StoryEditorState } from '../model/story-editor-state.model';
+import { IvrService } from '@app/state/convs-mgr/stories/ivr';
 
 /** 
  * Service responsible for persisting the state of stories from the editor.
@@ -33,13 +34,15 @@ export class StoryEditorStateService
 
   private _sBs = new SubSink();
 
-  constructor(
+  constructor
+  (
     private _story$$: ActiveStoryStore,
     private _blocks$$: StoryBlocksStore,
     private _connections$$: StoryConnectionsStore,
+    private _ivrService: IvrService,
     // private _blockConnectionsService: BlockConnectionsService,
-    private _logger: Logger) 
-  { }
+    private _logger: Logger
+  ) { }
 
   /**
    * Service which returns the data state of the editor.
@@ -107,6 +110,7 @@ export class StoryEditorStateService
     // Persist the story and all the blocks
     return combineLatest(actions$)
       .pipe(tap(() => this._setLastLoadedState(state)),
+            tap(() => state.story.type && state.story.type === StoryModuleTypes.IvrModule && this._ivrService.save(state)),
             tap(() => this._isSaving = false),
             catchError(err => {
               this._logger.log(() => `Error saving story editor state, ${err}`);
