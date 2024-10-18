@@ -1,6 +1,5 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TextToSpeechService } from 'interactive-voice-response';
 import { IvrService } from './services/ivr.service';
 
 
@@ -15,7 +14,6 @@ export class IvrStateModule
     return {
       ngModule: IvrStateModule,
       providers: [
-        TextToSpeechService,
         IvrService
       ]    };
   }
