@@ -14,8 +14,8 @@ enum VoiceGender {
  * @property {string} blockId - The ID of the block associated with the audio.
  * @property {VoiceGender} voiceGender - The gender of the voice used for audio (male or female).
  */
-interface AudioData {
-    audioBuffer: ArrayBuffer;
+export interface AudioData {
+    audioBuffer: string;
     orgId?: string;
     storyId: string;
     blockId: string;
