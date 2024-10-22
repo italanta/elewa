@@ -32,16 +32,12 @@ mat-sidenav, app-flow-library {
     background-color: #ddd;
   }
 
-mat-sidenav-content {
-  position: relative;
-}
-
 app-flow-preview {
   min-width: 400px;
 }
 
 app-flow-page-selector {
-  position: absolute;
-  bottom: 36px;
-  left: 270px;
+  position: fixed;
+  bottom: 0;
+  left: 500px;
 }
