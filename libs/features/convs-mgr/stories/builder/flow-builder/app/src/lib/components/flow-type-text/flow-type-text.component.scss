@@ -8,11 +8,18 @@ form{
   height: 48px;
   padding: 0;
 
-  input{
-    width: 98%;
-    padding: 1rem 0 1rem 1rem;
-    border-radius: 4px;
-    border: none;
+  .input-holder {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: var(--convs-mgr-color-F6F6F6);
+    
+    input{
+      width: 100%;
+      padding: 1rem 0 1rem 1rem;
+      border: none;
+      background-color: var(--convs-mgr-color-F6F6F6);
+    }
   }
 }
