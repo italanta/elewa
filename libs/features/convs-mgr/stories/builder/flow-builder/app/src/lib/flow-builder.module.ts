@@ -37,6 +37,7 @@ import { FlowCheckboxOptionsComponent } from './components/flow-checkbox-options
 import { TextAreaInputComponent } from './components/text-area-input/text-area-input.component';
 import { ImageTypeInputComponent } from './components/image-type-input/image-type-input.component';
 import { FlowScreenSettingsComponent } from './components/flow-screen-settings/flow-screen-settings.component';
+import { ConfirmDeleteElementComponent } from './modals/confirm-delete-element.component';
 
 @NgModule({
   imports: [
@@ -77,6 +78,7 @@ import { FlowScreenSettingsComponent } from './components/flow-screen-settings/f
     FlowCheckboxOptionsComponent,
     TextAreaInputComponent,
     ImageTypeInputComponent,
+    ConfirmDeleteElementComponent,
   ],
   providers: [WhatsappFlowsStore],
 })

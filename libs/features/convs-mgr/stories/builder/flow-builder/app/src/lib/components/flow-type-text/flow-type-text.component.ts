@@ -9,6 +9,8 @@ import { ChangeTrackerService } from '@app/features/convs-mgr/stories/builder/fl
 
 import { TextElementFormService } from '../../services/text-elements-form.service';
 import { EditableTextElement } from '../../models/fe-flow-text-element.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteElementComponent } from '../../modals/confirm-delete-element.component';
 
 @Component({
   selector: 'lib-flow-header-text',
@@ -36,7 +38,8 @@ export class FlowTypeTextComponent implements OnInit {
   constructor(
     private trackerService: ChangeTrackerService,
     private textFormService: TextElementFormService, 
-    private _wFlowStore: WhatsappFlowsStore
+    private _wFlowStore: WhatsappFlowsStore,
+    private _dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +54,9 @@ export class FlowTypeTextComponent implements OnInit {
     });
   }
 
+  deleteElement(){
+    this._dialog.open(ConfirmDeleteElementComponent)
+  }
   buildV31Element(value: string) {
     const formValue = {
       text: value,

@@ -24,7 +24,7 @@
         <i class="fa-solid fa-ellipsis-vertical menu-tooltip"></i>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>{{ 'BOTS.CREATE-MODAL.FIELDS.DELETE' | transloco }}</button>
+        <button mat-menu-item (click)="deleteElement()">{{ 'BOTS.CREATE-MODAL.FIELDS.DELETE' | transloco }}</button>
       </mat-menu>
     </div>
   </form>

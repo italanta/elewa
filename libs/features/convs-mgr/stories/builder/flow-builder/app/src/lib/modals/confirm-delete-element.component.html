@@ -1,0 +1,23 @@
+<div class="modal-wrapper">
+    <span class="modal-header">
+  
+      <span class="modal-title">
+        Delete Element
+      </span>
+  
+      <button mat-icon-button aria-label="close dialog" mat-dialog-close></button>
+    </span>
+    <p class="modal-message">
+      You are about to delete <strong>element name</strong>. Are you sure you want to proceed?
+    </p>
+  
+  
+    <div class="modal-btns">
+      <button mat-stroked-button mat-dialog-close class="modal-cancel">
+        {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CANCEL' | transloco }}
+      </button>
+      <button mat-raised-button class="add-btn" color="primary" class="modal-confirm">
+        {{ 'CLASSESS.MODALS.USER-FROM-GROUP.CONFIRM' | transloco }}
+      </button>
+    </div>
+  </div>
