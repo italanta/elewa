@@ -1,3 +1,6 @@
+.module {
+  padding: 0.6rem 1rem 1rem 1rem;
+}
 
 .input {
   margin: 0;
@@ -11,12 +14,16 @@
 }
 
 .smb-frame {
-  height:40px;
-  width: 60%;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  height:80px;
+  width: 100%;
+  margin-bottom: 0.7rem;
+  background: var(--convs-mgr-placeholder-color);;
 }
   .smb-frame:hover {
     cursor: pointer;

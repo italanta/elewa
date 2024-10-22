@@ -396,7 +396,8 @@
     "CONNECT-BOT-TO-CHANNEL":"Connect bot to channel",
     "PUBLISH-BOT":"Publish Bot",
     "ARCHIVE-BOT":"Archive Bot",
-    "DELETE-BOT":"Delete Bot"
+    "DELETE-BOT":"Delete Bot",
+    "EDIT-CLICK":"Click here to edit"
   },
   "MODULES": {
     "FIELDS": {
