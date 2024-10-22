@@ -2,11 +2,9 @@
 
   <div class="section-header" fxLayout="row" fxLayoutAlign="space-between center">
     <h3>{{ 'BOTS.CREATE-MODAL.TITLE' | transloco }}</h3>
-    <div>
-      <button (click)="exit()" class="icon-button" mat-icon-button>
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
+    <button (click)="exit()" class="icon-button" mat-icon-button>
+      <i class="fas fa-times"></i>
+    </button>
   </div>
   <div class="section-body" fxLayout="column">
     <form [formGroup]="_form">
