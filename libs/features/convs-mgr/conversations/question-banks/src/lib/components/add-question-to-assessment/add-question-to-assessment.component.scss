@@ -67,12 +67,13 @@
   display: flex;
   justify-content: space-between;
   padding: 1rem;
-  cursor: pointer;
+  
   .bank__button{
     padding: 0.5rem;
     border-radius: 40px;
     width: 20%;
     font-size: large;
+    cursor: pointer;
   }
   .filled{
     color: var(--convs-mgr-color-medium-contrast);
