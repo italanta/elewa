@@ -27,8 +27,8 @@
 									<div fxLayout="column" >
 										<div appearance="fill" fxFlex="60" *ngIf="mediaSrc" class="media-display" [ngClass]="questionFormGroup?.get('mediaAlign')?.value">
 											<div class="media-div">
-												<img *ngIf="isImageMedia"  [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
-  											<video *ngIf="!isImageMedia" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
+												<img *ngIf="currentMediaType === 'image'"  [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
+  											<video *ngIf="currentMediaType === 'video'" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
 											</div>
 											<button class="img-elipsis" [matMenuTriggerFor]="menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
 										</div>

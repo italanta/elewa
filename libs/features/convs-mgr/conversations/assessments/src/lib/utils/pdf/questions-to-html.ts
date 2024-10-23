@@ -1,7 +1,5 @@
 import { AssessmentQuestion } from "@app/model/convs-mgr/conversations/assessments";
 import { AssessmentProgress, Attempt } from "@app/model/convs-mgr/micro-app/assessments";
-import { getMediaType } from "../check-media-type.util";
-
 export function QuestionsToHTML(allQuestions: AssessmentQuestion[], progress: AssessmentProgress) {
   let questionsHTML = '';
   const attemptCount = progress.attemptCount.toString();
@@ -33,8 +31,8 @@ export const Question = (index: number, points: string, questionDetails: Assessm
 </div>
 <hr/>
 <div class="question-body">
-  ${ questionDetails.mediaPath && getMediaType(questionDetails.mediaPath) === 'image'  ? `<img class="uploaded-media" src="${questionDetails.mediaPath}" />`: ''}
-  ${ questionDetails.mediaPath && getMediaType(questionDetails.mediaPath) === 'video'  ? `<a class="uploaded-media" href="${questionDetails.mediaPath}" target="_blank">Click to see video</a>`: ''}
+  ${ questionDetails.mediaPath && questionDetails.mediaType === 'image'  ? `<img class="uploaded-media" src="${questionDetails.mediaPath}" />`: ''}
+  ${ questionDetails.mediaPath && questionDetails.mediaType === 'video'  ? `<a class="uploaded-media" href="${questionDetails.mediaPath}" target="_blank">Click to see video</a>`: ''}
   <span class="question-text">
     ${questionDetails.message}
   </span>

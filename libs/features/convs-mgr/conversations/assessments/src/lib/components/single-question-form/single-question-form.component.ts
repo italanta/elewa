@@ -7,7 +7,6 @@ import { SubSink } from 'subsink';
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
 import { StepService } from '../../services/set-steps.service';
-import { getMediaType } from '../../utils/check-media-type.util';
 
 @Component({
   selector: 'app-single-question-form',
@@ -48,11 +47,6 @@ export class SingleQuestionFormComponent implements OnInit
                             ).subscribe();
 
                             console.log(this.assessmentFormArray)
-  }
-
-  /** Get media type for the current question */
-  getMediaTypeForQuestion(mediaPath: string): 'image' | 'video' {
-    return getMediaType(mediaPath) as 'image' | 'video';
   }
 
   getQuestion(i: number): FormGroup {

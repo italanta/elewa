@@ -12,7 +12,6 @@ import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
 
-import { getMediaType } from '../../utils/check-media-type.util'
 import { QuestionDisplayMode } from '../../model/question-display-mode.enum';
 
 import { MediaUploadModalComponent } from '../../modals/media-upload-modal/media-upload.component';
@@ -54,7 +53,6 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   currentMediaType: MediaUploadType;
   allowedMedia = MediaUploadType;
   addMedia = true;
-  isImageMedia: boolean;
   isAddingQuestion = true;
   addClicked = false;
   questionFormMode = QuestionFormMode;
@@ -88,7 +86,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
           }
         })).subscribe();
     }
-    this._checkMediaOnLoad();
+    this._checkMediaOnLoad(this.mediaType.value);
   }
 
   get questionsList() {
@@ -161,26 +159,22 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
         this.currentMediaType = type;
         this.mediaType?.setValue(type);
         this.mediaPath?.setValue(file);
-        this._checkMediaOnLoad();
+        this._checkMediaOnLoad(type);
       }
     });
   }
 
-  private _checkMediaOnLoad(): void {
+  private _checkMediaOnLoad(mediaType: MediaUploadType): void {
     const mediaPath = this.mediaPath?.value as string | undefined;
     if (mediaPath) {
-      this._updateMediaState(mediaPath);
-    } else {
-      this.isImageMedia = false;
+      this._updateMediaState(mediaPath, mediaType);
     }
   }
 
-  private _updateMediaState(mediaPath: string): void {
+  private _updateMediaState(mediaPath: string, mediaType: MediaUploadType): void {
     this.mediaSrc = mediaPath;
-    const mediaType = getMediaType(mediaPath);
     if(mediaType)
     this.currentMediaType = MediaUploadType.Image || MediaUploadType.Video ? mediaType : MediaUploadType.Video ;
-    this.isImageMedia = this.currentMediaType === MediaUploadType.Image
 
     if (this.currentMediaType === MediaUploadType.Video && this.videoPlayer) {
       this.videoPlayer.nativeElement.load();
