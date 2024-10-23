@@ -5,30 +5,43 @@
 .editor-container 
 {
   min-width: 800px;
-  height: fit content;
+  width: 100%;
+  height: fit-content;
 
-  margin-left: 8rem;
+  margin: 5rem 0 0 18rem;
   color: #101010;
   
   padding: 20px;
   display: flex;
   align-items: flex-start;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
   #phone-container {
-    width: 500px;
+    width: 520px;
     height: 585px;
-    background-image: url(/assets/images/phone.png);
+    border: 5px solid var(--convs-mgr-color-primary-black);
     background-size: cover;
     background-color: var(--convs-mgr-color-F6F6F6);
-    border-radius:40px;
+    border-radius: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 0 0 0;
+
+    span {
+      width: 60px;
+      height: 8px;
+      border-radius: 1rem;
+      background-color: var(--convs-mgr-color-primary-black);
+    }
   }
   // Acts as an inner container into the phone image.
   //  Allowing us to move things inside.
   .phone-inner {
-    width: 260px;
-    height: 520px;
+    width: 290px;
+    height: 550px;
   }
 
   .placeholder-text {
@@ -45,8 +58,8 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    padding: 12px 5px 12px 12px;
-    height: 92%;
+    padding: 0 5px 0 12px;
+    height: 97%;
 
     button {
       margin-top: auto;
@@ -68,7 +81,8 @@
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-    width: 100%;
+    width: 120%;
+
     border: 1 px solid black;
     border-radius: 10px;
     padding: 1.5rem;  
@@ -91,6 +105,7 @@
 }
 
 .screen-config {
+  width: 120%;
   padding: 1.2rem;
   border-radius: 0.625rem;
   background-color: var(--convs-mgr-color-text-white);

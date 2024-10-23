@@ -1,9 +1,10 @@
-<div fxFlexFill fxLayout="row" fxLayoutAlign="center center" class="flow-editor-container">
+<div fxFlexFill fxLayout="row" fxLayoutAlign="center" class="flow-editor-container">
   <div class="editor-container" >
     <!-- Image of the phone -->
-    <div id="phone-container" fxLayoutAlign="center center">
+    <div id="phone-container">
        <!-- Inner area inside the phone container. Smaller box centered into the phone, 
         making it look it's "behind" the phone image when in fact, it's in front. -->
+        <span></span>
       <div class="phone-inner">
         <!-- Fixed elements such as page title -->
 
@@ -38,11 +39,10 @@
       <ng-container #vcr> </ng-container>
       <input class="edit-btn" *ngIf="isEditing" placeholder="Button" />
     </div>
-  </div>
 
-
-  <div class="screen-config" *ngIf="droppedItems?.length > 0">
-    <lib-flow-screen-settings></lib-flow-screen-settings>
-  </div>
+    <div class="screen-config" *ngIf="droppedItems?.length > 0">
+      <lib-flow-screen-settings></lib-flow-screen-settings>
+    </div>
+</div>
 
 </div>
