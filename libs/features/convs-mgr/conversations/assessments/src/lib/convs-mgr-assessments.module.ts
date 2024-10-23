@@ -127,7 +127,6 @@ import { MicroAppsQuestionFormComponent } from './components/micro-apps-question
   ],
 
   providers: [
-    AssessmentService,
     AssessmentFormService,
     AssessmentsStore,
     AssessmentPublishService,

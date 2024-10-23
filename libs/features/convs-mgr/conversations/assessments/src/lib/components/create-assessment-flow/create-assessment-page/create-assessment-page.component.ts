@@ -57,6 +57,15 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
 
     if (this.action === 'create') {
       this.initializeEmptyAssessmentForm();
+
+      /** Add questions from question bank if any were selected  */
+      this._assessmentService.getQuestionsToCopy().subscribe((questions)=> {
+        if(questions?.length > 0) {
+          this.questions = questions;
+          debugger
+        }
+      })
+
     } else {
       this.initPage();
     }
@@ -227,6 +236,7 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void
   {
+    this._assessmentService.setQuestionsToCopy([]);
     this.assessment = {} as any;
     this.questions = [];
     this._sbS.unsubscribe();

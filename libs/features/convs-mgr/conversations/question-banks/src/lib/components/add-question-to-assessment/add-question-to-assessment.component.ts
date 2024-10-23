@@ -66,6 +66,7 @@ export class AddQuestionToAssessmentComponent implements OnInit, OnDestroy
   /** Create a new assessment */
   createAssessement()
   {
+    this._assessmentService.setQuestionsToCopy(this.questions);
     this._router.navigate(['/assessments/create'])
     this._dialog.closeAll()
   }

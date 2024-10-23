@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { from, map, of, switchMap, take, toArray } from 'rxjs';
+import { BehaviorSubject, from, map, of, switchMap, take, toArray } from 'rxjs';
 
 import { Assessment, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
@@ -13,10 +13,21 @@ import { ActiveAssessmentStore } from '../stores/active-assessment.store';
   providedIn: 'root',
 })
 export class AssessmentService {
+  /** Questions selected to be moved */
+  private questionsToCopy = new BehaviorSubject<AssessmentQuestion[]>([]);
+
   constructor(private _assessments$$: AssessmentsStore,
               private _orgId$$: ActiveOrgStore,
               private _activeAssessment$$: ActiveAssessmentStore
   ) {}
+
+  setQuestionsToCopy(questions: AssessmentQuestion[]) {
+    this.questionsToCopy.next(questions);
+  }
+
+  getQuestionsToCopy() {
+    return this.questionsToCopy.asObservable();
+  }
 
   getActiveAssessment$() {
     return this._activeAssessment$$.get();

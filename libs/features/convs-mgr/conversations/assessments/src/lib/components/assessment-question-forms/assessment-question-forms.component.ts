@@ -39,10 +39,16 @@ export class AssessmentQuestionFormsComponent implements AfterViewInit, OnDestro
 
     if (action === 'create') {
       if (!this.previewMode) {
-        const questionForm = this._assessmentForm.createQuestionForm();
-        questionForm.patchValue({ id: `0` });
-        this.questionsList.push(questionForm);
-        this.count++;
+        if(this.questions?.length > 0) {
+          this.questions.map(question => this.questionsList.push(this._assessmentForm.createQuestionForm(question)));
+          this.getCount();
+        } else {
+          const questionForm = this._assessmentForm.createQuestionForm();
+          questionForm.patchValue({ id: `0` });
+          this.questionsList.push(questionForm);
+  
+          this.count++;
+        }
         this.formDataIsReady = true;
       }
     } else {
