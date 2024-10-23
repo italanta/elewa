@@ -5,6 +5,7 @@
 .section-header{
   padding: 0;
   padding-left: 8px;
+  margin-bottom: 0.5rem;
 }
 .section-body {
   padding: 0 10px;
@@ -12,7 +13,7 @@
 
 h3 {
   font-size: 1.4rem;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .label {
@@ -54,6 +55,11 @@ button {
 
 .add-btn {
   color: var(--convs-mgr-color-text-white);
+}
+
+.icon {
+  font-size: 20px; 
+  color: var(--convs-mgr-color-primary-grey);
 }
 
 :host ::ng-deep .mdc-text-field--outlined {
