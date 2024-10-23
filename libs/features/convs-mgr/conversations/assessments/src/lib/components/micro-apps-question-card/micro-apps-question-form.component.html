@@ -4,8 +4,8 @@
   </mat-card-header>
   <mat-card-content class="question-content">
     <div *ngIf="question.get('mediaPath')?.value as mediaPath" class="media-div" [ngClass]="question.get('mediaAlign')?.value">
-      <img *ngIf="getMediaTypeForQuestion(mediaPath) === 'image'" class="uploaded-media" [src]="mediaPath" />
-      <video *ngIf="getMediaTypeForQuestion(mediaPath) === 'video'" class="uploaded-media" controls>
+      <img *ngIf="question.get('mediaType')?.value === 'image'" class="uploaded-media" [src]="mediaPath" />
+      <video *ngIf="question.get('mediaType')?.value === 'video'" class="uploaded-media" controls>
         <source [src]="mediaPath" type="video/mp4">
         Your browser does not support the video tag.
       </video>
