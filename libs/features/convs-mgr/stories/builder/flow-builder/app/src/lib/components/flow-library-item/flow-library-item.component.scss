@@ -1,13 +1,14 @@
 .flow-lib-button {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: -moz-calc(100% - 24px);
   width: -webkit-calc(100% - 24px);
   width: calc(100% - 24px);
 
   border-radius: 0.5rem;
   
-  padding: 10px;
+  padding: 15px 10px;
   margin-bottom: 5px;
   font-size: 0.9rem;
   background: var(--convs-mgr-color-text-white);
@@ -19,4 +20,8 @@
 
 .icon {
   margin-right: 5px;
+}
+
+span {
+  font-size: 0.8rem;
 }

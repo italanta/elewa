@@ -11,14 +11,19 @@
   padding: 10px;
 
   overflow-y: hidden;
-  // scrollbar-gutter: stable both-edges;
+  scrollbar-gutter: stable both-edges;
   background-color: #F6F6F6;
   color: #101010;
+}
+.nav:hover {
+  overflow-y: auto; 
+}
+.nav::-webkit-scrollbar {
+  width: 5px; 
 }
 
 .block-list {
   padding: 5px 10px;
-  border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
   display: flex;
   flex-direction: row;
@@ -26,12 +31,14 @@
   justify-content: space-between;
   box-sizing: border-box;
   cursor: move;
+  gap: 0.5rem;
   background-color: var(--convs-mgr-color-F6F6F6);
   h6 {
     margin-bottom: 0.4rem;
     font-size: 0.8rem;
     margin-top: 0px;
-    font-weight: 400;
+    font-weight: 500;
+    align-self: start;
 
     &:not(.first-title) {
       margin-top: 1rem;

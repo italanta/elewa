@@ -400,6 +400,11 @@
     "DELETE-BOT":"Delete Bot",
     "DRAG-ELEMENT": "Drag an element into this frame"
   },
+  "FLOW-CATEGORY": {
+    "TEXT-ELS": "Text",
+    "DESIGN-ELS": "Design",
+    "INPUT-ELS": "Input"
+  },
   "MODULES": {
     "FIELDS": {
       "NAME": "Name",

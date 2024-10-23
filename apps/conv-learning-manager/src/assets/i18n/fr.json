@@ -242,6 +242,11 @@
     "DRAG-ELEMENT": "Faites glisser un élément dans ce cadre"
 
   },
+"FLOW-CATEGORY": {
+  "TEXT-ELS": "Texte",
+  "DESIGN-ELS": "Conception",
+  "INPUT-ELS": "Saisir"
+},
   "CLASSESS": {
     "MODALS": {
       "CREATE-CLASS": "Créer une classe",
