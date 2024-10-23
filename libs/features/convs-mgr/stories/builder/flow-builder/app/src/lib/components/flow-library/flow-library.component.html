@@ -14,11 +14,11 @@
     #libraryDropList="cdkDropList" 
     [cdkDropListConnectedTo]="['flow-container-drop']"
   >
-    @for (group of controls; track group; let i=$index)
+    @for (group of groupedControls; track group; let i=$index)
     {
       <div class="block-list" fxLayout="column">
-        <h6 [class.first-title]="i === 0">{{ group.group| transloco }}</h6>
-        @for (control of controls; track control)
+        <h6 [class.first-title]="i === 0">{{ group.group | transloco }}</h6>
+        @for (control of group.controls; track control)
         {
           <!--CDK drag directive for elements that can be dragged-->
           <app-flow-library-item [control]="control" cdkDrag [cdkDragData]="control" >  
