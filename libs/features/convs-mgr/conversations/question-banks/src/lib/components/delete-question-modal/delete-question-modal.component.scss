@@ -29,6 +29,7 @@
       width: 20%;
       font-size: large;
       margin-top: 1.5rem;
+      font-weight: 300;
     }
     .filled{
       color: var(--convs-mgr-color-text-white);
@@ -38,15 +39,16 @@
     .outline{
       color: var(--micro-apps-teal-primary);
       border: 1px solid var(--micro-apps-teal-primary);
+      background: transparent;
     }
   }
 
   .modal-body{
     .modal-info{
-      color: var(--convs-mgr-input-color-two);
       display: flex;
-      gap: 1rem;
-      align-items: start;
+      align-items: center;
+      color: var(--convs-mgr-input-color-two);
+      gap: 0.6rem;
     }
   }
 }
