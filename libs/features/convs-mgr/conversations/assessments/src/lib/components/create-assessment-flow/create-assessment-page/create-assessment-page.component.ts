@@ -69,13 +69,11 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
   initPage()
   {
     this.assessment$ = this._assessmentService.getActiveAssessment$();
-    this.questions$ = this._assessmentQuestion.getQuestions$();
 
     this._sbS.sink = this.assessment$.pipe(
       take(1),
       tap((assessment) => {this.assessment = assessment}),
       switchMap((assessment) => this._assessmentQuestion.getQuestionsByAssessmentId$(assessment.id!)),
-      take(1),
       tap((questions) => { 
         this.questions = questions;
 
@@ -99,7 +97,7 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
 
   calculateMaxScore() {
     let total = 0;
-    this.questions.forEach((q)=> {
+    this.assessmentFormModel.assessmentsFormGroup.value.questions.forEach((q: AssessmentQuestion)=> {
       total += parseInt(q.marks as any)
     })
 
