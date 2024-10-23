@@ -198,18 +198,18 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
 
   addToQuestionBank() {
     const assessmentQuestion = this.questionFormGroup.value as AssessmentQuestion;
-    const currentStatus = this.questionFormGroup.get('isInBank')?.value;
+    const isInBank = this.questionFormGroup.get('isInBank')?.value;
 
     // Toggle the isInBank status
-    this.questionFormGroup.get('isInBank')?.setValue(!currentStatus);
+    this.questionFormGroup.get('isInBank')?.setValue(!isInBank);
 
-    if (!currentStatus) {
+    if (!isInBank) {
       this.questionBankService.add(assessmentQuestion).subscribe(() => {
-        this.showSuccessToast();
+        this.showToast('added');
       });
     } else {
       this.questionBankService.remove(assessmentQuestion).subscribe(() => {
-        this.showSuccessToast();
+        this.showToast('removed');
       }); 
     }
   }
@@ -223,9 +223,9 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   }
 
   /** Toasting message */
-  showSuccessToast(): void {
+  showToast(action: 'added' | 'removed'): void {
     let message = '';
-    if (this.isHighlighted) {
+    if (action === 'added') {
       message = 'Success. Question has been added to the Question Bank';
     } else {
       message = 'Success. Question has been removed from the Question Bank';
