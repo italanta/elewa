@@ -9,3 +9,5 @@ export * from './lib/variables.interface';
 export * from './lib/story-block-variables-config.interface';
 export * from './lib/http-methods.interface';
 export * from './lib/storyblock-variable.interface';
+export * from './lib/block-library-filter-strategy.interface';
+export * from './lib/interactive-voice-response-block.interface';

@@ -5,7 +5,7 @@ import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, filter, Observable, take } from 'rxjs';
+import { BehaviorSubject, EMPTY, filter, Observable, of, switchMap, take } from 'rxjs';
 
 import {  Logger } from '@iote/bricks-angular';
 
@@ -14,7 +14,7 @@ import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/
 import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 
 import { ToastMessageTypeEnum, ToastStatus } from '@app/model/layout/toast';
-import { Story, StoryError } from '@app/model/convs-mgr/stories/main';
+import { Story, StoryError, StoryModuleTypes } from '@app/model/convs-mgr/stories/main';
 
 import { BlockPortalService } from '@app/features/convs-mgr/stories/builder/blocks/portal';
 import { BuilderNavBarElementsProvider } from '@app/features/convs-mgr/stories/builder/nav';
@@ -23,6 +23,7 @@ import { StoryEditorFrame, SaveStoryService, SideScreenToggleService } from '@ap
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
 
 import { StoryEditorFrameComponent } from '../../components/editor-frame/editor-frame.component';
+import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 
 @Component({
   selector: 'convl-story-editor-page',
@@ -61,6 +62,9 @@ export class StoryEditorPageComponent implements OnInit, AfterViewInit, OnDestro
   //TODO @CHESA LInk boolean to existence of story in DB
   storyHasBeenSaved = false;
 
+  // Ivr stories cannot be 'saved anyway' since it will affect the IVR functionality 
+  canBeSavedWithErrors: boolean = true;
+
   zoomLevel: FormControl = new FormControl({ value: 100, disabled: true});
 
   constructor(
@@ -70,6 +74,8 @@ export class StoryEditorPageComponent implements OnInit, AfterViewInit, OnDestro
     private _sideMenu: SidemenuToggleService,
     private sideScreen: SideScreenToggleService,
     private _navbar: BuilderNavBarElementsProvider,
+
+    private _activeStory$$: ActiveStoryStore,
 
     private _dialog: MatDialog,
     private _cd: ChangeDetectorRef,
@@ -93,6 +99,14 @@ export class StoryEditorPageComponent implements OnInit, AfterViewInit, OnDestro
 
         const story = state.story;
         this.loading.next(false);
+      });
+
+      this._sb.sink = this._activeStory$$.get().pipe(
+        switchMap((story: Story | undefined) => this.handleStory(story)),
+      ).subscribe({
+        next: (story) => console.log("The story is", this._activeStory$$._activeStory, story),
+        error: (error) => console.error("Error fetching story", error),
+        complete: () => console.log("Story fetch complete")
       });
   }
 
@@ -121,6 +135,33 @@ export class StoryEditorPageComponent implements OnInit, AfterViewInit, OnDestro
     console.log(this.navbar);
     // Set navbar onto parent
     this._navbar.setBuilderNavElements(this.navbar, this)
+  }
+
+  /**
+   * Handles the fetched story and determines if it can be saved with errors
+   * @param story The fetched story, can be undefined
+   * @returns an observable of the story or EMPTY if no story
+   */
+  private handleStory(story: Story | undefined): Observable<Story> {
+    if (story) {
+      this.checkIfCanBeSavedWithErrors(story);
+      return of(story);
+    }
+    return EMPTY;
+  }
+
+  /**
+   * Checks if the story can be saved with errors based on its type
+   * @param story The story object to check
+   */
+  private checkIfCanBeSavedWithErrors(story: Story): void {
+    if (story.type === StoryModuleTypes.IvrModule) {
+       // IVR stories cannot be saved with errors
+      this.canBeSavedWithErrors = false; 
+    } else {
+      // Other stories can be saved with errors
+      this.canBeSavedWithErrors = true;   
+    }
   }
 
   /**

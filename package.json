@@ -28,6 +28,7 @@
     "@angular/platform-browser-dynamic": "18.0.3",
     "@angular/router": "18.0.3",
     "@angular/service-worker": "18.0.3",
+    "@azure/storage-blob": "^12.25.0",
     "@firebase/firestore-types": "^3.0.2",
     "@google-cloud/dialogflow-cx": "^4.3.0",
     "@google-cloud/scheduler": "^4.0.1",
@@ -49,11 +50,12 @@
     "chart.js": "^4.2.1",
     "cronstrue": "^2.47.0",
     "crypto-js": "^4.1.1",
-    "dotenv": "^16.3.1",
+    "dotenv": "^16.4.5",
     "firebase-admin": "^12.1.1",
     "firebase-functions": "^5.0.1",
     "firebase-tools": "^13.11.2",
     "lodash": "^4.17.21",
+    "microsoft-cognitiveservices-speech-sdk": "^1.40.0",
     "mime-types": "^2.1.35",
     "moment": "^2.29.4",
     "ngx-webstorage-service": "^5.0.0",
@@ -61,6 +63,7 @@
     "rxjs": "^7.8.1",
     "subsink": "^1.0.2",
     "tslib": "^2.3.0",
+    "twilio": "^5.3.3",
     "unique-names-generator": "^4.7.1",
     "unzipper": "^0.10.14",
     "uuid": "^9.0.1",
@@ -134,6 +137,10 @@
     "dotenv",
     "@google-cloud/tasks",
     "@google-cloud/scheduler",
-    "@google/generative-ai"
+    "@google/generative-ai",
+    "dotenv",
+    "microsoft-cognitiveservices-speech-sdk",
+    "@azure/storage-blob",
+    "twilio"
   ]
 }

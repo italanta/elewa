@@ -58,6 +58,7 @@ import { provideTransloco } from '@jsverse/transloco';
     imports: [
         BrowserModule, BrowserAnimationsModule,
         // GooglePlaceModule,
+        AngularFireFunctionsModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule, AngularFirestoreModule, AngularFireFunctionsModule, NgFireModule,
         AngularFireAnalyticsModule,

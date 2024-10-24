@@ -460,7 +460,9 @@
         "DESC-PLACEHOLDER": "Lesson description",
         "COPY": "Copy",
         "DELETE": "Delete",
-        "MODULE":"Module"
+        "MODULE":"Module",
+        "TYPE": "Type",
+        "IS-IVR": "Is this an IVR Module?"
       },
       "CREATE": "Create Lesson",
       "UPDATE": "Update Lesson",
