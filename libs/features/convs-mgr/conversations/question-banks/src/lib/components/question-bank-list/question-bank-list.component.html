@@ -36,16 +36,6 @@
         </div>
       </div>
     </div>
-    <div class="question-content">
-      <app-assessment-question-form
-        *ngIf="isAddingQuestion" 
-        [questionBankForm]="questionsFormGroup"
-        (questionActionCompleted)="onQuestionActionCompleted()"
-        [formEditMode]="formViewMode"
-        [questionMode]="questionDisplayMode" 
-        >
-      </app-assessment-question-form>
-    </div>
 
     <div class="displayedQuestions" *ngFor="let question of filteredQuestions">
       <div *ngIf="!isAddingQuestion">

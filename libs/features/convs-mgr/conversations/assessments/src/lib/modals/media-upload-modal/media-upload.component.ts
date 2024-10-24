@@ -21,14 +21,11 @@ export class MediaUploadModalComponent implements OnInit
   mediaType = MediaUploadType
   uploadProgress = 0;
   selectedFile: File;
-  questionFormGroup: FormGroup;
   mediaSrc: File;
   isUploading: boolean;
   path: string;
   index: number; 
-  questions: FormArray;
   assessmentFormGroup: FormGroup;
-  questionBankForm: FormGroup;
   formViewMode: QuestionFormMode
 
   private _sBS = new SubSink ();
@@ -39,9 +36,6 @@ export class MediaUploadModalComponent implements OnInit
                @Inject(MAT_DIALOG_DATA) public data: { fileType: MediaUploadType, 
                                                        assessmentFormGroup: FormGroup, 
                                                        index: number,
-                                                       questionFormGroup: FormGroup;
-                                                       questions: FormArray,
-                                                       questionBankForm: FormGroup,
                                                        formViewMode: QuestionFormMode
                                                        }, 
                                                         
@@ -49,18 +43,21 @@ export class MediaUploadModalComponent implements OnInit
   ) {
     this.assessmentFormGroup = this.data.assessmentFormGroup;
     this.index = data.index;
-    this.questionFormGroup = data.questionFormGroup;
-    this.questions = data.questions;
     this.fileAccept = data.fileType === this.mediaType.Image ? 'image/*' : 'video/*';
-    this.questionBankForm = data.questionBankForm;
     this.formViewMode = data.formViewMode;
   }
 
   ngOnInit()
   {
-    if(this.formViewMode === QuestionFormMode.AssessmentMode){
-      this.path = this.questionFormGroup.get('mediaPath')?.value 
-    }
+    this.path = this.questionFormGroup.get('mediaPath')?.value 
+  }
+
+  get questionsList() {
+    return this.assessmentFormGroup.get('questions') as FormArray;
+  }
+
+  get questionFormGroup() {
+    return this.questionsList?.at(this.index) as FormGroup;
   }
 
   /** Track files when upload type is drag and drop */
@@ -121,14 +118,9 @@ export class MediaUploadModalComponent implements OnInit
     this.isUploading = true;
     this.uploadProgress = 0;
 
-    let mediaName: string;
-
     // Determine which form is being used (questionFormGroup or questionBankForm)
-    if (this.formViewMode === QuestionFormMode.AssessmentMode) {
-      mediaName = this.questionFormGroup.controls['mediaPath'].value || this.selectedFile.name;
-    } else{
-      mediaName = this.questionBankForm.controls['mediaPath'].value || this.selectedFile.name;
-    }
+    const mediaName = file.name || this.selectedFile.name;
+
     const upload$ = await this._uploadService.uploadSingleFileAndPercentage(this.selectedFile, `assessmentMedia/${mediaName}`);
 
     this._sBS.sink = upload$.subscribe(({ progress, downloadURL, filePath }) => {
@@ -136,12 +128,8 @@ export class MediaUploadModalComponent implements OnInit
       
       if (this.uploadProgress === 100 && downloadURL) {
         // Apply media source to the correct form
-        if (this.formViewMode === QuestionFormMode.AssessmentMode) {
-          this.questionFormGroup.patchValue({ mediaSrc: downloadURL, mediaPath: filePath });
-        } else if (this.formViewMode === QuestionFormMode.QuestionBankMode) {
-          this.questionBankForm.patchValue({ mediaSrc: downloadURL, mediaPath: filePath });
-        }
-        
+        this.questionFormGroup.patchValue({ mediaSrc: downloadURL, mediaPath: filePath });
+
         this.isUploading = false;
         this.dialogRef.close(downloadURL); // Close dialog with uploaded file path
       }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormGroup } from '@angular/forms';
 
@@ -16,12 +16,12 @@ import { DeleteQuestionModalComponent } from '../delete-question-modal/delete-qu
   templateUrl: './question-card.component.html',
   styleUrl: './question-card.component.scss',
 })
-export class QuestionCardComponent implements OnDestroy
+export class QuestionCardComponent implements OnInit, OnDestroy
 {
   /** Specific question */
   @Input() question: AssessmentQuestion;
   /** Question form group */
-  questionsFormGroup: FormGroup;
+  questionFormGroup: FormGroup;
   /** Adding a question state */
   addAQuestion: boolean;
   formViewMode: QuestionFormMode;
@@ -41,15 +41,20 @@ export class QuestionCardComponent implements OnDestroy
                private _assessmentForm: AssessmentFormService
   ){}
 
+  ngOnInit(): void
+  {
+    this.questionFormGroup = this._assessmentForm.createQuestionForm(this.question);
+  }
+
   /** Triggering form output for editing an existing question
    * Build form with existing data
   */
   editQuestion() {
     this.addAQuestion = true;
     
-    this.questionsFormGroup = this._assessmentForm.createQuestionForm(this.question);
+    this.questionFormGroup = this._assessmentForm.createQuestionForm(this.question);
     
-    this.addNewQuestion.emit(this.questionsFormGroup);
+    this.addNewQuestion.emit(this.questionFormGroup);
     
     this.formViewMode = QuestionFormMode.QuestionBankMode;
 

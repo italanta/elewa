@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -28,18 +28,13 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
 
   private _subs = new SubSink();
 
-  @Input() questions: AssessmentQuestion[];
-  @Input() questionNo: number;
   @Input() isLastQuestion: boolean;
-  @Input() index: number;
   @Input() assessmentMode: number;
   @Input() questionMode: QuestionDisplayMode;
   @Input() assessmentFormGroup: FormGroup;
-  @Input() questionFormGroupName: number | string;
+  @Input() questionFormGroupName: number;
   @Input() activeCard$: Observable<number>;
-  @Input() questionBankForm: FormGroup;
   @Input() formEditMode: QuestionFormMode;
-  @Input() question: AssessmentQuestion;
   
   @Output() addNewQuestion = new EventEmitter<FormGroup>(); // Emits form
   @Output() activeQuestionChanged = new EventEmitter<number>();
@@ -51,7 +46,6 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   activeCard: number;
 
   mediaSrc = '';
-  currentMediaType: MediaUploadType;
   allowedMedia = MediaUploadType;
   addMedia = true;
   isAddingQuestion = true;
@@ -80,7 +74,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
         .pipe(tap((activeId) => {
           this.activeCard = activeId;
 
-          if (this.index === activeId) {
+          if (this.questionFormGroupName === activeId) {
             this.questionMode = QuestionDisplayMode.EDITING;
           } else {
             this.questionMode = QuestionDisplayMode.VIEWING;
@@ -97,28 +91,27 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   }
 
   get questionFormGroup() {
-    return this.questionsList?.controls[this.questionFormGroupName as number] as FormGroup;
+    return this.questionsList?.at(this.questionFormGroupName) as FormGroup;
   }
 
   get mediaType() {
-    const mediaType = this.formEditMode === QuestionFormMode.AssessmentMode ? this.questionFormGroup?.get('mediaType')  : this.questionBankForm.get('mediaType');
-
-    return mediaType;
+    return this.questionFormGroup?.get('mediaType');
   }
 
   get mediaPath() {
-    return this.questionFormGroup?.get('mediaPath') as FormControl;
+    return this.questionFormGroup?.get('mediaPath');
   }
 
   get mediaAlign() {
-    return this.questionFormGroup?.get('mediaPath') as FormControl;
+    this.questionFormGroup?.get('mediaAlign')?.value;
+    return this.questionFormGroup?.get('mediaAlign');
   }
 
   deleteQuestion() {
     if (this.questionsList) {
-      const question = this.questionsList.at(this.index);
-      const prevQuestion = this.questionsList.at(this.index - 1);
-      const nextQuestion = this.questionsList.at(this.index + 1);
+      const question = this.questionsList.at(this.questionFormGroupName);
+      const prevQuestion = this.questionsList.at(this.questionFormGroupName - 1);
+      const nextQuestion = this.questionsList.at(this.questionFormGroupName + 1);
 
       if (prevQuestion) {
         prevQuestion.patchValue({ nextQuestionId: question.value.nextQuestionId });
@@ -128,13 +121,13 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
         nextQuestion.patchValue({ prevQuestionId: question.value.prevQuestionId });
       }
 
-      this.questionsList.removeAt(this.index);
+      this.questionsList.removeAt(this.questionFormGroupName);
     }
   }
 
   duplicateQuestion() {
     if (this.questionsList) {
-      const prevQuestion = this.questionsList.at(this.index) as FormGroup;
+      const prevQuestion = this.questionsList.at(this.questionFormGroupName) as FormGroup;
       const copiedQuestion = this._assessmentFormService.createQuestionForm(prevQuestion.value);
 
       copiedQuestion.patchValue({ nextQuestionId: null });
@@ -147,10 +140,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
       data: {
         fileType: type,
         assessmentFormGroup: this.assessmentFormGroup,
-        index: this.index,
-        questions: this.questionsList,
-        questionFormGroup: this.questionFormGroup,
-        questionBankForm: this.questionBankForm,
+        index: this.questionFormGroupName,
         formViewMode: this.formEditMode,
         questionSectionType: QuestionSectionType
       },
@@ -160,7 +150,6 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((file: string) => {
       if (file) {
         this.mediaSrc = file;
-        this.currentMediaType = type;
         this.mediaType?.setValue(type);
         this.mediaPath?.setValue(file);
         this._checkMediaOnLoad(type);
@@ -170,7 +159,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
 
   private _checkMediaOnLoad(mediaType: MediaUploadType): void {
 
-    const mediaPath = this.formEditMode === QuestionFormMode.AssessmentMode ? this.mediaPath?.value  : this.questionBankForm.get('mediaPath')?.value;
+    const mediaPath = this.mediaPath?.value;
     if (mediaPath) {
       this._updateMediaState(mediaPath, mediaType);
     }
@@ -179,23 +168,19 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   private _updateMediaState(mediaPath: string, mediaType: MediaUploadType): void {
     this.mediaSrc = mediaPath;
     if(mediaType)
-    this.currentMediaType = MediaUploadType.Image || MediaUploadType.Video ? mediaType : MediaUploadType.Video ;
 
-    if (this.currentMediaType === MediaUploadType.Video && this.videoPlayer) {
+    if (mediaType === MediaUploadType.Video && this.videoPlayer) {
       this.videoPlayer.nativeElement.load();
     }
   }
 
   alignMedia(position: 'media_center' | 'media_right' | 'media_left') {
-    this.questionFormGroup?.get('mediaAlign')?.setValue(position);
-    if(this.questionBankForm && this.questionBankForm.value) {
-      this.questionBankForm?.get('mediaAlign')?.setValue(position);
-    }
+    this.mediaAlign?.setValue(position);
   }
 
   addQuestion(): void {
     this.addClicked = true;
-    const questionToAdd = this.questionBankForm.value as AssessmentQuestion;
+    const questionToAdd = this.questionFormGroup.value as AssessmentQuestion;
     if (questionToAdd.id) {
       this._subs.sink = this.questionBankService.update(questionToAdd).subscribe(() => {
         this.questionActionCompleted.emit();

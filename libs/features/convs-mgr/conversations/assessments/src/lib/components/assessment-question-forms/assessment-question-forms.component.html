@@ -29,15 +29,12 @@
     fxLayoutAlign="start" cdkDropList (cdkDropListDropped)="drop($event)">
     <div id="questions" *ngFor="let question of questionsList.controls; let i = index" fxFlex>
       <app-assessment-question-form cdkDrag class="card-list" [assessmentFormGroup]="assessmentFormGroup" 
-                                    [index]="i" [questions]="questions"
-                                    [questionFormGroupName]="i" [questionNo]="i+1" 
+                                    [questionFormGroupName]="i"
                                     [isLastQuestion]="i + 1 === questionsList.controls.length"
                                     [assessmentMode]="assessmentMode" (addNewQuestion)="addQuestion($event)" 
                                     [activeCard$]="activeCard$.asObservable()"
                                     (activeQuestionChanged)="activeQuestionChanged($event)"
                                     [questionMode]="questionMode"
-                                    [question]="questions[i]"
-                                     
                                     [formEditMode]=" assessmentFeatureMode "
                                    
                                     [questionMode]="questionMode"
