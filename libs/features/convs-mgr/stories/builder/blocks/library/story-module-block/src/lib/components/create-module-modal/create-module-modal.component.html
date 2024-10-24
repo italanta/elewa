@@ -2,17 +2,15 @@
 
   <div class="section-header" fxLayout="row" fxLayoutAlign="space-between center">
     <h3>{{ 'BOTS.CREATE-MODAL.TITLE' | transloco }}</h3>
-    <div>
-      <button (click)="exit()" class="icon-button" mat-icon-button>
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
+    <button (click)="exit()" class="icon-button" mat-icon-button>
+      <i class="fas fa-times icon"></i>
+    </button>
   </div>
   <div class="section-body" fxLayout="column">
     <form [formGroup]="_form">
 
       <div fxLayout="column" fxLayoutAlign="start">
-        <h4 class="label">{{ 'BOTS.CREATE-SUBSTORY.MODULE-TYPE' | transloco }}</h4>
+        <span class="label">{{ 'BOTS.CREATE-SUBSTORY.MODULE-TYPE' | transloco }}</span>
   
         <mat-form-field appearance="outline">
           <mat-select formControlName="type" [value]="selectedType">
@@ -26,18 +24,18 @@
       </div>
   
       <div fxLayout="column" fxLayoutAlign="start">
-        <h4 class="label">
+        <span class="label">
           {{ 'BOTS.CREATE-SUBSTORY.NAME-TITLE' | transloco }}
-        </h4>
+        </span>
 
         <mat-form-field appearance="outline">
           <input type="text" matInput formControlName="name"
             [placeholder]="'BOTS.CREATE-SUBSTORY.NAME-PLACEHOLDER' | transloco" />
         </mat-form-field>
 
-        <h4 class="label">
+        <span class="label">
           {{ 'BOTS.CREATE-SUBSTORY.DESC-TITLE' | transloco }}
-        </h4>
+        </span>
       
         <mat-form-field appearance="outline">
           <textarea matInput formControlName="description" [placeholder]="'BOTS.CREATE-SUBSTORY.DESC-PLACEHOLDER' | transloco">
