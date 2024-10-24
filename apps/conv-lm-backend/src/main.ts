@@ -33,8 +33,6 @@ export * from './app/micro-apps/surveys/start-survey.function';
 
 export * from './app/user/create-new-user.function';
 
-export * from './app/story/check-story-for-errors.function';
-
 export * from './app/organisation/on-create-org-assign-user-to-org.function';
 
 
@@ -43,3 +41,7 @@ export * from './app/ai-agent/intent/create-intent.function';
 export * from './app/ai-agent/intent/delete-intent.function';
 export * from './app/ai-agent/intent/edit-intent.function';
 export * from './app/ai-agent/intent/get-intent.function';
+
+// Whatsapp flows
+export * from './app/whatsapp-flows/on-create-whatsapp-flow.function';
+export * from './app/whatsapp-flows/on-update-whatsapp-flow.function';

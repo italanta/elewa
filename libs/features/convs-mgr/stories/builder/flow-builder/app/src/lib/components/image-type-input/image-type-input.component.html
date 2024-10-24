@@ -1,0 +1,39 @@
+<div class="configs" *ngIf="imageInputForm && showForm" >
+  <form [formGroup]="imageInputForm">
+    <div class="inputConfigs">
+      <label for="alt-text">Alt Text:</label>
+      <input type="text" id="alt-text" formControlName="alt-text">
+    </div>
+    <p>{{fileAccept | json}}</p>
+    <div class="inputConfigs">
+      <label for="src">Image Source:</label>
+      <!-- Button to trigger file selection -->
+      <button mat-raised-button (click)="openFileExplorer(fileAccept)" class="media-btn">Choose File</button>
+    </div>
+    <div class="inputConfigs">
+      <label for="width">Width:</label>
+      <input type="number" id="width" formControlName="width">
+    </div>
+    <div class="inputConfigs">
+      <label for="height">Height:</label>
+      <input type="number" id="height" formControlName="height">
+    </div>
+    <div class="inputConfigs">
+      <label for="scale-type">Scale Type:</label>
+      <select id="scale-type" formControlName="scale-type">
+        <option value="contain">Contain</option>
+        <option value="cover">Cover</option>
+        <option value="fill">Fill</option>
+      </select>
+    </div>
+    <div class="inputConfigs">
+      <label for="aspect-ratio">Aspect Ratio:</label>
+      <input type="number" id="aspect-ratio" formControlName="aspect-ration" step="0.1">
+    </div>
+  </form>
+  <button (click)="saveConfigurations()">Save</button>
+</div>
+<div *ngIf="!showForm">
+  <p>{{element.src}}</p>
+  <img [src]="element.src" />
+</div>

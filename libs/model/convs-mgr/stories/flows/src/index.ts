@@ -26,5 +26,12 @@ export * from './lib/library/v3.1/elements/input-options.interface';
 export * from './lib/library/v3.1/elements/input-radio-btns.interface';
 export * from './lib/library/v3.1/elements/input-text-area.interface';
 export * from './lib/library/v3.1/elements/input-text.interface';
-
+export * from './lib/library/v3.1/elements/input-datepicker.interface'
 export * from './lib/library/v3.1/flow-json.interface';
+
+// Flow Control Editor
+export * from './lib/editor/flow-control.interface';
+export * from './lib/editor/flow-control-type.enum';
+export * from './lib/editor/inputs-data.interface';
+export * from './lib/editor/inputs-data.interface';
+export * from './lib/editor/flow-controls.const';

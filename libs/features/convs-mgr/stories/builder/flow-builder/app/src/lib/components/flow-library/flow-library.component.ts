@@ -1,7 +1,8 @@
 import { SubSink } from 'subsink';
 
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { FLOW_CONTROLS } from '../../providers/flow-controls.const';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FlowControl, FLOW_CONTROLS } from '@app/model/convs-mgr/stories/flows';
+// import { FlowEditorStateProvider } from '@app/state/convs-mgr/wflows';
 
 @Component({
   selector: 'app-flow-library',
@@ -12,14 +13,16 @@ export class FlowLibraryComponent implements OnInit, OnDestroy
 {
   private _sbS = new SubSink();
 
-  controls = FLOW_CONTROLS();
+  controls: FlowControl[]  = FLOW_CONTROLS();
 
 
-  constructor() 
-  { }
+  // constructor(private flowStateProvider: FlowEditorStateProvider) 
+  // { }
 
-  ngOnInit(): void { }
-
+  ngOnInit(): void {
+    // GROUP_FLOW_CONTROL_GROUPS(this.controls)
+    // console.log(this.controls)
+   }
 
   ngOnDestroy(): void {
       

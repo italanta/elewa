@@ -384,10 +384,20 @@
       "INFO-TEXT1":"To create a new channel, go to Admin Settings, then proceed",
       "INFO-TEXT2":"to Company information, and select the option to Add Channel"
     },
+    "CREATE-SUBSTORY": {
+      "NAME-TITLE": "Module title *",
+      "NAME-PLACEHOLDER": "Module title",
+      "DESC-TITLE": "Module description",
+      "DESC-PLACEHOLDER": "Module description",
+      "MODULE-TYPE": "Module type *",
+      "CONFIRM": "Confirm",
+      "CANCEL": "Cancel"
+    },
     "CONNECT-BOT-TO-CHANNEL":"Connect bot to channel",
     "PUBLISH-BOT":"Publish Bot",
     "ARCHIVE-BOT":"Archive Bot",
-    "DELETE-BOT":"Delete Bot"
+    "DELETE-BOT":"Delete Bot",
+    "EDIT-CLICK":"Click here to edit"
   },
   "MODULES": {
     "FIELDS": {
@@ -1252,6 +1262,20 @@
       "FIRST-STORY":"First Story"
       
   }
+},
+
+"WHATSAPP-FLOWS": {
+  "CONFIGURATIONS": {
+    "ACTION-DESCRIPTION": "Configure List of Options here",
+    "LABELS": {
+      "NAME": "Name",
+      "LABEL": "Label",
+      "REQUIRED": "Required"
+    },
+    "BUTTON-DESC": "Add or Delete Options",
+    "BUTTON-SAVE": "Save"
+  },
+  "ADD-SCREEN": "Add screen"
 }
 
 }

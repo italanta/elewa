@@ -4,11 +4,12 @@
  * 
  * The screen is built out of these elements
  * @see https://developers.facebook.com/docs/whatsapp/flows/reference/flowsapi/
+ * @see https://developers.facebook.com/docs/whatsapp/flows/reference/flowjson/components/
  */
 export interface FlowPageLayoutElementV31 
 { 
   /** Type of the layout element */
-  type: FlowPageLayoutElementTypesV31;
+  type?: FlowPageLayoutElementTypesV31;
 
 }
 
@@ -17,7 +18,7 @@ export interface FlowPageLayoutElementV31
  * 
  * Max number of elements per page is 50!
  */
-export enum FlowPageLayoutElementTypesV31 
+export enum     FlowPageLayoutElementTypesV31 
 {
   //
   // Structural elements

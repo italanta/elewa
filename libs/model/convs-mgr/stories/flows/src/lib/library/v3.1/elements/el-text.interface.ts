@@ -1,13 +1,11 @@
-import { FlowPageLayoutElementTypesV31, FlowPageLayoutElementV31 } from "./flow-element.interface";
+import { FlowPageLayoutElementV31 } from "./flow-element.interface";
 
 export interface FlowPageTextV31 extends FlowPageLayoutElementV31
 {
   /** The text to show */
-  text: string;
+  text?: string;
 
-  size: FlowPageTextSizesV31;
-
-  type: FlowPageLayoutElementTypesV31.TEXT;
+  size?: FlowPageTextSizesV31;
 }
 
 export enum FlowPageTextSizesV31 

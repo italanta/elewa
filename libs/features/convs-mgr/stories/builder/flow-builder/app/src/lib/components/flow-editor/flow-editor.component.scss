@@ -1,13 +1,19 @@
+.flow-editor-container {
+  background-size: 24px 24px;
+  background-image: radial-gradient(circle at 1px 1px, var(--convs-mgr-border-color) 1px, var(--convs-mgr-color-F6F6F6) 0);
+}
 .editor-container 
 {
   min-width: 800px;
-  height: 650px;
+  height: fit content;
 
   background: #F6F6F6;
   color: #101010;
   
   padding: 20px;
   border: 1px solid #101010;
+  display: flex;
+  gap: 2rem;
 }
 
   #phone-container {
@@ -26,4 +32,18 @@
     background-color: red;
   }
 
+  #flow-container-drop {
+    height: 100%;
+  }
 
+  .config-container{
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+    border: 1 px solid black;
+    border-radius: 10px;
+    background-color: antiquewhite;
+    padding: 1.5rem;  
+  }
+  
