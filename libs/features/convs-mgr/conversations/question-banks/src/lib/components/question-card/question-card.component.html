@@ -1,5 +1,5 @@
-<mat-card class="question-card">
-  <div *ngIf="questionFormGroup && !addAQuestion">
+<div class="question-card" *ngIf="questionFormGroup && !addAQuestion">
+  <div>
     <mat-card-header>
       <div class="header__wrapper">
         <div class="question-header">
@@ -41,7 +41,7 @@
       </div>
     </mat-card-content>
   </div>
-</mat-card>
+</div>
 <app-assessment-question-form
   *ngIf="addAQuestion" 
   [questionFormGroupName]="questionFormGroupName"
