@@ -13,6 +13,7 @@ import { FlowControl } from '@app/model/convs-mgr/stories/flows';
 
 import { EditorComponentFactory } from '../../services/editor-component-factory.service';
 import { _GetFlowComponentForm } from '../../providers/flow-forms-build-factory.util';
+import { SideScreenToggleService } from '@app/features/convs-mgr/stories/builder/editor-state';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class FlowEditorComponent implements OnInit, OnDestroy
   state: FlowBuilderStateFrame;
   droppedItems: any;
   isEditing = false;
+  isSideScreenOpen: boolean;
 
   constructor( private _flowBuilderState: FlowBuilderStateProvider,
                private editorComponentFactory: EditorComponentFactory,
@@ -37,9 +39,13 @@ export class FlowEditorComponent implements OnInit, OnDestroy
                private trackerService: ChangeTrackerService,
                private _wFlowService: WFlowService,
                private cdr: ChangeDetectorRef,
+               private sideScreen: SideScreenToggleService
   ) { }
   
   ngOnInit(): void {
+    this._sbS.sink = this.sideScreen.sideScreen$.subscribe((isOpen) => {
+      this.isSideScreenOpen = isOpen;
+    })
     this.droppedElements$ = this._flowBuilderState.getControls();
 
     this.droppedElements$.pipe(take(1)).subscribe((elements)=> {
@@ -52,6 +58,10 @@ export class FlowEditorComponent implements OnInit, OnDestroy
 
   editButton() {
     this.isEditing = true;
+  }
+
+  toggleSidenav(){
+    this.sideScreen.toggleSideScreen(!this.isSideScreenOpen);
   }
   
   /** Function handling drag and drop functionality for a component */

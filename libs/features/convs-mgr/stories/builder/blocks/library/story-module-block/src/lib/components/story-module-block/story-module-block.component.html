@@ -1,16 +1,16 @@
 <!-- HTML template of the substory block based off question block design-->
-<div class="wide" [id]="id" *ngIf="storyModuleBlock">
+<div class="wide module" [id]="id" *ngIf="storyModuleBlock">
   <form [formGroup]="storyModuleBlock" fxLayout="column" fxLayoutALign="start center">
 
     <div class="smb-frame" (click)="navigateToStory()">
-      Edit {{ block.blockTitle }}
+      <i class="fas fa-pencil-alt"></i>
+       <span>{{ 'BOTS.EDIT-CLICK' | transloco }}</span>
     </div>
 
     <div formArrayName="options" fxFlexFill>
       <div *ngFor="let option of options.controls; let i = index">
         <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="100">
-          <app-option-input-field #storyOutputs [jsPlumb]="jsPlumb" [blockFormGroup]="storyModuleBlock" [formGroupNameInput]="i"
-            class="input" [charMaxlength]="outputNameCharLimit" [isReadOnly]="true"></app-option-input-field>
+          <app-default-option-field #storyOutputs [jsPlumb]="jsPlumb" [blockFormGroup]="storyModuleBlock" class="input"></app-default-option-field>
         </div>
       </div>
     </div>

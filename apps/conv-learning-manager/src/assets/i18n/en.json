@@ -398,8 +398,15 @@
     "PUBLISH-BOT":"Publish Bot",
     "ARCHIVE-BOT":"Archive Bot",
     "DELETE-BOT":"Delete Bot",
+    "EDIT-CLICK":"Click here to edit",
     "DRAG-ELEMENT": "Drag an element into this frame",
+    "CHOOSE-FLOW-ELEMENT": "Choose Flow Element",
     "SCREEN-SETTNGS": "View Screen Settings"
+  },
+  "FLOW-CATEGORY": {
+    "TEXT-ELS": "Text",
+    "DESIGN-ELS": "Design",
+    "INPUT-ELS": "Input"
   },
   "MODULES": {
     "FIELDS": {

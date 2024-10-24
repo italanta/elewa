@@ -239,8 +239,15 @@
     "PUBLISH-BOT":"Publier le robot",
     "ARCHIVE-BOT":"Bot d’archives",
     "DELETE-BOT":"Supprimer le robot",
+    "EDIT-CLICK":"Cliquez ici pour modifier",
     "DRAG-ELEMENT": "Faites glisser un élément dans ce cadre",
+    "CHOOSE-FLOW-ELEMENT": "Choisir l'élément de flux",
     "SCREEN-SETTNGS": "Afficher les paramètres de l'écran"
+  },
+  "FLOW-CATEGORY": {
+    "TEXT-ELS": "Texte",
+    "DESIGN-ELS": "Conception",
+    "INPUT-ELS": "Saisir"
   },
   "CLASSESS": {
     "MODALS": {

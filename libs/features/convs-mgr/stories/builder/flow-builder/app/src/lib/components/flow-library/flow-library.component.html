@@ -1,10 +1,23 @@
-<div class="nav">
+<div *ngIf="isSideScreenOpen" class="nav">
 
-  <div class="blocks-header" fxLayout="row">
-    <div><span class="header-title">Choose Element</span></div>
+  <div *ngIf="isSideScreenOpen" class="btn-wrapper" (click)="toggleSidenav()">
+    <i class="fas fa-chevron-left"></i>
+  </div>
+  <div class="blocks-header">
+    <span class="header-title">{{ 'BOTS.CHOOSE-FLOW-ELEMENT' | transloco}}</span>
 
     <div class="flex-spacer"></div>
   </div>
+
+  <div class="block-filters">
+    <div class="search">
+      <i class="fas fa-search search_tooltip"></i>
+      <input class="search_input" type="text" name="search table"
+        placeholder="Search element" id=""
+        >
+    </div>
+  </div>
+
 
   <mat-divider></mat-divider>
 
@@ -14,11 +27,11 @@
     #libraryDropList="cdkDropList" 
     [cdkDropListConnectedTo]="['flow-container-drop']"
   >
-    @for (group of controls; track group; let i=$index)
+    @for (group of groupedControls; track group; let i=$index)
     {
       <div class="block-list" fxLayout="column">
-        <h6 [class.first-title]="i === 0">{{ group.group| transloco }}</h6>
-        @for (control of controls; track control)
+        <h6 [class.first-title]="i === 0">{{ group.group | transloco }}</h6>
+        @for (control of group.controls; track control)
         {
           <!--CDK drag directive for elements that can be dragged-->
           <app-flow-library-item [control]="control" cdkDrag [cdkDragData]="control" >  

@@ -19,7 +19,9 @@
   <mat-sidenav-container class="story-index" fxFlex="80" fxLayout="column" fxLayoutAlign="start" fxFlex>
 
     <!-- Left sidenav - Editor window -->
-    <mat-sidenav position="start" mode="side" [opened]="true"><app-flow-library></app-flow-library></mat-sidenav>
+    <mat-sidenav position="start" mode="side" [opened]="true">
+      <app-flow-library></app-flow-library>
+    </mat-sidenav>
 
     <!-- Right sidenav. Can be opened -->
     <mat-sidenav position="end" mode="over" #preview>
