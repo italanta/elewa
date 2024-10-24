@@ -162,6 +162,6 @@
 }
 
 .highlight {
-  filter: drop-shadow(0 0 5px var(--micro-apps-teal-primary)); 
+  filter: invert(42%) sepia(20%) saturate(1520%) hue-rotate(142deg) brightness(91%) contrast(88%);
   transform: scale(1.1);
 }
