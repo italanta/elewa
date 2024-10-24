@@ -398,6 +398,7 @@
     "PUBLISH-BOT":"Publish Bot",
     "ARCHIVE-BOT":"Archive Bot",
     "DELETE-BOT":"Delete Bot",
+    "EDIT-CLICK":"Click here to edit",
     "DRAG-ELEMENT": "Drag an element into this frame",
     "CHOOSE-FLOW-ELEMENT": "Choose Flow Element"
   },

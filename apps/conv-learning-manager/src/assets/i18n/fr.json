@@ -239,15 +239,15 @@
     "PUBLISH-BOT":"Publier le robot",
     "ARCHIVE-BOT":"Bot d’archives",
     "DELETE-BOT":"Supprimer le robot",
+    "EDIT-CLICK":"Cliquez ici pour modifier",
     "DRAG-ELEMENT": "Faites glisser un élément dans ce cadre",
     "CHOOSE-FLOW-ELEMENT": "Choisir l'élément de flux"
-
   },
-"FLOW-CATEGORY": {
-  "TEXT-ELS": "Texte",
-  "DESIGN-ELS": "Conception",
-  "INPUT-ELS": "Saisir"
-},
+  "FLOW-CATEGORY": {
+    "TEXT-ELS": "Texte",
+    "DESIGN-ELS": "Conception",
+    "INPUT-ELS": "Saisir"
+  },
   "CLASSESS": {
     "MODALS": {
       "CREATE-CLASS": "Créer une classe",
