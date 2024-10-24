@@ -62,7 +62,6 @@ export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
       this._assessmentService.getQuestionsToCopy().subscribe((questions)=> {
         if(questions?.length > 0) {
           this.questions = questions;
-          debugger
         }
       })
 
