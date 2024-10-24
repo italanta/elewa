@@ -24,8 +24,8 @@
   .message-content {
     background-color: white;
     padding: 10px 20px;
-    border-top-left-radius: 20px!important;
-    border-top-right-radius: 20px!important;
+    border-top-left-radius: 12px!important;
+    border-top-right-radius: 12px!important;
     word-break: break-word;
     white-space: pre-line;
     overflow-wrap: break-word;
@@ -47,8 +47,9 @@
     float: right;
 
     .message-content {
-      border-top-left-radius: 20px !important;
-      border-bottom-left-radius: 20px!important;
+      border-top-left-radius: 12px !important;
+      border-top-right-radius: 12px !important;
+      border-bottom-left-radius: 12px!important;
     }
     &::before {
       right: -11px;
@@ -62,7 +63,7 @@
     .message-content {
       background-color: #0000008c;
       color: black;
-      border-bottom-right-radius: 20px!important;
+      border-bottom-right-radius: 12px!important;
     }
 
     &::before {
@@ -72,16 +73,15 @@
   }
 
   .green {
-    background-color:#4E416D !important;
+    background-color:#DAE0F0 !important;
 
     span {
-      color: #f2f2f2;
-      font-weight: 300;
+      font-weight: 400;
     }
   }
 
   .grey {
-    background-color: #DAE0F0 !important;
+    background-color: white !important;
   }
 
   .message-sender {
