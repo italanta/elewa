@@ -52,6 +52,7 @@ export class AssessmentFormService {
       options: question?.options ? this._prefillOptions(question?.options) : this._formBuilder.array([
         this.createDefaultChoice()
       ]),
+      createdOn: [question?.createdOn ?? null],
       selectedOption: [selectedOption ?? "", Validators.required], //tracking the selected option
       nextQuestionId: [question?.nextQuestionId ?? null],
       prevQuestionId: [question?.prevQuestionId ?? null],

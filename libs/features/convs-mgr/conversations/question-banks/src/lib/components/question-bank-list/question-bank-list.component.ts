@@ -60,9 +60,14 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
     this.getQuestions();
     
     this._sBS.sink = this.sorting$$.subscribe(sort => {
-      this.filteredQuestions = __orderBy(this.questions, 
-        (d: any) => __DateFromStorage(d.createdOn).unix(), 
-        sort === ActionSortingOptions.Newest ? 'desc' : 'asc');
+      if(this.questionsList?.length > 0) {
+        console.log(this.questionsList.value)
+        const sortedArray = __orderBy(this.questionsList.value, 
+          (d: any) => __DateFromStorage(d.createdOn).unix(), 
+          sort === ActionSortingOptions.Newest ? 'desc' : 'asc');
+
+          this.questionsList.patchValue(sortedArray);
+      }
     });
 
     // Create a question bank form to store our array of questions
