@@ -39,6 +39,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   @Input() activeCard$: Observable<number>;
   @Input() questionBankForm: FormGroup;
   @Input() formEditMode: QuestionFormMode;
+  @Input() question: AssessmentQuestion;
   
   @Output() addNewQuestion = new EventEmitter<FormGroup>(); // Emits form
   @Output() activeQuestionChanged = new EventEmitter<number>();
@@ -86,7 +87,8 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
           }
         })).subscribe();
     }
-    this._checkMediaOnLoad(this.mediaType.value);
+    const mediaType = this.mediaType.value ? this.mediaType.value  : this.question.mediaType;
+    this._checkMediaOnLoad(mediaType as MediaUploadType);
   }
 
   get questionsList() {
