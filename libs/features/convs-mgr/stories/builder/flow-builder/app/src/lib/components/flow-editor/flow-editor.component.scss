@@ -8,13 +8,18 @@
   width: 100%;
   height: fit-content;
 
-  margin: 5rem 0 0 18rem;
+  margin: 5rem 0 0 5rem;
   color: #101010;
   
   padding: 20px;
   display: flex;
   align-items: flex-start;
   gap: 1.5rem;
+  transition: margin 0.3s ease;
+
+  &.side-open {
+    margin-left: 18rem;
+  }
 }
 
   #phone-container {
@@ -94,6 +99,22 @@
       flex-direction: column;
       justify-content: space-between;
       background-color: var(--convs-mgr-color-text-white);
+    }
+  }
+  
+  .toggle-btn { 
+    position: absolute;
+    left: 10px;
+    border: none;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    color: black;
+    padding: 10px;
+    background: none;
+  
+    z-index: 1000000;
+    .tooltip {
+      font-size: 1.2rem;
     }
   }
 

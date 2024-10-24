@@ -1,5 +1,8 @@
 <div fxFlexFill fxLayout="row" fxLayoutAlign="center" class="flow-editor-container">
-  <div class="editor-container" >
+  <button *ngIf="!isSideScreenOpen" class="toggle-btn" (click)="toggleSidenav()">
+    <span><i class="fas fa-chevron-right"></i></span>
+  </button>
+  <div class="editor-container" [ngClass]="isSideScreenOpen? 'side-open': ''" >
     <!-- Image of the phone -->
     <div id="phone-container">
        <!-- Inner area inside the phone container. Smaller box centered into the phone, 
@@ -43,6 +46,6 @@
     <div class="screen-config" *ngIf="droppedItems?.length > 0">
       <lib-flow-screen-settings></lib-flow-screen-settings>
     </div>
-</div>
+  </div>
 
 </div>

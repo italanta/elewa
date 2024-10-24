@@ -2,7 +2,7 @@
   display: flex !important;
   flex-direction: column !important;
   justify-content: flex-start !important;
-  gap: 1.5rem;
+  gap: 1rem;
 
   min-width: 250px;
   height: -moz-calc(100% - 41.5px);
@@ -14,6 +14,7 @@
   scrollbar-gutter: stable both-edges;
   background-color: #F6F6F6;
   color: #101010;
+  transition: 0.2s ease;
 }
 .nav:hover {
   overflow-y: auto; 
@@ -22,8 +23,60 @@
   width: 5px; 
 }
 
+.btn-wrapper {
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.block-filters {
+  display: flex;
+  flex-direction: column;
+
+  ::placeholder {
+    font-size: small;
+    font-weight: 300;
+    color: var(--convs-mgr-color-101010);
+  }
+  
+  :-ms-input-placeholder { 
+    font-size: small;
+    font-weight: 300;
+    color: var(--convs-mgr-color-101010);
+  }
+  
+  ::-ms-input-placeholder { 
+    font-size: small;
+    font-weight: 300;
+    color: var(--convs-mgr-color-101010);
+   }
+}
+
+.search {
+  height: 5px;
+  width: calc(100% - 24px);
+  background-color: var(--convs-mgr-color-text-white);
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 20px 4px 20px 20px;
+
+  &_tooltip {
+    color: var(--convs-mgr-color-101010);
+    font-size: 15px;
+    font-weight: 300 !important;
+  }
+
+  &_input {
+    width: 90%;
+    height: 30px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+  }
+}
+
 .block-list {
-  padding: 5px 10px;
   color: rgba(0, 0, 0, 0.87);
   display: flex;
   flex-direction: row;
@@ -33,6 +86,8 @@
   cursor: move;
   gap: 0.5rem;
   background-color: var(--convs-mgr-color-F6F6F6);
+  margin-bottom: 1rem;
+  
   h6 {
     margin-bottom: 0.4rem;
     font-size: 0.8rem;
