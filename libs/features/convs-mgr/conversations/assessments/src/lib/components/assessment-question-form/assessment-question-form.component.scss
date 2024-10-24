@@ -7,13 +7,17 @@
 	justify-content: center;
 	
 	.card {
-		width: 60%!important;
 		margin-right: 5px;
 		background-color: white;
 		color: black!important;
 		padding: 15px;
 		border-radius: 10px;
 		// border: solid #B8AFDA 2px;
+	}
+	
+	.assessment-card {
+		width: 60%!important;
+		
 	}
 
 	.active-card {
@@ -37,7 +41,6 @@
 	width: 100%;
 }
 .media-display{
-	height: 7rem;
 	border-radius: 8px;
 	display: flex;
 	gap: 1rem;
@@ -95,10 +98,11 @@
 	justify-content: space-between;
 	padding: 2rem;
 	.bank__button{
-		padding: 1.5rem;
+		padding: 1rem;
 		border-radius: 40px;
-		width: 30%;
+		width: 20%;
 		font-size: large;
+		cursor: pointer;
 	}
 	.filled{
 		color: var(--convs-mgr-color-text-white);
@@ -108,6 +112,7 @@
 	.outline{
 		color: var(--micro-apps-teal-primary);
 		border: 1px solid var(--micro-apps-teal-primary);
+		background-color: transparent;
 	}
 }
 ._icon{
@@ -127,6 +132,14 @@
 	box-shadow: none;
 }
 
+
+.question-bank-card {
+	width: 100%;
+}
+
+.media-question-bank {
+	max-width: 40% !important;
+}
 // ------------- Media Alignment ------------- //
 
 .media_center {

@@ -84,3 +84,43 @@
     }
   }
 }
+
+.question-header {
+  display: flex;
+  flex-direction: column;
+}
+
+// ------------- Media ------------- //
+
+.media_center {
+	justify-content: center;
+}
+
+.media_left {
+	justify-content: left;
+}
+
+.media_right {
+	justify-content: right;
+}
+
+.media-display{
+	// height: 7rem;
+	border-radius: 8px;
+	display: flex;
+	gap: 1rem;
+
+	.media-div{
+		max-height: 40%;
+		padding-left: 1rem;
+		max-width: 40%;
+		img{
+			width: 100%;
+			border-radius: 4px;
+		}
+		video{
+			width: 100%;
+			border-radius: 4px;
+		}
+	}
+}

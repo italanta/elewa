@@ -3,7 +3,15 @@
     <mat-card-header>
       <div class="header__wrapper">
         <div class="question-header">
-          <p> {{ question.message}}</p>
+          <div appearance="fill" fxFlex="60" *ngIf="question.mediaPath" class="media-display" [ngClass]="question.mediaAlign">
+            <div class="media-div">
+              <img *ngIf="question.mediaType === 'image'"  [src]="question.mediaPath" alt="Uploaded Image" class="uploaded-media" >
+              <video *ngIf="question.mediaType  === 'video'" #videoPlayer controls [src]="question.mediaPath" class="uploaded-media"></video>
+            </div>
+          </div>
+          <div class="question-text">
+            <p> {{ question.message}}</p>
+          </div>
         </div>
         <div class="mini-btns">
           <button class="__actionBtn" (click)="editQuestion()">
@@ -40,5 +48,6 @@
   (questionActionCompleted)="onQuestionActionCompleted()"
   [formEditMode]="formViewMode"
   [questionMode]="questionDisplayMode" 
+  [question]="question"
   >
 </app-assessment-question-form>

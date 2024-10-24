@@ -1,5 +1,5 @@
 <div class="question-form" *ngIf="formEditMode === questionFormMode.AssessmentMode">
-	<div [ngClass]="activeCard === index ? ['card' , 'active-card'] : ['card']"
+	<div class="assessment-card" [ngClass]="activeCard === index ? ['card' , 'active-card'] : ['card']"
 		(click)="activeQuestionChanged.emit(index)">
 
 		<i class="fas fa-grip-horizontal horizontalIcon" *ngIf="questionMode === modeToDisplay.EDITING"></i>
@@ -25,14 +25,14 @@
 							<div fxLayout="row" fxLayoutAlign="space-between center">
 								<div class="question-type-conf">
 									<div fxLayout="column" >
-										<div appearance="fill" fxFlex="60" *ngIf="mediaSrc" class="media-display" [ngClass]="questionFormGroup?.get('mediaAlign')?.value">
+										<div appearance="fill" *ngIf="mediaSrc" class="media-display media_right" [ngClass]="mediaAlign.value ?? question.mediaAlign">
 											<div class="media-div">
 												<img *ngIf="currentMediaType === 'image'"  [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
   											<video *ngIf="currentMediaType === 'video'" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
 											</div>
 											<button class="img-elipsis" [matMenuTriggerFor]="menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
 										</div>
-										<mat-form-field appearance="fill" fxFlex="60">
+										<mat-form-field appearance="fill">
 											<input type="text" matInput formControlName="message" placeholder="Type your question">
 										</mat-form-field>
 									</div>
@@ -81,15 +81,15 @@
   <button mat-menu-item (click)="alignMedia('media_center')"><span> <i class="fa-solid fa-align-center"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-CENTER' | transloco }} </span> </button>
   <button mat-menu-item (click)="alignMedia('media_right')"><span> <i class="fa-solid fa-align-right"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-RIGHT' | transloco }}  </span></button>
 	<button mat-menu-item (click)="alignMedia('media_left')"><span> <i class="fa-solid fa-align-left"></i></span> <span> {{'ASSESSMENTS.QUESTIONS.UPLOAD-TEXTS.ALIGN-LEFT' | transloco }} </span></button>
-	<button mat-menu-item (click)="allowedMedia.Image? openUploadModal(allowedMedia.Image) : openUploadModal(allowedMedia.Video)" >
+	<button mat-menu-item (click)="mediaType?.value === 'image'? openUploadModal(allowedMedia.Image) : openUploadModal(allowedMedia.Video)" >
 		<span> <i class="fa-solid fa-align-left"></i></span> 
-		<span> {{ currentMediaType === allowedMedia.Image? "Replace Image" : "Replace Video" }}</span>
+		<span> {{ mediaType?.value === 'image' ? "Replace Image" : "Replace Video" }}</span>
 	</button>
 </mat-menu>
 
 <div *ngIf="formEditMode === questionFormMode.QuestionBankMode">
   <div class="question-form" *ngIf="isAddingQuestion">
-    <div class="card">
+    <div class="card question-bank-card">
     <i class="fas fa-grip-horizontal _icon"></i>
   
       <div class="card-content">
@@ -97,11 +97,12 @@
           <div fxLayout="row" fxLayoutAlign="space-between">
             <div class="question-type-conf">
               <div fxLayout="column" >
-                <div appearance="fill" fxFlex="60" *ngIf="mediaSrc" class="media-display">
-                  <div class="media-div">
-                    <img *ngIf="allowedMedia.Image" [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
-                    <video *ngIf="!allowedMedia.Video" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
+                <div appearance="fill" *ngIf="mediaSrc" class="media-display" [ngClass]="questionBankForm.get('mediaAlign')?.value">
+                  <div class="media-div media-question-bank">
+                    <img *ngIf="mediaType?.value === 'image'" [src]="questionBankForm.get('mediaPath')?.value" alt="Uploaded Image" class="uploaded-media" >
+                    <video *ngIf="mediaType?.value === 'video'" #videoPlayer controls [src]="questionBankForm.get('mediaPath')?.value" class="uploaded-media"></video>
                   </div>
+									<button class="img-elipsis" [matMenuTriggerFor]="menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                 </div>
                 <mat-form-field appearance="fill">
                   <input type="text" matInput formControlName="message" placeholder="Type your question">

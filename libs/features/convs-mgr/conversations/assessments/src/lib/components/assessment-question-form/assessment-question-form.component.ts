@@ -87,8 +87,8 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
           }
         })).subscribe();
     }
-    const mediaType = this.mediaType.value ? this.mediaType.value  : this.question.mediaType;
-    this._checkMediaOnLoad(mediaType as MediaUploadType);
+    // const mediaType = this.formEditMode === QuestionFormMode.AssessmentMode ? this.mediaType.value  : this.questionBankForm.get('mediaAlign')?.value;
+    this._checkMediaOnLoad(this.mediaType?.value as MediaUploadType);
   }
 
   get questionsList() {
@@ -101,7 +101,9 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   }
 
   get mediaType() {
-    return this.questionFormGroup?.get('mediaType') as FormControl;
+    const mediaType = this.formEditMode === QuestionFormMode.AssessmentMode ? this.questionFormGroup?.get('mediaType')  : this.questionBankForm.get('mediaType');
+
+    return mediaType;
   }
 
   get mediaPath() {
@@ -167,7 +169,8 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   }
 
   private _checkMediaOnLoad(mediaType: MediaUploadType): void {
-    const mediaPath = this.mediaPath?.value as string | undefined;
+
+    const mediaPath = this.formEditMode === QuestionFormMode.AssessmentMode ? this.mediaPath?.value  : this.questionBankForm.get('mediaPath')?.value;
     if (mediaPath) {
       this._updateMediaState(mediaPath, mediaType);
     }
@@ -185,6 +188,9 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
 
   alignMedia(position: 'media_center' | 'media_right' | 'media_left') {
     this.questionFormGroup?.get('mediaAlign')?.setValue(position);
+    if(this.questionBankForm && this.questionBankForm.value) {
+      this.questionBankForm?.get('mediaAlign')?.setValue(position);
+    }
   }
 
   addQuestion(): void {

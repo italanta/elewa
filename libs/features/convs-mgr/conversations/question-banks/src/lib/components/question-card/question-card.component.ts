@@ -72,7 +72,8 @@ export class QuestionCardComponent implements OnDestroy
 
   onQuestionActionCompleted() 
   {
-    this.isAddingQuestion = false
+    this.isAddingQuestion = false;
+    this.addAQuestion = false;
   }
 
   ngOnDestroy(): void
