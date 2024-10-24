@@ -37,14 +37,18 @@
       </div>
     </div>
 
-    <div class="displayedQuestions" *ngFor="let question of filteredQuestions">
-      <div *ngIf="!isAddingQuestion">
-        <input type="checkbox" (click)="selectQuestion(question.id!, $event)" [value]="question.id"/>
+    <div class="displayedQuestions" *ngIf="questionBankForm" [formGroup]="questionBankForm">
+      <div class="question-wrapper" *ngFor="let question of questionsList.controls; let i = index" formArrayName="questions">
+        <div *ngIf="!isAddingQuestion">
+          <input type="checkbox" (click)="selectQuestion(question.value.id!, $event)" [value]="question.value.id"/>
+        </div>
+        <app-question-card class="__card"
+                            [questionFormGroupName]="i"
+                            [questionBankForm]="questionBankForm" 
+                            (addNewQuestion)="onNewQuestionAdded($event)" 
+                            (addMode)="onAddModeChanged($event)"
+        ></app-question-card>
       </div>
-      <app-question-card [question]="question" class="__card"
-                          (addNewQuestion)="onNewQuestionAdded($event)" 
-                          (addMode)="onAddModeChanged($event)"
-      ></app-question-card>
     </div>    
   </div>
 </convl-page>

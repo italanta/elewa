@@ -1,10 +1,10 @@
 <div class="question-form">
 	<div class="assessment-card" [ngClass]="activeCard === questionFormGroupName ? ['card' , 'active-card'] : ['card']"
-		(click)="activeQuestionChanged.emit(questionFormGroupName)">
+		(click)="activeQuestionChanged.emit(questionFormGroupName)" [class.question-bank-card]="formEditMode === 2">
 
 		<i class="fas fa-grip-horizontal horizontalIcon" *ngIf="questionMode === modeToDisplay.EDITING"></i>
 
-		<div class="mini-btns" *ngIf="questionMode === modeToDisplay.EDITING">
+		<div class="mini-btns" *ngIf="questionMode === modeToDisplay.EDITING && formEditMode === 1">
 			<button mat-flat-button (click)="duplicateQuestion()">
 				<img src="assets/icons/duplicate-item.svg" alt="">
 			</button>
@@ -26,7 +26,7 @@
 								<div class="question-type-conf">
 									<div fxLayout="column" >
 										<div appearance="fill" *ngIf="mediaSrc" class="media-display" [ngClass]="mediaAlign?.value">
-											<div class="media-div">
+											<div class="media-div" [class.media-question-bank]="formEditMode === 2">
 												<img *ngIf="mediaType?.value === 'image'"  [src]="mediaSrc" alt="Uploaded Image" class="uploaded-media" >
   											<video *ngIf="mediaType?.value === 'video'" #videoPlayer controls [src]="mediaSrc" class="uploaded-media"></video>
 											</div>

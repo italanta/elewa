@@ -86,7 +86,6 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   }
 
   get questionsList() {
-    if (this.formEditMode !== QuestionFormMode.AssessmentMode) return;
     return this.assessmentFormGroup.get('questions') as FormArray;
   }
 

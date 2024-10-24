@@ -1,27 +1,25 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
-import { AssessmentQuestion, QuestionFormMode } from '@app/model/convs-mgr/conversations/assessments';
-import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
-import { AssessmentFormService, QuestionDisplayMode } from '@app/features/convs-mgr/conversations/assessments';
+import { QuestionFormMode } from '@app/model/convs-mgr/conversations/assessments';
+import { QuestionDisplayMode } from '@app/features/convs-mgr/conversations/assessments';
 
 import { DeleteQuestionModalComponent } from '../delete-question-modal/delete-question-modal.component';
-
 
 @Component({
   selector: 'app-question-card',
   templateUrl: './question-card.component.html',
   styleUrl: './question-card.component.scss',
 })
-export class QuestionCardComponent implements OnInit, OnDestroy
+export class QuestionCardComponent implements OnDestroy
 {
   /** Specific question */
-  @Input() question: AssessmentQuestion;
-  /** Question form group */
-  questionFormGroup: FormGroup;
+  @Input() questionBankForm: FormGroup;
+  @Input() questionFormGroupName: number;
+
   /** Adding a question state */
   addAQuestion: boolean;
   formViewMode: QuestionFormMode;
@@ -36,14 +34,27 @@ export class QuestionCardComponent implements OnInit, OnDestroy
 
   private _sBS = new SubSink ();
 
-  constructor (private _questionStore: AssessmentQuestionBankStore,
-               private _dialog: MatDialog, 
-               private _assessmentForm: AssessmentFormService
-  ){}
+  constructor (private _dialog: MatDialog){}
 
-  ngOnInit(): void
-  {
-    this.questionFormGroup = this._assessmentForm.createQuestionForm(this.question);
+  get questionsList() {
+    return this.questionBankForm.get('questions') as FormArray;
+  }
+
+  get questionFormGroup() {
+    return this.questionsList?.at(this.questionFormGroupName) as FormGroup;
+  }
+
+  get mediaType() {
+    return this.questionFormGroup?.get('mediaType');
+  }
+
+  get mediaPath() {
+    return this.questionFormGroup?.get('mediaPath');
+  }
+
+  get mediaAlign() {
+    this.questionFormGroup?.get('mediaAlign')?.value;
+    return this.questionFormGroup?.get('mediaAlign');
   }
 
   /** Triggering form output for editing an existing question
@@ -51,8 +62,6 @@ export class QuestionCardComponent implements OnInit, OnDestroy
   */
   editQuestion() {
     this.addAQuestion = true;
-    
-    this.questionFormGroup = this._assessmentForm.createQuestionForm(this.question);
     
     this.addNewQuestion.emit(this.questionFormGroup);
     
@@ -70,7 +79,7 @@ export class QuestionCardComponent implements OnInit, OnDestroy
   {
     this._dialog.open(DeleteQuestionModalComponent, 
       {
-        data: { question: this.question},
+        data: { question: this.questionFormGroup.value},
       }
     )
   }

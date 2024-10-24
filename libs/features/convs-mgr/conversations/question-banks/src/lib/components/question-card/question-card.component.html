@@ -1,16 +1,16 @@
 <mat-card class="question-card">
-  <div *ngIf="question && !addAQuestion">
+  <div *ngIf="questionFormGroup && !addAQuestion">
     <mat-card-header>
       <div class="header__wrapper">
         <div class="question-header">
-          <div appearance="fill" fxFlex="60" *ngIf="question.mediaPath" class="media-display" [ngClass]="question.mediaAlign">
+          <div appearance="fill" fxFlex="60" *ngIf="mediaPath" class="media-display" [ngClass]="mediaAlign?.value">
             <div class="media-div">
-              <img *ngIf="question.mediaType === 'image'"  [src]="question.mediaPath" alt="Uploaded Image" class="uploaded-media" >
-              <video *ngIf="question.mediaType  === 'video'" #videoPlayer controls [src]="question.mediaPath" class="uploaded-media"></video>
+              <img *ngIf="mediaType?.value === 'image'"  [src]="mediaPath?.value" alt="Uploaded Image" class="uploaded-media" >
+              <video *ngIf="mediaType?.value  === 'video'" #videoPlayer controls [src]="mediaPath?.value" class="uploaded-media"></video>
             </div>
           </div>
           <div class="question-text">
-            <p> {{ question.message}}</p>
+            <p> {{ questionFormGroup.get('message')?.value }}</p>
           </div>
         </div>
         <div class="mini-btns">
@@ -24,7 +24,7 @@
       </div>
     </mat-card-header>
     <mat-card-content class="question-content">
-      <div class="question-feedback" *ngFor="let option of question.options">
+      <div class="question-feedback" *ngFor="let option of questionFormGroup.get('options')?.value">
         <div class="option-details">
           <input
             type="radio">
@@ -44,8 +44,10 @@
 </mat-card>
 <app-assessment-question-form
   *ngIf="addAQuestion" 
+  [questionFormGroupName]="questionFormGroupName"
+  [assessmentFormGroup]="questionBankForm" 
   (questionActionCompleted)="onQuestionActionCompleted()"
-  [formEditMode]="formViewMode"
+  [formEditMode]="2"
   [questionMode]="questionDisplayMode" 
   >
 </app-assessment-question-form>

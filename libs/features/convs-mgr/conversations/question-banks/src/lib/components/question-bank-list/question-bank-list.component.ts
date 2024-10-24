@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
@@ -11,10 +11,10 @@ import { __DateFromStorage } from '@iote/time';
 
 import { AssessmentQuestion, QuestionFormMode } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentQuestionBankStore } from '@app/state/convs-mgr/conversations/assessments';
+import { AssessmentFormService, QuestionDisplayMode } from '@app/features/convs-mgr/conversations/assessments';
 
 import { ActionSortingOptions } from '../../utils/sorting-options.enum';
 import { AddQuestionToAssessmentComponent } from '../add-question-to-assessment/add-question-to-assessment.component';
-import { QuestionDisplayMode } from '@app/features/convs-mgr/conversations/assessments';
 
 
 @Component({
@@ -40,6 +40,9 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
   formViewMode: QuestionFormMode;
   /** Editing or viewing a questiion */
   questionDisplayMode: QuestionDisplayMode;
+
+  questionBankForm: FormGroup;
+
   private _sBS = new SubSink ();
 
   sorting$$ = new BehaviorSubject<ActionSortingOptions>(ActionSortingOptions.Newest);
@@ -48,6 +51,8 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
 
   constructor(private questionStore: AssessmentQuestionBankStore,
               private _dialog: MatDialog,
+              private _fb: FormBuilder,
+              private _assessmentForm: AssessmentFormService
   ) {}
 
   ngOnInit()
@@ -59,6 +64,15 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
         (d: any) => __DateFromStorage(d.createdOn).unix(), 
         sort === ActionSortingOptions.Newest ? 'desc' : 'asc');
     });
+
+    // Create a question bank form to store our array of questions
+    this.questionBankForm = this._fb.group({
+      questions: this._fb.array([])
+    });
+  }
+
+  get questionsList() {
+    return this.questionBankForm.get('questions') as FormArray;
   }
 
   getQuestions() 
@@ -66,6 +80,9 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
     this._sBS.sink = this.questionStore.get().subscribe(_res => {
       this.questions = _res;
       this.filteredQuestions = _res;
+
+      const questions = this._fb.array(this.questions.map(q => this._assessmentForm.createQuestionForm(q)))
+      this.questionBankForm.setControl('questions', questions);
     });
   }
 

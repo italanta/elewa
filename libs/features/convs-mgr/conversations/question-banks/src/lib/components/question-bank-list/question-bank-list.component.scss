@@ -154,7 +154,9 @@
 .displayedQuestions{
   margin-top: 2rem;
   display: flex;
+  flex-direction: column;
   gap: 1rem;
+
   input[type="checkbox"] {
     width: 1.5rem;
     height: 1.5rem;
@@ -202,5 +204,10 @@
   .__card{
     width: 100%;
   }
+}
+
+.question-wrapper {
+  display: flex;
+  gap: 1rem;
 }
 
