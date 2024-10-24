@@ -61,7 +61,6 @@ export class QuestionBankListComponent implements OnInit, OnDestroy
     
     this._sBS.sink = this.sorting$$.subscribe(sort => {
       if(this.questionsList?.length > 0) {
-        console.log(this.questionsList.value)
         const sortedArray = __orderBy(this.questionsList.value, 
           (d: any) => __DateFromStorage(d.createdOn).unix(), 
           sort === ActionSortingOptions.Newest ? 'desc' : 'asc');
